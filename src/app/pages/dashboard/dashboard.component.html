@@ -1,0 +1,5 @@
+@if(auth.currentUser(); as user){
+    <p>Usuario conectado: {{ user.name }} {{ user.surname }} ({{ user.email }})</p>
+  } @else {
+    <p>Cargando información del usuario...</p>
+  }
