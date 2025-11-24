@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from '../models/user';
 import { AuthInput, RegisterInput, AuthResponse } from '../models/auth';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,10 @@ import { AuthInput, RegisterInput, AuthResponse } from '../models/auth';
 export class AuthService {
   private http = inject(HttpClient);
   
-  private apiUrl = '/api/auth';
-
+  // Se usa la variable de entorno. Angular sustituirá el archivo environment.ts 
+  // por environment.development.ts automáticamente cuando uses 'ng serve'.
+  private apiUrl = `${environment.apiUrl}/auth`;
+  
   private _currentUser = signal<User | null>(null);
   
   public readonly currentUser = this._currentUser.asReadonly();
@@ -34,7 +37,8 @@ export class AuthService {
   }
   
   private loadUserProfile() {
-    this.http.get<User>('/api/users/me').pipe(
+    // Usamos environment.apiUrl directamente para construir la ruta de usuarios
+    this.http.get<User>(`${environment.apiUrl}/users/me`).pipe(
       tap(user => this._currentUser.set(user)),
       catchError(() => {
         this.logout();
