@@ -11,7 +11,8 @@ import { AuthInput, RegisterInput, AuthResponse } from '../models/auth';
 export class AuthService {
   private http = inject(HttpClient);
   
-  private apiUrl = '/api/auth';
+  private apiUrl = 'http://localhost:3000/api/auth';
+  private usersUrl = 'http://localhost:3000/api/users'; 
 
   private _currentUser = signal<User | null>(null);
   
@@ -34,7 +35,8 @@ export class AuthService {
   }
   
   private loadUserProfile() {
-    this.http.get<User>('/api/users/me').pipe(
+
+    this.http.get<User>(`${this.usersUrl}/me`).pipe(
       tap(user => this._currentUser.set(user)),
       catchError(() => {
         this.logout();
