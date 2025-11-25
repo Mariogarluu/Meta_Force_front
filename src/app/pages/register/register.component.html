@@ -42,28 +42,6 @@
         </div>
 
         <div class="mb-4">
-          <label class="block text-white mb-1 text-sm font-medium" for="surname">Apellidos</label>
-          <div class="relative">
-            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
-            </span>
-            <input
-              id="surname"
-              autocomplete="family-name"
-              formControlName="surname"
-              placeholder="Tus apellidos"
-              class="px-10 h-10 rounded-lg border-2 border-gray-700 bg-gray-700 text-white w-full focus:border-cyan-400 focus:ring-cyan-400 transition-colors"
-              type="text"
-            />
-          </div>
-          @if(formRegister.controls['surname'].touched && formRegister.controls['surname'].errors){
-            <span class="text-red-400 text-xs mt-1 block">
-              {{getError('surname')}}
-            </span>
-          }
-        </div>
-
-        <div class="mb-4">
           <label class="block text-white mb-1 text-sm font-medium" for="email">Email</label>
           <div class="relative">
             <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
