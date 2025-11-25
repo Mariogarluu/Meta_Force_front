@@ -1,0 +1,453 @@
+<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+  <!-- Header -->
+  <header class="bg-gray-800/50 backdrop-blur-md border-b border-gray-700 sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-4">
+          <h1 class="text-2xl font-bold text-white">Gestión de Centros</h1>
+        </div>
+        <div class="flex items-center gap-4">
+          @if(canEdit()) {
+            <button 
+              (click)="openCreateModal()"
+              class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium">
+              + Nuevo Centro
+            </button>
+          }
+          <a 
+            routerLink="/dashboard"
+            class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium">
+            Volver al Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    @if(errorMessage()) {
+      <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    @if(isLoading() && centers().length === 0) {
+      <div class="flex items-center justify-center py-12">
+        <div class="text-center">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
+          <p class="text-gray-300">Cargando centros...</p>
+        </div>
+      </div>
+    } @else {
+      @if(centers().length === 0) {
+        <div class="text-center py-12">
+          <p class="text-gray-400 text-lg">No hay centros disponibles</p>
+        </div>
+      } @else {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          @for(center of centers(); track center.id || center.name) {
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+              <div 
+                (click)="openViewModal(center)"
+                class="cursor-pointer">
+                <div class="flex items-start justify-between mb-4">
+                  <div class="flex-1">
+                    <h3 class="text-xl font-bold text-white mb-2">{{ center.name }}</h3>
+                    @if(center.description) {
+                      <p class="text-gray-400 text-sm mb-2">{{ center.description }}</p>
+                    }
+                  </div>
+                  @if(center.id && (isSuperAdmin() || isAdminCenter())) {
+                    <span class="text-xs text-gray-500">ID: {{ center.id.substring(0, 8) }}...</span>
+                  }
+                </div>
+
+                @if(isSuperAdmin() || isAdminCenter()) {
+                  <div class="space-y-2 mb-4">
+                    @if(center.city || center.country) {
+                      <p class="text-gray-300 text-sm">
+                        📍 {{ center.city }}{{ center.city && center.country ? ', ' : '' }}{{ center.country }}
+                      </p>
+                    }
+                    @if(center.address) {
+                      <p class="text-gray-400 text-xs">{{ center.address }}</p>
+                    }
+                    @if(center.phone) {
+                      <p class="text-gray-300 text-sm">📞 {{ center.phone }}</p>
+                    }
+                    @if(center.email) {
+                      <p class="text-gray-300 text-sm">✉️ {{ center.email }}</p>
+                    }
+                  </div>
+                }
+              </div>
+
+              <div class="flex gap-2 mt-4" (click)="$event.stopPropagation()">
+                @if(canEdit()) {
+                  <button 
+                    (click)="openEditModal(center)"
+                    class="flex-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
+                    Editar
+                  </button>
+                }
+                @if(canDelete()) {
+                  <button 
+                    (click)="openDeleteModal(center)"
+                    class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium">
+                    Eliminar
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+  </main>
+
+  <!-- Create Modal -->
+  @if(showCreateModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
+        <h3 class="text-2xl font-bold text-white mb-6">Crear Nuevo Centro</h3>
+        
+        @if(errorMessage()) {
+          <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <form (ngSubmit)="createCenter()" class="space-y-4">
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Nombre *</label>
+            <input 
+              type="text"
+              [(ngModel)]="centerForm().name"
+              name="name"
+              required
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Descripción</label>
+            <textarea 
+              [(ngModel)]="centerForm().description"
+              name="description"
+              rows="3"
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Ciudad</label>
+              <input 
+                type="text"
+                [(ngModel)]="centerForm().city"
+                name="city"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">País</label>
+              <input 
+                type="text"
+                [(ngModel)]="centerForm().country"
+                name="country"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Dirección</label>
+            <input 
+              type="text"
+              [(ngModel)]="centerForm().address"
+              name="address"
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Teléfono</label>
+              <input 
+                type="tel"
+                [(ngModel)]="centerForm().phone"
+                name="phone"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Email</label>
+              <input 
+                type="email"
+                [(ngModel)]="centerForm().email"
+                name="email"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+          </div>
+
+          <div class="flex gap-3 mt-6">
+            <button 
+              type="button"
+              (click)="closeCreateModal()"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              Cancelar
+            </button>
+            <button 
+              type="submit"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              @if(isLoading()) {
+                Creando...
+              } @else {
+                Crear Centro
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- Edit Modal -->
+  @if(showEditModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
+        <h3 class="text-2xl font-bold text-white mb-6">Editar Centro</h3>
+        
+        @if(errorMessage()) {
+          <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <form (ngSubmit)="updateCenter()" class="space-y-4">
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Nombre *</label>
+            <input 
+              type="text"
+              [(ngModel)]="centerForm().name"
+              name="name"
+              required
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Descripción</label>
+            <textarea 
+              [(ngModel)]="centerForm().description"
+              name="description"
+              rows="3"
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Ciudad</label>
+              <input 
+                type="text"
+                [(ngModel)]="centerForm().city"
+                name="city"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">País</label>
+              <input 
+                type="text"
+                [(ngModel)]="centerForm().country"
+                name="country"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Dirección</label>
+            <input 
+              type="text"
+              [(ngModel)]="centerForm().address"
+              name="address"
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Teléfono</label>
+              <input 
+                type="tel"
+                [(ngModel)]="centerForm().phone"
+                name="phone"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Email</label>
+              <input 
+                type="email"
+                [(ngModel)]="centerForm().email"
+                name="email"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+          </div>
+
+          <div class="flex gap-3 mt-6">
+            <button 
+              type="button"
+              (click)="closeEditModal()"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              Cancelar
+            </button>
+            <button 
+              type="submit"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              @if(isLoading()) {
+                Guardando...
+              } @else {
+                Guardar Cambios
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- View Modal -->
+  @if(showViewModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
+        <h3 class="text-2xl font-bold text-white mb-6">Información del Centro</h3>
+        
+        @if(viewCenter()) {
+          <div class="space-y-4">
+            <div>
+              <label class="block text-gray-400 text-sm font-medium mb-1">Nombre</label>
+              <p class="text-white text-lg font-semibold">{{ viewCenter()!.name }}</p>
+            </div>
+
+            @if(viewCenter()!.description) {
+              <div>
+                <label class="block text-gray-400 text-sm font-medium mb-1">Descripción</label>
+                <p class="text-gray-300">{{ viewCenter()!.description }}</p>
+              </div>
+            }
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              @if(viewCenter()!.city) {
+                <div>
+                  <label class="block text-gray-400 text-sm font-medium mb-1">Ciudad</label>
+                  <p class="text-gray-300">{{ viewCenter()!.city }}</p>
+                </div>
+              }
+
+              @if(viewCenter()!.country) {
+                <div>
+                  <label class="block text-gray-400 text-sm font-medium mb-1">País</label>
+                  <p class="text-gray-300">{{ viewCenter()!.country }}</p>
+                </div>
+              }
+            </div>
+
+            @if(viewCenter()!.address) {
+              <div>
+                <label class="block text-gray-400 text-sm font-medium mb-1">Dirección</label>
+                <p class="text-gray-300">{{ viewCenter()!.address }}</p>
+              </div>
+            }
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              @if(viewCenter()!.phone) {
+                <div>
+                  <label class="block text-gray-400 text-sm font-medium mb-1">Teléfono</label>
+                  <p class="text-gray-300">{{ viewCenter()!.phone }}</p>
+                </div>
+              }
+
+              @if(viewCenter()!.email) {
+                <div>
+                  <label class="block text-gray-400 text-sm font-medium mb-1">Email</label>
+                  <p class="text-gray-300">{{ viewCenter()!.email }}</p>
+                </div>
+              }
+            </div>
+
+            @if(viewCenter()!.id) {
+              <div>
+                <label class="block text-gray-400 text-sm font-medium mb-1">ID</label>
+                <p class="text-gray-500 text-xs font-mono">{{ viewCenter()!.id }}</p>
+              </div>
+            }
+
+            @if(viewCenter()!.createdAt) {
+              <div>
+                <label class="block text-gray-400 text-sm font-medium mb-1">Fecha de Creación</label>
+                <p class="text-gray-300">{{ viewCenter()!.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+              </div>
+            }
+          </div>
+        }
+
+        <div class="flex gap-3 mt-6">
+          <button 
+            (click)="closeViewModal()"
+            class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors">
+            Cerrar
+          </button>
+          @if(canEdit() && viewCenter()?.id) {
+            <button 
+              (click)="closeViewModal(); openEditModal(viewCenter()!)"
+              class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+              Editar
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Delete Modal -->
+  @if(showDeleteModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-700">
+        <h3 class="text-2xl font-bold text-white mb-4">Eliminar Centro</h3>
+        
+        @if(selectedCenter()) {
+          <p class="text-gray-300 mb-6">
+            ¿Estás seguro de que deseas eliminar el centro <span class="font-semibold text-white">{{ selectedCenter()!.name }}</span>?
+            Esta acción no se puede deshacer.
+          </p>
+        }
+
+        @if(errorMessage()) {
+          <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <div class="flex gap-3">
+          <button 
+            (click)="closeDeleteModal()"
+            [disabled]="isLoading()"
+            class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
+            Cancelar
+          </button>
+          <button 
+            (click)="deleteCenter()"
+            [disabled]="isLoading()"
+            class="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors disabled:opacity-50">
+            @if(isLoading()) {
+              Eliminando...
+            } @else {
+              Eliminar
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
