@@ -1,24 +1,20 @@
-export interface User {
-    id: number;
-    username: string;
+export interface AuthInput {
+  email: string;
+  password?: string;
+}
+
+export interface RegisterInput extends AuthInput {
+  name: string;
+  role?: 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+}
+
+export interface AuthResponse {
+  token: string;
+  user: {
+    id: string;
     email: string;
     name: string;
-    surname: string;
-    created_at?: string;
-    updated_at?: string;
-  }
-  
-  export interface AuthInput {
-    email: string;
-    password?: string;
-  }
-  
-  export interface RegisterInput extends AuthInput {
-    name: string;
-    surname: string;
-  }
-  
-  export interface AuthResponse {
-    token: string;
-    user: User;
-  }
+    role: 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+    createdAt?: string;
+  };
+}
