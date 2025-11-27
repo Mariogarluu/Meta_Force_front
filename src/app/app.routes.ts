@@ -4,8 +4,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { authGuard } from './core/guards/auth.guard';
 import { RegisterComponent } from './pages/register/register.component';
 import { CentersComponent } from './pages/centers/centers.component';
-// Importamos el componente de máquinas (lo crearemos en el siguiente paso)
-import { MachinesComponent } from './pages/machines/machines.component';
+import { UsersComponent } from './pages/users/users.component';
+// import { MachinesComponent } from './pages/machines/machines.component';
 
 export const routes: Routes = [
     {
@@ -32,8 +32,13 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
-        path: 'machines',
-        component: MachinesComponent, // Asegúrate de crear este componente o dará error
+        path: 'users',
+        component: UsersComponent,
         canActivate: [authGuard]
     }
+    // {
+    //     path: 'machines',
+    //     component: MachinesComponent,
+    //     canActivate: [authGuard]
+    // }
 ];
