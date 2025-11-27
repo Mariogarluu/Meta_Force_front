@@ -1,12 +1,13 @@
-<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+<div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
   <!-- Header -->
-  <header class="bg-gray-800/50 backdrop-blur-md border-b border-gray-700 sticky top-0 z-10">
+  <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-4">
-          <h1 class="text-2xl font-bold text-white">Gestión de Usuarios</h1>
+          <h1 class="text-2xl font-bold text-blue-900 dark:text-white">Gestión de Usuarios</h1>
         </div>
         <div class="flex items-center gap-4">
+          <app-theme-toggle></app-theme-toggle>
           <a 
             routerLink="/dashboard"
             class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium">
@@ -25,22 +26,155 @@
       </div>
     }
 
+    <!-- Filter Button -->
+    <div class="mb-4 flex items-center justify-between">
+      <button 
+        (click)="toggleFilters()"
+        [class.bg-cyan-500]="!showFilters()"
+        [class.bg-cyan-600]="showFilters()"
+        [class.text-white]="!hasActiveFilters()"
+        [class.text-yellow-300]="hasActiveFilters()"
+        class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90">
+        <span>🔍</span>
+        @if(showFilters()) {
+          <span>Ocultar Filtros</span>
+        } @else {
+          <span>Filtros</span>
+        }
+        @if(hasActiveFilters()) {
+          <span class="px-1.5 py-0.5 bg-yellow-500/30 rounded text-xs">{{ filteredUsers().length }}/{{ users().length }}</span>
+        }
+      </button>
+    </div>
+
+    <!-- Filters Panel -->
+    @if(showFilters()) {
+      <div class="mb-6 bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white">Filtros de Búsqueda</h2>
+          @if(hasActiveFilters()) {
+            <button 
+              (click)="clearFilters()"
+              class="px-3 py-1 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors text-sm">
+              Limpiar Filtros
+            </button>
+          }
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Nombre</label>
+            <input 
+              type="text"
+              [ngModel]="filterName()"
+              (ngModelChange)="filterName.set($event)"
+              placeholder="Buscar por nombre..."
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Email</label>
+            <input 
+              type="text"
+              [ngModel]="filterEmail()"
+              (ngModelChange)="filterEmail.set($event)"
+              placeholder="Buscar por email..."
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Rol</label>
+            <select 
+              [ngModel]="filterRole()"
+              (ngModelChange)="filterRole.set($event)"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              <option value="">Todos los roles</option>
+              @for(role of roles; track role) {
+                <option [value]="role">{{ getRoleName(role) }}</option>
+              }
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Estado</label>
+            <select 
+              [ngModel]="filterStatus()"
+              (ngModelChange)="filterStatus.set($event)"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              <option value="">Todos los estados</option>
+              @for(status of statuses; track status) {
+                <option [value]="status">{{ getStatusText(status) }}</option>
+              }
+            </select>
+          </div>
+
+          @if(isSuperAdmin() && centers().length > 0) {
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Centro</label>
+              <select 
+                [ngModel]="filterCenter()"
+                (ngModelChange)="filterCenter.set($event)"
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                <option value="">Todos los centros</option>
+                @for(center of centers(); track center.id) {
+                  <option [value]="center.id">{{ center.name }}</option>
+                }
+              </select>
+            </div>
+          }
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Fecha desde</label>
+            <input 
+              type="date"
+              [ngModel]="filterDateFrom()"
+              (ngModelChange)="filterDateFrom.set($event)"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Fecha hasta</label>
+            <input 
+              type="date"
+              [ngModel]="filterDateTo()"
+              (ngModelChange)="filterDateTo.set($event)"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+        </div>
+
+        @if(hasActiveFilters()) {
+          <div class="mt-4 pt-4 border-t border-gray-700">
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+              Mostrando <span class="text-gray-900 dark:text-white font-semibold">{{ filteredUsers().length }}</span> de 
+              <span class="text-gray-900 dark:text-white font-semibold">{{ users().length }}</span> usuarios
+            </p>
+          </div>
+        }
+      </div>
+    }
+
     @if(isLoading() && users().length === 0) {
       <div class="flex items-center justify-center py-12">
         <div class="text-center">
           <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
-          <p class="text-gray-300">Cargando usuarios...</p>
+          <p class="text-gray-700 dark:text-gray-300">Cargando usuarios...</p>
         </div>
       </div>
     } @else {
-      @if(users().length === 0) {
+      @if(filteredUsers().length === 0) {
         <div class="text-center py-12">
-          <p class="text-gray-400 text-lg">No hay usuarios disponibles</p>
+          <p class="text-gray-600 dark:text-gray-400 text-lg">
+            @if(hasActiveFilters()) {
+              No se encontraron usuarios con los filtros aplicados
+            } @else {
+              No hay usuarios disponibles
+            }
+          </p>
         </div>
       } @else {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          @for(user of users(); track user.id) {
-            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+          @for(user of filteredUsers(); track user.id) {
+            <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
               <div 
                 (click)="openViewModal(user)"
                 class="cursor-pointer">
@@ -48,9 +182,9 @@
                   <div class="flex-1">
                     <div class="flex items-center gap-2 mb-2">
                       <span class="text-2xl">{{ getRoleIcon(user.role) }}</span>
-                      <h3 class="text-xl font-bold text-white">{{ user.name }}</h3>
+                      <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ user.name }}</h3>
                     </div>
-                    <p class="text-gray-400 text-sm mb-2">{{ user.email }}</p>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">{{ user.email }}</p>
                     <div class="flex items-center gap-2 mb-2">
                       <span class="text-xs px-2 py-1 rounded-full text-white" [class]="getStatusColor(user.status)">
                         {{ getStatusText(user.status) }}
@@ -113,8 +247,8 @@
   <!-- View Modal -->
   @if(showViewModal()) {
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
-        <h3 class="text-2xl font-bold text-white mb-6">Información del Usuario</h3>
+      <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-blue-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-lg">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Información del Usuario</h3>
         
         @if(viewUser()) {
           <div class="space-y-4">
@@ -204,29 +338,29 @@
             <label class="block text-gray-300 text-sm font-medium mb-2">Nombre *</label>
             <input 
               type="text"
-              [(ngModel)]="userForm().name"
+              [(ngModel)]="userForm.name"
               name="name"
               required
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
 
           <div>
             <label class="block text-gray-300 text-sm font-medium mb-2">Email *</label>
             <input 
               type="email"
-              [(ngModel)]="userForm().email"
+              [(ngModel)]="userForm.email"
               name="email"
               required
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-gray-300 text-sm font-medium mb-2">Estado</label>
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Estado</label>
               <select 
-                [(ngModel)]="userForm().status"
+                [(ngModel)]="userForm.status"
                 name="status"
-                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
                 @for(status of statuses; track status) {
                   <option [value]="status">{{ getStatusText(status) }}</option>
                 }
@@ -235,11 +369,11 @@
 
             @if(isSuperAdmin()) {
               <div>
-                <label class="block text-gray-300 text-sm font-medium mb-2">Rol</label>
+                <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Rol</label>
                 <select 
-                  [(ngModel)]="userForm().role"
+                  [(ngModel)]="userForm.role"
                   name="role"
-                  class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                  class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
                   @for(role of roles; track role) {
                     <option [value]="role">{{ getRoleName(role) }}</option>
                   }
@@ -252,9 +386,9 @@
             <div>
               <label class="block text-gray-300 text-sm font-medium mb-2">Centro</label>
               <select 
-                [(ngModel)]="userForm().centerId"
+                [(ngModel)]="userForm.centerId"
                 name="centerId"
-                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
                 <option [value]="null">Sin centro</option>
                 @for(center of centers(); track center.id) {
                   <option [value]="center.id">{{ center.name }}</option>
