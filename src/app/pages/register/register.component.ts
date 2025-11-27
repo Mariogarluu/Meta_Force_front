@@ -6,6 +6,11 @@ import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
 import { RegisterInput } from '../../core/models/auth';
 
+/**
+ * Validador personalizado que verifica que las contraseñas del formulario de registro coincidan.
+ * Compara los valores de los campos password y confirmPassword.
+ * Retorna null si coinciden o un objeto con el error si no coinciden.
+ */
 export function passwordsMatchValidator(group: AbstractControl): ValidationErrors | null {
   const password = group.get('password')?.value;
   const confirmPassword = group.get('confirmPassword')?.value;
@@ -20,7 +25,7 @@ export function passwordsMatchValidator(group: AbstractControl): ValidationError
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -39,7 +44,6 @@ export class RegisterComponent implements OnDestroy {
   constructor(){
     this.formRegister = this.builder.group({
       'name':['',[Validators.required, Validators.minLength(3)]],
-      'surname':['',[Validators.required, Validators.minLength(3)]],
       'email':['', [Validators.required, Validators.email]],
       'password':['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)]],
       'confirmPassword':['', [Validators.required]]
@@ -48,6 +52,12 @@ export class RegisterComponent implements OnDestroy {
     this.navigateTo = history.state?.['navigateTo'] || '/dashboard';
   }
 
+  /**
+   * Procesa el envío del formulario de registro validando todos los campos.
+   * Crea un nuevo usuario en el sistema con los datos proporcionados.
+   * Redirige al dashboard si el registro es exitoso.
+   * Muestra mensajes de error si el registro falla o hay problemas de validación.
+   */
   onSubmit(){
     if (this.formRegister.invalid) {
       this.formRegister.markAllAsTouched();
@@ -59,7 +69,6 @@ export class RegisterComponent implements OnDestroy {
 
     const registerData: RegisterInput = {
       name: this.formRegister.value.name!,
-      surname: this.formRegister.value.surname!,
       email: this.formRegister.value.email!,
       password: this.formRegister.value.password!
     };
@@ -75,22 +84,43 @@ export class RegisterComponent implements OnDestroy {
       });
   }
 
+  /**
+   * Limpia las suscripciones activas cuando el componente se destruye.
+   * Previene memory leaks cancelando las suscripciones a observables.
+   */
   ngOnDestroy() {
     this.authSubscription?.unsubscribe();
   }
 
+  /**
+   * Alterna la visibilidad del campo de contraseña principal.
+   * Cambia entre mostrar el texto de la contraseña o mostrarla oculta.
+   */
   togglePassword() {
     this.showPassword.update(value => !value);
   }
 
+  /**
+   * Alterna la visibilidad del campo de confirmación de contraseña.
+   * Permite al usuario verificar que escribió correctamente la contraseña.
+   */
   toggleConfirmPassword() {
     this.showConfirmPassword.update(value => !value);
   }
 
+  /**
+   * Navega a la página de login del usuario.
+   * Redirige al componente de login para usuarios que ya tienen cuenta.
+   */
   goLogin() {
     this.router.navigate(['/login']);
   }
   
+  /**
+   * Retorna el mensaje de error correspondiente a un control específico del formulario de registro.
+   * Maneja errores de validación específicos incluyendo coincidencia de contraseñas.
+   * Genera mensajes descriptivos en español para cada tipo de error encontrado.
+   */
   getError(control: string): string {
     if (control === 'global') return this.errorMsg();
 
@@ -107,7 +137,6 @@ export class RegisterComponent implements OnDestroy {
     if (formControl.errors['required']) {
       const fieldNameMap: { [key: string]: string } = {
         name: 'nombre',
-        surname: 'apellidos',
         email: 'email',
         password: 'password',
         confirmPassword: 'confirmar contraseña'
