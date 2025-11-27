@@ -5,13 +5,14 @@ import { RouterModule } from '@angular/router';
 import { CentersService } from '../../core/services/centers.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Center, CreateCenterInput, UpdateCenterInput } from '../../core/models/center';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
 @Component({
   selector: 'app-centers',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, DatePipe],
+  imports: [CommonModule, FormsModule, RouterModule, DatePipe, ThemeToggleComponent],
   templateUrl: './centers.component.html',
   styleUrl: './centers.component.scss'
 })
@@ -23,6 +24,18 @@ export class CentersComponent implements OnInit {
   isLoading = signal(false);
   errorMessage = signal<string>('');
   
+  // Filters
+  filterName = signal<string>('');
+  filterDescription = signal<string>('');
+  filterAddress = signal<string>('');
+  filterCity = signal<string>('');
+  filterCountry = signal<string>('');
+  filterPhone = signal<string>('');
+  filterEmail = signal<string>('');
+  filterDateFrom = signal<string>('');
+  filterDateTo = signal<string>('');
+  showFilters = signal(false);
+  
   // Modal states
   showCreateModal = signal(false);
   showEditModal = signal(false);
@@ -31,7 +44,7 @@ export class CentersComponent implements OnInit {
   
   selectedCenter = signal<Center | null>(null);
   viewCenter = signal<Center | null>(null);
-  centerForm = signal<CreateCenterInput>({
+  centerForm: CreateCenterInput = {
     name: '',
     description: '',
     address: '',
@@ -39,13 +52,72 @@ export class CentersComponent implements OnInit {
     country: '',
     phone: '',
     email: ''
-  });
+  };
 
   currentUser = computed(() => this.auth.currentUser());
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
   canEdit = computed(() => this.isSuperAdmin());
   canDelete = computed(() => this.isSuperAdmin());
+
+  // Filtered centers
+  filteredCenters = computed(() => {
+    let filtered = this.centers();
+    
+    if (this.filterName()) {
+      const nameFilter = this.filterName().toLowerCase();
+      filtered = filtered.filter(c => c.name.toLowerCase().includes(nameFilter));
+    }
+    
+    if (this.filterDescription()) {
+      const descFilter = this.filterDescription().toLowerCase();
+      filtered = filtered.filter(c => c.description?.toLowerCase().includes(descFilter));
+    }
+    
+    if (this.filterAddress()) {
+      const addressFilter = this.filterAddress().toLowerCase();
+      filtered = filtered.filter(c => c.address?.toLowerCase().includes(addressFilter));
+    }
+    
+    if (this.filterCity()) {
+      const cityFilter = this.filterCity().toLowerCase();
+      filtered = filtered.filter(c => c.city?.toLowerCase().includes(cityFilter));
+    }
+    
+    if (this.filterCountry()) {
+      const countryFilter = this.filterCountry().toLowerCase();
+      filtered = filtered.filter(c => c.country?.toLowerCase().includes(countryFilter));
+    }
+    
+    if (this.filterPhone()) {
+      const phoneFilter = this.filterPhone().toLowerCase();
+      filtered = filtered.filter(c => c.phone?.toLowerCase().includes(phoneFilter));
+    }
+    
+    if (this.filterEmail()) {
+      const emailFilter = this.filterEmail().toLowerCase();
+      filtered = filtered.filter(c => c.email?.toLowerCase().includes(emailFilter));
+    }
+    
+    if (this.filterDateFrom()) {
+      const dateFrom = new Date(this.filterDateFrom());
+      filtered = filtered.filter(c => {
+        if (!c.createdAt) return false;
+        return new Date(c.createdAt) >= dateFrom;
+      });
+    }
+    
+    if (this.filterDateTo()) {
+      const dateTo = new Date(this.filterDateTo());
+      dateTo.setHours(23, 59, 59, 999);
+      filtered = filtered.filter(c => {
+        if (!c.createdAt) return false;
+        return new Date(c.createdAt) <= dateTo;
+      });
+    }
+    
+    return filtered;
+  });
 
   ngOnInit() {
     this.loadCenters();
@@ -68,7 +140,7 @@ export class CentersComponent implements OnInit {
   }
 
   openCreateModal() {
-    this.centerForm.set({
+    this.centerForm = {
       name: '',
       description: '',
       address: '',
@@ -76,7 +148,7 @@ export class CentersComponent implements OnInit {
       country: '',
       phone: '',
       email: ''
-    });
+    };
     this.showCreateModal.set(true);
     this.errorMessage.set('');
   }
@@ -96,7 +168,7 @@ export class CentersComponent implements OnInit {
     this.centersService.getCenter(center.id).subscribe({
       next: (fullCenter) => {
         this.selectedCenter.set(fullCenter);
-        this.centerForm.set({
+        this.centerForm = {
           name: fullCenter.name,
           description: fullCenter.description || '',
           address: fullCenter.address || '',
@@ -104,7 +176,7 @@ export class CentersComponent implements OnInit {
           country: fullCenter.country || '',
           phone: fullCenter.phone || '',
           email: fullCenter.email || ''
-        });
+        };
         this.showEditModal.set(true);
         this.isLoading.set(false);
       },
@@ -167,7 +239,7 @@ export class CentersComponent implements OnInit {
   }
 
   createCenter() {
-    if (!this.centerForm().name.trim()) {
+    if (!this.centerForm.name.trim()) {
       this.errorMessage.set('El nombre del centro es obligatorio');
       return;
     }
@@ -175,7 +247,7 @@ export class CentersComponent implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set('');
 
-    this.centersService.createCenter(this.centerForm()).subscribe({
+    this.centersService.createCenter(this.centerForm).subscribe({
       next: () => {
         this.isLoading.set(false);
         this.closeCreateModal();
@@ -192,7 +264,7 @@ export class CentersComponent implements OnInit {
     const center = this.selectedCenter();
     if (!center?.id) return;
 
-    if (!this.centerForm().name.trim()) {
+    if (!this.centerForm.name.trim()) {
       this.errorMessage.set('El nombre del centro es obligatorio');
       return;
     }
@@ -200,7 +272,7 @@ export class CentersComponent implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set('');
 
-    this.centersService.updateCenter(center.id, this.centerForm()).subscribe({
+    this.centersService.updateCenter(center.id, this.centerForm).subscribe({
       next: () => {
         this.isLoading.set(false);
         this.closeEditModal();
@@ -232,5 +304,35 @@ export class CentersComponent implements OnInit {
       }
     });
   }
+
+  toggleFilters() {
+    this.showFilters.set(!this.showFilters());
+  }
+
+  clearFilters() {
+    this.filterName.set('');
+    this.filterDescription.set('');
+    this.filterAddress.set('');
+    this.filterCity.set('');
+    this.filterCountry.set('');
+    this.filterPhone.set('');
+    this.filterEmail.set('');
+    this.filterDateFrom.set('');
+    this.filterDateTo.set('');
+  }
+
+  hasActiveFilters = computed(() => {
+    return !!(
+      this.filterName() ||
+      this.filterDescription() ||
+      this.filterAddress() ||
+      this.filterCity() ||
+      this.filterCountry() ||
+      this.filterPhone() ||
+      this.filterEmail() ||
+      this.filterDateFrom() ||
+      this.filterDateTo()
+    );
+  });
 }
 

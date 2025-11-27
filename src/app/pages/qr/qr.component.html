@@ -1,0 +1,117 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+  @if(auth.currentUser(); as user) {
+    <!-- Header -->
+    <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-4">
+            <h1 class="text-2xl font-bold text-blue-900 dark:text-white">Mi Código QR</h1>
+          </div>
+          <div class="flex items-center gap-4">
+            <app-theme-toggle></app-theme-toggle>
+            <a 
+              routerLink="/dashboard"
+              class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium">
+              Volver al Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-8 border border-blue-300 dark:border-gray-700 shadow-lg">
+        <!-- Header Card -->
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full mb-4 shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10 text-white">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
+            </svg>
+          </div>
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            Código de Acceso al Gimnasio
+          </h2>
+          <p class="text-gray-600 dark:text-gray-400 text-lg">
+            Muestra este código QR en la recepción para acceder a las instalaciones
+          </p>
+        </div>
+
+        <!-- QR Code Card -->
+        <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 border-4 border-blue-300 dark:border-cyan-500 shadow-2xl max-w-md mx-auto">
+          <div class="text-center">
+            <!-- QR Code Image -->
+            <div class="mb-6 p-4 bg-white dark:bg-gray-800 rounded-xl inline-block">
+              <img 
+                [src]="qrUrl()"
+                class="dark:hidden w-64 h-64 mx-auto"
+                alt="Código QR"
+              />
+              <img 
+                [src]="qrUrlDark()"
+                class="hidden dark:block w-64 h-64 mx-auto"
+                alt="Código QR"
+              />
+            </div>
+
+            <!-- User Info -->
+            <div class="space-y-2 mb-6">
+              <div class="flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600 dark:text-gray-400">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+                <p class="text-xl font-bold text-gray-900 dark:text-white">{{ user.name }}</p>
+              </div>
+              
+              <div class="flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600 dark:text-gray-400">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                </svg>
+                <p class="text-gray-600 dark:text-gray-400">{{ user.email }}</p>
+              </div>
+
+              @if(user.center) {
+                <div class="flex items-center justify-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600 dark:text-gray-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                  </svg>
+                  <p class="text-gray-600 dark:text-gray-400">{{ user.center.name }}</p>
+                </div>
+              }
+            </div>
+
+            <!-- Instructions -->
+            <div class="bg-blue-50 dark:bg-cyan-900/20 rounded-lg p-4 border border-blue-200 dark:border-cyan-500/30">
+              <p class="text-sm text-gray-700 dark:text-gray-300 font-medium mb-2">
+                📱 Instrucciones:
+              </p>
+              <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1 text-left">
+                <li>• Presenta este código en la recepción</li>
+                <li>• Asegúrate de que el QR sea claramente visible</li>
+                <li>• El código se actualiza automáticamente</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Button -->
+        <div class="text-center mt-8">
+          <button 
+            (click)="downloadQR()"
+            class="px-6 py-3 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white rounded-lg transition-all transform hover:scale-105 shadow-lg font-medium">
+            📥 Descargar Código QR
+          </button>
+        </div>
+      </div>
+    </main>
+  } @else {
+    <div class="min-h-screen flex items-center justify-center">
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
+        <p class="text-gray-700 dark:text-gray-300">Cargando información del usuario...</p>
+      </div>
+    </div>
+  }
+</div>
+

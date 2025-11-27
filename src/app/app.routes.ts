@@ -5,6 +5,7 @@ import { authGuard } from './core/guards/auth.guard';
 import { RegisterComponent } from './pages/register/register.component';
 import { CentersComponent } from './pages/centers/centers.component';
 import { UsersComponent } from './pages/users/users.component';
+import { QrComponent } from './pages/qr/qr.component';
 // import { MachinesComponent } from './pages/machines/machines.component';
 
 export const routes: Routes = [
@@ -34,6 +35,11 @@ export const routes: Routes = [
     {
         path: 'users',
         component: UsersComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'qr',
+        component: QrComponent,
         canActivate: [authGuard]
     }
     // {
