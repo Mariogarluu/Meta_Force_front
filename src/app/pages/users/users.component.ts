@@ -48,7 +48,7 @@ export class UsersComponent implements OnInit {
     email: '',
     role: 'USER',
     status: 'PENDING',
-    centerId: null
+    favoriteCenterId: null
   };
 
   readonly roles: Role[] = ['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER', 'CLEANER', 'USER'];
@@ -85,7 +85,9 @@ export class UsersComponent implements OnInit {
     
     if (this.filterCenter()) {
       filtered = filtered.filter(u => 
-        u.centerId === this.filterCenter() || 
+        u.favoriteCenterId === this.filterCenter() || 
+        u.favoriteCenter?.id === this.filterCenter() ||
+        u.centerId === this.filterCenter() ||
         u.center?.id === this.filterCenter()
       );
     }
@@ -180,7 +182,7 @@ export class UsersComponent implements OnInit {
           email: fullUser.email,
           role: fullUser.role,
           status: fullUser.status || 'PENDING',
-          centerId: fullUser.centerId || null
+          favoriteCenterId: fullUser.favoriteCenterId || null
         };
         this.showEditModal.set(true);
         this.isLoading.set(false);
@@ -227,10 +229,10 @@ export class UsersComponent implements OnInit {
       email: this.userForm.email,
     };
 
-    // Solo SUPERADMIN puede cambiar rol y asignar centro
+    // Solo SUPERADMIN puede cambiar rol y asignar centro favorito
     if (this.isSuperAdmin()) {
       updateData.role = this.userForm.role;
-      updateData.centerId = this.userForm.centerId;
+      updateData.favoriteCenterId = this.userForm.favoriteCenterId;
     }
 
     // Ambos pueden cambiar el status

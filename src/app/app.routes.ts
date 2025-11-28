@@ -6,8 +6,10 @@ import { RegisterComponent } from './pages/register/register.component';
 import { CentersComponent } from './pages/centers/centers.component';
 import { UsersComponent } from './pages/users/users.component';
 import { QrComponent } from './pages/qr/qr.component';
+import { QrScannerComponent } from './pages/qr-scanner/qr-scanner.component';
 import { MachinesComponent } from './pages/machines/machines.component';
 import { HomeComponent } from './pages/home/home.component';
+import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
     {
@@ -46,6 +48,11 @@ export const routes: Routes = [
         path: 'qr',
         component: QrComponent,
         canActivate: [authGuard]
+    },
+    {
+        path: 'qr-scanner',
+        component: QrScannerComponent,
+        canActivate: [authGuard, roleGuard('SUPERADMIN', 'ADMIN_CENTER')]
     },
     {
          path: 'machines',
