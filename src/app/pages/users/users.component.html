@@ -195,16 +195,25 @@
                 </div>
 
                 <div class="space-y-2 mb-4">
-                  @if(user.center) {
+                  @if(user.favoriteCenter) {
                     <p class="text-gray-300 text-sm">
-                      🏢 {{ user.center.name }}
+                      ⭐ Centro Favorito: {{ user.favoriteCenter.name }}
                     </p>
-                  } @else if(user.centerId) {
+                  } @else if(user.favoriteCenterId) {
                     <p class="text-gray-300 text-sm">
-                      🏢 {{ getCenterName(user.centerId) }}
+                      ⭐ Centro Favorito: {{ getCenterName(user.favoriteCenterId) }}
                     </p>
                   } @else {
-                    <p class="text-gray-400 text-sm">Sin centro asignado</p>
+                    <p class="text-gray-400 text-sm">Sin centro favorito asignado</p>
+                  }
+                  @if(user.center) {
+                    <p class="text-green-400 text-sm">
+                      📍 Actualmente en: {{ user.center.name }}
+                    </p>
+                  } @else if(user.centerId) {
+                    <p class="text-green-400 text-sm">
+                      📍 Actualmente en: {{ getCenterName(user.centerId) }}
+                    </p>
                   }
                   @if(user.createdAt) {
                     <p class="text-gray-400 text-xs">
@@ -277,13 +286,24 @@
             </div>
 
             <div>
-              <label class="block text-gray-400 text-sm font-medium mb-1">Centro</label>
-              @if(viewUser()!.center) {
-                <p class="text-gray-300">{{ viewUser()!.center?.name }}</p>
-              } @else if(viewUser()!.centerId) {
-                <p class="text-gray-300">{{ getCenterName(viewUser()!.centerId) }}</p>
+              <label class="block text-gray-400 text-sm font-medium mb-1">Centro Favorito</label>
+              @if(viewUser()!.favoriteCenter) {
+                <p class="text-gray-300">⭐ {{ viewUser()!.favoriteCenter?.name }}</p>
+              } @else if(viewUser()!.favoriteCenterId) {
+                <p class="text-gray-300">⭐ {{ getCenterName(viewUser()!.favoriteCenterId) }}</p>
               } @else {
-                <p class="text-gray-400">Sin centro asignado</p>
+                <p class="text-gray-400">Sin centro favorito asignado</p>
+              }
+            </div>
+
+            <div>
+              <label class="block text-gray-400 text-sm font-medium mb-1">Centro Actual</label>
+              @if(viewUser()!.center) {
+                <p class="text-green-400">📍 {{ viewUser()!.center?.name }}</p>
+              } @else if(viewUser()!.centerId) {
+                <p class="text-green-400">📍 {{ getCenterName(viewUser()!.centerId) }}</p>
+              } @else {
+                <p class="text-gray-400">No está en ningún centro actualmente</p>
               }
             </div>
 
@@ -384,16 +404,17 @@
 
           @if(isSuperAdmin()) {
             <div>
-              <label class="block text-gray-300 text-sm font-medium mb-2">Centro</label>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Centro Favorito</label>
               <select 
-                [(ngModel)]="userForm.centerId"
-                name="centerId"
+                [(ngModel)]="userForm.favoriteCenterId"
+                name="favoriteCenterId"
                 class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
                 <option [value]="null">Sin centro</option>
                 @for(center of centers(); track center.id) {
                   <option [value]="center.id">{{ center.name }}</option>
                 }
               </select>
+              <p class="text-xs text-gray-400 mt-1">Centro asignado/favorito del usuario (se puede cambiar desde aquí)</p>
             </div>
           }
 

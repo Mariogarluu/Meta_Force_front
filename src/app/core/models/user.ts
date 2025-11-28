@@ -8,8 +8,13 @@ export interface User {
   role: Role;
   status?: UserStatus;
   createdAt?: string;
-  centerId?: string;
+  centerId?: string; // Centro actual donde está físicamente (solo se actualiza desde QR scanner)
+  favoriteCenterId?: string | null; // Centro favorito/asignado (se puede cambiar desde CRUD)
   center?: {
+    id: string;
+    name: string;
+  };
+  favoriteCenter?: {
     id: string;
     name: string;
   };

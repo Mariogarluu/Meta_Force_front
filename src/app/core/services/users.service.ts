@@ -9,7 +9,7 @@ export interface UpdateUserInput {
   email?: string;
   role?: Role;
   status?: UserStatus;
-  centerId?: string | null;
+  favoriteCenterId?: string | null; // Solo se puede cambiar favoriteCenterId, no centerId
 }
 
 @Injectable({
