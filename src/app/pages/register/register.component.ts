@@ -5,6 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
 import { RegisterInput } from '../../core/models/auth';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 
 /**
  * Validador personalizado que verifica que las contraseñas del formulario de registro coincidan.
@@ -25,7 +26,7 @@ export function passwordsMatchValidator(group: AbstractControl): ValidationError
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ThemeToggleComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
