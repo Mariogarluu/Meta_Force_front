@@ -1,0 +1,3555 @@
+
+
+--- START OF FILE: angular.json ---
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "credentials": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/credentials",
+            "index": "src/index.html",
+            "browser": "src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "credentials:build:production"
+            },
+            "development": {
+              "buildTarget": "credentials:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
+            "styles": [
+              "src/styles.scss"
+            ],
+            "scripts": []
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "analytics": false
+  }
+}
+--- END OF FILE: angular.json ---
+
+
+--- START OF FILE: package.json ---
+{
+  "name": "credentials",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/compiler": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "@angular/forms": "^19.2.0",
+    "@angular/platform-browser": "^19.2.0",
+    "@angular/platform-browser-dynamic": "^19.2.0",
+    "@angular/router": "^19.2.0",
+    "@types/jsonwebtoken": "^9.0.10",
+    "jsonwebtoken": "^9.0.2",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.2.18",
+    "@angular/cli": "^19.2.18",
+    "@angular/compiler-cli": "^19.2.0",
+    "@types/jasmine": "~5.1.0",
+    "autoprefixer": "^10.4.21",
+    "jasmine-core": "~5.6.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18",
+    "typescript": "~5.7.2"
+  }
+}
+
+--- END OF FILE: package.json ---
+
+
+--- START OF FILE: src\app\app.component.html ---
+<router-outlet />
+<app-error-toast />
+
+--- END OF FILE: src\app\app.component.html ---
+
+
+--- START OF FILE: src\app\app.component.scss ---
+
+--- END OF FILE: src\app\app.component.scss ---
+
+
+--- START OF FILE: src\app\app.component.spec.ts ---
+import { TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
+
+describe('AppComponent', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+    }).compileComponents();
+  });
+
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+
+  it(`should have the 'credentials' title`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('credentials');
+  });
+
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, credentials');
+  });
+});
+
+--- END OF FILE: src\app\app.component.spec.ts ---
+
+
+--- START OF FILE: src\app\app.component.ts ---
+import { Component, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { AuthService } from './core/services/auth.service';
+import { ErrorToastComponent } from './shared/components/error-toast/error-toast.component';
+
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ErrorToastComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
+})
+export class AppComponent {
+  title = 'credentials';
+
+  constructor(){
+  
+
+  }
+}
+
+--- END OF FILE: src\app\app.component.ts ---
+
+
+--- START OF FILE: src\app\app.config.ts ---
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+
+import { routes } from './app.routes';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }), 
+    provideRouter(routes), 
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor]))
+  ]
+};
+
+--- END OF FILE: src\app\app.config.ts ---
+
+
+--- START OF FILE: src\app\app.routes.ts ---
+import { Routes } from '@angular/router';
+import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { authGuard } from './core/guards/auth.guard';
+import { RegisterComponent } from './pages/register/register.component';
+import { CentersComponent } from './pages/centers/centers.component';
+// Importamos el componente de máquinas (lo crearemos en el siguiente paso)
+import { MachinesComponent } from './pages/machines/machines.component';
+
+export const routes: Routes = [
+    {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full'
+    },
+    {
+        path: 'login',
+        component: LoginComponent
+    },
+    {
+        path: 'register',
+        component: RegisterComponent
+    },
+    {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'centers',
+        component: CentersComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'machines',
+        component: MachinesComponent, // Asegúrate de crear este componente o dará error
+        canActivate: [authGuard]
+    }
+];
+--- END OF FILE: src\app\app.routes.ts ---
+
+
+--- START OF FILE: src\app\core\guards\auth.guard.spec.ts ---
+import { TestBed } from '@angular/core/testing';
+import { CanActivateFn } from '@angular/router';
+
+import { authGuard } from './auth.guard';
+
+describe('authGuard', () => {
+  const executeGuard: CanActivateFn = (...guardParameters) => 
+      TestBed.runInInjectionContext(() => authGuard(...guardParameters));
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+  });
+
+  it('should be created', () => {
+    expect(executeGuard).toBeTruthy();
+  });
+});
+
+--- END OF FILE: src\app\core\guards\auth.guard.spec.ts ---
+
+
+--- START OF FILE: src\app\core\guards\auth.guard.ts ---
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
+/**
+ * Guard de ruta que protege rutas requiriendo autenticación.
+ * Verifica que exista un usuario autenticado antes de permitir el acceso.
+ * Si el usuario no está autenticado, redirige al login guardando la URL original para redirigir después.
+ * Retorna true si el usuario está autenticado, false en caso contrario.
+ */
+export const authGuard: CanActivateFn = (route, state) => {
+  const auth = inject(AuthService);
+  const router = inject(Router);
+  
+  const isAuthenticated = auth.currentUser() != null;
+
+  if (!isAuthenticated) {
+    router.navigate(['/login'], { state: { navigateTo: state.url } });
+    return false;
+  }
+  
+  return true;
+};
+--- END OF FILE: src\app\core\guards\auth.guard.ts ---
+
+
+--- START OF FILE: src\app\core\guards\role.guard.ts ---
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+
+/**
+ * Factory function que crea un guard de ruta basado en roles.
+ * Protege rutas requiriendo que el usuario autenticado tenga uno de los roles permitidos.
+ * Si el usuario no está autenticado, redirige al login.
+ * Si el usuario no tiene un rol permitido, redirige al dashboard.
+ * Retorna un CanActivateFn configurado con los roles permitidos.
+ */
+export const roleGuard = (...allowedRoles: string[]): CanActivateFn => {
+  return (route, state) => {
+    const auth = inject(AuthService);
+    const router = inject(Router);
+    
+    const user = auth.currentUser();
+    
+    if (!user) {
+      router.navigate(['/login'], { state: { navigateTo: state.url } });
+      return false;
+    }
+
+    if (!allowedRoles.includes(user.role)) {
+      router.navigate(['/dashboard']);
+      return false;
+    }
+    
+    return true;
+  };
+};
+
+
+--- END OF FILE: src\app\core\guards\role.guard.ts ---
+
+
+--- START OF FILE: src\app\core\interceptors\auth.interceptor.ts ---
+import { HttpInterceptorFn } from '@angular/common/http';
+
+/**
+ * Interceptor HTTP que agrega automáticamente el token JWT a todas las peticiones HTTP.
+ * Obtiene el token del localStorage y lo añade como header Authorization Bearer.
+ */
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const token = localStorage.getItem('jwt_token');
+  
+  if (token) {
+    const cloned = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    return next(cloned);
+  }
+  
+  return next(req);
+};
+
+
+--- END OF FILE: src\app\core\interceptors\auth.interceptor.ts ---
+
+
+--- START OF FILE: src\app\core\models\app-error.ts ---
+export enum ErrorType {
+  AUTH = 'auth',
+  NETWORK = 'network',
+  VALIDATION = 'validation',
+  SERVER = 'server',
+  UNKNOWN = 'unknown'
+}
+
+export interface AppError {
+  type: ErrorType;
+  message: string;
+  code?: string;
+  originalError?: any;
+  timestamp: Date;
+}
+
+
+--- END OF FILE: src\app\core\models\app-error.ts ---
+
+
+--- START OF FILE: src\app\core\models\auth.ts ---
+export interface AuthInput {
+  email: string;
+  password?: string;
+}
+
+export interface RegisterInput extends AuthInput {
+  name: string;
+  role?: 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+}
+
+export interface AuthResponse {
+  token: string;
+  user: {
+    id: string;
+    email: string;
+    name: string;
+    role: 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+    createdAt?: string;
+  };
+}
+--- END OF FILE: src\app\core\models\auth.ts ---
+
+
+--- START OF FILE: src\app\core\models\center.ts ---
+export interface Center {
+  id?: string;
+  name: string;
+  description?: string;
+  address?: string;
+  city?: string;
+  country?: string;
+  phone?: string;
+  email?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface CreateCenterInput {
+  name: string;
+  description?: string;
+  address?: string;
+  city?: string;
+  country?: string;
+  phone?: string;
+  email?: string;
+}
+
+export interface UpdateCenterInput {
+  name?: string;
+  description?: string;
+  address?: string;
+  city?: string;
+  country?: string;
+  phone?: string;
+  email?: string;
+}
+
+
+--- END OF FILE: src\app\core\models\center.ts ---
+
+
+--- START OF FILE: src\app\core\models\credentials.ts ---
+export interface LoginResponse{
+    
+}
+export interface RegisterInfo{
+    name:string,
+    surname:string,
+    email:string,
+    password:string,
+    confirmPassword:string
+}
+
+export interface Credentials{
+    email:string;
+    password:string;
+}
+--- END OF FILE: src\app\core\models\credentials.ts ---
+
+
+--- START OF FILE: src\app\core\models\machine.ts ---
+import { Center } from './center';
+
+export type MachineType = 'cardio' | 'fuerza' | 'peso libre' | 'funcional' | 'otro';
+export type MachineStatus = 'operativa' | 'en mantenimiento' | 'fuera de servicio';
+
+export interface Machine {
+  id: string;
+  name: string;
+  type: MachineType;
+  status: MachineStatus;
+  centerId: string;
+  center?: Center; // Para mostrar el nombre del centro en listados globales
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface CreateMachineInput {
+  name: string;
+  type: MachineType;
+  status: MachineStatus;
+  centerId: string;
+}
+
+export interface UpdateMachineInput {
+  name?: string;
+  type?: MachineType;
+  status?: MachineStatus;
+  centerId?: string;
+}
+--- END OF FILE: src\app\core\models\machine.ts ---
+
+
+--- START OF FILE: src\app\core\models\user.ts ---
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  role: 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+  createdAt?: string;
+  centerId?: string;
+  center?: {
+    id: string;
+    name: string;
+  };
+}
+--- END OF FILE: src\app\core\models\user.ts ---
+
+
+--- START OF FILE: src\app\core\services\auth.service.ts ---
+import { Injectable, inject, signal } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { User } from '../models/user';
+import { AuthInput, RegisterInput, AuthResponse } from '../models/auth';
+import { environment } from '../../../environments/environment.development';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  private http = inject(HttpClient);
+  private apiUrl = `${environment.apiUrl}/auth`;
+  
+  private _currentUser = signal<User | null>(null);
+  
+  public readonly currentUser = this._currentUser.asReadonly();
+
+  constructor() {
+    const token = this.getToken();
+    if (token) {
+      this.loadUserProfile();
+    }
+  }
+
+  /**
+   * Obtiene el token JWT almacenado en el localStorage del navegador.
+   * Retorna null si no existe ningún token almacenado.
+   */
+  private getToken(): string | null {
+    return localStorage.getItem('jwt_token');
+  }
+
+  /**
+   * Establece la sesión del usuario guardando el token JWT y actualizando el signal del usuario actual.
+   * Almacena el token en localStorage para persistencia entre recargas de página.
+   */
+  private setSession(authResult: AuthResponse) {
+    localStorage.setItem('jwt_token', authResult.token);
+    this._currentUser.set(authResult.user);
+  }
+  
+  /**
+   * Carga el perfil del usuario autenticado desde la API utilizando el token almacenado.
+   * Actualiza el signal del usuario actual con la información obtenida.
+   * Si falla la carga, cierra la sesión automáticamente por seguridad.
+   */
+  private loadUserProfile() {
+    this.http.get<User>(`${environment.apiUrl}/users/me`).pipe(
+      tap(user => this._currentUser.set(user)),
+      catchError(() => {
+        this.logout();
+        return throwError(() => new Error('Sesión inválida'));
+      })
+    ).subscribe();
+  }
+
+  /**
+   * Autentica un usuario con sus credenciales de email y contraseña.
+   * Realiza una petición POST al endpoint de login y establece la sesión si es exitoso.
+   * Retorna un Observable que emite la respuesta con el usuario y el token JWT.
+   */
+  login(credentials: AuthInput): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
+      tap(response => this.setSession(response)),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * Registra un nuevo usuario en el sistema.
+   * Realiza una petición POST al endpoint de registro y establece la sesión automáticamente.
+   * Retorna un Observable que emite la respuesta con el usuario creado y el token JWT.
+   */
+  register(data: RegisterInput): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, data).pipe(
+      tap(response => this.setSession(response)),
+      catchError(this.handleError)
+    );
+  }
+
+  /**
+   * Cierra la sesión del usuario eliminando el token del localStorage y limpiando el usuario actual.
+   * Debe llamarse cuando el usuario hace logout o cuando se detecta una sesión inválida.
+   */
+  logout() {
+    localStorage.removeItem('jwt_token');
+    this._currentUser.set(null);
+  }
+
+  /**
+   * Recarga el perfil del usuario desde la API actualizando la información en el signal.
+   * Útil para refrescar los datos del usuario después de actualizaciones en el backend.
+   */
+  refreshUser() {
+    this.loadUserProfile();
+  }
+
+  /**
+   * Maneja errores HTTP transformándolos en errores manejables.
+   * Extrae el mensaje de error del cuerpo de la respuesta o usa un mensaje genérico.
+   */
+  private handleError(error: HttpErrorResponse) {
+    const errorMessage = error.error?.message || 'Error desconocido';
+    return throwError(() => new Error(errorMessage));
+  }
+}
+--- END OF FILE: src\app\core\services\auth.service.ts ---
+
+
+--- START OF FILE: src\app\core\services\centers.service.ts ---
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.development';
+import { Center, CreateCenterInput, UpdateCenterInput } from '../models/center';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class CentersService {
+  private http = inject(HttpClient);
+  private apiUrl = `${environment.apiUrl}/centers`;
+
+  /**
+   * Lista todos los centros de entrenamiento.
+   * Los permisos varían según el rol:
+   * - USER, TRAINER, CLEANER: Solo ven el nombre de su centro (sin ID)
+   * - ADMIN_CENTER: Ven todos los centros con ID
+   * - SUPERADMIN: Ven todos los centros con ID
+   */
+  listCenters(): Observable<Center[]> {
+    return this.http.get<Center[]>(this.apiUrl);
+  }
+
+  /**
+   * Obtiene un centro específico por su ID.
+   * Solo accesible para ADMIN_CENTER y SUPERADMIN.
+   */
+  getCenter(id: string): Observable<Center> {
+    return this.http.get<Center>(`${this.apiUrl}/${id}`);
+  }
+
+  /**
+   * Crea un nuevo centro de entrenamiento.
+   * Solo accesible para SUPERADMIN.
+   */
+  createCenter(data: CreateCenterInput): Observable<Center> {
+    return this.http.post<Center>(this.apiUrl, data);
+  }
+
+  /**
+   * Actualiza un centro existente.
+   * Solo accesible para SUPERADMIN.
+   */
+  updateCenter(id: string, data: UpdateCenterInput): Observable<Center> {
+    return this.http.patch<Center>(`${this.apiUrl}/${id}`, data);
+  }
+
+  /**
+   * Elimina un centro de entrenamiento.
+   * Solo accesible para SUPERADMIN.
+   */
+  deleteCenter(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+}
+
+
+--- END OF FILE: src\app\core\services\centers.service.ts ---
+
+
+--- START OF FILE: src\app\core\services\error.service.ts ---
+import { Injectable, signal } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AppError, ErrorType } from '../models/app-error';
+
+/**
+ * Servicio de gestión centralizada de errores de la aplicación.
+ * 
+ * Proporciona una forma unificada de manejar errores desde cualquier parte
+ * de la aplicación, convirtiéndolos en mensajes legibles para el usuario
+ * y mostrándolos mediante un toast global.
+ * 
+ * Características:
+ * - Conversión automática de HttpErrorResponse a mensajes legibles
+ * - Soporte para códigos de error personalizados
+ * - Auto-limpieza de errores después de un tiempo configurable
+ * - Señales reactivas para integración con componentes
+ */
+@Injectable({ providedIn: 'root' })
+export class ErrorService {
+  
+  private currentError = signal<AppError | null>(null);
+  
+  error = this.currentError.asReadonly();
+  
+  private errorMap = new Map<string, string>([
+    ['ERR_NETWORK', 'Error de conexión'],
+    ['ERR_AUTH_INVALID', 'Credenciales incorrectas'],
+    ['ERR_AUTH_EXPIRED', 'Sesión expirada'],
+    ['ERR_PERMISSION', 'No tienes permisos'],
+    ['ERR_NOT_FOUND', 'Recurso no encontrado'],
+    ['ERR_SERVER', 'Error del servidor'],
+    ['ERR_VALIDATION', 'Datos inválidos']
+  ]);
+  
+  /**
+   * Maneja cualquier tipo de error de la aplicación.
+   * 
+   * Detecta automáticamente el tipo de error (HttpErrorResponse, Error custom, etc.)
+   * y lo convierte en un AppError con mensaje legible.
+   * 
+   * @param error - Objeto de error de cualquier tipo
+   * @param duration - Tiempo en ms que se muestra el error (0 = permanente)
+   * 
+   * @example
+   * this.http.post(...).subscribe({
+   *   error: (err) => this.errorService.handleError(err)
+   * });
+   */
+  handleError(error: any, duration: number = 5000) {
+    const appError = this.parseError(error);
+    this.currentError.set(appError);
+    
+    if (duration > 0) {
+      setTimeout(() => this.clearError(), duration);
+    }
+  }
+  
+  /**
+   * Establece un error manualmente con mensaje y tipo específicos.
+   * 
+   * Útil para errores personalizados del dominio de negocio que no provienen
+   * de llamadas HTTP.
+   * 
+   * @param message - Mensaje de error legible para el usuario
+   * @param type - Tipo de error (AUTH, NETWORK, VALIDATION, SERVER, UNKNOWN)
+   * @param duration - Tiempo en ms que se muestra el error (0 = permanente)
+   * 
+   * @example
+   * this.errorService.setError('Usuario o contraseña incorrectos', ErrorType.AUTH);
+   */
+  setError(message: string, type: ErrorType = ErrorType.UNKNOWN, duration: number = 5000) {
+    const appError: AppError = {
+      type,
+      message,
+      timestamp: new Date()
+    };
+    this.currentError.set(appError);
+    
+    if (duration > 0) {
+      setTimeout(() => this.clearError(), duration);
+    }
+  }
+  
+  /**
+   * Determina el tipo de error y lo convierte a AppError.
+   * 
+   * Estrategia de parseo:
+   * 1. Si es HttpErrorResponse → usa parseHttpError()
+   * 2. Si tiene propiedad 'code' → busca en errorMap
+   * 3. Caso contrario → retorna error desconocido
+   * 
+   * @param error - Error de cualquier tipo
+   * @returns AppError con tipo, mensaje y metadata
+   */
+  private parseError(error: any): AppError {
+    if (error instanceof HttpErrorResponse) {
+      return this.parseHttpError(error);
+    }
+    
+    if (error?.code) {
+      return {
+        type: this.getErrorType(error.code),
+        message: this.errorMap.get(error.code) || error.message,
+        code: error.code,
+        originalError: error,
+        timestamp: new Date()
+      };
+    }
+    
+    return {
+      type: ErrorType.UNKNOWN,
+      message: error?.message || 'Error desconocido',
+      originalError: error,
+      timestamp: new Date()
+    };
+  }
+  
+  /**
+   * Convierte errores HTTP en objetos AppError con tipo y mensaje apropiados.
+   * 
+   * Mapeo de códigos HTTP:
+   * - 400 → VALIDATION: "Datos inválidos"
+   * - 401 → AUTH: "Credenciales incorrectas"
+   * - 403 → AUTH: "No tienes permisos"
+   * - 404 → NETWORK: "Recurso no encontrado"
+   * - 500 → SERVER: "Error del servidor"
+   * - 0 → NETWORK: "Error de conexión"
+   * 
+   * @param error - HttpErrorResponse de Angular
+   * @returns AppError con código HTTP_{status}
+   */
+  private parseHttpError(error: HttpErrorResponse): AppError {
+    const statusMap: Record<number, { type: ErrorType; message: string }> = {
+      400: { type: ErrorType.VALIDATION, message: 'Datos inválidos' },
+      401: { type: ErrorType.AUTH, message: 'Credenciales incorrectas' },
+      403: { type: ErrorType.AUTH, message: 'No tienes permisos' },
+      404: { type: ErrorType.NETWORK, message: 'Recurso no encontrado' },
+      500: { type: ErrorType.SERVER, message: 'Error del servidor' },
+      0: { type: ErrorType.NETWORK, message: 'Error de conexión' }
+    };
+    
+    const errorInfo = statusMap[error.status] || {
+      type: ErrorType.UNKNOWN,
+      message: 'Error inesperado'
+    };
+    
+    return {
+      ...errorInfo,
+      code: `HTTP_${error.status}`,
+      originalError: error,
+      timestamp: new Date()
+    };
+  }
+  
+  /**
+   * Determina el tipo de error basándose en el prefijo del código.
+   * 
+   * Convenciones de prefijos:
+   * - ERR_AUTH* → ErrorType.AUTH
+   * - ERR_NETWORK* → ErrorType.NETWORK
+   * - ERR_VALIDATION* → ErrorType.VALIDATION
+   * - ERR_SERVER* → ErrorType.SERVER
+   * - Otro → ErrorType.UNKNOWN
+   * 
+   * @param code - Código de error personalizado
+   * @returns Tipo de error correspondiente
+   */
+  private getErrorType(code: string): ErrorType {
+    if (code.startsWith('ERR_AUTH')) return ErrorType.AUTH;
+    if (code.startsWith('ERR_NETWORK')) return ErrorType.NETWORK;
+    if (code.startsWith('ERR_VALIDATION')) return ErrorType.VALIDATION;
+    if (code.startsWith('ERR_SERVER')) return ErrorType.SERVER;
+    return ErrorType.UNKNOWN;
+  }
+  
+  /**
+   * Limpia el error actual inmediatamente.
+   * 
+   * Típicamente llamado cuando el usuario cierra manualmente el toast
+   * o cuando se auto-limpia después del duration.
+   */
+  clearError() {
+    this.currentError.set(null);
+  }
+  
+  /**
+   * Registra dinámicamente un nuevo código de error con su mensaje.
+   * 
+   * Permite extender el errorMap en tiempo de ejecución sin modificar
+   * el código del servicio.
+   * 
+   * @param code - Código de error único
+   * @param message - Mensaje legible para el usuario
+   * 
+   * @example
+   * this.errorService.registerErrorMessage('ERR_QUOTA_EXCEEDED', 'Has superado tu cuota');
+   */
+  registerErrorMessage(code: string, message: string) {
+    this.errorMap.set(code, message);
+  }
+}
+
+
+--- END OF FILE: src\app\core\services\error.service.ts ---
+
+
+--- START OF FILE: src\app\core\services\local-storate-auth.service.ts ---
+import { Injectable, signal } from '@angular/core';
+import { Credentials, RegisterInfo } from '../models/credentials';
+import { HttpResponse } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class LocalStorageAuthService {
+  private readonly _user: any = {
+    name: 'Juan',
+    surname: 'García',
+    email: 'juan@juan.es',
+  };
+
+  public user: any | null;
+
+  constructor() {
+    this.user = signal<any>(null);
+    let cookie = localStorage.getItem('AUTHENTICATION');
+    if (cookie) this.user.set(JSON.parse(cookie));
+  }
+
+  login(credentials: Credentials):Promise<HttpResponse<any>> {
+    return new Promise((resolve, reject)=>{
+      let users: RegisterInfo[] | null =
+        localStorage.getItem('USERS') != null
+          ? JSON.parse(localStorage.getItem('USERS')!)
+          : null;
+      if (
+        users != null &&
+        users.find(
+          u=>
+            u.email == credentials.email &&
+            u.password == credentials.password
+        )!=undefined
+      ) {
+        localStorage.setItem('AUTHENTICATION', JSON.stringify(credentials));
+        this.user.set(credentials);
+        resolve(new HttpResponse({'status':200, 'statusText':'User signed in'}));
+      }
+      else
+        reject(new HttpResponse({'status':401, 'statusText':'Unauthorized'}))
+    });
+  }
+
+  logout() {
+    localStorage.removeItem('AUTHENTICATION');
+    this.user.set(null);
+  }
+
+  register(userInfo: RegisterInfo):Promise<HttpResponse<any>>{
+    return new Promise((resolve,reject)=>{
+      let users: RegisterInfo[] | null =
+            localStorage.getItem('USERS') != null
+              ? JSON.parse(localStorage.getItem('USERS')!)
+              : null;
+      if (
+        users == null ||
+        users.find(u => u.email == userInfo.email, false)==undefined
+      ) {
+        let user = { email: userInfo.email, password: userInfo.password }
+        localStorage.setItem(
+          'AUTHENTICATION',
+          JSON.stringify(user)
+        );
+        this.user.set(user);
+        if(users)
+          users.push(userInfo);
+        else
+          users = [userInfo];
+        localStorage.setItem('USERS', JSON.stringify(users));
+        resolve(new HttpResponse({'status':201, 'statusText':'User signed up'}));
+      }
+      reject(new HttpResponse({'status':403, 'statusText':'email already registered'}));
+    });
+    
+  }
+}
+
+--- END OF FILE: src\app\core\services\local-storate-auth.service.ts ---
+
+
+--- START OF FILE: src\app\core\services\machines.service.ts ---
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.development';
+import { CreateMachineInput, Machine, UpdateMachineInput } from '../models/machine';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MachinesService {
+  private http = inject(HttpClient);
+  private apiUrl = `${environment.apiUrl}/machines`;
+
+  /**
+   * Lista todas las máquinas del sistema.
+   * Uso: Principalmente para SUPERADMIN.
+   */
+  listMachines(): Observable<Machine[]> {
+    return this.http.get<Machine[]>(this.apiUrl);
+  }
+
+  /**
+   * Lista las máquinas pertenecientes a un centro específico.
+   * Uso: Para ADMIN_CENTER (viendo su propio centro) o SUPERADMIN (filtrando).
+   */
+  listMachinesByCenter(centerId: string): Observable<Machine[]> {
+    return this.http.get<Machine[]>(`${this.apiUrl}/center/${centerId}`);
+  }
+
+  getMachine(id: string): Observable<Machine> {
+    return this.http.get<Machine>(`${this.apiUrl}/${id}`);
+  }
+
+  createMachine(data: CreateMachineInput): Observable<Machine> {
+    return this.http.post<Machine>(this.apiUrl, data);
+  }
+
+  updateMachine(id: string, data: UpdateMachineInput): Observable<Machine> {
+    return this.http.patch<Machine>(`${this.apiUrl}/${id}`, data);
+  }
+
+  deleteMachine(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+}
+--- END OF FILE: src\app\core\services\machines.service.ts ---
+
+
+--- START OF FILE: src\app\core\services\users.service.ts ---
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.development';
+import { User } from '../models/user';
+
+export interface UpdateUserInput {
+  name?: string;
+  email?: string;
+  role?: 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UsersService {
+  private http = inject(HttpClient);
+  private apiUrl = `${environment.apiUrl}/users`;
+
+  /**
+   * Actualiza los datos de un usuario específico identificado por su ID.
+   * Permite modificar nombre, email y/o rol según los permisos del usuario autenticado.
+   * Retorna un Observable que emite el usuario actualizado.
+   */
+  updateUser(id: string, data: UpdateUserInput): Observable<User> {
+    return this.http.patch<User>(`${this.apiUrl}/${id}`, data);
+  }
+
+  /**
+   * Obtiene la información de un usuario específico por su ID.
+   * Retorna un Observable que emite el objeto User con toda su información pública.
+   */
+  getUser(id: string): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${id}`);
+  }
+}
+
+
+--- END OF FILE: src\app\core\services\users.service.ts ---
+
+
+--- START OF FILE: src\app\pages\centers\centers.component.html ---
+<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+  <header class="bg-gray-800/50 backdrop-blur-md border-b border-gray-700 sticky top-0 z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-4">
+          <h1 class="text-2xl font-bold text-white">Gestión de Centros</h1>
+        </div>
+        <div class="flex items-center gap-4">
+          @if(canCreate()) {
+            <button 
+              (click)="openCreateModal()"
+              class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium">
+              + Nuevo Centro
+            </button>
+          }
+          <a 
+            routerLink="/dashboard"
+            class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium">
+            Volver al Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    @if(errorMessage()) {
+      <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    @if(isLoading() && centers().length === 0) {
+      <div class="flex items-center justify-center py-12">
+        <div class="text-center">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
+          <p class="text-gray-300">Cargando centros...</p>
+        </div>
+      </div>
+    } @else {
+      @if(centers().length === 0) {
+        <div class="text-center py-12">
+          <p class="text-gray-400 text-lg">No hay centros disponibles</p>
+        </div>
+      } @else {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          @for(center of centers(); track center.id || center.name) {
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+              <div 
+                (click)="openViewModal(center)"
+                class="cursor-pointer">
+                <div class="flex items-start justify-between mb-4">
+                  <div class="flex-1">
+                    <h3 class="text-xl font-bold text-white mb-2">{{ center.name }}</h3>
+                    @if(center.description) {
+                      <p class="text-gray-400 text-sm mb-2">{{ center.description }}</p>
+                    }
+                  </div>
+                  @if(center.id && (isSuperAdmin() || isAdminCenter())) {
+                    <span class="text-xs text-gray-500">ID: {{ center.id.substring(0, 8) }}...</span>
+                  }
+                </div>
+
+                @if(isSuperAdmin() || isAdminCenter()) {
+                  <div class="space-y-2 mb-4">
+                    @if(center.city || center.country) {
+                      <p class="text-gray-300 text-sm">
+                        📍 {{ center.city }}{{ center.city && center.country ? ', ' : '' }}{{ center.country }}
+                      </p>
+                    }
+                    @if(center.address) {
+                      <p class="text-gray-400 text-xs">{{ center.address }}</p>
+                    }
+                    @if(center.phone) {
+                      <p class="text-gray-300 text-sm">📞 {{ center.phone }}</p>
+                    }
+                    @if(center.email) {
+                      <p class="text-gray-300 text-sm">✉️ {{ center.email }}</p>
+                    }
+                  </div>
+                }
+              </div>
+
+              <div class="flex gap-2 mt-4" (click)="$event.stopPropagation()">
+                @if(canModify(center)) {
+                  <button 
+                    (click)="openEditModal(center)"
+                    class="flex-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
+                    Editar
+                  </button>
+                }
+                @if(canDelete()) {
+                  <button 
+                    (click)="openDeleteModal(center)"
+                    class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium">
+                    Eliminar
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+  </main>
+
+  @if(showCreateModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
+        <h3 class="text-2xl font-bold text-white mb-6">Crear Nuevo Centro</h3>
+        
+        @if(errorMessage()) {
+          <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <form (ngSubmit)="createCenter()" class="space-y-4">
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Nombre *</label>
+            <input 
+              type="text"
+              [(ngModel)]="centerForm().name"
+              name="name"
+              required
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Descripción</label>
+            <textarea 
+              [(ngModel)]="centerForm().description"
+              name="description"
+              rows="3"
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Ciudad</label>
+              <input 
+                type="text"
+                [(ngModel)]="centerForm().city"
+                name="city"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">País</label>
+              <input 
+                type="text"
+                [(ngModel)]="centerForm().country"
+                name="country"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Dirección</label>
+            <input 
+              type="text"
+              [(ngModel)]="centerForm().address"
+              name="address"
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Teléfono</label>
+              <input 
+                type="tel"
+                [(ngModel)]="centerForm().phone"
+                name="phone"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Email</label>
+              <input 
+                type="email"
+                [(ngModel)]="centerForm().email"
+                name="email"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+          </div>
+
+          <div class="flex gap-3 mt-6">
+            <button 
+              type="button"
+              (click)="closeCreateModal()"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              Cancelar
+            </button>
+            <button 
+              type="submit"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              @if(isLoading()) {
+                Creando...
+              } @else {
+                Crear Centro
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  @if(showEditModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
+        <h3 class="text-2xl font-bold text-white mb-6">Editar Centro</h3>
+        
+        @if(errorMessage()) {
+          <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <form (ngSubmit)="updateCenter()" class="space-y-4">
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Nombre *</label>
+            <input 
+              type="text"
+              [(ngModel)]="centerForm().name"
+              name="name"
+              required
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Descripción</label>
+            <textarea 
+              [(ngModel)]="centerForm().description"
+              name="description"
+              rows="3"
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"></textarea>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Ciudad</label>
+              <input 
+                type="text"
+                [(ngModel)]="centerForm().city"
+                name="city"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">País</label>
+              <input 
+                type="text"
+                [(ngModel)]="centerForm().country"
+                name="country"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Dirección</label>
+            <input 
+              type="text"
+              [(ngModel)]="centerForm().address"
+              name="address"
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Teléfono</label>
+              <input 
+                type="tel"
+                [(ngModel)]="centerForm().phone"
+                name="phone"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Email</label>
+              <input 
+                type="email"
+                [(ngModel)]="centerForm().email"
+                name="email"
+                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </div>
+          </div>
+
+          <div class="flex gap-3 mt-6">
+            <button 
+              type="button"
+              (click)="closeEditModal()"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              Cancelar
+            </button>
+            <button 
+              type="submit"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              @if(isLoading()) {
+                Guardando...
+              } @else {
+                Guardar Cambios
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  @if(showViewModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
+        <h3 class="text-2xl font-bold text-white mb-6">Información del Centro</h3>
+        
+        @if(viewCenter()) {
+          <div class="space-y-4">
+            <div>
+              <label class="block text-gray-400 text-sm font-medium mb-1">Nombre</label>
+              <p class="text-white text-lg font-semibold">{{ viewCenter()!.name }}</p>
+            </div>
+
+            @if(viewCenter()!.description) {
+              <div>
+                <label class="block text-gray-400 text-sm font-medium mb-1">Descripción</label>
+                <p class="text-gray-300">{{ viewCenter()!.description }}</p>
+              </div>
+            }
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              @if(viewCenter()!.city) {
+                <div>
+                  <label class="block text-gray-400 text-sm font-medium mb-1">Ciudad</label>
+                  <p class="text-gray-300">{{ viewCenter()!.city }}</p>
+                </div>
+              }
+
+              @if(viewCenter()!.country) {
+                <div>
+                  <label class="block text-gray-400 text-sm font-medium mb-1">País</label>
+                  <p class="text-gray-300">{{ viewCenter()!.country }}</p>
+                </div>
+              }
+            </div>
+
+            @if(viewCenter()!.address) {
+              <div>
+                <label class="block text-gray-400 text-sm font-medium mb-1">Dirección</label>
+                <p class="text-gray-300">{{ viewCenter()!.address }}</p>
+              </div>
+            }
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              @if(viewCenter()!.phone) {
+                <div>
+                  <label class="block text-gray-400 text-sm font-medium mb-1">Teléfono</label>
+                  <p class="text-gray-300">{{ viewCenter()!.phone }}</p>
+                </div>
+              }
+
+              @if(viewCenter()!.email) {
+                <div>
+                  <label class="block text-gray-400 text-sm font-medium mb-1">Email</label>
+                  <p class="text-gray-300">{{ viewCenter()!.email }}</p>
+                </div>
+              }
+            </div>
+
+            @if(viewCenter()!.id) {
+              <div>
+                <label class="block text-gray-400 text-sm font-medium mb-1">ID</label>
+                <p class="text-gray-500 text-xs font-mono">{{ viewCenter()!.id }}</p>
+              </div>
+            }
+
+            @if(viewCenter()!.createdAt) {
+              <div>
+                <label class="block text-gray-400 text-sm font-medium mb-1">Fecha de Creación</label>
+                <p class="text-gray-300">{{ viewCenter()!.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+              </div>
+            }
+          </div>
+        }
+
+        <div class="flex gap-3 mt-6">
+          <button 
+            (click)="closeViewModal()"
+            class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors">
+            Cerrar
+          </button>
+          
+          @if(viewCenter() && canModify(viewCenter()!)) {
+            <button 
+              (click)="closeViewModal(); openEditModal(viewCenter()!)"
+              class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+              Editar
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  @if(showDeleteModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-700">
+        <h3 class="text-2xl font-bold text-white mb-4">Eliminar Centro</h3>
+        
+        @if(selectedCenter()) {
+          <p class="text-gray-300 mb-6">
+            ¿Estás seguro de que deseas eliminar el centro <span class="font-semibold text-white">{{ selectedCenter()!.name }}</span>?
+            Esta acción no se puede deshacer.
+          </p>
+        }
+
+        @if(errorMessage()) {
+          <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <div class="flex gap-3">
+          <button 
+            (click)="closeDeleteModal()"
+            [disabled]="isLoading()"
+            class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
+            Cancelar
+          </button>
+          <button 
+            (click)="deleteCenter()"
+            [disabled]="isLoading()"
+            class="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors disabled:opacity-50">
+            @if(isLoading()) {
+              Eliminando...
+            } @else {
+              Eliminar
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+--- END OF FILE: src\app\pages\centers\centers.component.html ---
+
+
+--- START OF FILE: src\app\pages\centers\centers.component.scss ---
+// Estilos específicos del componente si son necesarios
+
+
+--- END OF FILE: src\app\pages\centers\centers.component.scss ---
+
+
+--- START OF FILE: src\app\pages\centers\centers.component.ts ---
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { CentersService } from '../../core/services/centers.service';
+import { AuthService } from '../../core/services/auth.service';
+import { Center, CreateCenterInput, UpdateCenterInput } from '../../core/models/center';
+
+@Component({
+  selector: 'app-centers',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule, DatePipe],
+  templateUrl: './centers.component.html',
+  styleUrl: './centers.component.scss'
+})
+export class CentersComponent implements OnInit {
+  centersService = inject(CentersService);
+  auth = inject(AuthService);
+
+  centers = signal<Center[]>([]);
+  isLoading = signal(false);
+  errorMessage = signal<string>('');
+  
+  // Modal states
+  showCreateModal = signal(false);
+  showEditModal = signal(false);
+  showDeleteModal = signal(false);
+  showViewModal = signal(false);
+  
+  selectedCenter = signal<Center | null>(null);
+  viewCenter = signal<Center | null>(null);
+  
+  centerForm = signal<CreateCenterInput>({
+    name: '',
+    description: '',
+    address: '',
+    city: '',
+    country: '',
+    phone: '',
+    email: ''
+  });
+
+  currentUser = computed(() => this.auth.currentUser());
+  isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
+  isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
+  
+  // Solo SuperAdmin puede crear o borrar
+  canCreate = computed(() => this.isSuperAdmin());
+  canDelete = computed(() => this.isSuperAdmin());
+
+  ngOnInit() {
+    this.loadCenters();
+  }
+
+  // Nueva función para verificar si puede editar un centro específico
+  canModify(center: Center): boolean {
+    if (this.isSuperAdmin()) return true;
+    if (this.isAdminCenter()) {
+      return center.id === this.currentUser()?.centerId;
+    }
+    return false;
+  }
+
+  loadCenters() {
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+    
+    this.centersService.listCenters().subscribe({
+      next: (data) => {
+        this.centers.set(data);
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || 'Error al cargar los centros');
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  openCreateModal() {
+    this.centerForm.set({
+      name: '',
+      description: '',
+      address: '',
+      city: '',
+      country: '',
+      phone: '',
+      email: ''
+    });
+    this.showCreateModal.set(true);
+    this.errorMessage.set('');
+  }
+
+  closeCreateModal() {
+    this.showCreateModal.set(false);
+    this.errorMessage.set('');
+  }
+
+  openEditModal(center: Center) {
+    if (!center.id) return;
+    
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+
+    // Cargar el centro completo desde el backend
+    this.centersService.getCenter(center.id).subscribe({
+      next: (fullCenter) => {
+        this.selectedCenter.set(fullCenter);
+        this.centerForm.set({
+          name: fullCenter.name,
+          description: fullCenter.description || '',
+          address: fullCenter.address || '',
+          city: fullCenter.city || '',
+          country: fullCenter.country || '',
+          phone: fullCenter.phone || '',
+          email: fullCenter.email || ''
+        });
+        this.showEditModal.set(true);
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || 'Error al cargar el centro');
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  openViewModal(center: Center) {
+    if (!center.id) {
+      this.viewCenter.set(center);
+      this.showViewModal.set(true);
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+    
+    this.centersService.getCenter(center.id).subscribe({
+      next: (fullCenter) => {
+        this.viewCenter.set(fullCenter);
+        this.showViewModal.set(true);
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        this.viewCenter.set(center);
+        this.showViewModal.set(true);
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  closeViewModal() {
+    this.showViewModal.set(false);
+    this.viewCenter.set(null);
+    this.errorMessage.set('');
+  }
+
+  closeEditModal() {
+    this.showEditModal.set(false);
+    this.selectedCenter.set(null);
+    this.errorMessage.set('');
+  }
+
+  openDeleteModal(center: Center) {
+    this.selectedCenter.set(center);
+    this.showDeleteModal.set(true);
+    this.errorMessage.set('');
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal.set(false);
+    this.selectedCenter.set(null);
+    this.errorMessage.set('');
+  }
+
+  createCenter() {
+    if (!this.centerForm().name.trim()) {
+      this.errorMessage.set('El nombre del centro es obligatorio');
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+
+    this.centersService.createCenter(this.centerForm()).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.closeCreateModal();
+        this.loadCenters();
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || 'Error al crear el centro');
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  updateCenter() {
+    const center = this.selectedCenter();
+    if (!center?.id) return;
+
+    if (!this.centerForm().name.trim()) {
+      this.errorMessage.set('El nombre del centro es obligatorio');
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+
+    this.centersService.updateCenter(center.id, this.centerForm()).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.closeEditModal();
+        this.loadCenters();
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || 'Error al actualizar el centro');
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  deleteCenter() {
+    const center = this.selectedCenter();
+    if (!center?.id) return;
+
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+
+    this.centersService.deleteCenter(center.id).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.closeDeleteModal();
+        this.loadCenters();
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || 'Error al eliminar el centro');
+        this.isLoading.set(false);
+      }
+    });
+  }
+}
+--- END OF FILE: src\app\pages\centers\centers.component.ts ---
+
+
+--- START OF FILE: src\app\pages\dashboard\dashboard.component.html ---
+<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+  @if(auth.currentUser(); as user) {
+    <header class="bg-gray-800/50 backdrop-blur-md border-b border-gray-700 sticky top-0 z-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-4">
+            <h1 class="text-2xl font-bold text-white">Meta Force Dashboard</h1>
+            <span [class]="'px-3 py-1 rounded-full text-xs font-semibold text-white ' + roleColor()">
+              {{ getRoleIcon(user.role) }} {{ roleName() }}
+            </span>
+          </div>
+          <div class="flex items-center gap-4">
+            <button 
+              (click)="openRoleEditor()"
+              class="px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors text-sm font-medium">
+              Editar Rol
+            </button>
+            <button 
+              (click)="logout()"
+              class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium">
+              Cerrar Sesión
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-xl p-6 mb-8 border border-cyan-500/20">
+        <h2 class="text-3xl font-bold text-white mb-2">
+          ¡Bienvenido, {{ user.name }}! 👋
+        </h2>
+        <p class="text-gray-300">
+          Has iniciado sesión como <span class="font-semibold text-cyan-400">{{ roleName() }}</span>
+          @if(user.center) {
+            en <span class="font-semibold text-cyan-400">{{ user.center.name }}</span>
+          }
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @if(isSuperAdmin()) {
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">👑</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">Administración Global</h3>
+            </div>
+            <p class="text-gray-400 mb-4">Gestiona todos los centros, usuarios y configuraciones del sistema.</p>
+            <ul class="space-y-2 text-sm text-gray-300">
+              <li>✅ Acceso completo a todos los centros</li>
+              <li>✅ Gestión de usuarios y roles</li>
+              <li>✅ Configuración del sistema</li>
+              <li>✅ Reportes y estadísticas</li>
+            </ul>
+          </div>
+
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">🏢</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">Gestión de Centros</h3>
+            </div>
+            <p class="text-gray-400 mb-4">Crea, edita y elimina centros de entrenamiento.</p>
+            <a 
+              routerLink="/centers"
+              class="block w-full px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Gestionar Centros
+            </a>
+          </div>
+
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">🏋️</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">Gestión de Máquinas</h3>
+            </div>
+            <p class="text-gray-400 mb-4">Administra el inventario de máquinas de todos los centros.</p>
+            <a 
+              routerLink="/machines"
+              class="block w-full px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Gestionar Máquinas
+            </a>
+          </div>
+
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">👥</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">Gestión de Empleados</h3>
+            </div>
+            <p class="text-gray-400 mb-4">Administra todos los empleados de todos los centros.</p>
+            <button class="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
+              Gestionar Empleados
+            </button>
+          </div>
+        }
+
+        @if(isAdminCenter()) {
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">🏢</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">Mi Centro</h3>
+            </div>
+            <p class="text-gray-400 mb-4">Visualiza la información de tu centro.</p>
+            <a 
+              routerLink="/centers"
+              class="block w-full px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Ver Centro
+            </a>
+          </div>
+
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">🏋️</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">Máquinas</h3>
+            </div>
+            <p class="text-gray-400 mb-4">Gestiona el estado del equipamiento de tu centro.</p>
+            <a 
+              routerLink="/machines"
+              class="block w-full px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Gestionar Máquinas
+            </a>
+          </div>
+
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">👥</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">Empleados</h3>
+            </div>
+            <p class="text-gray-400 mb-4">Administra los empleados de tu centro.</p>
+            <button class="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
+              Gestionar Empleados
+            </button>
+          </div>
+
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">📊</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">Estadísticas</h3>
+            </div>
+            <p class="text-gray-400 mb-4">Visualiza las estadísticas de tu centro.</p>
+            <button class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium">
+              Ver Estadísticas
+            </button>
+          </div>
+        }
+
+        @if(!isSuperAdmin() && !isAdminCenter()) {
+          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">{{ getRoleIcon(user.role) }}</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">Mi Perfil</h3>
+            </div>
+            <p class="text-gray-400 mb-4">Gestiona tu información personal.</p>
+            <button class="w-full px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors text-sm font-medium">
+              Editar Perfil
+            </button>
+          </div>
+
+          @if(user.role === 'TRAINER') {
+            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                  <span class="text-2xl">📅</span>
+                </div>
+                <h3 class="text-xl font-bold text-white">Mis Clases</h3>
+              </div>
+              <p class="text-gray-400 mb-4">Gestiona tus clases y horarios.</p>
+              <button class="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
+                Ver Clases
+              </button>
+            </div>
+          }
+        }
+      </div>
+
+      <div class="mt-8 bg-gray-800 rounded-xl p-6 border border-gray-700">
+        <h3 class="text-xl font-bold text-white mb-4">Información del Usuario</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <p class="text-gray-400 text-sm">Nombre</p>
+            <p class="text-white font-semibold">{{ user.name }}</p>
+          </div>
+          <div>
+            <p class="text-gray-400 text-sm">Email</p>
+            <p class="text-white font-semibold">{{ user.email }}</p>
+          </div>
+          <div>
+            <p class="text-gray-400 text-sm">Rol</p>
+            <p class="text-white font-semibold">{{ roleName() }}</p>
+          </div>
+          @if(user.center) {
+            <div>
+              <p class="text-gray-400 text-sm">Centro</p>
+              <p class="text-white font-semibold">{{ user.center.name }}</p>
+            </div>
+          }
+          @if(user.createdAt) {
+            <div>
+              <p class="text-gray-400 text-sm">Fecha de registro</p>
+              <p class="text-white font-semibold">{{ user.createdAt | date:'dd/MM/yyyy' }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </main>
+
+    @if(showRoleEditor()) {
+      <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-700">
+          <h3 class="text-2xl font-bold text-white mb-4">Cambiar Rol</h3>
+          
+          <div class="mb-4">
+            <label class="block text-gray-300 text-sm font-medium mb-2">Selecciona un rol</label>
+            <select 
+              [ngModel]="selectedRole()"
+              (ngModelChange)="selectedRole.set($event)"
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              @for(role of roles; track role) {
+                <option [value]="role">{{ role }}</option>
+              }
+            </select>
+          </div>
+
+          @if(errorMessage()) {
+            <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
+              {{ errorMessage() }}
+            </div>
+          }
+
+          <div class="flex gap-3">
+            <button 
+              (click)="closeRoleEditor()"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              Cancelar
+            </button>
+            <button 
+              (click)="updateRole()"
+              [disabled]="isLoading() || selectedRole() === user.role"
+              class="flex-1 px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              @if(isLoading()) {
+                Guardando...
+              } @else {
+                Guardar Cambios
+              }
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  } @else {
+    <div class="min-h-screen flex items-center justify-center">
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
+        <p class="text-gray-300">Cargando información del usuario...</p>
+      </div>
+    </div>
+  }
+</div>
+--- END OF FILE: src\app\pages\dashboard\dashboard.component.html ---
+
+
+--- START OF FILE: src\app\pages\dashboard\dashboard.component.scss ---
+
+--- END OF FILE: src\app\pages\dashboard\dashboard.component.scss ---
+
+
+--- START OF FILE: src\app\pages\dashboard\dashboard.component.spec.ts ---
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { DashboardComponent } from './dashboard.component';
+
+describe('DashboardComponent', () => {
+  let component: DashboardComponent;
+  let fixture: ComponentFixture<DashboardComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [DashboardComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(DashboardComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+--- END OF FILE: src\app\pages\dashboard\dashboard.component.spec.ts ---
+
+
+--- START OF FILE: src\app\pages\dashboard\dashboard.component.ts ---
+import { Component, inject, signal, computed } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
+import { UsersService } from '../../core/services/users.service';
+import { User } from '../../core/models/user';
+
+type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule],
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss'
+})
+export class DashboardComponent {
+  auth = inject(AuthService);
+  usersService = inject(UsersService);
+  router = inject(Router);
+
+  showRoleEditor = signal(false);
+  selectedRole = signal<RoleType | null>(null);
+  isLoading = signal(false);
+  errorMessage = signal<string>('');
+
+  readonly roles: RoleType[] = ['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER', 'CLEANER', 'USER'];
+
+  currentUser = computed(() => this.auth.currentUser());
+
+  roleName = computed(() => {
+    const role = this.currentUser()?.role;
+    const roleNames: Record<string, string> = {
+      'SUPERADMIN': 'Super Administrador',
+      'ADMIN_CENTER': 'Administrador de Centro',
+      'TRAINER': 'Entrenador',
+      'CLEANER': 'Personal de Limpieza',
+      'USER': 'Usuario'
+    };
+    return roleNames[role || 'USER'] || 'Usuario';
+  });
+
+  roleColor = computed(() => {
+    const role = this.currentUser()?.role;
+    const colors: Record<string, string> = {
+      'SUPERADMIN': 'bg-red-500',
+      'ADMIN_CENTER': 'bg-purple-500',
+      'TRAINER': 'bg-blue-500',
+      'CLEANER': 'bg-green-500',
+      'USER': 'bg-gray-500'
+    };
+    return colors[role || 'USER'] || 'bg-gray-500';
+  });
+
+  isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
+
+  isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
+
+  constructor() {
+    const user = this.currentUser();
+    if (user) {
+      this.selectedRole.set(user.role);
+    }
+  }
+
+  /**
+   * Abre el modal de edición de rol inicializando el rol seleccionado con el rol actual del usuario.
+   * Limpia cualquier mensaje de error previo al abrir el editor.
+   */
+  openRoleEditor() {
+    const user = this.currentUser();
+    if (user) {
+      this.selectedRole.set(user.role);
+      this.showRoleEditor.set(true);
+      this.errorMessage.set('');
+    }
+  }
+
+  /**
+   * Cierra el modal de edición de rol y limpia cualquier mensaje de error.
+   * Restaura el estado inicial del componente sin guardar cambios.
+   */
+  closeRoleEditor() {
+    this.showRoleEditor.set(false);
+    this.errorMessage.set('');
+  }
+
+  /**
+   * Actualiza el rol del usuario autenticado en el backend.
+   * Después de actualizar exitosamente, cierra sesión y redirige al login para obtener un nuevo token JWT.
+   * Muestra un mensaje de error si la actualización falla.
+   */
+  updateRole() {
+    const user = this.currentUser();
+    const newRole = this.selectedRole();
+    
+    if (!user || !newRole) {
+      return;
+    }
+    
+    if (newRole === user.role) {
+      this.closeRoleEditor();
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+
+    this.usersService.updateUser(user.id, { role: newRole }).subscribe({
+      next: (updatedUser) => {
+        this.isLoading.set(false);
+        this.showRoleEditor.set(false);
+        
+        alert(`Rol actualizado a ${newRole}. Por favor, inicia sesión nuevamente para que los cambios surtan efecto.`);
+        
+        setTimeout(() => {
+          this.auth.logout();
+          this.router.navigate(['/login']);
+        }, 1000);
+      },
+      error: (error) => {
+        this.isLoading.set(false);
+        this.errorMessage.set(error.error?.message || 'Error al actualizar el rol');
+      }
+    });
+  }
+
+  /**
+   * Cierra la sesión del usuario actual y redirige a la página de login.
+   * Limpia el token JWT y la información del usuario del estado de la aplicación.
+   */
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+  }
+
+  /**
+   * Retorna el emoji correspondiente a un rol específico para mostrar en la interfaz.
+   * Usa un mapeo de roles a emojis para proporcionar indicadores visuales claros.
+   */
+  getRoleIcon(role: string): string {
+    const icons: Record<string, string> = {
+      'SUPERADMIN': '👑',
+      'ADMIN_CENTER': '🏢',
+      'TRAINER': '💪',
+      'CLEANER': '🧹',
+      'USER': '👤'
+    };
+    return icons[role] || '👤';
+  }
+}
+
+--- END OF FILE: src\app\pages\dashboard\dashboard.component.ts ---
+
+
+--- START OF FILE: src\app\pages\login\login.component.html ---
+<div class="min-h-screen flex justify-center items-center bg-gray-900">
+  <div
+    class="rounded-lg max-w-md w-full bg-gradient-to-br from-purple-500 via-blue-600 to-cyan-400 shadow-2xl p-0.5"
+  >
+    <div class="bg-gray-800 p-8 rounded-lg">
+      <div class="flex justify-center mb-4">
+        <img 
+          src="Logo.png" 
+          alt="Meta Force Logo" 
+          class="h-40 w-auto"
+        />
+      </div>
+      <h1 class="text-center text-white text-3xl font-extrabold mb-1">
+        Meta Force
+      </h1>
+      <p class="mb-5 text-gray-400 text-sm text-center">
+        Accede a tu entrenamiento personalizado
+      </p>
+
+      <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+        
+        <div class="mb-4">
+          <label class="block text-white mb-1 text-sm font-medium" for="email">Email</label>
+          <div class="relative">
+            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+            </span>
+            <input
+              id="email"
+              autocomplete="username"
+              formControlName="email"
+              placeholder="tu@email"
+              class="px-10 h-10 rounded-lg border-2 border-gray-700 bg-gray-700 text-white w-full focus:border-cyan-400 focus:ring-cyan-400 transition-colors"
+              type="text"
+            />
+          </div>
+          @if(formLogin.controls.email.touched && formLogin.controls.email.errors){
+            <span class="text-red-400 text-xs mt-1 block">
+              {{getError('email')}}
+            </span>
+          }
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-white mb-1 text-sm font-medium" for="password">Contraseña</label>
+          <div class="relative">
+            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+            </span>
+            <input
+              id="password"
+              formControlName="password"
+              autocomplete="current-password"
+              [type]="showPassword() ? 'text' : 'password'"
+              placeholder="tu contraseña"
+              class="px-10 h-10 w-full rounded-lg border-2 border-gray-700 bg-gray-700 text-white focus:border-cyan-400 focus:ring-cyan-400 transition-colors"
+            />
+
+            <button
+              type="button"
+              (click)="togglePassword()"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+            >
+              <svg *ngIf="!showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.657 3.841 5.21 6.5 9.566 6.5 2.085 0 4.017-.63 5.617-1.707m-4.79 2.001A7.5 7.5 0 0 1 12 15a7.5 7.5 0 0 1-5.707-2.317M21 21l-18-18"/>
+              </svg>
+              <svg *ngIf="showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+              </svg>
+            </button>
+          </div>
+          @if(formLogin.controls.password.touched && formLogin.controls.password.errors){
+            <span class="text-red-400 text-xs mt-1 block">
+              {{getError('password')}}
+            </span>
+          }
+        </div>
+
+        @if(errorMsg()){
+          <div class="text-red-400 bg-red-950/50 p-2 rounded-lg text-center text-sm mb-4 border border-red-700">
+            {{ getError('global') }}
+          </div>
+        }
+
+        <button
+          class="rounded-lg w-full px-4 py-2 font-bold text-lg bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white shadow-lg transition-all transform hover:scale-[1.01]"
+          type="submit"
+          [disabled]="formLogin.invalid"
+        >
+          Acceder
+        </button>
+      </form>
+
+      <div class="mt-6 text-center text-white text-sm">
+        ¿No tienes cuenta?
+        <button
+          type="button"
+          (click)="goRegister()"
+          class="underline font-bold text-cyan-300 hover:text-white ml-1 transition-colors"
+        >
+          Crear cuenta
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+--- END OF FILE: src\app\pages\login\login.component.html ---
+
+
+--- START OF FILE: src\app\pages\login\login.component.scss ---
+
+--- END OF FILE: src\app\pages\login\login.component.scss ---
+
+
+--- START OF FILE: src\app\pages\login\login.component.spec.ts ---
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { LoginComponent } from './login.component';
+
+describe('LoginComponent', () => {
+  let component: LoginComponent;
+  let fixture: ComponentFixture<LoginComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [LoginComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(LoginComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+--- END OF FILE: src\app\pages\login\login.component.spec.ts ---
+
+
+--- START OF FILE: src\app\pages\login\login.component.ts ---
+import { CommonModule } from '@angular/common';
+import { Component, inject, signal, OnDestroy } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { RouterLink, Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
+import { Subscription } from 'rxjs';
+import { AuthInput } from '../../core/models/auth'
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss'
+})
+export class LoginComponent implements OnDestroy {
+
+  formLogin;
+  errorMsg = signal<string>('');
+  private router:Router = inject(Router);
+  readonly navigateTo:string;
+  
+  showPassword = signal(false); 
+  private authSubscription?: Subscription;
+
+  constructor(
+    private formSvc:FormBuilder,
+    private auth:AuthService
+  ){
+    this.formLogin = this.formSvc.group({
+      'email':['', [Validators.required, Validators.email]],
+      'password':['', [Validators.required]],
+    });
+
+    this.navigateTo = history.state?.['navigateTo'] || '/dashboard';
+  }
+
+  /**
+   * Alterna la visibilidad de la contraseña en el campo de entrada.
+   * Cambia entre mostrar el texto de la contraseña o mostrarla oculta con asteriscos.
+   */
+  togglePassword() {
+    this.showPassword.update(value => !value);
+  }
+
+  /**
+   * Procesa el envío del formulario de login validando las credenciales.
+   * Valida el formulario y realiza una petición de autenticación al backend.
+   * Redirige al dashboard o a la URL guardada si el login es exitoso.
+   * Muestra mensajes de error si la autenticación falla.
+   */
+  onSubmit(){
+    if (this.formLogin.invalid) {
+      this.formLogin.markAllAsTouched();
+      return;
+    }
+
+    this.errorMsg.set('');
+
+    const credentials: AuthInput = {
+      email: this.formLogin.value.email!,
+      password: this.formLogin.value.password!
+    };
+
+    this.authSubscription = this.auth.login(credentials)
+      .subscribe({
+        next: () => {
+          this.router.navigate([this.navigateTo]);
+        },
+        error: (err: Error) => {
+          this.errorMsg.set(err.message);
+        }
+      });
+  }
+  
+  /**
+   * Navega a la página de registro del usuario.
+   * Redirige al componente de registro para que el usuario pueda crear una nueva cuenta.
+   */
+  goRegister() {
+    this.router.navigate(['/register']);
+  }
+
+  /**
+   * Limpia las suscripciones activas cuando el componente se destruye.
+   * Previene memory leaks cancelando las suscripciones a observables.
+   */
+  ngOnDestroy() {
+    this.authSubscription?.unsubscribe();
+  }
+
+  /**
+   * Retorna el mensaje de error correspondiente a un control específico del formulario.
+   * Genera mensajes personalizados según el tipo de error de validación encontrado.
+   * Retorna cadena vacía si no hay errores o si el control no ha sido tocado.
+   */
+  getError(control:string): string {
+    if (control === 'global') return this.errorMsg();
+
+    const formControl = this.formLogin.get(control);
+    if (!formControl || !formControl.touched || !formControl.errors) {
+      return '';
+    }
+
+    if (formControl.errors['required']) {
+      return `El campo ${control === 'email' ? 'email' : 'contraseña'} es requerido`;
+    }
+    if (control === 'email' && formControl.errors['email']) {
+      return "El formato de email no es correcto";
+    }
+
+    return "";
+  }
+}
+--- END OF FILE: src\app\pages\login\login.component.ts ---
+
+
+--- START OF FILE: src\app\pages\machines\machines.component.html ---
+<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <header class="bg-gray-800/50 backdrop-blur-md border-b border-gray-700 sticky top-0 z-10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex justify-between items-center">
+          <div>
+            <h1 class="text-2xl font-bold text-white">Gestión de Máquinas</h1>
+            <p class="text-gray-400 text-sm mt-1">Inventario y estado de equipamiento</p>
+          </div>
+          <div class="flex items-center gap-4">
+            <button 
+              (click)="openCreateModal()"
+              class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium flex items-center gap-2">
+              <span>+</span> Nueva Máquina
+            </button>
+            <a routerLink="/dashboard" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium">
+              Volver
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+  
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      @if(isLoading() && machines().length === 0) {
+        <div class="flex justify-center py-12">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500"></div>
+        </div>
+      } @else if(machines().length === 0) {
+        <div class="text-center py-16 bg-gray-800/50 rounded-xl border border-gray-700 border-dashed">
+          <p class="text-gray-400 text-lg">No hay máquinas registradas</p>
+          <button (click)="openCreateModal()" class="mt-4 text-cyan-400 hover:text-cyan-300 font-medium">
+            Registrar la primera máquina
+          </button>
+        </div>
+      } @else {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          @for(machine of machines(); track machine.id) {
+            <div class="bg-gray-800 rounded-xl p-5 border border-gray-700 hover:border-cyan-500/30 transition-all hover:shadow-lg hover:shadow-cyan-500/10 group">
+              <div class="flex justify-between items-start mb-4">
+                <div>
+                  <h3 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors">{{ machine.name }}</h3>
+                  <p class="text-xs text-gray-500 uppercase tracking-wider mt-1">{{ machine.type }}</p>
+                </div>
+                <span [class]="'px-2 py-1 rounded text-xs font-medium border ' + getStatusColor(machine.status)">
+                  {{ machine.status }}
+                </span>
+              </div>
+  
+              @if(isSuperAdmin() && machine.center) {
+                <div class="mb-4 flex items-center gap-2 text-sm text-gray-400">
+                  <span>🏢</span>
+                  <span>{{ machine.center.name }}</span>
+                </div>
+              }
+  
+              <div class="pt-4 border-t border-gray-700 flex gap-2">
+                <button 
+                  (click)="openEditModal(machine)"
+                  class="flex-1 px-3 py-1.5 bg-gray-700 hover:bg-blue-600 text-white rounded text-sm transition-colors">
+                  Editar
+                </button>
+                <button 
+                  (click)="openDeleteModal(machine)"
+                  class="flex-1 px-3 py-1.5 bg-gray-700 hover:bg-red-600 text-white rounded text-sm transition-colors">
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </main>
+  
+    @if(showFormModal()) {
+      <div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+        <div class="bg-gray-800 rounded-xl w-full max-w-md border border-gray-700 shadow-2xl transform transition-all scale-100">
+          <div class="p-6 border-b border-gray-700">
+            <h3 class="text-xl font-bold text-white">
+              {{ isEditing() ? 'Editar Máquina' : 'Nueva Máquina' }}
+            </h3>
+          </div>
+          
+          <form (ngSubmit)="onSubmit()" class="p-6 space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-400 mb-1">Nombre</label>
+              <input 
+                type="text" 
+                [(ngModel)]="formState().name" 
+                name="name" 
+                required
+                class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
+                placeholder="Ej: Cinta de correr #1">
+            </div>
+  
+            <div>
+              <label class="block text-sm font-medium text-gray-400 mb-1">Tipo</label>
+              <select 
+                [(ngModel)]="formState().type" 
+                name="type" 
+                class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-500">
+                @for(type of machineTypes; track type) {
+                  <option [value]="type">{{ type | titlecase }}</option>
+                }
+              </select>
+            </div>
+  
+            <div>
+              <label class="block text-sm font-medium text-gray-400 mb-1">Estado</label>
+              <select 
+                [(ngModel)]="formState().status" 
+                name="status" 
+                class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-500">
+                @for(status of machineStatuses; track status) {
+                  <option [value]="status">{{ status | titlecase }}</option>
+                }
+              </select>
+            </div>
+  
+            @if(isSuperAdmin()) {
+              <div>
+                <label class="block text-sm font-medium text-gray-400 mb-1">Centro Asignado</label>
+                <select 
+                  [(ngModel)]="formState().centerId" 
+                  name="centerId" 
+                  required
+                  class="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-cyan-500">
+                  <option value="" disabled>Selecciona un centro</option>
+                  @for(center of centers(); track center.id) {
+                    <option [value]="center.id">{{ center.name }}</option>
+                  }
+                </select>
+              </div>
+            }
+  
+            <div class="flex gap-3 pt-4">
+              <button 
+                type="button" 
+                (click)="closeFormModal()"
+                class="flex-1 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                Cancelar
+              </button>
+              <button 
+                type="submit" 
+                [disabled]="isLoading() || (!formState().name)"
+                class="flex-1 px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                {{ isLoading() ? 'Guardando...' : 'Guardar' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    }
+  
+    @if(showDeleteModal()) {
+      <div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-gray-800 rounded-xl w-full max-w-sm border border-gray-700 shadow-2xl p-6">
+          <h3 class="text-xl font-bold text-white mb-2">¿Eliminar máquina?</h3>
+          <p class="text-gray-400 mb-6">
+            Estás a punto de eliminar <span class="text-white font-semibold">{{ selectedMachine()?.name }}</span>. 
+            Esta acción no se puede deshacer.
+          </p>
+          <div class="flex gap-3">
+            <button 
+              (click)="closeDeleteModal()"
+              class="flex-1 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors">
+              Cancelar
+            </button>
+            <button 
+              (click)="confirmDelete()"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors">
+              {{ isLoading() ? 'Eliminando...' : 'Eliminar' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+--- END OF FILE: src\app\pages\machines\machines.component.html ---
+
+
+--- START OF FILE: src\app\pages\machines\machines.component.scss ---
+/* Animación suave para el modal */
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  
+  .animate-fade-in > div {
+    animation: fadeIn 0.2s ease-out forwards;
+  }
+--- END OF FILE: src\app\pages\machines\machines.component.scss ---
+
+
+--- START OF FILE: src\app\pages\machines\machines.component.spec.ts ---
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { MachinesComponent } from './machines.component';
+
+describe('MachinesComponent', () => {
+  let component: MachinesComponent;
+  let fixture: ComponentFixture<MachinesComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [MachinesComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(MachinesComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+--- END OF FILE: src\app\pages\machines\machines.component.spec.ts ---
+
+
+--- START OF FILE: src\app\pages\machines\machines.component.ts ---
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router'; // <--- IMPORTANTE: Importar esto
+import { MachinesService } from '../../core/services/machines.service';
+import { CentersService } from '../../core/services/centers.service';
+import { AuthService } from '../../core/services/auth.service';
+import { CreateMachineInput, Machine, MachineStatus, MachineType, UpdateMachineInput } from '../../core/models/machine';
+import { Center } from '../../core/models/center';
+
+@Component({
+  selector: 'app-machines',
+  standalone: true,
+  // AÑADIR RouterModule AQUÍ ABAJO 👇
+  imports: [CommonModule, FormsModule, DatePipe, RouterModule], 
+  templateUrl: './machines.component.html',
+  styleUrl: './machines.component.scss'
+})
+export class MachinesComponent implements OnInit {
+  private machinesService = inject(MachinesService);
+  private centersService = inject(CentersService);
+  public auth = inject(AuthService);
+
+  // Estados de datos
+  machines = signal<Machine[]>([]);
+  centers = signal<Center[]>([]);
+  isLoading = signal(false);
+  
+  // Estados de UI
+  showFormModal = signal(false);
+  showDeleteModal = signal(false);
+  isEditing = signal(false);
+  
+  // Estado del formulario y selección
+  selectedMachine = signal<Machine | null>(null);
+  
+  // Valores iniciales del formulario
+  private initialFormState: CreateMachineInput = {
+    name: '',
+    type: 'cardio',
+    status: 'operativa',
+    centerId: ''
+  };
+
+  formState = signal<CreateMachineInput>({ ...this.initialFormState });
+
+  // Computados
+  currentUser = computed(() => this.auth.currentUser());
+  isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
+  
+  // Opciones para selects
+  machineTypes: MachineType[] = ['cardio', 'fuerza', 'peso libre', 'funcional', 'otro'];
+  machineStatuses: MachineStatus[] = ['operativa', 'en mantenimiento', 'fuera de servicio'];
+
+  ngOnInit() {
+    this.loadData();
+  }
+
+  loadData() {
+    this.isLoading.set(true);
+    
+    const user = this.currentUser();
+    if (!user) return;
+
+    const machines$ = this.isSuperAdmin() 
+      ? this.machinesService.listMachines()
+      : this.machinesService.listMachinesByCenter(user.centerId!);
+
+    machines$.subscribe({
+      next: (data) => {
+        this.machines.set(data);
+        this.isLoading.set(false);
+      },
+      error: (err) => {
+        console.error('Error cargando máquinas', err);
+        this.isLoading.set(false);
+      }
+    });
+
+    if (this.isSuperAdmin()) {
+      this.centersService.listCenters().subscribe({
+        next: (data) => this.centers.set(data)
+      });
+    }
+  }
+
+  openCreateModal() {
+    this.isEditing.set(false);
+    this.selectedMachine.set(null);
+    
+    const user = this.currentUser();
+    const defaultCenterId = !this.isSuperAdmin() && user?.centerId ? user.centerId : '';
+
+    this.formState.set({ 
+      ...this.initialFormState,
+      centerId: defaultCenterId
+    });
+    
+    this.showFormModal.set(true);
+  }
+
+  openEditModal(machine: Machine) {
+    this.isEditing.set(true);
+    this.selectedMachine.set(machine);
+    
+    this.formState.set({
+      name: machine.name,
+      type: machine.type,
+      status: machine.status,
+      centerId: machine.centerId
+    });
+    
+    this.showFormModal.set(true);
+  }
+
+  closeFormModal() {
+    this.showFormModal.set(false);
+  }
+
+  openDeleteModal(machine: Machine) {
+    this.selectedMachine.set(machine);
+    this.showDeleteModal.set(true);
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal.set(false);
+    this.selectedMachine.set(null);
+  }
+
+  onSubmit() {
+    this.isLoading.set(true);
+    const formData = this.formState();
+
+    if (this.isEditing() && this.selectedMachine()) {
+      const id = this.selectedMachine()!.id;
+      const updateData: UpdateMachineInput = { ...formData };
+      
+      this.machinesService.updateMachine(id, updateData).subscribe({
+        next: () => {
+          this.finishAction();
+        },
+        error: (err) => {
+          console.error(err);
+          this.isLoading.set(false);
+        }
+      });
+    } else {
+      this.machinesService.createMachine(formData).subscribe({
+        next: () => {
+          this.finishAction();
+        },
+        error: (err) => {
+          console.error(err);
+          this.isLoading.set(false);
+        }
+      });
+    }
+  }
+
+  confirmDelete() {
+    const machine = this.selectedMachine();
+    if (!machine) return;
+
+    this.isLoading.set(true);
+    this.machinesService.deleteMachine(machine.id).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.closeDeleteModal();
+        this.loadData();
+      },
+      error: (err) => {
+        console.error(err);
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  private finishAction() {
+    this.isLoading.set(false);
+    this.closeFormModal();
+    this.loadData();
+  }
+
+  getStatusColor(status: string): string {
+    switch (status) {
+      case 'operativa': return 'bg-green-500/20 text-green-400 border-green-500/50';
+      case 'en mantenimiento': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/50';
+      case 'fuera de servicio': return 'bg-red-500/20 text-red-400 border-red-500/50';
+      default: return 'bg-gray-500/20 text-gray-400';
+    }
+  }
+}
+--- END OF FILE: src\app\pages\machines\machines.component.ts ---
+
+
+--- START OF FILE: src\app\pages\register\register.component.html ---
+<div class="min-h-screen flex justify-center items-center bg-gray-900 py-10">
+  <div
+    class="rounded-lg max-w-md w-full bg-gradient-to-br from-purple-500 via-blue-600 to-cyan-400 shadow-2xl p-0.5"
+  >
+    <div class="bg-gray-800 p-8 rounded-lg">
+      <div class="flex justify-center mb-4">
+        <img 
+          src="Logo.png" 
+          alt="Meta Force Logo" 
+          class="h-40 w-auto"
+        />
+      </div>
+      <h1 class="text-center text-white text-3xl font-extrabold mb-1">
+        Crear Cuenta
+      </h1>
+      <p class="mb-5 text-gray-400 text-sm text-center">
+        Únete a Meta Force
+      </p>
+
+      <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
+        
+        <div class="mb-4">
+          <label class="block text-white mb-1 text-sm font-medium" for="name">Nombre</label>
+          <div class="relative">
+            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
+            </span>
+            <input
+              id="name"
+              autocomplete="given-name"
+              formControlName="name"
+              placeholder="Tu nombre"
+              class="px-10 h-10 rounded-lg border-2 border-gray-700 bg-gray-700 text-white w-full focus:border-cyan-400 focus:ring-cyan-400 transition-colors"
+              type="text"
+            />
+          </div>
+          @if(formRegister.controls['name'].touched && formRegister.controls['name'].errors){
+            <span class="text-red-400 text-xs mt-1 block">
+              {{getError('name')}}
+            </span>
+          }
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-white mb-1 text-sm font-medium" for="email">Email</label>
+          <div class="relative">
+            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+            </span>
+            <input
+              id="email"
+              autocomplete="email"
+              formControlName="email"
+              placeholder="tu@email.com"
+              class="px-10 h-10 rounded-lg border-2 border-gray-700 bg-gray-700 text-white w-full focus:border-cyan-400 focus:ring-cyan-400 transition-colors"
+              type="email"
+            />
+          </div>
+          @if(formRegister.controls['email'].touched && formRegister.controls['email'].errors){
+            <span class="text-red-400 text-xs mt-1 block">
+              {{getError('email')}}
+            </span>
+          }
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-white mb-1 text-sm font-medium" for="password">Contraseña</label>
+          <div class="relative">
+            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+            </span>
+            <input
+              id="password"
+              formControlName="password"
+              autocomplete="new-password"
+              [type]="showPassword() ? 'text' : 'password'"
+              placeholder="tu contraseña"
+              class="px-10 h-10 w-full rounded-lg border-2 border-gray-700 bg-gray-700 text-white focus:border-cyan-400 focus:ring-cyan-400 transition-colors"
+            />
+            <button
+              type="button"
+              (click)="togglePassword()"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+            >
+              <svg *ngIf="!showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.657 3.841 5.21 6.5 9.566 6.5 2.085 0 4.017-.63 5.617-1.707m-4.79 2.001A7.5 7.5 0 0 1 12 15a7.5 7.5 0 0 1-5.707-2.317M21 21l-18-18"/></svg>
+              <svg *ngIf="showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
+            </button>
+          </div>
+          @if(formRegister.controls['password'].touched && formRegister.controls['password'].errors){
+            <span class="text-red-400 text-xs mt-1 block">
+              {{getError('password')}}
+            </span>
+          }
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-white mb-1 text-sm font-medium" for="confirmPassword">Confirmar Contraseña</label>
+          <div class="relative">
+            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
+            </span>
+            <input
+              id="confirmPassword"
+              formControlName="confirmPassword"
+              autocomplete="new-password"
+              [type]="showConfirmPassword() ? 'text' : 'password'"
+              placeholder="Repite la contraseña"
+              class="px-10 h-10 w-full rounded-lg border-2 border-gray-700 bg-gray-700 text-white focus:border-cyan-400 focus:ring-cyan-400 transition-colors"
+            />
+            <button
+              type="button"
+              (click)="toggleConfirmPassword()"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+            >
+              <svg *ngIf="!showConfirmPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.657 3.841 5.21 6.5 9.566 6.5 2.085 0 4.017-.63 5.617-1.707m-4.79 2.001A7.5 7.5 0 0 1 12 15a7.5 7.5 0 0 1-5.707-2.317M21 21l-18-18"/></svg>
+              <svg *ngIf="showConfirmPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
+            </button>
+          </div>
+          @if(formRegister.controls['confirmPassword'].touched && (formRegister.controls['confirmPassword'].errors || formRegister.errors?.['passwordsDoNotMatch'])){
+            <span class="text-red-400 text-xs mt-1 block">
+              {{getError('confirmPassword')}}
+            </span>
+          }
+        </div>
+
+        @if(errorMsg()){
+          <div class="text-red-400 bg-red-950/50 p-2 rounded-lg text-center text-sm mb-4 border border-red-700">
+            {{ getError('global') }}
+          </div>
+        }
+
+        <button
+          class="rounded-lg w-full px-4 py-2 font-bold text-lg bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white shadow-lg transition-all transform hover:scale-[1.01]"
+          type="submit"
+          [disabled]="formRegister.invalid"
+        >
+          Registrar
+        </button>
+      </form>
+
+      <div class="mt-6 text-center text-white text-sm">
+        ¿Ya tienes cuenta?
+        <button
+          type="button"
+          (click)="goLogin()"
+          class="underline font-bold text-cyan-300 hover:text-white ml-1 transition-colors"
+        >
+          Inicia sesión
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+--- END OF FILE: src\app\pages\register\register.component.html ---
+
+
+--- START OF FILE: src\app\pages\register\register.component.scss ---
+
+--- END OF FILE: src\app\pages\register\register.component.scss ---
+
+
+--- START OF FILE: src\app\pages\register\register.component.spec.ts ---
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { RegisterComponent } from './register.component';
+
+describe('RegisterComponent', () => {
+  let component: RegisterComponent;
+  let fixture: ComponentFixture<RegisterComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [RegisterComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(RegisterComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+--- END OF FILE: src\app\pages\register\register.component.spec.ts ---
+
+
+--- START OF FILE: src\app\pages\register\register.component.ts ---
+import { CommonModule } from '@angular/common';
+import { Component, inject, signal, OnDestroy } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
+import { Subscription } from 'rxjs';
+import { RegisterInput } from '../../core/models/auth';
+
+/**
+ * Validador personalizado que verifica que las contraseñas del formulario de registro coincidan.
+ * Compara los valores de los campos password y confirmPassword.
+ * Retorna null si coinciden o un objeto con el error si no coinciden.
+ */
+export function passwordsMatchValidator(group: AbstractControl): ValidationErrors | null {
+  const password = group.get('password')?.value;
+  const confirmPassword = group.get('confirmPassword')?.value;
+  
+  if (group.get('confirmPassword')?.pristine) {
+    return null;
+  }
+  
+  return password === confirmPassword ? null : { passwordsDoNotMatch: true };
+}
+
+@Component({
+  selector: 'app-register',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss'
+})
+export class RegisterComponent implements OnDestroy {
+  formRegister: FormGroup;
+  builder: FormBuilder = inject(FormBuilder);
+  auth: AuthService = inject(AuthService);
+  router: Router = inject(Router);
+  readonly navigateTo: string;
+
+  errorMsg = signal<string>('');
+  showPassword = signal(false);
+  showConfirmPassword = signal(false);
+  private authSubscription?: Subscription;
+
+  constructor(){
+    this.formRegister = this.builder.group({
+      'name':['',[Validators.required, Validators.minLength(3)]],
+      'email':['', [Validators.required, Validators.email]],
+      'password':['', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)]],
+      'confirmPassword':['', [Validators.required]]
+    }, { validators: [passwordsMatchValidator] });
+    
+    this.navigateTo = history.state?.['navigateTo'] || '/dashboard';
+  }
+
+  /**
+   * Procesa el envío del formulario de registro validando todos los campos.
+   * Crea un nuevo usuario en el sistema con los datos proporcionados.
+   * Redirige al dashboard si el registro es exitoso.
+   * Muestra mensajes de error si el registro falla o hay problemas de validación.
+   */
+  onSubmit(){
+    if (this.formRegister.invalid) {
+      this.formRegister.markAllAsTouched();
+      this.errorMsg.set('');
+      return;
+    }
+    
+    this.errorMsg.set('');
+
+    const registerData: RegisterInput = {
+      name: this.formRegister.value.name!,
+      email: this.formRegister.value.email!,
+      password: this.formRegister.value.password!
+    };
+
+    this.authSubscription = this.auth.register(registerData)
+      .subscribe({
+        next: () => {
+          this.router.navigate([this.navigateTo]);
+        },
+        error: (err: Error) => {
+          this.errorMsg.set(err.message);
+        }
+      });
+  }
+
+  /**
+   * Limpia las suscripciones activas cuando el componente se destruye.
+   * Previene memory leaks cancelando las suscripciones a observables.
+   */
+  ngOnDestroy() {
+    this.authSubscription?.unsubscribe();
+  }
+
+  /**
+   * Alterna la visibilidad del campo de contraseña principal.
+   * Cambia entre mostrar el texto de la contraseña o mostrarla oculta.
+   */
+  togglePassword() {
+    this.showPassword.update(value => !value);
+  }
+
+  /**
+   * Alterna la visibilidad del campo de confirmación de contraseña.
+   * Permite al usuario verificar que escribió correctamente la contraseña.
+   */
+  toggleConfirmPassword() {
+    this.showConfirmPassword.update(value => !value);
+  }
+
+  /**
+   * Navega a la página de login del usuario.
+   * Redirige al componente de login para usuarios que ya tienen cuenta.
+   */
+  goLogin() {
+    this.router.navigate(['/login']);
+  }
+  
+  /**
+   * Retorna el mensaje de error correspondiente a un control específico del formulario de registro.
+   * Maneja errores de validación específicos incluyendo coincidencia de contraseñas.
+   * Genera mensajes descriptivos en español para cada tipo de error encontrado.
+   */
+  getError(control: string): string {
+    if (control === 'global') return this.errorMsg();
+
+    const formControl = this.formRegister.get(control);
+
+    if (control === 'confirmPassword' && this.formRegister.errors?.['passwordsDoNotMatch'] && formControl?.touched) {
+      return "Las contraseñas no coinciden";
+    }
+
+    if (!formControl || !formControl.touched || !formControl.errors) {
+      return '';
+    }
+
+    if (formControl.errors['required']) {
+      const fieldNameMap: { [key: string]: string } = {
+        name: 'nombre',
+        email: 'email',
+        password: 'password',
+        confirmPassword: 'confirmar contraseña'
+      };
+      return `El campo ${fieldNameMap[control] || control} es requerido`;
+    }
+
+    if (formControl.errors['minlength']) {
+      const requiredLength = formControl.errors['minlength'].requiredLength;
+      return `Debe tener al menos ${requiredLength} caracteres`;
+    }
+
+    if (formControl.errors['email']) {
+      return "El formato de email no es correcto";
+    }
+
+    if (formControl.errors['pattern']) {
+      return "Al menos una mayúscula, una minúscula, un número y 8 caracteres";
+    }
+
+    return "";
+  }
+}
+--- END OF FILE: src\app\pages\register\register.component.ts ---
+
+
+--- START OF FILE: src\app\shared\components\error-toast\error-toast.component.html ---
+@if (errorService.error()) {
+  <div class="fixed top-4 right-4 max-w-md z-50 animate-slide-in">
+    <div [ngClass]="getBackgroundClass(errorService.error()!.type)" 
+         class="rounded-md text-white px-5 py-4 shadow-lg border border-white/20">
+      <div class="flex items-start gap-3">
+        <div class="flex-shrink-0 mt-1">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+          </svg>
+        </div>
+        <div class="flex-1">
+          <p class="font-bold text-lg">{{ getErrorTitle(errorService.error()!.type) }}</p>
+          <p class="text-sm mt-1 text-gray-100">{{ errorService.error()!.message }}</p>
+        </div>
+        <button 
+          (click)="errorService.clearError()" 
+          class="flex-shrink-0 text-2xl leading-none hover:opacity-75 transition-opacity">
+          &times;
+        </button>
+      </div>
+    </div>
+  </div>
+}
+
+
+--- END OF FILE: src\app\shared\components\error-toast\error-toast.component.html ---
+
+
+--- START OF FILE: src\app\shared\components\error-toast\error-toast.component.scss ---
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+
+--- END OF FILE: src\app\shared\components\error-toast\error-toast.component.scss ---
+
+
+--- START OF FILE: src\app\shared\components\error-toast\error-toast.component.ts ---
+import { Component, inject } from '@angular/core';
+import { ErrorService } from '../../../core/services/error.service';
+import { CommonModule } from '@angular/common';
+import { ErrorType } from '../../../core/models/app-error';
+
+@Component({
+  selector: 'app-error-toast',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './error-toast.component.html',
+  styleUrl: './error-toast.component.scss'
+})
+export class ErrorToastComponent {
+  errorService = inject(ErrorService);
+  
+  getErrorTitle(type: ErrorType): string {
+    const titles: Record<string, string> = {
+      auth: 'Error de Autenticación',
+      network: 'Error de Conexión',
+      validation: 'Error de Validación',
+      server: 'Error del Servidor',
+      unknown: 'Error'
+    };
+    return titles[type] || 'Error';
+  }
+  
+  getBackgroundClass(type: ErrorType): string {
+    const classes: Record<string, string> = {
+      auth: 'bg-gradient-to-br from-red-600 via-red-500 to-pink-600',
+      network: 'bg-gradient-to-br from-orange-600 via-orange-500 to-yellow-600',
+      validation: 'bg-gradient-to-br from-yellow-600 via-yellow-500 to-orange-500',
+      server: 'bg-gradient-to-br from-red-700 via-red-600 to-red-500',
+      unknown: 'bg-gradient-to-br from-gray-700 via-gray-600 to-gray-500'
+    };
+    return classes[type] || 'bg-gradient-to-br from-gray-700 via-gray-600 to-gray-500';
+  }
+}
+
+
+--- END OF FILE: src\app\shared\components\error-toast\error-toast.component.ts ---
+
+
+--- START OF FILE: src\environments\environment.development.ts ---
+export const environment = {
+    production: false,
+    apiUrl: 'http://localhost:3000/api'
+  };
+--- END OF FILE: src\environments\environment.development.ts ---
+
+
+--- START OF FILE: src\environments\environment.ts ---
+export const environment = {
+    production: true,
+    apiUrl: 'https://api.midominio.com/api'
+  };
+--- END OF FILE: src\environments\environment.ts ---
+
+
+--- START OF FILE: src\index.html ---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Credentials</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+  <app-root></app-root>
+</body>
+</html>
+
+--- END OF FILE: src\index.html ---
+
+
+--- START OF FILE: src\main.ts ---
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, appConfig)
+  .catch((err) => console.error(err));
+
+--- END OF FILE: src\main.ts ---
+
+
+--- START OF FILE: src\styles.scss ---
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+--- END OF FILE: src\styles.scss ---
+
+
+--- START OF FILE: tailwind.config.js ---
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/**/*.{html,ts}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+--- END OF FILE: tailwind.config.js ---
+
+
+--- START OF FILE: tsconfig.app.json ---
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/app",
+    "types": []
+  },
+  "files": [
+    "src/main.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}
+
+--- END OF FILE: tsconfig.app.json ---
+
+
+--- START OF FILE: tsconfig.json ---
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "outDir": "./dist/out-tsc",
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022"
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}
+
+--- END OF FILE: tsconfig.json ---
+
+
+--- START OF FILE: tsconfig.spec.json ---
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "types": [
+      "jasmine"
+    ]
+  },
+  "include": [
+    "src/**/*.spec.ts",
+    "src/**/*.d.ts"
+  ]
+}
+
+--- END OF FILE: tsconfig.spec.json ---

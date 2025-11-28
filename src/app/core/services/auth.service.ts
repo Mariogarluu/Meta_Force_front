@@ -75,7 +75,12 @@ export class AuthService {
    */
   register(data: RegisterInput): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, data).pipe(
-      tap(response => this.setSession(response)),
+      tap(response => {
+        // Solo iniciamos sesión automáticamente si la cuenta está activa
+        if (response.user.status === 'ACTIVE') {
+          this.setSession(response);
+        }
+      }),
       catchError(this.handleError)
     );
   }

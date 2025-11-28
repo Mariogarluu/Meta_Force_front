@@ -1,16 +1,16 @@
-<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+<div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
   @if(auth.currentUser(); as user) {
-    <!-- Header -->
-    <header class="bg-gray-800/50 backdrop-blur-md border-b border-gray-700 sticky top-0 z-10">
+    <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div class="flex justify-between items-center">
           <div class="flex items-center gap-4">
-            <h1 class="text-2xl font-bold text-white">Meta Force Dashboard</h1>
+            <h1 class="text-2xl font-bold text-blue-900 dark:text-white">Meta Force Dashboard</h1>
             <span [class]="'px-3 py-1 rounded-full text-xs font-semibold text-white ' + roleColor()">
               {{ getRoleIcon(user.role) }} {{ roleName() }}
             </span>
           </div>
           <div class="flex items-center gap-4">
+            <app-theme-toggle></app-theme-toggle>
             <button 
               (click)="openRoleEditor()"
               class="px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors text-sm font-medium">
@@ -26,34 +26,30 @@
       </div>
     </header>
 
-    <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <!-- Welcome Card -->
-      <div class="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-xl p-6 mb-8 border border-cyan-500/20">
-        <h2 class="text-3xl font-bold text-white mb-2">
+      <div class="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 dark:from-cyan-500/10 dark:to-blue-500/10 rounded-xl p-6 mb-8 border border-cyan-200 dark:border-cyan-500/20">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
           ¡Bienvenido, {{ user.name }}! 👋
         </h2>
-        <p class="text-gray-300">
-          Has iniciado sesión como <span class="font-semibold text-cyan-400">{{ roleName() }}</span>
+        <p class="text-gray-700 dark:text-gray-300">
+          Has iniciado sesión como <span class="font-semibold text-cyan-600 dark:text-cyan-400">{{ roleName() }}</span>
           @if(user.center) {
-            en <span class="font-semibold text-cyan-400">{{ user.center.name }}</span>
+            en <span class="font-semibold text-cyan-600 dark:text-cyan-400">{{ user.center.name }}</span>
           }
         </p>
       </div>
 
-      <!-- Role-specific Content -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @if(isSuperAdmin()) {
-          <!-- SUPERADMIN Cards -->
-          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">👑</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Administración Global</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Administración Global</h3>
             </div>
-            <p class="text-gray-400 mb-4">Gestiona todos los centros, usuarios y configuraciones del sistema.</p>
-            <ul class="space-y-2 text-sm text-gray-300">
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Gestiona todos los centros, usuarios y configuraciones del sistema.</p>
+            <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
               <li>✅ Acceso completo a todos los centros</li>
               <li>✅ Gestión de usuarios y roles</li>
               <li>✅ Configuración del sistema</li>
@@ -61,14 +57,14 @@
             </ul>
           </div>
 
-          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">🏢</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Gestión de Centros</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Gestión de Centros</h3>
             </div>
-            <p class="text-gray-400 mb-4">Crea, edita y elimina centros de entrenamiento.</p>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Crea, edita y elimina centros de entrenamiento.</p>
             <a 
               routerLink="/centers"
               class="block w-full px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
@@ -78,86 +74,175 @@
 
           <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
             <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">🏋️</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">Gestión de Máquinas</h3>
+            </div>
+            <p class="text-gray-400 mb-4">Administra el inventario de máquinas de todos los centros.</p>
+            <a 
+              routerLink="/machines"
+              class="block w-full px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Gestionar Máquinas
+            </a>
+          </div>
+
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
+            <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">👥</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Gestión de Empleados</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Gestión de Usuarios</h3>
             </div>
-            <p class="text-gray-400 mb-4">Administra todos los empleados de todos los centros.</p>
-            <button class="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
-              Gestionar Empleados
-            </button>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Administra todos los usuarios y valida cuentas pendientes.</p>
+            <a 
+              routerLink="/users"
+              class="block w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Gestionar Usuarios
+            </a>
+          </div>
+
+          <!-- QR Code Card -->
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mi Código QR</h3>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Accede al gimnasio con tu código QR personal.</p>
+            <a 
+              routerLink="/qr"
+              class="block w-full px-4 py-2 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Ver Mi QR
+            </a>
           </div>
         }
 
         @if(isAdminCenter()) {
-          <!-- ADMIN_CENTER Cards -->
-          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">🏢</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Centros</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mi Centro</h3>
             </div>
-            <p class="text-gray-400 mb-4">Visualiza todos los centros disponibles.</p>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Visualiza la información de tu centro.</p>
             <a 
               routerLink="/centers"
               class="block w-full px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
-              Ver Centros
+              Ver Centro
             </a>
           </div>
 
           <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
             <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">🏋️</span>
+              </div>
+              <h3 class="text-xl font-bold text-white">Máquinas</h3>
+            </div>
+            <p class="text-gray-400 mb-4">Gestiona el estado del equipamiento de tu centro.</p>
+            <a 
+              routerLink="/machines"
+              class="block w-full px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Gestionar Máquinas
+            </a>
+          </div>
+
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
+            <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">👥</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Empleados</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Usuarios</h3>
             </div>
-            <p class="text-gray-400 mb-4">Administra los empleados de tu centro.</p>
-            <button class="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
-              Gestionar Empleados
-            </button>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Administra los usuarios de tu centro y valida cuentas.</p>
+            <a 
+              routerLink="/users"
+              class="block w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Gestionar Usuarios
+            </a>
           </div>
 
-          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">📊</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Estadísticas</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Estadísticas</h3>
             </div>
-            <p class="text-gray-400 mb-4">Visualiza las estadísticas de tu centro.</p>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Visualiza las estadísticas de tu centro.</p>
             <button class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium">
               Ver Estadísticas
             </button>
           </div>
+
+          <!-- QR Code Card -->
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mi Código QR</h3>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Accede al gimnasio con tu código QR personal.</p>
+            <a 
+              routerLink="/qr"
+              class="block w-full px-4 py-2 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Ver Mi QR
+            </a>
+          </div>
         }
 
         @if(!isSuperAdmin() && !isAdminCenter()) {
-          <!-- USER/TRAINER/CLEANER Cards -->
-          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">{{ getRoleIcon(user.role) }}</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Mi Perfil</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mi Perfil</h3>
             </div>
-            <p class="text-gray-400 mb-4">Gestiona tu información personal.</p>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Gestiona tu información personal.</p>
             <button class="w-full px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors text-sm font-medium">
               Editar Perfil
             </button>
           </div>
 
+          <!-- QR Code Card for all users -->
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mi Código QR</h3>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Accede al gimnasio con tu código QR personal.</p>
+            <a 
+              routerLink="/qr"
+              class="block w-full px-4 py-2 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Ver Mi QR
+            </a>
+          </div>
+
           @if(user.role === 'TRAINER') {
-            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+            <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
               <div class="flex items-center gap-3 mb-4">
                 <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
                   <span class="text-2xl">📅</span>
                 </div>
-                <h3 class="text-xl font-bold text-white">Mis Clases</h3>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mis Clases</h3>
               </div>
-              <p class="text-gray-400 mb-4">Gestiona tus clases y horarios.</p>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">Gestiona tus clases y horarios.</p>
               <button class="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
                 Ver Clases
               </button>
@@ -166,39 +251,37 @@
         }
       </div>
 
-      <!-- User Info Card -->
-      <div class="mt-8 bg-gray-800 rounded-xl p-6 border border-gray-700">
-        <h3 class="text-xl font-bold text-white mb-4">Información del Usuario</h3>
+      <div class="mt-8 bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Información del Usuario</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <p class="text-gray-400 text-sm">Nombre</p>
-            <p class="text-white font-semibold">{{ user.name }}</p>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Nombre</p>
+            <p class="text-gray-900 dark:text-white font-semibold">{{ user.name }}</p>
           </div>
           <div>
-            <p class="text-gray-400 text-sm">Email</p>
-            <p class="text-white font-semibold">{{ user.email }}</p>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Email</p>
+            <p class="text-gray-900 dark:text-white font-semibold">{{ user.email }}</p>
           </div>
           <div>
-            <p class="text-gray-400 text-sm">Rol</p>
-            <p class="text-white font-semibold">{{ roleName() }}</p>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Rol</p>
+            <p class="text-gray-900 dark:text-white font-semibold">{{ roleName() }}</p>
           </div>
           @if(user.center) {
             <div>
-              <p class="text-gray-400 text-sm">Centro</p>
-              <p class="text-white font-semibold">{{ user.center.name }}</p>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">Centro</p>
+              <p class="text-gray-900 dark:text-white font-semibold">{{ user.center.name }}</p>
             </div>
           }
           @if(user.createdAt) {
             <div>
-              <p class="text-gray-400 text-sm">Fecha de registro</p>
-              <p class="text-white font-semibold">{{ user.createdAt | date:'dd/MM/yyyy' }}</p>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">Fecha de registro</p>
+              <p class="text-gray-900 dark:text-white font-semibold">{{ user.createdAt | date:'dd/MM/yyyy' }}</p>
             </div>
           }
         </div>
       </div>
     </main>
 
-    <!-- Role Editor Modal -->
     @if(showRoleEditor()) {
       <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
         <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-700">
