@@ -1,11 +1,12 @@
-<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-  <header class="bg-gray-800/50 backdrop-blur-md border-b border-gray-700 sticky top-0 z-10">
+<div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
+  <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm transition-colors duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-4">
-          <h1 class="text-2xl font-bold text-white">Gestión de Centros</h1>
+          <h1 class="text-2xl font-bold text-blue-900 dark:text-white">Gestión de Centros</h1>
         </div>
         <div class="flex items-center gap-4">
+          <app-theme-toggle></app-theme-toggle>
           @if(canCreate()) {
             <button 
               (click)="openCreateModal()"
@@ -25,7 +26,7 @@
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     @if(errorMessage()) {
-      <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400">
+      <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-600 dark:text-red-400">
         {{ errorMessage() }}
       </div>
     }
@@ -37,7 +38,7 @@
         [class.bg-cyan-500]="!showFilters()"
         [class.text-white]="!hasActiveFilters()"
         [class.text-yellow-300]="hasActiveFilters()"
-        class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90">
+        class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90 text-white shadow-sm">
         <span>🔍</span>
         @if(showFilters()) {
           <span>Ocultar Filtros</span>
@@ -51,13 +52,13 @@
     </div>
 
     @if(showFilters()) {
-      <div class="mb-6 bg-gray-800 rounded-xl p-6 border border-gray-700 shadow-sm">
+      <div class="mb-6 bg-white dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-lg font-bold text-white">Filtros de Búsqueda</h2>
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white">Filtros de Búsqueda</h2>
           @if(hasActiveFilters()) {
             <button 
               (click)="clearFilters()"
-              class="px-3 py-1 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors text-sm">
+              class="px-3 py-1 bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-500/20 dark:text-red-400 dark:hover:bg-red-500/30 rounded-lg transition-colors text-sm">
               Limpiar Filtros
             </button>
           }
@@ -65,99 +66,48 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Nombre</label>
-            <input 
-              type="text"
-              [ngModel]="filterName()"
-              (ngModelChange)="filterName.set($event)"
-              placeholder="Buscar por nombre..."
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Nombre</label>
+            <input type="text" [ngModel]="filterName()" (ngModelChange)="filterName.set($event)" placeholder="Buscar por nombre..." class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
-
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Descripción</label>
-            <input 
-              type="text"
-              [ngModel]="filterDescription()"
-              (ngModelChange)="filterDescription.set($event)"
-              placeholder="Buscar por descripción..."
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Descripción</label>
+            <input type="text" [ngModel]="filterDescription()" (ngModelChange)="filterDescription.set($event)" placeholder="Buscar por descripción..." class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
-
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Dirección</label>
-            <input 
-              type="text"
-              [ngModel]="filterAddress()"
-              (ngModelChange)="filterAddress.set($event)"
-              placeholder="Buscar por dirección..."
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Dirección</label>
+            <input type="text" [ngModel]="filterAddress()" (ngModelChange)="filterAddress.set($event)" placeholder="Buscar por dirección..." class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
-
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Ciudad</label>
-            <input 
-              type="text"
-              [ngModel]="filterCity()"
-              (ngModelChange)="filterCity.set($event)"
-              placeholder="Buscar por ciudad..."
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Ciudad</label>
+            <input type="text" [ngModel]="filterCity()" (ngModelChange)="filterCity.set($event)" placeholder="Buscar por ciudad..." class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
-
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">País</label>
-            <input 
-              type="text"
-              [ngModel]="filterCountry()"
-              (ngModelChange)="filterCountry.set($event)"
-              placeholder="Buscar por país..."
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">País</label>
+            <input type="text" [ngModel]="filterCountry()" (ngModelChange)="filterCountry.set($event)" placeholder="Buscar por país..." class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
-
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Teléfono</label>
-            <input 
-              type="text"
-              [ngModel]="filterPhone()"
-              (ngModelChange)="filterPhone.set($event)"
-              placeholder="Buscar por teléfono..."
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Teléfono</label>
+            <input type="text" [ngModel]="filterPhone()" (ngModelChange)="filterPhone.set($event)" placeholder="Buscar por teléfono..." class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
-
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Email</label>
-            <input 
-              type="text"
-              [ngModel]="filterEmail()"
-              (ngModelChange)="filterEmail.set($event)"
-              placeholder="Buscar por email..."
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Email</label>
+            <input type="text" [ngModel]="filterEmail()" (ngModelChange)="filterEmail.set($event)" placeholder="Buscar por email..." class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
-
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Fecha desde</label>
-            <input 
-              type="date"
-              [ngModel]="filterDateFrom()"
-              (ngModelChange)="filterDateFrom.set($event)"
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Fecha desde</label>
+            <input type="date" [ngModel]="filterDateFrom()" (ngModelChange)="filterDateFrom.set($event)" class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
-
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Fecha hasta</label>
-            <input 
-              type="date"
-              [ngModel]="filterDateTo()"
-              (ngModelChange)="filterDateTo.set($event)"
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Fecha hasta</label>
+            <input type="date" [ngModel]="filterDateTo()" (ngModelChange)="filterDateTo.set($event)" class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
         </div>
 
         @if(hasActiveFilters()) {
-          <div class="mt-4 pt-4 border-t border-gray-700">
-            <p class="text-sm text-gray-400">
-              Mostrando <span class="text-white font-semibold">{{ filteredCenters().length }}</span> de 
-              <span class="text-white font-semibold">{{ centers().length }}</span> centros
+          <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+              Mostrando <span class="text-gray-900 dark:text-white font-semibold">{{ filteredCenters().length }}</span> de 
+              <span class="text-gray-900 dark:text-white font-semibold">{{ centers().length }}</span> centros
             </p>
           </div>
         }
@@ -168,13 +118,13 @@
       <div class="flex items-center justify-center py-12">
         <div class="text-center">
           <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
-          <p class="text-gray-300">Cargando centros...</p>
+          <p class="text-gray-700 dark:text-gray-300">Cargando centros...</p>
         </div>
       </div>
     } @else {
       @if(filteredCenters().length === 0) {
         <div class="text-center py-12">
-          <p class="text-gray-400 text-lg">
+          <p class="text-gray-600 dark:text-gray-400 text-lg">
             @if(hasActiveFilters()) {
               No se encontraron centros con los filtros aplicados
             } @else {
@@ -185,47 +135,47 @@
       } @else {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           @for(center of filteredCenters(); track center.id || center.name) {
-            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-all shadow-sm hover:shadow-md">
               <div 
                 (click)="openViewModal(center)"
                 class="cursor-pointer">
                 <div class="flex items-start justify-between mb-4">
                   <div class="flex-1">
-                    <h3 class="text-xl font-bold text-white mb-2">{{ center.name }}</h3>
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ center.name }}</h3>
                     @if(center.description) {
-                      <p class="text-gray-400 text-sm mb-2">{{ center.description }}</p>
+                      <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">{{ center.description }}</p>
                     }
                   </div>
                   @if(center.id && (isSuperAdmin() || isAdminCenter())) {
-                    <span class="text-xs text-gray-500">ID: {{ center.id.substring(0, 8) }}...</span>
+                    <span class="text-xs text-gray-500 dark:text-gray-500">ID: {{ center.id.substring(0, 8) }}...</span>
                   }
                 </div>
 
                 @if(isSuperAdmin() || isAdminCenter()) {
                   <div class="space-y-2 mb-4">
                     @if(center.city || center.country) {
-                      <p class="text-gray-300 text-sm">
+                      <p class="text-gray-700 dark:text-gray-300 text-sm">
                         📍 {{ center.city }}{{ center.city && center.country ? ', ' : '' }}{{ center.country }}
                       </p>
                     }
                     @if(center.address) {
-                      <p class="text-gray-400 text-xs">{{ center.address }}</p>
+                      <p class="text-gray-500 dark:text-gray-400 text-xs">{{ center.address }}</p>
                     }
                     @if(center.phone) {
-                      <p class="text-gray-300 text-sm">📞 {{ center.phone }}</p>
+                      <p class="text-gray-700 dark:text-gray-300 text-sm">📞 {{ center.phone }}</p>
                     }
                     @if(center.email) {
-                      <p class="text-gray-300 text-sm">✉️ {{ center.email }}</p>
+                      <p class="text-gray-700 dark:text-gray-300 text-sm">✉️ {{ center.email }}</p>
                     }
                   </div>
                 }
               </div>
 
               <div class="flex gap-2 mt-4" (click)="$event.stopPropagation()">
-                @if(isSuperAdmin() || (isAdminCenter() && center.id === currentUser()?.centerId)) {
+                @if(canModify(center)) {
                   <button 
                     (click)="openEditModal(center)"
-                    class="flex-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
+                    class="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
                     Editar
                   </button>
                 }
@@ -233,7 +183,7 @@
                 @if(canDelete()) {
                   <button 
                     (click)="openDeleteModal(center)"
-                    class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium">
+                    class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
                     Eliminar
                   </button>
                 }
@@ -247,81 +197,81 @@
 
   @if(showCreateModal()) {
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
-        <h3 class="text-2xl font-bold text-white mb-6">Crear Nuevo Centro</h3>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-2xl transition-colors duration-300">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Crear Nuevo Centro</h3>
         
         @if(errorMessage()) {
-          <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
+          <div class="mb-4 p-3 bg-red-50 dark:bg-red-500/20 border border-red-300 dark:border-red-500 rounded-lg text-red-600 dark:text-red-400 text-sm">
             {{ errorMessage() }}
           </div>
         }
 
         <form (ngSubmit)="createCenter()" class="space-y-4">
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Nombre *</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Nombre *</label>
             <input 
               type="text"
               [(ngModel)]="centerForm().name"
               name="name"
               required
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
 
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Descripción</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Descripción</label>
             <textarea 
               [(ngModel)]="centerForm().description"
               name="description"
               rows="3"
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"></textarea>
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"></textarea>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-gray-300 text-sm font-medium mb-2">Ciudad</label>
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Ciudad</label>
               <input 
                 type="text"
                 [(ngModel)]="centerForm().city"
                 name="city"
-                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
             </div>
 
             <div>
-              <label class="block text-gray-300 text-sm font-medium mb-2">País</label>
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">País</label>
               <input 
                 type="text"
                 [(ngModel)]="centerForm().country"
                 name="country"
-                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
             </div>
           </div>
 
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Dirección</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Dirección</label>
             <input 
               type="text"
               [(ngModel)]="centerForm().address"
               name="address"
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-gray-300 text-sm font-medium mb-2">Teléfono</label>
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Teléfono</label>
               <input 
                 type="tel"
                 [(ngModel)]="centerForm().phone"
                 name="phone"
-                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
             </div>
 
             <div>
-              <label class="block text-gray-300 text-sm font-medium mb-2">Email</label>
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Email</label>
               <input 
                 type="email"
                 [(ngModel)]="centerForm().email"
                 name="email"
-                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
             </div>
           </div>
 
@@ -330,13 +280,13 @@
               type="button"
               (click)="closeCreateModal()"
               [disabled]="isLoading()"
-              class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors disabled:opacity-50">
               Cancelar
             </button>
             <button 
               type="submit"
               [disabled]="isLoading()"
-              class="flex-1 px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              class="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors disabled:opacity-50 shadow-md">
               @if(isLoading()) {
                 Creando...
               } @else {
@@ -351,81 +301,46 @@
 
   @if(showEditModal()) {
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
-        <h3 class="text-2xl font-bold text-white mb-6">Editar Centro</h3>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-2xl transition-colors duration-300">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Editar Centro</h3>
         
         @if(errorMessage()) {
-          <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
+          <div class="mb-4 p-3 bg-red-50 dark:bg-red-500/20 border border-red-300 dark:border-red-500 rounded-lg text-red-600 dark:text-red-400 text-sm">
             {{ errorMessage() }}
           </div>
         }
 
         <form (ngSubmit)="updateCenter()" class="space-y-4">
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Nombre *</label>
-            <input 
-              type="text"
-              [(ngModel)]="centerForm().name"
-              name="name"
-              required
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Nombre *</label>
+            <input type="text" [(ngModel)]="centerForm().name" name="name" required class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
-
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Descripción</label>
-            <textarea 
-              [(ngModel)]="centerForm().description"
-              name="description"
-              rows="3"
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"></textarea>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Descripción</label>
+            <textarea [(ngModel)]="centerForm().description" name="description" rows="3" class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"></textarea>
           </div>
-
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-gray-300 text-sm font-medium mb-2">Ciudad</label>
-              <input 
-                type="text"
-                [(ngModel)]="centerForm().city"
-                name="city"
-                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Ciudad</label>
+              <input type="text" [(ngModel)]="centerForm().city" name="city" class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
             </div>
-
             <div>
-              <label class="block text-gray-300 text-sm font-medium mb-2">País</label>
-              <input 
-                type="text"
-                [(ngModel)]="centerForm().country"
-                name="country"
-                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">País</label>
+              <input type="text" [(ngModel)]="centerForm().country" name="country" class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
             </div>
           </div>
-
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Dirección</label>
-            <input 
-              type="text"
-              [(ngModel)]="centerForm().address"
-              name="address"
-              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Dirección</label>
+            <input type="text" [(ngModel)]="centerForm().address" name="address" class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
-
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-gray-300 text-sm font-medium mb-2">Teléfono</label>
-              <input 
-                type="tel"
-                [(ngModel)]="centerForm().phone"
-                name="phone"
-                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Teléfono</label>
+              <input type="tel" [(ngModel)]="centerForm().phone" name="phone" class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
             </div>
-
             <div>
-              <label class="block text-gray-300 text-sm font-medium mb-2">Email</label>
-              <input 
-                type="email"
-                [(ngModel)]="centerForm().email"
-                name="email"
-                class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Email</label>
+              <input type="email" [(ngModel)]="centerForm().email" name="email" class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
             </div>
           </div>
 
@@ -434,13 +349,13 @@
               type="button"
               (click)="closeEditModal()"
               [disabled]="isLoading()"
-              class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors disabled:opacity-50">
               Cancelar
             </button>
             <button 
               type="submit"
               [disabled]="isLoading()"
-              class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              class="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors disabled:opacity-50 shadow-md">
               @if(isLoading()) {
                 Guardando...
               } @else {
@@ -455,73 +370,71 @@
 
   @if(showViewModal()) {
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
-        <h3 class="text-2xl font-bold text-white mb-6">Información del Centro</h3>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-2xl transition-colors duration-300">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Información del Centro</h3>
         
         @if(viewCenter()) {
-          <div class="space-y-4">
+          <div class="space-y-4 text-gray-700 dark:text-gray-300">
             <div>
-              <label class="block text-gray-400 text-sm font-medium mb-1">Nombre</label>
-              <p class="text-white text-lg font-semibold">{{ viewCenter()!.name }}</p>
+              <label class="block text-gray-500 dark:text-gray-400 text-sm font-medium mb-1">Nombre</label>
+              <p class="text-gray-900 dark:text-white text-lg font-semibold">{{ viewCenter()!.name }}</p>
             </div>
 
             @if(viewCenter()!.description) {
               <div>
-                <label class="block text-gray-400 text-sm font-medium mb-1">Descripción</label>
-                <p class="text-gray-300">{{ viewCenter()!.description }}</p>
+                <label class="block text-gray-500 dark:text-gray-400 text-sm font-medium mb-1">Descripción</label>
+                <p>{{ viewCenter()!.description }}</p>
               </div>
             }
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               @if(viewCenter()!.city) {
                 <div>
-                  <label class="block text-gray-400 text-sm font-medium mb-1">Ciudad</label>
-                  <p class="text-gray-300">{{ viewCenter()!.city }}</p>
+                  <label class="block text-gray-500 dark:text-gray-400 text-sm font-medium mb-1">Ciudad</label>
+                  <p>{{ viewCenter()!.city }}</p>
                 </div>
               }
-
               @if(viewCenter()!.country) {
                 <div>
-                  <label class="block text-gray-400 text-sm font-medium mb-1">País</label>
-                  <p class="text-gray-300">{{ viewCenter()!.country }}</p>
+                  <label class="block text-gray-500 dark:text-gray-400 text-sm font-medium mb-1">País</label>
+                  <p>{{ viewCenter()!.country }}</p>
                 </div>
               }
             </div>
 
             @if(viewCenter()!.address) {
               <div>
-                <label class="block text-gray-400 text-sm font-medium mb-1">Dirección</label>
-                <p class="text-gray-300">{{ viewCenter()!.address }}</p>
+                <label class="block text-gray-500 dark:text-gray-400 text-sm font-medium mb-1">Dirección</label>
+                <p>{{ viewCenter()!.address }}</p>
               </div>
             }
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               @if(viewCenter()!.phone) {
                 <div>
-                  <label class="block text-gray-400 text-sm font-medium mb-1">Teléfono</label>
-                  <p class="text-gray-300">{{ viewCenter()!.phone }}</p>
+                  <label class="block text-gray-500 dark:text-gray-400 text-sm font-medium mb-1">Teléfono</label>
+                  <p>{{ viewCenter()!.phone }}</p>
                 </div>
               }
-
               @if(viewCenter()!.email) {
                 <div>
-                  <label class="block text-gray-400 text-sm font-medium mb-1">Email</label>
-                  <p class="text-gray-300">{{ viewCenter()!.email }}</p>
+                  <label class="block text-gray-500 dark:text-gray-400 text-sm font-medium mb-1">Email</label>
+                  <p>{{ viewCenter()!.email }}</p>
                 </div>
               }
             </div>
 
             @if(viewCenter()!.id) {
               <div>
-                <label class="block text-gray-400 text-sm font-medium mb-1">ID</label>
-                <p class="text-gray-500 text-xs font-mono">{{ viewCenter()!.id }}</p>
+                <label class="block text-gray-500 dark:text-gray-400 text-sm font-medium mb-1">ID</label>
+                <p class="text-xs font-mono text-gray-400">{{ viewCenter()!.id }}</p>
               </div>
             }
-
+            
             @if(viewCenter()!.createdAt) {
               <div>
-                <label class="block text-gray-400 text-sm font-medium mb-1">Fecha de Creación</label>
-                <p class="text-gray-300">{{ viewCenter()!.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+                <label class="block text-gray-500 dark:text-gray-400 text-sm font-medium mb-1">Fecha de Creación</label>
+                <p>{{ viewCenter()!.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
               </div>
             }
           </div>
@@ -530,14 +443,14 @@
         <div class="flex gap-3 mt-6">
           <button 
             (click)="closeViewModal()"
-            class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors">
+            class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors">
             Cerrar
           </button>
           
           @if(viewCenter() && (isSuperAdmin() || (isAdminCenter() && viewCenter()!.id === currentUser()?.centerId))) {
             <button 
               (click)="closeViewModal(); openEditModal(viewCenter()!)"
-              class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+              class="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors shadow-md">
               Editar
             </button>
           }
@@ -548,33 +461,27 @@
 
   @if(showDeleteModal()) {
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-700">
-        <h3 class="text-2xl font-bold text-white mb-4">Eliminar Centro</h3>
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-200 dark:border-gray-700 shadow-2xl transition-colors duration-300">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Eliminar Centro</h3>
         
         @if(selectedCenter()) {
-          <p class="text-gray-300 mb-6">
-            ¿Estás seguro de que deseas eliminar el centro <span class="font-semibold text-white">{{ selectedCenter()!.name }}</span>?
-            Esta acción no se puede deshacer.
+          <p class="text-gray-600 dark:text-gray-300 mb-6">
+            ¿Estás seguro de que deseas eliminar el centro <span class="font-semibold text-gray-900 dark:text-white">{{ selectedCenter()!.name }}</span>?
+            Cette action est irréversible.
           </p>
-        }
-
-        @if(errorMessage()) {
-          <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
-            {{ errorMessage() }}
-          </div>
         }
 
         <div class="flex gap-3">
           <button 
             (click)="closeDeleteModal()"
             [disabled]="isLoading()"
-            class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
+            class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors disabled:opacity-50">
             Cancelar
           </button>
           <button 
             (click)="deleteCenter()"
             [disabled]="isLoading()"
-            class="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors disabled:opacity-50">
+            class="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors disabled:opacity-50 shadow-md">
             @if(isLoading()) {
               Eliminando...
             } @else {
