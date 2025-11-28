@@ -209,9 +209,10 @@ describe('AppComponent', () => {
 
 
 --- START OF FILE: src\app\app.component.ts ---
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { AuthService } from './core/services/auth.service';
+import { ThemeService } from './core/services/theme.service';
 import { ErrorToastComponent } from './shared/components/error-toast/error-toast.component';
 
 @Component({
@@ -220,12 +221,17 @@ import { ErrorToastComponent } from './shared/components/error-toast/error-toast
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'credentials';
+  private themeService = inject(ThemeService);
 
   constructor(){
   
+  }
 
+  ngOnInit() {
+    // El servicio de tema se inicializa automáticamente en su constructor
+    // pero lo inyectamos aquí para asegurar que se inicialice
   }
 }
 
@@ -258,7 +264,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { authGuard } from './core/guards/auth.guard';
 import { RegisterComponent } from './pages/register/register.component';
 import { CentersComponent } from './pages/centers/centers.component';
-// Importamos el componente de máquinas (lo crearemos en el siguiente paso)
+import { UsersComponent } from './pages/users/users.component';
+import { QrComponent } from './pages/qr/qr.component';
 import { MachinesComponent } from './pages/machines/machines.component';
 
 export const routes: Routes = [
@@ -286,9 +293,19 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
-        path: 'machines',
-        component: MachinesComponent, // Asegúrate de crear este componente o dará error
+        path: 'users',
+        component: UsersComponent,
         canActivate: [authGuard]
+    },
+    {
+        path: 'qr',
+        component: QrComponent,
+        canActivate: [authGuard]
+    },
+    {
+         path: 'machines',
+         component: MachinesComponent,
+         canActivate: [authGuard]
     }
 ];
 --- END OF FILE: src\app\app.routes.ts ---
@@ -428,6 +445,8 @@ export interface AppError {
 
 
 --- START OF FILE: src\app\core\models\auth.ts ---
+import type { Role, UserStatus } from './user';
+
 export interface AuthInput {
   email: string;
   password?: string;
@@ -435,7 +454,7 @@ export interface AuthInput {
 
 export interface RegisterInput extends AuthInput {
   name: string;
-  role?: 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+  role?: Role;
 }
 
 export interface AuthResponse {
@@ -444,8 +463,10 @@ export interface AuthResponse {
     id: string;
     email: string;
     name: string;
-    role: 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+    role: Role;
+    status?: UserStatus;
     createdAt?: string;
+    centerId?: string;
   };
 }
 --- END OF FILE: src\app\core\models\auth.ts ---
@@ -542,11 +563,15 @@ export interface UpdateMachineInput {
 
 
 --- START OF FILE: src\app\core\models\user.ts ---
+export type Role = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+export type UserStatus = 'PENDING' | 'ACTIVE' | 'INACTIVE';
+
 export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+  role: Role;
+  status?: UserStatus;
   createdAt?: string;
   centerId?: string;
   center?: {
@@ -635,7 +660,12 @@ export class AuthService {
    */
   register(data: RegisterInput): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, data).pipe(
-      tap(response => this.setSession(response)),
+      tap(response => {
+        // Solo iniciamos sesión automáticamente si la cuenta está activa
+        if (response.user.status === 'ACTIVE') {
+          this.setSession(response);
+        }
+      }),
       catchError(this.handleError)
     );
   }
@@ -1070,17 +1100,84 @@ export class MachinesService {
 --- END OF FILE: src\app\core\services\machines.service.ts ---
 
 
+--- START OF FILE: src\app\core\services\theme.service.ts ---
+import { Injectable, signal, computed } from '@angular/core';
+
+export type Theme = 'dark' | 'light';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ThemeService {
+  private _theme = signal<Theme>(this.getInitialTheme());
+  
+  public readonly theme = this._theme.asReadonly();
+  public readonly isDark = computed(() => this._theme() === 'dark');
+  public readonly isLight = computed(() => this._theme() === 'light');
+
+  constructor() {
+    this.applyTheme(this._theme());
+  }
+
+  /**
+   * Obtiene el tema inicial desde localStorage o usa 'dark' por defecto.
+   */
+  private getInitialTheme(): Theme {
+    const saved = localStorage.getItem('theme') as Theme;
+    if (saved) {
+      return saved;
+    }
+    // Por defecto, usar dark mode
+    return 'dark';
+  }
+
+  /**
+   * Aplica el tema al documento HTML agregando o removiendo la clase 'dark'.
+   */
+  private applyTheme(theme: Theme) {
+    const html = document.documentElement;
+    if (theme === 'dark') {
+      html.classList.add('dark');
+    } else {
+      html.classList.remove('dark');
+    }
+  }
+
+  /**
+   * Cambia el tema entre dark y light, guarda la preferencia y la aplica.
+   */
+  toggleTheme() {
+    const newTheme: Theme = this._theme() === 'dark' ? 'light' : 'dark';
+    this.setTheme(newTheme);
+  }
+
+  /**
+   * Establece un tema específico, guarda la preferencia y la aplica.
+   */
+  setTheme(theme: Theme) {
+    this._theme.set(theme);
+    localStorage.setItem('theme', theme);
+    this.applyTheme(theme);
+  }
+}
+
+
+--- END OF FILE: src\app\core\services\theme.service.ts ---
+
+
 --- START OF FILE: src\app\core\services\users.service.ts ---
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
-import { User } from '../models/user';
+import { User, Role, UserStatus } from '../models/user';
 
 export interface UpdateUserInput {
   name?: string;
   email?: string;
-  role?: 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+  role?: Role;
+  status?: UserStatus;
+  centerId?: string | null;
 }
 
 @Injectable({
@@ -1091,12 +1188,26 @@ export class UsersService {
   private apiUrl = `${environment.apiUrl}/users`;
 
   /**
+   * Lista todos los usuarios visibles para el usuario autenticado.
+   * SUPERADMIN ve todos, ADMIN_CENTER solo usuarios de su centro.
+   */
+  listUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.apiUrl);
+  }
+
+  /**
    * Actualiza los datos de un usuario específico identificado por su ID.
-   * Permite modificar nombre, email y/o rol según los permisos del usuario autenticado.
-   * Retorna un Observable que emite el usuario actualizado.
+   * Permite modificar nombre, email, rol, estado y centro según los permisos del usuario autenticado.
    */
   updateUser(id: string, data: UpdateUserInput): Observable<User> {
     return this.http.patch<User>(`${this.apiUrl}/${id}`, data);
+  }
+
+  /**
+   * Elimina un usuario por su ID.
+   */
+  deleteUser(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
   /**
@@ -1145,6 +1256,140 @@ export class UsersService {
       </div>
     }
 
+    <div class="mb-4 flex items-center justify-between">
+      <button 
+        (click)="toggleFilters()"
+        [class.bg-cyan-600]="showFilters()"
+        [class.bg-cyan-500]="!showFilters()"
+        [class.text-white]="!hasActiveFilters()"
+        [class.text-yellow-300]="hasActiveFilters()"
+        class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90">
+        <span>🔍</span>
+        @if(showFilters()) {
+          <span>Ocultar Filtros</span>
+        } @else {
+          <span>Filtros</span>
+        }
+        @if(hasActiveFilters()) {
+          <span class="px-1.5 py-0.5 bg-yellow-500/30 rounded text-xs">{{ filteredCenters().length }}/{{ centers().length }}</span>
+        }
+      </button>
+    </div>
+
+    @if(showFilters()) {
+      <div class="mb-6 bg-gray-800 rounded-xl p-6 border border-gray-700 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-bold text-white">Filtros de Búsqueda</h2>
+          @if(hasActiveFilters()) {
+            <button 
+              (click)="clearFilters()"
+              class="px-3 py-1 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors text-sm">
+              Limpiar Filtros
+            </button>
+          }
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Nombre</label>
+            <input 
+              type="text"
+              [ngModel]="filterName()"
+              (ngModelChange)="filterName.set($event)"
+              placeholder="Buscar por nombre..."
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Descripción</label>
+            <input 
+              type="text"
+              [ngModel]="filterDescription()"
+              (ngModelChange)="filterDescription.set($event)"
+              placeholder="Buscar por descripción..."
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Dirección</label>
+            <input 
+              type="text"
+              [ngModel]="filterAddress()"
+              (ngModelChange)="filterAddress.set($event)"
+              placeholder="Buscar por dirección..."
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Ciudad</label>
+            <input 
+              type="text"
+              [ngModel]="filterCity()"
+              (ngModelChange)="filterCity.set($event)"
+              placeholder="Buscar por ciudad..."
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">País</label>
+            <input 
+              type="text"
+              [ngModel]="filterCountry()"
+              (ngModelChange)="filterCountry.set($event)"
+              placeholder="Buscar por país..."
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Teléfono</label>
+            <input 
+              type="text"
+              [ngModel]="filterPhone()"
+              (ngModelChange)="filterPhone.set($event)"
+              placeholder="Buscar por teléfono..."
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Email</label>
+            <input 
+              type="text"
+              [ngModel]="filterEmail()"
+              (ngModelChange)="filterEmail.set($event)"
+              placeholder="Buscar por email..."
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Fecha desde</label>
+            <input 
+              type="date"
+              [ngModel]="filterDateFrom()"
+              (ngModelChange)="filterDateFrom.set($event)"
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Fecha hasta</label>
+            <input 
+              type="date"
+              [ngModel]="filterDateTo()"
+              (ngModelChange)="filterDateTo.set($event)"
+              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+        </div>
+
+        @if(hasActiveFilters()) {
+          <div class="mt-4 pt-4 border-t border-gray-700">
+            <p class="text-sm text-gray-400">
+              Mostrando <span class="text-white font-semibold">{{ filteredCenters().length }}</span> de 
+              <span class="text-white font-semibold">{{ centers().length }}</span> centros
+            </p>
+          </div>
+        }
+      </div>
+    }
+
     @if(isLoading() && centers().length === 0) {
       <div class="flex items-center justify-center py-12">
         <div class="text-center">
@@ -1153,13 +1398,19 @@ export class UsersService {
         </div>
       </div>
     } @else {
-      @if(centers().length === 0) {
+      @if(filteredCenters().length === 0) {
         <div class="text-center py-12">
-          <p class="text-gray-400 text-lg">No hay centros disponibles</p>
+          <p class="text-gray-400 text-lg">
+            @if(hasActiveFilters()) {
+              No se encontraron centros con los filtros aplicados
+            } @else {
+              No hay centros disponibles
+            }
+          </p>
         </div>
       } @else {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          @for(center of centers(); track center.id || center.name) {
+          @for(center of filteredCenters(); track center.id || center.name) {
             <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
               <div 
                 (click)="openViewModal(center)"
@@ -1197,13 +1448,14 @@ export class UsersService {
               </div>
 
               <div class="flex gap-2 mt-4" (click)="$event.stopPropagation()">
-                @if(canModify(center)) {
+                @if(isSuperAdmin() || (isAdminCenter() && center.id === currentUser()?.centerId)) {
                   <button 
                     (click)="openEditModal(center)"
                     class="flex-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
                     Editar
                   </button>
                 }
+                
                 @if(canDelete()) {
                   <button 
                     (click)="openDeleteModal(center)"
@@ -1508,7 +1760,7 @@ export class UsersService {
             Cerrar
           </button>
           
-          @if(viewCenter() && canModify(viewCenter()!)) {
+          @if(viewCenter() && (isSuperAdmin() || (isAdminCenter() && viewCenter()!.id === currentUser()?.centerId))) {
             <button 
               (click)="closeViewModal(); openEditModal(viewCenter()!)"
               class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
@@ -1577,11 +1829,14 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CentersService } from '../../core/services/centers.service';
 import { AuthService } from '../../core/services/auth.service';
-import { Center, CreateCenterInput, UpdateCenterInput } from '../../core/models/center';
+import { Center, CreateCenterInput } from '../../core/models/center';
+
+type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
 @Component({
   selector: 'app-centers',
   standalone: true,
+  // Se asume que ThemeToggleComponent no es necesario para la funcionalidad central
   imports: [CommonModule, FormsModule, RouterModule, DatePipe],
   templateUrl: './centers.component.html',
   styleUrl: './centers.component.scss'
@@ -1594,6 +1849,19 @@ export class CentersComponent implements OnInit {
   isLoading = signal(false);
   errorMessage = signal<string>('');
   
+  // --- ESTADO Y FILTROS ---
+  filterName = signal<string>('');
+  filterDescription = signal<string>('');
+  filterAddress = signal<string>('');
+  filterCity = signal<string>('');
+  filterCountry = signal<string>('');
+  filterPhone = signal<string>('');
+  filterEmail = signal<string>('');
+  filterDateFrom = signal<string>('');
+  filterDateTo = signal<string>('');
+  showFilters = signal(false);
+  // --------------------------
+  
   // Modal states
   showCreateModal = signal(false);
   showEditModal = signal(false);
@@ -1603,6 +1871,7 @@ export class CentersComponent implements OnInit {
   selectedCenter = signal<Center | null>(null);
   viewCenter = signal<Center | null>(null);
   
+  // Formulario como Signal
   centerForm = signal<CreateCenterInput>({
     name: '',
     description: '',
@@ -1621,13 +1890,84 @@ export class CentersComponent implements OnInit {
   canCreate = computed(() => this.isSuperAdmin());
   canDelete = computed(() => this.isSuperAdmin());
 
+  // --- LÓGICA DE FILTRADO Y COMPUTED ---
+  filteredCenters = computed(() => {
+    let filtered = this.centers();
+    
+    // Aplicar filtros de texto
+    if (this.filterName()) {
+      const nameFilter = this.filterName().toLowerCase();
+      filtered = filtered.filter(c => c.name.toLowerCase().includes(nameFilter));
+    }
+    if (this.filterDescription()) {
+      const descFilter = this.filterDescription().toLowerCase();
+      filtered = filtered.filter(c => c.description?.toLowerCase().includes(descFilter));
+    }
+    if (this.filterAddress()) {
+      const addressFilter = this.filterAddress().toLowerCase();
+      filtered = filtered.filter(c => c.address?.toLowerCase().includes(addressFilter));
+    }
+    if (this.filterCity()) {
+      const cityFilter = this.filterCity().toLowerCase();
+      filtered = filtered.filter(c => c.city?.toLowerCase().includes(cityFilter));
+    }
+    if (this.filterCountry()) {
+      const countryFilter = this.filterCountry().toLowerCase();
+      filtered = filtered.filter(c => c.country?.toLowerCase().includes(countryFilter));
+    }
+    if (this.filterPhone()) {
+      const phoneFilter = this.filterPhone().toLowerCase();
+      filtered = filtered.filter(c => c.phone?.toLowerCase().includes(phoneFilter));
+    }
+    if (this.filterEmail()) {
+      const emailFilter = this.filterEmail().toLowerCase();
+      filtered = filtered.filter(c => c.email?.toLowerCase().includes(emailFilter));
+    }
+    
+    // Aplicar filtros de fecha
+    if (this.filterDateFrom()) {
+      const dateFrom = new Date(this.filterDateFrom());
+      filtered = filtered.filter(c => {
+        if (!c.createdAt) return false;
+        return new Date(c.createdAt) >= dateFrom;
+      });
+    }
+    if (this.filterDateTo()) {
+      const dateTo = new Date(this.filterDateTo());
+      dateTo.setHours(23, 59, 59, 999); 
+      filtered = filtered.filter(c => {
+        if (!c.createdAt) return false;
+        return new Date(c.createdAt) <= dateTo;
+      });
+    }
+    
+    return filtered;
+  });
+
+  hasActiveFilters = computed(() => {
+    return !!(
+      this.filterName() ||
+      this.filterDescription() ||
+      this.filterAddress() ||
+      this.filterCity() ||
+      this.filterCountry() ||
+      this.filterPhone() ||
+      this.filterEmail() ||
+      this.filterDateFrom() ||
+      this.filterDateTo()
+    );
+  });
+  // ----------------------------------------------------
+
   ngOnInit() {
     this.loadCenters();
   }
 
-  // Nueva función para verificar si puede editar un centro específico
+  // Lógica principal para visibilidad de edición (Corregida)
   canModify(center: Center): boolean {
+    // Si eres SuperAdmin, puedes modificar cualquier cosa
     if (this.isSuperAdmin()) return true;
+    // Si eres AdminCenter, solo puedes modificar tu centro asignado
     if (this.isAdminCenter()) {
       return center.id === this.currentUser()?.centerId;
     }
@@ -1747,7 +2087,9 @@ export class CentersComponent implements OnInit {
   }
 
   createCenter() {
-    if (!this.centerForm().name.trim()) {
+    const formValue = this.centerForm();
+
+    if (!formValue.name.trim()) {
       this.errorMessage.set('El nombre del centro es obligatorio');
       return;
     }
@@ -1755,7 +2097,7 @@ export class CentersComponent implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set('');
 
-    this.centersService.createCenter(this.centerForm()).subscribe({
+    this.centersService.createCenter(formValue).subscribe({
       next: () => {
         this.isLoading.set(false);
         this.closeCreateModal();
@@ -1770,9 +2112,10 @@ export class CentersComponent implements OnInit {
 
   updateCenter() {
     const center = this.selectedCenter();
+    const formValue = this.centerForm();
     if (!center?.id) return;
 
-    if (!this.centerForm().name.trim()) {
+    if (!formValue.name.trim()) {
       this.errorMessage.set('El nombre del centro es obligatorio');
       return;
     }
@@ -1780,7 +2123,7 @@ export class CentersComponent implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set('');
 
-    this.centersService.updateCenter(center.id, this.centerForm()).subscribe({
+    this.centersService.updateCenter(center.id, formValue).subscribe({
       next: () => {
         this.isLoading.set(false);
         this.closeEditModal();
@@ -1812,23 +2155,41 @@ export class CentersComponent implements OnInit {
       }
     });
   }
+  
+  // --- MÉTODOS DE FILTRO ---
+  toggleFilters() {
+    this.showFilters.set(!this.showFilters());
+  }
+
+  clearFilters() {
+    this.filterName.set('');
+    this.filterDescription.set('');
+    this.filterAddress.set('');
+    this.filterCity.set('');
+    this.filterCountry.set('');
+    this.filterPhone.set('');
+    this.filterEmail.set('');
+    this.filterDateFrom.set('');
+    this.filterDateTo.set('');
+  }
 }
 --- END OF FILE: src\app\pages\centers\centers.component.ts ---
 
 
 --- START OF FILE: src\app\pages\dashboard\dashboard.component.html ---
-<div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+<div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
   @if(auth.currentUser(); as user) {
-    <header class="bg-gray-800/50 backdrop-blur-md border-b border-gray-700 sticky top-0 z-10">
+    <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div class="flex justify-between items-center">
           <div class="flex items-center gap-4">
-            <h1 class="text-2xl font-bold text-white">Meta Force Dashboard</h1>
+            <h1 class="text-2xl font-bold text-blue-900 dark:text-white">Meta Force Dashboard</h1>
             <span [class]="'px-3 py-1 rounded-full text-xs font-semibold text-white ' + roleColor()">
               {{ getRoleIcon(user.role) }} {{ roleName() }}
             </span>
           </div>
           <div class="flex items-center gap-4">
+            <app-theme-toggle></app-theme-toggle>
             <button 
               (click)="openRoleEditor()"
               class="px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors text-sm font-medium">
@@ -1845,29 +2206,29 @@ export class CentersComponent implements OnInit {
     </header>
 
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-xl p-6 mb-8 border border-cyan-500/20">
-        <h2 class="text-3xl font-bold text-white mb-2">
+      <div class="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 dark:from-cyan-500/10 dark:to-blue-500/10 rounded-xl p-6 mb-8 border border-cyan-200 dark:border-cyan-500/20">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
           ¡Bienvenido, {{ user.name }}! 👋
         </h2>
-        <p class="text-gray-300">
-          Has iniciado sesión como <span class="font-semibold text-cyan-400">{{ roleName() }}</span>
+        <p class="text-gray-700 dark:text-gray-300">
+          Has iniciado sesión como <span class="font-semibold text-cyan-600 dark:text-cyan-400">{{ roleName() }}</span>
           @if(user.center) {
-            en <span class="font-semibold text-cyan-400">{{ user.center.name }}</span>
+            en <span class="font-semibold text-cyan-600 dark:text-cyan-400">{{ user.center.name }}</span>
           }
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @if(isSuperAdmin()) {
-          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">👑</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Administración Global</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Administración Global</h3>
             </div>
-            <p class="text-gray-400 mb-4">Gestiona todos los centros, usuarios y configuraciones del sistema.</p>
-            <ul class="space-y-2 text-sm text-gray-300">
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Gestiona todos los centros, usuarios y configuraciones del sistema.</p>
+            <ul class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
               <li>✅ Acceso completo a todos los centros</li>
               <li>✅ Gestión de usuarios y roles</li>
               <li>✅ Configuración del sistema</li>
@@ -1875,14 +2236,14 @@ export class CentersComponent implements OnInit {
             </ul>
           </div>
 
-          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">🏢</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Gestión de Centros</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Gestión de Centros</h3>
             </div>
-            <p class="text-gray-400 mb-4">Crea, edita y elimina centros de entrenamiento.</p>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Crea, edita y elimina centros de entrenamiento.</p>
             <a 
               routerLink="/centers"
               class="block w-full px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
@@ -1905,29 +2266,50 @@ export class CentersComponent implements OnInit {
             </a>
           </div>
 
-          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">👥</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Gestión de Empleados</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Gestión de Usuarios</h3>
             </div>
-            <p class="text-gray-400 mb-4">Administra todos los empleados de todos los centros.</p>
-            <button class="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
-              Gestionar Empleados
-            </button>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Administra todos los usuarios y valida cuentas pendientes.</p>
+            <a 
+              routerLink="/users"
+              class="block w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Gestionar Usuarios
+            </a>
+          </div>
+
+          <!-- QR Code Card -->
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mi Código QR</h3>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Accede al gimnasio con tu código QR personal.</p>
+            <a 
+              routerLink="/qr"
+              class="block w-full px-4 py-2 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Ver Mi QR
+            </a>
           </div>
         }
 
         @if(isAdminCenter()) {
-          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">🏢</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Mi Centro</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mi Centro</h3>
             </div>
-            <p class="text-gray-400 mb-4">Visualiza la información de tu centro.</p>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Visualiza la información de tu centro.</p>
             <a 
               routerLink="/centers"
               class="block w-full px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
@@ -1950,56 +2332,96 @@ export class CentersComponent implements OnInit {
             </a>
           </div>
 
-          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">👥</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Empleados</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Usuarios</h3>
             </div>
-            <p class="text-gray-400 mb-4">Administra los empleados de tu centro.</p>
-            <button class="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
-              Gestionar Empleados
-            </button>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Administra los usuarios de tu centro y valida cuentas.</p>
+            <a 
+              routerLink="/users"
+              class="block w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Gestionar Usuarios
+            </a>
           </div>
 
-          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">📊</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Estadísticas</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Estadísticas</h3>
             </div>
-            <p class="text-gray-400 mb-4">Visualiza las estadísticas de tu centro.</p>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Visualiza las estadísticas de tu centro.</p>
             <button class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium">
               Ver Estadísticas
             </button>
           </div>
+
+          <!-- QR Code Card -->
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mi Código QR</h3>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Accede al gimnasio con tu código QR personal.</p>
+            <a 
+              routerLink="/qr"
+              class="block w-full px-4 py-2 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Ver Mi QR
+            </a>
+          </div>
         }
 
         @if(!isSuperAdmin() && !isAdminCenter()) {
-          <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">{{ getRoleIcon(user.role) }}</span>
               </div>
-              <h3 class="text-xl font-bold text-white">Mi Perfil</h3>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mi Perfil</h3>
             </div>
-            <p class="text-gray-400 mb-4">Gestiona tu información personal.</p>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Gestiona tu información personal.</p>
             <button class="w-full px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors text-sm font-medium">
               Editar Perfil
             </button>
           </div>
 
+          <!-- QR Code Card for all users -->
+          <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5Z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mi Código QR</h3>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Accede al gimnasio con tu código QR personal.</p>
+            <a 
+              routerLink="/qr"
+              class="block w-full px-4 py-2 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              Ver Mi QR
+            </a>
+          </div>
+
           @if(user.role === 'TRAINER') {
-            <div class="bg-gray-800 rounded-xl p-6 border border-gray-700 hover:border-cyan-500/50 transition-colors">
+            <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
               <div class="flex items-center gap-3 mb-4">
                 <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
                   <span class="text-2xl">📅</span>
                 </div>
-                <h3 class="text-xl font-bold text-white">Mis Clases</h3>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mis Clases</h3>
               </div>
-              <p class="text-gray-400 mb-4">Gestiona tus clases y horarios.</p>
+              <p class="text-gray-600 dark:text-gray-400 mb-4">Gestiona tus clases y horarios.</p>
               <button class="w-full px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
                 Ver Clases
               </button>
@@ -2008,31 +2430,31 @@ export class CentersComponent implements OnInit {
         }
       </div>
 
-      <div class="mt-8 bg-gray-800 rounded-xl p-6 border border-gray-700">
-        <h3 class="text-xl font-bold text-white mb-4">Información del Usuario</h3>
+      <div class="mt-8 bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Información del Usuario</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <p class="text-gray-400 text-sm">Nombre</p>
-            <p class="text-white font-semibold">{{ user.name }}</p>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Nombre</p>
+            <p class="text-gray-900 dark:text-white font-semibold">{{ user.name }}</p>
           </div>
           <div>
-            <p class="text-gray-400 text-sm">Email</p>
-            <p class="text-white font-semibold">{{ user.email }}</p>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Email</p>
+            <p class="text-gray-900 dark:text-white font-semibold">{{ user.email }}</p>
           </div>
           <div>
-            <p class="text-gray-400 text-sm">Rol</p>
-            <p class="text-white font-semibold">{{ roleName() }}</p>
+            <p class="text-gray-600 dark:text-gray-400 text-sm">Rol</p>
+            <p class="text-gray-900 dark:text-white font-semibold">{{ roleName() }}</p>
           </div>
           @if(user.center) {
             <div>
-              <p class="text-gray-400 text-sm">Centro</p>
-              <p class="text-white font-semibold">{{ user.center.name }}</p>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">Centro</p>
+              <p class="text-gray-900 dark:text-white font-semibold">{{ user.center.name }}</p>
             </div>
           }
           @if(user.createdAt) {
             <div>
-              <p class="text-gray-400 text-sm">Fecha de registro</p>
-              <p class="text-white font-semibold">{{ user.createdAt | date:'dd/MM/yyyy' }}</p>
+              <p class="text-gray-600 dark:text-gray-400 text-sm">Fecha de registro</p>
+              <p class="text-gray-900 dark:text-white font-semibold">{{ user.createdAt | date:'dd/MM/yyyy' }}</p>
             </div>
           }
         </div>
@@ -2136,13 +2558,14 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { UsersService } from '../../core/services/users.service';
 import { User } from '../../core/models/user';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, ThemeToggleComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -2286,11 +2709,14 @@ export class DashboardComponent {
 
 
 --- START OF FILE: src\app\pages\login\login.component.html ---
-<div class="min-h-screen flex justify-center items-center bg-gray-900">
+<div class="min-h-screen flex justify-center items-center bg-gray-50 dark:bg-gray-900">
+  <div class="absolute top-4 right-4">
+    <app-theme-toggle></app-theme-toggle>
+  </div>
   <div
     class="rounded-lg max-w-md w-full bg-gradient-to-br from-purple-500 via-blue-600 to-cyan-400 shadow-2xl p-0.5"
   >
-    <div class="bg-gray-800 p-8 rounded-lg">
+    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg">
       <div class="flex justify-center mb-4">
         <img 
           src="Logo.png" 
@@ -2298,19 +2724,19 @@ export class DashboardComponent {
           class="h-40 w-auto"
         />
       </div>
-      <h1 class="text-center text-white text-3xl font-extrabold mb-1">
+      <h1 class="text-center text-gray-900 dark:text-white text-3xl font-extrabold mb-1">
         Meta Force
       </h1>
-      <p class="mb-5 text-gray-400 text-sm text-center">
+      <p class="mb-5 text-gray-600 dark:text-gray-400 text-sm text-center">
         Accede a tu entrenamiento personalizado
       </p>
 
       <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
         
         <div class="mb-4">
-          <label class="block text-white mb-1 text-sm font-medium" for="email">Email</label>
+          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="email">Email</label>
           <div class="relative">
-            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
             </span>
             <input
@@ -2318,21 +2744,21 @@ export class DashboardComponent {
               autocomplete="username"
               formControlName="email"
               placeholder="tu@email"
-              class="px-10 h-10 rounded-lg border-2 border-gray-700 bg-gray-700 text-white w-full focus:border-cyan-400 focus:ring-cyan-400 transition-colors"
+              class="px-10 h-10 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"
               type="text"
             />
           </div>
           @if(formLogin.controls.email.touched && formLogin.controls.email.errors){
-            <span class="text-red-400 text-xs mt-1 block">
+            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">
               {{getError('email')}}
             </span>
           }
         </div>
 
         <div class="mb-4">
-          <label class="block text-white mb-1 text-sm font-medium" for="password">Contraseña</label>
+          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="password">Contraseña</label>
           <div class="relative">
-            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
             </span>
             <input
@@ -2341,13 +2767,13 @@ export class DashboardComponent {
               autocomplete="current-password"
               [type]="showPassword() ? 'text' : 'password'"
               placeholder="tu contraseña"
-              class="px-10 h-10 w-full rounded-lg border-2 border-gray-700 bg-gray-700 text-white focus:border-cyan-400 focus:ring-cyan-400 transition-colors"
+              class="px-10 h-10 w-full rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"
             />
 
             <button
               type="button"
               (click)="togglePassword()"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"
             >
               <svg *ngIf="!showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.657 3.841 5.21 6.5 9.566 6.5 2.085 0 4.017-.63 5.617-1.707m-4.79 2.001A7.5 7.5 0 0 1 12 15a7.5 7.5 0 0 1-5.707-2.317M21 21l-18-18"/>
@@ -2359,14 +2785,14 @@ export class DashboardComponent {
             </button>
           </div>
           @if(formLogin.controls.password.touched && formLogin.controls.password.errors){
-            <span class="text-red-400 text-xs mt-1 block">
+            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">
               {{getError('password')}}
             </span>
           }
         </div>
 
         @if(errorMsg()){
-          <div class="text-red-400 bg-red-950/50 p-2 rounded-lg text-center text-sm mb-4 border border-red-700">
+          <div class="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50 p-2 rounded-lg text-center text-sm mb-4 border border-red-300 dark:border-red-700">
             {{ getError('global') }}
           </div>
         }
@@ -2380,12 +2806,12 @@ export class DashboardComponent {
         </button>
       </form>
 
-      <div class="mt-6 text-center text-white text-sm">
+      <div class="mt-6 text-center text-gray-900 dark:text-white text-sm">
         ¿No tienes cuenta?
         <button
           type="button"
           (click)="goRegister()"
-          class="underline font-bold text-cyan-300 hover:text-white ml-1 transition-colors"
+          class="underline font-bold text-blue-600 dark:text-cyan-300 hover:text-blue-800 dark:hover:text-white ml-1 transition-colors"
         >
           Crear cuenta
         </button>
@@ -2437,12 +2863,13 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
-import { AuthInput } from '../../core/models/auth'
+import { AuthInput } from '../../core/models/auth';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, ThemeToggleComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -2967,12 +3394,264 @@ export class MachinesComponent implements OnInit {
 --- END OF FILE: src\app\pages\machines\machines.component.ts ---
 
 
+--- START OF FILE: src\app\pages\qr\qr.component.html ---
+<div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+  @if(auth.currentUser(); as user) {
+    <!-- Header -->
+    <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center gap-4">
+            <h1 class="text-2xl font-bold text-blue-900 dark:text-white">Mi Código QR</h1>
+          </div>
+          <div class="flex items-center gap-4">
+            <app-theme-toggle></app-theme-toggle>
+            <a 
+              routerLink="/dashboard"
+              class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium">
+              Volver al Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-8 border border-blue-300 dark:border-gray-700 shadow-lg">
+        <!-- Header Card -->
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full mb-4 shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10 text-white">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
+            </svg>
+          </div>
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            Código de Acceso al Gimnasio
+          </h2>
+          <p class="text-gray-600 dark:text-gray-400 text-lg">
+            Muestra este código QR en la recepción para acceder a las instalaciones
+          </p>
+        </div>
+
+        <!-- QR Code Card -->
+        <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 border-4 border-blue-300 dark:border-cyan-500 shadow-2xl max-w-md mx-auto">
+          <div class="text-center">
+            <!-- QR Code Image -->
+            <div class="mb-6 p-4 bg-white dark:bg-gray-800 rounded-xl inline-block">
+              <img 
+                [src]="qrUrl()"
+                class="dark:hidden w-64 h-64 mx-auto"
+                alt="Código QR"
+              />
+              <img 
+                [src]="qrUrlDark()"
+                class="hidden dark:block w-64 h-64 mx-auto"
+                alt="Código QR"
+              />
+            </div>
+
+            <!-- User Info -->
+            <div class="space-y-2 mb-6">
+              <div class="flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600 dark:text-gray-400">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+                <p class="text-xl font-bold text-gray-900 dark:text-white">{{ user.name }}</p>
+              </div>
+              
+              <div class="flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600 dark:text-gray-400">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                </svg>
+                <p class="text-gray-600 dark:text-gray-400">{{ user.email }}</p>
+              </div>
+
+              @if(user.center) {
+                <div class="flex items-center justify-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600 dark:text-gray-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                  </svg>
+                  <p class="text-gray-600 dark:text-gray-400">{{ user.center.name }}</p>
+                </div>
+              }
+            </div>
+
+            <!-- Instructions -->
+            <div class="bg-blue-50 dark:bg-cyan-900/20 rounded-lg p-4 border border-blue-200 dark:border-cyan-500/30">
+              <p class="text-sm text-gray-700 dark:text-gray-300 font-medium mb-2">
+                📱 Instrucciones:
+              </p>
+              <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1 text-left">
+                <li>• Presenta este código en la recepción</li>
+                <li>• Asegúrate de que el QR sea claramente visible</li>
+                <li>• El código se actualiza automáticamente</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Download Button -->
+        <div class="text-center mt-8">
+          <button 
+            (click)="downloadQR()"
+            class="px-6 py-3 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white rounded-lg transition-all transform hover:scale-105 shadow-lg font-medium">
+            📥 Descargar Código QR
+          </button>
+        </div>
+      </div>
+    </main>
+  } @else {
+    <div class="min-h-screen flex items-center justify-center">
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
+        <p class="text-gray-700 dark:text-gray-300">Cargando información del usuario...</p>
+      </div>
+    </div>
+  }
+</div>
+
+
+--- END OF FILE: src\app\pages\qr\qr.component.html ---
+
+
+--- START OF FILE: src\app\pages\qr\qr.component.scss ---
+// Estilos específicos del componente si son necesarios
+
+
+--- END OF FILE: src\app\pages\qr\qr.component.scss ---
+
+
+--- START OF FILE: src\app\pages\qr\qr.component.ts ---
+import { Component, inject, computed, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
+import { User } from '../../core/models/user';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+
+@Component({
+  selector: 'app-qr',
+  standalone: true,
+  imports: [CommonModule, RouterModule, ThemeToggleComponent],
+  templateUrl: './qr.component.html',
+  styleUrl: './qr.component.scss'
+})
+export class QrComponent implements OnInit {
+  auth = inject(AuthService);
+  
+  currentUser = this.auth.currentUser;
+  isLoading = computed(() => !this.currentUser());
+
+  // Datos para el QR (puedes incluir ID, email, nombre, etc.)
+  qrData = computed(() => {
+    const user = this.currentUser();
+    if (!user) return '';
+    
+    // Crear un objeto con los datos del usuario para el QR
+    const userData = {
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      centerId: user.centerId || null,
+      timestamp: new Date().toISOString()
+    };
+    
+    // Convertir a JSON string para el QR
+    return JSON.stringify(userData);
+  });
+
+  // URL del QR usando la API - Modo claro (azul sobre blanco)
+  qrUrl = computed(() => {
+    const data = this.qrData();
+    if (!data) return '';
+    
+    // Colores azul/cyan para modo claro (azul oscuro sobre fondo blanco)
+    const encodedData = encodeURIComponent(data);
+    return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodedData}&color=30-64-175&bgcolor=255-255-255&margin=1&ecc=M`;
+  });
+
+  // URL del QR para modo oscuro (cyan sobre fondo oscuro)
+  qrUrlDark = computed(() => {
+    const data = this.qrData();
+    if (!data) return '';
+    
+    const encodedData = encodeURIComponent(data);
+    // Colores cyan/blue para modo oscuro (cyan claro sobre fondo gris oscuro)
+    return `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodedData}&color=34-211-238&bgcolor=30-41-59&margin=1&ecc=M`;
+  });
+
+  ngOnInit() {
+    // El componente se inicializa automáticamente
+  }
+
+  downloadQR() {
+    const user = this.currentUser();
+    if (!user) return;
+
+    // Crear un canvas para combinar ambas imágenes o usar la del tema actual
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    
+    // Detectar si está en modo oscuro
+    const isDark = document.documentElement.classList.contains('dark');
+    const qrImageUrl = isDark ? this.qrUrlDark() : this.qrUrl();
+    
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      canvas.width = 400;
+      canvas.height = 500;
+
+      // Fondo blanco o oscuro según el tema
+      ctx.fillStyle = isDark ? '#1e293b' : '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Dibujar el QR
+      ctx.drawImage(img, 50, 50, 300, 300);
+
+      // Agregar texto
+      ctx.fillStyle = isDark ? '#ffffff' : '#000000';
+      ctx.font = 'bold 20px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText(user.name, canvas.width / 2, 380);
+      ctx.font = '14px Arial';
+      ctx.fillText('Meta Force Gym', canvas.width / 2, 410);
+
+      // Convertir a imagen y descargar
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `qr-${user.name}-${Date.now()}.png`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+    };
+
+    img.src = qrImageUrl;
+  }
+}
+
+
+--- END OF FILE: src\app\pages\qr\qr.component.ts ---
+
+
 --- START OF FILE: src\app\pages\register\register.component.html ---
-<div class="min-h-screen flex justify-center items-center bg-gray-900 py-10">
+<div class="min-h-screen flex justify-center items-center bg-gray-50 dark:bg-gray-900 py-10">
+  <div class="absolute top-4 right-4">
+    <app-theme-toggle></app-theme-toggle>
+  </div>
   <div
     class="rounded-lg max-w-md w-full bg-gradient-to-br from-purple-500 via-blue-600 to-cyan-400 shadow-2xl p-0.5"
   >
-    <div class="bg-gray-800 p-8 rounded-lg">
+    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg">
       <div class="flex justify-center mb-4">
         <img 
           src="Logo.png" 
@@ -2980,19 +3659,19 @@ export class MachinesComponent implements OnInit {
           class="h-40 w-auto"
         />
       </div>
-      <h1 class="text-center text-white text-3xl font-extrabold mb-1">
+      <h1 class="text-center text-gray-900 dark:text-white text-3xl font-extrabold mb-1">
         Crear Cuenta
       </h1>
-      <p class="mb-5 text-gray-400 text-sm text-center">
+      <p class="mb-5 text-gray-600 dark:text-gray-400 text-sm text-center">
         Únete a Meta Force
       </p>
 
       <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
         
         <div class="mb-4">
-          <label class="block text-white mb-1 text-sm font-medium" for="name">Nombre</label>
+          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="name">Nombre</label>
           <div class="relative">
-            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
             </span>
             <input
@@ -3000,21 +3679,21 @@ export class MachinesComponent implements OnInit {
               autocomplete="given-name"
               formControlName="name"
               placeholder="Tu nombre"
-              class="px-10 h-10 rounded-lg border-2 border-gray-700 bg-gray-700 text-white w-full focus:border-cyan-400 focus:ring-cyan-400 transition-colors"
+              class="px-10 h-10 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"
               type="text"
             />
           </div>
           @if(formRegister.controls['name'].touched && formRegister.controls['name'].errors){
-            <span class="text-red-400 text-xs mt-1 block">
+            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">
               {{getError('name')}}
             </span>
           }
         </div>
 
         <div class="mb-4">
-          <label class="block text-white mb-1 text-sm font-medium" for="email">Email</label>
+          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="email">Email</label>
           <div class="relative">
-            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
             </span>
             <input
@@ -3022,21 +3701,21 @@ export class MachinesComponent implements OnInit {
               autocomplete="email"
               formControlName="email"
               placeholder="tu@email.com"
-              class="px-10 h-10 rounded-lg border-2 border-gray-700 bg-gray-700 text-white w-full focus:border-cyan-400 focus:ring-cyan-400 transition-colors"
+              class="px-10 h-10 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"
               type="email"
             />
           </div>
           @if(formRegister.controls['email'].touched && formRegister.controls['email'].errors){
-            <span class="text-red-400 text-xs mt-1 block">
+            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">
               {{getError('email')}}
             </span>
           }
         </div>
 
         <div class="mb-4">
-          <label class="block text-white mb-1 text-sm font-medium" for="password">Contraseña</label>
+          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="password">Contraseña</label>
           <div class="relative">
-            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
             </span>
             <input
@@ -3050,23 +3729,23 @@ export class MachinesComponent implements OnInit {
             <button
               type="button"
               (click)="togglePassword()"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"
             >
               <svg *ngIf="!showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.657 3.841 5.21 6.5 9.566 6.5 2.085 0 4.017-.63 5.617-1.707m-4.79 2.001A7.5 7.5 0 0 1 12 15a7.5 7.5 0 0 1-5.707-2.317M21 21l-18-18"/></svg>
               <svg *ngIf="showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
             </button>
           </div>
           @if(formRegister.controls['password'].touched && formRegister.controls['password'].errors){
-            <span class="text-red-400 text-xs mt-1 block">
+            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">
               {{getError('password')}}
             </span>
           }
         </div>
 
         <div class="mb-4">
-          <label class="block text-white mb-1 text-sm font-medium" for="confirmPassword">Confirmar Contraseña</label>
+          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="confirmPassword">Confirmar Contraseña</label>
           <div class="relative">
-            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
             </span>
             <input
@@ -3080,21 +3759,21 @@ export class MachinesComponent implements OnInit {
             <button
               type="button"
               (click)="toggleConfirmPassword()"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"
             >
               <svg *ngIf="!showConfirmPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.657 3.841 5.21 6.5 9.566 6.5 2.085 0 4.017-.63 5.617-1.707m-4.79 2.001A7.5 7.5 0 0 1 12 15a7.5 7.5 0 0 1-5.707-2.317M21 21l-18-18"/></svg>
               <svg *ngIf="showConfirmPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
             </button>
           </div>
           @if(formRegister.controls['confirmPassword'].touched && (formRegister.controls['confirmPassword'].errors || formRegister.errors?.['passwordsDoNotMatch'])){
-            <span class="text-red-400 text-xs mt-1 block">
+            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">
               {{getError('confirmPassword')}}
             </span>
           }
         </div>
 
         @if(errorMsg()){
-          <div class="text-red-400 bg-red-950/50 p-2 rounded-lg text-center text-sm mb-4 border border-red-700">
+          <div class="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50 p-2 rounded-lg text-center text-sm mb-4 border border-red-300 dark:border-red-700">
             {{ getError('global') }}
           </div>
         }
@@ -3108,12 +3787,12 @@ export class MachinesComponent implements OnInit {
         </button>
       </form>
 
-      <div class="mt-6 text-center text-white text-sm">
+      <div class="mt-6 text-center text-gray-900 dark:text-white text-sm">
         ¿Ya tienes cuenta?
         <button
           type="button"
           (click)="goLogin()"
-          class="underline font-bold text-cyan-300 hover:text-white ml-1 transition-colors"
+          class="underline font-bold text-blue-600 dark:text-cyan-300 hover:text-blue-800 dark:hover:text-white ml-1 transition-colors"
         >
           Inicia sesión
         </button>
@@ -3166,6 +3845,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
 import { RegisterInput } from '../../core/models/auth';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 
 /**
  * Validador personalizado que verifica que las contraseñas del formulario de registro coincidan.
@@ -3186,7 +3866,7 @@ export function passwordsMatchValidator(group: AbstractControl): ValidationError
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ThemeToggleComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -3324,6 +4004,843 @@ export class RegisterComponent implements OnDestroy {
 --- END OF FILE: src\app\pages\register\register.component.ts ---
 
 
+--- START OF FILE: src\app\pages\users\users.component.html ---
+<div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+  <!-- Header -->
+  <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center gap-4">
+          <h1 class="text-2xl font-bold text-blue-900 dark:text-white">Gestión de Usuarios</h1>
+        </div>
+        <div class="flex items-center gap-4">
+          <app-theme-toggle></app-theme-toggle>
+          <a 
+            routerLink="/dashboard"
+            class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium">
+            Volver al Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    @if(errorMessage()) {
+      <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <!-- Filter Button -->
+    <div class="mb-4 flex items-center justify-between">
+      <button 
+        (click)="toggleFilters()"
+        [class.bg-cyan-500]="!showFilters()"
+        [class.bg-cyan-600]="showFilters()"
+        [class.text-white]="!hasActiveFilters()"
+        [class.text-yellow-300]="hasActiveFilters()"
+        class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90">
+        <span>🔍</span>
+        @if(showFilters()) {
+          <span>Ocultar Filtros</span>
+        } @else {
+          <span>Filtros</span>
+        }
+        @if(hasActiveFilters()) {
+          <span class="px-1.5 py-0.5 bg-yellow-500/30 rounded text-xs">{{ filteredUsers().length }}/{{ users().length }}</span>
+        }
+      </button>
+    </div>
+
+    <!-- Filters Panel -->
+    @if(showFilters()) {
+      <div class="mb-6 bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white">Filtros de Búsqueda</h2>
+          @if(hasActiveFilters()) {
+            <button 
+              (click)="clearFilters()"
+              class="px-3 py-1 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors text-sm">
+              Limpiar Filtros
+            </button>
+          }
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Nombre</label>
+            <input 
+              type="text"
+              [ngModel]="filterName()"
+              (ngModelChange)="filterName.set($event)"
+              placeholder="Buscar por nombre..."
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Email</label>
+            <input 
+              type="text"
+              [ngModel]="filterEmail()"
+              (ngModelChange)="filterEmail.set($event)"
+              placeholder="Buscar por email..."
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Rol</label>
+            <select 
+              [ngModel]="filterRole()"
+              (ngModelChange)="filterRole.set($event)"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              <option value="">Todos los roles</option>
+              @for(role of roles; track role) {
+                <option [value]="role">{{ getRoleName(role) }}</option>
+              }
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Estado</label>
+            <select 
+              [ngModel]="filterStatus()"
+              (ngModelChange)="filterStatus.set($event)"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              <option value="">Todos los estados</option>
+              @for(status of statuses; track status) {
+                <option [value]="status">{{ getStatusText(status) }}</option>
+              }
+            </select>
+          </div>
+
+          @if(isSuperAdmin() && centers().length > 0) {
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Centro</label>
+              <select 
+                [ngModel]="filterCenter()"
+                (ngModelChange)="filterCenter.set($event)"
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                <option value="">Todos los centros</option>
+                @for(center of centers(); track center.id) {
+                  <option [value]="center.id">{{ center.name }}</option>
+                }
+              </select>
+            </div>
+          }
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Fecha desde</label>
+            <input 
+              type="date"
+              [ngModel]="filterDateFrom()"
+              (ngModelChange)="filterDateFrom.set($event)"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Fecha hasta</label>
+            <input 
+              type="date"
+              [ngModel]="filterDateTo()"
+              (ngModelChange)="filterDateTo.set($event)"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+        </div>
+
+        @if(hasActiveFilters()) {
+          <div class="mt-4 pt-4 border-t border-gray-700">
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+              Mostrando <span class="text-gray-900 dark:text-white font-semibold">{{ filteredUsers().length }}</span> de 
+              <span class="text-gray-900 dark:text-white font-semibold">{{ users().length }}</span> usuarios
+            </p>
+          </div>
+        }
+      </div>
+    }
+
+    @if(isLoading() && users().length === 0) {
+      <div class="flex items-center justify-center py-12">
+        <div class="text-center">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
+          <p class="text-gray-700 dark:text-gray-300">Cargando usuarios...</p>
+        </div>
+      </div>
+    } @else {
+      @if(filteredUsers().length === 0) {
+        <div class="text-center py-12">
+          <p class="text-gray-600 dark:text-gray-400 text-lg">
+            @if(hasActiveFilters()) {
+              No se encontraron usuarios con los filtros aplicados
+            } @else {
+              No hay usuarios disponibles
+            }
+          </p>
+        </div>
+      } @else {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          @for(user of filteredUsers(); track user.id) {
+            <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">
+              <div 
+                (click)="openViewModal(user)"
+                class="cursor-pointer">
+                <div class="flex items-start justify-between mb-4">
+                  <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-2">
+                      <span class="text-2xl">{{ getRoleIcon(user.role) }}</span>
+                      <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ user.name }}</h3>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">{{ user.email }}</p>
+                    <div class="flex items-center gap-2 mb-2">
+                      <span class="text-xs px-2 py-1 rounded-full text-white" [class]="getStatusColor(user.status)">
+                        {{ getStatusText(user.status) }}
+                      </span>
+                      <span class="text-xs text-gray-500">{{ getRoleName(user.role) }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="space-y-2 mb-4">
+                  @if(user.center) {
+                    <p class="text-gray-300 text-sm">
+                      🏢 {{ user.center.name }}
+                    </p>
+                  } @else if(user.centerId) {
+                    <p class="text-gray-300 text-sm">
+                      🏢 {{ getCenterName(user.centerId) }}
+                    </p>
+                  } @else {
+                    <p class="text-gray-400 text-sm">Sin centro asignado</p>
+                  }
+                  @if(user.createdAt) {
+                    <p class="text-gray-400 text-xs">
+                      Registrado: {{ user.createdAt | date:'dd/MM/yyyy' }}
+                    </p>
+                  }
+                </div>
+              </div>
+
+              <div class="flex gap-2 mt-4" (click)="$event.stopPropagation()">
+                @if(canEdit()) {
+                  <button 
+                    (click)="openEditModal(user)"
+                    class="flex-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
+                    Editar
+                  </button>
+                }
+                @if(user.status === 'PENDING' && canEdit()) {
+                  <button 
+                    (click)="validateUser(user)"
+                    class="flex-1 px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium">
+                    Validar
+                  </button>
+                }
+                @if(canDelete()) {
+                  <button 
+                    (click)="openDeleteModal(user)"
+                    class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium">
+                    Eliminar
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+  </main>
+
+  <!-- View Modal -->
+  @if(showViewModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-blue-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-lg">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Información del Usuario</h3>
+        
+        @if(viewUser()) {
+          <div class="space-y-4">
+            <div>
+              <label class="block text-gray-400 text-sm font-medium mb-1">Nombre</label>
+              <p class="text-white text-lg font-semibold">{{ viewUser()!.name }}</p>
+            </div>
+
+            <div>
+              <label class="block text-gray-400 text-sm font-medium mb-1">Email</label>
+              <p class="text-gray-300">{{ viewUser()!.email }}</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-gray-400 text-sm font-medium mb-1">Rol</label>
+                <p class="text-gray-300">{{ getRoleName(viewUser()!.role) }} {{ getRoleIcon(viewUser()!.role) }}</p>
+              </div>
+
+              <div>
+                <label class="block text-gray-400 text-sm font-medium mb-1">Estado</label>
+                <span class="inline-block px-3 py-1 rounded-full text-sm text-white" [class]="getStatusColor(viewUser()!.status)">
+                  {{ getStatusText(viewUser()!.status) }}
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-gray-400 text-sm font-medium mb-1">Centro</label>
+              @if(viewUser()!.center) {
+                <p class="text-gray-300">{{ viewUser()!.center?.name }}</p>
+              } @else if(viewUser()!.centerId) {
+                <p class="text-gray-300">{{ getCenterName(viewUser()!.centerId) }}</p>
+              } @else {
+                <p class="text-gray-400">Sin centro asignado</p>
+              }
+            </div>
+
+            @if(viewUser()!.id) {
+              <div>
+                <label class="block text-gray-400 text-sm font-medium mb-1">ID</label>
+                <p class="text-gray-500 text-xs font-mono">{{ viewUser()!.id }}</p>
+              </div>
+            }
+
+            @if(viewUser()!.createdAt) {
+              <div>
+                <label class="block text-gray-400 text-sm font-medium mb-1">Fecha de Registro</label>
+                <p class="text-gray-300">{{ viewUser()!.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+              </div>
+            }
+          </div>
+        }
+
+        <div class="flex gap-3 mt-6">
+          <button 
+            (click)="closeViewModal()"
+            class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors">
+            Cerrar
+          </button>
+          @if(canEdit() && viewUser()?.id) {
+            <button 
+              (click)="closeViewModal(); openEditModal(viewUser()!)"
+              class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
+              Editar
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Edit Modal -->
+  @if(showEditModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
+        <h3 class="text-2xl font-bold text-white mb-6">Editar Usuario</h3>
+        
+        @if(errorMessage()) {
+          <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <form (ngSubmit)="updateUser()" class="space-y-4">
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Nombre *</label>
+            <input 
+              type="text"
+              [(ngModel)]="userForm.name"
+              name="name"
+              required
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-300 text-sm font-medium mb-2">Email *</label>
+            <input 
+              type="email"
+              [(ngModel)]="userForm.email"
+              name="email"
+              required
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Estado</label>
+              <select 
+                [(ngModel)]="userForm.status"
+                name="status"
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                @for(status of statuses; track status) {
+                  <option [value]="status">{{ getStatusText(status) }}</option>
+                }
+              </select>
+            </div>
+
+            @if(isSuperAdmin()) {
+              <div>
+                <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Rol</label>
+                <select 
+                  [(ngModel)]="userForm.role"
+                  name="role"
+                  class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                  @for(role of roles; track role) {
+                    <option [value]="role">{{ getRoleName(role) }}</option>
+                  }
+                </select>
+              </div>
+            }
+          </div>
+
+          @if(isSuperAdmin()) {
+            <div>
+              <label class="block text-gray-300 text-sm font-medium mb-2">Centro</label>
+              <select 
+                [(ngModel)]="userForm.centerId"
+                name="centerId"
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                <option [value]="null">Sin centro</option>
+                @for(center of centers(); track center.id) {
+                  <option [value]="center.id">{{ center.name }}</option>
+                }
+              </select>
+            </div>
+          }
+
+          <div class="flex gap-3 mt-6">
+            <button 
+              type="button"
+              (click)="closeEditModal()"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              Cancelar
+            </button>
+            <button 
+              type="submit"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors disabled:opacity-50">
+              @if(isLoading()) {
+                Guardando...
+              } @else {
+                Guardar Cambios
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- Delete Modal -->
+  @if(showDeleteModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-700">
+        <h3 class="text-2xl font-bold text-white mb-4">Eliminar Usuario</h3>
+        
+        @if(selectedUser()) {
+          <p class="text-gray-300 mb-6">
+            ¿Estás seguro de que deseas eliminar al usuario <span class="font-semibold text-white">{{ selectedUser()!.name }}</span>?
+            Esta acción no se puede deshacer.
+          </p>
+        }
+
+        @if(errorMessage()) {
+          <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <div class="flex gap-3">
+          <button 
+            (click)="closeDeleteModal()"
+            [disabled]="isLoading()"
+            class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
+            Cancelar
+          </button>
+          <button 
+            (click)="deleteUser()"
+            [disabled]="isLoading()"
+            class="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors disabled:opacity-50">
+            @if(isLoading()) {
+              Eliminando...
+            } @else {
+              Eliminar
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+
+--- END OF FILE: src\app\pages\users\users.component.html ---
+
+
+--- START OF FILE: src\app\pages\users\users.component.scss ---
+// Estilos específicos del componente si son necesarios
+
+
+--- END OF FILE: src\app\pages\users\users.component.scss ---
+
+
+--- START OF FILE: src\app\pages\users\users.component.ts ---
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { UsersService, UpdateUserInput } from '../../core/services/users.service';
+import { CentersService } from '../../core/services/centers.service';
+import { AuthService } from '../../core/services/auth.service';
+import { User, Role, UserStatus } from '../../core/models/user';
+import { Center } from '../../core/models/center';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+
+@Component({
+  selector: 'app-users',
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule, DatePipe, ThemeToggleComponent],
+  templateUrl: './users.component.html',
+  styleUrl: './users.component.scss'
+})
+export class UsersComponent implements OnInit {
+  usersService = inject(UsersService);
+  centersService = inject(CentersService);
+  auth = inject(AuthService);
+
+  users = signal<User[]>([]);
+  centers = signal<Center[]>([]);
+  isLoading = signal(false);
+  errorMessage = signal<string>('');
+  
+  // Filters
+  filterName = signal<string>('');
+  filterEmail = signal<string>('');
+  filterRole = signal<Role | ''>('');
+  filterStatus = signal<UserStatus | ''>('');
+  filterCenter = signal<string>('');
+  filterDateFrom = signal<string>('');
+  filterDateTo = signal<string>('');
+  showFilters = signal(false);
+  
+  // Modal states
+  showEditModal = signal(false);
+  showDeleteModal = signal(false);
+  showViewModal = signal(false);
+  
+  selectedUser = signal<User | null>(null);
+  viewUser = signal<User | null>(null);
+  userForm: UpdateUserInput = {
+    name: '',
+    email: '',
+    role: 'USER',
+    status: 'PENDING',
+    centerId: null
+  };
+
+  readonly roles: Role[] = ['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER', 'CLEANER', 'USER'];
+  readonly statuses: UserStatus[] = ['PENDING', 'ACTIVE', 'INACTIVE'];
+
+  currentUser = computed(() => this.auth.currentUser());
+  isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
+  isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
+  canEdit = computed(() => this.isSuperAdmin() || this.isAdminCenter());
+  canDelete = computed(() => this.isSuperAdmin() || this.isAdminCenter());
+  canAssignCenter = computed(() => this.isSuperAdmin());
+
+  // Filtered users
+  filteredUsers = computed(() => {
+    let filtered = this.users();
+    
+    if (this.filterName()) {
+      const nameFilter = this.filterName().toLowerCase();
+      filtered = filtered.filter(u => u.name.toLowerCase().includes(nameFilter));
+    }
+    
+    if (this.filterEmail()) {
+      const emailFilter = this.filterEmail().toLowerCase();
+      filtered = filtered.filter(u => u.email.toLowerCase().includes(emailFilter));
+    }
+    
+    if (this.filterRole()) {
+      filtered = filtered.filter(u => u.role === this.filterRole());
+    }
+    
+    if (this.filterStatus()) {
+      filtered = filtered.filter(u => u.status === this.filterStatus());
+    }
+    
+    if (this.filterCenter()) {
+      filtered = filtered.filter(u => 
+        u.centerId === this.filterCenter() || 
+        u.center?.id === this.filterCenter()
+      );
+    }
+    
+    if (this.filterDateFrom()) {
+      const dateFrom = new Date(this.filterDateFrom());
+      filtered = filtered.filter(u => {
+        if (!u.createdAt) return false;
+        return new Date(u.createdAt) >= dateFrom;
+      });
+    }
+    
+    if (this.filterDateTo()) {
+      const dateTo = new Date(this.filterDateTo());
+      dateTo.setHours(23, 59, 59, 999); // Incluir todo el día
+      filtered = filtered.filter(u => {
+        if (!u.createdAt) return false;
+        return new Date(u.createdAt) <= dateTo;
+      });
+    }
+    
+    return filtered;
+  });
+
+  ngOnInit() {
+    this.loadUsers();
+    if (this.isSuperAdmin()) {
+      this.loadCenters();
+    }
+  }
+
+  loadUsers() {
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+    
+    this.usersService.listUsers().subscribe({
+      next: (data) => {
+        this.users.set(data);
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || 'Error al cargar los usuarios');
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  loadCenters() {
+    this.centersService.listCenters().subscribe({
+      next: (data) => {
+        this.centers.set(data);
+      },
+      error: (error) => {
+        console.error('Error al cargar centros:', error);
+      }
+    });
+  }
+
+  openViewModal(user: User) {
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+    
+    this.usersService.getUser(user.id).subscribe({
+      next: (fullUser) => {
+        this.viewUser.set(fullUser);
+        this.showViewModal.set(true);
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        this.viewUser.set(user);
+        this.showViewModal.set(true);
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  closeViewModal() {
+    this.showViewModal.set(false);
+    this.viewUser.set(null);
+    this.errorMessage.set('');
+  }
+
+  openEditModal(user: User) {
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+    
+    this.usersService.getUser(user.id).subscribe({
+      next: (fullUser) => {
+        this.selectedUser.set(fullUser);
+        this.userForm = {
+          name: fullUser.name,
+          email: fullUser.email,
+          role: fullUser.role,
+          status: fullUser.status || 'PENDING',
+          centerId: fullUser.centerId || null
+        };
+        this.showEditModal.set(true);
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || 'Error al cargar el usuario');
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  closeEditModal() {
+    this.showEditModal.set(false);
+    this.selectedUser.set(null);
+    this.errorMessage.set('');
+  }
+
+  openDeleteModal(user: User) {
+    this.selectedUser.set(user);
+    this.showDeleteModal.set(true);
+    this.errorMessage.set('');
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal.set(false);
+    this.selectedUser.set(null);
+    this.errorMessage.set('');
+  }
+
+  updateUser() {
+    const user = this.selectedUser();
+    if (!user?.id) return;
+
+    if (!this.userForm.name?.trim() || !this.userForm.email?.trim()) {
+      this.errorMessage.set('El nombre y el email son obligatorios');
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+
+    const updateData: UpdateUserInput = {
+      name: this.userForm.name,
+      email: this.userForm.email,
+    };
+
+    // Solo SUPERADMIN puede cambiar rol y asignar centro
+    if (this.isSuperAdmin()) {
+      updateData.role = this.userForm.role;
+      updateData.centerId = this.userForm.centerId;
+    }
+
+    // Ambos pueden cambiar el status
+    updateData.status = this.userForm.status;
+
+    this.usersService.updateUser(user.id, updateData).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.closeEditModal();
+        this.loadUsers();
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || 'Error al actualizar el usuario');
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  deleteUser() {
+    const user = this.selectedUser();
+    if (!user?.id) return;
+
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+
+    this.usersService.deleteUser(user.id).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.closeDeleteModal();
+        this.loadUsers();
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || 'Error al eliminar el usuario');
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  validateUser(user: User) {
+    this.usersService.updateUser(user.id, { status: 'ACTIVE' }).subscribe({
+      next: () => {
+        this.loadUsers();
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || 'Error al validar el usuario');
+      }
+    });
+  }
+
+  getStatusColor(status?: UserStatus): string {
+    const colors: Record<UserStatus, string> = {
+      'PENDING': 'bg-yellow-500',
+      'ACTIVE': 'bg-green-500',
+      'INACTIVE': 'bg-red-500'
+    };
+    return colors[status || 'PENDING'] || 'bg-gray-500';
+  }
+
+  getStatusText(status?: UserStatus): string {
+    const texts: Record<UserStatus, string> = {
+      'PENDING': 'Pendiente',
+      'ACTIVE': 'Activo',
+      'INACTIVE': 'Inactivo'
+    };
+    return texts[status || 'PENDING'] || 'Desconocido';
+  }
+
+  getRoleIcon(role: string): string {
+    const icons: Record<string, string> = {
+      'SUPERADMIN': '👑',
+      'ADMIN_CENTER': '🏢',
+      'TRAINER': '💪',
+      'CLEANER': '🧹',
+      'USER': '👤'
+    };
+    return icons[role] || '👤';
+  }
+
+  getRoleName(role: string): string {
+    const names: Record<string, string> = {
+      'SUPERADMIN': 'Super Administrador',
+      'ADMIN_CENTER': 'Administrador de Centro',
+      'TRAINER': 'Entrenador',
+      'CLEANER': 'Personal de Limpieza',
+      'USER': 'Usuario'
+    };
+    return names[role] || 'Usuario';
+  }
+
+  getCenterName(centerId?: string | null): string {
+    if (!centerId) return 'Sin centro';
+    const center = this.centers().find(c => c.id === centerId);
+    return center?.name || 'Centro no encontrado';
+  }
+
+  toggleFilters() {
+    this.showFilters.set(!this.showFilters());
+  }
+
+  clearFilters() {
+    this.filterName.set('');
+    this.filterEmail.set('');
+    this.filterRole.set('');
+    this.filterStatus.set('');
+    this.filterCenter.set('');
+    this.filterDateFrom.set('');
+    this.filterDateTo.set('');
+  }
+
+  hasActiveFilters = computed(() => {
+    return !!(
+      this.filterName() ||
+      this.filterEmail() ||
+      this.filterRole() ||
+      this.filterStatus() ||
+      this.filterCenter() ||
+      this.filterDateFrom() ||
+      this.filterDateTo()
+    );
+  });
+}
+
+
+--- END OF FILE: src\app\pages\users\users.component.ts ---
+
+
 --- START OF FILE: src\app\shared\components\error-toast\error-toast.component.html ---
 @if (errorService.error()) {
   <div class="fixed top-4 right-4 max-w-md z-50 animate-slide-in">
@@ -3416,6 +4933,61 @@ export class ErrorToastComponent {
 --- END OF FILE: src\app\shared\components\error-toast\error-toast.component.ts ---
 
 
+--- START OF FILE: src\app\shared\components\theme-toggle\theme-toggle.component.html ---
+<button
+  (click)="toggleTheme()"
+  class="p-2 rounded-lg transition-colors bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200"
+  [attr.aria-label]="isDark() ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'"
+  title="{{ isDark() ? 'Modo oscuro' : 'Modo claro' }}">
+  @if(isDark()) {
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+    </svg>
+  } @else {
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+    </svg>
+  }
+</button>
+
+
+--- END OF FILE: src\app\shared\components\theme-toggle\theme-toggle.component.html ---
+
+
+--- START OF FILE: src\app\shared\components\theme-toggle\theme-toggle.component.scss ---
+// Estilos específicos del componente si son necesarios
+
+
+--- END OF FILE: src\app\shared\components\theme-toggle\theme-toggle.component.scss ---
+
+
+--- START OF FILE: src\app\shared\components\theme-toggle\theme-toggle.component.ts ---
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ThemeService } from '../../../core/services/theme.service';
+
+@Component({
+  selector: 'app-theme-toggle',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './theme-toggle.component.html',
+  styleUrl: './theme-toggle.component.scss'
+})
+export class ThemeToggleComponent {
+  themeService = inject(ThemeService);
+
+  theme = this.themeService.theme;
+  isDark = this.themeService.isDark;
+
+  toggleTheme() {
+    this.themeService.toggleTheme();
+  }
+}
+
+
+--- END OF FILE: src\app\shared\components\theme-toggle\theme-toggle.component.ts ---
+
+
 --- START OF FILE: src\environments\environment.development.ts ---
 export const environment = {
     production: false,
@@ -3474,6 +5046,7 @@ module.exports = {
   content: [
     "./src/**/*.{html,ts}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {},
   },
