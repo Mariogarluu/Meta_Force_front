@@ -1114,7 +1114,6 @@ export class UsersService {
 
 --- START OF FILE: src\app\pages\centers\centers.component.html ---
 <div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-  <!-- Header -->
   <header class="bg-gray-800/50 backdrop-blur-md border-b border-gray-700 sticky top-0 z-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <div class="flex justify-between items-center">
@@ -1122,7 +1121,7 @@ export class UsersService {
           <h1 class="text-2xl font-bold text-white">Gestión de Centros</h1>
         </div>
         <div class="flex items-center gap-4">
-          @if(canEdit()) {
+          @if(canCreate()) {
             <button 
               (click)="openCreateModal()"
               class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium">
@@ -1139,7 +1138,6 @@ export class UsersService {
     </div>
   </header>
 
-  <!-- Main Content -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     @if(errorMessage()) {
       <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400">
@@ -1199,7 +1197,7 @@ export class UsersService {
               </div>
 
               <div class="flex gap-2 mt-4" (click)="$event.stopPropagation()">
-                @if(canEdit()) {
+                @if(canModify(center)) {
                   <button 
                     (click)="openEditModal(center)"
                     class="flex-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
@@ -1221,7 +1219,6 @@ export class UsersService {
     }
   </main>
 
-  <!-- Create Modal -->
   @if(showCreateModal()) {
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
@@ -1326,7 +1323,6 @@ export class UsersService {
     </div>
   }
 
-  <!-- Edit Modal -->
   @if(showEditModal()) {
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
@@ -1431,7 +1427,6 @@ export class UsersService {
     </div>
   }
 
-  <!-- View Modal -->
   @if(showViewModal()) {
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
@@ -1512,7 +1507,8 @@ export class UsersService {
             class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors">
             Cerrar
           </button>
-          @if(canEdit() && viewCenter()?.id) {
+          
+          @if(viewCenter() && canModify(viewCenter()!)) {
             <button 
               (click)="closeViewModal(); openEditModal(viewCenter()!)"
               class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
@@ -1524,7 +1520,6 @@ export class UsersService {
     </div>
   }
 
-  <!-- Delete Modal -->
   @if(showDeleteModal()) {
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-700">
@@ -1565,8 +1560,6 @@ export class UsersService {
     </div>
   }
 </div>
-
-
 --- END OF FILE: src\app\pages\centers\centers.component.html ---
 
 
@@ -1585,8 +1578,6 @@ import { RouterModule } from '@angular/router';
 import { CentersService } from '../../core/services/centers.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Center, CreateCenterInput, UpdateCenterInput } from '../../core/models/center';
-
-type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
 @Component({
   selector: 'app-centers',
@@ -1611,6 +1602,7 @@ export class CentersComponent implements OnInit {
   
   selectedCenter = signal<Center | null>(null);
   viewCenter = signal<Center | null>(null);
+  
   centerForm = signal<CreateCenterInput>({
     name: '',
     description: '',
@@ -1624,11 +1616,22 @@ export class CentersComponent implements OnInit {
   currentUser = computed(() => this.auth.currentUser());
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
-  canEdit = computed(() => this.isSuperAdmin());
+  
+  // Solo SuperAdmin puede crear o borrar
+  canCreate = computed(() => this.isSuperAdmin());
   canDelete = computed(() => this.isSuperAdmin());
 
   ngOnInit() {
     this.loadCenters();
+  }
+
+  // Nueva función para verificar si puede editar un centro específico
+  canModify(center: Center): boolean {
+    if (this.isSuperAdmin()) return true;
+    if (this.isAdminCenter()) {
+      return center.id === this.currentUser()?.centerId;
+    }
+    return false;
   }
 
   loadCenters() {
@@ -1671,7 +1674,7 @@ export class CentersComponent implements OnInit {
     
     this.isLoading.set(true);
     this.errorMessage.set('');
-    
+
     // Cargar el centro completo desde el backend
     this.centersService.getCenter(center.id).subscribe({
       next: (fullCenter) => {
@@ -1697,7 +1700,6 @@ export class CentersComponent implements OnInit {
 
   openViewModal(center: Center) {
     if (!center.id) {
-      // Si no tiene ID, solo mostrar la información disponible
       this.viewCenter.set(center);
       this.showViewModal.set(true);
       return;
@@ -1706,7 +1708,6 @@ export class CentersComponent implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set('');
     
-    // Cargar el centro completo desde el backend
     this.centersService.getCenter(center.id).subscribe({
       next: (fullCenter) => {
         this.viewCenter.set(fullCenter);
@@ -1714,7 +1715,6 @@ export class CentersComponent implements OnInit {
         this.isLoading.set(false);
       },
       error: (error) => {
-        // Si falla, mostrar al menos la información disponible
         this.viewCenter.set(center);
         this.showViewModal.set(true);
         this.isLoading.set(false);
@@ -1813,8 +1813,6 @@ export class CentersComponent implements OnInit {
     });
   }
 }
-
-
 --- END OF FILE: src\app\pages\centers\centers.component.ts ---
 
 
