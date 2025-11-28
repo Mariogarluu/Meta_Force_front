@@ -1,8 +1,11 @@
-<div class="min-h-screen flex justify-center items-center bg-gray-900 py-10">
+<div class="min-h-screen flex justify-center items-center bg-gray-50 dark:bg-gray-900 py-10">
+  <div class="absolute top-4 right-4">
+    <app-theme-toggle></app-theme-toggle>
+  </div>
   <div
     class="rounded-lg max-w-md w-full bg-gradient-to-br from-purple-500 via-blue-600 to-cyan-400 shadow-2xl p-0.5"
   >
-    <div class="bg-gray-800 p-8 rounded-lg">
+    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg">
       <div class="flex justify-center mb-4">
         <img 
           src="Logo.png" 
@@ -10,19 +13,19 @@
           class="h-40 w-auto"
         />
       </div>
-      <h1 class="text-center text-white text-3xl font-extrabold mb-1">
+      <h1 class="text-center text-gray-900 dark:text-white text-3xl font-extrabold mb-1">
         Crear Cuenta
       </h1>
-      <p class="mb-5 text-gray-400 text-sm text-center">
+      <p class="mb-5 text-gray-600 dark:text-gray-400 text-sm text-center">
         Únete a Meta Force
       </p>
 
       <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
         
         <div class="mb-4">
-          <label class="block text-white mb-1 text-sm font-medium" for="name">Nombre</label>
+          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="name">Nombre</label>
           <div class="relative">
-            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
             </span>
             <input
@@ -30,21 +33,21 @@
               autocomplete="given-name"
               formControlName="name"
               placeholder="Tu nombre"
-              class="px-10 h-10 rounded-lg border-2 border-gray-700 bg-gray-700 text-white w-full focus:border-cyan-400 focus:ring-cyan-400 transition-colors"
+              class="px-10 h-10 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"
               type="text"
             />
           </div>
           @if(formRegister.controls['name'].touched && formRegister.controls['name'].errors){
-            <span class="text-red-400 text-xs mt-1 block">
+            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">
               {{getError('name')}}
             </span>
           }
         </div>
 
         <div class="mb-4">
-          <label class="block text-white mb-1 text-sm font-medium" for="email">Email</label>
+          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="email">Email</label>
           <div class="relative">
-            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
             </span>
             <input
@@ -52,21 +55,21 @@
               autocomplete="email"
               formControlName="email"
               placeholder="tu@email.com"
-              class="px-10 h-10 rounded-lg border-2 border-gray-700 bg-gray-700 text-white w-full focus:border-cyan-400 focus:ring-cyan-400 transition-colors"
+              class="px-10 h-10 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"
               type="email"
             />
           </div>
           @if(formRegister.controls['email'].touched && formRegister.controls['email'].errors){
-            <span class="text-red-400 text-xs mt-1 block">
+            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">
               {{getError('email')}}
             </span>
           }
         </div>
 
         <div class="mb-4">
-          <label class="block text-white mb-1 text-sm font-medium" for="password">Contraseña</label>
+          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="password">Contraseña</label>
           <div class="relative">
-            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
             </span>
             <input
@@ -80,23 +83,23 @@
             <button
               type="button"
               (click)="togglePassword()"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"
             >
               <svg *ngIf="!showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.657 3.841 5.21 6.5 9.566 6.5 2.085 0 4.017-.63 5.617-1.707m-4.79 2.001A7.5 7.5 0 0 1 12 15a7.5 7.5 0 0 1-5.707-2.317M21 21l-18-18"/></svg>
               <svg *ngIf="showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
             </button>
           </div>
           @if(formRegister.controls['password'].touched && formRegister.controls['password'].errors){
-            <span class="text-red-400 text-xs mt-1 block">
+            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">
               {{getError('password')}}
             </span>
           }
         </div>
 
         <div class="mb-4">
-          <label class="block text-white mb-1 text-sm font-medium" for="confirmPassword">Confirmar Contraseña</label>
+          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="confirmPassword">Confirmar Contraseña</label>
           <div class="relative">
-            <span class="text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
+            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
             </span>
             <input
@@ -110,21 +113,21 @@
             <button
               type="button"
               (click)="toggleConfirmPassword()"
-              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"
             >
               <svg *ngIf="!showConfirmPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.657 3.841 5.21 6.5 9.566 6.5 2.085 0 4.017-.63 5.617-1.707m-4.79 2.001A7.5 7.5 0 0 1 12 15a7.5 7.5 0 0 1-5.707-2.317M21 21l-18-18"/></svg>
               <svg *ngIf="showConfirmPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
             </button>
           </div>
           @if(formRegister.controls['confirmPassword'].touched && (formRegister.controls['confirmPassword'].errors || formRegister.errors?.['passwordsDoNotMatch'])){
-            <span class="text-red-400 text-xs mt-1 block">
+            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">
               {{getError('confirmPassword')}}
             </span>
           }
         </div>
 
         @if(errorMsg()){
-          <div class="text-red-400 bg-red-950/50 p-2 rounded-lg text-center text-sm mb-4 border border-red-700">
+          <div class="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50 p-2 rounded-lg text-center text-sm mb-4 border border-red-300 dark:border-red-700">
             {{ getError('global') }}
           </div>
         }
@@ -138,12 +141,12 @@
         </button>
       </form>
 
-      <div class="mt-6 text-center text-white text-sm">
+      <div class="mt-6 text-center text-gray-900 dark:text-white text-sm">
         ¿Ya tienes cuenta?
         <button
           type="button"
           (click)="goLogin()"
-          class="underline font-bold text-cyan-300 hover:text-white ml-1 transition-colors"
+          class="underline font-bold text-blue-600 dark:text-cyan-300 hover:text-blue-800 dark:hover:text-white ml-1 transition-colors"
         >
           Inicia sesión
         </button>

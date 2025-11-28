@@ -1,3 +1,5 @@
+import type { Role, UserStatus } from './user';
+
 export interface AuthInput {
   email: string;
   password?: string;
@@ -5,7 +7,7 @@ export interface AuthInput {
 
 export interface RegisterInput extends AuthInput {
   name: string;
-  role?: 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+  role?: Role;
 }
 
 export interface AuthResponse {
@@ -14,7 +16,9 @@ export interface AuthResponse {
     id: string;
     email: string;
     name: string;
-    role: 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+    role: Role;
+    status?: UserStatus;
     createdAt?: string;
+    centerId?: string;
   };
 }
