@@ -6,8 +6,6 @@ import { CentersService } from '../../core/services/centers.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Center, CreateCenterInput, UpdateCenterInput } from '../../core/models/center';
 
-type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
-
 @Component({
   selector: 'app-centers',
   standalone: true,
@@ -31,6 +29,7 @@ export class CentersComponent implements OnInit {
   
   selectedCenter = signal<Center | null>(null);
   viewCenter = signal<Center | null>(null);
+  
   centerForm = signal<CreateCenterInput>({
     name: '',
     description: '',
@@ -44,11 +43,22 @@ export class CentersComponent implements OnInit {
   currentUser = computed(() => this.auth.currentUser());
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
-  canEdit = computed(() => this.isSuperAdmin());
+  
+  // Solo SuperAdmin puede crear o borrar
+  canCreate = computed(() => this.isSuperAdmin());
   canDelete = computed(() => this.isSuperAdmin());
 
   ngOnInit() {
     this.loadCenters();
+  }
+
+  // Nueva función para verificar si puede editar un centro específico
+  canModify(center: Center): boolean {
+    if (this.isSuperAdmin()) return true;
+    if (this.isAdminCenter()) {
+      return center.id === this.currentUser()?.centerId;
+    }
+    return false;
   }
 
   loadCenters() {
@@ -91,7 +101,7 @@ export class CentersComponent implements OnInit {
     
     this.isLoading.set(true);
     this.errorMessage.set('');
-    
+
     // Cargar el centro completo desde el backend
     this.centersService.getCenter(center.id).subscribe({
       next: (fullCenter) => {
@@ -117,7 +127,6 @@ export class CentersComponent implements OnInit {
 
   openViewModal(center: Center) {
     if (!center.id) {
-      // Si no tiene ID, solo mostrar la información disponible
       this.viewCenter.set(center);
       this.showViewModal.set(true);
       return;
@@ -126,7 +135,6 @@ export class CentersComponent implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set('');
     
-    // Cargar el centro completo desde el backend
     this.centersService.getCenter(center.id).subscribe({
       next: (fullCenter) => {
         this.viewCenter.set(fullCenter);
@@ -134,7 +142,6 @@ export class CentersComponent implements OnInit {
         this.isLoading.set(false);
       },
       error: (error) => {
-        // Si falla, mostrar al menos la información disponible
         this.viewCenter.set(center);
         this.showViewModal.set(true);
         this.isLoading.set(false);
@@ -233,4 +240,3 @@ export class CentersComponent implements OnInit {
     });
   }
 }
-
