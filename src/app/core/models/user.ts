@@ -1,8 +1,12 @@
+export type Role = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+export type UserStatus = 'PENDING' | 'ACTIVE' | 'INACTIVE';
+
 export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+  role: Role;
+  status?: UserStatus;
   createdAt?: string;
   centerId?: string;
   center?: {
