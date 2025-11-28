@@ -1,5 +1,5 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router'; // <--- IMPORTANTE: Importar esto
 import { MachinesService } from '../../core/services/machines.service';
@@ -12,7 +12,7 @@ import { Center } from '../../core/models/center';
   selector: 'app-machines',
   standalone: true,
   // AÑADIR RouterModule AQUÍ ABAJO 👇
-  imports: [CommonModule, FormsModule, DatePipe, RouterModule], 
+  imports: [CommonModule, FormsModule, RouterModule], 
   templateUrl: './machines.component.html',
   styleUrl: './machines.component.scss'
 })

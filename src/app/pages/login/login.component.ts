@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal, OnDestroy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
 import { AuthInput } from '../../core/models/auth';
@@ -10,7 +10,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink, ThemeToggleComponent],
+  imports: [ReactiveFormsModule, CommonModule, ThemeToggleComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

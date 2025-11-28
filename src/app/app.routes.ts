@@ -7,11 +7,16 @@ import { CentersComponent } from './pages/centers/centers.component';
 import { UsersComponent } from './pages/users/users.component';
 import { QrComponent } from './pages/qr/qr.component';
 import { MachinesComponent } from './pages/machines/machines.component';
+import { HomeComponent } from './pages/home/home.component';
 
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'dashboard',
+        component: HomeComponent
+    },
+    {
+        path: 'home',
+        redirectTo: '',
         pathMatch: 'full'
     },
     {
