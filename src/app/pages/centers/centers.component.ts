@@ -5,14 +5,14 @@ import { RouterModule } from '@angular/router';
 import { CentersService } from '../../core/services/centers.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Center, CreateCenterInput } from '../../core/models/center';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
 @Component({
   selector: 'app-centers',
   standalone: true,
-  // Se asume que ThemeToggleComponent no es necesario para la funcionalidad central
-  imports: [CommonModule, FormsModule, RouterModule, DatePipe],
+  imports: [CommonModule, FormsModule, RouterModule, DatePipe, ThemeToggleComponent],
   templateUrl: './centers.component.html',
   styleUrl: './centers.component.scss'
 })
@@ -35,7 +35,6 @@ export class CentersComponent implements OnInit {
   filterDateFrom = signal<string>('');
   filterDateTo = signal<string>('');
   showFilters = signal(false);
-  // --------------------------
   
   // Modal states
   showCreateModal = signal(false);
@@ -46,7 +45,6 @@ export class CentersComponent implements OnInit {
   selectedCenter = signal<Center | null>(null);
   viewCenter = signal<Center | null>(null);
   
-  // Formulario como Signal
   centerForm = signal<CreateCenterInput>({
     name: '',
     description: '',
@@ -61,15 +59,13 @@ export class CentersComponent implements OnInit {
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
   
-  // Solo SuperAdmin puede crear o borrar
   canCreate = computed(() => this.isSuperAdmin());
   canDelete = computed(() => this.isSuperAdmin());
 
-  // --- LÓGICA DE FILTRADO Y COMPUTED ---
+  // --- LÓGICA DE FILTRADO ---
   filteredCenters = computed(() => {
     let filtered = this.centers();
     
-    // Aplicar filtros de texto
     if (this.filterName()) {
       const nameFilter = this.filterName().toLowerCase();
       filtered = filtered.filter(c => c.name.toLowerCase().includes(nameFilter));
@@ -99,7 +95,6 @@ export class CentersComponent implements OnInit {
       filtered = filtered.filter(c => c.email?.toLowerCase().includes(emailFilter));
     }
     
-    // Aplicar filtros de fecha
     if (this.filterDateFrom()) {
       const dateFrom = new Date(this.filterDateFrom());
       filtered = filtered.filter(c => {
@@ -121,28 +116,18 @@ export class CentersComponent implements OnInit {
 
   hasActiveFilters = computed(() => {
     return !!(
-      this.filterName() ||
-      this.filterDescription() ||
-      this.filterAddress() ||
-      this.filterCity() ||
-      this.filterCountry() ||
-      this.filterPhone() ||
-      this.filterEmail() ||
-      this.filterDateFrom() ||
-      this.filterDateTo()
+      this.filterName() || this.filterDescription() || this.filterAddress() ||
+      this.filterCity() || this.filterCountry() || this.filterPhone() ||
+      this.filterEmail() || this.filterDateFrom() || this.filterDateTo()
     );
   });
-  // ----------------------------------------------------
 
   ngOnInit() {
     this.loadCenters();
   }
 
-  // Lógica principal para visibilidad de edición (Corregida)
   canModify(center: Center): boolean {
-    // Si eres SuperAdmin, puedes modificar cualquier cosa
     if (this.isSuperAdmin()) return true;
-    // Si eres AdminCenter, solo puedes modificar tu centro asignado
     if (this.isAdminCenter()) {
       return center.id === this.currentUser()?.centerId;
     }
@@ -167,13 +152,7 @@ export class CentersComponent implements OnInit {
 
   openCreateModal() {
     this.centerForm.set({
-      name: '',
-      description: '',
-      address: '',
-      city: '',
-      country: '',
-      phone: '',
-      email: ''
+      name: '', description: '', address: '', city: '', country: '', phone: '', email: ''
     });
     this.showCreateModal.set(true);
     this.errorMessage.set('');
@@ -186,11 +165,9 @@ export class CentersComponent implements OnInit {
 
   openEditModal(center: Center) {
     if (!center.id) return;
-    
     this.isLoading.set(true);
     this.errorMessage.set('');
 
-    // Cargar el centro completo desde el backend
     this.centersService.getCenter(center.id).subscribe({
       next: (fullCenter) => {
         this.selectedCenter.set(fullCenter);
@@ -219,7 +196,6 @@ export class CentersComponent implements OnInit {
       this.showViewModal.set(true);
       return;
     }
-
     this.isLoading.set(true);
     this.errorMessage.set('');
     
@@ -263,12 +239,10 @@ export class CentersComponent implements OnInit {
 
   createCenter() {
     const formValue = this.centerForm();
-
     if (!formValue.name.trim()) {
       this.errorMessage.set('El nombre del centro es obligatorio');
       return;
     }
-
     this.isLoading.set(true);
     this.errorMessage.set('');
 
@@ -294,7 +268,6 @@ export class CentersComponent implements OnInit {
       this.errorMessage.set('El nombre del centro es obligatorio');
       return;
     }
-
     this.isLoading.set(true);
     this.errorMessage.set('');
 
@@ -314,7 +287,6 @@ export class CentersComponent implements OnInit {
   deleteCenter() {
     const center = this.selectedCenter();
     if (!center?.id) return;
-
     this.isLoading.set(true);
     this.errorMessage.set('');
 
@@ -331,7 +303,6 @@ export class CentersComponent implements OnInit {
     });
   }
   
-  // --- MÉTODOS DE FILTRO ---
   toggleFilters() {
     this.showFilters.set(!this.showFilters());
   }
