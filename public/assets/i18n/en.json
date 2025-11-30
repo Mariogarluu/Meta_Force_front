@@ -1,0 +1,361 @@
+{
+  "qr": {
+    "title": "My QR Code",
+    "backToDashboard": "Back to Dashboard",
+    "accessCode": "Gym Access Code",
+    "showAtReception": "Show this QR code at reception to access the facilities",
+    "instructions": "📱 Instructions:",
+    "instruction1": "• Present this code at reception",
+    "instruction2": "• Make sure the QR is clearly visible",
+    "instruction3": "• The code updates automatically",
+    "download": "📥 Download QR Code",
+    "loading": "Loading user information..."
+  },
+  "theme": {
+    "dark": "Dark mode",
+    "light": "Light mode",
+    "switchToDark": "Switch to dark mode",
+    "switchToLight": "Switch to light mode"
+  },
+  "home": {
+    "hero": {
+      "title": "Meta Force",
+      "subtitle": "Transform your body, transform your life"
+    },
+    "services": {
+      "training": {
+        "title": "Training",
+        "description": "Optimize your routines with tracking and smart machines."
+      },
+      "trainers": {
+        "title": "Trainers",
+        "description": "Manage your staff, schedules and classes with full control."
+      },
+      "diets": {
+        "title": "Diets",
+        "description": "Personalized plans that accompany each workout."
+      }
+    },
+    "carousel": {
+      "previous": "Previous",
+      "next": "Next",
+      "goToSlide": "Go to slide"
+    }
+  },
+  "login": {
+    "title": "Meta Force",
+    "subtitle": "Access your personalized training",
+    "email": "Email",
+    "password": "Password",
+    "emailPlaceholder": "your@email",
+    "passwordPlaceholder": "Your password",
+    "loginButton": "Sign In",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create account",
+    "errors": {
+      "emailRequired": "Email field is required",
+      "passwordRequired": "Password field is required",
+      "emailInvalid": "Email format is not correct",
+      "invalidCredentials": "Invalid credentials"
+    }
+  },
+  "register": {
+    "title": "Create Account",
+    "subtitle": "Join Meta Force",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "your@email",
+    "passwordPlaceholder": "Your password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "registerButton": "Register",
+    "errors": {
+      "nameRequired": "Name field is required",
+      "emailRequired": "Email field is required",
+      "passwordRequired": "Password field is required",
+      "confirmPasswordRequired": "Confirm password field is required",
+      "emailInvalid": "Email format is not correct",
+      "passwordMinLength": "Must have at least {{min}} characters",
+      "passwordPattern": "At least one uppercase, one lowercase, one number and 8 characters",
+      "passwordsDoNotMatch": "Passwords do not match"
+    }
+  },
+  "dashboard": {
+    "title": "Meta Force Dashboard",
+    "editRole": "Edit Role",
+    "logout": "Sign Out",
+    "welcome": "Welcome, {{name}}! 👋",
+    "loggedInAs": "You are logged in as",
+    "at": "at",
+    "loading": "Loading user information...",
+    "roles": {
+      "SUPERADMIN": "Super Administrator",
+      "ADMIN_CENTER": "Center Administrator",
+      "TRAINER": "Trainer",
+      "CLEANER": "Cleaning Staff",
+      "USER": "User"
+    },
+    "cards": {
+      "globalAdmin": {
+        "title": "Global Administration",
+        "description": "Manage all centers, users and system settings.",
+        "features": {
+          "access": "Full access to all centers",
+          "users": "User and role management",
+          "config": "System configuration",
+          "reports": "Reports and statistics"
+        }
+      },
+      "centers": {
+        "title": "Center Management",
+        "description": "Create, edit and delete training centers.",
+        "button": "Manage Centers"
+      },
+      "machines": {
+        "title": "Machine Management",
+        "description": "Manage the machine inventory of all centers.",
+        "button": "Manage Machines"
+      },
+      "users": {
+        "title": "User Management",
+        "description": "Manage all users and validate pending accounts.",
+        "button": "Manage Users"
+      },
+      "myQR": {
+        "title": "My QR Code",
+        "description": "Access the gym with your personal QR code.",
+        "button": "View My QR"
+      },
+      "qrScanner": {
+        "title": "QR Scanner",
+        "description": "Register entries and exits by scanning QR codes.",
+        "button": "Open Scanner"
+      },
+      "myCenter": {
+        "title": "My Center",
+        "description": "View your center information.",
+        "button": "View Center"
+      },
+      "employees": {
+        "title": "Employees",
+        "description": "Manage your center's employees.",
+        "button": "Manage Employees"
+      },
+      "statistics": {
+        "title": "Statistics",
+        "description": "View your center's statistics.",
+        "button": "View Statistics"
+      },
+      "myProfile": {
+        "title": "My Profile",
+        "description": "Manage your personal information.",
+        "button": "Edit Profile"
+      },
+      "myClasses": {
+        "title": "My Classes",
+        "description": "Manage your classes and schedules.",
+        "button": "View Classes"
+      }
+    },
+    "userInfo": {
+      "title": "User Information",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "center": "Center",
+      "registrationDate": "Registration date"
+    },
+    "roleEditor": {
+      "title": "Change Role",
+      "selectRole": "Select a role",
+      "cancel": "Cancel",
+      "save": "Save Changes",
+      "saving": "Saving..."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "classes": "Classes",
+    "trainers": "Trainers",
+    "membership": "Membership",
+    "login": "Sign In"
+  },
+  "qrScanner": {
+    "title": "Entry/Exit Registration",
+    "backToDashboard": "Back to Dashboard",
+    "selectCenter": "Select Center",
+    "selectCenterPlaceholder": "-- Select a center --",
+    "scannerTitle": "QR Code Scanner",
+    "startScanner": "Start Scanner",
+    "stopScanner": "Stop Scanner",
+    "user": "User",
+    "instructions": "Instructions",
+    "instruction1": "Select the center where entry/exit will be registered",
+    "instruction2": "Click \"Start Scanner\" to activate the camera",
+    "instruction3": "Point the camera at the user's QR code",
+    "instruction4": "The system will automatically detect if it's entry (green) or exit (red)",
+    "instruction5": "The QR code must be less than 20 minutes old",
+    "loading": "Loading user information...",
+    "errors": {
+      "invalidQR": "Invalid QR: missing required data",
+      "expiredQR": "The QR code has expired. Please generate a new one.",
+      "processingError": "Error processing QR code"
+    }
+  },
+  "users": {
+    "title": "User Management",
+    "backToDashboard": "Back to Dashboard",
+    "filters": "Filters",
+    "hideFilters": "Hide Filters",
+    "searchFilters": "Search Filters",
+    "clearFilters": "Clear Filters",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "center": "Center",
+    "dateFrom": "Date from",
+    "dateTo": "Date to",
+    "searchByName": "Search by name...",
+    "searchByEmail": "Search by email...",
+    "allRoles": "All roles",
+    "allStatuses": "All statuses",
+    "allCenters": "All centers",
+    "noCenter": "No center",
+    "centerNotFound": "Center not found",
+    "favoriteCenter": "Favorite Center",
+    "currentCenter": "Current Center",
+    "noFavoriteCenter": "No favorite center assigned",
+    "notInAnyCenter": "Not in any center currently",
+    "editUser": "Edit User",
+    "viewUser": "View User",
+    "deleteUser": "Delete User",
+    "newUser": "New User",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete this user?",
+    "errors": {
+      "nameEmailRequired": "Name and email are required"
+    },
+    "statuses": {
+      "PENDING": "Pending",
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive",
+      "SUSPENDED": "Suspended"
+    },
+    "validate": "Validate",
+    "noUsersFound": "No users found with the applied filters",
+    "noUsersAvailable": "No users available",
+    "deleting": "Deleting...",
+    "showing": "Showing",
+    "of": "of",
+    "users": "users",
+    "registered": "Registered",
+    "registrationDate": "Registration Date",
+    "currentlyIn": "Currently in",
+    "favoriteCenterDescription": "User's assigned/favorite center (can be changed from here)"
+  },
+  "centers": {
+    "title": "Center Management",
+    "backToDashboard": "Back to Dashboard",
+    "newCenter": "+ New Center",
+    "filters": "Filters",
+    "hideFilters": "Hide Filters",
+    "searchFilters": "Search Filters",
+    "clearFilters": "Clear Filters",
+    "name": "Name",
+    "description": "Description",
+    "address": "Address",
+    "city": "City",
+    "country": "Country",
+    "phone": "Phone",
+    "email": "Email",
+    "dateFrom": "Date from",
+    "dateTo": "Date to",
+    "searchByName": "Search by name...",
+    "searchByDescription": "Search by description...",
+    "searchByAddress": "Search by address...",
+    "searchByCity": "Search by city...",
+    "searchByCountry": "Search by country...",
+    "searchByPhone": "Search by phone...",
+    "searchByEmail": "Search by email...",
+    "editCenter": "Edit Center",
+    "viewCenter": "View Center",
+    "deleteCenter": "Delete Center",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirmDelete": "Are you sure you want to delete this center?",
+    "errors": {
+      "nameRequired": "Center name is required"
+    },
+    "deleting": "Deleting...",
+    "selectCenter": "Select a center",
+    "noCentersFound": "No centers found with the applied filters",
+    "noCentersAvailable": "No centers available",
+    "loading": "Loading centers...",
+    "createdAt": "Creation Date",
+    "showing": "Showing",
+    "of": "of",
+    "centers": "centers"
+  },
+  "machines": {
+    "title": "Machine Management",
+    "subtitle": "Equipment inventory and status",
+    "back": "Back",
+    "newMachine": "New Machine",
+    "filters": "Filters",
+    "hideFilters": "Hide Filters",
+    "searchFilters": "Search Filters",
+    "clearFilters": "Clear Filters",
+    "name": "Name",
+    "type": "Type",
+    "status": "Status",
+    "center": "Center",
+    "searchByName": "Search by name...",
+    "searchByCenter": "Search by center...",
+    "allTypes": "All types",
+    "allStatuses": "All statuses",
+    "editMachine": "Edit Machine",
+    "viewMachine": "View Machine",
+    "deleteMachine": "Delete Machine",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "namePlaceholder": "Ex: Treadmill #1",
+    "types": {
+      "cardio": "Cardio",
+      "fuerza": "Strength",
+      "peso libre": "Free Weight",
+      "funcional": "Functional",
+      "otro": "Other"
+    },
+    "statuses": {
+      "operativa": "Operational",
+      "en mantenimiento": "Under Maintenance",
+      "fuera de servicio": "Out of Service"
+    },
+    "confirmDelete": "Are you sure you want to delete the machine",
+    "deleting": "Deleting...",
+    "noMachinesFound": "No machines found with the applied filters",
+    "noMachinesRegistered": "No machines registered",
+    "registerFirstMachine": "Register the first machine",
+    "showing": "Showing",
+    "of": "of",
+    "machines": "machines"
+  },
+  "common": {
+    "selectLanguage": "Select language",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close"
+  }
+}

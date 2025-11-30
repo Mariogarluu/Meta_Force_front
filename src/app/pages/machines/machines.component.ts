@@ -8,12 +8,13 @@ import { AuthService } from '../../core/services/auth.service';
 import { CreateMachineInput, Machine, MachineStatus, MachineType, UpdateMachineInput } from '../../core/models/machine';
 import { Center } from '../../core/models/center';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 @Component({
   selector: 'app-machines',
   standalone: true,
-  // AÑADIR RouterModule AQUÍ ABAJO 👇
-  imports: [CommonModule, FormsModule, RouterModule, DatePipe, RouterModule, ThemeToggleComponent], 
+  imports: [CommonModule, FormsModule, RouterModule, DatePipe, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent], 
   templateUrl: './machines.component.html',
   styleUrl: './machines.component.scss'
 })
@@ -21,6 +22,7 @@ export class MachinesComponent implements OnInit {
   private machinesService = inject(MachinesService);
   private centersService = inject(CentersService);
   public auth = inject(AuthService);
+  translate = inject(TranslateService);
 
   machines = signal<Machine[]>([]);
   centers = signal<Center[]>([]);

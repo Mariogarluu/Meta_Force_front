@@ -5,14 +5,15 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div class="flex justify-between items-center">
           <div class="flex items-center gap-4">
-            <h1 class="text-2xl font-bold text-blue-900 dark:text-white">Mi Código QR</h1>
+            <h1 class="text-2xl font-bold text-blue-900 dark:text-white">{{ 'qr.title' | translate }}</h1>
           </div>
           <div class="flex items-center gap-4">
+            <app-language-selector></app-language-selector>
             <app-theme-toggle></app-theme-toggle>
             <a 
               routerLink="/dashboard"
               class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium">
-              Volver al Dashboard
+              {{ 'qr.backToDashboard' | translate }}
             </a>
           </div>
         </div>
@@ -31,10 +32,10 @@
             </svg>
           </div>
           <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            Código de Acceso al Gimnasio
+            {{ 'qr.accessCode' | translate }}
           </h2>
           <p class="text-gray-600 dark:text-gray-400 text-lg">
-            Muestra este código QR en la recepción para acceder a las instalaciones
+            {{ 'qr.showAtReception' | translate }}
           </p>
         </div>
 
@@ -46,12 +47,12 @@
               <img 
                 [src]="qrUrl()"
                 class="dark:hidden w-64 h-64 mx-auto"
-                alt="Código QR"
+                alt="QR Code"
               />
               <img 
                 [src]="qrUrlDark()"
                 class="hidden dark:block w-64 h-64 mx-auto"
-                alt="Código QR"
+                alt="QR Code"
               />
             </div>
 
@@ -84,12 +85,12 @@
             <!-- Instructions -->
             <div class="bg-blue-50 dark:bg-cyan-900/20 rounded-lg p-4 border border-blue-200 dark:border-cyan-500/30">
               <p class="text-sm text-gray-700 dark:text-gray-300 font-medium mb-2">
-                📱 Instrucciones:
+                {{ 'qr.instructions' | translate }}
               </p>
               <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1 text-left">
-                <li>• Presenta este código en la recepción</li>
-                <li>• Asegúrate de que el QR sea claramente visible</li>
-                <li>• El código se actualiza automáticamente</li>
+                <li>{{ 'qr.instruction1' | translate }}</li>
+                <li>{{ 'qr.instruction2' | translate }}</li>
+                <li>{{ 'qr.instruction3' | translate }}</li>
               </ul>
             </div>
           </div>
@@ -100,7 +101,7 @@
           <button 
             (click)="downloadQR()"
             class="px-6 py-3 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white rounded-lg transition-all transform hover:scale-105 shadow-lg font-medium">
-            📥 Descargar Código QR
+            {{ 'qr.download' | translate }}
           </button>
         </div>
       </div>
@@ -109,7 +110,7 @@
     <div class="min-h-screen flex items-center justify-center">
       <div class="text-center">
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
-        <p class="text-gray-700 dark:text-gray-300">Cargando información del usuario...</p>
+        <p class="text-gray-700 dark:text-gray-300">{{ 'qr.loading' | translate }}</p>
       </div>
     </div>
   }

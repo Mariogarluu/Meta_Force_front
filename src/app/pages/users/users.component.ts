@@ -8,11 +8,13 @@ import { AuthService } from '../../core/services/auth.service';
 import { User, Role, UserStatus } from '../../core/models/user';
 import { Center } from '../../core/models/center';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, DatePipe, ThemeToggleComponent],
+  imports: [CommonModule, FormsModule, RouterModule, DatePipe, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
@@ -20,6 +22,7 @@ export class UsersComponent implements OnInit {
   usersService = inject(UsersService);
   centersService = inject(CentersService);
   auth = inject(AuthService);
+  translate = inject(TranslateService);
 
   users = signal<User[]>([]);
   centers = signal<Center[]>([]);
@@ -217,7 +220,7 @@ export class UsersComponent implements OnInit {
     if (!user?.id) return;
 
     if (!this.userForm.name?.trim() || !this.userForm.email?.trim()) {
-      this.errorMessage.set('El nombre y el email son obligatorios');
+      this.errorMessage.set(this.translate.instant('users.errors.nameEmailRequired'));
       return;
     }
 
@@ -292,6 +295,8 @@ export class UsersComponent implements OnInit {
   }
 
   getStatusText(status?: UserStatus): string {
+    if (!status) return '';
+    return this.getStatusName(status);
     const texts: Record<UserStatus, string> = {
       'PENDING': 'Pendiente',
       'ACTIVE': 'Activo',
@@ -312,20 +317,17 @@ export class UsersComponent implements OnInit {
   }
 
   getRoleName(role: string): string {
-    const names: Record<string, string> = {
-      'SUPERADMIN': 'Super Administrador',
-      'ADMIN_CENTER': 'Administrador de Centro',
-      'TRAINER': 'Entrenador',
-      'CLEANER': 'Personal de Limpieza',
-      'USER': 'Usuario'
-    };
-    return names[role] || 'Usuario';
+    return this.translate.instant(`dashboard.roles.${role}`) || this.translate.instant('dashboard.roles.USER');
   }
 
   getCenterName(centerId?: string | null): string {
-    if (!centerId) return 'Sin centro';
+    if (!centerId) return this.translate.instant('users.noCenter');
     const center = this.centers().find(c => c.id === centerId);
-    return center?.name || 'Centro no encontrado';
+    return center?.name || this.translate.instant('users.centerNotFound');
+  }
+
+  getStatusName(status: string): string {
+    return this.translate.instant(`users.statuses.${status}`) || status;
   }
 
   toggleFilters() {

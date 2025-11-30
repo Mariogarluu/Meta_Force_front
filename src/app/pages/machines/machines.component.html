@@ -3,18 +3,19 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <div class="flex justify-between items-center">
         <div>
-          <h1 class="text-2xl font-bold text-blue-900 dark:text-white">Gestión de Máquinas</h1>
-          <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">Inventario y estado de equipamiento</p>
+          <h1 class="text-2xl font-bold text-blue-900 dark:text-white">{{ 'machines.title' | translate }}</h1>
+          <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">{{ 'machines.subtitle' | translate }}</p>
         </div>
         <div class="flex items-center gap-4">
+          <app-language-selector></app-language-selector>
           <app-theme-toggle></app-theme-toggle>
           <button 
             (click)="openCreateModal()"
             class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium flex items-center gap-2 shadow-sm">
-            <span>+</span> Nueva Máquina
+            <span>+</span> {{ 'machines.newMachine' | translate }}
           </button>
           <a routerLink="/dashboard" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
-            Volver
+            {{ 'machines.back' | translate }}
           </a>
         </div>
       </div>
@@ -33,9 +34,9 @@
         class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90 text-white shadow-sm">
         <span>🔍</span>
         @if(showFilters()) {
-          <span>Ocultar Filtros</span>
+          <span>{{ 'machines.hideFilters' | translate }}</span>
         } @else {
-          <span>Filtros</span>
+          <span>{{ 'machines.filters' | translate }}</span>
         }
         @if(hasActiveFilters()) {
           <span class="px-1.5 py-0.5 bg-yellow-500/30 rounded text-xs">{{ filteredMachines().length }}/{{ machines().length }}</span>
@@ -46,61 +47,61 @@
     @if(showFilters()) {
       <div class="mb-6 bg-white dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-lg font-bold text-gray-900 dark:text-white">Filtros de Búsqueda</h2>
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white">{{ 'machines.searchFilters' | translate }}</h2>
           @if(hasActiveFilters()) {
             <button 
               (click)="clearFilters()"
               class="px-3 py-1 bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-500/20 dark:text-red-400 dark:hover:bg-red-500/30 rounded-lg transition-colors text-sm">
-              Limpiar Filtros
+              {{ 'machines.clearFilters' | translate }}
             </button>
           }
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div>
-            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Nombre</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'machines.name' | translate }}</label>
             <input 
               type="text"
               [ngModel]="filterName()"
               (ngModelChange)="filterName.set($event)"
-              placeholder="Buscar por nombre..."
+              [placeholder]="'machines.searchByName' | translate"
               class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
 
           <div>
-            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Tipo</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'machines.type' | translate }}</label>
             <select 
               [ngModel]="filterType()"
               (ngModelChange)="filterType.set($event)"
               class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
-              <option value="">Todos los tipos</option>
+              <option value="">{{ 'machines.allTypes' | translate }}</option>
               @for(type of machineTypes; track type) {
-                <option [value]="type">{{ type | titlecase }}</option>
+                <option [value]="type">{{ 'machines.types.' + type | translate }}</option>
               }
             </select>
           </div>
 
           <div>
-            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Estado</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'machines.status' | translate }}</label>
             <select 
               [ngModel]="filterStatus()"
               (ngModelChange)="filterStatus.set($event)"
               class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
-              <option value="">Todos los estados</option>
+              <option value="">{{ 'machines.allStatuses' | translate }}</option>
               @for(status of machineStatuses; track status) {
-                <option [value]="status">{{ status | titlecase }}</option>
+                <option [value]="status">{{ 'machines.statuses.' + status | translate }}</option>
               }
             </select>
           </div>
 
           @if(isSuperAdmin()) {
             <div>
-              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Centro</label>
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'machines.center' | translate }}</label>
               <input 
                 type="text"
                 [ngModel]="filterCenter()"
                 (ngModelChange)="filterCenter.set($event)"
-                placeholder="Buscar por centro..."
+                [placeholder]="'machines.searchByCenter' | translate"
                 class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
             </div>
           }
@@ -109,8 +110,8 @@
         @if(hasActiveFilters()) {
           <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
             <p class="text-sm text-gray-600 dark:text-gray-400">
-              Mostrando <span class="text-gray-900 dark:text-white font-semibold">{{ filteredMachines().length }}</span> de 
-              <span class="text-gray-900 dark:text-white font-semibold">{{ machines().length }}</span> máquinas
+              {{ 'machines.showing' | translate }} <span class="text-gray-900 dark:text-white font-semibold">{{ filteredMachines().length }}</span> {{ 'machines.of' | translate }} 
+              <span class="text-gray-900 dark:text-white font-semibold">{{ machines().length }}</span> {{ 'machines.machines' | translate }}
             </p>
           </div>
         }
@@ -123,16 +124,16 @@
       </div>
     } @else if(machines().length === 0) {
       <div class="text-center py-16 bg-white dark:bg-gray-800/50 rounded-xl border border-gray-300 dark:border-gray-700 border-dashed transition-colors duration-300">
-        <p class="text-gray-600 dark:text-gray-400 text-lg">No hay máquinas registradas</p>
+        <p class="text-gray-600 dark:text-gray-400 text-lg">{{ 'machines.noMachinesRegistered' | translate }}</p>
         <button (click)="openCreateModal()" class="mt-4 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 font-medium">
-          Registrar la primera máquina
+          {{ 'machines.registerFirstMachine' | translate }}
         </button>
       </div>
     } @else {
       @if(filteredMachines().length === 0) {
         <div class="text-center py-12">
           <p class="text-gray-600 dark:text-gray-400 text-lg">
-            No se encontraron máquinas con los filtros aplicados
+            {{ 'machines.noMachinesFound' | translate }}
           </p>
         </div>
       } @else {
@@ -142,10 +143,10 @@
               <div class="flex justify-between items-start mb-4">
                 <div>
                   <h3 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">{{ machine.name }}</h3>
-                  <p class="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wider mt-1">{{ machine.type }}</p>
+                  <p class="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wider mt-1">{{ 'machines.types.' + machine.type | translate }}</p>
                 </div>
                 <span [class]="'px-2 py-1 rounded text-xs font-medium border ' + getStatusColor(machine.status)">
-                  {{ machine.status }}
+                  {{ 'machines.statuses.' + machine.status | translate }}
                 </span>
               </div>
 
@@ -160,12 +161,12 @@
                 <button 
                   (click)="openEditModal(machine)"
                   class="flex-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm transition-colors shadow-sm">
-                  Editar
+                  {{ 'common.edit' | translate }}
                 </button>
                 <button 
                   (click)="openDeleteModal(machine)"
                   class="flex-1 px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded text-sm transition-colors shadow-sm">
-                  Eliminar
+                  {{ 'common.delete' | translate }}
                 </button>
               </div>
             </div>
@@ -180,55 +181,55 @@
       <div class="bg-white dark:bg-gray-800 rounded-xl w-full max-w-md border border-gray-200 dark:border-gray-700 shadow-2xl transform transition-all scale-100">
         <div class="p-6 border-b border-gray-200 dark:border-gray-700">
           <h3 class="text-xl font-bold text-gray-900 dark:text-white">
-            {{ isEditing() ? 'Editar Máquina' : 'Nueva Máquina' }}
+            {{ isEditing() ? ('machines.editMachine' | translate) : ('machines.newMachine' | translate) }}
           </h3>
         </div>
         
         <form (ngSubmit)="onSubmit()" class="p-6 space-y-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Nombre</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">{{ 'machines.name' | translate }}</label>
             <input 
               type="text" 
               [(ngModel)]="formState().name" 
               name="name" 
               required
               class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
-              placeholder="Ej: Cinta de correr #1">
+              [placeholder]="'machines.namePlaceholder' | translate">
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Tipo</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">{{ 'machines.type' | translate }}</label>
             <select 
               [(ngModel)]="formState().type" 
               name="type" 
               class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:border-cyan-500">
               @for(type of machineTypes; track type) {
-                <option [value]="type">{{ type | titlecase }}</option>
+                <option [value]="type">{{ 'machines.types.' + type | translate }}</option>
               }
             </select>
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Estado</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">{{ 'machines.status' | translate }}</label>
             <select 
               [(ngModel)]="formState().status" 
               name="status" 
               class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:border-cyan-500">
               @for(status of machineStatuses; track status) {
-                <option [value]="status">{{ status | titlecase }}</option>
+                <option [value]="status">{{ 'machines.statuses.' + status | translate }}</option>
               }
             </select>
           </div>
 
           @if(isSuperAdmin()) {
             <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">Centro Asignado</label>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">{{ 'machines.center' | translate }}</label>
               <select 
                 [(ngModel)]="formState().centerId" 
                 name="centerId" 
                 required
                 class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:border-cyan-500">
-                <option value="" disabled>Selecciona un centro</option>
+                <option value="" disabled>{{ 'centers.selectCenter' | translate }}</option>
                 @for(center of centers(); track center.id) {
                   <option [value]="center.id">{{ center.name }}</option>
                 }
@@ -241,13 +242,13 @@
               type="button" 
               (click)="closeFormModal()"
               class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
-              Cancelar
+              {{ 'common.cancel' | translate }}
             </button>
             <button 
               type="submit" 
               [disabled]="isLoading() || (!formState().name)"
               class="flex-1 px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-md">
-              {{ isLoading() ? 'Guardando...' : 'Guardar' }}
+              {{ isLoading() ? ('dashboard.roleEditor.saving' | translate) : ('common.save' | translate) }}
             </button>
           </div>
         </form>
@@ -258,22 +259,21 @@
   @if(showDeleteModal()) {
     <div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div class="bg-white dark:bg-gray-800 rounded-xl w-full max-w-sm border border-gray-200 dark:border-gray-700 shadow-2xl p-6">
-        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">¿Eliminar máquina?</h3>
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ 'machines.deleteMachine' | translate }}</h3>
         <p class="text-gray-600 dark:text-gray-400 mb-6">
-          Estás a punto de eliminar <span class="text-gray-900 dark:text-white font-semibold">{{ selectedMachine()?.name }}</span>. 
-          Esta acción no se puede deshacer.
+          {{ 'machines.confirmDelete' | translate }} <span class="text-gray-900 dark:text-white font-semibold">{{ selectedMachine()?.name }}</span>.
         </p>
         <div class="flex gap-3">
           <button 
             (click)="closeDeleteModal()"
             class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
-            Cancelar
+            {{ 'common.cancel' | translate }}
           </button>
           <button 
             (click)="confirmDelete()"
             [disabled]="isLoading()"
             class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors shadow-md">
-            {{ isLoading() ? 'Eliminando...' : 'Eliminar' }}
+            {{ isLoading() ? ('machines.deleting' | translate) : ('common.delete' | translate) }}
           </button>
         </div>
       </div>

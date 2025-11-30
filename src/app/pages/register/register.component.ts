@@ -6,6 +6,8 @@ import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
 import { RegisterInput } from '../../core/models/auth';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 /**
  * Validador personalizado que verifica que las contraseñas del formulario de registro coincidan.
@@ -26,7 +28,7 @@ export function passwordsMatchValidator(group: AbstractControl): ValidationError
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, ThemeToggleComponent],
+  imports: [CommonModule, ReactiveFormsModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -35,6 +37,7 @@ export class RegisterComponent implements OnDestroy {
   builder: FormBuilder = inject(FormBuilder);
   auth: AuthService = inject(AuthService);
   router: Router = inject(Router);
+  translate = inject(TranslateService);
   readonly navigateTo: string;
 
   errorMsg = signal<string>('');
@@ -128,7 +131,7 @@ export class RegisterComponent implements OnDestroy {
     const formControl = this.formRegister.get(control);
 
     if (control === 'confirmPassword' && this.formRegister.errors?.['passwordsDoNotMatch'] && formControl?.touched) {
-      return "Las contraseñas no coinciden";
+      return this.translate.instant('register.errors.passwordsDoNotMatch');
     }
 
     if (!formControl || !formControl.touched || !formControl.errors) {
@@ -136,26 +139,20 @@ export class RegisterComponent implements OnDestroy {
     }
 
     if (formControl.errors['required']) {
-      const fieldNameMap: { [key: string]: string } = {
-        name: 'nombre',
-        email: 'email',
-        password: 'password',
-        confirmPassword: 'confirmar contraseña'
-      };
-      return `El campo ${fieldNameMap[control] || control} es requerido`;
+      return this.translate.instant(`register.errors.${control}Required`);
     }
 
     if (formControl.errors['minlength']) {
       const requiredLength = formControl.errors['minlength'].requiredLength;
-      return `Debe tener al menos ${requiredLength} caracteres`;
+      return this.translate.instant('register.errors.passwordMinLength', { min: requiredLength });
     }
 
     if (formControl.errors['email']) {
-      return "El formato de email no es correcto";
+      return this.translate.instant('register.errors.emailInvalid');
     }
 
     if (formControl.errors['pattern']) {
-      return "Al menos una mayúscula, una minúscula, un número y 8 caracteres";
+      return this.translate.instant('register.errors.passwordPattern');
     }
 
     return "";

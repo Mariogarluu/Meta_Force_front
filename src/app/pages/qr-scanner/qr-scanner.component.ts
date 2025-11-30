@@ -9,6 +9,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment.development';
 import { Center } from '../../core/models/center';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 /**
  * Interfaz para el resultado de un escaneo de QR.
@@ -40,7 +42,7 @@ interface ScanResult {
 @Component({
   selector: 'app-qr-scanner',
   standalone: true,
-  imports: [CommonModule, RouterModule, FormsModule, ThemeToggleComponent],
+  imports: [CommonModule, RouterModule, FormsModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent],
   templateUrl: './qr-scanner.component.html',
   styleUrl: './qr-scanner.component.scss'
 })
@@ -48,6 +50,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   auth = inject(AuthService);
   centersService = inject(CentersService);
   http = inject(HttpClient);
+  translate = inject(TranslateService);
 
   currentUser = this.auth.currentUser;
   centers = signal<Center[]>([]);
@@ -214,7 +217,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
       const qrData = JSON.parse(qrText);
       
       if (!qrData.id || !qrData.timestamp) {
-        this.scanError.set('QR inválido: faltan datos requeridos');
+        this.scanError.set(this.translate.instant('qrScanner.errors.invalidQR'));
         this.resumeScanning();
         return;
       }
@@ -225,7 +228,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
       const twentyMinutes = 20 * 60 * 1000;
 
       if (now - qrTime > twentyMinutes) {
-        this.scanError.set('El código QR ha expirado. Por favor, genera uno nuevo.');
+        this.scanError.set(this.translate.instant('qrScanner.errors.expiredQR'));
         this.resumeScanning();
         return;
       }
@@ -260,7 +263,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
       }
     } catch (error: any) {
       console.error('Error procesando QR:', error);
-      this.scanError.set(error.error?.message || 'Error al procesar el código QR');
+      this.scanError.set(error.error?.message || this.translate.instant('qrScanner.errors.processingError'));
       this.resumeScanning();
     }
   }
