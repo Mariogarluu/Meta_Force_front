@@ -1,0 +1,33 @@
+<header class="navbar">
+  <div class="navbar__inner">
+    <a routerLink="/" class="navbar__brand" aria-label="Meta Force Inicio">
+      <img src="/Logo.png" alt="Meta Force" class="navbar__logo" />
+    </a>
+
+    <nav class="navbar__menu">
+      @for (link of navLinks; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="active"
+          class="navbar__link">
+          {{ (link.key | translate) || link.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="navbar__actions">
+      <div class="flex items-center gap-2">
+        <app-language-selector></app-language-selector>
+        <app-theme-toggle></app-theme-toggle>
+      </div>
+      <button type="button" class="navbar__icon-btn" aria-label="Buscar">
+        <span>🔍</span>
+      </button>
+      <a routerLink="/login" class="navbar__login">{{ ('nav.login' | translate) || 'Iniciar sesión' }}</a>
+      <button type="button" class="navbar__icon-btn" aria-label="Perfil">
+        <span>👤</span>
+      </button>
+    </div>
+  </div>
+</header>
+

@@ -4,24 +4,40 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CentersService } from '../../core/services/centers.service';
 import { AuthService } from '../../core/services/auth.service';
-import { Center, CreateCenterInput, UpdateCenterInput } from '../../core/models/center';
+import { Center, CreateCenterInput } from '../../core/models/center';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
 @Component({
   selector: 'app-centers',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, DatePipe],
+  imports: [CommonModule, FormsModule, RouterModule, DatePipe, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent],
   templateUrl: './centers.component.html',
   styleUrl: './centers.component.scss'
 })
 export class CentersComponent implements OnInit {
   centersService = inject(CentersService);
   auth = inject(AuthService);
+  translate = inject(TranslateService);
 
   centers = signal<Center[]>([]);
   isLoading = signal(false);
   errorMessage = signal<string>('');
+  
+  // --- ESTADO Y FILTROS ---
+  filterName = signal<string>('');
+  filterDescription = signal<string>('');
+  filterAddress = signal<string>('');
+  filterCity = signal<string>('');
+  filterCountry = signal<string>('');
+  filterPhone = signal<string>('');
+  filterEmail = signal<string>('');
+  filterDateFrom = signal<string>('');
+  filterDateTo = signal<string>('');
+  showFilters = signal(false);
   
   // Modal states
   showCreateModal = signal(false);
@@ -31,6 +47,7 @@ export class CentersComponent implements OnInit {
   
   selectedCenter = signal<Center | null>(null);
   viewCenter = signal<Center | null>(null);
+  
   centerForm = signal<CreateCenterInput>({
     name: '',
     description: '',
@@ -44,11 +61,80 @@ export class CentersComponent implements OnInit {
   currentUser = computed(() => this.auth.currentUser());
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
-  canEdit = computed(() => this.isSuperAdmin());
+  
+  canCreate = computed(() => this.isSuperAdmin());
   canDelete = computed(() => this.isSuperAdmin());
+
+  // --- LÓGICA DE FILTRADO ---
+  filteredCenters = computed(() => {
+    let filtered = this.centers();
+    
+    if (this.filterName()) {
+      const nameFilter = this.filterName().toLowerCase();
+      filtered = filtered.filter(c => c.name.toLowerCase().includes(nameFilter));
+    }
+    if (this.filterDescription()) {
+      const descFilter = this.filterDescription().toLowerCase();
+      filtered = filtered.filter(c => c.description?.toLowerCase().includes(descFilter));
+    }
+    if (this.filterAddress()) {
+      const addressFilter = this.filterAddress().toLowerCase();
+      filtered = filtered.filter(c => c.address?.toLowerCase().includes(addressFilter));
+    }
+    if (this.filterCity()) {
+      const cityFilter = this.filterCity().toLowerCase();
+      filtered = filtered.filter(c => c.city?.toLowerCase().includes(cityFilter));
+    }
+    if (this.filterCountry()) {
+      const countryFilter = this.filterCountry().toLowerCase();
+      filtered = filtered.filter(c => c.country?.toLowerCase().includes(countryFilter));
+    }
+    if (this.filterPhone()) {
+      const phoneFilter = this.filterPhone().toLowerCase();
+      filtered = filtered.filter(c => c.phone?.toLowerCase().includes(phoneFilter));
+    }
+    if (this.filterEmail()) {
+      const emailFilter = this.filterEmail().toLowerCase();
+      filtered = filtered.filter(c => c.email?.toLowerCase().includes(emailFilter));
+    }
+    
+    if (this.filterDateFrom()) {
+      const dateFrom = new Date(this.filterDateFrom());
+      filtered = filtered.filter(c => {
+        if (!c.createdAt) return false;
+        return new Date(c.createdAt) >= dateFrom;
+      });
+    }
+    if (this.filterDateTo()) {
+      const dateTo = new Date(this.filterDateTo());
+      dateTo.setHours(23, 59, 59, 999); 
+      filtered = filtered.filter(c => {
+        if (!c.createdAt) return false;
+        return new Date(c.createdAt) <= dateTo;
+      });
+    }
+    
+    return filtered;
+  });
+
+  hasActiveFilters = computed(() => {
+    return !!(
+      this.filterName() || this.filterDescription() || this.filterAddress() ||
+      this.filterCity() || this.filterCountry() || this.filterPhone() ||
+      this.filterEmail() || this.filterDateFrom() || this.filterDateTo()
+    );
+  });
 
   ngOnInit() {
     this.loadCenters();
+  }
+
+  canModify(center: Center): boolean {
+    if (this.isSuperAdmin()) return true;
+    if (this.isAdminCenter()) {
+      return center.id === this.currentUser()?.centerId;
+    }
+    return false;
   }
 
   loadCenters() {
@@ -69,13 +155,7 @@ export class CentersComponent implements OnInit {
 
   openCreateModal() {
     this.centerForm.set({
-      name: '',
-      description: '',
-      address: '',
-      city: '',
-      country: '',
-      phone: '',
-      email: ''
+      name: '', description: '', address: '', city: '', country: '', phone: '', email: ''
     });
     this.showCreateModal.set(true);
     this.errorMessage.set('');
@@ -88,11 +168,9 @@ export class CentersComponent implements OnInit {
 
   openEditModal(center: Center) {
     if (!center.id) return;
-    
     this.isLoading.set(true);
     this.errorMessage.set('');
-    
-    // Cargar el centro completo desde el backend
+
     this.centersService.getCenter(center.id).subscribe({
       next: (fullCenter) => {
         this.selectedCenter.set(fullCenter);
@@ -117,16 +195,13 @@ export class CentersComponent implements OnInit {
 
   openViewModal(center: Center) {
     if (!center.id) {
-      // Si no tiene ID, solo mostrar la información disponible
       this.viewCenter.set(center);
       this.showViewModal.set(true);
       return;
     }
-
     this.isLoading.set(true);
     this.errorMessage.set('');
     
-    // Cargar el centro completo desde el backend
     this.centersService.getCenter(center.id).subscribe({
       next: (fullCenter) => {
         this.viewCenter.set(fullCenter);
@@ -134,7 +209,6 @@ export class CentersComponent implements OnInit {
         this.isLoading.set(false);
       },
       error: (error) => {
-        // Si falla, mostrar al menos la información disponible
         this.viewCenter.set(center);
         this.showViewModal.set(true);
         this.isLoading.set(false);
@@ -167,15 +241,15 @@ export class CentersComponent implements OnInit {
   }
 
   createCenter() {
-    if (!this.centerForm().name.trim()) {
-      this.errorMessage.set('El nombre del centro es obligatorio');
+    const formValue = this.centerForm();
+    if (!formValue.name.trim()) {
+      this.errorMessage.set(this.translate.instant('centers.errors.nameRequired'));
       return;
     }
-
     this.isLoading.set(true);
     this.errorMessage.set('');
 
-    this.centersService.createCenter(this.centerForm()).subscribe({
+    this.centersService.createCenter(formValue).subscribe({
       next: () => {
         this.isLoading.set(false);
         this.closeCreateModal();
@@ -190,17 +264,17 @@ export class CentersComponent implements OnInit {
 
   updateCenter() {
     const center = this.selectedCenter();
+    const formValue = this.centerForm();
     if (!center?.id) return;
 
-    if (!this.centerForm().name.trim()) {
-      this.errorMessage.set('El nombre del centro es obligatorio');
+    if (!formValue.name.trim()) {
+      this.errorMessage.set(this.translate.instant('centers.errors.nameRequired'));
       return;
     }
-
     this.isLoading.set(true);
     this.errorMessage.set('');
 
-    this.centersService.updateCenter(center.id, this.centerForm()).subscribe({
+    this.centersService.updateCenter(center.id, formValue).subscribe({
       next: () => {
         this.isLoading.set(false);
         this.closeEditModal();
@@ -216,7 +290,6 @@ export class CentersComponent implements OnInit {
   deleteCenter() {
     const center = this.selectedCenter();
     if (!center?.id) return;
-
     this.isLoading.set(true);
     this.errorMessage.set('');
 
@@ -232,5 +305,20 @@ export class CentersComponent implements OnInit {
       }
     });
   }
-}
+  
+  toggleFilters() {
+    this.showFilters.set(!this.showFilters());
+  }
 
+  clearFilters() {
+    this.filterName.set('');
+    this.filterDescription.set('');
+    this.filterAddress.set('');
+    this.filterCity.set('');
+    this.filterCountry.set('');
+    this.filterPhone.set('');
+    this.filterEmail.set('');
+    this.filterDateFrom.set('');
+    this.filterDateTo.set('');
+  }
+}

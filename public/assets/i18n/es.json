@@ -1,0 +1,354 @@
+{
+  "qr": {
+    "title": "Mi Código QR",
+    "backToDashboard": "Volver al Dashboard",
+    "accessCode": "Código de Acceso al Gimnasio",
+    "showAtReception": "Muestra este código QR en la recepción para acceder a las instalaciones",
+    "instructions": "📱 Instrucciones:",
+    "instruction1": "• Presenta este código en la recepción",
+    "instruction2": "• Asegúrate de que el QR sea claramente visible",
+    "instruction3": "• El código se actualiza automáticamente",
+    "download": "📥 Descargar Código QR",
+    "loading": "Cargando información del usuario..."
+  },
+  "theme": {
+    "dark": "Modo oscuro",
+    "light": "Modo claro",
+    "switchToDark": "Cambiar a modo oscuro",
+    "switchToLight": "Cambiar a modo claro"
+  },
+  "home": {
+    "hero": {
+      "title": "Meta Force",
+      "subtitle": "Transforma tu cuerpo, transforma tu vida"
+    },
+    "services": {
+      "training": {
+        "title": "Entrenamiento",
+        "description": "Optimiza tus rutinas con seguimiento y máquinas inteligentes."
+      },
+      "trainers": {
+        "title": "Entrenadores",
+        "description": "Gestiona tu staff, horarios y clases con total control."
+      },
+      "diets": {
+        "title": "Dietas",
+        "description": "Planes personalizados que acompañan cada entrenamiento."
+      }
+    },
+    "carousel": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "goToSlide": "Ir al slide"
+    }
+  },
+  "login": {
+    "title": "Meta Force",
+    "subtitle": "Accede a tu entrenamiento personalizado",
+    "email": "Email",
+    "password": "Contraseña",
+    "emailPlaceholder": "tu@email",
+    "passwordPlaceholder": "Tu contraseña",
+    "loginButton": "Acceder",
+    "noAccount": "¿No tienes cuenta?",
+    "createAccount": "Crear cuenta",
+    "errors": {
+      "emailRequired": "El campo email es requerido",
+      "passwordRequired": "El campo contraseña es requerido",
+      "emailInvalid": "El formato de email no es correcto",
+      "invalidCredentials": "Credenciales inválidas"
+    }
+  },
+  "register": {
+    "title": "Crear Cuenta",
+    "subtitle": "Únete a Meta Force",
+    "name": "Nombre",
+    "email": "Email",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "namePlaceholder": "Tu nombre",
+    "emailPlaceholder": "tu@email",
+    "passwordPlaceholder": "Tu contraseña",
+    "confirmPasswordPlaceholder": "Confirma tu contraseña",
+    "registerButton": "Registrar",
+    "errors": {
+      "nameRequired": "El campo nombre es requerido",
+      "emailRequired": "El campo email es requerido",
+      "passwordRequired": "El campo password es requerido",
+      "confirmPasswordRequired": "El campo confirmar contraseña es requerido",
+      "emailInvalid": "El formato de email no es correcto",
+      "passwordMinLength": "Debe tener al menos {{min}} caracteres",
+      "passwordPattern": "Al menos una mayúscula, una minúscula, un número y 8 caracteres",
+      "passwordsDoNotMatch": "Las contraseñas no coinciden"
+    }
+  },
+  "dashboard": {
+    "title": "Meta Force Dashboard",
+    "editRole": "Editar Rol",
+    "logout": "Cerrar Sesión",
+    "welcome": "¡Bienvenido, {{name}}! 👋",
+    "loggedInAs": "Has iniciado sesión como",
+    "at": "en",
+    "loading": "Cargando información del usuario...",
+    "roles": {
+      "SUPERADMIN": "Super Administrador",
+      "ADMIN_CENTER": "Administrador de Centro",
+      "TRAINER": "Entrenador",
+      "CLEANER": "Personal de Limpieza",
+      "USER": "Usuario"
+    },
+    "cards": {
+      "globalAdmin": {
+        "title": "Administración Global",
+        "description": "Gestiona todos los centros, usuarios y configuraciones del sistema.",
+        "features": {
+          "access": "Acceso completo a todos los centros",
+          "users": "Gestión de usuarios y roles",
+          "config": "Configuración del sistema",
+          "reports": "Reportes y estadísticas"
+        }
+      },
+      "centers": {
+        "title": "Gestión de Centros",
+        "description": "Crea, edita y elimina centros de entrenamiento.",
+        "button": "Gestionar Centros"
+      },
+      "machines": {
+        "title": "Gestión de Máquinas",
+        "description": "Administra el inventario de máquinas de todos los centros.",
+        "button": "Gestionar Máquinas"
+      },
+      "users": {
+        "title": "Gestión de Usuarios",
+        "description": "Administra todos los usuarios y valida cuentas pendientes.",
+        "button": "Gestionar Usuarios"
+      },
+      "myQR": {
+        "title": "Mi Código QR",
+        "description": "Accede al gimnasio con tu código QR personal.",
+        "button": "Ver Mi QR"
+      },
+      "qrScanner": {
+        "title": "Escáner QR",
+        "description": "Registra entradas y salidas escaneando códigos QR.",
+        "button": "Abrir Escáner"
+      },
+      "myCenter": {
+        "title": "Mi Centro",
+        "description": "Visualiza la información de tu centro.",
+        "button": "Ver Centro"
+      },
+      "employees": {
+        "title": "Empleados",
+        "description": "Administra los empleados de tu centro.",
+        "button": "Gestionar Empleados"
+      },
+      "statistics": {
+        "title": "Estadísticas",
+        "description": "Visualiza las estadísticas de tu centro.",
+        "button": "Ver Estadísticas"
+      },
+      "myProfile": {
+        "title": "Mi Perfil",
+        "description": "Gestiona tu información personal.",
+        "button": "Editar Perfil"
+      },
+      "myClasses": {
+        "title": "Mis Clases",
+        "description": "Gestiona tus clases y horarios.",
+        "button": "Ver Clases"
+      }
+    },
+    "userInfo": {
+      "title": "Información del Usuario",
+      "name": "Nombre",
+      "email": "Email",
+      "role": "Rol",
+      "center": "Centro",
+      "registrationDate": "Fecha de registro"
+    },
+    "roleEditor": {
+      "title": "Cambiar Rol",
+      "selectRole": "Selecciona un rol",
+      "cancel": "Cancelar",
+      "save": "Guardar Cambios",
+      "saving": "Guardando..."
+    }
+  },
+  "nav": {
+    "home": "Inicio",
+    "classes": "Clases",
+    "trainers": "Entrenadores",
+    "membership": "Membresía",
+    "login": "Iniciar sesión"
+  },
+  "qrScanner": {
+    "title": "Registro de Entrada/Salida",
+    "backToDashboard": "Volver al Dashboard",
+    "selectCenter": "Selecciona el Centro",
+    "selectCenterPlaceholder": "-- Selecciona un centro --",
+    "scannerTitle": "Escáner de Código QR",
+    "startScanner": "Iniciar Escáner",
+    "stopScanner": "Detener Escáner",
+    "user": "Usuario",
+    "instructions": "Instrucciones",
+    "instruction1": "Selecciona el centro donde se registrará la entrada/salida",
+    "instruction2": "Haz clic en \"Iniciar Escáner\" para activar la cámara",
+    "instruction3": "Apunta la cámara al código QR del usuario",
+    "instruction4": "El sistema detectará automáticamente si es entrada (verde) o salida (rojo)",
+    "instruction5": "El código QR debe tener menos de 20 minutos de antigüedad",
+    "loading": "Cargando información del usuario...",
+    "errors": {
+      "invalidQR": "QR inválido: faltan datos requeridos",
+      "expiredQR": "El código QR ha expirado. Por favor, genera uno nuevo.",
+      "processingError": "Error al procesar el código QR"
+    }
+  },
+  "users": {
+    "title": "Gestión de Usuarios",
+    "backToDashboard": "Volver al Dashboard",
+    "filters": "Filtros",
+    "hideFilters": "Ocultar Filtros",
+    "searchFilters": "Filtros de Búsqueda",
+    "clearFilters": "Limpiar Filtros",
+    "name": "Nombre",
+    "email": "Email",
+    "role": "Rol",
+    "status": "Estado",
+    "center": "Centro",
+    "dateFrom": "Fecha desde",
+    "dateTo": "Fecha hasta",
+    "searchByName": "Buscar por nombre...",
+    "searchByEmail": "Buscar por email...",
+    "allRoles": "Todos los roles",
+    "allStatuses": "Todos los estados",
+    "allCenters": "Todos los centros",
+    "noCenter": "Sin centro",
+    "centerNotFound": "Centro no encontrado",
+    "favoriteCenter": "Centro Favorito",
+    "currentCenter": "Centro Actual",
+    "noFavoriteCenter": "Sin centro favorito asignado",
+    "notInAnyCenter": "No está en ningún centro actualmente",
+    "editUser": "Editar Usuario",
+    "viewUser": "Ver Usuario",
+    "deleteUser": "Eliminar Usuario",
+    "newUser": "Nuevo Usuario",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "confirmDelete": "¿Estás seguro de que deseas eliminar este usuario?",
+    "errors": {
+      "nameEmailRequired": "El nombre y el email son obligatorios"
+    },
+    "statuses": {
+      "PENDING": "Pendiente",
+      "ACTIVE": "Activo",
+      "INACTIVE": "Inactivo",
+      "SUSPENDED": "Suspendido"
+    },
+    "validate": "Validar",
+    "noUsersFound": "No se encontraron usuarios con los filtros aplicados",
+    "noUsersAvailable": "No hay usuarios disponibles",
+    "deleting": "Eliminando...",
+    "showing": "Mostrando",
+    "of": "de",
+    "users": "usuarios",
+    "registered": "Registrado",
+    "registrationDate": "Fecha de Registro",
+    "currentlyIn": "Actualmente en",
+    "favoriteCenterDescription": "Centro asignado/favorito del usuario (se puede cambiar desde aquí)"
+  },
+  "centers": {
+    "title": "Gestión de Centros",
+    "backToDashboard": "Volver al Dashboard",
+    "newCenter": "+ Nuevo Centro",
+    "filters": "Filtros",
+    "hideFilters": "Ocultar Filtros",
+    "searchFilters": "Filtros de Búsqueda",
+    "clearFilters": "Limpiar Filtros",
+    "name": "Nombre",
+    "description": "Descripción",
+    "address": "Dirección",
+    "city": "Ciudad",
+    "country": "País",
+    "phone": "Teléfono",
+    "email": "Email",
+    "dateFrom": "Fecha desde",
+    "dateTo": "Fecha hasta",
+    "searchByName": "Buscar por nombre...",
+    "searchByDescription": "Buscar por descripción...",
+    "searchByAddress": "Buscar por dirección...",
+    "searchByCity": "Buscar por ciudad...",
+    "searchByCountry": "Buscar por país...",
+    "searchByPhone": "Buscar por teléfono...",
+    "searchByEmail": "Buscar por email...",
+    "editCenter": "Editar Centro",
+    "viewCenter": "Ver Centro",
+    "deleteCenter": "Eliminar Centro",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "confirmDelete": "¿Estás seguro de que deseas eliminar este centro?",
+    "errors": {
+      "nameRequired": "El nombre del centro es obligatorio"
+    },
+    "deleting": "Eliminando...",
+    "selectCenter": "Selecciona un centro"
+  },
+  "machines": {
+    "title": "Gestión de Máquinas",
+    "subtitle": "Inventario y estado de equipamiento",
+    "back": "Volver",
+    "newMachine": "Nueva Máquina",
+    "filters": "Filtros",
+    "hideFilters": "Ocultar Filtros",
+    "searchFilters": "Filtros de Búsqueda",
+    "clearFilters": "Limpiar Filtros",
+    "name": "Nombre",
+    "type": "Tipo",
+    "status": "Estado",
+    "center": "Centro",
+    "searchByName": "Buscar por nombre...",
+    "searchByCenter": "Buscar por centro...",
+    "allTypes": "Todos los tipos",
+    "allStatuses": "Todos los estados",
+    "editMachine": "Editar Máquina",
+    "viewMachine": "Ver Máquina",
+    "deleteMachine": "Eliminar Máquina",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "namePlaceholder": "Ej: Cinta de correr #1",
+    "types": {
+      "cardio": "Cardio",
+      "fuerza": "Fuerza",
+      "peso libre": "Peso Libre",
+      "funcional": "Funcional",
+      "otro": "Otro"
+    },
+    "statuses": {
+      "operativa": "Operativa",
+      "en mantenimiento": "En Mantenimiento",
+      "fuera de servicio": "Fuera de Servicio"
+    },
+    "confirmDelete": "¿Estás seguro de que deseas eliminar la máquina",
+    "deleting": "Eliminando...",
+    "noMachinesFound": "No se encontraron máquinas con los filtros aplicados",
+    "noMachinesRegistered": "No hay máquinas registradas",
+    "registerFirstMachine": "Registrar la primera máquina",
+    "showing": "Mostrando",
+    "of": "de",
+    "machines": "máquinas"
+  },
+  "common": {
+    "selectLanguage": "Seleccionar idioma",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "close": "Cerrar"
+  }
+}
