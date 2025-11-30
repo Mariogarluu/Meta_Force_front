@@ -1,0 +1,75 @@
+{
+  "qr": {
+    "title": "My QR Code",
+    "backToDashboard": "Back to Dashboard",
+    "accessCode": "Gym Access Code",
+    "showAtReception": "Show this QR code at reception to access the facilities",
+    "instructions": "📱 Instructions:",
+    "instruction1": "• Present this code at reception",
+    "instruction2": "• Make sure the QR is clearly visible",
+    "instruction3": "• The code updates automatically",
+    "download": "📥 Download QR Code",
+    "loading": "Loading user information..."
+  },
+  "theme": {
+    "dark": "Dark mode",
+    "light": "Light mode",
+    "switchToDark": "Switch to dark mode",
+    "switchToLight": "Switch to light mode"
+  },
+  "home": {
+    "hero": {
+      "title": "Meta Force",
+      "subtitle": "Transform your body, transform your life"
+    },
+    "services": {
+      "training": {
+        "title": "Training",
+        "description": "Optimize your routines with tracking and smart machines."
+      },
+      "trainers": {
+        "title": "Trainers",
+        "description": "Manage your staff, schedules and classes with full control."
+      },
+      "diets": {
+        "title": "Diets",
+        "description": "Personalized plans that accompany each workout."
+      }
+    },
+    "carousel": {
+      "previous": "Previous",
+      "next": "Next",
+      "goToSlide": "Go to slide"
+    }
+  },
+  "login": {
+    "title": "Meta Force",
+    "subtitle": "Access your personalized training",
+    "email": "Email",
+    "password": "Password",
+    "emailPlaceholder": "your@email",
+    "passwordPlaceholder": "Your password",
+    "loginButton": "Sign In",
+    "registerLink": "Don't have an account? Sign up",
+    "errors": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Email is invalid",
+      "passwordRequired": "Password is required",
+      "invalidCredentials": "Invalid credentials"
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "classes": "Classes",
+    "trainers": "Trainers",
+    "membership": "Membership",
+    "login": "Sign In"
+  },
+  "common": {
+    "selectLanguage": "Select language",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  }
+}
+

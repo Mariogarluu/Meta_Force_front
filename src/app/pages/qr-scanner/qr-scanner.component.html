@@ -5,14 +5,15 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div class="flex justify-between items-center">
           <div class="flex items-center gap-4">
-            <h1 class="text-2xl font-bold text-blue-900 dark:text-white">Registro de Entrada/Salida</h1>
+            <h1 class="text-2xl font-bold text-blue-900 dark:text-white">{{ 'qrScanner.title' | translate }}</h1>
           </div>
           <div class="flex items-center gap-4">
+            <app-language-selector></app-language-selector>
             <app-theme-toggle></app-theme-toggle>
             <a 
               routerLink="/dashboard"
               class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium">
-              Volver al Dashboard
+              {{ 'qrScanner.backToDashboard' | translate }}
             </a>
           </div>
         </div>
@@ -24,12 +25,12 @@
       <!-- Selección de Centro -->
       @if(needsCenterSelection() && !selectedCenterId()) {
         <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm mb-6">
-          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Selecciona el Centro</h2>
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ 'qrScanner.selectCenter' | translate }}</h2>
           <select 
             [(ngModel)]="selectedCenterId"
             (ngModelChange)="onCenterSelected()"
             class="w-full px-4 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500 focus:border-transparent">
-            <option [value]="null">-- Selecciona un centro --</option>
+            <option [value]="null">{{ 'qrScanner.selectCenterPlaceholder' | translate }}</option>
             @for(center of centers(); track center.id) {
               <option [value]="center.id">{{ center.name }}</option>
             }
@@ -40,7 +41,7 @@
       <!-- Área de Escaneo -->
       @if(selectedCenterId()) {
         <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm mb-6">
-          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Escáner de Código QR</h2>
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ 'qrScanner.scannerTitle' | translate }}</h2>
           
           <!-- Contenedor de la Cámara con Flash -->
           <div class="relative">
@@ -73,13 +74,13 @@
               <button 
                 (click)="startScanning()"
                 class="px-6 py-3 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors font-medium">
-                Iniciar Escáner
+                {{ 'qrScanner.startScanner' | translate }}
               </button>
             } @else {
               <button 
                 (click)="stopScanning()"
                 class="px-6 py-3 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors font-medium">
-                Detener Escáner
+                {{ 'qrScanner.stopScanner' | translate }}
               </button>
             }
           </div>
@@ -100,7 +101,7 @@
                 </p>
                 @if(result.user) {
                   <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                    Usuario: {{ result.user.name }} ({{ result.user.email }})
+                    {{ 'qrScanner.user' | translate }}: {{ result.user.name }} ({{ result.user.email }})
                   </p>
                 }
               </div>
@@ -111,7 +112,7 @@
                 </p>
                 @if(result.user) {
                   <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                    Usuario: {{ result.user.name }} ({{ result.user.email }})
+                    {{ 'qrScanner.user' | translate }}: {{ result.user.name }} ({{ result.user.email }})
                   </p>
                 }
               </div>
@@ -122,13 +123,13 @@
 
       <!-- Instrucciones -->
       <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 shadow-sm">
-        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">Instrucciones</h3>
+        <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-3">{{ 'qrScanner.instructions' | translate }}</h3>
         <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-          <li>• Selecciona el centro donde se registrará la entrada/salida</li>
-          <li>• Haz clic en "Iniciar Escáner" para activar la cámara</li>
-          <li>• Apunta la cámara al código QR del usuario</li>
-          <li>• El sistema detectará automáticamente si es entrada (verde) o salida (rojo)</li>
-          <li>• El código QR debe tener menos de 20 minutos de antigüedad</li>
+          <li>• {{ 'qrScanner.instruction1' | translate }}</li>
+          <li>• {{ 'qrScanner.instruction2' | translate }}</li>
+          <li>• {{ 'qrScanner.instruction3' | translate }}</li>
+          <li>• {{ 'qrScanner.instruction4' | translate }}</li>
+          <li>• {{ 'qrScanner.instruction5' | translate }}</li>
         </ul>
       </div>
     </main>
@@ -136,7 +137,7 @@
     <div class="min-h-screen flex items-center justify-center bg-gray-900">
       <div class="text-center">
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
-        <p class="text-gray-300">Cargando información del usuario...</p>
+        <p class="text-gray-300">{{ 'qrScanner.loading' | translate }}</p>
       </div>
     </div>
   }

@@ -6,20 +6,22 @@ import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
 import { AuthInput } from '../../core/models/auth';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, ThemeToggleComponent],
+  imports: [ReactiveFormsModule, CommonModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnDestroy {
-
   formLogin;
   errorMsg = signal<string>('');
   private router:Router = inject(Router);
   readonly navigateTo:string;
+  translate = inject(TranslateService);
   
   showPassword = signal(false); 
   private authSubscription?: Subscription;
@@ -104,10 +106,10 @@ export class LoginComponent implements OnDestroy {
     }
 
     if (formControl.errors['required']) {
-      return `El campo ${control === 'email' ? 'email' : 'contraseña'} es requerido`;
+      return this.translate.instant(`login.errors.${control}Required`);
     }
     if (control === 'email' && formControl.errors['email']) {
-      return "El formato de email no es correcto";
+      return this.translate.instant('login.errors.emailInvalid');
     }
 
     return "";

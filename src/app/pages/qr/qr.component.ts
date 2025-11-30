@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Componente para generar y mostrar el código QR personal del usuario.
@@ -21,7 +23,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
 @Component({
   selector: 'app-qr',
   standalone: true,
-  imports: [CommonModule, RouterModule, ThemeToggleComponent],
+  imports: [CommonModule, RouterModule, ThemeToggleComponent, LanguageSelectorComponent, TranslateModule],
   templateUrl: './qr.component.html',
   styleUrl: './qr.component.scss'
 })

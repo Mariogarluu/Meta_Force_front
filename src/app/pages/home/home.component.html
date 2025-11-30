@@ -19,27 +19,27 @@
         </div>
 
         <div class="carousel__controls">
-          <button type="button" (click)="previousSlide()" aria-label="Anterior">←</button>
+          <button type="button" (click)="previousSlide()" [attr.aria-label]="'home.carousel.previous' | translate">←</button>
           <div class="carousel__dots">
             @for (slide of slides; track slide.image; let index = $index) {
               <button
                 type="button"
                 [class.is-active]="currentSlide() === index"
                 (click)="goToSlide(index)"
-                [attr.aria-label]="'Ir al slide ' + (index + 1)">
+                [attr.aria-label]="('home.carousel.goToSlide' | translate) + ' ' + (index + 1)">
               </button>
             }
           </div>
-          <button type="button" (click)="nextSlide()" aria-label="Siguiente">→</button>
+          <button type="button" (click)="nextSlide()" [attr.aria-label]="'home.carousel.next' | translate">→</button>
         </div>
       </div>
     </section>
 
     <section id="services" class="services">
-      @for (service of services; track service.label) {
+      @for (service of services; track service.labelKey) {
         <a [routerLink]="service.path" class="service-card">
-          <p class="service-card__title">{{ service.label }}</p>
-          <p class="service-card__text">{{ service.description }}</p>
+          <p class="service-card__title">{{ (service.labelKey | translate) || service.labelKey }}</p>
+          <p class="service-card__text">{{ (service.descriptionKey | translate) || service.descriptionKey }}</p>
         </a>
       }
     </section>

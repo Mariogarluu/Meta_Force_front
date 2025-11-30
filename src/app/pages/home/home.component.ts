@@ -3,11 +3,12 @@ import { Component, OnDestroy, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, NavbarComponent, FooterComponent],
+  imports: [CommonModule, RouterLink, NavbarComponent, FooterComponent, TranslateModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -29,18 +30,18 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   readonly services = [
     {
-      label: 'Entrenamiento',
-      description: 'Optimiza tus rutinas con seguimiento y máquinas inteligentes.',
+      labelKey: 'home.services.training.title',
+      descriptionKey: 'home.services.training.description',
       path: '/dashboard'
     },
     {
-      label: 'Entrenadores',
-      description: 'Gestiona tu staff, horarios y clases con total control.',
+      labelKey: 'home.services.trainers.title',
+      descriptionKey: 'home.services.trainers.description',
       path: '/users'
     },
     {
-      label: 'Dietas',
-      description: 'Planes personalizados que acompañan cada entrenamiento.',
+      labelKey: 'home.services.diets.title',
+      descriptionKey: 'home.services.diets.description',
       path: '/register'
     }
   ];

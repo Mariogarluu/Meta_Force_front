@@ -6,19 +6,22 @@ import { CentersService } from '../../core/services/centers.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Center, CreateCenterInput } from '../../core/models/center';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
 @Component({
   selector: 'app-centers',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, DatePipe, ThemeToggleComponent],
+  imports: [CommonModule, FormsModule, RouterModule, DatePipe, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent],
   templateUrl: './centers.component.html',
   styleUrl: './centers.component.scss'
 })
 export class CentersComponent implements OnInit {
   centersService = inject(CentersService);
   auth = inject(AuthService);
+  translate = inject(TranslateService);
 
   centers = signal<Center[]>([]);
   isLoading = signal(false);
@@ -240,7 +243,7 @@ export class CentersComponent implements OnInit {
   createCenter() {
     const formValue = this.centerForm();
     if (!formValue.name.trim()) {
-      this.errorMessage.set('El nombre del centro es obligatorio');
+      this.errorMessage.set(this.translate.instant('centers.errors.nameRequired'));
       return;
     }
     this.isLoading.set(true);
@@ -265,7 +268,7 @@ export class CentersComponent implements OnInit {
     if (!center?.id) return;
 
     if (!formValue.name.trim()) {
-      this.errorMessage.set('El nombre del centro es obligatorio');
+      this.errorMessage.set(this.translate.instant('centers.errors.nameRequired'));
       return;
     }
     this.isLoading.set(true);

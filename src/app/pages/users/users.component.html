@@ -4,14 +4,15 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
       <div class="flex justify-between items-center">
         <div class="flex items-center gap-4">
-          <h1 class="text-2xl font-bold text-blue-900 dark:text-white">Gestión de Usuarios</h1>
+          <h1 class="text-2xl font-bold text-blue-900 dark:text-white">{{ 'users.title' | translate }}</h1>
         </div>
         <div class="flex items-center gap-4">
+          <app-language-selector></app-language-selector>
           <app-theme-toggle></app-theme-toggle>
           <a 
             routerLink="/dashboard"
             class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium">
-            Volver al Dashboard
+            {{ 'users.backToDashboard' | translate }}
           </a>
         </div>
       </div>
@@ -37,9 +38,9 @@
         class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90">
         <span>🔍</span>
         @if(showFilters()) {
-          <span>Ocultar Filtros</span>
+          <span>{{ 'users.hideFilters' | translate }}</span>
         } @else {
-          <span>Filtros</span>
+          <span>{{ 'users.filters' | translate }}</span>
         }
         @if(hasActiveFilters()) {
           <span class="px-1.5 py-0.5 bg-yellow-500/30 rounded text-xs">{{ filteredUsers().length }}/{{ users().length }}</span>
@@ -51,44 +52,44 @@
     @if(showFilters()) {
       <div class="mb-6 bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm">
         <div class="flex items-center justify-between mb-4">
-          <h2 class="text-lg font-bold text-gray-900 dark:text-white">Filtros de Búsqueda</h2>
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white">{{ 'users.searchFilters' | translate }}</h2>
           @if(hasActiveFilters()) {
             <button 
               (click)="clearFilters()"
               class="px-3 py-1 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors text-sm">
-              Limpiar Filtros
+              {{ 'users.clearFilters' | translate }}
             </button>
           }
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
-            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Nombre</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'users.name' | translate }}</label>
             <input 
               type="text"
               [ngModel]="filterName()"
               (ngModelChange)="filterName.set($event)"
-              placeholder="Buscar por nombre..."
+              [placeholder]="'users.searchByName' | translate"
               class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
 
           <div>
-            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Email</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'users.email' | translate }}</label>
             <input 
               type="text"
               [ngModel]="filterEmail()"
               (ngModelChange)="filterEmail.set($event)"
-              placeholder="Buscar por email..."
+              [placeholder]="'users.searchByEmail' | translate"
               class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
 
           <div>
-            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Rol</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'users.role' | translate }}</label>
             <select 
               [ngModel]="filterRole()"
               (ngModelChange)="filterRole.set($event)"
               class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
-              <option value="">Todos los roles</option>
+              <option value="">{{ 'users.allRoles' | translate }}</option>
               @for(role of roles; track role) {
                 <option [value]="role">{{ getRoleName(role) }}</option>
               }
@@ -96,12 +97,12 @@
           </div>
 
           <div>
-            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Estado</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'users.status' | translate }}</label>
             <select 
               [ngModel]="filterStatus()"
               (ngModelChange)="filterStatus.set($event)"
               class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
-              <option value="">Todos los estados</option>
+              <option value="">{{ 'users.allStatuses' | translate }}</option>
               @for(status of statuses; track status) {
                 <option [value]="status">{{ getStatusText(status) }}</option>
               }
@@ -110,12 +111,12 @@
 
           @if(isSuperAdmin() && centers().length > 0) {
             <div>
-              <label class="block text-gray-300 text-sm font-medium mb-2">Centro</label>
+              <label class="block text-gray-300 text-sm font-medium mb-2">{{ 'users.center' | translate }}</label>
               <select 
                 [ngModel]="filterCenter()"
                 (ngModelChange)="filterCenter.set($event)"
                 class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                <option value="">Todos los centros</option>
+                <option value="">{{ 'users.allCenters' | translate }}</option>
                 @for(center of centers(); track center.id) {
                   <option [value]="center.id">{{ center.name }}</option>
                 }
@@ -124,7 +125,7 @@
           }
 
           <div>
-            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Fecha desde</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'users.dateFrom' | translate }}</label>
             <input 
               type="date"
               [ngModel]="filterDateFrom()"
@@ -133,7 +134,7 @@
           </div>
 
           <div>
-            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Fecha hasta</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'users.dateTo' | translate }}</label>
             <input 
               type="date"
               [ngModel]="filterDateTo()"
@@ -145,8 +146,8 @@
         @if(hasActiveFilters()) {
           <div class="mt-4 pt-4 border-t border-gray-700">
             <p class="text-sm text-gray-600 dark:text-gray-400">
-              Mostrando <span class="text-gray-900 dark:text-white font-semibold">{{ filteredUsers().length }}</span> de 
-              <span class="text-gray-900 dark:text-white font-semibold">{{ users().length }}</span> usuarios
+              {{ 'users.showing' | translate }} <span class="text-gray-900 dark:text-white font-semibold">{{ filteredUsers().length }}</span> {{ 'users.of' | translate }} 
+              <span class="text-gray-900 dark:text-white font-semibold">{{ users().length }}</span> {{ 'users.users' | translate }}
             </p>
           </div>
         }
@@ -157,7 +158,7 @@
       <div class="flex items-center justify-center py-12">
         <div class="text-center">
           <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
-          <p class="text-gray-700 dark:text-gray-300">Cargando usuarios...</p>
+          <p class="text-gray-700 dark:text-gray-300">{{ 'common.loading' | translate }}</p>
         </div>
       </div>
     } @else {
@@ -165,9 +166,9 @@
         <div class="text-center py-12">
           <p class="text-gray-600 dark:text-gray-400 text-lg">
             @if(hasActiveFilters()) {
-              No se encontraron usuarios con los filtros aplicados
+              {{ 'users.noUsersFound' | translate }}
             } @else {
-              No hay usuarios disponibles
+              {{ 'users.noUsersAvailable' | translate }}
             }
           </p>
         </div>
@@ -197,27 +198,27 @@
                 <div class="space-y-2 mb-4">
                   @if(user.favoriteCenter) {
                     <p class="text-gray-300 text-sm">
-                      ⭐ Centro Favorito: {{ user.favoriteCenter.name }}
+                      ⭐ {{ 'users.favoriteCenter' | translate }}: {{ user.favoriteCenter.name }}
                     </p>
                   } @else if(user.favoriteCenterId) {
                     <p class="text-gray-300 text-sm">
-                      ⭐ Centro Favorito: {{ getCenterName(user.favoriteCenterId) }}
+                      ⭐ {{ 'users.favoriteCenter' | translate }}: {{ getCenterName(user.favoriteCenterId) }}
                     </p>
                   } @else {
-                    <p class="text-gray-400 text-sm">Sin centro favorito asignado</p>
+                    <p class="text-gray-400 text-sm">{{ 'users.noFavoriteCenter' | translate }}</p>
                   }
                   @if(user.center) {
                     <p class="text-green-400 text-sm">
-                      📍 Actualmente en: {{ user.center.name }}
+                      📍 {{ 'users.currentlyIn' | translate }}: {{ user.center.name }}
                     </p>
                   } @else if(user.centerId) {
                     <p class="text-green-400 text-sm">
-                      📍 Actualmente en: {{ getCenterName(user.centerId) }}
+                      📍 {{ 'users.currentlyIn' | translate }}: {{ getCenterName(user.centerId) }}
                     </p>
                   }
                   @if(user.createdAt) {
                     <p class="text-gray-400 text-xs">
-                      Registrado: {{ user.createdAt | date:'dd/MM/yyyy' }}
+                      {{ 'users.registered' | translate }}: {{ user.createdAt | date:'dd/MM/yyyy' }}
                     </p>
                   }
                 </div>
@@ -228,21 +229,21 @@
                   <button 
                     (click)="openEditModal(user)"
                     class="flex-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
-                    Editar
+                    {{ 'common.edit' | translate }}
                   </button>
                 }
                 @if(user.status === 'PENDING' && canEdit()) {
                   <button 
                     (click)="validateUser(user)"
                     class="flex-1 px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium">
-                    Validar
+                    {{ 'users.validate' | translate }}
                   </button>
                 }
                 @if(canDelete()) {
                   <button 
                     (click)="openDeleteModal(user)"
                     class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium">
-                    Eliminar
+                    {{ 'common.delete' | translate }}
                   </button>
                 }
               </div>
@@ -257,28 +258,28 @@
   @if(showViewModal()) {
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-blue-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-lg">
-        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Información del Usuario</h3>
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">{{ 'users.viewUser' | translate }}</h3>
         
         @if(viewUser()) {
           <div class="space-y-4">
             <div>
-              <label class="block text-gray-400 text-sm font-medium mb-1">Nombre</label>
+              <label class="block text-gray-400 text-sm font-medium mb-1">{{ 'users.name' | translate }}</label>
               <p class="text-white text-lg font-semibold">{{ viewUser()!.name }}</p>
             </div>
 
             <div>
-              <label class="block text-gray-400 text-sm font-medium mb-1">Email</label>
+              <label class="block text-gray-400 text-sm font-medium mb-1">{{ 'users.email' | translate }}</label>
               <p class="text-gray-300">{{ viewUser()!.email }}</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-gray-400 text-sm font-medium mb-1">Rol</label>
+                <label class="block text-gray-400 text-sm font-medium mb-1">{{ 'users.role' | translate }}</label>
                 <p class="text-gray-300">{{ getRoleName(viewUser()!.role) }} {{ getRoleIcon(viewUser()!.role) }}</p>
               </div>
 
               <div>
-                <label class="block text-gray-400 text-sm font-medium mb-1">Estado</label>
+                <label class="block text-gray-400 text-sm font-medium mb-1">{{ 'users.status' | translate }}</label>
                 <span class="inline-block px-3 py-1 rounded-full text-sm text-white" [class]="getStatusColor(viewUser()!.status)">
                   {{ getStatusText(viewUser()!.status) }}
                 </span>
@@ -286,24 +287,24 @@
             </div>
 
             <div>
-              <label class="block text-gray-400 text-sm font-medium mb-1">Centro Favorito</label>
+              <label class="block text-gray-400 text-sm font-medium mb-1">{{ 'users.favoriteCenter' | translate }}</label>
               @if(viewUser()!.favoriteCenter) {
                 <p class="text-gray-300">⭐ {{ viewUser()!.favoriteCenter?.name }}</p>
               } @else if(viewUser()!.favoriteCenterId) {
                 <p class="text-gray-300">⭐ {{ getCenterName(viewUser()!.favoriteCenterId) }}</p>
               } @else {
-                <p class="text-gray-400">Sin centro favorito asignado</p>
+                <p class="text-gray-400">{{ 'users.noFavoriteCenter' | translate }}</p>
               }
             </div>
 
             <div>
-              <label class="block text-gray-400 text-sm font-medium mb-1">Centro Actual</label>
+              <label class="block text-gray-400 text-sm font-medium mb-1">{{ 'users.currentCenter' | translate }}</label>
               @if(viewUser()!.center) {
                 <p class="text-green-400">📍 {{ viewUser()!.center?.name }}</p>
               } @else if(viewUser()!.centerId) {
                 <p class="text-green-400">📍 {{ getCenterName(viewUser()!.centerId) }}</p>
               } @else {
-                <p class="text-gray-400">No está en ningún centro actualmente</p>
+                <p class="text-gray-400">{{ 'users.notInAnyCenter' | translate }}</p>
               }
             </div>
 
@@ -316,7 +317,7 @@
 
             @if(viewUser()!.createdAt) {
               <div>
-                <label class="block text-gray-400 text-sm font-medium mb-1">Fecha de Registro</label>
+                <label class="block text-gray-400 text-sm font-medium mb-1">{{ 'users.registrationDate' | translate }}</label>
                 <p class="text-gray-300">{{ viewUser()!.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
               </div>
             }
@@ -327,13 +328,13 @@
           <button 
             (click)="closeViewModal()"
             class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors">
-            Cerrar
+            {{ 'common.close' | translate }}
           </button>
           @if(canEdit() && viewUser()?.id) {
             <button 
               (click)="closeViewModal(); openEditModal(viewUser()!)"
               class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
-              Editar
+              {{ 'common.edit' | translate }}
             </button>
           }
         </div>
@@ -345,7 +346,7 @@
   @if(showEditModal()) {
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">
-        <h3 class="text-2xl font-bold text-white mb-6">Editar Usuario</h3>
+        <h3 class="text-2xl font-bold text-white mb-6">{{ 'users.editUser' | translate }}</h3>
         
         @if(errorMessage()) {
           <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
@@ -355,7 +356,7 @@
 
         <form (ngSubmit)="updateUser()" class="space-y-4">
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Nombre *</label>
+            <label class="block text-gray-300 text-sm font-medium mb-2">{{ 'users.name' | translate }} *</label>
             <input 
               type="text"
               [(ngModel)]="userForm.name"
@@ -365,7 +366,7 @@
           </div>
 
           <div>
-            <label class="block text-gray-300 text-sm font-medium mb-2">Email *</label>
+            <label class="block text-gray-300 text-sm font-medium mb-2">{{ 'users.email' | translate }} *</label>
             <input 
               type="email"
               [(ngModel)]="userForm.email"
@@ -376,7 +377,7 @@
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Estado</label>
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'users.status' | translate }}</label>
               <select 
                 [(ngModel)]="userForm.status"
                 name="status"
@@ -389,7 +390,7 @@
 
             @if(isSuperAdmin()) {
               <div>
-                <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Rol</label>
+                <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'users.role' | translate }}</label>
                 <select 
                   [(ngModel)]="userForm.role"
                   name="role"
@@ -404,17 +405,17 @@
 
           @if(isSuperAdmin()) {
             <div>
-              <label class="block text-gray-300 text-sm font-medium mb-2">Centro Favorito</label>
+              <label class="block text-gray-300 text-sm font-medium mb-2">{{ 'users.favoriteCenter' | translate }}</label>
               <select 
                 [(ngModel)]="userForm.favoriteCenterId"
                 name="favoriteCenterId"
                 class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
-                <option [value]="null">Sin centro</option>
+                <option [value]="null">{{ 'users.noCenter' | translate }}</option>
                 @for(center of centers(); track center.id) {
                   <option [value]="center.id">{{ center.name }}</option>
                 }
               </select>
-              <p class="text-xs text-gray-400 mt-1">Centro asignado/favorito del usuario (se puede cambiar desde aquí)</p>
+              <p class="text-xs text-gray-400 mt-1">{{ 'users.favoriteCenterDescription' | translate }}</p>
             </div>
           }
 
@@ -424,16 +425,16 @@
               (click)="closeEditModal()"
               [disabled]="isLoading()"
               class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
-              Cancelar
+              {{ 'common.cancel' | translate }}
             </button>
             <button 
               type="submit"
               [disabled]="isLoading()"
               class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors disabled:opacity-50">
               @if(isLoading()) {
-                Guardando...
+                {{ 'dashboard.roleEditor.saving' | translate }}
               } @else {
-                Guardar Cambios
+                {{ 'common.save' | translate }}
               }
             </button>
           </div>
@@ -446,11 +447,11 @@
   @if(showDeleteModal()) {
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
       <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-700">
-        <h3 class="text-2xl font-bold text-white mb-4">Eliminar Usuario</h3>
+        <h3 class="text-2xl font-bold text-white mb-4">{{ 'users.deleteUser' | translate }}</h3>
         
         @if(selectedUser()) {
           <p class="text-gray-300 mb-6">
-            ¿Estás seguro de que deseas eliminar al usuario <span class="font-semibold text-white">{{ selectedUser()!.name }}</span>?
+            {{ 'users.confirmDelete' | translate }} <span class="font-semibold text-white">{{ selectedUser()!.name }}</span>?
             Esta acción no se puede deshacer.
           </p>
         }
@@ -466,16 +467,16 @@
             (click)="closeDeleteModal()"
             [disabled]="isLoading()"
             class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
-            Cancelar
+            {{ 'common.cancel' | translate }}
           </button>
           <button 
             (click)="deleteUser()"
             [disabled]="isLoading()"
             class="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors disabled:opacity-50">
             @if(isLoading()) {
-              Eliminando...
+              {{ 'users.deleting' | translate }}
             } @else {
-              Eliminar
+              {{ 'common.delete' | translate }}
             }
           </button>
         </div>
