@@ -4,30 +4,59 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { authGuard } from './core/guards/auth.guard';
 import { RegisterComponent } from './pages/register/register.component';
 import { CentersComponent } from './pages/centers/centers.component';
+import { UsersComponent } from './pages/users/users.component';
+import { QrComponent } from './pages/qr/qr.component';
+import { QrScannerComponent } from './pages/qr-scanner/qr-scanner.component';
+import { MachinesComponent } from './pages/machines/machines.component';
+import { HomeComponent } from './pages/home/home.component';
+import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
     {
-        path:'',
-        redirectTo:'dashboard',
-        pathMatch:'full'
-
+        path: '',
+        component: HomeComponent
     },
     {
-        path:'login',
-        component:LoginComponent
+        path: 'home',
+        redirectTo: '',
+        pathMatch: 'full'
     },
     {
-        path:'register',
-        component:RegisterComponent
+        path: 'login',
+        component: LoginComponent
     },
     {
-        path:'dashboard',
-        component:DashboardComponent,
-        canActivate:[authGuard]
+        path: 'register',
+        component: RegisterComponent
     },
     {
-        path:'centers',
-        component:CentersComponent,
-        canActivate:[authGuard]
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'centers',
+        component: CentersComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'users',
+        component: UsersComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'qr',
+        component: QrComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'qr-scanner',
+        component: QrScannerComponent,
+        canActivate: [authGuard, roleGuard('SUPERADMIN', 'ADMIN_CENTER')]
+    },
+    {
+         path: 'machines',
+         component: MachinesComponent,
+         canActivate: [authGuard]
     }
 ];

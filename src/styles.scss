@@ -1,3 +1,11 @@
+@use './styles/variables' as vars;
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: 'Inter', 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: vars.$color-light;
+  color: vars.$color-dark;
+}

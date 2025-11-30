@@ -35,6 +35,14 @@ La aplicación estará disponible en `http://localhost:4200/`
 - `npm run watch` - Compila el proyecto en modo desarrollo con watch
 - `npm test` - Ejecuta las pruebas unitarias
 
+## 🎨 Temas
+
+La aplicación soporta modo claro y oscuro:
+
+- **Toggle de tema**: Disponible en todas las páginas principales
+- **Persistencia**: La preferencia de tema se guarda en localStorage
+- **Adaptación automática**: Los componentes se adaptan automáticamente al tema seleccionado
+
 ## 🔄 Flujo de Trabajo con Git (Workflow)
 
 ### Proceso para Subir Cambios desde tu Rama Personal
@@ -123,19 +131,120 @@ git push origin develop
 - **Resuelve conflictos con cuidado**: Revisa detenidamente los conflictos antes de resolverlos
 - **Mantén tu rama actualizada**: Haz merge de `develop` en tu rama personal regularmente para evitar conflictos grandes
 
+## 🌐 Internacionalización (i18n)
+
+La aplicación soporta múltiples idiomas mediante `ngx-translate`. Los idiomas disponibles son:
+
+- **Español (es)** - Idioma por defecto
+- **Inglés (en)**
+- **Francés (fr)**
+
+### Características de Traducción
+
+- **Selector de idioma**: Disponible en todas las páginas principales
+- **Traducción dinámica**: Todos los textos de interfaz se traducen automáticamente
+- **Persistencia**: El idioma seleccionado se guarda en localStorage
+- **Filtros traducidos**: Los filtros de búsqueda se adaptan al idioma seleccionado
+- **Estados y roles**: Los estados de usuarios, roles y tipos de máquinas se traducen dinámicamente
+
+### Archivos de Traducción
+
+Los archivos de traducción se encuentran en:
+```
+public/assets/i18n/
+├── es.json  # Español
+├── en.json  # Inglés
+└── fr.json  # Francés
+```
+
+### Uso en Componentes
+
+Para usar traducciones en un componente:
+
+1. Importa `TranslateModule`:
+```typescript
+import { TranslateModule } from '@ngx-translate/core';
+
+@Component({
+  imports: [CommonModule, TranslateModule, ...],
+  ...
+})
+```
+
+2. Usa el pipe `translate` en el template:
+```html
+<h1>{{ 'users.title' | translate }}</h1>
+<button>{{ 'common.save' | translate }}</button>
+```
+
+3. Para traducciones en TypeScript:
+```typescript
+import { TranslateService } from '@ngx-translate/core';
+
+constructor(private translate: TranslateService) {}
+
+getMessage() {
+  return this.translate.instant('users.title');
+}
+```
+
+### Componentes Traducidos
+
+- ✅ Login
+- ✅ Register
+- ✅ Dashboard
+- ✅ Home
+- ✅ Navbar
+- ✅ QR Code
+- ✅ QR Scanner
+- ✅ Users Management
+- ✅ Centers Management
+- ✅ Machines Management
+- ✅ Theme Toggle
+- ✅ Language Selector
+
 ## 🏗️ Estructura del Proyecto
 
 ```
 Meta_Force_front/
 ├── src/
-│   ├── app/           # Componentes y módulos de la aplicación
-│   ├── assets/        # Recursos estáticos
-│   └── index.html     # Archivo HTML principal
-├── public/            # Archivos públicos
-├── angular.json       # Configuración de Angular
-├── package.json       # Dependencias del proyecto
-└── tsconfig.json      # Configuración de TypeScript
+│   ├── app/
+│   │   ├── core/              # Servicios core (auth, theme, translation)
+│   │   ├── pages/              # Páginas de la aplicación
+│   │   │   ├── home/           # Página principal
+│   │   │   ├── login/          # Login
+│   │   │   ├── register/       # Registro
+│   │   │   ├── dashboard/      # Dashboard
+│   │   │   ├── users/          # Gestión de usuarios
+│   │   │   ├── centers/        # Gestión de centros
+│   │   │   ├── machines/        # Gestión de máquinas
+│   │   │   ├── qr/             # Código QR
+│   │   │   └── qr-scanner/     # Escáner QR
+│   │   └── shared/             # Componentes compartidos
+│   │       └── components/
+│   │           ├── navbar/     # Barra de navegación
+│   │           ├── footer/      # Pie de página
+│   │           ├── theme-toggle/    # Toggle de tema
+│   │           └── language-selector/ # Selector de idioma
+│   ├── assets/                 # Recursos estáticos
+│   └── index.html              # Archivo HTML principal
+├── public/
+│   ├── assets/
+│   │   └── i18n/               # Archivos de traducción
+│   └── Logo.png                # Logo de la aplicación
+├── angular.json                 # Configuración de Angular
+├── package.json                 # Dependencias del proyecto
+└── tsconfig.json                # Configuración de TypeScript
 ```
+
+## 🔧 Tecnologías Principales
+
+- **Angular 18+** - Framework principal
+- **TypeScript** - Lenguaje de programación
+- **Tailwind CSS** - Framework de estilos
+- **ngx-translate** - Sistema de internacionalización
+- **RxJS** - Programación reactiva
+- **Angular Signals** - Gestión de estado reactivo
 
 ## 🤝 Contribuir
 
@@ -145,6 +254,8 @@ Si deseas contribuir al proyecto, por favor sigue el flujo de trabajo descrito a
 2. Escribir código limpio y comentado cuando sea necesario
 3. Probar tus cambios antes de hacer el merge
 4. Seguir las convenciones de código del proyecto
+5. Agregar traducciones para nuevos textos en los 3 idiomas (es, en, fr)
+6. Mantener la consistencia en el uso de traducciones (no hardcodear textos)
 
 ## 📄 Licencia
 

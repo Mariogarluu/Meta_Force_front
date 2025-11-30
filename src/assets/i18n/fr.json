@@ -1,0 +1,75 @@
+{
+  "qr": {
+    "title": "Mon Code QR",
+    "backToDashboard": "Retour au Tableau de Bord",
+    "accessCode": "Code d'Accès au Gymnase",
+    "showAtReception": "Montrez ce code QR à la réception pour accéder aux installations",
+    "instructions": "📱 Instructions :",
+    "instruction1": "• Présentez ce code à la réception",
+    "instruction2": "• Assurez-vous que le QR est clairement visible",
+    "instruction3": "• Le code se met à jour automatiquement",
+    "download": "📥 Télécharger le Code QR",
+    "loading": "Chargement des informations utilisateur..."
+  },
+  "theme": {
+    "dark": "Mode sombre",
+    "light": "Mode clair",
+    "switchToDark": "Passer en mode sombre",
+    "switchToLight": "Passer en mode clair"
+  },
+  "home": {
+    "hero": {
+      "title": "Meta Force",
+      "subtitle": "Transformez votre corps, transformez votre vie"
+    },
+    "services": {
+      "training": {
+        "title": "Entraînement",
+        "description": "Optimisez vos routines avec suivi et machines intelligentes."
+      },
+      "trainers": {
+        "title": "Entraîneurs",
+        "description": "Gérez votre personnel, horaires et cours avec contrôle total."
+      },
+      "diets": {
+        "title": "Régimes",
+        "description": "Plans personnalisés qui accompagnent chaque entraînement."
+      }
+    },
+    "carousel": {
+      "previous": "Précédent",
+      "next": "Suivant",
+      "goToSlide": "Aller au slide"
+    }
+  },
+  "login": {
+    "title": "Meta Force",
+    "subtitle": "Accédez à votre entraînement personnalisé",
+    "email": "Email",
+    "password": "Mot de passe",
+    "emailPlaceholder": "votre@email",
+    "passwordPlaceholder": "Votre mot de passe",
+    "loginButton": "Se connecter",
+    "registerLink": "Vous n'avez pas de compte ? Inscrivez-vous",
+    "errors": {
+      "emailRequired": "L'email est obligatoire",
+      "emailInvalid": "L'email n'est pas valide",
+      "passwordRequired": "Le mot de passe est obligatoire",
+      "invalidCredentials": "Identifiants invalides"
+    }
+  },
+  "nav": {
+    "home": "Accueil",
+    "classes": "Cours",
+    "trainers": "Entraîneurs",
+    "membership": "Adhésion",
+    "login": "Se connecter"
+  },
+  "common": {
+    "selectLanguage": "Sélectionner la langue",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès"
+  }
+}
+

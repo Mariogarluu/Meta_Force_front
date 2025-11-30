@@ -5,13 +5,16 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { UsersService } from '../../core/services/users.service';
 import { User } from '../../core/models/user';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -19,6 +22,7 @@ export class DashboardComponent {
   auth = inject(AuthService);
   usersService = inject(UsersService);
   router = inject(Router);
+  translate = inject(TranslateService);
 
   showRoleEditor = signal(false);
   selectedRole = signal<RoleType | null>(null);
@@ -31,14 +35,8 @@ export class DashboardComponent {
 
   roleName = computed(() => {
     const role = this.currentUser()?.role;
-    const roleNames: Record<string, string> = {
-      'SUPERADMIN': 'Super Administrador',
-      'ADMIN_CENTER': 'Administrador de Centro',
-      'TRAINER': 'Entrenador',
-      'CLEANER': 'Personal de Limpieza',
-      'USER': 'Usuario'
-    };
-    return roleNames[role || 'USER'] || 'Usuario';
+    if (!role) return this.translate.instant('dashboard.roles.USER');
+    return this.translate.instant(`dashboard.roles.${role}`);
   });
 
   roleColor = computed(() => {

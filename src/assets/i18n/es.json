@@ -1,0 +1,75 @@
+{
+  "qr": {
+    "title": "Mi Código QR",
+    "backToDashboard": "Volver al Dashboard",
+    "accessCode": "Código de Acceso al Gimnasio",
+    "showAtReception": "Muestra este código QR en la recepción para acceder a las instalaciones",
+    "instructions": "📱 Instrucciones:",
+    "instruction1": "• Presenta este código en la recepción",
+    "instruction2": "• Asegúrate de que el QR sea claramente visible",
+    "instruction3": "• El código se actualiza automáticamente",
+    "download": "📥 Descargar Código QR",
+    "loading": "Cargando información del usuario..."
+  },
+  "theme": {
+    "dark": "Modo oscuro",
+    "light": "Modo claro",
+    "switchToDark": "Cambiar a modo oscuro",
+    "switchToLight": "Cambiar a modo claro"
+  },
+  "home": {
+    "hero": {
+      "title": "Meta Force",
+      "subtitle": "Transforma tu cuerpo, transforma tu vida"
+    },
+    "services": {
+      "training": {
+        "title": "Entrenamiento",
+        "description": "Optimiza tus rutinas con seguimiento y máquinas inteligentes."
+      },
+      "trainers": {
+        "title": "Entrenadores",
+        "description": "Gestiona tu staff, horarios y clases con total control."
+      },
+      "diets": {
+        "title": "Dietas",
+        "description": "Planes personalizados que acompañan cada entrenamiento."
+      }
+    },
+    "carousel": {
+      "previous": "Anterior",
+      "next": "Siguiente",
+      "goToSlide": "Ir al slide"
+    }
+  },
+  "login": {
+    "title": "Meta Force",
+    "subtitle": "Accede a tu entrenamiento personalizado",
+    "email": "Email",
+    "password": "Contraseña",
+    "emailPlaceholder": "tu@email",
+    "passwordPlaceholder": "Tu contraseña",
+    "loginButton": "Iniciar Sesión",
+    "registerLink": "¿No tienes cuenta? Regístrate",
+    "errors": {
+      "emailRequired": "El email es obligatorio",
+      "emailInvalid": "El email no es válido",
+      "passwordRequired": "La contraseña es obligatoria",
+      "invalidCredentials": "Credenciales inválidas"
+    }
+  },
+  "nav": {
+    "home": "Inicio",
+    "classes": "Clases",
+    "trainers": "Entrenadores",
+    "membership": "Membresía",
+    "login": "Iniciar sesión"
+  },
+  "common": {
+    "selectLanguage": "Seleccionar idioma",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito"
+  }
+}
+
