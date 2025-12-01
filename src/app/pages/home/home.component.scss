@@ -8,6 +8,12 @@
   min-height: 100vh;
   background: #f4f7fb;
   color: #0f172a;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  :host-context(.dark) & {
+    background: #0f172a;
+    color: #f1f5f9;
+  }
 }
 
 .home__content {
@@ -24,7 +30,8 @@
 .hero__logo {
   display: block;
   margin: 2rem auto;
-  height: 110px;
+  height: 200px;
+  width: auto;
   object-fit: contain;
 }
 
@@ -36,6 +43,12 @@
   padding: 2rem;
   border-radius: 2rem;
   box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+  transition: background-color 0.3s ease;
+
+  :host-context(.dark) & {
+    background: #1e293b;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
 }
 
 .carousel__viewport {
@@ -98,6 +111,16 @@
   height: 44px;
   font-size: 1.2rem;
   cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  :host-context(.dark) & {
+    background: #334155;
+    color: #f8fafc;
+
+    &:hover {
+      background: #475569;
+    }
+  }
 }
 
 .carousel__dots {
@@ -112,12 +135,20 @@
   border: none;
   background: #cbd5f5;
   cursor: pointer;
-  transition: width 0.2s ease;
+  transition: width 0.2s ease, background-color 0.3s ease;
+
+  :host-context(.dark) & {
+    background: #475569;
+  }
 }
 
 .carousel__dots button.is-active {
   background: #7c3aed;
   width: 24px;
+
+  :host-context(.dark) & {
+    background: #22d3ee;
+  }
 }
 
 .services {
@@ -135,7 +166,11 @@
   text-align: center;
   text-decoration: none;
   box-shadow: 0 15px 30px rgba(79, 70, 229, 0.3);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+
+  :host-context(.dark) & {
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+  }
 }
 
 .service-card:hover {
@@ -153,4 +188,3 @@
   margin-top: 0.75rem;
   font-size: 0.9rem;
 }
-
