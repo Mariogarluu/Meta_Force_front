@@ -8,6 +8,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { QrComponent } from './pages/qr/qr.component';
 import { QrScannerComponent } from './pages/qr-scanner/qr-scanner.component';
 import { MachinesComponent } from './pages/machines/machines.component';
+import { ClasesComponent } from './pages/clases/clases.component';
 import { HomeComponent } from './pages/home/home.component';
 import { roleGuard } from './core/guards/role.guard';
 
@@ -58,5 +59,10 @@ export const routes: Routes = [
          path: 'machines',
          component: MachinesComponent,
          canActivate: [authGuard]
+    },
+    {
+        path: 'clases',
+        component: ClasesComponent,
+        canActivate: [authGuard]
     }
 ];
