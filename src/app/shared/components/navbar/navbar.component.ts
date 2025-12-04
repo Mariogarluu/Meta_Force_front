@@ -15,9 +15,8 @@ import { TranslateModule } from '@ngx-translate/core';
 export class NavbarComponent {
   readonly navLinks = [
     { label: 'Inicio', path: '/', key: 'nav.home' },
-    { label: 'Clases', path: '/dashboard', key: 'nav.classes' },
+    { label: 'Clases', path: '/clases', key: 'nav.classes' },
     { label: 'Entrenadores', path: '/users', key: 'nav.trainers' },
     { label: 'Membresía', path: '/register', key: 'nav.membership' }
   ];
 }
-

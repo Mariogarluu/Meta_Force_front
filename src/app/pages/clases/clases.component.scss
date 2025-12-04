@@ -1,0 +1,9 @@
+@use '../../../styles/_variables' as *;
+
+.classes-page {
+  &__header {
+    background: $bg-gradient-blue-purple;
+  }
+}
+
+

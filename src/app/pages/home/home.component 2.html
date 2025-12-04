@@ -1,0 +1,50 @@
+<div class="home">
+  <app-navbar></app-navbar>
+
+  <main class="home__content">
+    <section class="hero">
+      <img src="/Logo.png" alt="Meta Force" class="hero__logo" />
+
+      <div class="carousel">
+        <div class="carousel__viewport">
+          @for (slide of slides; track slide.image; let index = $index) {
+            <div
+              class="carousel__item"
+              [class.is-active]="currentSlide() === index"
+              [class.is-prev]="isPrev(index)"
+              [class.is-next]="isNext(index)">
+              <img [src]="slide.image" [alt]="slide.alt" loading="lazy" />
+            </div>
+          }
+        </div>
+
+        <div class="carousel__controls">
+          <button type="button" (click)="previousSlide()" aria-label="Anterior">←</button>
+          <div class="carousel__dots">
+            @for (slide of slides; track slide.image; let index = $index) {
+              <button
+                type="button"
+                [class.is-active]="currentSlide() === index"
+                (click)="goToSlide(index)"
+                [attr.aria-label]="'Ir al slide ' + (index + 1)">
+              </button>
+            }
+          </div>
+          <button type="button" (click)="nextSlide()" aria-label="Siguiente">→</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="services">
+      @for (service of services; track service.label) {
+        <a [routerLink]="service.path" class="service-card">
+          <p class="service-card__title">{{ service.label }}</p>
+          <p class="service-card__text">{{ service.description }}</p>
+        </a>
+      }
+    </section>
+  </main>
+
+  <app-footer></app-footer>
+</div>
+
