@@ -7,7 +7,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { GymClass, CreateClassInput } from '../../core/models/class';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-clases',
@@ -27,35 +27,26 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 export class ClasesComponent implements OnInit {
   private classesService = inject(ClassesService);
   private auth = inject(AuthService);
-  private translate = inject(TranslateService);
 
   classes = signal<GymClass[]>([]);
   isLoading = signal(false);
   errorMessage = signal<string>('');
 
-  // Filtros
   filterName = signal<string>('');
   filterDescription = signal<string>('');
   showFilters = signal(false);
 
-  // Modales
   showFormModal = signal(false);
   showDeleteModal = signal(false);
   isEditing = signal(false);
-
   selectedClass = signal<GymClass | null>(null);
 
-  private initialFormState: CreateClassInput = {
-    name: '',
-    description: ''
-  };
-
-  formState = signal<CreateClassInput>({ ...this.initialFormState });
+  formName = '';
+  formDescription = '';
 
   currentUser = computed(() => this.auth.currentUser());
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
 
-  // Lógica de filtrado
   filteredClasses = computed(() => {
     let list = this.classes();
 
@@ -90,13 +81,12 @@ export class ClasesComponent implements OnInit {
         this.isLoading.set(false);
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || this.translate.instant('classes.errors.load'));
+        this.errorMessage.set(error.error?.message || 'Error al cargar las clases');
         this.isLoading.set(false);
       }
     });
   }
 
-  // Filtros
   toggleFilters(): void {
     this.showFilters.set(!this.showFilters());
   }
@@ -106,11 +96,11 @@ export class ClasesComponent implements OnInit {
     this.filterDescription.set('');
   }
 
-  // CRUD
   openCreateModal(): void {
     this.isEditing.set(false);
     this.selectedClass.set(null);
-    this.formState.set({ ...this.initialFormState });
+    this.formName = '';
+    this.formDescription = '';
     this.showFormModal.set(true);
     this.errorMessage.set('');
   }
@@ -118,10 +108,8 @@ export class ClasesComponent implements OnInit {
   openEditModal(item: GymClass): void {
     this.isEditing.set(true);
     this.selectedClass.set(item);
-    this.formState.set({
-      name: item.name,
-      description: item.description || ''
-    });
+    this.formName = item.name;
+    this.formDescription = item.description || '';
     this.showFormModal.set(true);
     this.errorMessage.set('');
   }
@@ -144,35 +132,33 @@ export class ClasesComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const data = this.formState();
-    if (!data.name.trim()) {
-      this.errorMessage.set(this.translate.instant('classes.errors.nameRequired'));
+    if (!this.formName.trim()) {
+      this.errorMessage.set('El nombre de la clase es obligatorio');
       return;
     }
 
     this.isLoading.set(true);
     this.errorMessage.set('');
 
+    const data: CreateClassInput = {
+      name: this.formName.trim(),
+      description: this.formDescription?.trim() || undefined
+    };
+
     if (this.isEditing() && this.selectedClass()) {
       const id = this.selectedClass()!.id;
-      this.classesService.updateClass(id, {
-        name: data.name.trim(),
-        description: data.description?.trim() || undefined
-      }).subscribe({
+      this.classesService.updateClass(id, data).subscribe({
         next: () => this.finishAction(),
         error: (error) => {
-          this.errorMessage.set(error.error?.message || this.translate.instant('classes.errors.save'));
+          this.errorMessage.set(error.error?.message || 'Error al guardar la clase');
           this.isLoading.set(false);
         }
       });
     } else {
-      this.classesService.createClass({
-        name: data.name.trim(),
-        description: data.description?.trim() || undefined
-      }).subscribe({
+      this.classesService.createClass(data).subscribe({
         next: () => this.finishAction(),
         error: (error) => {
-          this.errorMessage.set(error.error?.message || this.translate.instant('classes.errors.save'));
+          this.errorMessage.set(error.error?.message || 'Error al guardar la clase');
           this.isLoading.set(false);
         }
       });
@@ -193,7 +179,7 @@ export class ClasesComponent implements OnInit {
         this.loadClasses();
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || this.translate.instant('classes.errors.delete'));
+        this.errorMessage.set(error.error?.message || 'Error al eliminar la clase');
         this.isLoading.set(false);
       }
     });
@@ -205,5 +191,3 @@ export class ClasesComponent implements OnInit {
     this.loadClasses();
   }
 }
-
-

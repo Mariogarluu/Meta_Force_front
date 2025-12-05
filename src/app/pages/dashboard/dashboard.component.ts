@@ -9,13 +9,14 @@ import { Notification } from '../../core/models/notification';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
+import { ProfileImageManagerComponent } from '../../shared/components/profile-image-manager/profile-image-manager.component';
 
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent],
+  imports: [CommonModule, FormsModule, RouterModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent, ProfileImageManagerComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -166,5 +167,18 @@ export class DashboardComponent {
       'USER': '👤'
     };
     return icons[role] || '👤';
+  }
+
+  /**
+   * Obtiene la URL de la imagen de perfil del usuario.
+   * Si no tiene imagen o es null, retorna la imagen por defecto (fauno.png).
+   * @param profileImageUrl - URL de la imagen de perfil o null
+   * @returns URL de la imagen a mostrar
+   */
+  getProfileImageUrl(profileImageUrl: string | null | undefined): string {
+    if (profileImageUrl && !profileImageUrl.includes('fauno.png')) {
+      return profileImageUrl;
+    }
+    return '/assets/images/fauno.png';
   }
 }

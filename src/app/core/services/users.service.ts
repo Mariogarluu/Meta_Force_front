@@ -49,5 +49,24 @@ export class UsersService {
   getUser(id: string): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/${id}`);
   }
+
+  /**
+   * Sube una imagen de perfil para el usuario autenticado.
+   * @param file - Archivo de imagen a subir
+   * @returns Observable que emite el usuario actualizado con la nueva URL de imagen
+   */
+  uploadProfileImage(file: File): Observable<User> {
+    const formData = new FormData();
+    formData.append('image', file);
+    return this.http.post<User>(`${this.apiUrl}/me/profile-image`, formData);
+  }
+
+  /**
+   * Elimina la imagen de perfil del usuario autenticado.
+   * @returns Observable que emite el usuario actualizado con profileImageUrl en null
+   */
+  deleteProfileImage(): Observable<User> {
+    return this.http.delete<User>(`${this.apiUrl}/me/profile-image`);
+  }
 }
 
