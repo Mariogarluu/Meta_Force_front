@@ -1,38 +1,45 @@
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { UsersService } from '../../core/services/users.service';
-import { User } from '../../core/models/user';
+import { NotificationService } from '../../core/services/notification.service';
+import { Notification } from '../../core/models/notification';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
+import { ProfileImageManagerComponent } from '../../shared/components/profile-image-manager/profile-image-manager.component';
 
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent],
+  imports: [CommonModule, FormsModule, RouterModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent, ProfileImageManagerComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
   auth = inject(AuthService);
   usersService = inject(UsersService);
+  notificationService = inject(NotificationService);
   router = inject(Router);
   translate = inject(TranslateService);
+  private elementRef = inject(ElementRef);
 
   showRoleEditor = signal(false);
   selectedRole = signal<RoleType | null>(null);
   isLoading = signal(false);
   errorMessage = signal<string>('');
+  
+  // Estado para el dropdown de notificaciones
+  showNotifications = signal(false);
 
   readonly roles: RoleType[] = ['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER', 'CLEANER', 'USER'];
 
   currentUser = computed(() => this.auth.currentUser());
-
+  
   roleName = computed(() => {
     const role = this.currentUser()?.role;
     if (!role) return this.translate.instant('dashboard.roles.USER');
@@ -52,7 +59,6 @@ export class DashboardComponent {
   });
 
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
-
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
 
   constructor() {
@@ -62,10 +68,43 @@ export class DashboardComponent {
     }
   }
 
-  /**
-   * Abre el modal de edición de rol inicializando el rol seleccionado con el rol actual del usuario.
-   * Limpia cualquier mensaje de error previo al abrir el editor.
-   */
+  // --- LÓGICA DE NOTIFICACIONES ---
+  toggleNotifications() {
+    const newState = !this.showNotifications();
+    this.showNotifications.set(newState);
+    if (newState) {
+      this.notificationService.loadNotifications();
+    }
+  }
+
+  handleNotificationClick(notification: Notification) {
+    if (!notification.read) {
+      this.notificationService.markAsRead(notification.id);
+    }
+    
+    if (notification.link) {
+      this.router.navigateByUrl(notification.link);
+      this.showNotifications.set(false);
+    }
+  }
+
+  markAllRead() {
+    this.notificationService.markAllAsRead();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    // Cerrar si se hace clic fuera del botón de notificaciones y del dropdown
+    const target = event.target as HTMLElement;
+    const isBell = target.closest('.notification-btn');
+    const isDropdown = target.closest('.notification-dropdown');
+    
+    if (!isBell && !isDropdown) {
+      this.showNotifications.set(false);
+    }
+  }
+  // -------------------------------
+
   openRoleEditor() {
     const user = this.currentUser();
     if (user) {
@@ -75,24 +114,14 @@ export class DashboardComponent {
     }
   }
 
-  /**
-   * Cierra el modal de edición de rol y limpia cualquier mensaje de error.
-   * Restaura el estado inicial del componente sin guardar cambios.
-   */
   closeRoleEditor() {
     this.showRoleEditor.set(false);
     this.errorMessage.set('');
   }
 
-  /**
-   * Actualiza el rol del usuario autenticado en el backend.
-   * Después de actualizar exitosamente, cierra sesión y redirige al login para obtener un nuevo token JWT.
-   * Muestra un mensaje de error si la actualización falla.
-   */
   updateRole() {
     const user = this.currentUser();
     const newRole = this.selectedRole();
-    
     if (!user || !newRole) {
       return;
     }
@@ -124,19 +153,11 @@ export class DashboardComponent {
     });
   }
 
-  /**
-   * Cierra la sesión del usuario actual y redirige a la página de login.
-   * Limpia el token JWT y la información del usuario del estado de la aplicación.
-   */
   logout() {
     this.auth.logout();
     this.router.navigate(['/login']);
   }
 
-  /**
-   * Retorna el emoji correspondiente a un rol específico para mostrar en la interfaz.
-   * Usa un mapeo de roles a emojis para proporcionar indicadores visuales claros.
-   */
   getRoleIcon(role: string): string {
     const icons: Record<string, string> = {
       'SUPERADMIN': '👑',
@@ -146,5 +167,18 @@ export class DashboardComponent {
       'USER': '👤'
     };
     return icons[role] || '👤';
+  }
+
+  /**
+   * Obtiene la URL de la imagen de perfil del usuario.
+   * Si no tiene imagen o es null, retorna la imagen por defecto (fauno.png).
+   * @param profileImageUrl - URL de la imagen de perfil o null
+   * @returns URL de la imagen a mostrar
+   */
+  getProfileImageUrl(profileImageUrl: string | null | undefined): string {
+    if (profileImageUrl && !profileImageUrl.includes('fauno.png')) {
+      return profileImageUrl;
+    }
+    return '/assets/images/fauno.png';
   }
 }

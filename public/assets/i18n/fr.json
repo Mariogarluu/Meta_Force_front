@@ -157,6 +157,11 @@
         "title": "Mes Cours",
         "description": "Gérez vos cours et horaires.",
         "button": "Voir les Cours"
+      },
+      "classes": {
+        "title": "Cours",
+        "description": "Gérez tous les cours collectifs de vos centres Meta Force.",
+        "button": "Aller aux cours"
       }
     },
     "userInfo": {
@@ -181,6 +186,38 @@
     "trainers": "Entraîneurs",
     "membership": "Adhésion",
     "login": "Se connecter"
+  },
+  "classes": {
+    "title": "Cours de gym",
+    "subtitle": "Gérez et découvrez tous les cours collectifs de vos centres Meta Force.",
+    "newClass": "Nouveau cours",
+    "editClass": "Modifier le cours",
+    "deleteClass": "Supprimer le cours",
+    "backToDashboard": "Retour au tableau de bord",
+    "name": "Nom",
+    "description": "Description",
+    "filters": "Filtres",
+    "hideFilters": "Masquer les filtres",
+    "searchFilters": "Filtres de recherche",
+    "clearFilters": "Effacer les filtres",
+    "searchByName": "Rechercher par nom",
+    "searchByDescription": "Rechercher par description",
+    "showing": "Affichage de",
+    "of": "sur",
+    "classes": "cours",
+    "loading": "Chargement des cours...",
+    "noClassesFound": "Aucun cours ne correspond à vos filtres.",
+    "noClassesAvailable": "Aucun cours n'a encore été créé.",
+    "createdAt": "Créé le",
+    "saving": "Enregistrement...",
+    "deleting": "Suppression...",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer le cours",
+    "errors": {
+      "nameRequired": "Le nom du cours est obligatoire.",
+      "load": "Erreur lors du chargement des cours.",
+      "save": "Erreur lors de l'enregistrement du cours.",
+      "delete": "Erreur lors de la suppression du cours."
+    }
   },
   "qrScanner": {
     "title": "Enregistrement Entrée/Sortie",
@@ -357,5 +394,11 @@
     "save": "Enregistrer",
     "cancel": "Annuler",
     "close": "Fermer"
+  },
+  "profileImage": {
+    "manage": "Gérer l'image",
+    "upload": "Télécharger l'image",
+    "delete": "Supprimer l'image",
+    "uploading": "Téléchargement de l'image..."
   }
 }

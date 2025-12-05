@@ -65,11 +65,56 @@
     "membership": "Membership",
     "login": "Sign In"
   },
+  "classes": {
+    "title": "Gym Classes",
+    "subtitle": "Manage and discover all the group classes in your Meta Force centers.",
+    "newClass": "New class",
+    "editClass": "Edit class",
+    "deleteClass": "Delete class",
+    "backToDashboard": "Back to dashboard",
+    "name": "Name",
+    "description": "Description",
+    "filters": "Filters",
+    "hideFilters": "Hide filters",
+    "searchFilters": "Search filters",
+    "clearFilters": "Clear filters",
+    "searchByName": "Search by name",
+    "searchByDescription": "Search by description",
+    "showing": "Showing",
+    "of": "of",
+    "classes": "classes",
+    "loading": "Loading classes...",
+    "noClassesFound": "No classes match your filters.",
+    "noClassesAvailable": "There are no classes created yet.",
+    "createdAt": "Created at",
+    "saving": "Saving...",
+    "deleting": "Deleting...",
+    "confirmDelete": "Are you sure you want to delete the class",
+    "errors": {
+      "nameRequired": "The name of the class is required.",
+      "load": "Error loading classes.",
+      "save": "Error saving the class.",
+      "delete": "Error deleting the class."
+    }
+  },
+  "dashboard": {
+    "cards": {
+      "classes": {
+        "title": "Classes",
+        "description": "Manage all group classes for your Meta Force centers.",
+        "button": "Go to classes"
+      }
+    }
+  },
   "common": {
     "selectLanguage": "Select language",
     "loading": "Loading...",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "close": "Close"
   }
 }
-
