@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,11 +14,14 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+  // Inyección de Auth (Añadido de tu versión)
+  auth = inject(AuthService);
+  
   readonly navLinks = [
     { label: 'Inicio', path: '/', key: 'nav.home' },
-    { label: 'Clases', path: '/dashboard', key: 'nav.classes' },
+    // Se mantiene /dashboard (tu versión) porque es la ruta protegida que estamos usando
+    { label: 'Clases', path: '/dashboard', key: 'nav.classes' }, 
     { label: 'Entrenadores', path: '/users', key: 'nav.trainers' },
     { label: 'Membresía', path: '/register', key: 'nav.membership' }
   ];
 }
-

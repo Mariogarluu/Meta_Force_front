@@ -6,6 +6,10 @@ import { ErrorToastComponent } from './shared/components/error-toast/error-toast
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from './core/services/translation.service';
 
+/**
+ * Componente raíz de la aplicación.
+ * Inicializa los servicios principales y asegura que las traducciones estén cargadas.
+ */
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, ErrorToastComponent, TranslateModule],
@@ -18,24 +22,26 @@ export class AppComponent implements OnInit {
   private translationService = inject(TranslationService);
   private translateService = inject(TranslateService);
 
+  /**
+   * Inicializa el componente asegurando que las traducciones estén configuradas.
+   * Configura español como idioma por defecto y carga las traducciones.
+   */
   constructor() {
-    // Asegurar que ngx-translate tenga un idioma por defecto
     this.translateService.setDefaultLang('es');
-    // Configurar para que muestre la clave si no hay traducción
-    this.translateService.setDefaultLang('es');
-    // Usar español inmediatamente para que la app funcione
-    this.translateService.use('es');
-    
-    // Cargar traducciones en segundo plano sin bloquear
-    setTimeout(() => {
-      this.translationService.setLanguage('es').catch(err => {
-        console.warn('Error loading translations:', err);
-      });
-    }, 0);
+    this.translateService.use('es').subscribe({
+      next: () => {
+        console.log('Translations loaded successfully');
+      },
+      error: (err) => {
+        console.error('Error loading translations:', err);
+      }
+    });
   }
 
+  /**
+   * Hook del ciclo de vida que se ejecuta después de la inicialización.
+   * Asegura que los servicios estén completamente inicializados.
+   */
   ngOnInit() {
-    // El servicio de tema se inicializa automáticamente en su constructor
-    // pero lo inyectamos aquí para asegurar que se inicialice
   }
 }

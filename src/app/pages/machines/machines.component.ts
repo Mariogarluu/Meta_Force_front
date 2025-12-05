@@ -1,5 +1,5 @@
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common'; // CommonModule ya incluye DatePipe
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MachinesService } from '../../core/services/machines.service';
@@ -14,7 +14,7 @@ import { LanguageSelectorComponent } from '../../shared/components/language-sele
 @Component({
   selector: 'app-machines',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, DatePipe, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent], 
+  imports: [CommonModule, FormsModule, RouterModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent], 
   templateUrl: './machines.component.html',
   styleUrl: './machines.component.scss'
 })
@@ -27,7 +27,7 @@ export class MachinesComponent implements OnInit {
   machines = signal<Machine[]>([]);
   centers = signal<Center[]>([]);
   isLoading = signal(false);
-  
+
   // --- FILTROS ---
   filterName = signal<string>('');
   filterType = signal<string>('');
@@ -41,7 +41,7 @@ export class MachinesComponent implements OnInit {
   isEditing = signal(false);
   
   selectedMachine = signal<Machine | null>(null);
-  
+
   private initialFormState: CreateMachineInput = {
     name: '',
     type: 'cardio',
@@ -53,7 +53,7 @@ export class MachinesComponent implements OnInit {
 
   currentUser = computed(() => this.auth.currentUser());
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
-  
+
   machineTypes: MachineType[] = ['cardio', 'fuerza', 'peso libre', 'funcional', 'otro'];
   machineStatuses: MachineStatus[] = ['operativa', 'en mantenimiento', 'fuera de servicio'];
 
@@ -131,7 +131,7 @@ export class MachinesComponent implements OnInit {
     this.filterCenter.set('');
   }
 
-  // ... Resto de métodos CRUD (sin cambios) ...
+  // ... Resto de métodos CRUD ...
   openCreateModal() {
     this.isEditing.set(false);
     this.selectedMachine.set(null);

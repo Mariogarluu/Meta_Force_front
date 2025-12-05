@@ -157,6 +157,11 @@
         "title": "Mis Clases",
         "description": "Gestiona tus clases y horarios.",
         "button": "Ver Clases"
+      },
+      "classes": {
+        "title": "Clases",
+        "description": "Gestiona todas las clases grupales de tus centros Meta Force.",
+        "button": "Ir a clases"
       }
     },
     "userInfo": {
@@ -181,6 +186,38 @@
     "trainers": "Entrenadores",
     "membership": "Membresía",
     "login": "Iniciar sesión"
+  },
+  "classes": {
+    "title": "Clases de gimnasio",
+    "subtitle": "Gestiona y descubre todas las clases grupales de tus centros Meta Force.",
+    "newClass": "Nueva clase",
+    "editClass": "Editar clase",
+    "deleteClass": "Eliminar clase",
+    "backToDashboard": "Volver al dashboard",
+    "name": "Nombre",
+    "description": "Descripción",
+    "filters": "Filtros",
+    "hideFilters": "Ocultar filtros",
+    "searchFilters": "Filtros de búsqueda",
+    "clearFilters": "Limpiar filtros",
+    "searchByName": "Buscar por nombre",
+    "searchByDescription": "Buscar por descripción",
+    "showing": "Mostrando",
+    "of": "de",
+    "classes": "clases",
+    "loading": "Cargando clases...",
+    "noClassesFound": "No hay clases que coincidan con tus filtros.",
+    "noClassesAvailable": "Aún no hay clases creadas.",
+    "createdAt": "Creada el",
+    "saving": "Guardando...",
+    "deleting": "Eliminando...",
+    "confirmDelete": "¿Seguro que quieres eliminar la clase",
+    "errors": {
+      "nameRequired": "El nombre de la clase es obligatorio.",
+      "load": "Error al cargar las clases.",
+      "save": "Error al guardar la clase.",
+      "delete": "Error al eliminar la clase."
+    }
   },
   "qrScanner": {
     "title": "Registro de Entrada/Salida",
@@ -350,5 +387,11 @@
     "save": "Guardar",
     "cancel": "Cancelar",
     "close": "Cerrar"
+  },
+  "profileImage": {
+    "manage": "Gestionar imagen",
+    "upload": "Subir imagen",
+    "delete": "Eliminar imagen",
+    "uploading": "Subiendo imagen..."
   }
 }
