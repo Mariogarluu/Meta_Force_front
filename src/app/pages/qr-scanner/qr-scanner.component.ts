@@ -6,7 +6,7 @@ import { Html5Qrcode } from 'html5-qrcode';
 import { AuthService } from '../../core/services/auth.service';
 import { CentersService } from '../../core/services/centers.service';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { Center } from '../../core/models/center';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';

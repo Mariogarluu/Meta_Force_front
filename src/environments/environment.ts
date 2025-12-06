@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://api.midominio.com/api'
+    apiUrl: 'https://meta-force-back.onrender.com/api'
   };
