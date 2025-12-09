@@ -4,15 +4,28 @@
       <img src="/Logo.png" alt="Meta Force" class="navbar__logo" />
     </a>
 
+    <!-- Botón hamburguesa para móvil -->
+    <button 
+      class="navbar__hamburger"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="isMobileMenuOpen()"
+      aria-label="Toggle menu"
+      aria-controls="mobile-menu">
+      <span class="navbar__hamburger-line" [class.active]="isMobileMenuOpen()"></span>
+      <span class="navbar__hamburger-line" [class.active]="isMobileMenuOpen()"></span>
+      <span class="navbar__hamburger-line" [class.active]="isMobileMenuOpen()"></span>
+    </button>
+
+    <!-- Menú de escritorio -->
     <nav class="navbar__menu">
       @for (link of navLinks; track link.path) {
         <a
           [routerLink]="link.path"
           routerLinkActive="active"
-          class="navbar__link">
+          class="navbar__link"
+          (click)="closeMobileMenu()">
      
-         {{ (link.key | translate) ||
-          link.label }}
+         {{ (link.key | translate) || link.label }}
         </a>
       }
     </nav>
@@ -24,17 +37,78 @@
       </div>
 
       @if (!auth.currentUser()) {
-        <a routerLink="/login" class="navbar__login">{{ ('nav.login' | translate) ||
-          'Iniciar sesión' }}</a>
+        <a routerLink="/login" class="navbar__login" (click)="closeMobileMenu()">
+          {{ 'nav.login' | translate }}
+        </a>
+        <a routerLink="/register" class="navbar__login" (click)="closeMobileMenu()" style="background: #9333ea;">
+          {{ ('nav.register' | translate) || 'Registrarse' }}
+        </a>
       } @else {
-        <a routerLink="/dashboard" class="navbar__icon-btn" aria-label="Perfil">
+        @if (showQR()) {
+          <a 
+            routerLink="/qr"
+            class="px-3 sm:px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg transition-colors text-xs sm:text-sm font-medium whitespace-nowrap hidden sm:block">
+            {{ ('dashboard.cards.myQR.button' | translate) || 'Mi QR' }}
+          </a>
+        }
+        
+        <a 
+          routerLink="/dashboard"
+          class="navbar__icon-btn"
+          aria-label="Perfil"
+          (click)="closeMobileMenu()">
           <img 
             [src]="getProfileImageUrl(auth.currentUser()!.profileImageUrl)" 
             [alt]="auth.currentUser()!.name" 
             class="w-full h-full object-cover rounded-full"
           />
         </a>
+
+        <button 
+          (click)="logout()"
+          class="px-3 sm:px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-xs sm:text-sm font-medium whitespace-nowrap hidden sm:block">
+          {{ ('dashboard.logout' | translate) || 'Cerrar sesión' }}
+        </button>
       }
     </div>
   </div>
+
+  <!-- Menú móvil -->
+  @if (isMobileMenuOpen()) {
+    <div class="navbar__mobile-menu" id="mobile-menu">
+      <nav class="navbar__mobile-nav">
+        @for (link of navLinks; track link.path) {
+          <a
+            [routerLink]="link.path"
+            routerLinkActive="active"
+            class="navbar__mobile-link"
+            (click)="closeMobileMenu()">
+            {{ (link.key | translate) || link.label }}
+          </a>
+        }
+        
+        <div class="navbar__mobile-actions">
+          @if (!auth.currentUser()) {
+            <a routerLink="/login" class="navbar__mobile-login" (click)="closeMobileMenu()">
+              {{ 'nav.login' | translate }}
+            </a>
+            <a routerLink="/register" class="navbar__mobile-login" (click)="closeMobileMenu()" style="background: #9333ea; margin-top: 0.5rem;">
+              {{ ('nav.register' | translate) || 'Registrarse' }}
+            </a>
+          } @else {
+            @if (showQR()) {
+              <a routerLink="/qr" class="navbar__mobile-link" (click)="closeMobileMenu()">
+                {{ ('dashboard.cards.myQR.button' | translate) || 'Mi QR' }}
+              </a>
+            }
+            <button 
+              (click)="logout()"
+              class="navbar__mobile-login w-full">
+              {{ ('dashboard.logout' | translate) || 'Cerrar sesión' }}
+            </button>
+          }
+        </div>
+      </nav>
+    </div>
+  }
 </header>

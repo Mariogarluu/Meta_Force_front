@@ -1,23 +1,23 @@
-<div class="min-h-screen flex justify-center items-center bg-gray-50 dark:bg-gray-900 py-10">
-  <div class="absolute top-4 right-4 flex items-center gap-2">
+<div class="min-h-screen flex justify-center items-center bg-gray-50 dark:bg-gray-900 px-4 py-10">
+  <div class="absolute top-4 right-4 flex items-center gap-2 z-10">
     <app-language-selector></app-language-selector>
     <app-theme-toggle></app-theme-toggle>
   </div>
   <div
     class="rounded-lg max-w-md w-full bg-gradient-to-br from-purple-500 via-blue-600 to-cyan-400 shadow-2xl p-0.5"
   >
-    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg">
+    <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg">
       <div class="flex justify-center mb-4">
         <img 
           src="Logo.png" 
           alt="Meta Force Logo" 
-          class="h-40 w-auto"
+          class="h-28 sm:h-36 md:h-40 w-auto"
         />
       </div>
-      <h1 class="text-center text-gray-900 dark:text-white text-3xl font-extrabold mb-1">
+      <h1 class="text-center text-gray-900 dark:text-white text-2xl sm:text-3xl font-extrabold mb-1">
         {{ 'register.title' | translate }}
       </h1>
-      <p class="mb-5 text-gray-600 dark:text-gray-400 text-sm text-center">
+      <p class="mb-4 sm:mb-5 text-gray-600 dark:text-gray-400 text-xs sm:text-sm text-center">
         {{ 'register.subtitle' | translate }}
       </p>
 
@@ -134,7 +134,7 @@
         }
 
         <button
-          class="rounded-lg w-full px-4 py-2 font-bold text-lg bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white shadow-lg transition-all transform hover:scale-[1.01]"
+          class="rounded-lg w-full px-4 py-2.5 sm:py-2 font-bold text-base sm:text-lg bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white shadow-lg transition-all transform hover:scale-[1.01]"
           type="submit"
           [disabled]="formRegister.invalid"
         >
@@ -142,7 +142,7 @@
         </button>
       </form>
 
-      <div class="mt-6 text-center text-gray-900 dark:text-white text-sm">
+      <div class="mt-4 sm:mt-6 text-center text-gray-900 dark:text-white text-xs sm:text-sm">
         ¿Ya tienes cuenta?
         <button
           type="button"

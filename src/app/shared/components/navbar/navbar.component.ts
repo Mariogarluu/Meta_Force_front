@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject, signal, input } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 import { TranslateModule } from '@ngx-translate/core';
@@ -17,6 +17,10 @@ const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/up
 })
 export class NavbarComponent {
   auth = inject(AuthService);
+  router = inject(Router);
+  
+  // Input opcional para mostrar QR solo en el dashboard
+  showQR = input<boolean>(false);
   
   readonly navLinks = [
     { label: 'Inicio', path: '/', key: 'nav.home' },
@@ -24,6 +28,32 @@ export class NavbarComponent {
     { label: 'Entrenadores', path: '/users', key: 'nav.trainers' },
     { label: 'Membresía', path: '/register', key: 'nav.membership' }
   ];
+
+  // Estado del menú móvil
+  isMobileMenuOpen = signal(false);
+
+  /**
+   * Alterna el estado del menú móvil
+   */
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen.update(open => !open);
+  }
+
+  /**
+   * Cierra el menú móvil
+   */
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen.set(false);
+  }
+
+  /**
+   * Cierra la sesión del usuario
+   */
+  logout(): void {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+    this.closeMobileMenu();
+  }
 
   /**
    * Obtiene la URL de la imagen de perfil, usando el fallback si es necesario.
