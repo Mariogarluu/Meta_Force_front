@@ -63,7 +63,9 @@
     "classes": "Cours",
     "trainers": "Entraîneurs",
     "membership": "Adhésion",
-    "login": "Se connecter"
+    "centers": "Centres",
+    "login": "Se connecter",
+    "register": "S'inscrire"
   },
   "classes": {
     "title": "Cours de gym",
@@ -98,12 +100,82 @@
     }
   },
   "dashboard": {
+    "title": "Tableau de bord",
+    "loading": "Chargement...",
+    "logout": "Déconnexion",
+    "roles": {
+      "SUPERADMIN": "Super Administrateur",
+      "ADMIN_CENTER": "Administrateur de Centre",
+      "TRAINER": "Entraîneur",
+      "CLEANER": "Nettoyage",
+      "USER": "Utilisateur"
+    },
     "cards": {
       "classes": {
         "title": "Cours",
         "description": "Gérez tous les cours collectifs de vos centres Meta Force.",
         "button": "Aller aux cours"
+      },
+      "centers": {
+        "title": "Centres",
+        "description": "Gérez tous les centres Meta Force.",
+        "button": "Aller aux centres"
+      },
+      "machines": {
+        "title": "Machines",
+        "description": "Gérez toutes les machines de vos centres.",
+        "button": "Aller aux machines"
+      },
+      "users": {
+        "title": "Utilisateurs",
+        "description": "Gérez tous les utilisateurs du système.",
+        "button": "Aller aux utilisateurs"
+      },
+      "myCenter": {
+        "title": "Mon Centre",
+        "description": "Gérez les informations de votre centre.",
+        "button": "Voir le centre"
+      },
+      "employees": {
+        "title": "Employés",
+        "description": "Gérez les employés de votre centre.",
+        "button": "Voir les employés"
+      },
+      "statistics": {
+        "title": "Statistiques",
+        "description": "Visualisez les statistiques de votre centre.",
+        "button": "Voir les statistiques"
+      },
+      "myQR": {
+        "title": "Mon QR",
+        "description": "Accédez à votre code QR personnel.",
+        "button": "Voir mon QR"
+      },
+      "myProfile": {
+        "title": "Mon Profil",
+        "description": "Gérez vos informations personnelles.",
+        "button": "Voir le profil"
+      },
+      "myClasses": {
+        "title": "Mes Cours",
+        "description": "Gérez vos cours en tant qu'entraîneur.",
+        "button": "Voir mes cours"
       }
+    },
+    "userInfo": {
+      "title": "Informations de l'utilisateur",
+      "name": "Nom",
+      "email": "Email",
+      "role": "Rôle",
+      "center": "Centre",
+      "registrationDate": "Date d'inscription"
+    },
+    "roleEditor": {
+      "title": "Changer de rôle",
+      "selectRole": "Sélectionnez un rôle",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement..."
     }
   },
   "common": {

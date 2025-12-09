@@ -140,22 +140,22 @@
             </div>
           </a>
 
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-all shadow-md hover:shadow-lg">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-orange-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-orange-600 dark:text-orange-400">
+          <a 
+            routerLink="/machines"
+            class="bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 hover:from-orange-600 hover:via-orange-700 hover:to-red-700 dark:from-orange-700 dark:via-orange-800 dark:to-red-800 rounded-xl p-4 sm:p-6 border border-orange-400 dark:border-orange-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
                 </svg>
               </div>
-              <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.machines.title' | translate }}</h3>
+              <h3 class="text-lg sm:text-xl font-bold">{{ 'dashboard.cards.machines.title' | translate }}</h3>
             </div>
-            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.machines.description' | translate }}</p>
-            <a 
-              routerLink="/machines"
-              class="block w-full px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
+            <p class="text-sm sm:text-base text-white/90 mb-4">{{ 'dashboard.cards.machines.description' | translate }}</p>
+            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">
               {{ 'dashboard.cards.machines.button' | translate }}
-            </a>
-          </div>
+            </div>
+          </a>
 
           <a 
             routerLink="/users"
@@ -174,59 +174,59 @@
             </div>
           </a>
 
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-all shadow-md hover:shadow-lg">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-teal-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-teal-600 dark:text-teal-400">
+          <a 
+            routerLink="/qr-scanner"
+            class="bg-gradient-to-br from-teal-500 via-teal-600 to-cyan-600 hover:from-teal-600 hover:via-teal-700 hover:to-cyan-700 dark:from-teal-700 dark:via-teal-800 dark:to-cyan-800 rounded-xl p-4 sm:p-6 border border-teal-400 dark:border-teal-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5ZM6.75 16.125v3.375m0-3.375h3.375m-3.375 0L9 15m6.75-2.625v3.375m0-3.375h-3.375M15 9.375l3.375 3.375M6.75 19.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Z" />
                 </svg>
               </div>
-              <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Escáner QR</h3>
+              <h3 class="text-lg sm:text-xl font-bold">Escáner QR</h3>
             </div>
-            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">Escanea códigos QR para gestionar accesos a centros</p>
-            <a 
-              routerLink="/qr-scanner"
-              class="block w-full px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
+            <p class="text-sm sm:text-base text-white/90 mb-4">Escanea códigos QR para gestionar accesos a centros</p>
+            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">
               Abrir Escáner
-            </a>
-          </div>
+            </div>
+          </a>
           
         }
 
         @if(isAdminCenter()) {
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-all shadow-md hover:shadow-lg">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-purple-600 dark:text-purple-400">
+          <a 
+            routerLink="/centers"
+            class="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 hover:from-purple-600 hover:via-purple-700 hover:to-pink-700 dark:from-purple-700 dark:via-purple-800 dark:to-pink-800 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
                 </svg>
               </div>
-              <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.myCenter.title' | translate }}</h3>
+              <h3 class="text-lg sm:text-xl font-bold">{{ 'dashboard.cards.myCenter.title' | translate }}</h3>
             </div>
-            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.myCenter.description' | translate }}</p>
-            <a 
-              routerLink="/centers"
-              class="block w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
+            <p class="text-sm sm:text-base text-white/90 mb-4">{{ 'dashboard.cards.myCenter.description' | translate }}</p>
+            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">
               {{ 'dashboard.cards.myCenter.button' | translate }}
-            </a>
-          </div>
+            </div>
+          </a>
 
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-all shadow-md hover:shadow-lg">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-orange-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-orange-600 dark:text-orange-400">
+          <a 
+            routerLink="/machines"
+            class="bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 hover:from-orange-600 hover:via-orange-700 hover:to-red-700 dark:from-orange-700 dark:via-orange-800 dark:to-red-800 rounded-xl p-4 sm:p-6 border border-orange-400 dark:border-orange-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
                 </svg>
               </div>
-              <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.machines.title' | translate }}</h3>
+              <h3 class="text-lg sm:text-xl font-bold">{{ 'dashboard.cards.machines.title' | translate }}</h3>
             </div>
-            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.machines.description' | translate }}</p>
-            <a 
-              routerLink="/machines"
-              class="block w-full px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
+            <p class="text-sm sm:text-base text-white/90 mb-4">{{ 'dashboard.cards.machines.description' | translate }}</p>
+            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">
               {{ 'dashboard.cards.machines.button' | translate }}
-            </a>
-          </div>
+            </div>
+          </a>
 
           <div class="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-all shadow-md hover:shadow-lg">
             <div class="flex items-center gap-3 mb-4">
@@ -258,22 +258,22 @@
             </button>
           </div>
 
-          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-all shadow-md hover:shadow-lg">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-teal-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-teal-600 dark:text-teal-400">
+          <a 
+            routerLink="/qr-scanner"
+            class="bg-gradient-to-br from-teal-500 via-teal-600 to-cyan-600 hover:from-teal-600 hover:via-teal-700 hover:to-cyan-700 dark:from-teal-700 dark:via-teal-800 dark:to-cyan-800 rounded-xl p-4 sm:p-6 border border-teal-400 dark:border-teal-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5ZM6.75 16.125v3.375m0-3.375h3.375m-3.375 0L9 15m6.75-2.625v3.375m0-3.375h-3.375M15 9.375l3.375 3.375M6.75 19.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Z" />
                 </svg>
               </div>
-              <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Escáner QR</h3>
+              <h3 class="text-lg sm:text-xl font-bold">Escáner QR</h3>
             </div>
-            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">Escanea códigos QR para gestionar accesos a centros</p>
-            <a 
-              routerLink="/qr-scanner"
-              class="block w-full px-4 py-2 bg-teal-600 hover:bg-teal-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
+            <p class="text-sm sm:text-base text-white/90 mb-4">Escanea códigos QR para gestionar accesos a centros</p>
+            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">
               Abrir Escáner
-            </a>
-          </div>
+            </div>
+          </a>
 
         }
 

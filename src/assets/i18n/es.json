@@ -63,7 +63,9 @@
     "classes": "Clases",
     "trainers": "Entrenadores",
     "membership": "Membresía",
-    "login": "Iniciar sesión"
+    "centers": "Centros",
+    "login": "Iniciar sesión",
+    "register": "Registrarse"
   },
   "classes": {
     "title": "Clases de gimnasio",
@@ -98,12 +100,82 @@
     }
   },
   "dashboard": {
+    "title": "Dashboard",
+    "loading": "Cargando...",
+    "logout": "Cerrar sesión",
+    "roles": {
+      "SUPERADMIN": "Super Administrador",
+      "ADMIN_CENTER": "Administrador de Centro",
+      "TRAINER": "Entrenador",
+      "CLEANER": "Limpieza",
+      "USER": "Usuario"
+    },
     "cards": {
       "classes": {
         "title": "Clases",
         "description": "Gestiona todas las clases grupales de tus centros Meta Force.",
         "button": "Ir a clases"
+      },
+      "centers": {
+        "title": "Centros",
+        "description": "Gestiona todos los centros Meta Force.",
+        "button": "Ir a centros"
+      },
+      "machines": {
+        "title": "Máquinas",
+        "description": "Gestiona todas las máquinas de tus centros.",
+        "button": "Ir a máquinas"
+      },
+      "users": {
+        "title": "Usuarios",
+        "description": "Gestiona todos los usuarios del sistema.",
+        "button": "Ir a usuarios"
+      },
+      "myCenter": {
+        "title": "Mi Centro",
+        "description": "Gestiona la información de tu centro.",
+        "button": "Ver centro"
+      },
+      "employees": {
+        "title": "Empleados",
+        "description": "Gestiona los empleados de tu centro.",
+        "button": "Ver empleados"
+      },
+      "statistics": {
+        "title": "Estadísticas",
+        "description": "Visualiza las estadísticas de tu centro.",
+        "button": "Ver estadísticas"
+      },
+      "myQR": {
+        "title": "Mi QR",
+        "description": "Accede a tu código QR personal.",
+        "button": "Ver mi QR"
+      },
+      "myProfile": {
+        "title": "Mi Perfil",
+        "description": "Gestiona tu información personal.",
+        "button": "Ver perfil"
+      },
+      "myClasses": {
+        "title": "Mis Clases",
+        "description": "Gestiona tus clases como entrenador.",
+        "button": "Ver mis clases"
       }
+    },
+    "userInfo": {
+      "title": "Información del Usuario",
+      "name": "Nombre",
+      "email": "Email",
+      "role": "Rol",
+      "center": "Centro",
+      "registrationDate": "Fecha de Registro"
+    },
+    "roleEditor": {
+      "title": "Cambiar Rol",
+      "selectRole": "Selecciona un rol",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saving": "Guardando..."
     }
   },
   "common": {

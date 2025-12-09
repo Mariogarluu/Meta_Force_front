@@ -21,6 +21,7 @@
       @for (link of navLinks; track link.path) {
         <a
           [routerLink]="link.path"
+          [routerLinkActiveOptions]="{ exact: link.exact }"
           routerLinkActive="active"
           class="navbar__link"
           (click)="closeMobileMenu()">
@@ -37,10 +38,10 @@
       </div>
 
       @if (!auth.currentUser()) {
-        <a routerLink="/login" class="navbar__login" (click)="closeMobileMenu()">
+        <a routerLink="/login" class="navbar__login">
           {{ 'nav.login' | translate }}
         </a>
-        <a routerLink="/register" class="navbar__login" (click)="closeMobileMenu()" style="background: #9333ea;">
+        <a routerLink="/register" class="navbar__login" style="background: #9333ea;">
           {{ ('nav.register' | translate) || 'Registrarse' }}
         </a>
       } @else {
@@ -48,7 +49,7 @@
           <a 
             routerLink="/qr"
             class="px-3 sm:px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg transition-colors text-xs sm:text-sm font-medium whitespace-nowrap hidden sm:block">
-            {{ ('dashboard.cards.myQR.button' | translate) || 'Mi QR' }}
+            {{ 'dashboard.cards.myQR.button' | translate }}
           </a>
         }
         
@@ -67,7 +68,7 @@
         <button 
           (click)="logout()"
           class="px-3 sm:px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-xs sm:text-sm font-medium whitespace-nowrap hidden sm:block">
-          {{ ('dashboard.logout' | translate) || 'Cerrar sesión' }}
+          {{ 'dashboard.logout' | translate }}
         </button>
       }
     </div>
@@ -80,6 +81,7 @@
         @for (link of navLinks; track link.path) {
           <a
             [routerLink]="link.path"
+            [routerLinkActiveOptions]="{ exact: link.exact }"
             routerLinkActive="active"
             class="navbar__mobile-link"
             (click)="closeMobileMenu()">
@@ -98,13 +100,13 @@
           } @else {
             @if (showQR()) {
               <a routerLink="/qr" class="navbar__mobile-link" (click)="closeMobileMenu()">
-                {{ ('dashboard.cards.myQR.button' | translate) || 'Mi QR' }}
+                {{ 'dashboard.cards.myQR.button' | translate }}
               </a>
             }
             <button 
               (click)="logout()"
               class="navbar__mobile-login w-full">
-              {{ ('dashboard.logout' | translate) || 'Cerrar sesión' }}
+              {{ 'dashboard.logout' | translate }}
             </button>
           }
         </div>
