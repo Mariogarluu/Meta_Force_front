@@ -10,6 +10,7 @@
       <div class="flex justify-center mb-4">
         <img 
           src="Logo.png" 
+        
           alt="Meta Force Logo" 
           class="h-40 w-auto"
         />
@@ -29,12 +30,14 @@
             <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
             </span>
+     
             <input
               id="email"
               autocomplete="username"
               formControlName="email"
               [placeholder]="'login.emailPlaceholder' | translate"
               class="px-10 h-10 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"
+      
               type="text"
             />
           </div>
@@ -43,6 +46,7 @@
               {{getError('email')}}
             </span>
           }
+     
         </div>
 
         <div class="mb-4">
@@ -51,13 +55,15 @@
             <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
             </span>
+     
             <input
               id="password"
               formControlName="password"
               autocomplete="current-password"
               [type]="showPassword() ? 'text' : 'password'"
               [placeholder]="'login.passwordPlaceholder' | translate"
-              class="px-10 h-10 w-full rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"
+              class="px-10 h-10 w-full 
+              rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"
             />
 
             <button
@@ -65,13 +71,16 @@
               (click)="togglePassword()"
               class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"
             >
+  
               <svg *ngIf="!showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.657 3.841 5.21 6.5 9.566 6.5 2.085 0 4.017-.63 5.617-1.707m-4.79 2.001A7.5 7.5 0 0 1 12 15a7.5 7.5 0 0 1-5.707-2.317M21 21l-18-18"/>
               </svg>
-              <svg *ngIf="showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+              <svg *ngIf="showPassword()" xmlns="http://www.w3.org/2000/svg" 
+ fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
               </svg>
+    
             </button>
           </div>
           @if(formLogin.controls.password.touched && formLogin.controls.password.errors){
@@ -82,6 +91,7 @@
         </div>
 
         @if(errorMsg()){
+ 
           <div class="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50 p-2 rounded-lg text-center text-sm mb-4 border border-red-300 dark:border-red-700">
             {{ getError('global') }}
           </div>
@@ -90,6 +100,7 @@
         <button
           class="rounded-lg w-full px-4 py-2 font-bold text-lg bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white shadow-lg transition-all transform hover:scale-[1.01]"
           type="submit"
+    
           [disabled]="formLogin.invalid"
         >
           {{ 'login.loginButton' | translate }}

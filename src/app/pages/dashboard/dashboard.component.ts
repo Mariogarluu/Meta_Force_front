@@ -13,6 +13,8 @@ import { ProfileImageManagerComponent } from '../../shared/components/profile-im
 
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
+const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -32,12 +34,10 @@ export class DashboardComponent {
   selectedRole = signal<RoleType | null>(null);
   isLoading = signal(false);
   errorMessage = signal<string>('');
-  
   // Estado para el dropdown de notificaciones
   showNotifications = signal(false);
 
   readonly roles: RoleType[] = ['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER', 'CLEANER', 'USER'];
-
   currentUser = computed(() => this.auth.currentUser());
   
   roleName = computed(() => {
@@ -45,7 +45,6 @@ export class DashboardComponent {
     if (!role) return this.translate.instant('dashboard.roles.USER');
     return this.translate.instant(`dashboard.roles.${role}`);
   });
-
   roleColor = computed(() => {
     const role = this.currentUser()?.role;
     const colors: Record<string, string> = {
@@ -57,10 +56,9 @@ export class DashboardComponent {
     };
     return colors[role || 'USER'] || 'bg-gray-500';
   });
-
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
-
+  
   constructor() {
     const user = this.currentUser();
     if (user) {
@@ -158,27 +156,32 @@ export class DashboardComponent {
     this.router.navigate(['/login']);
   }
 
-  getRoleIcon(role: string): string {
-    const icons: Record<string, string> = {
-      'SUPERADMIN': '👑',
-      'ADMIN_CENTER': '🏢',
-      'TRAINER': '💪',
-      'CLEANER': '🧹',
-      'USER': '👤'
-    };
-    return icons[role] || '👤';
-  }
-
   /**
    * Obtiene la URL de la imagen de perfil del usuario.
-   * Si no tiene imagen o es null, retorna la imagen por defecto (fauno.png).
-   * @param profileImageUrl - URL de la imagen de perfil o null
-   * @returns URL de la imagen a mostrar
+   * Si no tiene imagen o es null, retorna la imagen por defecto de Cloudinary.
    */
   getProfileImageUrl(profileImageUrl: string | null | undefined): string {
-    if (profileImageUrl && !profileImageUrl.includes('fauno.png')) {
-      return profileImageUrl;
+    return profileImageUrl ? profileImageUrl : DEFAULT_PROFILE_IMAGE_URL;
+  }
+  
+  /**
+   * Retorna un SVG (string) para el icono de rol.
+   * Se utiliza [innerHTML] en el template.
+   */
+  getRoleIcon(role: string): string {
+    const size = 'w-5 h-5';
+    // Se utiliza stroke="white" para asegurar la visibilidad en el span con color de fondo
+    switch (role) {
+      case 'SUPERADMIN': 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M15.5 12c.7-3.5-3.5-3.5-3.5-3.5S8.5 8.5 9.5 12s3.5 3.5 3.5 3.5S16.5 15.5 15.5 12zM12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z" /></svg>`;
+      case 'ADMIN_CENTER': 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18" /></svg>`;
+      case 'TRAINER': 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-1.036-.84-1.875-1.875-1.875h-4.636V6.184c0-1.036-.84-1.875-1.875-1.875h-2.25c-1.036 0-1.875.84-1.875 1.875v.191H4.875C3.839 6.359 3 7.198 3 8.234V15.75h18V8.25z" /></svg>`;
+      case 'CLEANER': 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 19.5l-5-5-5-5M12 10.5v12M12 4.5l-5 5-5 5M12 4.5l5 5 5 5M12 4.5l5 5 5 5M12 4.5l-5 5-5 5" /></svg>`;
+      case 'USER': default: 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>`;
     }
-    return '/assets/images/fauno.png';
   }
 }

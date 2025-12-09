@@ -325,6 +325,11 @@
         "title": "My Classes",
         "description": "Manage your classes and schedules.",
         "button": "View Classes"
+      },
+      "classes": {
+        "title": "Classes",
+        "description": "Manage all group classes for your Meta Force centers.",
+        "button": "Go to classes"
       }
     },
     "userInfo": {
@@ -349,6 +354,38 @@
     "trainers": "Trainers",
     "membership": "Membership",
     "login": "Sign In"
+  },
+  "classes": {
+    "title": "Gym Classes",
+    "subtitle": "Manage and discover all the group classes in your Meta Force centers.",
+    "newClass": "New class",
+    "editClass": "Edit class",
+    "deleteClass": "Delete class",
+    "backToDashboard": "Back to dashboard",
+    "name": "Name",
+    "description": "Description",
+    "filters": "Filters",
+    "hideFilters": "Hide filters",
+    "searchFilters": "Search filters",
+    "clearFilters": "Clear filters",
+    "searchByName": "Search by name",
+    "searchByDescription": "Search by description",
+    "showing": "Showing",
+    "of": "of",
+    "classes": "classes",
+    "loading": "Loading classes...",
+    "noClassesFound": "No classes match your filters.",
+    "noClassesAvailable": "There are no classes created yet.",
+    "createdAt": "Created at",
+    "saving": "Saving...",
+    "deleting": "Deleting...",
+    "confirmDelete": "Are you sure you want to delete the class",
+    "errors": {
+      "nameRequired": "The name of the class is required.",
+      "load": "Error loading classes.",
+      "save": "Error saving the class.",
+      "delete": "Error deleting the class."
+    }
   },
   "qrScanner": {
     "title": "Entry/Exit Registration",
@@ -525,6 +562,12 @@
     "save": "Save",
     "cancel": "Cancel",
     "close": "Close"
+  },
+  "profileImage": {
+    "manage": "Manage image",
+    "upload": "Upload image",
+    "delete": "Delete image",
+    "uploading": "Uploading image..."
   }
 }
 
@@ -691,6 +734,11 @@
         "title": "Mis Clases",
         "description": "Gestiona tus clases y horarios.",
         "button": "Ver Clases"
+      },
+      "classes": {
+        "title": "Clases",
+        "description": "Gestiona todas las clases grupales de tus centros Meta Force.",
+        "button": "Ir a clases"
       }
     },
     "userInfo": {
@@ -715,6 +763,38 @@
     "trainers": "Entrenadores",
     "membership": "Membresía",
     "login": "Iniciar sesión"
+  },
+  "classes": {
+    "title": "Clases de gimnasio",
+    "subtitle": "Gestiona y descubre todas las clases grupales de tus centros Meta Force.",
+    "newClass": "Nueva clase",
+    "editClass": "Editar clase",
+    "deleteClass": "Eliminar clase",
+    "backToDashboard": "Volver al dashboard",
+    "name": "Nombre",
+    "description": "Descripción",
+    "filters": "Filtros",
+    "hideFilters": "Ocultar filtros",
+    "searchFilters": "Filtros de búsqueda",
+    "clearFilters": "Limpiar filtros",
+    "searchByName": "Buscar por nombre",
+    "searchByDescription": "Buscar por descripción",
+    "showing": "Mostrando",
+    "of": "de",
+    "classes": "clases",
+    "loading": "Cargando clases...",
+    "noClassesFound": "No hay clases que coincidan con tus filtros.",
+    "noClassesAvailable": "Aún no hay clases creadas.",
+    "createdAt": "Creada el",
+    "saving": "Guardando...",
+    "deleting": "Eliminando...",
+    "confirmDelete": "¿Seguro que quieres eliminar la clase",
+    "errors": {
+      "nameRequired": "El nombre de la clase es obligatorio.",
+      "load": "Error al cargar las clases.",
+      "save": "Error al guardar la clase.",
+      "delete": "Error al eliminar la clase."
+    }
   },
   "qrScanner": {
     "title": "Registro de Entrada/Salida",
@@ -884,6 +964,12 @@
     "save": "Guardar",
     "cancel": "Cancelar",
     "close": "Cerrar"
+  },
+  "profileImage": {
+    "manage": "Gestionar imagen",
+    "upload": "Subir imagen",
+    "delete": "Eliminar imagen",
+    "uploading": "Subiendo imagen..."
   }
 }
 
@@ -1050,6 +1136,11 @@
         "title": "Mes Cours",
         "description": "Gérez vos cours et horaires.",
         "button": "Voir les Cours"
+      },
+      "classes": {
+        "title": "Cours",
+        "description": "Gérez tous les cours collectifs de vos centres Meta Force.",
+        "button": "Aller aux cours"
       }
     },
     "userInfo": {
@@ -1074,6 +1165,38 @@
     "trainers": "Entraîneurs",
     "membership": "Adhésion",
     "login": "Se connecter"
+  },
+  "classes": {
+    "title": "Cours de gym",
+    "subtitle": "Gérez et découvrez tous les cours collectifs de vos centres Meta Force.",
+    "newClass": "Nouveau cours",
+    "editClass": "Modifier le cours",
+    "deleteClass": "Supprimer le cours",
+    "backToDashboard": "Retour au tableau de bord",
+    "name": "Nom",
+    "description": "Description",
+    "filters": "Filtres",
+    "hideFilters": "Masquer les filtres",
+    "searchFilters": "Filtres de recherche",
+    "clearFilters": "Effacer les filtres",
+    "searchByName": "Rechercher par nom",
+    "searchByDescription": "Rechercher par description",
+    "showing": "Affichage de",
+    "of": "sur",
+    "classes": "cours",
+    "loading": "Chargement des cours...",
+    "noClassesFound": "Aucun cours ne correspond à vos filtres.",
+    "noClassesAvailable": "Aucun cours n'a encore été créé.",
+    "createdAt": "Créé le",
+    "saving": "Enregistrement...",
+    "deleting": "Suppression...",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer le cours",
+    "errors": {
+      "nameRequired": "Le nom du cours est obligatoire.",
+      "load": "Erreur lors du chargement des cours.",
+      "save": "Erreur lors de l'enregistrement du cours.",
+      "delete": "Erreur lors de la suppression du cours."
+    }
   },
   "qrScanner": {
     "title": "Enregistrement Entrée/Sortie",
@@ -1250,6 +1373,12 @@
     "save": "Enregistrer",
     "cancel": "Annuler",
     "close": "Fermer"
+  },
+  "profileImage": {
+    "manage": "Gérer l'image",
+    "upload": "Télécharger l'image",
+    "delete": "Supprimer l'image",
+    "uploading": "Téléchargement de l'image..."
   }
 }
 
@@ -1311,6 +1440,10 @@ import { ErrorToastComponent } from './shared/components/error-toast/error-toast
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslationService } from './core/services/translation.service';
 
+/**
+ * Componente raíz de la aplicación.
+ * Inicializa los servicios principales y asegura que las traducciones estén cargadas.
+ */
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, ErrorToastComponent, TranslateModule],
@@ -1323,25 +1456,27 @@ export class AppComponent implements OnInit {
   private translationService = inject(TranslationService);
   private translateService = inject(TranslateService);
 
+  /**
+   * Inicializa el componente asegurando que las traducciones estén configuradas.
+   * Configura español como idioma por defecto y carga las traducciones.
+   */
   constructor() {
-    // Asegurar que ngx-translate tenga un idioma por defecto
     this.translateService.setDefaultLang('es');
-    // Configurar para que muestre la clave si no hay traducción
-    this.translateService.setDefaultLang('es');
-    // Usar español inmediatamente para que la app funcione
-    this.translateService.use('es');
-    
-    // Cargar traducciones en segundo plano sin bloquear
-    setTimeout(() => {
-      this.translationService.setLanguage('es').catch(err => {
-        console.warn('Error loading translations:', err);
-      });
-    }, 0);
+    this.translateService.use('es').subscribe({
+      next: () => {
+        console.log('Translations loaded successfully');
+      },
+      error: (err) => {
+        console.error('Error loading translations:', err);
+      }
+    });
   }
 
+  /**
+   * Hook del ciclo de vida que se ejecuta después de la inicialización.
+   * Asegura que los servicios estén completamente inicializados.
+   */
   ngOnInit() {
-    // El servicio de tema se inicializa automáticamente en su constructor
-    // pero lo inyectamos aquí para asegurar que se inicialice
   }
 }
 
@@ -1359,20 +1494,36 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-// Loader personalizado para las traducciones
+/**
+ * Loader personalizado para cargar las traducciones desde archivos JSON.
+ * Busca los archivos en la carpeta assets/i18n/ del proyecto.
+ */
 class CustomTranslateLoader implements TranslateLoader {
   constructor(private http: HttpClient) {}
 
+  /**
+   * Carga el archivo de traducción para un idioma específico.
+   * @param lang - El código del idioma (es, en, fr)
+   * @returns Observable que emite el objeto de traducciones
+   */
   getTranslation(lang: string): Observable<any> {
     return this.http.get(`./assets/i18n/${lang}.json`);
   }
 }
 
-// Factory function para el loader de traducciones
+/**
+ * Factory function para crear el loader de traducciones.
+ * @param http - Instancia de HttpClient para realizar las peticiones
+ * @returns Instancia del CustomTranslateLoader
+ */
 export function HttpLoaderFactory(http: HttpClient) {
   return new CustomTranslateLoader(http);
 }
 
+/**
+ * Configuración principal de la aplicación Angular.
+ * Incluye la configuración de routing, HTTP client, interceptores y traducciones.
+ */
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }), 
@@ -1405,6 +1556,7 @@ import { UsersComponent } from './pages/users/users.component';
 import { QrComponent } from './pages/qr/qr.component';
 import { QrScannerComponent } from './pages/qr-scanner/qr-scanner.component';
 import { MachinesComponent } from './pages/machines/machines.component';
+import { ClasesComponent } from './pages/clases/clases.component';
 import { HomeComponent } from './pages/home/home.component';
 import { roleGuard } from './core/guards/role.guard';
 
@@ -1455,6 +1607,11 @@ export const routes: Routes = [
          path: 'machines',
          component: MachinesComponent,
          canActivate: [authGuard]
+    },
+    {
+        path: 'clases',
+        component: ClasesComponent,
+        canActivate: [authGuard]
     }
 ];
 --- END OF FILE: src\app\app.routes.ts ---
@@ -1486,25 +1643,33 @@ describe('authGuard', () => {
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { map, take } from 'rxjs/operators'; // Importar map y take
 
 /**
  * Guard de ruta que protege rutas requiriendo autenticación.
  * Verifica que exista un usuario autenticado antes de permitir el acceso.
  * Si el usuario no está autenticado, redirige al login guardando la URL original para redirigir después.
  * Retorna true si el usuario está autenticado, false en caso contrario.
+ * * MODIFICACIÓN: Espera a que la carga inicial del AuthService termine para evitar el bug de recarga (F5).
  */
 export const authGuard: CanActivateFn = (route, state) => {
   const auth = inject(AuthService);
   const router = inject(Router);
-  
-  const isAuthenticated = auth.currentUser() != null;
 
-  if (!isAuthenticated) {
-    router.navigate(['/login'], { state: { navigateTo: state.url } });
-    return false;
-  }
-  
-  return true;
+
+  return auth.initialLoadComplete.pipe( 
+    take(1), 
+    map(() => {
+      const isAuthenticated = auth.currentUser() != null;
+
+      if (!isAuthenticated) {
+        router.navigate(['/login'], { state: { navigateTo: state.url } });
+        return false;
+      }
+      
+      return true;
+    })
+  );
 };
 --- END OF FILE: src\app\core\guards\auth.guard.ts ---
 
@@ -1659,6 +1824,30 @@ export interface UpdateCenterInput {
 --- END OF FILE: src\app\core\models\center.ts ---
 
 
+--- START OF FILE: src\app\core\models\class.ts ---
+export interface GymClass {
+  id: string;
+  name: string;
+  description?: string | null;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface CreateClassInput {
+  name: string;
+  description?: string;
+}
+
+export interface UpdateClassInput {
+  name?: string;
+  description?: string;
+}
+
+
+
+--- END OF FILE: src\app\core\models\class.ts ---
+
+
 --- START OF FILE: src\app\core\models\credentials.ts ---
 export interface LoginResponse{
     
@@ -1711,6 +1900,21 @@ export interface UpdateMachineInput {
 --- END OF FILE: src\app\core\models\machine.ts ---
 
 
+--- START OF FILE: src\app\core\models\notification.ts ---
+export type NotificationType = 'INFO' | 'WARNING' | 'SUCCESS' | 'ERROR';
+
+export interface Notification {
+  id: string;
+  title: string;
+  message: string;
+  type: NotificationType;
+  read: boolean;
+  link?: string;
+  createdAt: string;
+}
+--- END OF FILE: src\app\core\models\notification.ts ---
+
+
 --- START OF FILE: src\app\core\models\user.ts ---
 export type Role = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 export type UserStatus = 'PENDING' | 'ACTIVE' | 'INACTIVE';
@@ -1721,6 +1925,7 @@ export interface User {
   email: string;
   role: Role;
   status?: UserStatus;
+  profileImageUrl?: string | null; // URL de la imagen de perfil en Cloudinary
   createdAt?: string;
   centerId?: string; // Centro actual donde está físicamente (solo se actualiza desde QR scanner)
   favoriteCenterId?: string | null; // Centro favorito/asignado (se puede cambiar desde CRUD)
@@ -1739,11 +1944,11 @@ export interface User {
 --- START OF FILE: src\app\core\services\auth.service.ts ---
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, ReplaySubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from '../models/user';
 import { AuthInput, RegisterInput, AuthResponse } from '../models/auth';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -1751,15 +1956,20 @@ import { environment } from '../../../environments/environment.development';
 export class AuthService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/auth`;
-  
   private _currentUser = signal<User | null>(null);
   
   public readonly currentUser = this._currentUser.asReadonly();
+  
+  private _initialLoadComplete = new ReplaySubject<boolean>(1);
+  public readonly initialLoadComplete = this._initialLoadComplete.asObservable();
+
 
   constructor() {
     const token = this.getToken();
     if (token) {
       this.loadUserProfile();
+    } else {
+      this._initialLoadComplete.next(true); 
     }
   }
 
@@ -1787,9 +1997,13 @@ export class AuthService {
    */
   private loadUserProfile() {
     this.http.get<User>(`${environment.apiUrl}/users/me`).pipe(
-      tap(user => this._currentUser.set(user)),
+      tap(user => {
+        this._currentUser.set(user);
+        this._initialLoadComplete.next(true); // Éxito: Carga inicial terminada
+      }),
       catchError(() => {
         this.logout();
+        this._initialLoadComplete.next(true); // Fallo: Carga inicial terminada (sesión inválida)
         return throwError(() => new Error('Sesión inválida'));
       })
     ).subscribe();
@@ -1857,7 +2071,7 @@ export class AuthService {
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { Center, CreateCenterInput, UpdateCenterInput } from '../models/center';
 
 @Injectable({
@@ -1913,6 +2127,76 @@ export class CentersService {
 
 
 --- END OF FILE: src\app\core\services\centers.service.ts ---
+
+
+--- START OF FILE: src\app\core\services\classes.service.ts ---
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { CreateClassInput, GymClass, UpdateClassInput } from '../models/class';
+
+/**
+ * Servicio para gestionar las operaciones CRUD de clases de gimnasio.
+ * Proporciona métodos para listar, obtener, crear, actualizar y eliminar clases.
+ * Todas las operaciones se comunican con el backend mediante HTTP.
+ */
+@Injectable({
+  providedIn: 'root'
+})
+export class ClassesService {
+  private http = inject(HttpClient);
+  private apiUrl = `${environment.apiUrl}/classes`;
+
+  /**
+   * Obtiene todas las clases de gimnasio disponibles.
+   * @returns Observable que emite un array de clases
+   */
+  listClasses(): Observable<GymClass[]> {
+    return this.http.get<GymClass[]>(this.apiUrl);
+  }
+
+  /**
+   * Obtiene una clase específica por su ID.
+   * @param id - El identificador único de la clase
+   * @returns Observable que emite la clase encontrada
+   */
+  getClass(id: string): Observable<GymClass> {
+    return this.http.get<GymClass>(`${this.apiUrl}/${id}`);
+  }
+
+  /**
+   * Crea una nueva clase de gimnasio.
+   * @param data - Los datos de la nueva clase (nombre y descripción opcional)
+   * @returns Observable que emite la clase creada con su ID
+   */
+  createClass(data: CreateClassInput): Observable<GymClass> {
+    return this.http.post<GymClass>(this.apiUrl, data);
+  }
+
+  /**
+   * Actualiza una clase existente.
+   * @param id - El identificador único de la clase a actualizar
+   * @param data - Los datos parciales a actualizar
+   * @returns Observable que emite la clase actualizada
+   */
+  updateClass(id: string, data: UpdateClassInput): Observable<GymClass> {
+    return this.http.patch<GymClass>(`${this.apiUrl}/${id}`, data);
+  }
+
+  /**
+   * Elimina una clase por su ID.
+   * @param id - El identificador único de la clase a eliminar
+   * @returns Observable que se completa cuando la eliminación es exitosa
+   */
+  deleteClass(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+}
+
+
+
+--- END OF FILE: src\app\core\services\classes.service.ts ---
 
 
 --- START OF FILE: src\app\core\services\error.service.ts ---
@@ -2209,7 +2493,7 @@ export class LocalStorageAuthService {
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { CreateMachineInput, Machine, UpdateMachineInput } from '../models/machine';
 
 @Injectable({
@@ -2254,11 +2538,103 @@ export class MachinesService {
 --- END OF FILE: src\app\core\services\machines.service.ts ---
 
 
+--- START OF FILE: src\app\core\services\notification.service.ts ---
+import { Injectable, inject, signal, computed, OnDestroy } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { Notification } from '../models/notification';
+import { AuthService } from './auth.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class NotificationService implements OnDestroy {
+  private http = inject(HttpClient);
+  private auth = inject(AuthService);
+  private apiUrl = `${environment.apiUrl}/notifications`;
+  private intervalId: any;
+
+  // Estado reactivo
+  private _notifications = signal<Notification[]>([]);
+  private _unreadCount = signal<number>(0);
+
+  // Exponer señales de lectura
+  public notifications = this._notifications.asReadonly();
+  public unreadCount = this._unreadCount.asReadonly();
+
+  constructor() {
+    // Iniciar polling solo si hay usuario
+    if (this.auth.currentUser()) {
+      this.startPolling();
+    }
+  }
+
+  startPolling() {
+    this.loadNotifications();
+    this.loadUnreadCount();
+    
+    // Actualizar cada 60 segundos
+    this.intervalId = setInterval(() => {
+      if (this.auth.currentUser()) {
+        this.loadUnreadCount();
+      }
+    }, 60000);
+  }
+
+  ngOnDestroy() {
+    if (this.intervalId) clearInterval(this.intervalId);
+  }
+
+  loadNotifications() {
+    this.http.get<Notification[]>(this.apiUrl).subscribe({
+      next: (data) => this._notifications.set(data),
+      error: (e) => console.error('Error cargando notificaciones', e)
+    });
+  }
+
+  loadUnreadCount() {
+    this.http.get<{ count: number }>(`${this.apiUrl}/unread-count`).subscribe({
+      next: (data) => this._unreadCount.set(data.count),
+      error: (e) => console.error('Error cargando contador', e)
+    });
+  }
+
+  markAsRead(id: string) {
+    // Actualización optimista
+    this._notifications.update(list => 
+      list.map(n => n.id === id ? { ...n, read: true } : n)
+    );
+    this._unreadCount.update(c => Math.max(0, c - 1));
+
+    return this.http.patch(`${this.apiUrl}/${id}/read`, {}).subscribe({
+      error: () => {
+        // Revertir si falla (opcional, por simplicidad recargamos)
+        this.loadNotifications();
+        this.loadUnreadCount();
+      }
+    });
+  }
+
+  markAllAsRead() {
+    this._notifications.update(list => list.map(n => ({ ...n, read: true })));
+    this._unreadCount.set(0);
+
+    return this.http.patch(`${this.apiUrl}/read-all`, {}).subscribe();
+  }
+}
+--- END OF FILE: src\app\core\services\notification.service.ts ---
+
+
 --- START OF FILE: src\app\core\services\theme.service.ts ---
 import { Injectable, signal, computed } from '@angular/core';
 
 export type Theme = 'dark' | 'light';
 
+/**
+ * Servicio que gestiona el tema de la aplicación (modo claro/oscuro).
+ * Persiste la preferencia del usuario en localStorage y aplica el tema
+ * al documento HTML mediante la clase 'dark' de Tailwind CSS.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -2269,24 +2645,29 @@ export class ThemeService {
   public readonly isDark = computed(() => this._theme() === 'dark');
   public readonly isLight = computed(() => this._theme() === 'light');
 
+  /**
+   * Inicializa el servicio aplicando el tema guardado o el tema por defecto.
+   */
   constructor() {
     this.applyTheme(this._theme());
   }
 
   /**
-   * Obtiene el tema inicial desde localStorage o usa 'dark' por defecto.
+   * Obtiene el tema inicial desde localStorage o retorna 'dark' por defecto.
+   * @returns El tema guardado o 'dark' si no hay preferencia guardada
    */
   private getInitialTheme(): Theme {
     const saved = localStorage.getItem('theme') as Theme;
     if (saved) {
       return saved;
     }
-    // Por defecto, usar dark mode
     return 'dark';
   }
 
   /**
    * Aplica el tema al documento HTML agregando o removiendo la clase 'dark'.
+   * Esta clase es utilizada por Tailwind CSS para aplicar los estilos del modo oscuro.
+   * @param theme - El tema a aplicar ('dark' o 'light')
    */
   private applyTheme(theme: Theme) {
     const html = document.documentElement;
@@ -2298,7 +2679,8 @@ export class ThemeService {
   }
 
   /**
-   * Cambia el tema entre dark y light, guarda la preferencia y la aplica.
+   * Alterna entre modo oscuro y claro.
+   * Guarda la nueva preferencia y la aplica inmediatamente.
    */
   toggleTheme() {
     const newTheme: Theme = this._theme() === 'dark' ? 'light' : 'dark';
@@ -2306,7 +2688,8 @@ export class ThemeService {
   }
 
   /**
-   * Establece un tema específico, guarda la preferencia y la aplica.
+   * Establece un tema específico, guarda la preferencia en localStorage y la aplica.
+   * @param theme - El tema a establecer ('dark' o 'light')
    */
   setTheme(theme: Theme) {
     this._theme.set(theme);
@@ -2324,9 +2707,16 @@ import { Injectable, signal, inject, PLATFORM_ID } from '@angular/core';
 import { TranslateService as NgxTranslateService } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
+import { firstValueFrom } from 'rxjs';
 
 export type Language = 'es' | 'en' | 'fr';
 
+/**
+ * Servicio de traducción que gestiona la internacionalización de la aplicación.
+ * Utiliza ngx-translate para cargar y gestionar traducciones en múltiples idiomas.
+ * Soporta español (por defecto), inglés y francés.
+ * Las traducciones se cargan desde archivos JSON en assets/i18n/.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -2338,15 +2728,16 @@ export class TranslationService {
   
   public readonly language = this._language.asReadonly();
 
+  /**
+   * Inicializa el servicio configurando español como idioma por defecto.
+   * Carga las traducciones de forma asíncrona y no bloqueante.
+   */
   constructor(private ngxTranslate: NgxTranslateService) {
     if (isPlatformBrowser(this.platformId)) {
-      // Configurar español como idioma por defecto SIEMPRE
       this.ngxTranslate.setDefaultLang('es');
-      // Usar español inmediatamente para que la app funcione
       this.ngxTranslate.use('es');
       this._language.set('es');
       
-      // Cargar traducciones de forma no bloqueante (en segundo plano)
       setTimeout(() => {
         this.initializeTranslations().catch(err => {
           console.warn('Error initializing translations:', err);
@@ -2355,58 +2746,58 @@ export class TranslationService {
     }
   }
 
+  /**
+   * Inicializa las traducciones cargando primero español y luego el idioma guardado.
+   * Si hay algún error, asegura que español esté siempre disponible como fallback.
+   */
   private async initializeTranslations() {
     try {
-      // Siempre cargar español primero
-      await this.loadLanguage('es');
-      
-      // Luego cargar el idioma guardado si es diferente
       const savedLang = this.getInitialLanguage();
-      if (savedLang !== 'es') {
-        await this.loadLanguage(savedLang);
-        this.ngxTranslate.use(savedLang);
-        this._language.set(savedLang);
-      }
+      await firstValueFrom(this.ngxTranslate.use(savedLang));
+      this._language.set(savedLang);
+      this.loadedLanguages.add(savedLang);
     } catch (error) {
       console.error('Error initializing translations:', error);
-      // Asegurar que al menos español esté configurado
-      this.ngxTranslate.use('es');
-      this._language.set('es');
+      try {
+        await firstValueFrom(this.ngxTranslate.use('es'));
+        this._language.set('es');
+        this.loadedLanguages.add('es');
+      } catch (esError) {
+        console.error('Error loading Spanish translations:', esError);
+      }
     }
   }
 
+  /**
+   * Carga las traducciones de un idioma específico usando el loader de ngx-translate.
+   * El loader se encarga de cargar los archivos JSON automáticamente.
+   * @param lang - El idioma a cargar ('es', 'en' o 'fr')
+   */
   private async loadLanguage(lang: Language): Promise<void> {
     if (this.loadedLanguages.has(lang)) {
       return;
     }
 
     try {
-      const response = await this.http.get<any>(`assets/i18n/${lang}.json`).toPromise();
-      if (response) {
-        this.ngxTranslate.setTranslation(lang, response, true);
-        this.loadedLanguages.add(lang);
-      }
+      await firstValueFrom(this.ngxTranslate.use(lang));
+      this.loadedLanguages.add(lang);
     } catch (error) {
       console.error(`Error loading translations for ${lang}:`, error);
-      // Si falla, intentar cargar español como fallback solo si no es español
       if (lang !== 'es') {
-        if (!this.loadedLanguages.has('es')) {
-          try {
-            const esResponse = await this.http.get<any>(`assets/i18n/es.json`).toPromise();
-            if (esResponse) {
-              this.ngxTranslate.setTranslation('es', esResponse, true);
-              this.loadedLanguages.add('es');
-            }
-          } catch (esError) {
-            console.error('Error loading Spanish translations:', esError);
-          }
+        try {
+          await firstValueFrom(this.ngxTranslate.use('es'));
+          this.loadedLanguages.add('es');
+        } catch (esError) {
+          console.error('Error loading Spanish translations:', esError);
         }
       }
     }
   }
 
   /**
-   * Obtiene el idioma inicial desde localStorage o usa 'es' por defecto.
+   * Obtiene el idioma inicial desde localStorage o retorna 'es' por defecto.
+   * Valida que el idioma guardado sea uno de los soportados.
+   * @returns El idioma inicial válido o 'es' por defecto
    */
   private getInitialLanguage(): Language {
     try {
@@ -2417,42 +2808,59 @@ export class TranslationService {
     } catch (e) {
       console.warn('Error reading language from localStorage:', e);
     }
-    // Por defecto, usar español
     return 'es';
   }
 
   /**
-   * Establece un idioma específico y guarda la preferencia.
+   * Establece un idioma específico, carga sus traducciones si es necesario,
+   * actualiza el servicio de traducción y guarda la preferencia en localStorage.
+   * @param language - El idioma a establecer ('es', 'en' o 'fr')
    */
   async setLanguage(language: Language) {
-    await this.loadLanguage(language);
-    this.ngxTranslate.use(language);
-    this._language.set(language);
     try {
-      localStorage.setItem('language', language);
-    } catch (e) {
-      console.warn('Error saving language to localStorage:', e);
+      await firstValueFrom(this.ngxTranslate.use(language));
+      this._language.set(language);
+      this.loadedLanguages.add(language);
+      try {
+        localStorage.setItem('language', language);
+      } catch (e) {
+        console.warn('Error saving language to localStorage:', e);
+      }
+    } catch (error) {
+      console.error(`Error setting language to ${language}:`, error);
+      this.ngxTranslate.use('es');
+      this._language.set('es');
     }
   }
 
   /**
-   * Obtiene una traducción por su clave.
+   * Obtiene una traducción instantánea por su clave.
+   * Si no existe la traducción, retorna la clave para evitar textos vacíos.
+   * @param key - La clave de traducción (ej: 'common.save')
+   * @param params - Parámetros opcionales para interpolación en la traducción
+   * @returns La traducción o la clave si no existe
    */
   translate(key: string, params?: any): string {
     const translation = this.ngxTranslate.instant(key, params);
-    // Si no hay traducción, devolver la clave para que no se vea vacío
     return translation || key;
   }
 
   /**
-   * Obtiene una traducción por su clave (método abreviado).
+   * Método abreviado para obtener una traducción instantánea.
+   * @param key - La clave de traducción
+   * @param params - Parámetros opcionales para interpolación
+   * @returns La traducción o la clave si no existe
    */
   t(key: string, params?: any): string {
     return this.translate(key, params);
   }
 
   /**
-   * Obtiene una traducción de forma asíncrona (para observables).
+   * Obtiene una traducción de forma asíncrona mediante un Observable.
+   * Útil cuando se necesita esperar a que las traducciones estén cargadas.
+   * @param key - La clave de traducción
+   * @param params - Parámetros opcionales para interpolación
+   * @returns Un Observable que emite la traducción
    */
   get(key: string, params?: any) {
     return this.ngxTranslate.get(key, params);
@@ -2466,7 +2874,7 @@ export class TranslationService {
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { User, Role, UserStatus } from '../models/user';
 
 export interface UpdateUserInput {
@@ -2513,6 +2921,25 @@ export class UsersService {
    */
   getUser(id: string): Observable<User> {
     return this.http.get<User>(`${this.apiUrl}/${id}`);
+  }
+
+  /**
+   * Sube una imagen de perfil para el usuario autenticado.
+   * @param file - Archivo de imagen a subir
+   * @returns Observable que emite el usuario actualizado con la nueva URL de imagen
+   */
+  uploadProfileImage(file: File): Observable<User> {
+    const formData = new FormData();
+    formData.append('image', file);
+    return this.http.post<User>(`${this.apiUrl}/me/profile-image`, formData);
+  }
+
+  /**
+   * Elimina la imagen de perfil del usuario autenticado.
+   * @returns Observable que emite el usuario actualizado con profileImageUrl en null
+   */
+  deleteProfileImage(): Observable<User> {
+    return this.http.delete<User>(`${this.apiUrl}/me/profile-image`);
   }
 }
 
@@ -3354,6 +3781,484 @@ export class CentersComponent implements OnInit {
 --- END OF FILE: src\app\pages\centers\centers.component.ts ---
 
 
+--- START OF FILE: src\app\pages\clases\clases.component.html ---
+<div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
+  <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm transition-colors duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center">
+        <div>
+          <h1 class="text-2xl font-bold text-blue-900 dark:text-white">{{ 'classes.title' | translate }}</h1>
+          <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">{{ 'classes.subtitle' | translate }}</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <app-language-selector></app-language-selector>
+          <app-theme-toggle></app-theme-toggle>
+          @if(isSuperAdmin()) {
+            <button
+              (click)="openCreateModal()"
+              class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium flex items-center gap-2 shadow-sm">
+              <span>+</span> {{ 'classes.newClass' | translate }}
+            </button>
+          }
+          <a
+            routerLink="/dashboard"
+            class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
+            {{ 'classes.backToDashboard' | translate }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    @if(errorMessage()) {
+      <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-600 dark:text-red-400">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <div class="mb-4">
+      <button
+        (click)="toggleFilters()"
+        [class.bg-cyan-600]="showFilters()"
+        [class.bg-cyan-500]="!showFilters()"
+        class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90 text-white shadow-sm">
+        <span>🔍</span>
+        @if(showFilters()) {
+          <span>{{ 'classes.hideFilters' | translate }}</span>
+        } @else {
+          <span>{{ 'classes.filters' | translate }}</span>
+        }
+        @if(hasActiveFilters()) {
+          <span class="px-1.5 py-0.5 bg-yellow-500/30 rounded text-xs">{{ filteredClasses().length }}/{{ classes().length }}</span>
+        }
+      </button>
+    </div>
+
+    @if(showFilters()) {
+      <div class="mb-6 bg-white dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-lg font-bold text-gray-900 dark:text-white">{{ 'classes.searchFilters' | translate }}</h2>
+          @if(hasActiveFilters()) {
+            <button
+              (click)="clearFilters()"
+              class="px-3 py-1 bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-500/20 dark:text-red-400 dark:hover:bg-red-500/30 rounded-lg transition-colors text-sm">
+              {{ 'classes.clearFilters' | translate }}
+            </button>
+          }
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'classes.name' | translate }}</label>
+            <input
+              type="text"
+              [ngModel]="filterName()"
+              (ngModelChange)="filterName.set($event)"
+              [placeholder]="'classes.searchByName' | translate"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'classes.description' | translate }}</label>
+            <input
+              type="text"
+              [ngModel]="filterDescription()"
+              (ngModelChange)="filterDescription.set($event)"
+              [placeholder]="'classes.searchByDescription' | translate"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+        </div>
+
+        @if(hasActiveFilters()) {
+          <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+              {{ 'classes.showing' | translate }}
+              <span class="text-gray-900 dark:text-white font-semibold">{{ filteredClasses().length }}</span>
+              {{ 'classes.of' | translate }}
+              <span class="text-gray-900 dark:text-white font-semibold">{{ classes().length }}</span>
+              {{ 'classes.classes' | translate }}
+            </p>
+          </div>
+        }
+      </div>
+    }
+
+    @if(isLoading() && classes().length === 0) {
+      <div class="flex items-center justify-center py-12">
+        <div class="text-center">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
+          <p class="text-gray-700 dark:text-gray-300">{{ 'classes.loading' | translate }}</p>
+        </div>
+      </div>
+    } @else {
+      @if(filteredClasses().length === 0) {
+        <div class="text-center py-12">
+          <p class="text-gray-600 dark:text-gray-400 text-lg">
+            @if(hasActiveFilters()) {
+              {{ 'classes.noClassesFound' | translate }}
+            } @else {
+              {{ 'classes.noClassesAvailable' | translate }}
+            }
+          </p>
+        </div>
+      } @else {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          @for(item of filteredClasses(); track item.id) {
+            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-all shadow-sm hover:shadow-md">
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex-1">
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ item.name }}</h3>
+                  @if(item.description) {
+                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">{{ item.description }}</p>
+                  }
+                </div>
+                @if(item.id && isSuperAdmin()) {
+                  <span class="text-xs text-gray-500 dark:text-gray-500">ID: {{ item.id.substring(0, 8) }}...</span>
+                }
+              </div>
+
+              @if(item.createdAt) {
+                <p class="text-xs text-gray-500 dark:text-gray-500 mb-4">
+                  {{ 'classes.createdAt' | translate }}:
+                  <span class="font-mono">{{ item.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+                </p>
+              }
+
+              @if(isSuperAdmin()) {
+                <div class="flex gap-2 mt-4">
+                  <button
+                    (click)="openEditModal(item)"
+                    class="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
+                    {{ 'common.edit' | translate }}
+                  </button>
+                  <button
+                    (click)="openDeleteModal(item)"
+                    class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
+                    {{ 'common.delete' | translate }}
+                  </button>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    }
+  </main>
+
+  @if(showFormModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-lg w-full border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-2xl transition-colors duration-300">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          {{ isEditing() ? ('classes.editClass' | translate) : ('classes.newClass' | translate) }}
+        </h3>
+
+        @if(errorMessage()) {
+          <div class="mb-4 p-3 bg-red-50 dark:bg-red-500/20 border border-red-300 dark:border-red-500 rounded-lg text-red-600 dark:text-red-400 text-sm">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <form (ngSubmit)="onSubmit()" class="space-y-4">
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+              {{ 'classes.name' | translate }} *
+            </label>
+            <input
+              type="text"
+              [(ngModel)]="formName"
+              name="name"
+              required
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+              {{ 'classes.description' | translate }}
+            </label>
+            <textarea
+              [(ngModel)]="formDescription"
+              name="description"
+              rows="3"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            </textarea>
+          </div>
+
+          <div class="flex gap-3 mt-6">
+            <button
+              type="button"
+              (click)="closeFormModal()"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors disabled:opacity-50">
+              {{ 'common.cancel' | translate }}
+            </button>
+            <button
+              type="submit"
+              [disabled]="isLoading() || !formName.trim()"
+              class="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors disabled:opacity-50 shadow-md">
+              @if(isLoading()) {
+                {{ 'classes.saving' | translate }}
+              } @else {
+                {{ 'common.save' | translate }}
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  @if(showDeleteModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-200 dark:border-gray-700 shadow-2xl transition-colors duration-300">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          {{ 'classes.deleteClass' | translate }}
+        </h3>
+
+        @if(selectedClass()) {
+          <p class="text-gray-600 dark:text-gray-300 mb-6">
+            {{ 'classes.confirmDelete' | translate }}
+            <span class="font-semibold text-gray-900 dark:text-white">{{ selectedClass()!.name }}</span>?
+          </p>
+        }
+
+        <div class="flex gap-3">
+          <button
+            (click)="closeDeleteModal()"
+            [disabled]="isLoading()"
+            class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors disabled:opacity-50">
+            {{ 'common.cancel' | translate }}
+          </button>
+          <button
+            (click)="confirmDelete()"
+            [disabled]="isLoading()"
+            class="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors disabled:opacity-50 shadow-md">
+            @if(isLoading()) {
+              {{ 'classes.deleting' | translate }}
+            } @else {
+              {{ 'common.delete' | translate }}
+            }
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+
+--- END OF FILE: src\app\pages\clases\clases.component.html ---
+
+
+--- START OF FILE: src\app\pages\clases\clases.component.scss ---
+@use '../../../styles/_variables' as *;
+
+.classes-page {
+  &__header {
+    background: $bg-gradient-blue-purple;
+  }
+}
+
+
+
+--- END OF FILE: src\app\pages\clases\clases.component.scss ---
+
+
+--- START OF FILE: src\app\pages\clases\clases.component.ts ---
+import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { ClassesService } from '../../core/services/classes.service';
+import { AuthService } from '../../core/services/auth.service';
+import { GymClass, CreateClassInput } from '../../core/models/class';
+import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
+import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
+import { TranslateModule } from '@ngx-translate/core';
+
+@Component({
+  selector: 'app-clases',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    DatePipe,
+    ThemeToggleComponent,
+    LanguageSelectorComponent,
+    TranslateModule
+  ],
+  templateUrl: './clases.component.html',
+  styleUrl: './clases.component.scss'
+})
+export class ClasesComponent implements OnInit {
+  private classesService = inject(ClassesService);
+  private auth = inject(AuthService);
+
+  classes = signal<GymClass[]>([]);
+  isLoading = signal(false);
+  errorMessage = signal<string>('');
+
+  filterName = signal<string>('');
+  filterDescription = signal<string>('');
+  showFilters = signal(false);
+
+  showFormModal = signal(false);
+  showDeleteModal = signal(false);
+  isEditing = signal(false);
+  selectedClass = signal<GymClass | null>(null);
+
+  formName = '';
+  formDescription = '';
+
+  currentUser = computed(() => this.auth.currentUser());
+  isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
+
+  filteredClasses = computed(() => {
+    let list = this.classes();
+
+    if (this.filterName()) {
+      const term = this.filterName().toLowerCase();
+      list = list.filter(c => c.name.toLowerCase().includes(term));
+    }
+
+    if (this.filterDescription()) {
+      const term = this.filterDescription().toLowerCase();
+      list = list.filter(c => (c.description || '').toLowerCase().includes(term));
+    }
+
+    return list;
+  });
+
+  hasActiveFilters = computed(() => {
+    return !!(this.filterName() || this.filterDescription());
+  });
+
+  ngOnInit(): void {
+    this.loadClasses();
+  }
+
+  loadClasses(): void {
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+
+    this.classesService.listClasses().subscribe({
+      next: (data) => {
+        this.classes.set(data);
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || 'Error al cargar las clases');
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  toggleFilters(): void {
+    this.showFilters.set(!this.showFilters());
+  }
+
+  clearFilters(): void {
+    this.filterName.set('');
+    this.filterDescription.set('');
+  }
+
+  openCreateModal(): void {
+    this.isEditing.set(false);
+    this.selectedClass.set(null);
+    this.formName = '';
+    this.formDescription = '';
+    this.showFormModal.set(true);
+    this.errorMessage.set('');
+  }
+
+  openEditModal(item: GymClass): void {
+    this.isEditing.set(true);
+    this.selectedClass.set(item);
+    this.formName = item.name;
+    this.formDescription = item.description || '';
+    this.showFormModal.set(true);
+    this.errorMessage.set('');
+  }
+
+  closeFormModal(): void {
+    this.showFormModal.set(false);
+    this.errorMessage.set('');
+  }
+
+  openDeleteModal(item: GymClass): void {
+    this.selectedClass.set(item);
+    this.showDeleteModal.set(true);
+    this.errorMessage.set('');
+  }
+
+  closeDeleteModal(): void {
+    this.showDeleteModal.set(false);
+    this.selectedClass.set(null);
+    this.errorMessage.set('');
+  }
+
+  onSubmit(): void {
+    if (!this.formName.trim()) {
+      this.errorMessage.set('El nombre de la clase es obligatorio');
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+
+    const data: CreateClassInput = {
+      name: this.formName.trim(),
+      description: this.formDescription?.trim() || undefined
+    };
+
+    if (this.isEditing() && this.selectedClass()) {
+      const id = this.selectedClass()!.id;
+      this.classesService.updateClass(id, data).subscribe({
+        next: () => this.finishAction(),
+        error: (error) => {
+          this.errorMessage.set(error.error?.message || 'Error al guardar la clase');
+          this.isLoading.set(false);
+        }
+      });
+    } else {
+      this.classesService.createClass(data).subscribe({
+        next: () => this.finishAction(),
+        error: (error) => {
+          this.errorMessage.set(error.error?.message || 'Error al guardar la clase');
+          this.isLoading.set(false);
+        }
+      });
+    }
+  }
+
+  confirmDelete(): void {
+    const item = this.selectedClass();
+    if (!item) return;
+
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+
+    this.classesService.deleteClass(item.id).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.closeDeleteModal();
+        this.loadClasses();
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || 'Error al eliminar la clase');
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  private finishAction(): void {
+    this.isLoading.set(false);
+    this.closeFormModal();
+    this.loadClasses();
+  }
+}
+
+--- END OF FILE: src\app\pages\clases\clases.component.ts ---
+
+
 --- START OF FILE: src\app\pages\dashboard\dashboard.component.html ---
 <div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
   @if(auth.currentUser(); as user) {
@@ -3366,14 +4271,99 @@ export class CentersComponent implements OnInit {
               {{ getRoleIcon(user.role) }} {{ roleName() }}
             </span>
           </div>
+
           <div class="flex items-center gap-4">
             <app-language-selector></app-language-selector>
+            
             <app-theme-toggle></app-theme-toggle>
-            <button 
-              (click)="openRoleEditor()"
+
+            <div class="relative">
+              <button 
+                type="button" 
+                class="notification-btn p-2 rounded-lg transition-colors bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 relative" 
+                (click)="toggleNotifications()"
+                aria-label="Notificaciones">
+                <span class="text-xl">🔔</span>
+                
+                @if (notificationService.unreadCount() > 0) {
+                  <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] flex justify-center items-center animate-pulse shadow-sm border-2 border-white dark:border-gray-800">
+                  {{ notificationService.unreadCount() > 9 ? '9+' : notificationService.unreadCount() }}
+                  </span>
+                }
+              </button>
+    
+              @if (showNotifications()) {
+                <div class="notification-dropdown absolute right-0 mt-3 w-80 sm:w-96 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 animate-fade-in origin-top-right">
+                  
+                  <div class="p-3 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">
+                    <h3 class="font-bold text-gray-800 dark:text-white text-sm">Notificaciones</h3>
+                    @if (notificationService.unreadCount() > 0) {
+                      <button (click)="markAllRead()" class="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                        Marcar todas leídas
+                      </button>
+                    }
+                  </div>
+    
+                  <div class="max-h-[400px] overflow-y-auto bg-white dark:bg-gray-800">
+                    @if (notificationService.notifications().length === 0) {
+                      <div class="p-8 text-center text-gray-500 dark:text-gray-400">
+                        <p class="text-2xl mb-2">🔕</p>
+                        <p class="text-sm">No tienes notificaciones</p>
+                      </div>
+                    }
+    
+                    @for (notification of notificationService.notifications(); track notification.id) {
+                      <div 
+                        (click)="handleNotificationClick(notification)"
+                        class="p-4 border-b border-gray-100 dark:border-gray-700 transition-colors cursor-pointer relative group flex gap-3"
+                        [class.bg-blue-50]="!notification.read"
+                        [class.dark:bg-gray-700]="!notification.read" 
+                        [class.bg-white]="notification.read"
+                        [class.dark:bg-gray-800]="notification.read"
+                        [class.hover:bg-gray-100]="true"
+                        [class.dark:hover:bg-gray-600]="true">
+                        
+                        <div class="mt-1 flex-shrink-0">
+                          @switch (notification.type) {
+                            @case ('WARNING') { <span class="text-lg">⚠️</span> }
+                            @case ('SUCCESS') { <span class="text-lg">🎉</span> }
+                            @case ('ERROR') { <span class="text-lg">❌</span> }
+                            @default { <span class="text-lg">ℹ️</span> }
+                          }
+                        </div>
+              
+                      
+                        <div class="flex-1">
+                          <p class="text-sm font-semibold text-gray-900 dark:text-white mb-0.5">
+                            {{ notification.title }}
+    
+                          </p>
+                          <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                            {{ notification.message }}
+                  
+                          </p>
+                          <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-2 font-medium">
+                            {{ notification.createdAt | date:'dd MMM, HH:mm' }}
+                          </p>
+                        </div>
+    
+                        @if (!notification.read) {
+                          <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                        }
+                      </div>
+                    }
+                  </div>
+ 
+                </div>
+              }
+            </div>
+
+            <a 
+              routerLink="/qr"
               class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg transition-colors text-sm font-medium">
-              {{ 'dashboard.editRole' | translate }}
-            </button>
+             {{ 'dashboard.cards.myQR.button' | translate }}
+            </a>
+            
             <button 
               (click)="logout()"
               class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium">
@@ -3401,6 +4391,7 @@ export class CentersComponent implements OnInit {
         @if(isSuperAdmin()) {
           <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
+             
               <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
                 <span class="text-2xl">👑</span>
               </div>
@@ -3413,6 +4404,21 @@ export class CentersComponent implements OnInit {
               <li>✅ {{ 'dashboard.cards.globalAdmin.features.config' | translate }}</li>
               <li>✅ {{ 'dashboard.cards.globalAdmin.features.reports' | translate }}</li>
             </ul>
+          </div>
+
+          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center">
+                <span class="text-2xl">📅</span>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.classes.title' | translate }}</h3>
+            </div>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.classes.description' | translate }}</p>
+            <a 
+              routerLink="/clases"
+              class="block w-full px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
+              {{ 'dashboard.cards.classes.button' | translate }}
+            </a>
           </div>
 
           <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
@@ -3458,31 +4464,6 @@ export class CentersComponent implements OnInit {
             </a>
           </div>
           
-          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
-                <span class="text-2xl">🏁</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.myQR.title' | translate }}</h3>
-            </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.myQR.description' | translate }}</p>
-            <a routerLink="/qr" class="block w-full px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
-              {{ 'dashboard.cards.myQR.button' | translate }}
-            </a>
-          </div>
-
-          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
-                <span class="text-2xl">📷</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.qrScanner.title' | translate }}</h3>
-            </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.qrScanner.description' | translate }}</p>
-            <a routerLink="/qr-scanner" class="block w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
-              {{ 'dashboard.cards.qrScanner.button' | translate }}
-            </a>
-          </div>
         }
 
         @if(isAdminCenter()) {
@@ -3542,21 +4523,32 @@ export class CentersComponent implements OnInit {
             </button>
           </div>
 
-          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
-                <span class="text-2xl">📷</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.qrScanner.title' | translate }}</h3>
-            </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.qrScanner.description' | translate }}</p>
-            <a routerLink="/qr-scanner" class="block w-full px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors text-sm font-medium text-center">
-              {{ 'dashboard.cards.qrScanner.button' | translate }}
-            </a>
-          </div>
         }
 
         @if(!isSuperAdmin() && !isAdminCenter()) {
+          <div class="flex justify-center mb-6">
+            <div class="relative">
+                <img 
+                    [src]="getProfileImageUrl(user.profileImageUrl)" 
+                    [alt]="user.name"
+                    class="w-40 h-40 rounded-full object-cover border-8 border-white dark:border-gray-700 shadow-xl"
+                >
+            </div>
+          </div>
+          <h4 class="text-center text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ user.name }}</h4>
+
+          <div class="grid grid-cols-3 gap-4 max-w-lg mx-auto mb-8">
+              <button class="px-4 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium text-sm shadow-md">
+                  {{ 'Mis Dietas' }} </button>
+              <button class="px-4 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium text-sm shadow-md">
+                  {{ 'Mis Entrenos' }} </button>
+              <a 
+                routerLink="/qr"
+                class="flex items-center justify-center px-4 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg transition-colors font-medium text-sm shadow-md">
+                  {{ 'dashboard.cards.myQR.button' | translate }}
+              </a>
+          </div>
+          
           <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
             <div class="flex items-center gap-3 mb-4">
               <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
@@ -3588,9 +4580,25 @@ export class CentersComponent implements OnInit {
       </div>
 
       <div class="mt-8 bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700">
-        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">{{ 'dashboard.userInfo.title' | translate }}</h3>
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.userInfo.title' | translate }}</h3>
+          <app-profile-image-manager></app-profile-image-manager>
+        </div>
+        <div class="flex items-center gap-6 mb-6">
+          <div class="relative">
+            <img 
+              [src]="getProfileImageUrl(user.profileImageUrl)" 
+              [alt]="user.name"
+              class="w-24 h-24 rounded-full object-cover border-4 border-blue-300 dark:border-blue-600 shadow-lg">
+          </div>
+          <div>
+            <h4 class="text-2xl font-bold text-gray-900 dark:text-white">{{ user.name }}</h4>
+            <p class="text-gray-600 dark:text-gray-400">{{ user.email }}</p>
+          </div>
+        </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
+ 
             <p class="text-gray-600 dark:text-gray-400 text-sm">{{ 'dashboard.userInfo.name' | translate }}</p>
             <p class="text-gray-900 dark:text-white font-semibold">{{ user.name }}</p>
           </div>
@@ -3611,7 +4619,7 @@ export class CentersComponent implements OnInit {
           @if(user.createdAt) {
             <div>
               <p class="text-gray-600 dark:text-gray-400 text-sm">{{ 'dashboard.userInfo.registrationDate' | translate }}</p>
-              <p class="text-gray-900 dark:text-white font-semibold">{{ user.createdAt | date:'dd/MM/yyyy' }}</p>
+              <p class="text-900 dark:text-white font-semibold">{{ user.createdAt | date:'dd/MM/yyyy' }}</p>
             </div>
           }
         </div>
@@ -3630,6 +4638,7 @@ export class CentersComponent implements OnInit {
               (ngModelChange)="selectedRole.set($event)"
               class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
               @for(role of roles; track role) {
+               
                 <option [value]="role">{{ role }}</option>
               }
             </select>
@@ -3639,6 +4648,7 @@ export class CentersComponent implements OnInit {
             <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
               {{ errorMessage() }}
             </div>
+ 
           }
 
           <div class="flex gap-3">
@@ -3646,13 +4656,15 @@ export class CentersComponent implements OnInit {
               (click)="closeRoleEditor()"
               [disabled]="isLoading()"
               class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
-              {{ 'dashboard.roleEditor.cancel' | translate }}
+              {{ 'dashboard.roleEditor.cancel' 
+ | translate }}
             </button>
             <button 
               (click)="updateRole()"
               [disabled]="isLoading() || selectedRole() === user.role"
               class="flex-1 px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors disabled:opacity-50">
               @if(isLoading()) {
+    
                 {{ 'dashboard.roleEditor.saving' | translate }}
               } @else {
                 {{ 'dashboard.roleEditor.save' | translate }}
@@ -3708,41 +4720,48 @@ describe('DashboardComponent', () => {
 
 
 --- START OF FILE: src\app\pages\dashboard\dashboard.component.ts ---
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, inject, signal, computed, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { UsersService } from '../../core/services/users.service';
-import { User } from '../../core/models/user';
+import { NotificationService } from '../../core/services/notification.service';
+import { Notification } from '../../core/models/notification';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
+import { ProfileImageManagerComponent } from '../../shared/components/profile-image-manager/profile-image-manager.component';
 
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent],
+  imports: [CommonModule, FormsModule, RouterModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent, ProfileImageManagerComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
   auth = inject(AuthService);
   usersService = inject(UsersService);
+  notificationService = inject(NotificationService);
   router = inject(Router);
   translate = inject(TranslateService);
+  private elementRef = inject(ElementRef);
 
   showRoleEditor = signal(false);
   selectedRole = signal<RoleType | null>(null);
   isLoading = signal(false);
   errorMessage = signal<string>('');
+  
+  // Estado para el dropdown de notificaciones
+  showNotifications = signal(false);
 
   readonly roles: RoleType[] = ['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER', 'CLEANER', 'USER'];
 
   currentUser = computed(() => this.auth.currentUser());
-
+  
   roleName = computed(() => {
     const role = this.currentUser()?.role;
     if (!role) return this.translate.instant('dashboard.roles.USER');
@@ -3762,7 +4781,6 @@ export class DashboardComponent {
   });
 
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
-
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
 
   constructor() {
@@ -3772,10 +4790,43 @@ export class DashboardComponent {
     }
   }
 
-  /**
-   * Abre el modal de edición de rol inicializando el rol seleccionado con el rol actual del usuario.
-   * Limpia cualquier mensaje de error previo al abrir el editor.
-   */
+  // --- LÓGICA DE NOTIFICACIONES ---
+  toggleNotifications() {
+    const newState = !this.showNotifications();
+    this.showNotifications.set(newState);
+    if (newState) {
+      this.notificationService.loadNotifications();
+    }
+  }
+
+  handleNotificationClick(notification: Notification) {
+    if (!notification.read) {
+      this.notificationService.markAsRead(notification.id);
+    }
+    
+    if (notification.link) {
+      this.router.navigateByUrl(notification.link);
+      this.showNotifications.set(false);
+    }
+  }
+
+  markAllRead() {
+    this.notificationService.markAllAsRead();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    // Cerrar si se hace clic fuera del botón de notificaciones y del dropdown
+    const target = event.target as HTMLElement;
+    const isBell = target.closest('.notification-btn');
+    const isDropdown = target.closest('.notification-dropdown');
+    
+    if (!isBell && !isDropdown) {
+      this.showNotifications.set(false);
+    }
+  }
+  // -------------------------------
+
   openRoleEditor() {
     const user = this.currentUser();
     if (user) {
@@ -3785,24 +4836,14 @@ export class DashboardComponent {
     }
   }
 
-  /**
-   * Cierra el modal de edición de rol y limpia cualquier mensaje de error.
-   * Restaura el estado inicial del componente sin guardar cambios.
-   */
   closeRoleEditor() {
     this.showRoleEditor.set(false);
     this.errorMessage.set('');
   }
 
-  /**
-   * Actualiza el rol del usuario autenticado en el backend.
-   * Después de actualizar exitosamente, cierra sesión y redirige al login para obtener un nuevo token JWT.
-   * Muestra un mensaje de error si la actualización falla.
-   */
   updateRole() {
     const user = this.currentUser();
     const newRole = this.selectedRole();
-    
     if (!user || !newRole) {
       return;
     }
@@ -3834,19 +4875,11 @@ export class DashboardComponent {
     });
   }
 
-  /**
-   * Cierra la sesión del usuario actual y redirige a la página de login.
-   * Limpia el token JWT y la información del usuario del estado de la aplicación.
-   */
   logout() {
     this.auth.logout();
     this.router.navigate(['/login']);
   }
 
-  /**
-   * Retorna el emoji correspondiente a un rol específico para mostrar en la interfaz.
-   * Usa un mapeo de roles a emojis para proporcionar indicadores visuales claros.
-   */
   getRoleIcon(role: string): string {
     const icons: Record<string, string> = {
       'SUPERADMIN': '👑',
@@ -3857,9 +4890,344 @@ export class DashboardComponent {
     };
     return icons[role] || '👤';
   }
+
+  /**
+   * Obtiene la URL de la imagen de perfil del usuario.
+   * Si no tiene imagen o es null, retorna la imagen por defecto (fauno.png).
+   * @param profileImageUrl - URL de la imagen de perfil o null
+   * @returns URL de la imagen a mostrar
+   */
+  getProfileImageUrl(profileImageUrl: string | null | undefined): string {
+    if (profileImageUrl && !profileImageUrl.includes('fauno.png')) {
+      return profileImageUrl;
+    }
+    return '/assets/images/fauno.png';
+  }
+}
+--- END OF FILE: src\app\pages\dashboard\dashboard.component.ts ---
+
+
+--- START OF FILE: src\app\pages\home\home.component 2.html ---
+<div class="home">
+  <app-navbar></app-navbar>
+
+  <main class="home__content">
+    <section class="hero">
+      <img src="/Logo.png" alt="Meta Force" class="hero__logo" />
+
+      <div class="carousel">
+        <div class="carousel__viewport">
+          @for (slide of slides; track slide.image; let index = $index) {
+            <div
+              class="carousel__item"
+              [class.is-active]="currentSlide() === index"
+              [class.is-prev]="isPrev(index)"
+              [class.is-next]="isNext(index)">
+              <img [src]="slide.image" [alt]="slide.alt" loading="lazy" />
+            </div>
+          }
+        </div>
+
+        <div class="carousel__controls">
+          <button type="button" (click)="previousSlide()" aria-label="Anterior">←</button>
+          <div class="carousel__dots">
+            @for (slide of slides; track slide.image; let index = $index) {
+              <button
+                type="button"
+                [class.is-active]="currentSlide() === index"
+                (click)="goToSlide(index)"
+                [attr.aria-label]="'Ir al slide ' + (index + 1)">
+              </button>
+            }
+          </div>
+          <button type="button" (click)="nextSlide()" aria-label="Siguiente">→</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="services">
+      @for (service of services; track service.label) {
+        <a [routerLink]="service.path" class="service-card">
+          <p class="service-card__title">{{ service.label }}</p>
+          <p class="service-card__text">{{ service.description }}</p>
+        </a>
+      }
+    </section>
+  </main>
+
+  <app-footer></app-footer>
+</div>
+
+
+--- END OF FILE: src\app\pages\home\home.component 2.html ---
+
+
+--- START OF FILE: src\app\pages\home\home.component 2.scss ---
+@use '../../../styles/variables' as vars;
+
+:host {
+  display: block;
 }
 
---- END OF FILE: src\app\pages\dashboard\dashboard.component.ts ---
+.home {
+  min-height: 100vh;
+  background: #f4f7fb;
+  color: #0f172a;
+}
+
+.home__content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.hero {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.hero__logo {
+  display: block;
+  margin: 2rem auto;
+  height: 110px;
+  object-fit: contain;
+}
+
+.carousel {
+  position: relative;
+  margin: 0 auto;
+  max-width: 880px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+}
+
+.carousel__viewport {
+  position: relative;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.carousel__item {
+  position: absolute;
+  width: 70%;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.5s ease;
+}
+
+.carousel__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel__item.is-active {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 3;
+}
+
+.carousel__item.is-prev,
+.carousel__item.is-next {
+  opacity: 0.5;
+  transform: scale(0.9) translateX(-180px);
+  z-index: 2;
+}
+
+.carousel__item.is-next {
+  transform: scale(0.9) translateX(180px);
+}
+
+.carousel__controls {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.carousel__controls button {
+  background: #0f172a;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.carousel__dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.carousel__dots button {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: none;
+  background: #cbd5f5;
+  cursor: pointer;
+  transition: width 0.2s ease;
+}
+
+.carousel__dots button.is-active {
+  background: #7c3aed;
+  width: 24px;
+}
+
+.services {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.service-card {
+  background: vars.$bg-gradient-blue-purple;
+  padding: 2rem;
+  border-radius: 1rem;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 15px 30px rgba(79, 70, 229, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+}
+
+.service-card__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.service-card__text {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+}
+
+
+--- END OF FILE: src\app\pages\home\home.component 2.scss ---
+
+
+--- START OF FILE: src\app\pages\home\home.component 2.ts ---
+import { CommonModule } from '@angular/common';
+import { Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { FooterComponent } from '../../shared/components/footer/footer.component';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+
+@Component({
+  selector: 'app-home',
+  standalone: true,
+  imports: [CommonModule, RouterLink, NavbarComponent, FooterComponent],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss'
+})
+export class HomeComponent implements OnInit, OnDestroy {
+  readonly slides = [
+    {
+      image: 'https://images.unsplash.com/photo-1571731956672-b07085807167?auto=format&fit=crop&w=1600&q=80',
+      alt: 'Área de pesas y máquinas'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1434754205268-ad3b5f549b11?auto=format&fit=crop&w=1600&q=80',
+      alt: 'Entrenador asistiendo cliente'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1571019613576-2b22c76fd955?auto=format&fit=crop&w=1600&q=80',
+      alt: 'Sala de cardio moderna'
+    }
+  ];
+
+  readonly services = [
+    {
+      label: 'Entrenamiento',
+      description: 'Optimiza tus rutinas con seguimiento y máquinas inteligentes.',
+      path: '/dashboard'
+    },
+    {
+      label: 'Entrenadores',
+      description: 'Gestiona tu staff, horarios y clases con total control.',
+      path: '/users'
+    },
+    {
+      label: 'Dietas',
+      description: 'Planes personalizados que acompañan cada entrenamiento.',
+      path: '/register'
+    }
+  ];
+
+  readonly currentSlide = signal(0);
+
+  private slideIntervalId: ReturnType<typeof setInterval> | null = null;
+
+  ngOnInit(): void {
+    this.startAutoSlide();
+  }
+
+  ngOnDestroy(): void {
+    this.clearAutoSlide();
+  }
+
+  nextSlide(): void {
+    this.currentSlide.update((index) => (index + 1) % this.slides.length);
+    this.restartAutoSlide();
+  }
+
+  previousSlide(): void {
+    this.currentSlide.update((index) => (index - 1 + this.slides.length) % this.slides.length);
+    this.restartAutoSlide();
+  }
+
+  goToSlide(index: number): void {
+    if (index < 0 || index >= this.slides.length) return;
+    this.currentSlide.set(index);
+    this.restartAutoSlide();
+  }
+
+  isPrev(index: number): boolean {
+    const prev = (this.currentSlide() - 1 + this.slides.length) % this.slides.length;
+    return prev === index;
+  }
+
+  isNext(index: number): boolean {
+    const next = (this.currentSlide() + 1) % this.slides.length;
+    return next === index;
+  }
+
+  private startAutoSlide(): void {
+    this.slideIntervalId = setInterval(() => this.nextSlide(), 7000);
+  }
+
+  private restartAutoSlide(): void {
+    this.clearAutoSlide();
+    this.startAutoSlide();
+  }
+
+  private clearAutoSlide(): void {
+    if (this.slideIntervalId) {
+      clearInterval(this.slideIntervalId);
+      this.slideIntervalId = null;
+    }
+  }
+}
+
+
+--- END OF FILE: src\app\pages\home\home.component 2.ts ---
 
 
 --- START OF FILE: src\app\pages\home\home.component.html ---
@@ -4232,6 +5600,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       <div class="flex justify-center mb-4">
         <img 
           src="Logo.png" 
+        
           alt="Meta Force Logo" 
           class="h-40 w-auto"
         />
@@ -4251,12 +5620,14 @@ export class HomeComponent implements OnInit, OnDestroy {
             <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>
             </span>
+     
             <input
               id="email"
               autocomplete="username"
               formControlName="email"
               [placeholder]="'login.emailPlaceholder' | translate"
               class="px-10 h-10 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"
+      
               type="text"
             />
           </div>
@@ -4265,6 +5636,7 @@ export class HomeComponent implements OnInit, OnDestroy {
               {{getError('email')}}
             </span>
           }
+     
         </div>
 
         <div class="mb-4">
@@ -4273,13 +5645,15 @@ export class HomeComponent implements OnInit, OnDestroy {
             <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>
             </span>
+     
             <input
               id="password"
               formControlName="password"
               autocomplete="current-password"
               [type]="showPassword() ? 'text' : 'password'"
               [placeholder]="'login.passwordPlaceholder' | translate"
-              class="px-10 h-10 w-full rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"
+              class="px-10 h-10 w-full 
+              rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"
             />
 
             <button
@@ -4287,13 +5661,16 @@ export class HomeComponent implements OnInit, OnDestroy {
               (click)="togglePassword()"
               class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"
             >
+  
               <svg *ngIf="!showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.657 3.841 5.21 6.5 9.566 6.5 2.085 0 4.017-.63 5.617-1.707m-4.79 2.001A7.5 7.5 0 0 1 12 15a7.5 7.5 0 0 1-5.707-2.317M21 21l-18-18"/>
               </svg>
-              <svg *ngIf="showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+              <svg *ngIf="showPassword()" xmlns="http://www.w3.org/2000/svg" 
+ fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/>
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
               </svg>
+    
             </button>
           </div>
           @if(formLogin.controls.password.touched && formLogin.controls.password.errors){
@@ -4304,6 +5681,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         </div>
 
         @if(errorMsg()){
+ 
           <div class="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50 p-2 rounded-lg text-center text-sm mb-4 border border-red-300 dark:border-red-700">
             {{ getError('global') }}
           </div>
@@ -4312,6 +5690,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         <button
           class="rounded-lg w-full px-4 py-2 font-bold text-lg bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white shadow-lg transition-all transform hover:scale-[1.01]"
           type="submit"
+    
           [disabled]="formLogin.invalid"
         >
           {{ 'login.loginButton' | translate }}
@@ -4405,7 +5784,6 @@ export class LoginComponent implements OnDestroy {
       'email':['', [Validators.required, Validators.email]],
       'password':['', [Validators.required]],
     });
-
     this.navigateTo = history.state?.['navigateTo'] || '/dashboard';
   }
 
@@ -4442,6 +5820,8 @@ export class LoginComponent implements OnDestroy {
           this.router.navigate([this.navigateTo]);
         },
         error: (err: Error) => {
+          // Si es un error 400 de validación, el mensaje específico viene en err.message
+          // Si es un 401 de credenciales inválidas, err.message lo contiene
           this.errorMsg.set(err.message);
         }
       });
@@ -4469,7 +5849,16 @@ export class LoginComponent implements OnDestroy {
    * Retorna cadena vacía si no hay errores o si el control no ha sido tocado.
    */
   getError(control:string): string {
-    if (control === 'global') return this.errorMsg();
+    // Si es un error global (del servidor: 400 o 401)
+    if (control === 'global') {
+      const msg = this.errorMsg();
+      // Si el backend retornó un mensaje específico de error de credenciales
+      if (msg && msg.includes('Credenciales inválidas')) {
+        return this.translate.instant('login.errors.invalidCredentials');
+      }
+      return msg;
+    }
+    
 
     const formControl = this.formLogin.get(control);
     if (!formControl || !formControl.touched || !formControl.errors) {
@@ -4818,7 +6207,7 @@ describe('MachinesComponent', () => {
 
 --- START OF FILE: src\app\pages\machines\machines.component.ts ---
 import { Component, inject, signal, computed, OnInit } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common'; // CommonModule ya incluye DatePipe
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MachinesService } from '../../core/services/machines.service';
@@ -4833,7 +6222,7 @@ import { LanguageSelectorComponent } from '../../shared/components/language-sele
 @Component({
   selector: 'app-machines',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, DatePipe, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent], 
+  imports: [CommonModule, FormsModule, RouterModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent], 
   templateUrl: './machines.component.html',
   styleUrl: './machines.component.scss'
 })
@@ -4846,7 +6235,7 @@ export class MachinesComponent implements OnInit {
   machines = signal<Machine[]>([]);
   centers = signal<Center[]>([]);
   isLoading = signal(false);
-  
+
   // --- FILTROS ---
   filterName = signal<string>('');
   filterType = signal<string>('');
@@ -4860,7 +6249,7 @@ export class MachinesComponent implements OnInit {
   isEditing = signal(false);
   
   selectedMachine = signal<Machine | null>(null);
-  
+
   private initialFormState: CreateMachineInput = {
     name: '',
     type: 'cardio',
@@ -4872,7 +6261,7 @@ export class MachinesComponent implements OnInit {
 
   currentUser = computed(() => this.auth.currentUser());
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
-  
+
   machineTypes: MachineType[] = ['cardio', 'fuerza', 'peso libre', 'funcional', 'otro'];
   machineStatuses: MachineStatus[] = ['operativa', 'en mantenimiento', 'fuera de servicio'];
 
@@ -4950,7 +6339,7 @@ export class MachinesComponent implements OnInit {
     this.filterCenter.set('');
   }
 
-  // ... Resto de métodos CRUD (sin cambios) ...
+  // ... Resto de métodos CRUD ...
   openCreateModal() {
     this.isEditing.set(false);
     this.selectedMachine.set(null);
@@ -5521,7 +6910,7 @@ import { Html5Qrcode } from 'html5-qrcode';
 import { AuthService } from '../../core/services/auth.service';
 import { CentersService } from '../../core/services/centers.service';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { Center } from '../../core/models/center';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -7138,6 +8527,130 @@ export class ErrorToastComponent {
 --- END OF FILE: src\app\shared\components\error-toast\error-toast.component.ts ---
 
 
+--- START OF FILE: src\app\shared\components\footer\footer.component 2.html ---
+<footer class="footer">
+  <div class="footer__inner">
+    <div>
+      <p class="footer__title">GYM</p>
+      <ul>
+        <li><a routerLink="/home">Why Join Us</a></li>
+        <li><a routerLink="/home#services">About</a></li>
+        <li><a routerLink="/dashboard">Plan</a></li>
+        <li><a routerLink="/users">Coaches</a></li>
+        <li><a routerLink="/register">Inquiry</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer__title">MEMBERS</p>
+      <ul>
+        <li><a routerLink="/register">FAQs</a></li>
+        <li><a routerLink="/home#contact">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <p class="footer__title">CONTACTO</p>
+      <p>EMAIL: metaforce&#64;fit.com</p>
+      <p>TELF: 09826047580</p>
+    </div>
+
+    <div id="contact">
+      <p class="footer__title">LOCALIZACIÓN</p>
+      <p>12TH ST. GENERAL MATHA</p>
+      <p>VILLAMOR AIR BASE PASAY CITY</p>
+    </div>
+  </div>
+</footer>
+
+
+--- END OF FILE: src\app\shared\components\footer\footer.component 2.html ---
+
+
+--- START OF FILE: src\app\shared\components\footer\footer.component 2.scss ---
+@use '../../../../styles/variables' as vars;
+
+:host {
+  width: 100%;
+}
+
+.footer {
+  margin-top: 4rem;
+  background: #d9ecf9;
+  padding: 3rem 1.5rem;
+  color: #0f172a;
+  border-top: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+.footer__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+  font-size: 0.9rem;
+}
+
+.footer__title {
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li + li {
+  margin-top: 0.4rem;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+--- END OF FILE: src\app\shared\components\footer\footer.component 2.scss ---
+
+
+--- START OF FILE: src\app\shared\components\footer\footer.component 2.ts ---
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+
+@Component({
+  selector: 'app-footer',
+  standalone: true,
+  imports: [CommonModule, RouterLink],
+  templateUrl: './footer.component.html',
+  styleUrl: './footer.component.scss'
+})
+export class FooterComponent {
+  readonly quickLinks = [
+    { label: 'Inicio', path: '/home' },
+    { label: 'Dashboard', path: '/dashboard' },
+    { label: 'Centros', path: '/centers' },
+    { label: 'Usuarios', path: '/users' }
+  ];
+
+  readonly resources = [
+    { label: 'Entrenadores', path: '/home#trainers' },
+    { label: 'Dietas', path: '/home#diets' },
+    { label: 'Planes', path: '/home#plans' }
+  ];
+}
+
+
+--- END OF FILE: src\app\shared\components\footer\footer.component 2.ts ---
+
+
 --- START OF FILE: src\app\shared\components\footer\footer.component.html ---
 <footer class="footer">
   <div class="footer__inner">
@@ -7328,6 +8841,11 @@ import { Component, inject, HostListener, ElementRef, computed } from '@angular/
 import { CommonModule } from '@angular/common';
 import { TranslationService, Language } from '../../../core/services/translation.service';
 
+/**
+ * Componente selector de idioma que permite cambiar el idioma de la aplicación.
+ * Muestra un dropdown con los idiomas disponibles (Español, Inglés, Francés)
+ * y cierra automáticamente al hacer clic fuera del componente.
+ */
 @Component({
   selector: 'app-language-selector',
   standalone: true,
@@ -7342,21 +8860,37 @@ export class LanguageSelectorComponent {
   currentLanguage = this.translationService.language;
   showDropdown = false;
   
+  /**
+   * Lista de idiomas disponibles con su código, nombre y bandera.
+   */
   languages: { code: Language; name: string; flag: string }[] = [
     { code: 'es', name: 'Español', flag: '🇪🇸' },
     { code: 'en', name: 'English', flag: '🇬🇧' },
     { code: 'fr', name: 'Français', flag: '🇫🇷' }
   ];
 
+  /**
+   * Computed signal que obtiene la información del idioma actual.
+   * Incluye el nombre y la bandera correspondiente.
+   */
   currentLanguageInfo = computed(() => {
     return this.languages.find(l => l.code === this.currentLanguage());
   });
 
+  /**
+   * Selecciona un idioma y actualiza el servicio de traducción.
+   * Cierra el dropdown después de la selección.
+   * @param language - El código del idioma a seleccionar
+   */
   selectLanguage(language: Language) {
     this.translationService.setLanguage(language);
     this.showDropdown = false;
   }
 
+  /**
+   * Listener que detecta clics fuera del componente para cerrar el dropdown.
+   * @param event - El evento de clic del documento
+   */
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
     if (!this.elementRef.nativeElement.contains(event.target)) {
@@ -7369,9 +8903,158 @@ export class LanguageSelectorComponent {
 --- END OF FILE: src\app\shared\components\language-selector\language-selector.component.ts ---
 
 
---- START OF FILE: src\app\shared\components\navbar\navbar.component.html ---
+--- START OF FILE: src\app\shared\components\navbar\navbar.component 2.html ---
 <header class="navbar">
   <div class="navbar__inner">
+    <a routerLink="/" class="navbar__brand" aria-label="Meta Force Inicio">
+      <img src="/Logo.png" alt="Meta Force" class="navbar__logo" />
+    </a>
+
+    <nav class="navbar__menu">
+      @for (link of navLinks; track link.path) {
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="active"
+          class="navbar__link">
+          {{ link.label }}
+        </a>
+      }
+    </nav>
+
+    <div class="navbar__actions">
+      <button type="button" class="navbar__icon-btn" aria-label="Buscar">
+        <span>🔍</span>
+      </button>
+      <a routerLink="/login" class="navbar__login">Iniciar sesión</a>
+      <button type="button" class="navbar__icon-btn" aria-label="Perfil">
+        <span>👤</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+
+--- END OF FILE: src\app\shared\components\navbar\navbar.component 2.html ---
+
+
+--- START OF FILE: src\app\shared\components\navbar\navbar.component 2.scss ---
+@use '../../../../styles/variables' as vars;
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background: #d9ecf9;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 10px rgba(30, 64, 175, 0.06);
+}
+
+.navbar__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar__logo {
+  height: 48px;
+}
+
+.navbar__menu {
+  display: flex;
+  gap: 1.75rem;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.navbar__link {
+  text-decoration: none;
+  color: inherit;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+}
+
+.navbar__link.active,
+.navbar__link:hover {
+  color: vars.$color-secondary;
+}
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.navbar__login {
+  padding: 0.65rem 1.5rem;
+  border-radius: 2rem;
+  background: #0f172a;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: opacity 0.2s ease;
+}
+
+.navbar__login:hover {
+  opacity: 0.85;
+}
+
+.navbar__icon-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #0f172a;
+  background: #fff;
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+--- END OF FILE: src\app\shared\components\navbar\navbar.component 2.scss ---
+
+
+--- START OF FILE: src\app\shared\components\navbar\navbar.component 2.ts ---
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+
+@Component({
+  selector: 'app-navbar',
+  standalone: true,
+  imports: [CommonModule, RouterLink, RouterLinkActive],
+  templateUrl: './navbar.component.html',
+  styleUrl: './navbar.component.scss'
+})
+export class NavbarComponent {
+  readonly navLinks = [
+    { label: 'Inicio', path: '/' },
+    { label: 'Clases', path: '/dashboard' },
+    { label: 'Entrenadores', path: '/users' },
+    { label: 'Membresía', path: '/register' }
+  ];
+}
+
+
+--- END OF FILE: src\app\shared\components\navbar\navbar.component 2.ts ---
+
+
+--- START OF FILE: src\app\shared\components\navbar\navbar.component.html ---
+<header class="navbar">
+  <div class="navbar__inner relative">
     <a routerLink="/" class="navbar__brand" aria-label="Meta Force Inicio">
       <img src="/Logo.png" alt="Meta Force" class="navbar__logo" />
     </a>
@@ -7387,23 +9070,22 @@ export class LanguageSelectorComponent {
       }
     </nav>
 
-    <div class="navbar__actions">
+    <div class="navbar__actions flex items-center gap-3">
       <div class="flex items-center gap-2">
         <app-language-selector></app-language-selector>
         <app-theme-toggle></app-theme-toggle>
       </div>
-      <button type="button" class="navbar__icon-btn" aria-label="Buscar">
-        <span>🔍</span>
-      </button>
-      <a routerLink="/login" class="navbar__login">{{ ('nav.login' | translate) || 'Iniciar sesión' }}</a>
-      <button type="button" class="navbar__icon-btn" aria-label="Perfil">
-        <span>👤</span>
-      </button>
+
+      @if (!auth.currentUser()) {
+        <a routerLink="/login" class="navbar__login">{{ ('nav.login' | translate) || 'Iniciar sesión' }}</a>
+      } @else {
+        <a routerLink="/dashboard" class="navbar__icon-btn" aria-label="Perfil">
+          <span>👤</span>
+        </a>
+      }
     </div>
   </div>
 </header>
-
-
 --- END OF FILE: src\app\shared\components\navbar\navbar.component.html ---
 
 
@@ -7533,11 +9215,12 @@ export class LanguageSelectorComponent {
 
 --- START OF FILE: src\app\shared\components\navbar\navbar.component.ts ---
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -7547,16 +9230,189 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+  // Inyección de Auth (Añadido de tu versión)
+  auth = inject(AuthService);
+  
   readonly navLinks = [
     { label: 'Inicio', path: '/', key: 'nav.home' },
-    { label: 'Clases', path: '/dashboard', key: 'nav.classes' },
+    // Se mantiene /dashboard (tu versión) porque es la ruta protegida que estamos usando
+    { label: 'Clases', path: '/dashboard', key: 'nav.classes' }, 
     { label: 'Entrenadores', path: '/users', key: 'nav.trainers' },
     { label: 'Membresía', path: '/register', key: 'nav.membership' }
   ];
 }
-
-
 --- END OF FILE: src\app\shared\components\navbar\navbar.component.ts ---
+
+
+--- START OF FILE: src\app\shared\components\profile-image-manager\profile-image-manager.component.html ---
+<div class="relative">
+  <button
+    (click)="toggleMenu()"
+    class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium flex items-center gap-2">
+    <span>📷</span>
+    <span>{{ 'profileImage.manage' | translate }}</span>
+  </button>
+
+  @if(showMenu()) {
+    <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
+      <div class="p-2">
+        <label class="block w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded cursor-pointer transition-colors">
+          <span>{{ 'profileImage.upload' | translate }}</span>
+          <input
+            type="file"
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            class="hidden">
+        </label>
+        
+        <button
+          (click)="deleteImage()"
+          [disabled]="isUploading()"
+          class="block w-full text-left px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors disabled:opacity-50">
+          {{ 'profileImage.delete' | translate }}
+        </button>
+      </div>
+    </div>
+  }
+
+  @if(isUploading()) {
+    <div class="absolute right-0 mt-2 p-3 bg-blue-50 dark:bg-gray-800 rounded-lg shadow-lg border border-blue-200 dark:border-gray-700">
+      <p class="text-sm text-blue-600 dark:text-blue-400">{{ 'profileImage.uploading' | translate }}</p>
+    </div>
+  }
+
+  @if(errorMessage()) {
+    <div class="absolute right-0 mt-2 p-3 bg-red-50 dark:bg-red-900/20 rounded-lg shadow-lg border border-red-200 dark:border-red-800">
+      <p class="text-sm text-red-600 dark:text-red-400">{{ errorMessage() }}</p>
+    </div>
+  }
+</div>
+
+
+--- END OF FILE: src\app\shared\components\profile-image-manager\profile-image-manager.component.html ---
+
+
+--- START OF FILE: src\app\shared\components\profile-image-manager\profile-image-manager.component.scss ---
+// Estilos específicos del componente si son necesarios
+
+
+--- END OF FILE: src\app\shared\components\profile-image-manager\profile-image-manager.component.scss ---
+
+
+--- START OF FILE: src\app\shared\components\profile-image-manager\profile-image-manager.component.ts ---
+import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { UsersService } from '../../../core/services/users.service';
+import { AuthService } from '../../../core/services/auth.service';
+import { TranslateModule } from '@ngx-translate/core';
+
+/**
+ * Componente para gestionar la imagen de perfil del usuario.
+ * Permite subir una nueva imagen o eliminar la existente.
+ */
+@Component({
+  selector: 'app-profile-image-manager',
+  standalone: true,
+  imports: [CommonModule, TranslateModule],
+  templateUrl: './profile-image-manager.component.html',
+  styleUrl: './profile-image-manager.component.scss'
+})
+export class ProfileImageManagerComponent {
+  private usersService = inject(UsersService);
+  private authService = inject(AuthService);
+
+  showMenu = signal(false);
+  isUploading = signal(false);
+  errorMessage = signal<string>('');
+
+  /**
+   * Maneja la selección de un archivo de imagen.
+   * Valida que sea una imagen y la sube a Cloudinary.
+   */
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    
+    if (!file) {
+      return;
+    }
+
+    if (!file.type.startsWith('image/')) {
+      this.errorMessage.set('Por favor, selecciona un archivo de imagen válido');
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      this.errorMessage.set('La imagen no debe superar los 5MB');
+      return;
+    }
+
+    this.uploadImage(file);
+    input.value = '';
+  }
+
+  /**
+   * Sube la imagen de perfil a Cloudinary.
+   * @param file - Archivo de imagen a subir
+   */
+  private uploadImage(file: File): void {
+    this.isUploading.set(true);
+    this.errorMessage.set('');
+    this.showMenu.set(false);
+
+    this.usersService.uploadProfileImage(file).subscribe({
+      next: (updatedUser) => {
+        this.isUploading.set(false);
+        this.authService.refreshUser();
+      },
+      error: (error) => {
+        this.isUploading.set(false);
+        this.errorMessage.set(error.error?.message || 'Error al subir la imagen');
+      }
+    });
+  }
+
+  /**
+   * Elimina la imagen de perfil del usuario.
+   */
+  deleteImage(): void {
+    if (!confirm('¿Estás seguro de que quieres eliminar tu imagen de perfil?')) {
+      return;
+    }
+
+    this.isUploading.set(true);
+    this.errorMessage.set('');
+    this.showMenu.set(false);
+
+    this.usersService.deleteProfileImage().subscribe({
+      next: (updatedUser) => {
+        this.isUploading.set(false);
+        this.authService.refreshUser();
+      },
+      error: (error) => {
+        this.isUploading.set(false);
+        this.errorMessage.set(error.error?.message || 'Error al eliminar la imagen');
+      }
+    });
+  }
+
+  /**
+   * Alterna la visibilidad del menú de gestión de imagen.
+   */
+  toggleMenu(): void {
+    this.showMenu.set(!this.showMenu());
+  }
+
+  /**
+   * Cierra el menú de gestión de imagen.
+   */
+  closeMenu(): void {
+    this.showMenu.set(false);
+  }
+}
+
+
+--- END OF FILE: src\app\shared\components\profile-image-manager\profile-image-manager.component.ts ---
 
 
 --- START OF FILE: src\app\shared\components\theme-toggle\theme-toggle.component.html ---
@@ -7593,6 +9449,11 @@ import { CommonModule } from '@angular/common';
 import { ThemeService } from '../../../core/services/theme.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
+/**
+ * Componente que permite alternar entre modo claro y oscuro.
+ * Muestra un botón con icono que cambia según el tema actual
+ * y proporciona etiquetas accesibles traducidas.
+ */
 @Component({
   selector: 'app-theme-toggle',
   standalone: true,
@@ -7607,18 +9468,28 @@ export class ThemeToggleComponent {
   theme = this.themeService.theme;
   isDark = this.themeService.isDark;
   
+  /**
+   * Computed signal que genera la etiqueta aria-label traducida
+   * según el tema actual para accesibilidad.
+   */
   ariaLabel = computed(() => 
     this.isDark() 
       ? this.translate.instant('theme.switchToLight')
       : this.translate.instant('theme.switchToDark')
   );
   
+  /**
+   * Computed signal que genera el título traducido del tema actual.
+   */
   title = computed(() => 
     this.isDark() 
       ? this.translate.instant('theme.dark')
       : this.translate.instant('theme.light')
   );
 
+  /**
+   * Alterna entre modo claro y oscuro llamando al servicio de tema.
+   */
   toggleTheme() {
     this.themeService.toggleTheme();
   }
@@ -7696,14 +9567,59 @@ export class ThemeToggleComponent {
     "membership": "Membership",
     "login": "Sign In"
   },
+  "classes": {
+    "title": "Gym Classes",
+    "subtitle": "Manage and discover all the group classes in your Meta Force centers.",
+    "newClass": "New class",
+    "editClass": "Edit class",
+    "deleteClass": "Delete class",
+    "backToDashboard": "Back to dashboard",
+    "name": "Name",
+    "description": "Description",
+    "filters": "Filters",
+    "hideFilters": "Hide filters",
+    "searchFilters": "Search filters",
+    "clearFilters": "Clear filters",
+    "searchByName": "Search by name",
+    "searchByDescription": "Search by description",
+    "showing": "Showing",
+    "of": "of",
+    "classes": "classes",
+    "loading": "Loading classes...",
+    "noClassesFound": "No classes match your filters.",
+    "noClassesAvailable": "There are no classes created yet.",
+    "createdAt": "Created at",
+    "saving": "Saving...",
+    "deleting": "Deleting...",
+    "confirmDelete": "Are you sure you want to delete the class",
+    "errors": {
+      "nameRequired": "The name of the class is required.",
+      "load": "Error loading classes.",
+      "save": "Error saving the class.",
+      "delete": "Error deleting the class."
+    }
+  },
+  "dashboard": {
+    "cards": {
+      "classes": {
+        "title": "Classes",
+        "description": "Manage all group classes for your Meta Force centers.",
+        "button": "Go to classes"
+      }
+    }
+  },
   "common": {
     "selectLanguage": "Select language",
     "loading": "Loading...",
     "error": "Error",
-    "success": "Success"
+    "success": "Success",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "close": "Close"
   }
 }
-
 
 --- END OF FILE: src\assets\i18n\en.json ---
 
@@ -7776,14 +9692,59 @@ export class ThemeToggleComponent {
     "membership": "Membresía",
     "login": "Iniciar sesión"
   },
+  "classes": {
+    "title": "Clases de gimnasio",
+    "subtitle": "Gestiona y descubre todas las clases grupales de tus centros Meta Force.",
+    "newClass": "Nueva clase",
+    "editClass": "Editar clase",
+    "deleteClass": "Eliminar clase",
+    "backToDashboard": "Volver al dashboard",
+    "name": "Nombre",
+    "description": "Descripción",
+    "filters": "Filtros",
+    "hideFilters": "Ocultar filtros",
+    "searchFilters": "Filtros de búsqueda",
+    "clearFilters": "Limpiar filtros",
+    "searchByName": "Buscar por nombre",
+    "searchByDescription": "Buscar por descripción",
+    "showing": "Mostrando",
+    "of": "de",
+    "classes": "clases",
+    "loading": "Cargando clases...",
+    "noClassesFound": "No hay clases que coincidan con tus filtros.",
+    "noClassesAvailable": "Aún no hay clases creadas.",
+    "createdAt": "Creada el",
+    "saving": "Guardando...",
+    "deleting": "Eliminando...",
+    "confirmDelete": "¿Seguro que quieres eliminar la clase",
+    "errors": {
+      "nameRequired": "El nombre de la clase es obligatorio.",
+      "load": "Error al cargar las clases.",
+      "save": "Error al guardar la clase.",
+      "delete": "Error al eliminar la clase."
+    }
+  },
+  "dashboard": {
+    "cards": {
+      "classes": {
+        "title": "Clases",
+        "description": "Gestiona todas las clases grupales de tus centros Meta Force.",
+        "button": "Ir a clases"
+      }
+    }
+  },
   "common": {
     "selectLanguage": "Seleccionar idioma",
     "loading": "Cargando...",
     "error": "Error",
-    "success": "Éxito"
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "save": "Guardar",
+    "close": "Cerrar"
   }
 }
-
 
 --- END OF FILE: src\assets\i18n\es.json ---
 
@@ -7856,14 +9817,59 @@ export class ThemeToggleComponent {
     "membership": "Adhésion",
     "login": "Se connecter"
   },
+  "classes": {
+    "title": "Cours de gym",
+    "subtitle": "Gérez et découvrez tous les cours collectifs de vos centres Meta Force.",
+    "newClass": "Nouveau cours",
+    "editClass": "Modifier le cours",
+    "deleteClass": "Supprimer le cours",
+    "backToDashboard": "Retour au tableau de bord",
+    "name": "Nom",
+    "description": "Description",
+    "filters": "Filtres",
+    "hideFilters": "Masquer les filtres",
+    "searchFilters": "Filtres de recherche",
+    "clearFilters": "Effacer les filtres",
+    "searchByName": "Rechercher par nom",
+    "searchByDescription": "Rechercher par description",
+    "showing": "Affichage de",
+    "of": "sur",
+    "classes": "cours",
+    "loading": "Chargement des cours...",
+    "noClassesFound": "Aucun cours ne correspond à vos filtres.",
+    "noClassesAvailable": "Aucun cours n'a encore été créé.",
+    "createdAt": "Créé le",
+    "saving": "Enregistrement...",
+    "deleting": "Suppression...",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer le cours",
+    "errors": {
+      "nameRequired": "Le nom du cours est obligatoire.",
+      "load": "Erreur lors du chargement des cours.",
+      "save": "Erreur lors de l'enregistrement du cours.",
+      "delete": "Erreur lors de la suppression du cours."
+    }
+  },
+  "dashboard": {
+    "cards": {
+      "classes": {
+        "title": "Cours",
+        "description": "Gérez tous les cours collectifs de vos centres Meta Force.",
+        "button": "Aller aux cours"
+      }
+    }
+  },
   "common": {
     "selectLanguage": "Sélectionner la langue",
     "loading": "Chargement...",
     "error": "Erreur",
-    "success": "Succès"
+    "success": "Succès",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "save": "Enregistrer",
+    "close": "Fermer"
   }
 }
-
 
 --- END OF FILE: src\assets\i18n\fr.json ---
 
@@ -7879,7 +9885,7 @@ export const environment = {
 --- START OF FILE: src\environments\environment.ts ---
 export const environment = {
     production: true,
-    apiUrl: 'https://api.midominio.com/api'
+    apiUrl: 'https://meta-force-back.onrender.com/api'
   };
 --- END OF FILE: src\environments\environment.ts ---
 
@@ -7889,7 +9895,7 @@ export const environment = {
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Credentials</title>
+  <title>Meta Force</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -7911,6 +9917,26 @@ bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
 
 --- END OF FILE: src\main.ts ---
+
+
+--- START OF FILE: src\styles\_variables 2.scss ---
+$color-primary: #2563eb;
+$color-secondary: #9333ea;
+$color-accent: #06b6d4;
+$color-purple: #7c3aed;
+$color-blue: #0ea5e9;
+$color-dark: #0f172a;
+$color-light: #f8fafc;
+$bg-gradient-blue-purple: linear-gradient(135deg, $color-secondary, $color-blue);
+
+:root {
+  --color-primary: #{$color-primary};
+  --color-secondary: #{$color-secondary};
+  --color-accent: #{$color-accent};
+}
+
+
+--- END OF FILE: src\styles\_variables 2.scss ---
 
 
 --- START OF FILE: src\styles\_variables.scss ---
@@ -8034,3 +10060,22 @@ module.exports = {
 }
 
 --- END OF FILE: tsconfig.spec.json ---
+
+
+--- START OF FILE: vercel.json ---
+{
+  "buildCommand": "npm run build -- --configuration production",
+  "outputDirectory": "dist/credentials/browser",
+  "devCommand": "npm run start",
+  "installCommand": "npm install",
+  "framework": "angular",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+
+
+--- END OF FILE: vercel.json ---

@@ -34,7 +34,6 @@ export class LoginComponent implements OnDestroy {
       'email':['', [Validators.required, Validators.email]],
       'password':['', [Validators.required]],
     });
-
     this.navigateTo = history.state?.['navigateTo'] || '/dashboard';
   }
 
@@ -71,6 +70,8 @@ export class LoginComponent implements OnDestroy {
           this.router.navigate([this.navigateTo]);
         },
         error: (err: Error) => {
+          // Si es un error 400 de validación, el mensaje específico viene en err.message
+          // Si es un 401 de credenciales inválidas, err.message lo contiene
           this.errorMsg.set(err.message);
         }
       });
@@ -98,7 +99,16 @@ export class LoginComponent implements OnDestroy {
    * Retorna cadena vacía si no hay errores o si el control no ha sido tocado.
    */
   getError(control:string): string {
-    if (control === 'global') return this.errorMsg();
+    // Si es un error global (del servidor: 400 o 401)
+    if (control === 'global') {
+      const msg = this.errorMsg();
+      // Si el backend retornó un mensaje específico de error de credenciales
+      if (msg && msg.includes('Credenciales inválidas')) {
+        return this.translate.instant('login.errors.invalidCredentials');
+      }
+      return msg;
+    }
+    
 
     const formControl = this.formLogin.get(control);
     if (!formControl || !formControl.touched || !formControl.errors) {
