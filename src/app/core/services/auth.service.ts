@@ -1,6 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, ReplaySubject, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { User } from '../models/user';
 import { AuthInput, RegisterInput, AuthResponse } from '../models/auth';
@@ -12,15 +12,20 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/auth`;
-  
   private _currentUser = signal<User | null>(null);
   
   public readonly currentUser = this._currentUser.asReadonly();
+  
+  private _initialLoadComplete = new ReplaySubject<boolean>(1);
+  public readonly initialLoadComplete = this._initialLoadComplete.asObservable();
+
 
   constructor() {
     const token = this.getToken();
     if (token) {
       this.loadUserProfile();
+    } else {
+      this._initialLoadComplete.next(true); 
     }
   }
 
@@ -48,9 +53,13 @@ export class AuthService {
    */
   private loadUserProfile() {
     this.http.get<User>(`${environment.apiUrl}/users/me`).pipe(
-      tap(user => this._currentUser.set(user)),
+      tap(user => {
+        this._currentUser.set(user);
+        this._initialLoadComplete.next(true); // Éxito: Carga inicial terminada
+      }),
       catchError(() => {
         this.logout();
+        this._initialLoadComplete.next(true); // Fallo: Carga inicial terminada (sesión inválida)
         return throwError(() => new Error('Sesión inválida'));
       })
     ).subscribe();
