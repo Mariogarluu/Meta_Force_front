@@ -10,6 +10,7 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 import { ProfileImageManagerComponent } from '../../shared/components/profile-image-manager/profile-image-manager.component';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
@@ -18,7 +19,7 @@ const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/up
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent, ProfileImageManagerComponent],
+  imports: [CommonModule, FormsModule, RouterModule, TranslateModule, ProfileImageManagerComponent, NavbarComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -85,6 +86,7 @@ export class DashboardComponent {
       this.showNotifications.set(false);
     }
   }
+
 
   markAllRead() {
     this.notificationService.markAllAsRead();
@@ -162,6 +164,46 @@ export class DashboardComponent {
    */
   getProfileImageUrl(profileImageUrl: string | null | undefined): string {
     return profileImageUrl ? profileImageUrl : DEFAULT_PROFILE_IMAGE_URL;
+  }
+
+  /**
+   * Abre el selector de archivos para cambiar la imagen de perfil.
+   * Se activa al hacer clic en el avatar.
+   */
+  triggerProfileImageUpload(): void {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (event: any) => {
+      const file = event.target.files?.[0];
+      if (file) {
+        if (!file.type.startsWith('image/')) {
+          alert('Por favor, selecciona un archivo de imagen válido');
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          alert('La imagen no debe superar los 5MB');
+          return;
+        }
+        this.uploadProfileImage(file);
+      }
+    };
+    input.click();
+  }
+
+  /**
+   * Sube la imagen de perfil a Cloudinary.
+   */
+  private uploadProfileImage(file: File): void {
+    this.usersService.uploadProfileImage(file).subscribe({
+      next: () => {
+        // Refrescar el usuario actual para que la imagen se actualice
+        this.auth.refreshUser();
+      },
+      error: (error) => {
+        alert(error.error?.message || 'Error al subir la imagen');
+      }
+    });
   }
   
   /**

@@ -72,6 +72,7 @@ export class ProfileImageManagerComponent {
 
   /**
    * Elimina la imagen de perfil del usuario.
+   * Después de eliminar, permite seleccionar una nueva imagen.
    */
   deleteImage(): void {
     if (!confirm('¿Estás seguro de que quieres eliminar tu imagen de perfil?')) {
@@ -86,12 +87,40 @@ export class ProfileImageManagerComponent {
       next: (updatedUser) => {
         this.isUploading.set(false);
         this.authService.refreshUser();
+        // Después de eliminar, abrir automáticamente el selector para subir una nueva imagen
+        setTimeout(() => {
+          this.triggerFileInput();
+        }, 300);
       },
       error: (error) => {
         this.isUploading.set(false);
         this.errorMessage.set(error.error?.message || 'Error al eliminar la imagen');
       }
     });
+  }
+
+  /**
+   * Activa el input de archivo para seleccionar una nueva imagen.
+   */
+  triggerFileInput(): void {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (event: any) => {
+      const file = event.target.files?.[0];
+      if (file) {
+        if (!file.type.startsWith('image/')) {
+          this.errorMessage.set('Por favor, selecciona un archivo de imagen válido');
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          this.errorMessage.set('La imagen no debe superar los 5MB');
+          return;
+        }
+        this.uploadImage(file);
+      }
+    };
+    input.click();
   }
 
   /**
