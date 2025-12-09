@@ -63,7 +63,9 @@
     "classes": "Classes",
     "trainers": "Trainers",
     "membership": "Membership",
-    "login": "Sign In"
+    "centers": "Centers",
+    "login": "Sign In",
+    "register": "Sign Up"
   },
   "classes": {
     "title": "Gym Classes",
@@ -98,12 +100,82 @@
     }
   },
   "dashboard": {
+    "title": "Dashboard",
+    "loading": "Loading...",
+    "logout": "Logout",
+    "roles": {
+      "SUPERADMIN": "Super Administrator",
+      "ADMIN_CENTER": "Center Administrator",
+      "TRAINER": "Trainer",
+      "CLEANER": "Cleaner",
+      "USER": "User"
+    },
     "cards": {
       "classes": {
         "title": "Classes",
         "description": "Manage all group classes for your Meta Force centers.",
         "button": "Go to classes"
+      },
+      "centers": {
+        "title": "Centers",
+        "description": "Manage all Meta Force centers.",
+        "button": "Go to centers"
+      },
+      "machines": {
+        "title": "Machines",
+        "description": "Manage all machines in your centers.",
+        "button": "Go to machines"
+      },
+      "users": {
+        "title": "Users",
+        "description": "Manage all system users.",
+        "button": "Go to users"
+      },
+      "myCenter": {
+        "title": "My Center",
+        "description": "Manage your center information.",
+        "button": "View center"
+      },
+      "employees": {
+        "title": "Employees",
+        "description": "Manage your center employees.",
+        "button": "View employees"
+      },
+      "statistics": {
+        "title": "Statistics",
+        "description": "View your center statistics.",
+        "button": "View statistics"
+      },
+      "myQR": {
+        "title": "My QR",
+        "description": "Access your personal QR code.",
+        "button": "View my QR"
+      },
+      "myProfile": {
+        "title": "My Profile",
+        "description": "Manage your personal information.",
+        "button": "View profile"
+      },
+      "myClasses": {
+        "title": "My Classes",
+        "description": "Manage your classes as trainer.",
+        "button": "View my classes"
       }
+    },
+    "userInfo": {
+      "title": "User Information",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "center": "Center",
+      "registrationDate": "Registration Date"
+    },
+    "roleEditor": {
+      "title": "Change Role",
+      "selectRole": "Select a role",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
     }
   },
   "common": {
