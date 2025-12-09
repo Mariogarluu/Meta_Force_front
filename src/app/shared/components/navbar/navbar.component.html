@@ -10,7 +10,9 @@
           [routerLink]="link.path"
           routerLinkActive="active"
           class="navbar__link">
-          {{ (link.key | translate) || link.label }}
+     
+         {{ (link.key | translate) ||
+          link.label }}
         </a>
       }
     </nav>
@@ -22,10 +24,15 @@
       </div>
 
       @if (!auth.currentUser()) {
-        <a routerLink="/login" class="navbar__login">{{ ('nav.login' | translate) || 'Iniciar sesión' }}</a>
+        <a routerLink="/login" class="navbar__login">{{ ('nav.login' | translate) ||
+          'Iniciar sesión' }}</a>
       } @else {
         <a routerLink="/dashboard" class="navbar__icon-btn" aria-label="Perfil">
-          <span>👤</span>
+          <img 
+            [src]="getProfileImageUrl(auth.currentUser()!.profileImageUrl)" 
+            [alt]="auth.currentUser()!.name" 
+            class="w-full h-full object-cover rounded-full"
+          />
         </a>
       }
     </div>
