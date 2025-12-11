@@ -25,7 +25,7 @@ export class NavbarComponent {
   readonly navLinks = [
     { label: 'Inicio', path: '/', key: 'nav.home', exact: true },
     { label: 'Clases', path: '/clases', key: 'nav.classes', exact: false }, 
-    { label: 'Entrenadores', path: '/users', key: 'nav.trainers', exact: false },
+    { label: 'Entrenadores', path: '/trainers', key: 'nav.trainers', exact: false },
     { label: 'Centros', path: '/centers', key: 'nav.centers', exact: false }
   ];
 

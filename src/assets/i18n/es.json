@@ -178,6 +178,18 @@
       "saving": "Guardando..."
     }
   },
+  "trainers": {
+    "title": "Entrenadores",
+    "selectCenter": "Seleccionar Centro",
+    "showingTrainersFrom": "Mostrando entrenadores de",
+    "noTrainersFound": "No se encontraron entrenadores en este centro.",
+    "favorite": "Favorito",
+    "noCenter": "Sin centro",
+    "centerNotFound": "Centro no encontrado",
+    "errors": {
+      "load": "Error al cargar los entrenadores."
+    }
+  },
   "common": {
     "selectLanguage": "Seleccionar idioma",
     "loading": "Cargando...",
