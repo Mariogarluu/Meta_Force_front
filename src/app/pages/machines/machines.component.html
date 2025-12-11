@@ -1,28 +1,15 @@
 <div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
-  <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <div class="flex justify-between items-center">
-        <div>
-          <h1 class="text-2xl font-bold text-blue-900 dark:text-white">{{ 'machines.title' | translate }}</h1>
-          <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">{{ 'machines.subtitle' | translate }}</p>
-        </div>
-        <div class="flex items-center gap-4">
-          <app-language-selector></app-language-selector>
-          <app-theme-toggle></app-theme-toggle>
-          <button 
-            (click)="openCreateModal()"
-            class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium flex items-center gap-2 shadow-sm">
-            <span>+</span> {{ 'machines.newMachine' | translate }}
-          </button>
-          <a routerLink="/dashboard" class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
-            {{ 'machines.back' | translate }}
-          </a>
-        </div>
-      </div>
-    </div>
-  </header>
+  <app-navbar></app-navbar>
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Botón para crear nueva máquina -->
+    <div class="mb-4 flex justify-end">
+      <button 
+        (click)="openCreateModal()"
+        class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium flex items-center gap-2 shadow-sm">
+        <span>+</span> {{ 'machines.newMachine' | translate }}
+      </button>
+    </div>
     
     <div class="mb-4 flex items-center justify-between">
       <button 

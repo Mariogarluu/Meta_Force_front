@@ -7,9 +7,7 @@ import { CentersService } from '../../core/services/centers.service';
 import { AuthService } from '../../core/services/auth.service';
 import { User } from '../../core/models/user';
 import { Center } from '../../core/models/center';
-import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
 const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
@@ -21,9 +19,7 @@ const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/up
     CommonModule,
     FormsModule,
     RouterModule,
-    ThemeToggleComponent,
     TranslateModule,
-    LanguageSelectorComponent,
     NavbarComponent
   ],
   templateUrl: './trainers.component.html',
@@ -51,7 +47,7 @@ export class TrainersComponent implements OnInit {
     let filtered = this.trainers();
     const centerId = this.selectedCenterId();
 
-    // Filtrar por centro seleccionado usando solo favoriteCenterId del entrenador
+    // Filtrar por centro seleccionado usando favoriteCenterId del entrenador (centro donde trabaja)
     if (centerId) {
       filtered = filtered.filter(trainer => 
         trainer.favoriteCenterId === centerId ||
@@ -59,20 +55,18 @@ export class TrainersComponent implements OnInit {
       );
     }
 
-    // Ordenar: primero los del centro favorito del usuario, luego el resto
-    const userFavoriteCenterId = this.currentUser()?.favoriteCenterId;
-    if (userFavoriteCenterId) {
-      filtered.sort((a, b) => {
-        const aIsFavorite = a.favoriteCenterId === userFavoriteCenterId || 
-                           a.favoriteCenter?.id === userFavoriteCenterId;
-        const bIsFavorite = b.favoriteCenterId === userFavoriteCenterId || 
-                           b.favoriteCenter?.id === userFavoriteCenterId;
-        
-        if (aIsFavorite && !bIsFavorite) return -1;
-        if (!aIsFavorite && bIsFavorite) return 1;
-        return 0;
-      });
-    }
+    // Ordenar: primero los que tienen centerId activo (están en el gimnasio), luego por nombre
+    filtered.sort((a, b) => {
+      // Primero: los que tienen centerId activo (están físicamente en el centro)
+      const aIsActive = !!(a.centerId || a.center?.id);
+      const bIsActive = !!(b.centerId || b.center?.id);
+      
+      if (aIsActive && !bIsActive) return -1;
+      if (!aIsActive && bIsActive) return 1;
+      
+      // Si ambos tienen el mismo estado de actividad, ordenar por nombre
+      return a.name.localeCompare(b.name);
+    });
 
     return filtered;
   });
@@ -86,13 +80,10 @@ export class TrainersComponent implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set('');
     
-    this.usersService.listUsers().subscribe({
+    this.usersService.listTrainers().subscribe({
       next: (data) => {
-        // Filtrar solo entrenadores activos
-        const trainers = data.filter(user => 
-          user.role === 'TRAINER' && user.status === 'ACTIVE'
-        );
-        this.trainers.set(trainers);
+        // Los datos ya vienen filtrados como entrenadores activos desde el backend
+        this.trainers.set(data);
         
         // Si el usuario tiene un centro favorito, seleccionarlo por defecto
         const userFavoriteCenterId = this.currentUser()?.favoriteCenterId;
@@ -116,7 +107,8 @@ export class TrainersComponent implements OnInit {
   }
 
   loadCenters() {
-    this.centersService.listCenters().subscribe({
+    // Usar listCentersWithIds para obtener todos los centros con IDs
+    this.centersService.listCentersWithIds().subscribe({
       next: (data) => {
         this.centers.set(data);
         
@@ -135,6 +127,7 @@ export class TrainersComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al cargar centros:', error);
+        this.errorMessage.set(this.translate.instant('trainers.errors.loadCenters') || 'Error al cargar los centros');
       }
     });
   }

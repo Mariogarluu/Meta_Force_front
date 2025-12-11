@@ -7,14 +7,13 @@ import { CentersService } from '../../core/services/centers.service';
 import { AuthService } from '../../core/services/auth.service';
 import { CreateMachineInput, Machine, MachineStatus, MachineType, UpdateMachineInput } from '../../core/models/machine';
 import { Center } from '../../core/models/center';
-import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-machines',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent], 
+  imports: [CommonModule, FormsModule, RouterModule, TranslateModule, NavbarComponent], 
   templateUrl: './machines.component.html',
   styleUrl: './machines.component.scss'
 })
