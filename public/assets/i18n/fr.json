@@ -50,8 +50,7 @@
     "emailPlaceholder": "votre@email",
     "passwordPlaceholder": "Votre mot de passe",
     "loginButton": "Se connecter",
-    "noAccount": "Vous n'avez pas de compte ?",
-    "createAccount": "Créer un compte",
+    "registerLink": "Vous n'avez pas de compte ? Inscrivez-vous",
     "errors": {
       "emailRequired": "Le champ email est obligatoire",
       "passwordRequired": "Le champ mot de passe est obligatoire",
@@ -86,7 +85,7 @@
     "title": "Tableau de Bord Meta Force",
     "editRole": "Modifier le Rôle",
     "logout": "Se déconnecter",
-    "welcome": "Bienvenue, {{name}} ! 👋",
+    "welcome": "Bienvenue, {{name}} !",
     "loggedInAs": "Vous êtes connecté en tant que",
     "at": "à",
     "loading": "Chargement des informations utilisateur...",
@@ -185,7 +184,9 @@
     "classes": "Cours",
     "trainers": "Entraîneurs",
     "membership": "Adhésion",
-    "login": "Se connecter"
+    "centers": "Centres",
+    "login": "Se connecter",
+    "register": "S'inscrire"
   },
   "classes": {
     "title": "Cours de gym",
