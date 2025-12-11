@@ -123,7 +123,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
       }
     } catch (error) {
       console.error('Error cargando centros:', error);
-      this.scanError.set('Error al cargar los centros');
+      this.scanError.set(this.translate.instant('qrScanner.errors.loadCenters'));
     }
   }
 
@@ -146,7 +146,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
    */
   async startScanning() {
     if (!this.selectedCenterId()) {
-      this.scanError.set('Por favor, selecciona un centro primero');
+      this.scanError.set(this.translate.instant('qrScanner.errors.selectCenter'));
       return;
     }
 
@@ -170,7 +170,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
       );
     } catch (error: any) {
       console.error('Error iniciando escáner:', error);
-      this.scanError.set('Error al acceder a la cámara. Asegúrate de dar permisos.');
+      this.scanError.set(this.translate.instant('qrScanner.errors.cameraAccess'));
       this.isScanning.set(false);
     }
   }

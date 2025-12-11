@@ -1,23 +1,8 @@
 <div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
   <app-navbar></app-navbar>
 
-  <!-- Header -->
-  <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <div class="flex justify-between items-center flex-wrap gap-4">
-        <div class="flex items-center gap-4">
-          <h1 class="text-2xl font-bold text-blue-900 dark:text-white">{{ 'trainers.title' | translate }}</h1>
-        </div>
-        <div class="flex items-center gap-4">
-          <app-language-selector></app-language-selector>
-          <app-theme-toggle></app-theme-toggle>
-        </div>
-      </div>
-    </div>
-  </header>
-
   <!-- Main Content -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pt-8">
     @if(errorMessage()) {
       <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400">
         {{ errorMessage() }}
@@ -25,24 +10,32 @@
     }
 
     <!-- Selector de Centro -->
-    <div class="mb-6 bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm">
-      <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
-        {{ 'trainers.selectCenter' | translate }}
-      </label>
-      <select 
-        [ngModel]="selectedCenterId()"
-        (ngModelChange)="onCenterChange($event)"
-        class="w-full md:w-auto px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
-        @for(center of centers(); track center.id) {
-          <option [value]="center.id">{{ center.name }}</option>
+    @if(centers().length > 0) {
+      <div class="mb-6 bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm">
+        <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+          {{ 'trainers.selectCenter' | translate }}
+        </label>
+        <select 
+          [ngModel]="selectedCenterId()"
+          (ngModelChange)="onCenterChange($event)"
+          class="w-full md:w-auto px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          @for(center of centers(); track center.id) {
+            <option [value]="center.id">{{ center.name }}</option>
+          }
+        </select>
+        @if(selectedCenterId()) {
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            {{ 'trainers.showingTrainersFrom' | translate }}: <span class="font-semibold">{{ getCenterName(selectedCenterId()) }}</span>
+          </p>
         }
-      </select>
-      @if(selectedCenterId()) {
-        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-          {{ 'trainers.showingTrainersFrom' | translate }}: <span class="font-semibold">{{ getCenterName(selectedCenterId()) }}</span>
+      </div>
+    } @else if(!isLoading()) {
+      <div class="mb-6 bg-yellow-100 dark:bg-yellow-900/20 rounded-xl p-6 border border-yellow-300 dark:border-yellow-700 shadow-sm">
+        <p class="text-yellow-800 dark:text-yellow-300 text-sm">
+          {{ 'trainers.noCentersAvailable' | translate }}
         </p>
-      }
-    </div>
+      </div>
+    }
 
     @if(isLoading() && trainers().length === 0) {
       <div class="flex items-center justify-center py-12">
@@ -72,9 +65,19 @@
                 </div>
                 
                 <!-- Nombre del entrenador -->
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">
-                  {{ trainer.name }}
-                </h3>
+                <div class="flex items-center justify-center gap-2 mb-2">
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    {{ trainer.name }}
+                  </h3>
+                  <!-- Tick verde si está activo en el centro (tiene centerId) -->
+                  @if(trainer.centerId || trainer.center?.id) {
+                    <div class="flex items-center" title="{{ 'trainers.activeInCenter' | translate }}">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 text-green-500">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                    </div>
+                  }
+                </div>
 
                 <!-- Indicador de favorito si es del centro favorito del usuario -->
                 @if(currentUser()?.favoriteCenterId && 
