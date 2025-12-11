@@ -49,135 +49,13 @@
     "password": "Contraseña",
     "emailPlaceholder": "tu@email",
     "passwordPlaceholder": "Tu contraseña",
-    "loginButton": "Acceder",
-    "noAccount": "¿No tienes cuenta?",
-    "createAccount": "Crear cuenta",
+    "loginButton": "Iniciar Sesión",
+    "registerLink": "¿No tienes cuenta? Regístrate",
     "errors": {
-      "emailRequired": "El campo email es requerido",
-      "passwordRequired": "El campo contraseña es requerido",
-      "emailInvalid": "El formato de email no es correcto",
+      "emailRequired": "El email es obligatorio",
+      "emailInvalid": "El email no es válido",
+      "passwordRequired": "La contraseña es obligatoria",
       "invalidCredentials": "Credenciales inválidas"
-    }
-  },
-  "register": {
-    "title": "Crear Cuenta",
-    "subtitle": "Únete a Meta Force",
-    "name": "Nombre",
-    "email": "Email",
-    "password": "Contraseña",
-    "confirmPassword": "Confirmar Contraseña",
-    "namePlaceholder": "Tu nombre",
-    "emailPlaceholder": "tu@email",
-    "passwordPlaceholder": "Tu contraseña",
-    "confirmPasswordPlaceholder": "Confirma tu contraseña",
-    "registerButton": "Registrar",
-    "errors": {
-      "nameRequired": "El campo nombre es requerido",
-      "emailRequired": "El campo email es requerido",
-      "passwordRequired": "El campo password es requerido",
-      "confirmPasswordRequired": "El campo confirmar contraseña es requerido",
-      "emailInvalid": "El formato de email no es correcto",
-      "passwordMinLength": "Debe tener al menos {{min}} caracteres",
-      "passwordPattern": "Al menos una mayúscula, una minúscula, un número y 8 caracteres",
-      "passwordsDoNotMatch": "Las contraseñas no coinciden"
-    }
-  },
-  "dashboard": {
-    "title": "Meta Force Dashboard",
-    "editRole": "Editar Rol",
-    "logout": "Cerrar Sesión",
-    "welcome": "¡Bienvenido, {{name}}! 👋",
-    "loggedInAs": "Has iniciado sesión como",
-    "at": "en",
-    "loading": "Cargando información del usuario...",
-    "roles": {
-      "SUPERADMIN": "Super Administrador",
-      "ADMIN_CENTER": "Administrador de Centro",
-      "TRAINER": "Entrenador",
-      "CLEANER": "Personal de Limpieza",
-      "USER": "Usuario"
-    },
-    "cards": {
-      "globalAdmin": {
-        "title": "Administración Global",
-        "description": "Gestiona todos los centros, usuarios y configuraciones del sistema.",
-        "features": {
-          "access": "Acceso completo a todos los centros",
-          "users": "Gestión de usuarios y roles",
-          "config": "Configuración del sistema",
-          "reports": "Reportes y estadísticas"
-        }
-      },
-      "centers": {
-        "title": "Gestión de Centros",
-        "description": "Crea, edita y elimina centros de entrenamiento.",
-        "button": "Gestionar Centros"
-      },
-      "machines": {
-        "title": "Gestión de Máquinas",
-        "description": "Administra el inventario de máquinas de todos los centros.",
-        "button": "Gestionar Máquinas"
-      },
-      "users": {
-        "title": "Gestión de Usuarios",
-        "description": "Administra todos los usuarios y valida cuentas pendientes.",
-        "button": "Gestionar Usuarios"
-      },
-      "myQR": {
-        "title": "Mi Código QR",
-        "description": "Accede al gimnasio con tu código QR personal.",
-        "button": "Ver Mi QR"
-      },
-      "qrScanner": {
-        "title": "Escáner QR",
-        "description": "Registra entradas y salidas escaneando códigos QR.",
-        "button": "Abrir Escáner"
-      },
-      "myCenter": {
-        "title": "Mi Centro",
-        "description": "Visualiza la información de tu centro.",
-        "button": "Ver Centro"
-      },
-      "employees": {
-        "title": "Empleados",
-        "description": "Administra los empleados de tu centro.",
-        "button": "Gestionar Empleados"
-      },
-      "statistics": {
-        "title": "Estadísticas",
-        "description": "Visualiza las estadísticas de tu centro.",
-        "button": "Ver Estadísticas"
-      },
-      "myProfile": {
-        "title": "Mi Perfil",
-        "description": "Gestiona tu información personal.",
-        "button": "Editar Perfil"
-      },
-      "myClasses": {
-        "title": "Mis Clases",
-        "description": "Gestiona tus clases y horarios.",
-        "button": "Ver Clases"
-      },
-      "classes": {
-        "title": "Clases",
-        "description": "Gestiona todas las clases grupales de tus centros Meta Force.",
-        "button": "Ir a clases"
-      }
-    },
-    "userInfo": {
-      "title": "Información del Usuario",
-      "name": "Nombre",
-      "email": "Email",
-      "role": "Rol",
-      "center": "Centro",
-      "registrationDate": "Fecha de registro"
-    },
-    "roleEditor": {
-      "title": "Cambiar Rol",
-      "selectRole": "Selecciona un rol",
-      "cancel": "Cancelar",
-      "save": "Guardar Cambios",
-      "saving": "Guardando..."
     }
   },
   "nav": {
@@ -185,7 +63,9 @@
     "classes": "Clases",
     "trainers": "Entrenadores",
     "membership": "Membresía",
-    "login": "Iniciar sesión"
+    "centers": "Centros",
+    "login": "Iniciar sesión",
+    "register": "Registrarse"
   },
   "classes": {
     "title": "Clases de gimnasio",
@@ -218,6 +98,102 @@
       "save": "Error al guardar la clase.",
       "delete": "Error al eliminar la clase."
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "loading": "Cargando...",
+    "logout": "Cerrar sesión",
+    "roles": {
+      "SUPERADMIN": "Super Administrador",
+      "ADMIN_CENTER": "Administrador de Centro",
+      "TRAINER": "Entrenador",
+      "CLEANER": "Limpieza",
+      "USER": "Usuario"
+    },
+    "cards": {
+      "classes": {
+        "title": "Clases",
+        "description": "Gestiona todas las clases grupales de tus centros Meta Force.",
+        "button": "Ir a clases"
+      },
+      "centers": {
+        "title": "Centros",
+        "description": "Gestiona todos los centros Meta Force.",
+        "button": "Ir a centros"
+      },
+      "machines": {
+        "title": "Máquinas",
+        "description": "Gestiona todas las máquinas de tus centros.",
+        "button": "Ir a máquinas"
+      },
+      "users": {
+        "title": "Usuarios",
+        "description": "Gestiona todos los usuarios del sistema.",
+        "button": "Ir a usuarios"
+      },
+      "myCenter": {
+        "title": "Mi Centro",
+        "description": "Gestiona la información de tu centro.",
+        "button": "Ver centro"
+      },
+      "employees": {
+        "title": "Empleados",
+        "description": "Gestiona los empleados de tu centro.",
+        "button": "Ver empleados"
+      },
+      "statistics": {
+        "title": "Estadísticas",
+        "description": "Visualiza las estadísticas de tu centro.",
+        "button": "Ver estadísticas"
+      },
+      "myQR": {
+        "title": "Mi QR",
+        "description": "Accede a tu código QR personal.",
+        "button": "Ver mi QR"
+      },
+      "myProfile": {
+        "title": "Mi Perfil",
+        "description": "Gestiona tu información personal.",
+        "button": "Ver perfil"
+      },
+      "myClasses": {
+        "title": "Mis Clases",
+        "description": "Gestiona tus clases como entrenador.",
+        "button": "Ver mis clases"
+      }
+    },
+    "userInfo": {
+      "title": "Información del Usuario",
+      "name": "Nombre",
+      "email": "Email",
+      "role": "Rol",
+      "center": "Centro",
+      "registrationDate": "Fecha de Registro"
+    },
+    "roleEditor": {
+      "title": "Cambiar Rol",
+      "selectRole": "Selecciona un rol",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saving": "Guardando..."
+    }
+  },
+  "common": {
+    "selectLanguage": "Seleccionar idioma",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "save": "Guardar",
+    "close": "Cerrar"
+  },
+  "profileImage": {
+    "manage": "Gestionar imagen",
+    "upload": "Subir imagen",
+    "delete": "Eliminar imagen",
+    "uploading": "Subiendo imagen..."
   },
   "qrScanner": {
     "title": "Registro de Entrada/Salida",
@@ -330,7 +306,14 @@
       "nameRequired": "El nombre del centro es obligatorio"
     },
     "deleting": "Eliminando...",
-    "selectCenter": "Selecciona un centro"
+    "selectCenter": "Selecciona un centro",
+    "noCentersFound": "No se encontraron centros con los filtros aplicados",
+    "noCentersAvailable": "No hay centros disponibles",
+    "loading": "Cargando centros...",
+    "createdAt": "Fecha de Creación",
+    "showing": "Mostrando",
+    "of": "de",
+    "centers": "centros"
   },
   "machines": {
     "title": "Gestión de Máquinas",
@@ -377,21 +360,27 @@
     "of": "de",
     "machines": "máquinas"
   },
-  "common": {
-    "selectLanguage": "Seleccionar idioma",
-    "loading": "Cargando...",
-    "error": "Error",
-    "success": "Éxito",
-    "edit": "Editar",
-    "delete": "Eliminar",
-    "save": "Guardar",
-    "cancel": "Cancelar",
-    "close": "Cerrar"
-  },
-  "profileImage": {
-    "manage": "Gestionar imagen",
-    "upload": "Subir imagen",
-    "delete": "Eliminar imagen",
-    "uploading": "Subiendo imagen..."
+  "register": {
+    "title": "Crear Cuenta",
+    "subtitle": "Únete a Meta Force",
+    "name": "Nombre",
+    "email": "Email",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "namePlaceholder": "Tu nombre",
+    "emailPlaceholder": "tu@email",
+    "passwordPlaceholder": "Tu contraseña",
+    "confirmPasswordPlaceholder": "Confirma tu contraseña",
+    "registerButton": "Registrar",
+    "errors": {
+      "nameRequired": "El campo nombre es requerido",
+      "emailRequired": "El campo email es requerido",
+      "passwordRequired": "El campo password es requerido",
+      "confirmPasswordRequired": "El campo confirmar contraseña es requerido",
+      "emailInvalid": "El formato de email no es correcto",
+      "passwordMinLength": "Debe tener al menos {{min}} caracteres",
+      "passwordPattern": "Al menos una mayúscula, una minúscula, un número y 8 caracteres",
+      "passwordsDoNotMatch": "Las contraseñas no coinciden"
+    }
   }
 }

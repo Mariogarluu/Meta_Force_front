@@ -4,7 +4,6 @@
       <img src="/Logo.png" alt="Meta Force" class="navbar__logo" />
     </a>
 
-    <!-- Botón hamburguesa para móvil -->
     <button 
       class="navbar__hamburger"
       (click)="toggleMobileMenu()"
@@ -16,7 +15,6 @@
       <span class="navbar__hamburger-line" [class.active]="isMobileMenuOpen()"></span>
     </button>
 
-    <!-- Menú de escritorio -->
     <nav class="navbar__menu">
       @for (link of navLinks; track link.path) {
         <a
@@ -25,7 +23,6 @@
           routerLinkActive="active"
           class="navbar__link"
           (click)="closeMobileMenu()">
-     
          {{ (link.key | translate) || link.label }}
         </a>
       }
@@ -33,7 +30,108 @@
 
     <div class="navbar__actions flex items-center gap-3">
       <div class="flex items-center gap-2">
+        
         <app-language-selector></app-language-selector>
+
+        @if (auth.currentUser()) {
+          <div class="relative">
+            <button 
+              type="button" 
+              class="notification-btn p-2 rounded-lg transition-colors bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 relative flex items-center justify-center" 
+              (click)="toggleNotifications()"
+              aria-label="Notificaciones">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+              </svg>
+              
+              @if (notificationService.unreadCount() > 0) {
+                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] flex justify-center items-center animate-pulse shadow-sm border-2 border-white dark:border-gray-800">
+                {{ notificationService.unreadCount() > 9 ? '9+' : notificationService.unreadCount() }}
+                </span>
+              }
+            </button>
+      
+            @if (showNotifications()) {
+              <div class="notification-dropdown absolute right-0 mt-2 w-80 sm:w-96 max-w-[90vw] bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 origin-top-right">
+                
+                <div class="p-3 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">
+                  <h3 class="font-bold text-gray-800 dark:text-white text-sm">Notificaciones</h3>
+                  @if (notificationService.unreadCount() > 0) {
+                    <button (click)="markAllRead()" class="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                      Marcar todas leídas
+                    </button>
+                  }
+                </div>
+      
+                <div class="max-h-[400px] overflow-y-auto bg-white dark:bg-gray-800">
+                  @if (notificationService.notifications().length === 0) {
+                    <div class="p-8 text-center text-gray-500 dark:text-gray-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto mb-2 opacity-50">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.143 17.082a24.248 24.248 0 0 0 3.844.148m-3.844-.148a23.856 23.856 0 0 1-5.455-1.31 8.964 8.964 0 0 0 2.3-6.062m3.155 6.062a23.789 23.789 0 0 1-5.455 1.31 8.99 8.99 0 0 0 2.3 6.062M15 9.75a3 3 0 1 1-6 0m6 0a3 3 0 1 0-6 0m6 0v.75A6 6 0 0 1 9.75 15v.75M15 9.75v.75m0 0v.75A6 6 0 0 1 9.75 15m5.25 0v.75a6 6 0 0 1-5.25 5.5v-.75" />
+                      </svg>
+                      <p class="text-sm">No tienes notificaciones</p>
+                    </div>
+                  }
+      
+                  @for (notification of notificationService.notifications(); track notification.id) {
+                    <div 
+                      (click)="handleNotificationClick(notification)"
+                      class="p-4 border-b border-gray-100 dark:border-gray-700 transition-colors cursor-pointer relative group flex gap-3"
+                      [class.bg-blue-50]="!notification.read"
+                      [class.dark:bg-gray-700]="!notification.read" 
+                      [class.bg-white]="notification.read"
+                      [class.dark:bg-gray-800]="notification.read"
+                      [class.hover:bg-gray-100]="true"
+                      [class.dark:hover:bg-gray-600]="true">
+                      
+                      <div class="mt-1 flex-shrink-0">
+                        @switch (notification.type) {
+                          @case ('WARNING') { 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-amber-500">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                            </svg>
+                          }
+                          @case ('SUCCESS') { 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-500">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                          }
+                          @case ('ERROR') { 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-red-500">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                          }
+                          @default { 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-blue-500">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                            </svg>
+                          }
+                        }
+                      </div>
+            
+                      <div class="flex-1">
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white mb-0.5">
+                          {{ notification.title }}
+                        </p>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                          {{ notification.message }}
+                        </p>
+                        <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-2 font-medium">
+                          {{ notification.createdAt | date:'dd MMM, HH:mm' }}
+                        </p>
+                      </div>
+      
+                      @if (!notification.read) {
+                        <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        }
+
         <app-theme-toggle></app-theme-toggle>
       </div>
 
@@ -74,7 +172,6 @@
     </div>
   </div>
 
-  <!-- Menú móvil -->
   @if (isMobileMenuOpen()) {
     <div class="navbar__mobile-menu" id="mobile-menu">
       <nav class="navbar__mobile-nav">
