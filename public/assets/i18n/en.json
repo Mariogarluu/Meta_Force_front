@@ -50,134 +50,12 @@
     "emailPlaceholder": "your@email",
     "passwordPlaceholder": "Your password",
     "loginButton": "Sign In",
-    "noAccount": "Don't have an account?",
-    "createAccount": "Create account",
+    "registerLink": "Don't have an account? Sign up",
     "errors": {
-      "emailRequired": "Email field is required",
-      "passwordRequired": "Password field is required",
-      "emailInvalid": "Email format is not correct",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Email is invalid",
+      "passwordRequired": "Password is required",
       "invalidCredentials": "Invalid credentials"
-    }
-  },
-  "register": {
-    "title": "Create Account",
-    "subtitle": "Join Meta Force",
-    "name": "Name",
-    "email": "Email",
-    "password": "Password",
-    "confirmPassword": "Confirm Password",
-    "namePlaceholder": "Your name",
-    "emailPlaceholder": "your@email",
-    "passwordPlaceholder": "Your password",
-    "confirmPasswordPlaceholder": "Confirm your password",
-    "registerButton": "Register",
-    "errors": {
-      "nameRequired": "Name field is required",
-      "emailRequired": "Email field is required",
-      "passwordRequired": "Password field is required",
-      "confirmPasswordRequired": "Confirm password field is required",
-      "emailInvalid": "Email format is not correct",
-      "passwordMinLength": "Must have at least {{min}} characters",
-      "passwordPattern": "At least one uppercase, one lowercase, one number and 8 characters",
-      "passwordsDoNotMatch": "Passwords do not match"
-    }
-  },
-  "dashboard": {
-    "title": "Meta Force Dashboard",
-    "editRole": "Edit Role",
-    "logout": "Sign Out",
-    "welcome": "Welcome, {{name}}! 👋",
-    "loggedInAs": "You are logged in as",
-    "at": "at",
-    "loading": "Loading user information...",
-    "roles": {
-      "SUPERADMIN": "Super Administrator",
-      "ADMIN_CENTER": "Center Administrator",
-      "TRAINER": "Trainer",
-      "CLEANER": "Cleaning Staff",
-      "USER": "User"
-    },
-    "cards": {
-      "globalAdmin": {
-        "title": "Global Administration",
-        "description": "Manage all centers, users and system settings.",
-        "features": {
-          "access": "Full access to all centers",
-          "users": "User and role management",
-          "config": "System configuration",
-          "reports": "Reports and statistics"
-        }
-      },
-      "centers": {
-        "title": "Center Management",
-        "description": "Create, edit and delete training centers.",
-        "button": "Manage Centers"
-      },
-      "machines": {
-        "title": "Machine Management",
-        "description": "Manage the machine inventory of all centers.",
-        "button": "Manage Machines"
-      },
-      "users": {
-        "title": "User Management",
-        "description": "Manage all users and validate pending accounts.",
-        "button": "Manage Users"
-      },
-      "myQR": {
-        "title": "My QR Code",
-        "description": "Access the gym with your personal QR code.",
-        "button": "View My QR"
-      },
-      "qrScanner": {
-        "title": "QR Scanner",
-        "description": "Register entries and exits by scanning QR codes.",
-        "button": "Open Scanner"
-      },
-      "myCenter": {
-        "title": "My Center",
-        "description": "View your center information.",
-        "button": "View Center"
-      },
-      "employees": {
-        "title": "Employees",
-        "description": "Manage your center's employees.",
-        "button": "Manage Employees"
-      },
-      "statistics": {
-        "title": "Statistics",
-        "description": "View your center's statistics.",
-        "button": "View Statistics"
-      },
-      "myProfile": {
-        "title": "My Profile",
-        "description": "Manage your personal information.",
-        "button": "Edit Profile"
-      },
-      "myClasses": {
-        "title": "My Classes",
-        "description": "Manage your classes and schedules.",
-        "button": "View Classes"
-      },
-      "classes": {
-        "title": "Classes",
-        "description": "Manage all group classes for your Meta Force centers.",
-        "button": "Go to classes"
-      }
-    },
-    "userInfo": {
-      "title": "User Information",
-      "name": "Name",
-      "email": "Email",
-      "role": "Role",
-      "center": "Center",
-      "registrationDate": "Registration date"
-    },
-    "roleEditor": {
-      "title": "Change Role",
-      "selectRole": "Select a role",
-      "cancel": "Cancel",
-      "save": "Save Changes",
-      "saving": "Saving..."
     }
   },
   "nav": {
@@ -185,7 +63,9 @@
     "classes": "Classes",
     "trainers": "Trainers",
     "membership": "Membership",
-    "login": "Sign In"
+    "centers": "Centers",
+    "login": "Sign In",
+    "register": "Sign Up"
   },
   "classes": {
     "title": "Gym Classes",
@@ -218,6 +98,102 @@
       "save": "Error saving the class.",
       "delete": "Error deleting the class."
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "loading": "Loading...",
+    "logout": "Logout",
+    "roles": {
+      "SUPERADMIN": "Super Administrator",
+      "ADMIN_CENTER": "Center Administrator",
+      "TRAINER": "Trainer",
+      "CLEANER": "Cleaner",
+      "USER": "User"
+    },
+    "cards": {
+      "classes": {
+        "title": "Classes",
+        "description": "Manage all group classes for your Meta Force centers.",
+        "button": "Go to classes"
+      },
+      "centers": {
+        "title": "Centers",
+        "description": "Manage all Meta Force centers.",
+        "button": "Go to centers"
+      },
+      "machines": {
+        "title": "Machines",
+        "description": "Manage all machines in your centers.",
+        "button": "Go to machines"
+      },
+      "users": {
+        "title": "Users",
+        "description": "Manage all system users.",
+        "button": "Go to users"
+      },
+      "myCenter": {
+        "title": "My Center",
+        "description": "Manage your center information.",
+        "button": "View center"
+      },
+      "employees": {
+        "title": "Employees",
+        "description": "Manage your center employees.",
+        "button": "View employees"
+      },
+      "statistics": {
+        "title": "Statistics",
+        "description": "View your center statistics.",
+        "button": "View statistics"
+      },
+      "myQR": {
+        "title": "My QR",
+        "description": "Access your personal QR code.",
+        "button": "View my QR"
+      },
+      "myProfile": {
+        "title": "My Profile",
+        "description": "Manage your personal information.",
+        "button": "View profile"
+      },
+      "myClasses": {
+        "title": "My Classes",
+        "description": "Manage your classes as trainer.",
+        "button": "View my classes"
+      }
+    },
+    "userInfo": {
+      "title": "User Information",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "center": "Center",
+      "registrationDate": "Registration Date"
+    },
+    "roleEditor": {
+      "title": "Change Role",
+      "selectRole": "Select a role",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    }
+  },
+  "common": {
+    "selectLanguage": "Select language",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "close": "Close"
+  },
+  "profileImage": {
+    "manage": "Manage image",
+    "upload": "Upload image",
+    "delete": "Delete image",
+    "uploading": "Uploading image..."
   },
   "qrScanner": {
     "title": "Entry/Exit Registration",
@@ -384,21 +360,27 @@
     "of": "of",
     "machines": "machines"
   },
-  "common": {
-    "selectLanguage": "Select language",
-    "loading": "Loading...",
-    "error": "Error",
-    "success": "Success",
-    "edit": "Edit",
-    "delete": "Delete",
-    "save": "Save",
-    "cancel": "Cancel",
-    "close": "Close"
-  },
-  "profileImage": {
-    "manage": "Manage image",
-    "upload": "Upload image",
-    "delete": "Delete image",
-    "uploading": "Uploading image..."
+  "register": {
+    "title": "Create Account",
+    "subtitle": "Join Meta Force",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "your@email",
+    "passwordPlaceholder": "Your password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "registerButton": "Register",
+    "errors": {
+      "nameRequired": "Name field is required",
+      "emailRequired": "Email field is required",
+      "passwordRequired": "Password field is required",
+      "confirmPasswordRequired": "Confirm password field is required",
+      "emailInvalid": "Email format is not correct",
+      "passwordMinLength": "Must have at least {{min}} characters",
+      "passwordPattern": "At least one uppercase, one lowercase, one number and 8 characters",
+      "passwordsDoNotMatch": "Passwords do not match"
+    }
   }
 }
