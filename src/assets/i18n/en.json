@@ -178,6 +178,18 @@
       "saving": "Saving..."
     }
   },
+  "trainers": {
+    "title": "Trainers",
+    "selectCenter": "Select Center",
+    "showingTrainersFrom": "Showing trainers from",
+    "noTrainersFound": "No trainers found in this center.",
+    "favorite": "Favorite",
+    "noCenter": "No center",
+    "centerNotFound": "Center not found",
+    "errors": {
+      "load": "Error loading trainers."
+    }
+  },
   "common": {
     "selectLanguage": "Select language",
     "loading": "Loading...",
