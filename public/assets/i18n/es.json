@@ -51,6 +51,8 @@
     "passwordPlaceholder": "Tu contraseña",
     "loginButton": "Iniciar Sesión",
     "registerLink": "¿No tienes cuenta? Regístrate",
+    "noAccount": "¿No tienes cuenta?",
+    "createAccount": "Crea una cuenta",
     "errors": {
       "emailRequired": "El email es obligatorio",
       "emailInvalid": "El email no es válido",
@@ -214,6 +216,7 @@
   },
   "trainers": {
     "title": "Entrenadores",
+    "description": "Conoce a nuestro equipo de entrenadores profesionales",
     "selectCenter": "Seleccionar Centro",
     "showingTrainersFrom": "Mostrando entrenadores de",
     "noTrainersFound": "No se encontraron entrenadores en este centro.",
@@ -254,6 +257,7 @@
   },
   "centers": {
     "title": "Centros",
+    "subtitle": "Gestiona todos los centros Meta Force y sus ubicaciones",
     "newCenter": "Nuevo Centro",
     "editCenter": "Editar Centro",
     "viewCenter": "Ver Centro",
@@ -398,5 +402,36 @@
     "edit": "Editar",
     "save": "Guardar",
     "close": "Cerrar"
+  },
+  "register": {
+    "title": "Registro",
+    "subtitle": "Crea tu cuenta y comienza tu transformación",
+    "name": "Nombre",
+    "namePlaceholder": "Tu nombre completo",
+    "email": "Email",
+    "emailPlaceholder": "tu@email.com",
+    "password": "Contraseña",
+    "passwordPlaceholder": "Tu contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "confirmPasswordPlaceholder": "Confirma tu contraseña",
+    "role": "Rol",
+    "registerButton": "Registrarse",
+    "alreadyHaveAccount": "¿Ya tienes cuenta?",
+    "loginLink": "Inicia sesión",
+    "errors": {
+      "nameRequired": "El nombre es obligatorio",
+      "emailRequired": "El email es obligatorio",
+      "emailInvalid": "El email no es válido",
+      "passwordRequired": "La contraseña es obligatoria",
+      "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+      "confirmPasswordRequired": "Debes confirmar la contraseña",
+      "passwordsNotMatch": "Las contraseñas no coinciden"
+    }
+  },
+  "profileImage": {
+    "manage": "Gestionar imagen",
+    "upload": "Subir imagen",
+    "delete": "Eliminar imagen",
+    "uploading": "Subiendo imagen..."
   }
 }

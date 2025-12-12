@@ -51,6 +51,8 @@
     "passwordPlaceholder": "Votre mot de passe",
     "loginButton": "Se connecter",
     "registerLink": "Vous n'avez pas de compte ? Inscrivez-vous",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "createAccount": "Créer un compte",
     "errors": {
       "emailRequired": "L'email est obligatoire",
       "emailInvalid": "L'email n'est pas valide",
@@ -214,6 +216,7 @@
   },
   "trainers": {
     "title": "Entraîneurs",
+    "description": "Rencontrez notre équipe d'entraîneurs professionnels",
     "selectCenter": "Sélectionner le Centre",
     "showingTrainersFrom": "Affichage des entraîneurs de",
     "noTrainersFound": "Aucun entraîneur trouvé dans ce centre.",
@@ -254,6 +257,7 @@
   },
   "centers": {
     "title": "Centres",
+    "subtitle": "Gérez tous les centres Meta Force et leurs emplacements",
     "newCenter": "Nouveau Centre",
     "editCenter": "Modifier le Centre",
     "viewCenter": "Voir le Centre",
@@ -398,5 +402,36 @@
     "edit": "Modifier",
     "save": "Enregistrer",
     "close": "Fermer"
+  },
+  "register": {
+    "title": "Inscription",
+    "subtitle": "Créez votre compte et commencez votre transformation",
+    "name": "Nom",
+    "namePlaceholder": "Votre nom complet",
+    "email": "Email",
+    "emailPlaceholder": "votre@email.com",
+    "password": "Mot de passe",
+    "passwordPlaceholder": "Votre mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
+    "role": "Rôle",
+    "registerButton": "S'inscrire",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "loginLink": "Se connecter",
+    "errors": {
+      "nameRequired": "Le nom est obligatoire",
+      "emailRequired": "L'email est obligatoire",
+      "emailInvalid": "L'email n'est pas valide",
+      "passwordRequired": "Le mot de passe est obligatoire",
+      "passwordMinLength": "Le mot de passe doit contenir au moins 6 caractères",
+      "confirmPasswordRequired": "Vous devez confirmer le mot de passe",
+      "passwordsNotMatch": "Les mots de passe ne correspondent pas"
+    }
+  },
+  "profileImage": {
+    "manage": "Gérer l'image",
+    "upload": "Télécharger l'image",
+    "delete": "Supprimer l'image",
+    "uploading": "Téléchargement de l'image..."
   }
 }
