@@ -110,15 +110,17 @@ export class TrainersComponent implements OnInit {
     // Usar listCentersWithIds para obtener todos los centros con IDs
     this.centersService.listCentersWithIds().subscribe({
       next: (data) => {
-        this.centers.set(data);
+        // Filtrar solo centros que tengan ID válido
+        const validCenters = data.filter(c => c.id);
+        this.centers.set(validCenters);
         
         // Si no hay centro seleccionado y hay centros disponibles, seleccionar el primero
-        if (!this.selectedCenterId() && data.length > 0) {
+        if (!this.selectedCenterId() && validCenters.length > 0) {
           const userFavoriteCenterId = this.currentUser()?.favoriteCenterId;
-          if (userFavoriteCenterId && data.find(c => c.id === userFavoriteCenterId)) {
+          if (userFavoriteCenterId && validCenters.find(c => c.id === userFavoriteCenterId)) {
             this.selectedCenterId.set(userFavoriteCenterId);
           } else {
-            const firstCenter = data[0];
+            const firstCenter = validCenters[0];
             if (firstCenter?.id) {
               this.selectedCenterId.set(firstCenter.id);
             }
@@ -127,7 +129,10 @@ export class TrainersComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al cargar centros:', error);
-        this.errorMessage.set(this.translate.instant('trainers.errors.loadCenters') || 'Error al cargar los centros');
+        const errorMsg = this.translate.instant('trainers.errors.loadCenters');
+        this.errorMessage.set(errorMsg ? errorMsg : 'Error al cargar los centros');
+        // Asegurar que centers esté vacío en caso de error
+        this.centers.set([]);
       }
     });
   }

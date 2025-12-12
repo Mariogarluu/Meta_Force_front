@@ -38,8 +38,8 @@
     <section id="services" class="services">
       @for (service of services; track service.labelKey) {
         <a [routerLink]="service.path" class="service-card">
-          <p class="service-card__title">{{ (service.labelKey | translate) || service.labelKey }}</p>
-          <p class="service-card__text">{{ (service.descriptionKey | translate) || service.descriptionKey }}</p>
+          <p class="service-card__title">{{ service.labelKey | translate }}</p>
+          <p class="service-card__text">{{ service.descriptionKey | translate }}</p>
         </a>
       }
     </section>

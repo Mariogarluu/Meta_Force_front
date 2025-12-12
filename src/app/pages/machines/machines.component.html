@@ -1,25 +1,50 @@
 <div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
   <app-navbar></app-navbar>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <!-- Botón para crear nueva máquina -->
-    <div class="mb-4 flex justify-end">
-      <button 
-        (click)="openCreateModal()"
-        class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium flex items-center gap-2 shadow-sm">
-        <span>+</span> {{ 'machines.newMachine' | translate }}
-      </button>
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <!-- Page Header -->
+    <div class="mb-8 relative">
+      <div class="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 rounded-3xl blur-3xl"></div>
+      <div class="relative bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 sm:p-8 border border-blue-200/50 dark:border-gray-700 shadow-lg">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div class="flex items-center gap-4">
+            <div class="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 sm:w-8 sm:h-8 text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+              </svg>
+            </div>
+            <div>
+              <h1 class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent mb-2">
+                {{ 'machines.title' | translate }}
+              </h1>
+              <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
+                {{ 'machines.subtitle' | translate }}
+              </p>
+            </div>
+          </div>
+          <button 
+            (click)="openCreateModal()"
+            class="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl transition-all text-sm font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            {{ 'machines.newMachine' | translate }}
+          </button>
+        </div>
+      </div>
     </div>
     
-    <div class="mb-4 flex items-center justify-between">
+    <div class="mb-6">
       <button 
         (click)="toggleFilters()"
-        [class.bg-cyan-600]="showFilters()"
-        [class.bg-cyan-500]="!showFilters()"
-        [class.text-white]="!hasActiveFilters()"
-        [class.text-yellow-300]="hasActiveFilters()"
-        class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90 text-white shadow-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+        [class.bg-gradient-to-r]="showFilters()"
+        [class.from-cyan-600]="showFilters()"
+        [class.to-blue-600]="showFilters()"
+        [class.bg-gradient-to-r]="!showFilters()"
+        [class.from-cyan-500]="!showFilters()"
+        [class.to-blue-500]="!showFilters()"
+        class="px-4 py-2 rounded-xl transition-all text-sm font-medium flex items-center gap-2 hover:opacity-90 text-white shadow-md hover:shadow-lg hover:scale-105">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
         </svg>
         @if(showFilters()) {
@@ -28,13 +53,13 @@
           <span>{{ 'machines.filters' | translate }}</span>
         }
         @if(hasActiveFilters()) {
-          <span class="px-1.5 py-0.5 bg-yellow-500/30 rounded text-xs">{{ filteredMachines().length }}/{{ machines().length }}</span>
+          <span class="px-2 py-0.5 bg-yellow-400/40 rounded-lg text-xs font-bold">{{ filteredMachines().length }}/{{ machines().length }}</span>
         }
       </button>
     </div>
 
     @if(showFilters()) {
-      <div class="mb-6 bg-white dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
+      <div class="mb-6 bg-white dark:bg-gray-800 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 shadow-lg transition-all duration-300 backdrop-blur-sm">
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-lg font-bold text-gray-900 dark:text-white">{{ 'machines.searchFilters' | translate }}</h2>
           @if(hasActiveFilters()) {
@@ -128,7 +153,9 @@
       } @else {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           @for(machine of filteredMachines(); track machine.id) {
-            <div class="bg-white dark:bg-gray-800 rounded-xl p-5 border border-blue-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/30 transition-all shadow-sm hover:shadow-md group">
+            <div class="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-all shadow-md hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="relative z-10">
               <div class="flex justify-between items-start mb-4">
                 <div>
                   <h3 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">{{ machine.name }}</h3>
@@ -146,17 +173,18 @@
                 </div>
               }
 
-              <div class="pt-4 border-t border-gray-200 dark:border-gray-700 flex gap-2">
-                <button 
-                  (click)="openEditModal(machine)"
-                  class="flex-1 px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-sm transition-colors shadow-sm">
-                  {{ 'common.edit' | translate }}
-                </button>
-                <button 
-                  (click)="openDeleteModal(machine)"
-                  class="flex-1 px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded text-sm transition-colors shadow-sm">
-                  {{ 'common.delete' | translate }}
-                </button>
+                <div class="pt-4 border-t border-gray-200 dark:border-gray-700 flex gap-2">
+                  <button 
+                    (click)="openEditModal(machine)"
+                    class="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
+                    {{ 'common.edit' | translate }}
+                  </button>
+                  <button 
+                    (click)="openDeleteModal(machine)"
+                    class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
+                    {{ 'common.delete' | translate }}
+                  </button>
+                </div>
               </div>
             </div>
           }
