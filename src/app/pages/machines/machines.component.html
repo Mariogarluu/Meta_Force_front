@@ -22,19 +22,61 @@
               </p>
             </div>
           </div>
-          <button 
-            (click)="openCreateModal()"
-            class="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl transition-all text-sm font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-            {{ 'machines.newMachine' | translate }}
-          </button>
+          @if(activeTab() === 'models') {
+            <button 
+              (click)="openCreateModal()"
+              class="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl transition-all text-sm font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              {{ 'machines.newModel' | translate }}
+            </button>
+          }
         </div>
       </div>
     </div>
+
+    <!-- Pestañas para Modelos e Instancias -->
+    <div class="mb-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
+      <div class="flex border-b border-gray-200 dark:border-gray-700">
+        <button
+          (click)="activeTab.set('models')"
+          [class.bg-blue-50]="activeTab() === 'models'"
+          [class.dark:bg-gray-700]="activeTab() === 'models'"
+          [class.text-blue-600]="activeTab() === 'models'"
+          [class.dark:text-blue-400]="activeTab() === 'models'"
+          [class.text-gray-600]="activeTab() !== 'models'"
+          [class.dark:text-gray-400]="activeTab() !== 'models'"
+          class="flex-1 px-6 py-4 text-center font-semibold transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50">
+          <div class="flex items-center justify-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
+            </svg>
+            {{ 'machines.modelsTab' | translate }}
+          </div>
+        </button>
+        <button
+          (click)="activeTab.set('instances')"
+          [class.bg-blue-50]="activeTab() === 'instances'"
+          [class.dark:bg-gray-700]="activeTab() === 'instances'"
+          [class.text-blue-600]="activeTab() === 'instances'"
+          [class.dark:text-blue-400]="activeTab() === 'instances'"
+          [class.text-gray-600]="activeTab() !== 'instances'"
+          [class.dark:text-gray-400]="activeTab() !== 'instances'"
+          class="flex-1 px-6 py-4 text-center font-semibold transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50 border-l border-gray-200 dark:border-gray-700">
+          <div class="flex items-center justify-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.75 7.5h16.5m-16.5 0v7.5m16.5-7.5v7.5" />
+            </svg>
+            {{ 'machines.instancesTab' | translate }}
+          </div>
+        </button>
+      </div>
+    </div>
     
-    <div class="mb-6">
+    <!-- Contenido de la pestaña de Modelos -->
+    @if(activeTab() === 'models') {
+      <div class="mb-6">
       <button 
         (click)="toggleFilters()"
         [class.bg-gradient-to-r]="showFilters()"
@@ -53,7 +95,7 @@
           <span>{{ 'machines.filters' | translate }}</span>
         }
         @if(hasActiveFilters()) {
-          <span class="px-2 py-0.5 bg-yellow-400/40 rounded-lg text-xs font-bold">{{ filteredMachines().length }}/{{ machines().length }}</span>
+          <span class="px-2 py-0.5 bg-yellow-400/40 rounded-lg text-xs font-bold">{{ filteredMachineTypes().length }}/{{ machineTypes().length }}</span>
         }
       </button>
     </div>
@@ -89,107 +131,350 @@
               (ngModelChange)="filterType.set($event)"
               class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
               <option value="">{{ 'machines.allTypes' | translate }}</option>
-              @for(type of machineTypes; track type) {
+              @for(type of machineTypeOptions; track type) {
                 <option [value]="type">{{ 'machines.types.' + type | translate }}</option>
               }
             </select>
           </div>
 
           <div>
-            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'machines.status' | translate }}</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'machines.center' | translate }}</label>
             <select 
-              [ngModel]="filterStatus()"
-              (ngModelChange)="filterStatus.set($event)"
+              [ngModel]="filterCenterId()"
+              (ngModelChange)="onCenterChange($event)"
               class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
-              <option value="">{{ 'machines.allStatuses' | translate }}</option>
-              @for(status of machineStatuses; track status) {
-                <option [value]="status">{{ 'machines.statuses.' + status | translate }}</option>
+              <option value="">{{ 'machines.allCenters' | translate }}</option>
+              @for(center of centers(); track center.id) {
+                <option [value]="center.id">{{ center.name }}</option>
               }
             </select>
           </div>
-
-          @if(isSuperAdmin()) {
-            <div>
-              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'machines.center' | translate }}</label>
-              <input 
-                type="text"
-                [ngModel]="filterCenter()"
-                (ngModelChange)="filterCenter.set($event)"
-                [placeholder]="'machines.searchByCenter' | translate"
-                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
-            </div>
-          }
         </div>
 
         @if(hasActiveFilters()) {
           <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
             <p class="text-sm text-gray-600 dark:text-gray-400">
-              {{ 'machines.showing' | translate }} <span class="text-gray-900 dark:text-white font-semibold">{{ filteredMachines().length }}</span> {{ 'machines.of' | translate }} 
-              <span class="text-gray-900 dark:text-white font-semibold">{{ machines().length }}</span> {{ 'machines.machines' | translate }}
+              {{ 'machines.showing' | translate }} <span class="text-gray-900 dark:text-white font-semibold">{{ filteredMachineTypes().length }}</span> {{ 'machines.of' | translate }} 
+              <span class="text-gray-900 dark:text-white font-semibold">{{ machineTypes().length }}</span> {{ 'machines.machines' | translate }}
             </p>
           </div>
         }
       </div>
     }
 
-    @if(isLoading() && machines().length === 0) {
-      <div class="flex justify-center py-12">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500"></div>
+    @if(errorMessage()) {
+      <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-600 dark:text-red-400">
+        {{ errorMessage() }}
       </div>
-    } @else if(machines().length === 0) {
-      <div class="text-center py-16 bg-white dark:bg-gray-800/50 rounded-xl border border-gray-300 dark:border-gray-700 border-dashed transition-colors duration-300">
-        <p class="text-gray-600 dark:text-gray-400 text-lg">{{ 'machines.noMachinesRegistered' | translate }}</p>
-        <button (click)="openCreateModal()" class="mt-4 text-cyan-600 dark:text-cyan-400 hover:text-cyan-700 dark:hover:text-cyan-300 font-medium">
-          {{ 'machines.registerFirstMachine' | translate }}
-        </button>
+    }
+
+    <!-- Selector de Centro -->
+    @if(centers().length > 0) {
+      <div class="mb-6 bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm">
+        <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+          {{ 'machines.selectCenter' | translate }}
+        </label>
+        <select
+          [ngModel]="filterCenterId()"
+          (ngModelChange)="onCenterChange($event)"
+          class="w-full md:w-auto px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          <option value="">{{ 'machines.allCenters' | translate }}</option>
+          @for(center of centers(); track center.id) {
+            <option [value]="center.id">{{ center.name }}</option>
+          }
+        </select>
+      </div>
+    }
+
+    @if(isLoading() && machineTypes().length === 0) {
+      <div class="flex items-center justify-center py-12">
+        <div class="text-center">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
+          <p class="text-gray-700 dark:text-gray-300">{{ 'machines.loading' | translate }}</p>
+        </div>
       </div>
     } @else {
-      @if(filteredMachines().length === 0) {
+      @if(filteredMachineTypes().length === 0) {
         <div class="text-center py-12">
           <p class="text-gray-600 dark:text-gray-400 text-lg">
-            {{ 'machines.noMachinesFound' | translate }}
+            @if(hasActiveFilters()) {
+              {{ 'machines.noMachinesFound' | translate }}
+            } @else {
+              {{ 'machines.noMachinesAvailable' | translate }}
+            }
           </p>
         </div>
       } @else {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          @for(machine of filteredMachines(); track machine.id) {
+          @for(machineType of filteredMachineTypes(); track machineType.id) {
             <div class="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-all shadow-md hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden">
               <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div class="relative z-10">
-              <div class="flex justify-between items-start mb-4">
-                <div>
-                  <h3 class="text-lg font-bold text-gray-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">{{ machine.name }}</h3>
-                  <p class="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wider mt-1">{{ 'machines.types.' + machine.type | translate }}</p>
+                <div class="flex items-start justify-between mb-4">
+                  <div class="flex-1">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ machineType.name }}</h3>
+                    <p class="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wider">{{ 'machines.types.' + machineType.type | translate }}</p>
+                  </div>
                 </div>
-                <span [class]="'px-2 py-1 rounded text-xs font-medium border ' + getStatusColor(machine.status)">
-                  {{ 'machines.statuses.' + machine.status | translate }}
-                </span>
-              </div>
 
-              @if(isSuperAdmin() && machine.center) {
-                <div class="mb-4 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-                  <span>🏢</span>
-                  <span>{{ machine.center.name }}</span>
-                </div>
-              }
+                <!-- Instancias en Centros -->
+                @if(machineType.instances && machineType.instances.length > 0) {
+                  <div class="mb-4">
+                    <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      {{ 'machines.instances' | translate }}:
+                    </p>
+                    @if(getInstancesForCenter(machineType, filterCenterId() || undefined).length >= 2) {
+                      <!-- Desplegable para múltiples instancias -->
+                      <details class="group">
+                        <summary class="cursor-pointer text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-2 list-none flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-700 rounded">
+                          <span>{{ getInstancesForCenter(machineType, filterCenterId() || undefined).length }} {{ 'machines.instances' | translate }}</span>
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 group-open:rotate-180 transition-transform">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                          </svg>
+                        </summary>
+                        <div class="space-y-2 mt-2 pl-2">
+                          @for(instance of getInstancesForCenter(machineType, filterCenterId() || undefined); track instance.id) {
+                            <div class="text-xs bg-gray-100 dark:bg-gray-700 rounded p-2">
+                              <div class="flex items-center justify-between">
+                                <span class="font-medium text-gray-700 dark:text-gray-300">
+                                  {{ instance.center?.name || getCenterName(instance.centerId) }} - {{ machineType.name }} {{ instance.instanceNumber }}
+                                </span>
+                                <span [class]="'px-2 py-1 rounded text-xs font-medium border ' + getStatusColor(instance.status)">
+                                  {{ 'machines.statuses.' + instance.status | translate }}
+                                </span>
+                              </div>
+                            </div>
+                          }
+                        </div>
+                      </details>
+                    } @else {
+                      <!-- Sin desplegable para 1 instancia -->
+                      <div class="space-y-2">
+                        @for(instance of getInstancesForCenter(machineType, filterCenterId() || undefined); track instance.id) {
+                          <div class="text-xs bg-gray-100 dark:bg-gray-700 rounded p-2">
+                            <div class="flex items-center justify-between">
+                              <span class="font-medium text-gray-700 dark:text-gray-300">
+                                {{ instance.center?.name || getCenterName(instance.centerId) }} - {{ machineType.name }} {{ instance.instanceNumber }}
+                              </span>
+                              <span [class]="'px-2 py-1 rounded text-xs font-medium border ' + getStatusColor(instance.status)">
+                                {{ 'machines.statuses.' + instance.status | translate }}
+                              </span>
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    }
+                  </div>
+                } @else {
+                  <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">{{ 'machines.noCentersAssigned' | translate }}</p>
+                }
 
-                <div class="pt-4 border-t border-gray-200 dark:border-gray-700 flex gap-2">
-                  <button 
-                    (click)="openEditModal(machine)"
-                    class="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
-                    {{ 'common.edit' | translate }}
-                  </button>
-                  <button 
-                    (click)="openDeleteModal(machine)"
-                    class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
-                    {{ 'common.delete' | translate }}
-                  </button>
-                </div>
+                @if(canEdit()) {
+                  <div class="flex flex-col gap-2 mt-4">
+                    <div class="flex gap-2">
+                      <button
+                        (click)="openEditModal(machineType)"
+                        class="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
+                        {{ 'common.edit' | translate }}
+                      </button>
+                      <button
+                        (click)="openDeleteModal(machineType)"
+                        class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
+                        {{ 'common.delete' | translate }}
+                      </button>
+                    </div>
+                    <button
+                      (click)="openAddCenterModalForMachineType(machineType)"
+                      class="w-full px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
+                      {{ 'machines.addToCenter' | translate }}
+                    </button>
+                  </div>
+                }
               </div>
             </div>
           }
         </div>
       }
+    }
+    }
+
+    <!-- Contenido de la pestaña de Instancias -->
+    @if(activeTab() === 'instances') {
+      <div class="mb-6">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 shadow-lg">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+              {{ 'machines.manageInstances' | translate }}
+            </h2>
+            @if(machineTypes().length > 0) {
+              <button
+                (click)="openAddCenterModal()"
+                class="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-lg transition-all text-sm font-semibold flex items-center gap-2 shadow-md hover:shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+                {{ 'machines.addInstancesToCenter' | translate }}
+              </button>
+            }
+          </div>
+
+          <!-- Selector de Centro -->
+          @if(centers().length > 0) {
+            <div class="mb-6">
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+                {{ 'machines.selectCenter' | translate }}
+              </label>
+              <select
+                [ngModel]="filterCenterId()"
+                (ngModelChange)="onCenterChange($event)"
+                class="w-full md:w-auto px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                <option value="">{{ 'machines.allCenters' | translate }}</option>
+                @for(center of centers(); track center.id) {
+                  <option [value]="center.id">{{ center.name }}</option>
+                }
+              </select>
+            </div>
+          }
+
+          <!-- Lista de máquinas por centro -->
+          @if(filterCenterId()) {
+            @if(isLoading() && machineTypes().length === 0) {
+              <div class="flex items-center justify-center py-12">
+                <div class="text-center">
+                  <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
+                  <p class="text-gray-700 dark:text-gray-300">{{ 'machines.loading' | translate }}</p>
+                </div>
+              </div>
+            } @else {
+              <div class="space-y-4">
+                @for(machineType of filteredMachineTypes(); track machineType.id) {
+                  @if(machineType.instances && machineType.instances.length > 0) {
+                    @if(getInstancesForCenter(machineType, filterCenterId() || undefined).length >= 2) {
+                      <!-- Desplegable para 2 o más instancias -->
+                      <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-200 dark:border-gray-600 overflow-hidden">
+                        <button
+                          (click)="toggleMachineTypeExpanded(machineType.id)"
+                          class="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700/70 transition-colors">
+                          <div class="flex items-center gap-3">
+                            <svg 
+                              xmlns="http://www.w3.org/2000/svg" 
+                              fill="none" 
+                              viewBox="0 0 24 24" 
+                              stroke-width="2" 
+                              stroke="currentColor" 
+                              [class.rotate-90]="isMachineTypeExpanded(machineType.id)"
+                              class="w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                              {{ machineType.name }}
+                              <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">
+                                ({{ 'machines.types.' + machineType.type | translate }})
+                              </span>
+                            </h3>
+                          </div>
+                          <span class="text-sm text-gray-600 dark:text-gray-400">
+                            {{ getInstancesForCenter(machineType, filterCenterId() || undefined).length }} {{ 'machines.instances' | translate }}
+                          </span>
+                        </button>
+                        
+                        @if(isMachineTypeExpanded(machineType.id)) {
+                          <div class="p-4 pt-0 border-t border-gray-200 dark:border-gray-600">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                              @for(instance of getInstancesForCenter(machineType, filterCenterId() || undefined); track instance.id) {
+                                <div class="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+                                  <div class="flex items-center justify-between mb-2">
+                                    <span class="font-medium text-gray-900 dark:text-white">
+                                      {{ machineType.name }} {{ instance.instanceNumber }}
+                                    </span>
+                                    <span [class]="'px-2 py-1 rounded text-xs font-medium border ' + getStatusColor(instance.status)">
+                                      {{ 'machines.statuses.' + instance.status | translate }}
+                                    </span>
+                                  </div>
+                                  @if(canEdit()) {
+                                    <div class="flex gap-2 mt-2">
+                                      <button
+                                        (click)="openEditInstanceModal(machineType, instance)"
+                                        class="flex-1 px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white rounded text-xs font-medium transition-colors">
+                                        {{ 'common.edit' | translate }}
+                                      </button>
+                                      <button
+                                        (click)="deleteInstanceFromCenter(machineType, instance)"
+                                        class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded text-xs font-medium transition-colors">
+                                        {{ 'common.delete' | translate }}
+                                      </button>
+                                    </div>
+                                  }
+                                </div>
+                              }
+                            </div>
+                          </div>
+                        }
+                      </div>
+                    } @else {
+                      <!-- Sin desplegable para 1 sola instancia -->
+                      <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 border border-gray-200 dark:border-gray-600">
+                        <div class="flex items-center justify-between mb-3">
+                          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                            {{ machineType.name }}
+                            <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">
+                              ({{ 'machines.types.' + machineType.type | translate }})
+                            </span>
+                          </h3>
+                          <span class="text-sm text-gray-600 dark:text-gray-400">
+                            {{ getInstancesForCenter(machineType, filterCenterId() || undefined).length }} {{ 'machines.instances' | translate }}
+                          </span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                          @for(instance of getInstancesForCenter(machineType, filterCenterId() || undefined); track instance.id) {
+                            <div class="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+                              <div class="flex items-center justify-between mb-2">
+                                <span class="font-medium text-gray-900 dark:text-white">
+                                  {{ machineType.name }} {{ instance.instanceNumber }}
+                                </span>
+                                <span [class]="'px-2 py-1 rounded text-xs font-medium border ' + getStatusColor(instance.status)">
+                                  {{ 'machines.statuses.' + instance.status | translate }}
+                                </span>
+                              </div>
+                              @if(canEdit()) {
+                                <div class="flex gap-2 mt-2">
+                                  <button
+                                    (click)="openEditInstanceModal(machineType, instance)"
+                                    class="flex-1 px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white rounded text-xs font-medium transition-colors">
+                                    {{ 'common.edit' | translate }}
+                                  </button>
+                                  <button
+                                    (click)="deleteInstanceFromCenter(machineType, instance)"
+                                    class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded text-xs font-medium transition-colors">
+                                    {{ 'common.delete' | translate }}
+                                  </button>
+                                </div>
+                              }
+                            </div>
+                          }
+                        </div>
+                      </div>
+                    }
+                  }
+                }
+                @if(!hasInstancesInCenter()) {
+                  <div class="text-center py-12">
+                    <p class="text-gray-600 dark:text-gray-400">
+                      {{ 'machines.noInstancesInCenter' | translate }}
+                    </p>
+                  </div>
+                }
+              </div>
+            }
+          } @else {
+            <div class="text-center py-12 bg-blue-50 dark:bg-blue-500/10 rounded-xl border border-blue-200 dark:border-blue-500/20">
+              <p class="text-gray-600 dark:text-gray-400">
+                {{ 'machines.selectCenterToViewInstances' | translate }}
+              </p>
+            </div>
+          }
+        </div>
+      </div>
     }
   </main>
 
@@ -203,11 +488,16 @@
         </div>
         
         <form (ngSubmit)="onSubmit()" class="p-6 space-y-4">
+          @if(errorMessage()) {
+            <div class="mb-4 p-3 bg-red-50 dark:bg-red-500/20 border border-red-300 dark:border-red-500 rounded-lg text-red-600 dark:text-red-400 text-sm">
+              {{ errorMessage() }}
+            </div>
+          }
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">{{ 'machines.name' | translate }}</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">{{ 'machines.name' | translate }} *</label>
             <input 
               type="text" 
-              [(ngModel)]="formState().name" 
+              [(ngModel)]="formName" 
               name="name" 
               required
               class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
@@ -215,57 +505,30 @@
           </div>
 
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">{{ 'machines.type' | translate }}</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">{{ 'machines.type' | translate }} *</label>
             <select 
-              [(ngModel)]="formState().type" 
+              [(ngModel)]="formType" 
               name="type" 
               class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:border-cyan-500">
-              @for(type of machineTypes; track type) {
+              @for(type of machineTypeOptions; track type) {
                 <option [value]="type">{{ 'machines.types.' + type | translate }}</option>
               }
             </select>
           </div>
 
-          <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">{{ 'machines.status' | translate }}</label>
-            <select 
-              [(ngModel)]="formState().status" 
-              name="status" 
-              class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:border-cyan-500">
-              @for(status of machineStatuses; track status) {
-                <option [value]="status">{{ 'machines.statuses.' + status | translate }}</option>
-              }
-            </select>
-          </div>
-
-          @if(isSuperAdmin()) {
-            <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">{{ 'machines.center' | translate }}</label>
-              <select 
-                [(ngModel)]="formState().centerId" 
-                name="centerId" 
-                required
-                class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:border-cyan-500">
-                <option value="" disabled>{{ 'centers.selectCenter' | translate }}</option>
-                @for(center of centers(); track center.id) {
-                  <option [value]="center.id">{{ center.name }}</option>
-                }
-              </select>
-            </div>
-          }
-
           <div class="flex gap-3 pt-4">
             <button 
               type="button" 
               (click)="closeFormModal()"
-              class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors disabled:opacity-50">
               {{ 'common.cancel' | translate }}
             </button>
             <button 
               type="submit" 
-              [disabled]="isLoading() || (!formState().name)"
+              [disabled]="isLoading() || !formName.trim()"
               class="flex-1 px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-md">
-              {{ isLoading() ? ('dashboard.roleEditor.saving' | translate) : ('common.save' | translate) }}
+              {{ isLoading() ? ('machines.saving' | translate) : (isEditing() ? ('common.save' | translate) : ('machines.newMachine' | translate)) }}
             </button>
           </div>
         </form>
@@ -278,7 +541,7 @@
       <div class="bg-white dark:bg-gray-800 rounded-xl w-full max-w-sm border border-gray-200 dark:border-gray-700 shadow-2xl p-6">
         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ 'machines.deleteMachine' | translate }}</h3>
         <p class="text-gray-600 dark:text-gray-400 mb-6">
-          {{ 'machines.confirmDelete' | translate }} <span class="text-gray-900 dark:text-white font-semibold">{{ selectedMachine()?.name }}</span>.
+          {{ 'machines.confirmDelete' | translate }} <span class="text-gray-900 dark:text-white font-semibold">{{ selectedMachineType()?.name }}</span>?
         </p>
         <div class="flex gap-3">
           <button 
@@ -289,10 +552,242 @@
           <button 
             (click)="confirmDelete()"
             [disabled]="isLoading()"
-            class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors shadow-md">
+            class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors shadow-md disabled:opacity-50">
             {{ isLoading() ? ('machines.deleting' | translate) : ('common.delete' | translate) }}
           </button>
         </div>
+      </div>
+    </div>
+  }
+
+  <!-- Modal para Agregar/Editar Máquina en Centro -->
+  <!-- Modal para agregar/editar instancias en centro -->
+  @if(showAddCenterModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-lg w-full border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-2xl transition-colors duration-300">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          @if(isEditing()) {
+            {{ 'machines.editInstance' | translate }}
+          } @else {
+            {{ 'machines.addInstancesToCenter' | translate }}
+          }
+        </h3>
+
+        @if(addCenterErrorMessage()) {
+          <div class="mb-4 p-3 bg-red-50 dark:bg-red-500/20 border border-red-300 dark:border-red-500 rounded-lg text-red-600 dark:text-red-400 text-sm">
+            {{ addCenterErrorMessage() }}
+          </div>
+        }
+
+        <form (ngSubmit)="onAddCenterSubmit()" class="space-y-4">
+          @if(!isEditing()) {
+            <!-- Selector de Modelo de Máquina -->
+            <div>
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+                {{ 'machines.model' | translate }} *
+              </label>
+              <select
+                [(ngModel)]="selectedMachineType"
+                name="selectedMachineType"
+                [ngModel]="selectedMachineType()?.id"
+                (ngModelChange)="onMachineTypeSelect($event)"
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                <option [value]="null">{{ 'machines.selectModel' | translate }}</option>
+                @for(machineType of machineTypes(); track machineType.id) {
+                  <option [value]="machineType.id">{{ machineType.name }} ({{ 'machines.types.' + machineType.type | translate }})</option>
+                }
+              </select>
+            </div>
+          }
+
+          <!-- Selector de Centro -->
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+              {{ 'machines.center' | translate }} *
+            </label>
+            <select
+              [(ngModel)]="selectedCenterForAdd"
+              name="selectedCenterForAdd"
+              [disabled]="isEditing()"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              <option value="">{{ 'machines.selectCenter' | translate }}</option>
+              @for(center of centers(); track center.id) {
+                <option [value]="center.id">{{ center.name }}</option>
+              }
+            </select>
+          </div>
+
+          @if(selectedCenterForAdd() && (!isEditing() || selectedMachineType())) {
+            @if(!isEditing()) {
+              <!-- Cantidad (solo al agregar) -->
+              <div>
+                <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+                  {{ 'machines.quantity' | translate }} *
+                </label>
+                <input
+                  type="number"
+                  [(ngModel)]="formQuantity"
+                  name="formQuantity"
+                  min="1"
+                  required
+                  class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ 'machines.quantityHelp' | translate }}</p>
+              </div>
+            }
+
+            <!-- Estado -->
+            <div>
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+                {{ 'machines.status' | translate }}
+              </label>
+              <select
+                [(ngModel)]="formStatus"
+                name="formStatus"
+                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                @for(status of machineStatusOptions; track status) {
+                  <option [value]="status">{{ 'machines.statuses.' + status | translate }}</option>
+                }
+              </select>
+              @if(!isEditing()) {
+                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ 'machines.statuses.operativa' | translate }} por defecto</p>
+              }
+            </div>
+          }
+
+          <div class="flex gap-3 mt-6">
+            <button
+              type="button"
+              (click)="closeAddCenterModal()"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors disabled:opacity-50">
+              {{ 'common.cancel' | translate }}
+            </button>
+            <button
+              type="submit"
+              [disabled]="isLoading() || !selectedCenterForAdd() || (!isEditing() && (!selectedMachineType() || formQuantity < 1))"
+              class="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors disabled:opacity-50 shadow-md">
+              @if(isLoading()) {
+                {{ 'machines.saving' | translate }}
+              } @else {
+                @if(isEditing()) {
+                  {{ 'common.save' | translate }}
+                } @else {
+                  {{ 'machines.addInstances' | translate }}
+                }
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- Modal para Editar Tipo de Máquina con Centros -->
+  @if(showFormModal() && isEditing() && selectedMachineType()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-2xl transition-colors duration-300">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          {{ 'machines.editMachine' | translate }}
+        </h3>
+
+        @if(errorMessage()) {
+          <div class="mb-4 p-3 bg-red-50 dark:bg-red-500/20 border border-red-300 dark:border-red-500 rounded-lg text-red-600 dark:text-red-400 text-sm">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <form (ngSubmit)="onSubmit()" class="space-y-4">
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+              {{ 'machines.name' | translate }} *
+            </label>
+            <input
+              type="text"
+              [(ngModel)]="formName"
+              name="name"
+              required
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          </div>
+
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+              {{ 'machines.type' | translate }} *
+            </label>
+            <select
+              [(ngModel)]="formType"
+              name="type"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              @for(type of machineTypeOptions; track type) {
+                <option [value]="type">{{ 'machines.types.' + type | translate }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Gestión de Centros de la Máquina -->
+          <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+            <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+              {{ 'machines.instances' | translate }}
+            </h4>
+            <div class="space-y-2 mb-4">
+              @if(getCentersForMachineType(selectedMachineType()!).length === 0) {
+                <p class="text-sm text-gray-500 dark:text-gray-400">{{ 'machines.noCentersAssigned' | translate }}</p>
+              } @else {
+                @for(center of getCentersForMachineType(selectedMachineType()!); track center.id) {
+                  @for(instance of getInstancesForCenter(selectedMachineType()!, center.id); track instance.id) {
+                    <div class="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm">
+                      <div class="flex-1">
+                        <span class="font-medium text-gray-700 dark:text-gray-300">{{ selectedMachineType()!.name }} {{ instance.instanceNumber }}</span>
+                        <div class="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                          <p>{{ 'machines.status' | translate }}: {{ 'machines.statuses.' + instance.status | translate }}</p>
+                        </div>
+                      </div>
+                      <div class="flex gap-2">
+                        <button
+                          type="button"
+                          (click)="openEditInstanceModal(selectedMachineType()!, instance)"
+                          class="px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-xs transition-colors">
+                          {{ 'common.edit' | translate }}
+                        </button>
+                        <button
+                          type="button"
+                          (click)="deleteInstanceFromCenter(selectedMachineType()!, instance)"
+                          class="px-2 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-xs transition-colors">
+                          {{ 'common.delete' | translate }}
+                        </button>
+                      </div>
+                    </div>
+                  }
+                }
+              }
+            </div>
+            <button
+              type="button"
+              (click)="openAddCenterModal()"
+              class="w-full px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors text-sm font-medium">
+              {{ 'machines.addCenter' | translate }}
+            </button>
+          </div>
+
+          <div class="flex gap-3 mt-6">
+            <button
+              type="button"
+              (click)="closeFormModal()"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors disabled:opacity-50">
+              {{ 'common.cancel' | translate }}
+            </button>
+            <button
+              type="submit"
+              [disabled]="isLoading() || !formName.trim()"
+              class="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors disabled:opacity-50 shadow-md">
+              @if(isLoading()) {
+                {{ 'machines.saving' | translate }}
+              } @else {
+                {{ 'common.save' | translate }}
+              }
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   }
