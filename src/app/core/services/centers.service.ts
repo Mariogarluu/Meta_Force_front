@@ -23,6 +23,15 @@ export class CentersService {
   }
 
   /**
+   * Lista todos los centros con IDs.
+   * Accesible para todos los usuarios autenticados.
+   * Usado principalmente para la página de entrenadores.
+   */
+  listCentersWithIds(): Observable<Center[]> {
+    return this.http.get<Center[]>(`${this.apiUrl}/with-ids`);
+  }
+
+  /**
    * Obtiene un centro específico por su ID.
    * Solo accesible para ADMIN_CENTER y SUPERADMIN.
    */

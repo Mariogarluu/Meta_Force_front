@@ -28,6 +28,19 @@ export class UsersService {
   }
 
   /**
+   * Lista todos los entrenadores activos.
+   * Accesible para todos los usuarios autenticados.
+   * @param centerId - Opcional: filtra entrenadores por centro favorito
+   */
+  listTrainers(centerId?: string | null): Observable<User[]> {
+    const params: any = {};
+    if (centerId) {
+      params.centerId = centerId;
+    }
+    return this.http.get<User[]>(`${this.apiUrl}/trainers`, { params });
+  }
+
+  /**
    * Actualiza los datos de un usuario específico identificado por su ID.
    * Permite modificar nombre, email, rol, estado y centro según los permisos del usuario autenticado.
    */

@@ -1,45 +1,76 @@
 <div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
-  <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <div class="flex justify-between items-center">
-        <div>
-          <h1 class="text-2xl font-bold text-blue-900 dark:text-white">{{ 'classes.title' | translate }}</h1>
-          <p class="text-gray-600 dark:text-gray-400 text-sm mt-1">{{ 'classes.subtitle' | translate }}</p>
-        </div>
-        <div class="flex items-center gap-4">
-          <app-language-selector></app-language-selector>
-          <app-theme-toggle></app-theme-toggle>
-          @if(isSuperAdmin()) {
-            <button
-              (click)="openCreateModal()"
-              class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium flex items-center gap-2 shadow-sm">
-              <span>+</span> {{ 'classes.newClass' | translate }}
-            </button>
-          }
-          <a
-            routerLink="/dashboard"
-            class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
-            {{ 'classes.backToDashboard' | translate }}
-          </a>
-        </div>
-      </div>
-    </div>
-  </header>
+  <app-navbar></app-navbar>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
     @if(errorMessage()) {
       <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-600 dark:text-red-400">
         {{ errorMessage() }}
       </div>
     }
 
-    <div class="mb-4">
+    <!-- Page Header -->
+    <div class="mb-8 relative">
+      <div class="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 rounded-3xl blur-3xl"></div>
+      <div class="relative bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 sm:p-8 border border-blue-200/50 dark:border-gray-700 shadow-lg">
+        <div class="flex items-center gap-4 mb-3">
+          <div class="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 sm:w-8 sm:h-8 text-white">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.905 59.905 0 0 1 12 4.597a59.902 59.902 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443a55.381 55.381 0 0 1 5.25 2.882V15" />
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent mb-2">
+              {{ 'classes.title' | translate }}
+            </h1>
+            <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
+              {{ 'classes.subtitle' | translate }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Selector de Centro y Botón Crear -->
+    <div class="mb-6 flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+      @if(centers().length > 0) {
+        <div class="flex-1 bg-blue-100 dark:bg-gray-800 rounded-xl p-4 border border-blue-300 dark:border-gray-700 shadow-sm">
+          <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+            {{ 'classes.selectCenter' | translate }}
+          </label>
+          <select 
+            [ngModel]="filterCenterId()"
+            (ngModelChange)="onCenterChange($event)"
+            class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+            <option value="">{{ 'classes.allCenters' | translate }}</option>
+            @for(center of centers(); track center.id) {
+              <option [value]="center.id">{{ center.name }}</option>
+            }
+          </select>
+        </div>
+      }
+      @if(canEdit()) {
+        <button
+          (click)="openCreateModal()"
+          class="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl transition-all text-sm font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+          {{ 'classes.newClass' | translate }}
+        </button>
+      }
+    </div>
+
+    <div class="mb-6">
       <button
         (click)="toggleFilters()"
-        [class.bg-cyan-600]="showFilters()"
-        [class.bg-cyan-500]="!showFilters()"
-        class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90 text-white shadow-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+        [class.bg-gradient-to-r]="showFilters()"
+        [class.from-cyan-600]="showFilters()"
+        [class.to-blue-600]="showFilters()"
+        [class.bg-gradient-to-r]="!showFilters()"
+        [class.from-cyan-500]="!showFilters()"
+        [class.to-blue-500]="!showFilters()"
+        class="px-4 py-2 rounded-xl transition-all text-sm font-medium flex items-center gap-2 hover:opacity-90 text-white shadow-md hover:shadow-lg hover:scale-105">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
         </svg>
         @if(showFilters()) {
@@ -48,13 +79,13 @@
           <span>{{ 'classes.filters' | translate }}</span>
         }
         @if(hasActiveFilters()) {
-          <span class="px-1.5 py-0.5 bg-yellow-500/30 rounded text-xs">{{ filteredClasses().length }}/{{ classes().length }}</span>
+          <span class="px-2 py-0.5 bg-yellow-400/40 rounded-lg text-xs font-bold">{{ filteredClasses().length }}/{{ classes().length }}</span>
         }
       </button>
     </div>
 
     @if(showFilters()) {
-      <div class="mb-6 bg-white dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
+      <div class="mb-6 bg-white dark:bg-gray-800 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 shadow-lg transition-all duration-300 backdrop-blur-sm">
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-lg font-bold text-gray-900 dark:text-white">{{ 'classes.searchFilters' | translate }}</h2>
           @if(hasActiveFilters()) {
@@ -122,7 +153,9 @@
       } @else {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           @for(item of filteredClasses(); track item.id) {
-            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-all shadow-sm hover:shadow-md">
+            <div class="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-all shadow-md hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="relative z-10">
               <div class="flex items-start justify-between mb-4">
                 <div class="flex-1">
                   <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ item.name }}</h3>
@@ -135,6 +168,53 @@
                 }
               </div>
 
+              <!-- Entrenadores -->
+              @if(item.trainers && item.trainers.length > 0) {
+                <div class="mb-4">
+                  <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    {{ 'classes.trainers' | translate }}:
+                  </p>
+                  <div class="flex flex-wrap gap-2">
+                    @for(trainer of item.trainers; track trainer.id) {
+                      <div class="flex items-center gap-1 px-2 py-1 bg-blue-100 dark:bg-blue-900/30 rounded-lg text-xs">
+                        @if(trainer.trainer && trainer.trainer.profileImageUrl) {
+                          <img [src]="trainer.trainer.profileImageUrl" [alt]="trainer.trainer.name || ''" class="w-4 h-4 rounded-full object-cover">
+                        }
+                        <span class="text-gray-700 dark:text-gray-300">{{ trainer.trainer?.name || 'Unknown' }}</span>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+
+              <!-- Centros y Horarios -->
+              @if(item.schedules && item.schedules.length > 0) {
+                <div class="mb-4">
+                  <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                    {{ 'classes.schedules' | translate }}:
+                  </p>
+                  <div class="space-y-2">
+                    @for(schedule of getSchedulesForCenter(item, filterCenterId() || undefined); track schedule.id) {
+                      <div class="text-xs bg-gray-100 dark:bg-gray-700 rounded p-2">
+                        <div class="flex items-center justify-between">
+                          <span class="font-medium text-gray-700 dark:text-gray-300">
+                            {{ getDayName(schedule.dayOfWeek) }}
+                          </span>
+                          <span class="text-gray-600 dark:text-gray-400">
+                            {{ schedule.startTime }} - {{ schedule.endTime }}
+                          </span>
+                        </div>
+                        @if(schedule.center && (!filterCenterId() || schedule.center.id !== filterCenterId())) {
+                          <p class="text-gray-500 dark:text-gray-500 mt-1">
+                            {{ schedule.center.name }}
+                          </p>
+                        }
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+
               @if(item.createdAt) {
                 <p class="text-xs text-gray-500 dark:text-gray-500 mb-4">
                   {{ 'classes.createdAt' | translate }}:
@@ -142,20 +222,28 @@
                 </p>
               }
 
-              @if(isSuperAdmin()) {
-                <div class="flex gap-2 mt-4">
+              @if(canEdit()) {
+                <div class="flex flex-col gap-2 mt-4">
+                  <div class="flex gap-2">
+                    <button
+                      (click)="openEditModal(item)"
+                      class="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
+                      {{ 'common.edit' | translate }}
+                    </button>
+                    <button
+                      (click)="openDeleteModal(item)"
+                      class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
+                      {{ 'common.delete' | translate }}
+                    </button>
+                  </div>
                   <button
-                    (click)="openEditModal(item)"
-                    class="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
-                    {{ 'common.edit' | translate }}
-                  </button>
-                  <button
-                    (click)="openDeleteModal(item)"
-                    class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
-                    {{ 'common.delete' | translate }}
+                    (click)="openAddCenterModalForClass(item)"
+                    class="w-full px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">
+                    {{ 'classes.addCenter' | translate }}
                   </button>
                 </div>
               }
+              </div>
             </div>
           }
         </div>
@@ -165,7 +253,7 @@
 
   @if(showFormModal()) {
     <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-lg w-full border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-2xl transition-colors duration-300">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-2xl transition-colors duration-300">
         <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
           {{ isEditing() ? ('classes.editClass' | translate) : ('classes.newClass' | translate) }}
         </h3>
@@ -201,6 +289,58 @@
             </textarea>
           </div>
 
+          @if(isEditing() && selectedClass()) {
+            <div class="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-4">
+              <!-- Centros existentes -->
+              @if(getCentersForClass().length > 0) {
+                <div>
+                  <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                    {{ 'classes.existingCenters' | translate }} ({{ getCentersForClass().length }})
+                  </h4>
+                  <div class="space-y-2">
+                    @for(center of getCentersForClass(); track center.id) {
+                      <div class="p-3 bg-gray-100 dark:bg-gray-700 rounded-lg">
+                        <div class="flex items-center justify-between mb-2">
+                          <span class="font-medium text-gray-900 dark:text-white">{{ center.name }}</span>
+                          <div class="flex gap-2">
+                            <button
+                              type="button"
+                              (click)="openEditCenterModal(center.id)"
+                              class="px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-xs transition-colors">
+                              {{ 'common.edit' | translate }}
+                            </button>
+                            <button
+                              type="button"
+                              (click)="deleteCenterFromClass(center.id)"
+                              class="px-2 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-xs transition-colors">
+                              {{ 'common.delete' | translate }}
+                            </button>
+                          </div>
+                        </div>
+                        <div class="text-xs text-gray-600 dark:text-gray-400">
+                          @if(getSchedulesForCenterInClass(center.id).length > 0) {
+                            <span>{{ getSchedulesForCenterInClass(center.id).length }} {{ 'classes.schedules' | translate | lowercase }}</span>
+                          }
+                          @if(getTrainersForCenterInClass(center.id).length > 0) {
+                            <span class="ml-2">{{ getTrainersForCenterInClass(center.id).length }} {{ 'classes.trainers' | translate | lowercase }}</span>
+                          }
+                        </div>
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+              
+              <!-- Botón para agregar nuevo centro -->
+              <button
+                type="button"
+                (click)="openAddCenterModal()"
+                class="w-full px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium">
+                {{ 'classes.addCenter' | translate }}
+              </button>
+            </div>
+          }
+
           <div class="flex gap-3 mt-6">
             <button
               type="button"
@@ -216,11 +356,189 @@
               @if(isLoading()) {
                 {{ 'classes.saving' | translate }}
               } @else {
-                {{ 'common.save' | translate }}
+                {{ isEditing() ? ('common.save' | translate) : ('classes.create' | translate) }}
               }
             </button>
           </div>
         </form>
+      </div>
+    </div>
+  }
+
+  <!-- Modal para Agregar Centro -->
+  @if(showAddCenterModal()) {
+    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-2xl transition-colors duration-300">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+          {{ 'classes.addCenter' | translate }}
+        </h3>
+
+        @if(errorMessage()) {
+          <div class="mb-4 p-3 bg-red-50 dark:bg-red-500/20 border border-red-300 dark:border-red-500 rounded-lg text-red-600 dark:text-red-400 text-sm">
+            {{ errorMessage() }}
+          </div>
+        }
+
+        <div class="space-y-4">
+          <!-- Selector de Centro -->
+          <div>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+              {{ 'classes.selectCenter' | translate }} *
+            </label>
+            <select
+              [(ngModel)]="selectedCenterForAdd"
+              (ngModelChange)="onCenterSelectedForAdd($event)"
+              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+              <option value="">{{ 'classes.selectCenter' | translate }}</option>
+              @for(center of centers(); track center.id) {
+                <option [value]="center.id">{{ center.name }}</option>
+              }
+            </select>
+          </div>
+
+          <!-- Selector de Entrenadores (solo si hay centro seleccionado) -->
+          @if(selectedCenterForAdd() && centerTrainers().length > 0) {
+            <div>
+              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+                {{ 'classes.trainers' | translate }} * ({{ 'classes.fromCenter' | translate }}: {{ getCenterName(selectedCenterForAdd()) }})
+              </label>
+              <div class="max-h-48 overflow-y-auto border border-gray-300 dark:border-gray-600 rounded-lg p-2 bg-gray-50 dark:bg-gray-700">
+                @for(trainer of centerTrainers(); track trainer.id) {
+                  <label class="flex items-center gap-2 p-2 hover:bg-gray-100 dark:hover:bg-gray-600 rounded cursor-pointer">
+                    <input
+                      type="checkbox"
+                      [checked]="isTrainerSelected(trainer.id)"
+                      (change)="toggleTrainer(trainer.id)"
+                      class="w-4 h-4 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500">
+                    <div class="flex items-center gap-2 flex-1">
+                      @if(trainer.profileImageUrl) {
+                        <img [src]="trainer.profileImageUrl" [alt]="trainer.name" class="w-6 h-6 rounded-full object-cover">
+                      }
+                      <span class="text-sm text-gray-700 dark:text-gray-300">{{ trainer.name }}</span>
+                    </div>
+                  </label>
+                }
+              </div>
+            </div>
+          } @else if(selectedCenterForAdd() && centerTrainers().length === 0) {
+            <div class="p-4 bg-yellow-50 dark:bg-yellow-500/20 border border-yellow-300 dark:border-yellow-500 rounded-lg text-yellow-600 dark:text-yellow-400 text-sm">
+              {{ 'classes.noTrainersInCenter' | translate }}
+            </div>
+          }
+
+          <!-- Agregar Horarios -->
+          @if(selectedCenterForAdd()) {
+            <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+              <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                {{ 'classes.addSchedule' | translate }}
+              </h4>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
+                <div>
+                  <label class="block text-gray-700 dark:text-gray-300 text-xs font-medium mb-1">
+                    {{ 'classes.dayOfWeek' | translate }} *
+                  </label>
+                  <select
+                    [(ngModel)]="newScheduleDayOfWeek"
+                    class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                    <option [value]="0">{{ 'classes.sunday' | translate }}</option>
+                    <option [value]="1">{{ 'classes.monday' | translate }}</option>
+                    <option [value]="2">{{ 'classes.tuesday' | translate }}</option>
+                    <option [value]="3">{{ 'classes.wednesday' | translate }}</option>
+                    <option [value]="4">{{ 'classes.thursday' | translate }}</option>
+                    <option [value]="5">{{ 'classes.friday' | translate }}</option>
+                    <option [value]="6">{{ 'classes.saturday' | translate }}</option>
+                  </select>
+                </div>
+                
+                <div>
+                  <label class="block text-gray-700 dark:text-gray-300 text-xs font-medium mb-1">
+                    {{ 'classes.startTime' | translate }} *
+                  </label>
+                  <input
+                    type="time"
+                    [(ngModel)]="newScheduleStartTime"
+                    class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                </div>
+                
+                <div>
+                  <label class="block text-gray-700 dark:text-gray-300 text-xs font-medium mb-1">
+                    {{ 'classes.endTime' | translate }} *
+                  </label>
+                  <input
+                    type="time"
+                    [(ngModel)]="newScheduleEndTime"
+                    class="w-full px-3 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-cyan-500">
+                </div>
+              </div>
+              
+              <button
+                type="button"
+                (click)="addSchedule()"
+                class="w-full px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">
+                {{ 'classes.addScheduleButton' | translate }}
+              </button>
+            </div>
+
+            <!-- Lista de Horarios Agregados -->
+            @if(formSchedules().length > 0) {
+              <div class="border-t border-gray-200 dark:border-gray-700 pt-4">
+                <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                  {{ 'classes.addedSchedules' | translate }} ({{ formSchedules().length }})
+                </h4>
+                <div class="space-y-2 max-h-48 overflow-y-auto">
+                  @for(schedule of formSchedules(); track $index) {
+                    <div class="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm">
+                      <div class="flex-1">
+                        <span class="font-medium text-gray-700 dark:text-gray-300">
+                          {{ getDayName(schedule.dayOfWeek) }}
+                        </span>
+                        <span class="text-gray-600 dark:text-gray-400 ml-2">
+                          {{ schedule.startTime }} - {{ schedule.endTime }}
+                        </span>
+                      </div>
+                      <button
+                        type="button"
+                        (click)="removeSchedule($index)"
+                        class="px-2 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-xs transition-colors">
+                        {{ 'common.delete' | translate }}
+                      </button>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          }
+
+          <div class="flex gap-3 mt-6">
+            <button
+              type="button"
+              (click)="closeAddCenterModal()"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors disabled:opacity-50">
+              {{ 'common.cancel' | translate }}
+            </button>
+            <button
+              type="button"
+              [disabled]="isLoading() || !selectedCenterForAdd() || formTrainerIds().length === 0 || formSchedules().length === 0"
+              [class.bg-green-600]="!isCenterAlreadyInClass(selectedCenterForAdd())"
+              [class.bg-blue-600]="isCenterAlreadyInClass(selectedCenterForAdd())"
+              [class.hover:bg-green-700]="!isCenterAlreadyInClass(selectedCenterForAdd())"
+              [class.hover:bg-blue-700]="isCenterAlreadyInClass(selectedCenterForAdd())"
+              (click)="isCenterAlreadyInClass(selectedCenterForAdd()) ? saveCenterChanges() : onAddCenterSubmit()"
+              class="flex-1 px-4 py-2 text-white rounded-lg transition-colors disabled:opacity-50 shadow-md">
+              @if(isLoading()) {
+                {{ 'classes.saving' | translate }}
+              } @else {
+                @if(isCenterAlreadyInClass(selectedCenterForAdd())) {
+                  {{ 'classes.updateCenter' | translate }}
+                } @else {
+                  {{ 'classes.addCenter' | translate }}
+                }
+              }
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   }

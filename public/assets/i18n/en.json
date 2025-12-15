@@ -50,134 +50,14 @@
     "emailPlaceholder": "your@email",
     "passwordPlaceholder": "Your password",
     "loginButton": "Sign In",
+    "registerLink": "Don't have an account? Sign up",
     "noAccount": "Don't have an account?",
-    "createAccount": "Create account",
+    "createAccount": "Create an account",
     "errors": {
-      "emailRequired": "Email field is required",
-      "passwordRequired": "Password field is required",
-      "emailInvalid": "Email format is not correct",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Email is invalid",
+      "passwordRequired": "Password is required",
       "invalidCredentials": "Invalid credentials"
-    }
-  },
-  "register": {
-    "title": "Create Account",
-    "subtitle": "Join Meta Force",
-    "name": "Name",
-    "email": "Email",
-    "password": "Password",
-    "confirmPassword": "Confirm Password",
-    "namePlaceholder": "Your name",
-    "emailPlaceholder": "your@email",
-    "passwordPlaceholder": "Your password",
-    "confirmPasswordPlaceholder": "Confirm your password",
-    "registerButton": "Register",
-    "errors": {
-      "nameRequired": "Name field is required",
-      "emailRequired": "Email field is required",
-      "passwordRequired": "Password field is required",
-      "confirmPasswordRequired": "Confirm password field is required",
-      "emailInvalid": "Email format is not correct",
-      "passwordMinLength": "Must have at least {{min}} characters",
-      "passwordPattern": "At least one uppercase, one lowercase, one number and 8 characters",
-      "passwordsDoNotMatch": "Passwords do not match"
-    }
-  },
-  "dashboard": {
-    "title": "Meta Force Dashboard",
-    "editRole": "Edit Role",
-    "logout": "Sign Out",
-    "welcome": "Welcome, {{name}}! 👋",
-    "loggedInAs": "You are logged in as",
-    "at": "at",
-    "loading": "Loading user information...",
-    "roles": {
-      "SUPERADMIN": "Super Administrator",
-      "ADMIN_CENTER": "Center Administrator",
-      "TRAINER": "Trainer",
-      "CLEANER": "Cleaning Staff",
-      "USER": "User"
-    },
-    "cards": {
-      "globalAdmin": {
-        "title": "Global Administration",
-        "description": "Manage all centers, users and system settings.",
-        "features": {
-          "access": "Full access to all centers",
-          "users": "User and role management",
-          "config": "System configuration",
-          "reports": "Reports and statistics"
-        }
-      },
-      "centers": {
-        "title": "Center Management",
-        "description": "Create, edit and delete training centers.",
-        "button": "Manage Centers"
-      },
-      "machines": {
-        "title": "Machine Management",
-        "description": "Manage the machine inventory of all centers.",
-        "button": "Manage Machines"
-      },
-      "users": {
-        "title": "User Management",
-        "description": "Manage all users and validate pending accounts.",
-        "button": "Manage Users"
-      },
-      "myQR": {
-        "title": "My QR Code",
-        "description": "Access the gym with your personal QR code.",
-        "button": "View My QR"
-      },
-      "qrScanner": {
-        "title": "QR Scanner",
-        "description": "Register entries and exits by scanning QR codes.",
-        "button": "Open Scanner"
-      },
-      "myCenter": {
-        "title": "My Center",
-        "description": "View your center information.",
-        "button": "View Center"
-      },
-      "employees": {
-        "title": "Employees",
-        "description": "Manage your center's employees.",
-        "button": "Manage Employees"
-      },
-      "statistics": {
-        "title": "Statistics",
-        "description": "View your center's statistics.",
-        "button": "View Statistics"
-      },
-      "myProfile": {
-        "title": "My Profile",
-        "description": "Manage your personal information.",
-        "button": "Edit Profile"
-      },
-      "myClasses": {
-        "title": "My Classes",
-        "description": "Manage your classes and schedules.",
-        "button": "View Classes"
-      },
-      "classes": {
-        "title": "Classes",
-        "description": "Manage all group classes for your Meta Force centers.",
-        "button": "Go to classes"
-      }
-    },
-    "userInfo": {
-      "title": "User Information",
-      "name": "Name",
-      "email": "Email",
-      "role": "Role",
-      "center": "Center",
-      "registrationDate": "Registration date"
-    },
-    "roleEditor": {
-      "title": "Change Role",
-      "selectRole": "Select a role",
-      "cancel": "Cancel",
-      "save": "Save Changes",
-      "saving": "Saving..."
     }
   },
   "nav": {
@@ -185,7 +65,9 @@
     "classes": "Classes",
     "trainers": "Trainers",
     "membership": "Membership",
-    "login": "Sign In"
+    "centers": "Centers",
+    "login": "Sign In",
+    "register": "Sign Up"
   },
   "classes": {
     "title": "Gym Classes",
@@ -194,6 +76,34 @@
     "editClass": "Edit class",
     "deleteClass": "Delete class",
     "backToDashboard": "Back to dashboard",
+    "selectCenter": "Select Center",
+    "allCenters": "All centers",
+    "centerNotFound": "Center not found",
+    "trainers": "Trainers",
+    "schedules": "Schedules",
+    "addSchedule": "Add Schedule",
+    "addScheduleButton": "+ Add Schedule",
+    "addedSchedules": "Added Schedules",
+    "addCenter": "Add Center",
+    "updateCenter": "Update Center",
+    "existingCenters": "Centers where it is taught",
+    "confirmDeleteCenter": "Are you sure you want to remove this center from the class? All schedules and associated trainers will be deleted.",
+    "create": "Create",
+    "fromCenter": "From center",
+    "noTrainersInCenter": "No trainers available in this center",
+    "center": "Center",
+    "dayOfWeek": "Day of Week",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "noTrainersAvailable": "No trainers available",
+    "sunday": "Sunday",
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "unknownDay": "Unknown day",
     "name": "Name",
     "description": "Description",
     "filters": "Filters",
@@ -214,95 +124,145 @@
     "confirmDelete": "Are you sure you want to delete the class",
     "errors": {
       "nameRequired": "The name of the class is required.",
+      "trainerRequired": "You must select at least one trainer.",
+      "centerRequired": "You must select a center for the schedule.",
+      "timeRequired": "You must specify start and end time.",
+      "scheduleRequired": "You must add at least one schedule.",
+      "classNotFound": "Class not found",
+      "loadTrainers": "Error loading trainers",
       "load": "Error loading classes.",
       "save": "Error saving the class.",
       "delete": "Error deleting the class."
     }
   },
+  "dashboard": {
+    "title": "Dashboard",
+    "loading": "Loading...",
+    "logout": "Logout",
+    "roles": {
+      "SUPERADMIN": "Super Administrator",
+      "ADMIN_CENTER": "Center Administrator",
+      "TRAINER": "Trainer",
+      "CLEANER": "Cleaner",
+      "USER": "User"
+    },
+    "cards": {
+      "classes": {
+        "title": "Classes",
+        "description": "Manage all group classes for your Meta Force centers.",
+        "button": "Go to classes"
+      },
+      "centers": {
+        "title": "Centers",
+        "description": "Manage all Meta Force centers.",
+        "button": "Go to centers"
+      },
+      "machines": {
+        "title": "Machines",
+        "description": "Manage all machines in your centers.",
+        "button": "Go to machines"
+      },
+      "users": {
+        "title": "Users",
+        "description": "Manage all system users.",
+        "button": "Go to users"
+      },
+      "myCenter": {
+        "title": "My Center",
+        "description": "Manage your center information.",
+        "button": "View center"
+      },
+      "employees": {
+        "title": "Employees",
+        "description": "Manage your center employees.",
+        "button": "View employees"
+      },
+      "statistics": {
+        "title": "Statistics",
+        "description": "View your center statistics.",
+        "button": "View statistics"
+      },
+      "myQR": {
+        "title": "My QR",
+        "description": "Access your personal QR code.",
+        "button": "View my QR"
+      },
+      "myProfile": {
+        "title": "My Profile",
+        "description": "Manage your personal information.",
+        "button": "View profile"
+      },
+      "myClasses": {
+        "title": "My Classes",
+        "description": "Manage your classes as trainer.",
+        "button": "View my classes"
+      }
+    },
+    "userInfo": {
+      "title": "User Information",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "center": "Center",
+      "registrationDate": "Registration Date"
+    },
+    "roleEditor": {
+      "title": "Change Role",
+      "selectRole": "Select a role",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    }
+  },
+  "trainers": {
+    "title": "Trainers",
+    "description": "Meet our team of professional trainers",
+    "selectCenter": "Select Center",
+    "showingTrainersFrom": "Showing trainers from",
+    "noTrainersFound": "No trainers found in this center.",
+    "noCentersAvailable": "No centers available.",
+    "favorite": "Favorite",
+    "activeInCenter": "Active in center",
+    "noCenter": "No center",
+    "centerNotFound": "Center not found",
+    "errors": {
+      "load": "Error loading trainers.",
+      "loadCenters": "Error loading centers."
+    }
+  },
   "qrScanner": {
-    "title": "Entry/Exit Registration",
+    "title": "QR Scanner",
     "backToDashboard": "Back to Dashboard",
     "selectCenter": "Select Center",
-    "selectCenterPlaceholder": "-- Select a center --",
+    "selectCenterPlaceholder": "Select a center",
     "scannerTitle": "QR Code Scanner",
     "startScanner": "Start Scanner",
     "stopScanner": "Stop Scanner",
     "user": "User",
     "instructions": "Instructions",
-    "instruction1": "Select the center where entry/exit will be registered",
-    "instruction2": "Click \"Start Scanner\" to activate the camera",
+    "instruction1": "Select a center before scanning",
+    "instruction2": "Click 'Start Scanner' to activate the camera",
     "instruction3": "Point the camera at the user's QR code",
-    "instruction4": "The system will automatically detect if it's entry (green) or exit (red)",
-    "instruction5": "The QR code must be less than 20 minutes old",
-    "loading": "Loading user information...",
+    "instruction4": "The system will automatically detect if it's entry or exit",
+    "instruction5": "Green flash indicates entry, red flash indicates exit",
+    "loading": "Loading...",
     "errors": {
-      "invalidQR": "Invalid QR: missing required data",
-      "expiredQR": "The QR code has expired. Please generate a new one.",
-      "processingError": "Error processing QR code"
+      "invalidQR": "Invalid QR code",
+      "expiredQR": "The QR code has expired (maximum 20 minutes)",
+      "processingError": "Error processing the QR code",
+      "loadCenters": "Error loading centers",
+      "selectCenter": "Please select a center first",
+      "cameraAccess": "Error accessing camera. Make sure to grant permissions."
     }
   },
-  "users": {
-    "title": "User Management",
-    "backToDashboard": "Back to Dashboard",
-    "filters": "Filters",
-    "hideFilters": "Hide Filters",
-    "searchFilters": "Search Filters",
-    "clearFilters": "Clear Filters",
-    "name": "Name",
-    "email": "Email",
-    "role": "Role",
-    "status": "Status",
-    "center": "Center",
-    "dateFrom": "Date from",
-    "dateTo": "Date to",
-    "searchByName": "Search by name...",
-    "searchByEmail": "Search by email...",
-    "allRoles": "All roles",
-    "allStatuses": "All statuses",
-    "allCenters": "All centers",
-    "noCenter": "No center",
-    "centerNotFound": "Center not found",
-    "favoriteCenter": "Favorite Center",
-    "currentCenter": "Current Center",
-    "noFavoriteCenter": "No favorite center assigned",
-    "notInAnyCenter": "Not in any center currently",
-    "editUser": "Edit User",
-    "viewUser": "View User",
-    "deleteUser": "Delete User",
-    "newUser": "New User",
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "confirmDelete": "Are you sure you want to delete this user?",
-    "errors": {
-      "nameEmailRequired": "Name and email are required"
-    },
-    "statuses": {
-      "PENDING": "Pending",
-      "ACTIVE": "Active",
-      "INACTIVE": "Inactive",
-      "SUSPENDED": "Suspended"
-    },
-    "validate": "Validate",
-    "noUsersFound": "No users found with the applied filters",
-    "noUsersAvailable": "No users available",
-    "deleting": "Deleting...",
-    "showing": "Showing",
-    "of": "of",
-    "users": "users",
-    "registered": "Registered",
-    "registrationDate": "Registration Date",
-    "currentlyIn": "Currently in",
-    "favoriteCenterDescription": "User's assigned/favorite center (can be changed from here)"
-  },
   "centers": {
-    "title": "Center Management",
+    "title": "Centers",
+    "subtitle": "Manage all Meta Force centers and their locations",
+    "newCenter": "New Center",
+    "editCenter": "Edit Center",
+    "viewCenter": "View Center",
+    "deleteCenter": "Delete Center",
     "backToDashboard": "Back to Dashboard",
-    "newCenter": "+ New Center",
-    "filters": "Filters",
-    "hideFilters": "Hide Filters",
-    "searchFilters": "Search Filters",
-    "clearFilters": "Clear Filters",
     "name": "Name",
     "description": "Description",
     "address": "Address",
@@ -310,90 +270,95 @@
     "country": "Country",
     "phone": "Phone",
     "email": "Email",
+    "filters": "Filters",
+    "hideFilters": "Hide filters",
+    "searchFilters": "Search filters",
+    "clearFilters": "Clear filters",
+    "searchByName": "Search by name",
+    "searchByDescription": "Search by description",
+    "searchByAddress": "Search by address",
+    "searchByCity": "Search by city",
+    "searchByCountry": "Search by country",
+    "searchByPhone": "Search by phone",
+    "searchByEmail": "Search by email",
     "dateFrom": "Date from",
     "dateTo": "Date to",
-    "searchByName": "Search by name...",
-    "searchByDescription": "Search by description...",
-    "searchByAddress": "Search by address...",
-    "searchByCity": "Search by city...",
-    "searchByCountry": "Search by country...",
-    "searchByPhone": "Search by phone...",
-    "searchByEmail": "Search by email...",
-    "editCenter": "Edit Center",
-    "viewCenter": "View Center",
-    "deleteCenter": "Delete Center",
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "confirmDelete": "Are you sure you want to delete this center?",
-    "errors": {
-      "nameRequired": "Center name is required"
-    },
-    "deleting": "Deleting...",
-    "selectCenter": "Select a center",
-    "noCentersFound": "No centers found with the applied filters",
-    "noCentersAvailable": "No centers available",
+    "showing": "Showing",
+    "of": "of",
+    "centers": "centers",
     "loading": "Loading centers...",
-    "createdAt": "Creation Date",
-    "showing": "Showing",
-    "of": "of",
-    "centers": "centers"
-  },
-  "machines": {
-    "title": "Machine Management",
-    "subtitle": "Equipment inventory and status",
-    "back": "Back",
-    "newMachine": "New Machine",
-    "filters": "Filters",
-    "hideFilters": "Hide Filters",
-    "searchFilters": "Search Filters",
-    "clearFilters": "Clear Filters",
-    "name": "Name",
-    "type": "Type",
-    "status": "Status",
-    "center": "Center",
-    "searchByName": "Search by name...",
-    "searchByCenter": "Search by center...",
-    "allTypes": "All types",
-    "allStatuses": "All statuses",
-    "editMachine": "Edit Machine",
-    "viewMachine": "View Machine",
-    "deleteMachine": "Delete Machine",
-    "save": "Save",
-    "cancel": "Cancel",
-    "delete": "Delete",
-    "namePlaceholder": "Ex: Treadmill #1",
-    "types": {
-      "cardio": "Cardio",
-      "fuerza": "Strength",
-      "peso libre": "Free Weight",
-      "funcional": "Functional",
-      "otro": "Other"
-    },
-    "statuses": {
-      "operativa": "Operational",
-      "en mantenimiento": "Under Maintenance",
-      "fuera de servicio": "Out of Service"
-    },
-    "confirmDelete": "Are you sure you want to delete the machine",
+    "noCentersFound": "No centers match your filters.",
+    "noCentersAvailable": "No centers created yet.",
+    "createdAt": "Created at",
+    "creating": "Creating...",
+    "saving": "Saving...",
     "deleting": "Deleting...",
-    "noMachinesFound": "No machines found with the applied filters",
-    "noMachinesRegistered": "No machines registered",
-    "registerFirstMachine": "Register the first machine",
+    "confirmDelete": "Are you sure you want to delete the center",
+    "createCenter": "Create Center",
+    "saveChanges": "Save Changes",
+    "errors": {
+      "nameRequired": "The center name is required.",
+      "load": "Error loading centers.",
+      "save": "Error saving the center.",
+      "delete": "Error deleting the center."
+    }
+  },
+  "users": {
+    "title": "Users",
+    "backToDashboard": "Back to Dashboard",
+    "filters": "Filters",
+    "hideFilters": "Hide filters",
+    "searchFilters": "Search filters",
+    "clearFilters": "Clear filters",
+    "searchByName": "Search by name",
+    "searchByEmail": "Search by email",
+    "searchByRole": "Search by role",
+    "searchByStatus": "Search by status",
     "showing": "Showing",
     "of": "of",
-    "machines": "machines"
+    "users": "users",
+    "loading": "Loading users...",
+    "noUsersFound": "No users match your filters.",
+    "noUsersAvailable": "No users registered yet.",
+    "errors": {
+      "load": "Error loading users."
+    }
   },
   "common": {
     "selectLanguage": "Select language",
     "loading": "Loading...",
     "error": "Error",
     "success": "Success",
-    "edit": "Edit",
-    "delete": "Delete",
-    "save": "Save",
     "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
     "close": "Close"
+  },
+  "register": {
+    "title": "Register",
+    "subtitle": "Create your account and start your transformation",
+    "name": "Name",
+    "namePlaceholder": "Your full name",
+    "email": "Email",
+    "emailPlaceholder": "your@email.com",
+    "password": "Password",
+    "passwordPlaceholder": "Your password",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "role": "Role",
+    "registerButton": "Sign Up",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginLink": "Sign in",
+    "errors": {
+      "nameRequired": "Name is required",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Email is invalid",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "confirmPasswordRequired": "You must confirm the password",
+      "passwordsNotMatch": "Passwords do not match"
+    }
   },
   "profileImage": {
     "manage": "Manage image",

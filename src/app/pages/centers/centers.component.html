@@ -1,46 +1,59 @@
 <div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
-  <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm transition-colors duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-      <div class="flex justify-between items-center">
-        <div class="flex items-center gap-4">
-          <h1 class="text-2xl font-bold text-blue-900 dark:text-white">{{ 'centers.title' | translate }}</h1>
-        </div>
-        <div class="flex items-center gap-4">
-          <app-language-selector></app-language-selector>
-          <app-theme-toggle></app-theme-toggle>
-          @if(canCreate()) {
-            <button 
-              (click)="openCreateModal()"
-              class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium">
-              {{ 'centers.newCenter' | translate }}
-            </button>
-          }
-          <a 
-            routerLink="/dashboard"
-            class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium">
-            {{ 'centers.backToDashboard' | translate }}
-          </a>
-        </div>
-      </div>
-    </div>
-  </header>
+  <app-navbar></app-navbar>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
     @if(errorMessage()) {
       <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-600 dark:text-red-400">
         {{ errorMessage() }}
       </div>
     }
 
-    <div class="mb-4 flex items-center justify-between">
+    <!-- Page Header -->
+    <div class="mb-8 relative">
+      <div class="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 rounded-3xl blur-3xl"></div>
+      <div class="relative bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 sm:p-8 border border-blue-200/50 dark:border-gray-700 shadow-lg">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div class="flex items-center gap-4">
+            <div class="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 sm:w-8 sm:h-8 text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+              </svg>
+            </div>
+            <div>
+              <h1 class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent mb-2">
+                {{ 'centers.title' | translate }}
+              </h1>
+              <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
+                {{ 'centers.subtitle' | translate }}
+              </p>
+            </div>
+          </div>
+          @if(canCreate()) {
+            <button 
+              (click)="openCreateModal()"
+              class="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl transition-all text-sm font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+              {{ 'centers.newCenter' | translate }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-6">
       <button 
         (click)="toggleFilters()"
-        [class.bg-cyan-600]="showFilters()"
-        [class.bg-cyan-500]="!showFilters()"
-        [class.text-white]="!hasActiveFilters()"
-        [class.text-yellow-300]="hasActiveFilters()"
-        class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90 text-white shadow-sm">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+        [class.bg-gradient-to-r]="showFilters()"
+        [class.from-cyan-600]="showFilters()"
+        [class.to-blue-600]="showFilters()"
+        [class.bg-gradient-to-r]="!showFilters()"
+        [class.from-cyan-500]="!showFilters()"
+        [class.to-blue-500]="!showFilters()"
+        class="px-4 py-2 rounded-xl transition-all text-sm font-medium flex items-center gap-2 hover:opacity-90 text-white shadow-md hover:shadow-lg hover:scale-105">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
         </svg>
         @if(showFilters()) {
@@ -49,13 +62,13 @@
           <span>{{ 'centers.filters' | translate }}</span>
         }
         @if(hasActiveFilters()) {
-          <span class="px-1.5 py-0.5 bg-yellow-500/30 rounded text-xs">{{ filteredCenters().length }}/{{ centers().length }}</span>
+          <span class="px-2 py-0.5 bg-yellow-400/40 rounded-lg text-xs font-bold">{{ filteredCenters().length }}/{{ centers().length }}</span>
         }
       </button>
     </div>
 
     @if(showFilters()) {
-      <div class="mb-6 bg-white dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 shadow-sm transition-colors duration-300">
+      <div class="mb-6 bg-white dark:bg-gray-800 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 shadow-lg transition-all duration-300 backdrop-blur-sm">
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-lg font-bold text-gray-900 dark:text-white">{{ 'centers.searchFilters' | translate }}</h2>
           @if(hasActiveFilters()) {
@@ -97,7 +110,7 @@
             <input type="text" [ngModel]="filterEmail()" (ngModelChange)="filterEmail.set($event)" [placeholder]="'centers.searchByEmail' | translate" class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
           <div>
-            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">Fecha desde</label>
+            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ 'centers.dateFrom' | translate }}</label>
             <input type="date" [ngModel]="filterDateFrom()" (ngModelChange)="filterDateFrom.set($event)" class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
           </div>
           <div>
@@ -138,7 +151,9 @@
       } @else {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           @for(center of filteredCenters(); track center.id || center.name) {
-            <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-all shadow-sm hover:shadow-md">
+            <div class="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-all shadow-md hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div class="relative z-10">
               <div 
                 (click)="openViewModal(center)"
                 class="cursor-pointer">
@@ -183,7 +198,7 @@
                   </div>
                 }
               </div>
-
+              
               <div class="flex gap-2 mt-4" (click)="$event.stopPropagation()">
                 @if(canModify(center)) {
                   <button 
@@ -200,6 +215,7 @@
                     {{ 'common.delete' | translate }}
                   </button>
                 }
+              </div>
               </div>
             </div>
           }
@@ -294,16 +310,16 @@
               (click)="closeCreateModal()"
               [disabled]="isLoading()"
               class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors disabled:opacity-50">
-              Cancelar
+              {{ 'common.cancel' | translate }}
             </button>
             <button 
               type="submit"
               [disabled]="isLoading()"
               class="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors disabled:opacity-50 shadow-md">
               @if(isLoading()) {
-                Creando...
+                {{ 'centers.creating' | translate }}
               } @else {
-                Crear Centro
+                {{ 'centers.createCenter' | translate }}
               }
             </button>
           </div>
@@ -363,16 +379,16 @@
               (click)="closeEditModal()"
               [disabled]="isLoading()"
               class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors disabled:opacity-50">
-              Cancelar
+              {{ 'common.cancel' | translate }}
             </button>
             <button 
               type="submit"
               [disabled]="isLoading()"
               class="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors disabled:opacity-50 shadow-md">
               @if(isLoading()) {
-                Guardando...
+                {{ 'centers.saving' | translate }}
               } @else {
-                Guardar Cambios
+                {{ 'centers.saveChanges' | translate }}
               }
             </button>
           </div>
