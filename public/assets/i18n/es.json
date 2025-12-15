@@ -343,8 +343,26 @@
     "title": "Máquinas",
     "subtitle": "Gestiona todas las máquinas de tus centros Meta Force.",
     "newMachine": "Nueva Máquina",
+    "newModel": "Nuevo Modelo",
     "editMachine": "Editar Máquina",
     "deleteMachine": "Eliminar Máquina",
+    "modelsTab": "Modelos",
+    "instancesTab": "Instancias",
+    "instances": "Instancias",
+    "instance": "Instancia",
+    "noInstancesInCenter": "No hay instancias de máquinas en este centro",
+    "selectCenterToViewInstances": "Selecciona un centro para ver las instancias de máquinas",
+    "manageInstances": "Gestionar Instancias en Centros",
+    "addInstancesToCenter": "Agregar Instancias a un Centro",
+    "addInstances": "Agregar Instancias",
+    "editInstance": "Editar Instancia",
+    "quantity": "Cantidad",
+    "quantityHelp": "Número de instancias a crear (ej: 5 creará 'Cinta 1', 'Cinta 2', ... 'Cinta 5')",
+    "model": "Modelo",
+    "selectModel": "Selecciona un modelo",
+    "addToCenter": "Agregar al Centro",
+    "noCentersAssigned": "No hay centros asignados a este modelo",
+    "confirmDeleteInstance": "¿Seguro que quieres eliminar esta instancia?",
     "back": "Volver",
     "name": "Nombre",
     "type": "Tipo",
@@ -374,22 +392,28 @@
     "deleting": "Eliminando...",
     "confirmDelete": "¿Seguro que quieres eliminar la máquina",
     "types": {
-      "CARDIO": "Cardio",
-      "STRENGTH": "Fuerza",
-      "FLEXIBILITY": "Flexibilidad",
-      "FUNCTIONAL": "Funcional"
+      "cardio": "Cardio",
+      "fuerza": "Fuerza",
+      "peso libre": "Peso libre",
+      "funcional": "Funcional",
+      "otro": "Otro"
     },
     "statuses": {
-      "AVAILABLE": "Disponible",
-      "IN_USE": "En uso",
-      "MAINTENANCE": "Mantenimiento",
-      "OUT_OF_SERVICE": "Fuera de servicio"
+      "operativa": "Operativa",
+      "en mantenimiento": "En mantenimiento",
+      "fuera de servicio": "Fuera de servicio"
     },
     "errors": {
       "nameRequired": "El nombre de la máquina es obligatorio.",
       "load": "Error al cargar las máquinas.",
       "save": "Error al guardar la máquina.",
-      "delete": "Error al eliminar la máquina."
+      "delete": "Error al eliminar la máquina.",
+      "machineTypeNotFound": "Tipo de máquina no encontrado",
+      "instanceNotFound": "Instancia no encontrada",
+      "machineTypeOrCenterRequired": "Debe seleccionar un modelo y un centro",
+      "quantityRequired": "La cantidad debe ser mayor a 0",
+      "deleteInstance": "Error al eliminar la instancia",
+      "deleteCenter": "Error al eliminar del centro"
     }
   },
   "common": {
