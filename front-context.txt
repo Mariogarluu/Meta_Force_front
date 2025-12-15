@@ -44,13 +44,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "3MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "6kB",
+                  "maximumError": "10kB"
                 }
               ],
               "outputHashing": "all"
@@ -218,134 +218,12 @@
     "emailPlaceholder": "your@email",
     "passwordPlaceholder": "Your password",
     "loginButton": "Sign In",
-    "noAccount": "Don't have an account?",
-    "createAccount": "Create account",
+    "registerLink": "Don't have an account? Sign up",
     "errors": {
-      "emailRequired": "Email field is required",
-      "passwordRequired": "Password field is required",
-      "emailInvalid": "Email format is not correct",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Email is invalid",
+      "passwordRequired": "Password is required",
       "invalidCredentials": "Invalid credentials"
-    }
-  },
-  "register": {
-    "title": "Create Account",
-    "subtitle": "Join Meta Force",
-    "name": "Name",
-    "email": "Email",
-    "password": "Password",
-    "confirmPassword": "Confirm Password",
-    "namePlaceholder": "Your name",
-    "emailPlaceholder": "your@email",
-    "passwordPlaceholder": "Your password",
-    "confirmPasswordPlaceholder": "Confirm your password",
-    "registerButton": "Register",
-    "errors": {
-      "nameRequired": "Name field is required",
-      "emailRequired": "Email field is required",
-      "passwordRequired": "Password field is required",
-      "confirmPasswordRequired": "Confirm password field is required",
-      "emailInvalid": "Email format is not correct",
-      "passwordMinLength": "Must have at least {{min}} characters",
-      "passwordPattern": "At least one uppercase, one lowercase, one number and 8 characters",
-      "passwordsDoNotMatch": "Passwords do not match"
-    }
-  },
-  "dashboard": {
-    "title": "Meta Force Dashboard",
-    "editRole": "Edit Role",
-    "logout": "Sign Out",
-    "welcome": "Welcome, {{name}}! 👋",
-    "loggedInAs": "You are logged in as",
-    "at": "at",
-    "loading": "Loading user information...",
-    "roles": {
-      "SUPERADMIN": "Super Administrator",
-      "ADMIN_CENTER": "Center Administrator",
-      "TRAINER": "Trainer",
-      "CLEANER": "Cleaning Staff",
-      "USER": "User"
-    },
-    "cards": {
-      "globalAdmin": {
-        "title": "Global Administration",
-        "description": "Manage all centers, users and system settings.",
-        "features": {
-          "access": "Full access to all centers",
-          "users": "User and role management",
-          "config": "System configuration",
-          "reports": "Reports and statistics"
-        }
-      },
-      "centers": {
-        "title": "Center Management",
-        "description": "Create, edit and delete training centers.",
-        "button": "Manage Centers"
-      },
-      "machines": {
-        "title": "Machine Management",
-        "description": "Manage the machine inventory of all centers.",
-        "button": "Manage Machines"
-      },
-      "users": {
-        "title": "User Management",
-        "description": "Manage all users and validate pending accounts.",
-        "button": "Manage Users"
-      },
-      "myQR": {
-        "title": "My QR Code",
-        "description": "Access the gym with your personal QR code.",
-        "button": "View My QR"
-      },
-      "qrScanner": {
-        "title": "QR Scanner",
-        "description": "Register entries and exits by scanning QR codes.",
-        "button": "Open Scanner"
-      },
-      "myCenter": {
-        "title": "My Center",
-        "description": "View your center information.",
-        "button": "View Center"
-      },
-      "employees": {
-        "title": "Employees",
-        "description": "Manage your center's employees.",
-        "button": "Manage Employees"
-      },
-      "statistics": {
-        "title": "Statistics",
-        "description": "View your center's statistics.",
-        "button": "View Statistics"
-      },
-      "myProfile": {
-        "title": "My Profile",
-        "description": "Manage your personal information.",
-        "button": "Edit Profile"
-      },
-      "myClasses": {
-        "title": "My Classes",
-        "description": "Manage your classes and schedules.",
-        "button": "View Classes"
-      },
-      "classes": {
-        "title": "Classes",
-        "description": "Manage all group classes for your Meta Force centers.",
-        "button": "Go to classes"
-      }
-    },
-    "userInfo": {
-      "title": "User Information",
-      "name": "Name",
-      "email": "Email",
-      "role": "Role",
-      "center": "Center",
-      "registrationDate": "Registration date"
-    },
-    "roleEditor": {
-      "title": "Change Role",
-      "selectRole": "Select a role",
-      "cancel": "Cancel",
-      "save": "Save Changes",
-      "saving": "Saving..."
     }
   },
   "nav": {
@@ -353,7 +231,9 @@
     "classes": "Classes",
     "trainers": "Trainers",
     "membership": "Membership",
-    "login": "Sign In"
+    "centers": "Centers",
+    "login": "Sign In",
+    "register": "Sign Up"
   },
   "classes": {
     "title": "Gym Classes",
@@ -386,6 +266,102 @@
       "save": "Error saving the class.",
       "delete": "Error deleting the class."
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "loading": "Loading...",
+    "logout": "Logout",
+    "roles": {
+      "SUPERADMIN": "Super Administrator",
+      "ADMIN_CENTER": "Center Administrator",
+      "TRAINER": "Trainer",
+      "CLEANER": "Cleaner",
+      "USER": "User"
+    },
+    "cards": {
+      "classes": {
+        "title": "Classes",
+        "description": "Manage all group classes for your Meta Force centers.",
+        "button": "Go to classes"
+      },
+      "centers": {
+        "title": "Centers",
+        "description": "Manage all Meta Force centers.",
+        "button": "Go to centers"
+      },
+      "machines": {
+        "title": "Machines",
+        "description": "Manage all machines in your centers.",
+        "button": "Go to machines"
+      },
+      "users": {
+        "title": "Users",
+        "description": "Manage all system users.",
+        "button": "Go to users"
+      },
+      "myCenter": {
+        "title": "My Center",
+        "description": "Manage your center information.",
+        "button": "View center"
+      },
+      "employees": {
+        "title": "Employees",
+        "description": "Manage your center employees.",
+        "button": "View employees"
+      },
+      "statistics": {
+        "title": "Statistics",
+        "description": "View your center statistics.",
+        "button": "View statistics"
+      },
+      "myQR": {
+        "title": "My QR",
+        "description": "Access your personal QR code.",
+        "button": "View my QR"
+      },
+      "myProfile": {
+        "title": "My Profile",
+        "description": "Manage your personal information.",
+        "button": "View profile"
+      },
+      "myClasses": {
+        "title": "My Classes",
+        "description": "Manage your classes as trainer.",
+        "button": "View my classes"
+      }
+    },
+    "userInfo": {
+      "title": "User Information",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "center": "Center",
+      "registrationDate": "Registration Date"
+    },
+    "roleEditor": {
+      "title": "Change Role",
+      "selectRole": "Select a role",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    }
+  },
+  "common": {
+    "selectLanguage": "Select language",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "close": "Close"
+  },
+  "profileImage": {
+    "manage": "Manage image",
+    "upload": "Upload image",
+    "delete": "Delete image",
+    "uploading": "Uploading image..."
   },
   "qrScanner": {
     "title": "Entry/Exit Registration",
@@ -552,25 +528,30 @@
     "of": "of",
     "machines": "machines"
   },
-  "common": {
-    "selectLanguage": "Select language",
-    "loading": "Loading...",
-    "error": "Error",
-    "success": "Success",
-    "edit": "Edit",
-    "delete": "Delete",
-    "save": "Save",
-    "cancel": "Cancel",
-    "close": "Close"
-  },
-  "profileImage": {
-    "manage": "Manage image",
-    "upload": "Upload image",
-    "delete": "Delete image",
-    "uploading": "Uploading image..."
+  "register": {
+    "title": "Create Account",
+    "subtitle": "Join Meta Force",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "namePlaceholder": "Your name",
+    "emailPlaceholder": "your@email",
+    "passwordPlaceholder": "Your password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "registerButton": "Register",
+    "errors": {
+      "nameRequired": "Name field is required",
+      "emailRequired": "Email field is required",
+      "passwordRequired": "Password field is required",
+      "confirmPasswordRequired": "Confirm password field is required",
+      "emailInvalid": "Email format is not correct",
+      "passwordMinLength": "Must have at least {{min}} characters",
+      "passwordPattern": "At least one uppercase, one lowercase, one number and 8 characters",
+      "passwordsDoNotMatch": "Passwords do not match"
+    }
   }
 }
-
 --- END OF FILE: public\assets\i18n\en.json ---
 
 
@@ -626,135 +607,13 @@
     "password": "Contraseña",
     "emailPlaceholder": "tu@email",
     "passwordPlaceholder": "Tu contraseña",
-    "loginButton": "Acceder",
-    "noAccount": "¿No tienes cuenta?",
-    "createAccount": "Crear cuenta",
+    "loginButton": "Iniciar Sesión",
+    "registerLink": "¿No tienes cuenta? Regístrate",
     "errors": {
-      "emailRequired": "El campo email es requerido",
-      "passwordRequired": "El campo contraseña es requerido",
-      "emailInvalid": "El formato de email no es correcto",
+      "emailRequired": "El email es obligatorio",
+      "emailInvalid": "El email no es válido",
+      "passwordRequired": "La contraseña es obligatoria",
       "invalidCredentials": "Credenciales inválidas"
-    }
-  },
-  "register": {
-    "title": "Crear Cuenta",
-    "subtitle": "Únete a Meta Force",
-    "name": "Nombre",
-    "email": "Email",
-    "password": "Contraseña",
-    "confirmPassword": "Confirmar Contraseña",
-    "namePlaceholder": "Tu nombre",
-    "emailPlaceholder": "tu@email",
-    "passwordPlaceholder": "Tu contraseña",
-    "confirmPasswordPlaceholder": "Confirma tu contraseña",
-    "registerButton": "Registrar",
-    "errors": {
-      "nameRequired": "El campo nombre es requerido",
-      "emailRequired": "El campo email es requerido",
-      "passwordRequired": "El campo password es requerido",
-      "confirmPasswordRequired": "El campo confirmar contraseña es requerido",
-      "emailInvalid": "El formato de email no es correcto",
-      "passwordMinLength": "Debe tener al menos {{min}} caracteres",
-      "passwordPattern": "Al menos una mayúscula, una minúscula, un número y 8 caracteres",
-      "passwordsDoNotMatch": "Las contraseñas no coinciden"
-    }
-  },
-  "dashboard": {
-    "title": "Meta Force Dashboard",
-    "editRole": "Editar Rol",
-    "logout": "Cerrar Sesión",
-    "welcome": "¡Bienvenido, {{name}}! 👋",
-    "loggedInAs": "Has iniciado sesión como",
-    "at": "en",
-    "loading": "Cargando información del usuario...",
-    "roles": {
-      "SUPERADMIN": "Super Administrador",
-      "ADMIN_CENTER": "Administrador de Centro",
-      "TRAINER": "Entrenador",
-      "CLEANER": "Personal de Limpieza",
-      "USER": "Usuario"
-    },
-    "cards": {
-      "globalAdmin": {
-        "title": "Administración Global",
-        "description": "Gestiona todos los centros, usuarios y configuraciones del sistema.",
-        "features": {
-          "access": "Acceso completo a todos los centros",
-          "users": "Gestión de usuarios y roles",
-          "config": "Configuración del sistema",
-          "reports": "Reportes y estadísticas"
-        }
-      },
-      "centers": {
-        "title": "Gestión de Centros",
-        "description": "Crea, edita y elimina centros de entrenamiento.",
-        "button": "Gestionar Centros"
-      },
-      "machines": {
-        "title": "Gestión de Máquinas",
-        "description": "Administra el inventario de máquinas de todos los centros.",
-        "button": "Gestionar Máquinas"
-      },
-      "users": {
-        "title": "Gestión de Usuarios",
-        "description": "Administra todos los usuarios y valida cuentas pendientes.",
-        "button": "Gestionar Usuarios"
-      },
-      "myQR": {
-        "title": "Mi Código QR",
-        "description": "Accede al gimnasio con tu código QR personal.",
-        "button": "Ver Mi QR"
-      },
-      "qrScanner": {
-        "title": "Escáner QR",
-        "description": "Registra entradas y salidas escaneando códigos QR.",
-        "button": "Abrir Escáner"
-      },
-      "myCenter": {
-        "title": "Mi Centro",
-        "description": "Visualiza la información de tu centro.",
-        "button": "Ver Centro"
-      },
-      "employees": {
-        "title": "Empleados",
-        "description": "Administra los empleados de tu centro.",
-        "button": "Gestionar Empleados"
-      },
-      "statistics": {
-        "title": "Estadísticas",
-        "description": "Visualiza las estadísticas de tu centro.",
-        "button": "Ver Estadísticas"
-      },
-      "myProfile": {
-        "title": "Mi Perfil",
-        "description": "Gestiona tu información personal.",
-        "button": "Editar Perfil"
-      },
-      "myClasses": {
-        "title": "Mis Clases",
-        "description": "Gestiona tus clases y horarios.",
-        "button": "Ver Clases"
-      },
-      "classes": {
-        "title": "Clases",
-        "description": "Gestiona todas las clases grupales de tus centros Meta Force.",
-        "button": "Ir a clases"
-      }
-    },
-    "userInfo": {
-      "title": "Información del Usuario",
-      "name": "Nombre",
-      "email": "Email",
-      "role": "Rol",
-      "center": "Centro",
-      "registrationDate": "Fecha de registro"
-    },
-    "roleEditor": {
-      "title": "Cambiar Rol",
-      "selectRole": "Selecciona un rol",
-      "cancel": "Cancelar",
-      "save": "Guardar Cambios",
-      "saving": "Guardando..."
     }
   },
   "nav": {
@@ -762,7 +621,9 @@
     "classes": "Clases",
     "trainers": "Entrenadores",
     "membership": "Membresía",
-    "login": "Iniciar sesión"
+    "centers": "Centros",
+    "login": "Iniciar sesión",
+    "register": "Registrarse"
   },
   "classes": {
     "title": "Clases de gimnasio",
@@ -795,6 +656,102 @@
       "save": "Error al guardar la clase.",
       "delete": "Error al eliminar la clase."
     }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "loading": "Cargando...",
+    "logout": "Cerrar sesión",
+    "roles": {
+      "SUPERADMIN": "Super Administrador",
+      "ADMIN_CENTER": "Administrador de Centro",
+      "TRAINER": "Entrenador",
+      "CLEANER": "Limpieza",
+      "USER": "Usuario"
+    },
+    "cards": {
+      "classes": {
+        "title": "Clases",
+        "description": "Gestiona todas las clases grupales de tus centros Meta Force.",
+        "button": "Ir a clases"
+      },
+      "centers": {
+        "title": "Centros",
+        "description": "Gestiona todos los centros Meta Force.",
+        "button": "Ir a centros"
+      },
+      "machines": {
+        "title": "Máquinas",
+        "description": "Gestiona todas las máquinas de tus centros.",
+        "button": "Ir a máquinas"
+      },
+      "users": {
+        "title": "Usuarios",
+        "description": "Gestiona todos los usuarios del sistema.",
+        "button": "Ir a usuarios"
+      },
+      "myCenter": {
+        "title": "Mi Centro",
+        "description": "Gestiona la información de tu centro.",
+        "button": "Ver centro"
+      },
+      "employees": {
+        "title": "Empleados",
+        "description": "Gestiona los empleados de tu centro.",
+        "button": "Ver empleados"
+      },
+      "statistics": {
+        "title": "Estadísticas",
+        "description": "Visualiza las estadísticas de tu centro.",
+        "button": "Ver estadísticas"
+      },
+      "myQR": {
+        "title": "Mi QR",
+        "description": "Accede a tu código QR personal.",
+        "button": "Ver mi QR"
+      },
+      "myProfile": {
+        "title": "Mi Perfil",
+        "description": "Gestiona tu información personal.",
+        "button": "Ver perfil"
+      },
+      "myClasses": {
+        "title": "Mis Clases",
+        "description": "Gestiona tus clases como entrenador.",
+        "button": "Ver mis clases"
+      }
+    },
+    "userInfo": {
+      "title": "Información del Usuario",
+      "name": "Nombre",
+      "email": "Email",
+      "role": "Rol",
+      "center": "Centro",
+      "registrationDate": "Fecha de Registro"
+    },
+    "roleEditor": {
+      "title": "Cambiar Rol",
+      "selectRole": "Selecciona un rol",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saving": "Guardando..."
+    }
+  },
+  "common": {
+    "selectLanguage": "Seleccionar idioma",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "save": "Guardar",
+    "close": "Cerrar"
+  },
+  "profileImage": {
+    "manage": "Gestionar imagen",
+    "upload": "Subir imagen",
+    "delete": "Eliminar imagen",
+    "uploading": "Subiendo imagen..."
   },
   "qrScanner": {
     "title": "Registro de Entrada/Salida",
@@ -907,7 +864,14 @@
       "nameRequired": "El nombre del centro es obligatorio"
     },
     "deleting": "Eliminando...",
-    "selectCenter": "Selecciona un centro"
+    "selectCenter": "Selecciona un centro",
+    "noCentersFound": "No se encontraron centros con los filtros aplicados",
+    "noCentersAvailable": "No hay centros disponibles",
+    "loading": "Cargando centros...",
+    "createdAt": "Fecha de Creación",
+    "showing": "Mostrando",
+    "of": "de",
+    "centers": "centros"
   },
   "machines": {
     "title": "Gestión de Máquinas",
@@ -954,25 +918,30 @@
     "of": "de",
     "machines": "máquinas"
   },
-  "common": {
-    "selectLanguage": "Seleccionar idioma",
-    "loading": "Cargando...",
-    "error": "Error",
-    "success": "Éxito",
-    "edit": "Editar",
-    "delete": "Eliminar",
-    "save": "Guardar",
-    "cancel": "Cancelar",
-    "close": "Cerrar"
-  },
-  "profileImage": {
-    "manage": "Gestionar imagen",
-    "upload": "Subir imagen",
-    "delete": "Eliminar imagen",
-    "uploading": "Subiendo imagen..."
+  "register": {
+    "title": "Crear Cuenta",
+    "subtitle": "Únete a Meta Force",
+    "name": "Nombre",
+    "email": "Email",
+    "password": "Contraseña",
+    "confirmPassword": "Confirmar Contraseña",
+    "namePlaceholder": "Tu nombre",
+    "emailPlaceholder": "tu@email",
+    "passwordPlaceholder": "Tu contraseña",
+    "confirmPasswordPlaceholder": "Confirma tu contraseña",
+    "registerButton": "Registrar",
+    "errors": {
+      "nameRequired": "El campo nombre es requerido",
+      "emailRequired": "El campo email es requerido",
+      "passwordRequired": "El campo password es requerido",
+      "confirmPasswordRequired": "El campo confirmar contraseña es requerido",
+      "emailInvalid": "El formato de email no es correcto",
+      "passwordMinLength": "Debe tener al menos {{min}} caracteres",
+      "passwordPattern": "Al menos una mayúscula, una minúscula, un número y 8 caracteres",
+      "passwordsDoNotMatch": "Las contraseñas no coinciden"
+    }
   }
 }
-
 --- END OF FILE: public\assets\i18n\es.json ---
 
 
@@ -1029,8 +998,7 @@
     "emailPlaceholder": "votre@email",
     "passwordPlaceholder": "Votre mot de passe",
     "loginButton": "Se connecter",
-    "noAccount": "Vous n'avez pas de compte ?",
-    "createAccount": "Créer un compte",
+    "registerLink": "Vous n'avez pas de compte ? Inscrivez-vous",
     "errors": {
       "emailRequired": "Le champ email est obligatoire",
       "passwordRequired": "Le champ mot de passe est obligatoire",
@@ -1065,7 +1033,7 @@
     "title": "Tableau de Bord Meta Force",
     "editRole": "Modifier le Rôle",
     "logout": "Se déconnecter",
-    "welcome": "Bienvenue, {{name}} ! 👋",
+    "welcome": "Bienvenue, {{name}} !",
     "loggedInAs": "Vous êtes connecté en tant que",
     "at": "à",
     "loading": "Chargement des informations utilisateur...",
@@ -1164,7 +1132,9 @@
     "classes": "Cours",
     "trainers": "Entraîneurs",
     "membership": "Adhésion",
-    "login": "Se connecter"
+    "centers": "Centres",
+    "login": "Se connecter",
+    "register": "S'inscrire"
   },
   "classes": {
     "title": "Cours de gym",
@@ -1381,7 +1351,6 @@
     "uploading": "Téléchargement de l'image..."
   }
 }
-
 --- END OF FILE: public\assets\i18n\fr.json ---
 
 
@@ -1550,6 +1519,7 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { authGuard } from './core/guards/auth.guard';
+import { guestGuard } from './core/guards/guest.guard';
 import { RegisterComponent } from './pages/register/register.component';
 import { CentersComponent } from './pages/centers/centers.component';
 import { UsersComponent } from './pages/users/users.component';
@@ -1558,6 +1528,7 @@ import { QrScannerComponent } from './pages/qr-scanner/qr-scanner.component';
 import { MachinesComponent } from './pages/machines/machines.component';
 import { ClasesComponent } from './pages/clases/clases.component';
 import { HomeComponent } from './pages/home/home.component';
+import { TrainersComponent } from './pages/trainers/trainers.component';
 import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
@@ -1572,11 +1543,13 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [guestGuard]
     },
     {
         path: 'register',
-        component: RegisterComponent
+        component: RegisterComponent,
+        canActivate: [guestGuard]
     },
     {
         path: 'dashboard',
@@ -1611,6 +1584,11 @@ export const routes: Routes = [
     {
         path: 'clases',
         component: ClasesComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'trainers',
+        component: TrainersComponent,
         canActivate: [authGuard]
     }
 ];
@@ -1672,6 +1650,41 @@ export const authGuard: CanActivateFn = (route, state) => {
   );
 };
 --- END OF FILE: src\app\core\guards\auth.guard.ts ---
+
+
+--- START OF FILE: src\app\core\guards\guest.guard.ts ---
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { map, take } from 'rxjs/operators';
+
+/**
+ * Guard de ruta que protege rutas de invitados (login, register).
+ * Verifica que NO exista un usuario autenticado antes de permitir el acceso.
+ * Si el usuario ya está autenticado, redirige al dashboard.
+ * Retorna true si el usuario NO está autenticado, false en caso contrario.
+ */
+export const guestGuard: CanActivateFn = (route, state) => {
+  const auth = inject(AuthService);
+  const router = inject(Router);
+
+  return auth.initialLoadComplete.pipe(
+    take(1),
+    map(() => {
+      const isAuthenticated = auth.currentUser() != null;
+
+      if (isAuthenticated) {
+        router.navigate(['/dashboard']);
+        return false;
+      }
+      
+      return true;
+    })
+  );
+};
+
+
+--- END OF FILE: src\app\core\guards\guest.guard.ts ---
 
 
 --- START OF FILE: src\app\core\guards\role.guard.ts ---
@@ -2090,6 +2103,15 @@ export class CentersService {
    */
   listCenters(): Observable<Center[]> {
     return this.http.get<Center[]>(this.apiUrl);
+  }
+
+  /**
+   * Lista todos los centros con IDs.
+   * Accesible para todos los usuarios autenticados.
+   * Usado principalmente para la página de entrenadores.
+   */
+  listCentersWithIds(): Observable<Center[]> {
+    return this.http.get<Center[]>(`${this.apiUrl}/with-ids`);
   }
 
   /**
@@ -2901,6 +2923,14 @@ export class UsersService {
   }
 
   /**
+   * Lista todos los entrenadores activos.
+   * Accesible para todos los usuarios autenticados.
+   */
+  listTrainers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}/trainers`);
+  }
+
+  /**
    * Actualiza los datos de un usuario específico identificado por su ID.
    * Permite modificar nombre, email, rol, estado y centro según los permisos del usuario autenticado.
    */
@@ -2990,7 +3020,9 @@ export class UsersService {
         [class.text-white]="!hasActiveFilters()"
         [class.text-yellow-300]="hasActiveFilters()"
         class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90 text-white shadow-sm">
-        <span>🔍</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
         @if(showFilters()) {
           <span>{{ 'centers.hideFilters' | translate }}</span>
         } @else {
@@ -3113,10 +3145,20 @@ export class UsersService {
                       <p class="text-gray-500 dark:text-gray-400 text-xs">{{ center.address }}</p>
                     }
                     @if(center.phone) {
-                      <p class="text-gray-700 dark:text-gray-300 text-sm">📞 {{ center.phone }}</p>
+                      <p class="text-gray-700 dark:text-gray-300 text-sm flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 flex-shrink-0">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                        </svg>
+                        {{ center.phone }}
+                      </p>
                     }
                     @if(center.email) {
-                      <p class="text-gray-700 dark:text-gray-300 text-sm">✉️ {{ center.email }}</p>
+                      <p class="text-gray-700 dark:text-gray-300 text-sm flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 flex-shrink-0">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                        </svg>
+                        {{ center.email }}
+                      </p>
                     }
                   </div>
                 }
@@ -3823,7 +3865,9 @@ export class CentersComponent implements OnInit {
         [class.bg-cyan-600]="showFilters()"
         [class.bg-cyan-500]="!showFilters()"
         class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90 text-white shadow-sm">
-        <span>🔍</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
         @if(showFilters()) {
           <span>{{ 'classes.hideFilters' | translate }}</span>
         } @else {
@@ -4260,370 +4304,291 @@ export class ClasesComponent implements OnInit {
 
 
 --- START OF FILE: src\app\pages\dashboard\dashboard.component.html ---
-<div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
   @if(auth.currentUser(); as user) {
-    <header class="bg-blue-100 dark:bg-gray-800/50 backdrop-blur-md border-b border-blue-200 dark:border-gray-700 sticky top-0 z-10 transition-colors duration-300">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div class="flex justify-between items-center">
-          <div class="flex items-center gap-4">
-            <h1 class="text-2xl font-bold text-blue-900 dark:text-white">{{ 'dashboard.title' | translate }}</h1>
-            <span [class]="'px-3 py-1 rounded-full text-xs font-semibold text-white ' + roleColor()">
-              {{ getRoleIcon(user.role) }} {{ roleName() }}
-            </span>
-          </div>
+    <app-navbar [showQR]="true"></app-navbar>
 
-          <div class="flex items-center gap-4">
-            <app-language-selector></app-language-selector>
-            
-            <app-theme-toggle></app-theme-toggle>
-
-            <div class="relative">
-              <button 
-                type="button" 
-                class="notification-btn p-2 rounded-lg transition-colors bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 relative" 
-                (click)="toggleNotifications()"
-                aria-label="Notificaciones">
-                <span class="text-xl">🔔</span>
-                
-                @if (notificationService.unreadCount() > 0) {
-                  <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] flex justify-center items-center animate-pulse shadow-sm border-2 border-white dark:border-gray-800">
-                  {{ notificationService.unreadCount() > 9 ? '9+' : notificationService.unreadCount() }}
-                  </span>
-                }
-              </button>
-    
-              @if (showNotifications()) {
-                <div class="notification-dropdown absolute right-0 mt-3 w-80 sm:w-96 bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 animate-fade-in origin-top-right">
-                  
-                  <div class="p-3 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">
-                    <h3 class="font-bold text-gray-800 dark:text-white text-sm">Notificaciones</h3>
-                    @if (notificationService.unreadCount() > 0) {
-                      <button (click)="markAllRead()" class="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium">
-                        Marcar todas leídas
-                      </button>
-                    }
-                  </div>
-    
-                  <div class="max-h-[400px] overflow-y-auto bg-white dark:bg-gray-800">
-                    @if (notificationService.notifications().length === 0) {
-                      <div class="p-8 text-center text-gray-500 dark:text-gray-400">
-                        <p class="text-2xl mb-2">🔕</p>
-                        <p class="text-sm">No tienes notificaciones</p>
-                      </div>
-                    }
-    
-                    @for (notification of notificationService.notifications(); track notification.id) {
-                      <div 
-                        (click)="handleNotificationClick(notification)"
-                        class="p-4 border-b border-gray-100 dark:border-gray-700 transition-colors cursor-pointer relative group flex gap-3"
-                        [class.bg-blue-50]="!notification.read"
-                        [class.dark:bg-gray-700]="!notification.read" 
-                        [class.bg-white]="notification.read"
-                        [class.dark:bg-gray-800]="notification.read"
-                        [class.hover:bg-gray-100]="true"
-                        [class.dark:hover:bg-gray-600]="true">
-                        
-                        <div class="mt-1 flex-shrink-0">
-                          @switch (notification.type) {
-                            @case ('WARNING') { <span class="text-lg">⚠️</span> }
-                            @case ('SUCCESS') { <span class="text-lg">🎉</span> }
-                            @case ('ERROR') { <span class="text-lg">❌</span> }
-                            @default { <span class="text-lg">ℹ️</span> }
-                          }
-                        </div>
-              
-                      
-                        <div class="flex-1">
-                          <p class="text-sm font-semibold text-gray-900 dark:text-white mb-0.5">
-                            {{ notification.title }}
-    
-                          </p>
-                          <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
-                            {{ notification.message }}
-                  
-                          </p>
-                          <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-2 font-medium">
-                            {{ notification.createdAt | date:'dd MMM, HH:mm' }}
-                          </p>
-                        </div>
-    
-                        @if (!notification.read) {
-                          <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
-                        }
-                      </div>
-                    }
-                  </div>
- 
-                </div>
-              }
-            </div>
-
-            <a 
-              routerLink="/qr"
-              class="px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg transition-colors text-sm font-medium">
-             {{ 'dashboard.cards.myQR.button' | translate }}
-            </a>
-            
-            <button 
-              (click)="logout()"
-              class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium">
-              {{ 'dashboard.logout' | translate }}
-            </button>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-xl p-6 mb-8 border border-cyan-500/20">
-        <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-2">
-          {{ 'dashboard.welcome' | translate: {name: user.name} }}
-        </h2>
-        <p class="text-gray-600 dark:text-gray-300">
-          {{ 'dashboard.loggedInAs' | translate }} <span class="font-semibold text-cyan-600 dark:text-cyan-400">{{ roleName() }}</span>
-          @if(user.center) {
-            {{ 'dashboard.at' | translate }} <span class="font-semibold text-cyan-600 dark:text-cyan-400">{{ user.center.name }}</span>
-          }
-        </p>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        
         @if(isSuperAdmin()) {
-          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-             
-              <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
-                <span class="text-2xl">👑</span>
+          <a 
+            routerLink="/clases"
+            class="bg-gradient-to-br from-indigo-500 via-indigo-600 to-purple-600 hover:from-indigo-600 hover:via-indigo-700 hover:to-purple-700 dark:from-indigo-700 dark:via-indigo-800 dark:to-purple-800 rounded-xl p-4 sm:p-6 border border-indigo-400 dark:border-indigo-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                </svg>
               </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.globalAdmin.title' | translate }}</h3>
+              <h3 class="text-lg sm:text-xl font-bold">{{ 'dashboard.cards.classes.title' | translate }}</h3>
             </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.globalAdmin.description' | translate }}</p>
-            <ul class="space-y-2 text-sm text-gray-600 dark:text-gray-300">
-              <li>✅ {{ 'dashboard.cards.globalAdmin.features.access' | translate }}</li>
-              <li>✅ {{ 'dashboard.cards.globalAdmin.features.users' | translate }}</li>
-              <li>✅ {{ 'dashboard.cards.globalAdmin.features.config' | translate }}</li>
-              <li>✅ {{ 'dashboard.cards.globalAdmin.features.reports' | translate }}</li>
-            </ul>
-          </div>
-
-          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center">
-                <span class="text-2xl">📅</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.classes.title' | translate }}</h3>
-            </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.classes.description' | translate }}</p>
-            <a 
-              routerLink="/clases"
-              class="block w-full px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
+            <p class="text-sm sm:text-base text-white/90 mb-4">{{ 'dashboard.cards.classes.description' | translate }}</p>
+            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">
               {{ 'dashboard.cards.classes.button' | translate }}
-            </a>
-          </div>
-
-          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                <span class="text-2xl">🏢</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.centers.title' | translate }}</h3>
             </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.centers.description' | translate }}</p>
-            <a 
-              routerLink="/centers"
-              class="block w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
+          </a>
+
+          <a 
+            routerLink="/centers"
+            class="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 hover:from-purple-600 hover:via-purple-700 hover:to-pink-700 dark:from-purple-700 dark:via-purple-800 dark:to-pink-800 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                </svg>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold">{{ 'dashboard.cards.centers.title' | translate }}</h3>
+            </div>
+            <p class="text-sm sm:text-base text-white/90 mb-4">{{ 'dashboard.cards.centers.description' | translate }}</p>
+            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">
               {{ 'dashboard.cards.centers.button' | translate }}
-            </a>
-          </div>
-
-          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center">
-                <span class="text-2xl">🏋️</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.machines.title' | translate }}</h3>
             </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.machines.description' | translate }}</p>
-            <a 
-              routerLink="/machines"
-              class="block w-full px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
+          </a>
+
+          <a 
+            routerLink="/machines"
+            class="bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 hover:from-orange-600 hover:via-orange-700 hover:to-red-700 dark:from-orange-700 dark:via-orange-800 dark:to-red-800 rounded-xl p-4 sm:p-6 border border-orange-400 dark:border-orange-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                </svg>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold">{{ 'dashboard.cards.machines.title' | translate }}</h3>
+            </div>
+            <p class="text-sm sm:text-base text-white/90 mb-4">{{ 'dashboard.cards.machines.description' | translate }}</p>
+            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">
               {{ 'dashboard.cards.machines.button' | translate }}
-            </a>
-          </div>
-
-          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                <span class="text-2xl">👥</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.users.title' | translate }}</h3>
             </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.users.description' | translate }}</p>
-            <a routerLink="/users" class="block w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
+          </a>
+
+          <a 
+            routerLink="/users"
+            class="bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-600 hover:from-blue-600 hover:via-blue-700 hover:to-cyan-700 dark:from-blue-700 dark:via-blue-800 dark:to-cyan-800 rounded-xl p-4 sm:p-6 border border-blue-400 dark:border-blue-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                </svg>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold">{{ 'dashboard.cards.users.title' | translate }}</h3>
+            </div>
+            <p class="text-sm sm:text-base text-white/90 mb-4">{{ 'dashboard.cards.users.description' | translate }}</p>
+            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">
               {{ 'dashboard.cards.users.button' | translate }}
-            </a>
-          </div>
+            </div>
+          </a>
+
+          <a 
+            routerLink="/qr-scanner"
+            class="bg-gradient-to-br from-teal-500 via-teal-600 to-cyan-600 hover:from-teal-600 hover:via-teal-700 hover:to-cyan-700 dark:from-teal-700 dark:via-teal-800 dark:to-cyan-800 rounded-xl p-4 sm:p-6 border border-teal-400 dark:border-teal-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5ZM6.75 16.125v3.375m0-3.375h3.375m-3.375 0L9 15m6.75-2.625v3.375m0-3.375h-3.375M15 9.375l3.375 3.375M6.75 19.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold">Escáner QR</h3>
+            </div>
+            <p class="text-sm sm:text-base text-white/90 mb-4">Escanea códigos QR para gestionar accesos a centros</p>
+            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">
+              Abrir Escáner
+            </div>
+          </a>
           
         }
 
         @if(isAdminCenter()) {
-          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                <span class="text-2xl">🏢</span>
+          <a 
+            routerLink="/centers"
+            class="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 hover:from-purple-600 hover:via-purple-700 hover:to-pink-700 dark:from-purple-700 dark:via-purple-800 dark:to-pink-800 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+                </svg>
               </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.myCenter.title' | translate }}</h3>
+              <h3 class="text-lg sm:text-xl font-bold">{{ 'dashboard.cards.myCenter.title' | translate }}</h3>
             </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.myCenter.description' | translate }}</p>
-            <a 
-              routerLink="/centers"
-              class="block w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
+            <p class="text-sm sm:text-base text-white/90 mb-4">{{ 'dashboard.cards.myCenter.description' | translate }}</p>
+            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">
               {{ 'dashboard.cards.myCenter.button' | translate }}
-            </a>
-          </div>
-
-          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center">
-                <span class="text-2xl">🏋️</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.machines.title' | translate }}</h3>
             </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.machines.description' | translate }}</p>
-            <a 
-              routerLink="/machines"
-              class="block w-full px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
+          </a>
+
+          <a 
+            routerLink="/machines"
+            class="bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 hover:from-orange-600 hover:via-orange-700 hover:to-red-700 dark:from-orange-700 dark:via-orange-800 dark:to-red-800 rounded-xl p-4 sm:p-6 border border-orange-400 dark:border-orange-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />
+                </svg>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold">{{ 'dashboard.cards.machines.title' | translate }}</h3>
+            </div>
+            <p class="text-sm sm:text-base text-white/90 mb-4">{{ 'dashboard.cards.machines.description' | translate }}</p>
+            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">
               {{ 'dashboard.cards.machines.button' | translate }}
-            </a>
-          </div>
-
-          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                <span class="text-2xl">👥</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.employees.title' | translate }}</h3>
             </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.employees.description' | translate }}</p>
+          </a>
+
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-all shadow-md hover:shadow-lg">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-blue-600 dark:text-blue-400">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
+                </svg>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.employees.title' | translate }}</h3>
+            </div>
+            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.employees.description' | translate }}</p>
             <a routerLink="/users" class="block w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium text-center">
               {{ 'dashboard.cards.employees.button' | translate }}
             </a>
           </div>
 
-          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
+          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-all shadow-md hover:shadow-lg">
             <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
-                <span class="text-2xl">📊</span>
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-green-600 dark:text-green-400">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                </svg>
               </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.statistics.title' | translate }}</h3>
+              <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.statistics.title' | translate }}</h3>
             </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.statistics.description' | translate }}</p>
+            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.statistics.description' | translate }}</p>
             <button class="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors text-sm font-medium">
               {{ 'dashboard.cards.statistics.button' | translate }}
             </button>
           </div>
 
+          <a 
+            routerLink="/qr-scanner"
+            class="bg-gradient-to-br from-teal-500 via-teal-600 to-cyan-600 hover:from-teal-600 hover:via-teal-700 hover:to-cyan-700 dark:from-teal-700 dark:via-teal-800 dark:to-cyan-800 rounded-xl p-4 sm:p-6 border border-teal-400 dark:border-teal-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5ZM6.75 16.125v3.375m0-3.375h3.375m-3.375 0L9 15m6.75-2.625v3.375m0-3.375h-3.375M15 9.375l3.375 3.375M6.75 19.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+              </div>
+              <h3 class="text-lg sm:text-xl font-bold">Escáner QR</h3>
+            </div>
+            <p class="text-sm sm:text-base text-white/90 mb-4">Escanea códigos QR para gestionar accesos a centros</p>
+            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">
+              Abrir Escáner
+            </div>
+          </a>
+
         }
 
         @if(!isSuperAdmin() && !isAdminCenter()) {
-          <div class="flex justify-center mb-6">
-            <div class="relative">
-                <img 
-                    [src]="getProfileImageUrl(user.profileImageUrl)" 
-                    [alt]="user.name"
-                    class="w-40 h-40 rounded-full object-cover border-8 border-white dark:border-gray-700 shadow-xl"
-                >
+          <div class="col-span-full flex flex-col items-center">
+            <div class="relative mb-6 sm:mb-8 group">
+              <img 
+                [src]="getProfileImageUrl(user.profileImageUrl)" 
+                [alt]="user.name"
+                (click)="triggerProfileImageUpload()"
+                class="w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 rounded-full object-cover border-4 border-cyan-500 dark:border-blue-600 shadow-2xl cursor-pointer transition-all hover:scale-105 hover:border-cyan-600 dark:hover:border-blue-500"
+              >
+              <div class="absolute inset-0 flex items-center justify-center bg-black/40 dark:bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" (click)="triggerProfileImageUpload()">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 sm:w-14 sm:h-14 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175a2.31 2.31 0 0 1 1.673-.675 2.31 2.31 0 0 1 2.325 2.325 2.31 2.31 0 0 1 1.673.675 2.31 2.31 0 0 1 1.673 1.673c.161.638.876.638 1.037 0a2.31 2.31 0 0 1 1.673-1.673 2.31 2.31 0 0 1 1.673-.675 2.31 2.31 0 0 1 2.325 2.325 2.31 2.31 0 0 1-.675 1.673 2.31 2.31 0 0 1-1.673 1.673c-.638.161-.638.876 0 1.037a2.31 2.31 0 0 1 1.673 1.673 2.31 2.31 0 0 1 .675 1.673 2.31 2.31 0 0 1-2.325 2.325 2.31 2.31 0 0 1-1.673.675 2.31 2.31 0 0 1-1.673 1.673c-.161.638-.876.638-1.037 0a2.31 2.31 0 0 1-1.673-1.673 2.31 2.31 0 0 1-1.673-.675 2.31 2.31 0 0 1-2.325-2.325 2.31 2.31 0 0 1 .675-1.673 2.31 2.31 0 0 1 1.673-1.673c.638-.161.638-.876 0-1.037a2.31 2.31 0 0 1-1.673-1.673 2.31 2.31 0 0 1-.675-1.673 2.31 2.31 0 0 1 2.325-2.325ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                </svg>
+              </div>
             </div>
-          </div>
-          <h4 class="text-center text-3xl font-bold text-gray-900 dark:text-white mb-6">{{ user.name }}</h4>
 
-          <div class="grid grid-cols-3 gap-4 max-w-lg mx-auto mb-8">
-              <button class="px-4 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium text-sm shadow-md">
-                  {{ 'Mis Dietas' }} </button>
-              <button class="px-4 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors font-medium text-sm shadow-md">
-                  {{ 'Mis Entrenos' }} </button>
+            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-8 sm:mb-10 text-center px-4">
+              {{ user.name }}
+            </h2>
+
+            <div class="w-full max-w-4xl mb-6 sm:mb-8">
               <a 
                 routerLink="/qr"
-                class="flex items-center justify-center px-4 py-3 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg transition-colors font-medium text-sm shadow-md">
-                  {{ 'dashboard.cards.myQR.button' | translate }}
+                class="block bg-gradient-to-br from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 dark:from-cyan-700 dark:to-cyan-800 rounded-xl p-6 sm:p-8 lg:p-10 border border-cyan-400 dark:border-cyan-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] flex flex-col items-center justify-center text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mb-4">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5ZM6.75 16.125v3.375m0-3.375h3.375m-3.375 0L9 15m6.75-2.625v3.375m0-3.375h-3.375M15 9.375l3.375 3.375M6.75 19.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Z" />
+                </svg>
+                <span class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center">{{ 'dashboard.cards.myQR.button' | translate }}</span>
               </a>
-          </div>
-          
-          <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
-                <span class="text-2xl">{{ getRoleIcon(user.role) }}</span>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.myProfile.title' | translate }}</h3>
             </div>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.myProfile.description' | translate }}</p>
-            <button class="w-full px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg transition-colors text-sm font-medium">
-              {{ 'dashboard.cards.myProfile.button' | translate }}
-            </button>
-          </div>
 
-          @if(user.role === 'TRAINER') {
-            <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-colors shadow-sm">
-              <div class="flex items-center gap-3 mb-4">
-                <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                  <span class="text-2xl">📅</span>
-                </div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.cards.myClasses.title' | translate }}</h3>
-              </div>
-              <p class="text-gray-600 dark:text-gray-400 mb-4">{{ 'dashboard.cards.myClasses.description' | translate }}</p>
-              <button class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium">
-                {{ 'dashboard.cards.myClasses.button' | translate }}
-              </button>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 w-full max-w-4xl">
+              <a 
+                class="bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 dark:from-purple-700 dark:to-purple-800 rounded-xl p-6 sm:p-8 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex flex-col items-center justify-center text-white cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 sm:w-12 sm:h-12 mb-3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v4.5H6v-4.5Z" />
+                </svg>
+                <span class="text-lg sm:text-xl font-bold text-center">Mis Dietas</span>
+              </a>
+
+              <a 
+                class="bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 dark:from-blue-700 dark:to-blue-800 rounded-xl p-6 sm:p-8 border border-blue-400 dark:border-blue-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex flex-col items-center justify-center text-white cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 sm:w-12 sm:h-12 mb-3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
+                </svg>
+                <span class="text-lg sm:text-xl font-bold text-center">Mis Entrenos</span>
+              </a>
+
+              <a 
+                class="bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-700 dark:to-green-800 rounded-xl p-6 sm:p-8 border border-green-400 dark:border-green-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex flex-col items-center justify-center text-white cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 sm:w-12 sm:h-12 mb-3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+                </svg>
+                <span class="text-lg sm:text-xl font-bold text-center">Mis Estadísticas</span>
+              </a>
             </div>
-          }
+          </div>
         }
       </div>
 
-      <div class="mt-8 bg-blue-50 dark:bg-gray-800 rounded-xl p-6 border border-blue-200 dark:border-gray-700">
-        <div class="flex items-center justify-between mb-4">
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.userInfo.title' | translate }}</h3>
+      @if(isSuperAdmin() || isAdminCenter()) {
+      <div class="mt-6 sm:mt-8 bg-blue-50 dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-3">
+          <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{{ 'dashboard.userInfo.title' | translate }}</h3>
           <app-profile-image-manager></app-profile-image-manager>
         </div>
-        <div class="flex items-center gap-6 mb-6">
+        <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-4 sm:mb-6">
           <div class="relative">
             <img 
               [src]="getProfileImageUrl(user.profileImageUrl)" 
               [alt]="user.name"
-              class="w-24 h-24 rounded-full object-cover border-4 border-blue-300 dark:border-blue-600 shadow-lg">
+              class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-blue-300 dark:border-blue-600 shadow-lg">
           </div>
-          <div>
-            <h4 class="text-2xl font-bold text-gray-900 dark:text-white">{{ user.name }}</h4>
-            <p class="text-gray-600 dark:text-gray-400">{{ user.email }}</p>
+          <div class="text-center sm:text-left">
+            <h4 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">{{ user.name }}</h4>
+            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 break-all sm:break-normal">{{ user.email }}</p>
           </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
- 
-            <p class="text-gray-600 dark:text-gray-400 text-sm">{{ 'dashboard.userInfo.name' | translate }}</p>
-            <p class="text-gray-900 dark:text-white font-semibold">{{ user.name }}</p>
+            <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ 'dashboard.userInfo.name' | translate }}</p>
+            <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold break-words">{{ user.name }}</p>
           </div>
           <div>
-            <p class="text-gray-600 dark:text-gray-400 text-sm">{{ 'dashboard.userInfo.email' | translate }}</p>
-            <p class="text-gray-900 dark:text-white font-semibold">{{ user.email }}</p>
+            <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ 'dashboard.userInfo.email' | translate }}</p>
+            <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold break-all">{{ user.email }}</p>
           </div>
           <div>
-            <p class="text-gray-600 dark:text-gray-400 text-sm">{{ 'dashboard.userInfo.role' | translate }}</p>
-            <p class="text-gray-900 dark:text-white font-semibold">{{ roleName() }}</p>
+            <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ 'dashboard.userInfo.role' | translate }}</p>
+            <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold">{{ roleName() }}</p>
           </div>
           @if(user.center) {
             <div>
-              <p class="text-gray-600 dark:text-gray-400 text-sm">{{ 'dashboard.userInfo.center' | translate }}</p>
-              <p class="text-gray-900 dark:text-white font-semibold">{{ user.center.name }}</p>
+              <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ 'dashboard.userInfo.center' | translate }}</p>
+              <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold break-words">{{ user.center.name }}</p>
             </div>
           }
           @if(user.createdAt) {
             <div>
-              <p class="text-gray-600 dark:text-gray-400 text-sm">{{ 'dashboard.userInfo.registrationDate' | translate }}</p>
-              <p class="text-900 dark:text-white font-semibold">{{ user.createdAt | date:'dd/MM/yyyy' }}</p>
+              <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ 'dashboard.userInfo.registrationDate' | translate }}</p>
+              <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold">{{ user.createdAt | date:'dd/MM/yyyy' }}</p>
             </div>
           }
         </div>
       </div>
+      }
     </main>
 
     @if(showRoleEditor()) {
@@ -4638,7 +4603,6 @@ export class ClasesComponent implements OnInit {
               (ngModelChange)="selectedRole.set($event)"
               class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
               @for(role of roles; track role) {
-               
                 <option [value]="role">{{ role }}</option>
               }
             </select>
@@ -4648,7 +4612,6 @@ export class ClasesComponent implements OnInit {
             <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">
               {{ errorMessage() }}
             </div>
- 
           }
 
           <div class="flex gap-3">
@@ -4656,15 +4619,13 @@ export class ClasesComponent implements OnInit {
               (click)="closeRoleEditor()"
               [disabled]="isLoading()"
               class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">
-              {{ 'dashboard.roleEditor.cancel' 
- | translate }}
+              {{ 'dashboard.roleEditor.cancel' | translate }}
             </button>
             <button 
               (click)="updateRole()"
               [disabled]="isLoading() || selectedRole() === user.role"
               class="flex-1 px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors disabled:opacity-50">
               @if(isLoading()) {
-    
                 {{ 'dashboard.roleEditor.saving' | translate }}
               } @else {
                 {{ 'dashboard.roleEditor.save' | translate }}
@@ -4687,6 +4648,279 @@ export class ClasesComponent implements OnInit {
 
 
 --- START OF FILE: src\app\pages\dashboard\dashboard.component.scss ---
+@use '../../../styles/variables' as vars;
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  background: #d9ecf9;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 10px rgba(30, 64, 175, 0.06);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  
+  :host-context(.dark) & {
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
+}
+
+.navbar__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 10;
+}
+
+.navbar__logo {
+  height: 48px;
+  
+  @media (max-width: 640px) {
+    height: 40px;
+  }
+}
+
+.navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 10;
+  transition: all 0.3s ease;
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+}
+
+.navbar__hamburger-line {
+  width: 25px;
+  height: 3px;
+  background: #1e293b;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+
+  :host-context(.dark) & {
+    background: #f1f5f9;
+  }
+
+  &.active {
+    &:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+    &:nth-child(2) {
+      opacity: 0;
+    }
+    &:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+  }
+}
+
+.navbar__menu {
+  display: flex;
+  gap: 1.75rem;
+  font-weight: 600;
+  color: #1e293b;
+  transition: color 0.3s ease;
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
+
+  :host-context(.dark) & {
+    color: #f1f5f9;
+  }
+}
+
+.navbar__link {
+  text-decoration: none;
+  color: inherit;
+  font-size: 1rem;
+  transition: color 0.2s ease;
+  
+  @media (max-width: 1024px) {
+    font-size: 0.9rem;
+  }
+}
+
+.navbar__link.active,
+.navbar__link:hover {
+  color: vars.$color-secondary;
+  
+  :host-context(.dark) & {
+    color: #22d3ee;
+  }
+}
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 10;
+
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+  }
+}
+
+.navbar__icon-btn {
+  width: 42px; 
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid #0f172a;
+  background: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0; 
+  overflow: hidden; 
+  transition: all 0.3s ease;
+
+  @media (max-width: 768px) {
+    width: 36px;
+    height: 36px;
+  }
+  
+  :host-context(.dark) & {
+    border-color: #f1f5f9;
+    background: #1e293b;
+    color: #f1f5f9;
+    
+    &:hover {
+      background: #334155;
+    }
+  }
+}
+
+.navbar__mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #d9ecf9;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 10px rgba(30, 64, 175, 0.1);
+  animation: slideDown 0.3s ease-out;
+  z-index: 100;
+
+  :host-context(.dark) & {
+    background: rgba(15, 23, 42, 0.98);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.navbar__mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.5rem;
+}
+
+.navbar__mobile-link {
+  text-decoration: none;
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+
+  :host-context(.dark) & {
+    color: #f1f5f9;
+  }
+
+  &:hover,
+  &.active {
+    background: rgba(30, 64, 175, 0.1);
+    color: vars.$color-secondary;
+
+    :host-context(.dark) & {
+      background: rgba(34, 211, 238, 0.1);
+      color: #22d3ee;
+    }
+  }
+}
+
+.navbar__mobile-actions {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+  :host-context(.dark) & {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+.navbar__mobile-login {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #0f172a;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s ease;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+
+  :host-context(.dark) & {
+    background: #38bdf8;
+    color: #0f172a;
+  }
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+// Estilos para notificaciones
+.notification-dropdown {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 
 --- END OF FILE: src\app\pages\dashboard\dashboard.component.scss ---
 
@@ -4732,13 +4966,16 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 import { ProfileImageManagerComponent } from '../../shared/components/profile-image-manager/profile-image-manager.component';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+
+const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent, ProfileImageManagerComponent],
+  imports: [CommonModule, FormsModule, RouterModule, TranslateModule, ProfileImageManagerComponent, NavbarComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
@@ -4754,12 +4991,10 @@ export class DashboardComponent {
   selectedRole = signal<RoleType | null>(null);
   isLoading = signal(false);
   errorMessage = signal<string>('');
-  
   // Estado para el dropdown de notificaciones
   showNotifications = signal(false);
 
   readonly roles: RoleType[] = ['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER', 'CLEANER', 'USER'];
-
   currentUser = computed(() => this.auth.currentUser());
   
   roleName = computed(() => {
@@ -4767,7 +5002,6 @@ export class DashboardComponent {
     if (!role) return this.translate.instant('dashboard.roles.USER');
     return this.translate.instant(`dashboard.roles.${role}`);
   });
-
   roleColor = computed(() => {
     const role = this.currentUser()?.role;
     const colors: Record<string, string> = {
@@ -4779,10 +5013,9 @@ export class DashboardComponent {
     };
     return colors[role || 'USER'] || 'bg-gray-500';
   });
-
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
-
+  
   constructor() {
     const user = this.currentUser();
     if (user) {
@@ -4809,6 +5042,7 @@ export class DashboardComponent {
       this.showNotifications.set(false);
     }
   }
+
 
   markAllRead() {
     this.notificationService.markAllAsRead();
@@ -4880,28 +5114,73 @@ export class DashboardComponent {
     this.router.navigate(['/login']);
   }
 
-  getRoleIcon(role: string): string {
-    const icons: Record<string, string> = {
-      'SUPERADMIN': '👑',
-      'ADMIN_CENTER': '🏢',
-      'TRAINER': '💪',
-      'CLEANER': '🧹',
-      'USER': '👤'
-    };
-    return icons[role] || '👤';
+  /**
+   * Obtiene la URL de la imagen de perfil del usuario.
+   * Si no tiene imagen o es null, retorna la imagen por defecto de Cloudinary.
+   */
+  getProfileImageUrl(profileImageUrl: string | null | undefined): string {
+    return profileImageUrl ? profileImageUrl : DEFAULT_PROFILE_IMAGE_URL;
   }
 
   /**
-   * Obtiene la URL de la imagen de perfil del usuario.
-   * Si no tiene imagen o es null, retorna la imagen por defecto (fauno.png).
-   * @param profileImageUrl - URL de la imagen de perfil o null
-   * @returns URL de la imagen a mostrar
+   * Abre el selector de archivos para cambiar la imagen de perfil.
+   * Se activa al hacer clic en el avatar.
    */
-  getProfileImageUrl(profileImageUrl: string | null | undefined): string {
-    if (profileImageUrl && !profileImageUrl.includes('fauno.png')) {
-      return profileImageUrl;
+  triggerProfileImageUpload(): void {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (event: any) => {
+      const file = event.target.files?.[0];
+      if (file) {
+        if (!file.type.startsWith('image/')) {
+          alert('Por favor, selecciona un archivo de imagen válido');
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          alert('La imagen no debe superar los 5MB');
+          return;
+        }
+        this.uploadProfileImage(file);
+      }
+    };
+    input.click();
+  }
+
+  /**
+   * Sube la imagen de perfil a Cloudinary.
+   */
+  private uploadProfileImage(file: File): void {
+    this.usersService.uploadProfileImage(file).subscribe({
+      next: () => {
+        // Refrescar el usuario actual para que la imagen se actualice
+        this.auth.refreshUser();
+      },
+      error: (error) => {
+        alert(error.error?.message || 'Error al subir la imagen');
+      }
+    });
+  }
+  
+  /**
+   * Retorna un SVG (string) para el icono de rol.
+   * Se utiliza [innerHTML] en el template.
+   */
+  getRoleIcon(role: string): string {
+    const size = 'w-5 h-5';
+    // Se utiliza stroke="white" para asegurar la visibilidad en el span con color de fondo
+    switch (role) {
+      case 'SUPERADMIN': 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M15.5 12c.7-3.5-3.5-3.5-3.5-3.5S8.5 8.5 9.5 12s3.5 3.5 3.5 3.5S16.5 15.5 15.5 12zM12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z" /></svg>`;
+      case 'ADMIN_CENTER': 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18" /></svg>`;
+      case 'TRAINER': 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-1.036-.84-1.875-1.875-1.875h-4.636V6.184c0-1.036-.84-1.875-1.875-1.875h-2.25c-1.036 0-1.875.84-1.875 1.875v.191H4.875C3.839 6.359 3 7.198 3 8.234V15.75h18V8.25z" /></svg>`;
+      case 'CLEANER': 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 19.5l-5-5-5-5M12 10.5v12M12 4.5l-5 5-5 5M12 4.5l5 5 5 5M12 4.5l5 5 5 5M12 4.5l-5 5-5 5" /></svg>`;
+      case 'USER': default: 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>`;
     }
-    return '/assets/images/fauno.png';
   }
 }
 --- END OF FILE: src\app\pages\dashboard\dashboard.component.ts ---
@@ -5307,20 +5586,37 @@ export class HomeComponent implements OnInit, OnDestroy {
 .home__content {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem 1rem 4rem;
+  padding: 1rem 1rem 3rem;
+
+  @media (min-width: 640px) {
+    padding: 2rem 1rem 4rem;
+  }
 }
 
 .hero {
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
+
+  @media (min-width: 640px) {
+    margin-top: 1rem;
+  }
 }
 
 .hero__logo {
   display: block;
-  margin: 2rem auto;
-  height: 200px;
+  margin: 1rem auto;
+  height: 120px;
   width: auto;
   object-fit: contain;
+
+  @media (min-width: 640px) {
+    height: 160px;
+    margin: 2rem auto;
+  }
+
+  @media (min-width: 1024px) {
+    height: 200px;
+  }
 }
 
 .carousel {
@@ -5328,10 +5624,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   margin: 0 auto;
   max-width: 880px;
   background: #fff;
-  padding: 2rem;
-  border-radius: 2rem;
+  padding: 1rem;
+  border-radius: 1rem;
   box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
   transition: background-color 0.3s ease;
+
+  @media (min-width: 640px) {
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 2rem;
+    border-radius: 2rem;
+  }
 
   :host-context(.dark) & {
     background: #1e293b;
@@ -5341,22 +5647,40 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 .carousel__viewport {
   position: relative;
-  height: 320px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+
+  @media (min-width: 640px) {
+    height: 260px;
+  }
+
+  @media (min-width: 1024px) {
+    height: 320px;
+  }
 }
 
 .carousel__item {
   position: absolute;
-  width: 70%;
-  border-radius: 1.5rem;
+  width: 85%;
+  border-radius: 1rem;
   overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   opacity: 0;
   transform: scale(0.8);
   transition: all 0.5s ease;
+
+  @media (min-width: 640px) {
+    width: 75%;
+    border-radius: 1.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    width: 70%;
+    border-radius: 1.5rem;
+  }
 }
 
 .carousel__item img {
@@ -5373,13 +5697,31 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 .carousel__item.is-prev,
 .carousel__item.is-next {
-  opacity: 0.5;
-  transform: scale(0.9) translateX(-180px);
+  opacity: 0.3;
+  transform: scale(0.85) translateX(-120px);
   z-index: 2;
+
+  @media (min-width: 640px) {
+    opacity: 0.4;
+    transform: scale(0.9) translateX(-150px);
+  }
+
+  @media (min-width: 1024px) {
+    opacity: 0.5;
+    transform: scale(0.9) translateX(-180px);
+  }
 }
 
 .carousel__item.is-next {
-  transform: scale(0.9) translateX(180px);
+  transform: scale(0.85) translateX(120px);
+
+  @media (min-width: 640px) {
+    transform: scale(0.9) translateX(150px);
+  }
+
+  @media (min-width: 1024px) {
+    transform: scale(0.9) translateX(180px);
+  }
 }
 
 .carousel__controls {
@@ -5395,11 +5737,23 @@ export class HomeComponent implements OnInit, OnDestroy {
   color: #fff;
   border: none;
   border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  font-size: 1.2rem;
+  width: 36px;
+  height: 36px;
+  font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
+
+  @media (min-width: 640px) {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+
+  @media (min-width: 1024px) {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+  }
 
   :host-context(.dark) & {
     background: #334155;
@@ -5440,41 +5794,83 @@ export class HomeComponent implements OnInit, OnDestroy {
 }
 
 .services {
-  margin-top: 3rem;
+  margin-top: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+
+  @media (min-width: 640px) {
+    margin-top: 2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 1024px) {
+    margin-top: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
 }
 
 .service-card {
   background: vars.$bg-gradient-blue-purple;
-  padding: 2rem;
-  border-radius: 1rem;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
   color: white;
   text-align: center;
   text-decoration: none;
   box-shadow: 0 15px 30px rgba(79, 70, 229, 0.3);
   transition: transform 0.2s ease, box-shadow 0.3s ease;
 
+  @media (min-width: 640px) {
+    padding: 1.75rem;
+    border-radius: 0.875rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 2rem;
+    border-radius: 1rem;
+  }
+
   :host-context(.dark) & {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
   }
-}
 
-.service-card:hover {
-  transform: translateY(-6px);
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-6px);
+    }
+  }
 }
 
 .service-card__title {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
+
+  @media (min-width: 640px) {
+    font-size: 1.1rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 1.2rem;
+  }
 }
 
 .service-card__text {
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+
+  @media (min-width: 640px) {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  @media (min-width: 1024px) {
+    font-size: 0.9rem;
+  }
 }
 --- END OF FILE: src\app\pages\home\home.component.scss ---
 
@@ -5588,27 +5984,39 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
 --- START OF FILE: src\app\pages\login\login.component.html ---
-<div class="min-h-screen flex justify-center items-center bg-gray-50 dark:bg-gray-900">
-  <div class="absolute top-4 right-4 flex items-center gap-2">
+<div class="min-h-screen flex justify-center items-center bg-gray-50 dark:bg-gray-900 px-4 py-10">
+  <div class="absolute top-4 left-4 z-10">
+    <a 
+      routerLink="/" 
+      class="p-2 rounded-lg transition-colors hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center gap-2 group"
+      aria-label="Volver al inicio">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+      </svg>
+      <span class="hidden sm:inline text-sm font-medium group-hover:text-gray-900 dark:group-hover:text-white transition-colors">Inicio</span>
+    </a>
+  </div>
+  <div class="absolute top-4 right-4 flex items-center gap-2 z-10">
     <app-language-selector></app-language-selector>
     <app-theme-toggle></app-theme-toggle>
   </div>
   <div
     class="rounded-lg max-w-md w-full bg-gradient-to-br from-purple-500 via-blue-600 to-cyan-400 shadow-2xl p-0.5"
   >
-    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg">
+    <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg">
       <div class="flex justify-center mb-4">
-        <img 
-          src="Logo.png" 
-        
-          alt="Meta Force Logo" 
-          class="h-40 w-auto"
-        />
+        <a routerLink="/" class="cursor-pointer">
+          <img 
+            src="Logo.png" 
+            alt="Meta Force Logo" 
+            class="h-28 sm:h-36 md:h-40 w-auto"
+          />
+        </a>
       </div>
-      <h1 class="text-center text-gray-900 dark:text-white text-3xl font-extrabold mb-1">
+      <h1 class="text-center text-gray-900 dark:text-white text-2xl sm:text-3xl font-extrabold mb-1">
         {{ 'login.title' | translate }}
       </h1>
-      <p class="mb-5 text-gray-600 dark:text-gray-400 text-sm text-center">
+      <p class="mb-4 sm:mb-5 text-gray-600 dark:text-gray-400 text-xs sm:text-sm text-center">
         {{ 'login.subtitle' | translate }}
       </p>
 
@@ -5688,16 +6096,15 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
 
         <button
-          class="rounded-lg w-full px-4 py-2 font-bold text-lg bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white shadow-lg transition-all transform hover:scale-[1.01]"
+          class="rounded-lg w-full px-4 py-2.5 sm:py-2 font-bold text-base sm:text-lg bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white shadow-lg transition-all transform hover:scale-[1.01]"
           type="submit"
-    
           [disabled]="formLogin.invalid"
         >
           {{ 'login.loginButton' | translate }}
         </button>
       </form>
 
-      <div class="mt-6 text-center text-gray-900 dark:text-white text-sm">
+      <div class="mt-4 sm:mt-6 text-center text-gray-900 dark:text-white text-xs sm:text-sm">
         {{ 'login.noAccount' | translate }}
         <button
           type="button"
@@ -5751,7 +6158,7 @@ describe('LoginComponent', () => {
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal, OnDestroy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { Subscription } from 'rxjs';
 import { AuthInput } from '../../core/models/auth';
@@ -5762,7 +6169,7 @@ import { LanguageSelectorComponent } from '../../shared/components/language-sele
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent],
+  imports: [ReactiveFormsModule, CommonModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -5913,7 +6320,9 @@ export class LoginComponent implements OnDestroy {
         [class.text-white]="!hasActiveFilters()"
         [class.text-yellow-300]="hasActiveFilters()"
         class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90 text-white shadow-sm">
-        <span>🔍</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
         @if(showFilters()) {
           <span>{{ 'machines.hideFilters' | translate }}</span>
         } @else {
@@ -7214,26 +7623,26 @@ export class QrScannerComponent implements OnInit, OnDestroy {
 
 
 --- START OF FILE: src\app\pages\register\register.component.html ---
-<div class="min-h-screen flex justify-center items-center bg-gray-50 dark:bg-gray-900 py-10">
-  <div class="absolute top-4 right-4 flex items-center gap-2">
+<div class="min-h-screen flex justify-center items-center bg-gray-50 dark:bg-gray-900 px-4 py-10">
+  <div class="absolute top-4 right-4 flex items-center gap-2 z-10">
     <app-language-selector></app-language-selector>
     <app-theme-toggle></app-theme-toggle>
   </div>
   <div
     class="rounded-lg max-w-md w-full bg-gradient-to-br from-purple-500 via-blue-600 to-cyan-400 shadow-2xl p-0.5"
   >
-    <div class="bg-white dark:bg-gray-800 p-8 rounded-lg">
+    <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg">
       <div class="flex justify-center mb-4">
         <img 
           src="Logo.png" 
           alt="Meta Force Logo" 
-          class="h-40 w-auto"
+          class="h-28 sm:h-36 md:h-40 w-auto"
         />
       </div>
-      <h1 class="text-center text-gray-900 dark:text-white text-3xl font-extrabold mb-1">
+      <h1 class="text-center text-gray-900 dark:text-white text-2xl sm:text-3xl font-extrabold mb-1">
         {{ 'register.title' | translate }}
       </h1>
-      <p class="mb-5 text-gray-600 dark:text-gray-400 text-sm text-center">
+      <p class="mb-4 sm:mb-5 text-gray-600 dark:text-gray-400 text-xs sm:text-sm text-center">
         {{ 'register.subtitle' | translate }}
       </p>
 
@@ -7350,7 +7759,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         }
 
         <button
-          class="rounded-lg w-full px-4 py-2 font-bold text-lg bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white shadow-lg transition-all transform hover:scale-[1.01]"
+          class="rounded-lg w-full px-4 py-2.5 sm:py-2 font-bold text-base sm:text-lg bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white shadow-lg transition-all transform hover:scale-[1.01]"
           type="submit"
           [disabled]="formRegister.invalid"
         >
@@ -7358,7 +7767,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         </button>
       </form>
 
-      <div class="mt-6 text-center text-gray-900 dark:text-white text-sm">
+      <div class="mt-4 sm:mt-6 text-center text-gray-900 dark:text-white text-xs sm:text-sm">
         ¿Ya tienes cuenta?
         <button
           type="button"
@@ -7572,6 +7981,296 @@ export class RegisterComponent implements OnDestroy {
 --- END OF FILE: src\app\pages\register\register.component.ts ---
 
 
+--- START OF FILE: src\app\pages\trainers\trainers.component.html ---
+<div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
+  <app-navbar></app-navbar>
+
+  <!-- Header -->
+  <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex justify-between items-center flex-wrap gap-4">
+        <h1 class="text-2xl font-bold text-blue-900 dark:text-white">{{ 'trainers.title' | translate }}</h1>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    @if(errorMessage()) {
+      <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <!-- Selector de Centro -->
+    @if(centers().length > 0) {
+      <div class="mb-6 bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm">
+        <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">
+          {{ 'trainers.selectCenter' | translate }}
+        </label>
+        <select 
+          [ngModel]="selectedCenterId()"
+          (ngModelChange)="onCenterChange($event)"
+          class="w-full md:w-auto px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          @for(center of centers(); track center.id) {
+            <option [value]="center.id">{{ center.name }}</option>
+          }
+        </select>
+        @if(selectedCenterId()) {
+          <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            {{ 'trainers.showingTrainersFrom' | translate }}: <span class="font-semibold">{{ getCenterName(selectedCenterId()) }}</span>
+          </p>
+        }
+      </div>
+    } @else if(!isLoading()) {
+      <div class="mb-6 bg-yellow-100 dark:bg-yellow-900/20 rounded-xl p-6 border border-yellow-300 dark:border-yellow-700 shadow-sm">
+        <p class="text-yellow-800 dark:text-yellow-300 text-sm">
+          {{ 'trainers.noCentersAvailable' | translate }}
+        </p>
+      </div>
+    }
+
+    @if(isLoading() && trainers().length === 0) {
+      <div class="flex items-center justify-center py-12">
+        <div class="text-center">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>
+          <p class="text-gray-700 dark:text-gray-300">{{ 'common.loading' | translate }}</p>
+        </div>
+      </div>
+    } @else {
+      @if(filteredTrainers().length === 0) {
+        <div class="text-center py-12">
+          <p class="text-gray-600 dark:text-gray-400 text-lg">
+            {{ 'trainers.noTrainersFound' | translate }}
+          </p>
+        </div>
+      } @else {
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          @for(trainer of filteredTrainers(); track trainer.id) {
+            <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-all shadow-sm hover:shadow-lg transform hover:scale-[1.02]">
+              <!-- Imagen de perfil -->
+              <div class="flex flex-col items-center text-center">
+                <div class="mb-4">
+                  <img 
+                    [src]="getProfileImageUrl(trainer.profileImageUrl)"
+                    [alt]="trainer.name"
+                    class="w-24 h-24 rounded-full object-cover border-4 border-blue-400 dark:border-cyan-500 shadow-lg">
+                </div>
+                
+                <!-- Nombre del entrenador -->
+                <div class="flex items-center justify-center gap-2 mb-2">
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    {{ trainer.name }}
+                  </h3>
+                  <!-- Tick verde si está activo en el centro (tiene centerId) -->
+                  @if(trainer.centerId || trainer.center?.id) {
+                    <div class="flex items-center" title="{{ 'trainers.activeInCenter' | translate }}">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 text-green-500">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                      </svg>
+                    </div>
+                  }
+                </div>
+
+                <!-- Indicador de favorito si es del centro favorito del usuario -->
+                @if(currentUser()?.favoriteCenterId && 
+                    (trainer.favoriteCenterId === currentUser()?.favoriteCenterId || 
+                     trainer.favoriteCenter?.id === currentUser()?.favoriteCenterId)) {
+                  <div class="flex items-center gap-1 text-yellow-400 text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                    </svg>
+                    <span>{{ 'trainers.favorite' | translate }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    }
+  </main>
+</div>
+
+
+--- END OF FILE: src\app\pages\trainers\trainers.component.html ---
+
+
+--- START OF FILE: src\app\pages\trainers\trainers.component.scss ---
+// Estilos específicos para la página de entrenadores
+// Los estilos principales se manejan con Tailwind CSS en el HTML
+
+
+--- END OF FILE: src\app\pages\trainers\trainers.component.scss ---
+
+
+--- START OF FILE: src\app\pages\trainers\trainers.component.ts ---
+import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { UsersService } from '../../core/services/users.service';
+import { CentersService } from '../../core/services/centers.service';
+import { AuthService } from '../../core/services/auth.service';
+import { User } from '../../core/models/user';
+import { Center } from '../../core/models/center';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+
+const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
+
+@Component({
+  selector: 'app-trainers',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    TranslateModule,
+    NavbarComponent
+  ],
+  templateUrl: './trainers.component.html',
+  styleUrl: './trainers.component.scss'
+})
+export class TrainersComponent implements OnInit {
+  usersService = inject(UsersService);
+  centersService = inject(CentersService);
+  auth = inject(AuthService);
+  translate = inject(TranslateService);
+
+  trainers = signal<User[]>([]);
+  centers = signal<Center[]>([]);
+  isLoading = signal(false);
+  errorMessage = signal<string>('');
+  
+  // Centro seleccionado para filtrar
+  selectedCenterId = signal<string>('');
+
+  currentUser = computed(() => this.auth.currentUser());
+  isNormalUser = computed(() => this.currentUser()?.role === 'USER');
+
+  // Entrenadores filtrados y ordenados
+  filteredTrainers = computed(() => {
+    let filtered = this.trainers();
+    const centerId = this.selectedCenterId();
+
+    // Filtrar por centro seleccionado usando favoriteCenterId del entrenador (centro donde trabaja)
+    if (centerId) {
+      filtered = filtered.filter(trainer => 
+        trainer.favoriteCenterId === centerId ||
+        trainer.favoriteCenter?.id === centerId
+      );
+    }
+
+    // Ordenar: primero los que tienen centerId activo (están en el gimnasio), luego por nombre
+    filtered.sort((a, b) => {
+      // Primero: los que tienen centerId activo (están físicamente en el centro)
+      const aIsActive = !!(a.centerId || a.center?.id);
+      const bIsActive = !!(b.centerId || b.center?.id);
+      
+      if (aIsActive && !bIsActive) return -1;
+      if (!aIsActive && bIsActive) return 1;
+      
+      // Si ambos tienen el mismo estado de actividad, ordenar por nombre
+      return a.name.localeCompare(b.name);
+    });
+
+    return filtered;
+  });
+
+  ngOnInit() {
+    this.loadTrainers();
+    this.loadCenters();
+  }
+
+  loadTrainers() {
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+    
+    this.usersService.listTrainers().subscribe({
+      next: (data) => {
+        // Los datos ya vienen filtrados como entrenadores activos desde el backend
+        this.trainers.set(data);
+        
+        // Si el usuario tiene un centro favorito, seleccionarlo por defecto
+        const userFavoriteCenterId = this.currentUser()?.favoriteCenterId;
+        if (userFavoriteCenterId && !this.selectedCenterId()) {
+          this.selectedCenterId.set(userFavoriteCenterId);
+        } else if (this.centers().length > 0 && !this.selectedCenterId()) {
+          // Si no tiene favorito, seleccionar el primer centro disponible
+          const firstCenter = this.centers()[0];
+          if (firstCenter?.id) {
+            this.selectedCenterId.set(firstCenter.id);
+          }
+        }
+        
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || this.translate.instant('trainers.errors.load'));
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  loadCenters() {
+    // Usar listCentersWithIds para obtener todos los centros con IDs
+    this.centersService.listCentersWithIds().subscribe({
+      next: (data) => {
+        this.centers.set(data);
+        
+        // Si no hay centro seleccionado y hay centros disponibles, seleccionar el primero
+        if (!this.selectedCenterId() && data.length > 0) {
+          const userFavoriteCenterId = this.currentUser()?.favoriteCenterId;
+          if (userFavoriteCenterId && data.find(c => c.id === userFavoriteCenterId)) {
+            this.selectedCenterId.set(userFavoriteCenterId);
+          } else {
+            const firstCenter = data[0];
+            if (firstCenter?.id) {
+              this.selectedCenterId.set(firstCenter.id);
+            }
+          }
+        }
+      },
+      error: (error) => {
+        console.error('Error al cargar centros:', error);
+        this.errorMessage.set(this.translate.instant('trainers.errors.loadCenters') || 'Error al cargar los centros');
+      }
+    });
+  }
+
+  onCenterChange(centerId: string) {
+    if (centerId) {
+      this.selectedCenterId.set(centerId);
+    } else if (this.centers().length > 0) {
+      // Si se intenta deseleccionar, mantener el centro actual o seleccionar el primero
+      const currentCenter = this.selectedCenterId();
+      if (currentCenter) {
+        this.selectedCenterId.set(currentCenter);
+      } else {
+        const firstCenter = this.centers()[0];
+        if (firstCenter?.id) {
+          this.selectedCenterId.set(firstCenter.id);
+        }
+      }
+    }
+  }
+
+  getProfileImageUrl(profileImageUrl: string | null | undefined): string {
+    return profileImageUrl ? profileImageUrl : DEFAULT_PROFILE_IMAGE_URL;
+  }
+
+  getCenterName(centerId?: string | null): string {
+    if (!centerId) return this.translate.instant('trainers.noCenter');
+    const center = this.centers().find(c => c.id === centerId);
+    return center?.name || this.translate.instant('trainers.centerNotFound');
+  }
+}
+
+
+--- END OF FILE: src\app\pages\trainers\trainers.component.ts ---
+
+
 --- START OF FILE: src\app\pages\users\users.component.html ---
 <div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
   <!-- Header -->
@@ -7611,7 +8310,9 @@ export class RegisterComponent implements OnDestroy {
         [class.text-white]="!hasActiveFilters()"
         [class.text-yellow-300]="hasActiveFilters()"
         class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90">
-        <span>🔍</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+        </svg>
         @if(showFilters()) {
           <span>{{ 'users.hideFilters' | translate }}</span>
         } @else {
@@ -7757,7 +8458,7 @@ export class RegisterComponent implements OnDestroy {
                 <div class="flex items-start justify-between mb-4">
                   <div class="flex-1">
                     <div class="flex items-center gap-2 mb-2">
-                      <span class="text-2xl">{{ getRoleIcon(user.role) }}</span>
+                      <span [innerHTML]="getRoleIcon(user.role)"></span>
                       <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ user.name }}</h3>
                     </div>
                     <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">{{ user.email }}</p>
@@ -7772,12 +8473,18 @@ export class RegisterComponent implements OnDestroy {
 
                 <div class="space-y-2 mb-4">
                   @if(user.favoriteCenter) {
-                    <p class="text-gray-300 text-sm">
-                      ⭐ {{ 'users.favoriteCenter' | translate }}: {{ user.favoriteCenter.name }}
+                    <p class="text-gray-300 text-sm flex items-center gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-yellow-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                      </svg>
+                      {{ 'users.favoriteCenter' | translate }}: {{ user.favoriteCenter.name }}
                     </p>
                   } @else if(user.favoriteCenterId) {
-                    <p class="text-gray-300 text-sm">
-                      ⭐ {{ 'users.favoriteCenter' | translate }}: {{ getCenterName(user.favoriteCenterId) }}
+                    <p class="text-gray-300 text-sm flex items-center gap-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-yellow-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                      </svg>
+                      {{ 'users.favoriteCenter' | translate }}: {{ getCenterName(user.favoriteCenterId) }}
                     </p>
                   } @else {
                     <p class="text-gray-400 text-sm">{{ 'users.noFavoriteCenter' | translate }}</p>
@@ -7850,7 +8557,7 @@ export class RegisterComponent implements OnDestroy {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label class="block text-gray-400 text-sm font-medium mb-1">{{ 'users.role' | translate }}</label>
-                <p class="text-gray-300">{{ getRoleName(viewUser()!.role) }} {{ getRoleIcon(viewUser()!.role) }}</p>
+                <p class="text-gray-300 flex items-center gap-2">{{ getRoleName(viewUser()!.role) }} <span [innerHTML]="getRoleIcon(viewUser()!.role)"></span></p>
               </div>
 
               <div>
@@ -7864,9 +8571,19 @@ export class RegisterComponent implements OnDestroy {
             <div>
               <label class="block text-gray-400 text-sm font-medium mb-1">{{ 'users.favoriteCenter' | translate }}</label>
               @if(viewUser()!.favoriteCenter) {
-                <p class="text-gray-300">⭐ {{ viewUser()!.favoriteCenter?.name }}</p>
+                <p class="text-gray-300 flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-yellow-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                  </svg>
+                  {{ viewUser()!.favoriteCenter?.name }}
+                </p>
               } @else if(viewUser()!.favoriteCenterId) {
-                <p class="text-gray-300">⭐ {{ getCenterName(viewUser()!.favoriteCenterId) }}</p>
+                <p class="text-gray-300 flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-yellow-400">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                  </svg>
+                  {{ getCenterName(viewUser()!.favoriteCenterId) }}
+                </p>
               } @else {
                 <p class="text-gray-400">{{ 'users.noFavoriteCenter' | translate }}</p>
               }
@@ -8380,14 +9097,19 @@ export class UsersComponent implements OnInit {
   }
 
   getRoleIcon(role: string): string {
-    const icons: Record<string, string> = {
-      'SUPERADMIN': '👑',
-      'ADMIN_CENTER': '🏢',
-      'TRAINER': '💪',
-      'CLEANER': '🧹',
-      'USER': '👤'
-    };
-    return icons[role] || '👤';
+    const size = 'w-5 h-5';
+    switch (role) {
+      case 'SUPERADMIN': 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M15.5 12c.7-3.5-3.5-3.5-3.5-3.5S8.5 8.5 9.5 12s3.5 3.5 3.5 3.5S16.5 15.5 15.5 12zM12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z" /></svg>`;
+      case 'ADMIN_CENTER': 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18" /></svg>`;
+      case 'TRAINER': 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-1.036-.84-1.875-1.875-1.875h-4.636V6.184c0-1.036-.84-1.875-1.875-1.875h-2.25c-1.036 0-1.875.84-1.875 1.875v.191H4.875C3.839 6.359 3 7.198 3 8.234V15.75h18V8.25z" /></svg>`;
+      case 'CLEANER': 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M14.5 19.5l-5-5-5-5M12 10.5v12M12 4.5l-5 5-5 5M12 4.5l5 5 5 5M12 4.5l-5 5-5 5" /></svg>`;
+      case 'USER': default: 
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>`;
+    }
   }
 
   getRoleName(role: string): string {
@@ -9033,13 +9755,13 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-navbar2',
   standalone: true,
   imports: [CommonModule, RouterLink, RouterLinkActive],
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  templateUrl: './navbar.component 2.html',
+  styleUrl: './navbar.component 2.scss'
 })
-export class NavbarComponent {
+export class NavbarComponent2 {
   readonly navLinks = [
     { label: 'Inicio', path: '/' },
     { label: 'Clases', path: '/dashboard' },
@@ -9059,39 +9781,218 @@ export class NavbarComponent {
       <img src="/Logo.png" alt="Meta Force" class="navbar__logo" />
     </a>
 
+    <button 
+      class="navbar__hamburger"
+      (click)="toggleMobileMenu()"
+      [attr.aria-expanded]="isMobileMenuOpen()"
+      aria-label="Toggle menu"
+      aria-controls="mobile-menu">
+      <span class="navbar__hamburger-line" [class.active]="isMobileMenuOpen()"></span>
+      <span class="navbar__hamburger-line" [class.active]="isMobileMenuOpen()"></span>
+      <span class="navbar__hamburger-line" [class.active]="isMobileMenuOpen()"></span>
+    </button>
+
     <nav class="navbar__menu">
       @for (link of navLinks; track link.path) {
         <a
           [routerLink]="link.path"
+          [routerLinkActiveOptions]="{ exact: link.exact }"
           routerLinkActive="active"
-          class="navbar__link">
-          {{ (link.key | translate) || link.label }}
+          class="navbar__link"
+          (click)="closeMobileMenu()">
+         {{ (link.key | translate) || link.label }}
         </a>
       }
     </nav>
 
     <div class="navbar__actions flex items-center gap-3">
       <div class="flex items-center gap-2">
+        
         <app-language-selector></app-language-selector>
+
+        @if (auth.currentUser()) {
+          <div class="relative">
+            <button 
+              type="button" 
+              class="notification-btn p-2 rounded-lg transition-colors bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 relative flex items-center justify-center" 
+              (click)="toggleNotifications()"
+              aria-label="Notificaciones">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+              </svg>
+              
+              @if (notificationService.unreadCount() > 0) {
+                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] flex justify-center items-center animate-pulse shadow-sm border-2 border-white dark:border-gray-800">
+                {{ notificationService.unreadCount() > 9 ? '9+' : notificationService.unreadCount() }}
+                </span>
+              }
+            </button>
+      
+            @if (showNotifications()) {
+              <div class="notification-dropdown absolute right-0 mt-2 w-80 sm:w-96 max-w-[90vw] bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 origin-top-right">
+                
+                <div class="p-3 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">
+                  <h3 class="font-bold text-gray-800 dark:text-white text-sm">Notificaciones</h3>
+                  @if (notificationService.unreadCount() > 0) {
+                    <button (click)="markAllRead()" class="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium">
+                      Marcar todas leídas
+                    </button>
+                  }
+                </div>
+      
+                <div class="max-h-[400px] overflow-y-auto bg-white dark:bg-gray-800">
+                  @if (notificationService.notifications().length === 0) {
+                    <div class="p-8 text-center text-gray-500 dark:text-gray-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto mb-2 opacity-50">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.143 17.082a24.248 24.248 0 0 0 3.844.148m-3.844-.148a23.856 23.856 0 0 1-5.455-1.31 8.964 8.964 0 0 0 2.3-6.062m3.155 6.062a23.789 23.789 0 0 1-5.455 1.31 8.99 8.99 0 0 0 2.3 6.062M15 9.75a3 3 0 1 1-6 0m6 0a3 3 0 1 0-6 0m6 0v.75A6 6 0 0 1 9.75 15v.75M15 9.75v.75m0 0v.75A6 6 0 0 1 9.75 15m5.25 0v.75a6 6 0 0 1-5.25 5.5v-.75" />
+                      </svg>
+                      <p class="text-sm">No tienes notificaciones</p>
+                    </div>
+                  }
+      
+                  @for (notification of notificationService.notifications(); track notification.id) {
+                    <div 
+                      (click)="handleNotificationClick(notification)"
+                      class="p-4 border-b border-gray-100 dark:border-gray-700 transition-colors cursor-pointer relative group flex gap-3"
+                      [class.bg-blue-50]="!notification.read"
+                      [class.dark:bg-gray-700]="!notification.read" 
+                      [class.bg-white]="notification.read"
+                      [class.dark:bg-gray-800]="notification.read"
+                      [class.hover:bg-gray-100]="true"
+                      [class.dark:hover:bg-gray-600]="true">
+                      
+                      <div class="mt-1 flex-shrink-0">
+                        @switch (notification.type) {
+                          @case ('WARNING') { 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-amber-500">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                            </svg>
+                          }
+                          @case ('SUCCESS') { 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-500">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                          }
+                          @case ('ERROR') { 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-red-500">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+                          }
+                          @default { 
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-blue-500">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                            </svg>
+                          }
+                        }
+                      </div>
+            
+                      <div class="flex-1">
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white mb-0.5">
+                          {{ notification.title }}
+                        </p>
+                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">
+                          {{ notification.message }}
+                        </p>
+                        <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-2 font-medium">
+                          {{ notification.createdAt | date:'dd MMM, HH:mm' }}
+                        </p>
+                      </div>
+      
+                      @if (!notification.read) {
+                        <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        }
+
         <app-theme-toggle></app-theme-toggle>
       </div>
 
       @if (!auth.currentUser()) {
-        <a routerLink="/login" class="navbar__login">{{ ('nav.login' | translate) || 'Iniciar sesión' }}</a>
-      } @else {
-        <a routerLink="/dashboard" class="navbar__icon-btn" aria-label="Perfil">
-          <span>👤</span>
+        <a routerLink="/login" class="navbar__login">
+          {{ 'nav.login' | translate }}
         </a>
+        <a routerLink="/register" class="navbar__login" style="background: #9333ea;">
+          {{ ('nav.register' | translate) || 'Registrarse' }}
+        </a>
+      } @else {
+        @if (showQR()) {
+          <a 
+            routerLink="/qr"
+            class="px-3 sm:px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg transition-colors text-xs sm:text-sm font-medium whitespace-nowrap hidden sm:block">
+            {{ 'dashboard.cards.myQR.button' | translate }}
+          </a>
+        }
+        
+        <a 
+          routerLink="/dashboard"
+          class="navbar__icon-btn"
+          aria-label="Perfil"
+          (click)="closeMobileMenu()">
+          <img 
+            [src]="getProfileImageUrl(auth.currentUser()!.profileImageUrl)" 
+            [alt]="auth.currentUser()!.name" 
+            class="w-full h-full object-cover rounded-full"
+          />
+        </a>
+
+        <button 
+          (click)="logout()"
+          class="px-3 sm:px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-xs sm:text-sm font-medium whitespace-nowrap hidden sm:block">
+          {{ 'dashboard.logout' | translate }}
+        </button>
       }
     </div>
   </div>
+
+  @if (isMobileMenuOpen()) {
+    <div class="navbar__mobile-menu" id="mobile-menu">
+      <nav class="navbar__mobile-nav">
+        @for (link of navLinks; track link.path) {
+          <a
+            [routerLink]="link.path"
+            [routerLinkActiveOptions]="{ exact: link.exact }"
+            routerLinkActive="active"
+            class="navbar__mobile-link"
+            (click)="closeMobileMenu()">
+            {{ (link.key | translate) || link.label }}
+          </a>
+        }
+        
+        <div class="navbar__mobile-actions">
+          @if (!auth.currentUser()) {
+            <a routerLink="/login" class="navbar__mobile-login" (click)="closeMobileMenu()">
+              {{ 'nav.login' | translate }}
+            </a>
+            <a routerLink="/register" class="navbar__mobile-login" (click)="closeMobileMenu()" style="background: #9333ea; margin-top: 0.5rem;">
+              {{ ('nav.register' | translate) || 'Registrarse' }}
+            </a>
+          } @else {
+            @if (showQR()) {
+              <a routerLink="/qr" class="navbar__mobile-link" (click)="closeMobileMenu()">
+                {{ 'dashboard.cards.myQR.button' | translate }}
+              </a>
+            }
+            <button 
+              (click)="logout()"
+              class="navbar__mobile-login w-full">
+              {{ 'dashboard.logout' | translate }}
+            </button>
+          }
+        </div>
+      </nav>
+    </div>
+  }
 </header>
 --- END OF FILE: src\app\shared\components\navbar\navbar.component.html ---
 
 
 --- START OF FILE: src\app\shared\components\navbar\navbar.component.scss ---
 @use '../../../../styles/variables' as vars;
-
 .navbar {
   position: sticky;
   top: 0;
@@ -9101,10 +10002,10 @@ export class NavbarComponent {
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   box-shadow: 0 4px 10px rgba(30, 64, 175, 0.06);
   transition: background-color 0.3s ease, border-color 0.3s ease;
-
   /* Modo Oscuro Navbar */
   :host-context(.dark) & {
-    background: rgba(15, 23, 42, 0.95); /* Fondo oscuro casi opaco */
+    background: rgba(15, 23, 42, 0.95);
+    /* Fondo oscuro casi opaco */
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
   }
@@ -9124,10 +10025,61 @@ export class NavbarComponent {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  z-index: 10;
 }
 
 .navbar__logo {
   height: 48px;
+  // Responsive logo
+  @media (max-width: 640px) {
+    height: 40px;
+  }
+}
+
+// Botón hamburguesa
+.navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 10;
+  transition: all 0.3s ease;
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+
+  :host-context(.dark) & {
+    // Estilos para modo oscuro si es necesario
+  }
+}
+
+.navbar__hamburger-line {
+  width: 25px;
+  height: 3px;
+  background: #1e293b;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+
+  :host-context(.dark) & {
+    background: #f1f5f9;
+  }
+
+  &.active {
+    &:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+    &:nth-child(2) {
+      opacity: 0;
+    }
+    &:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+  }
 }
 
 .navbar__menu {
@@ -9136,6 +10088,11 @@ export class NavbarComponent {
   font-weight: 600;
   color: #1e293b;
   transition: color 0.3s ease;
+  
+  // Ocultar en móvil
+  @media (max-width: 768px) {
+    display: none;
+  }
 
   /* Modo Oscuro Menú */
   :host-context(.dark) & {
@@ -9148,12 +10105,15 @@ export class NavbarComponent {
   color: inherit;
   font-size: 1rem;
   transition: color 0.2s ease;
+  
+  @media (max-width: 1024px) {
+    font-size: 0.9rem;
+  }
 }
 
 .navbar__link.active,
 .navbar__link:hover {
   color: vars.$color-secondary;
-
   :host-context(.dark) & {
     color: #22d3ee; /* Cyan en hover dark */
   }
@@ -9163,6 +10123,11 @@ export class NavbarComponent {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  z-index: 10;
+
+  @media (max-width: 768px) {
+    gap: 0.5rem;
+  }
 }
 
 .navbar__login {
@@ -9174,6 +10139,11 @@ export class NavbarComponent {
   text-decoration: none;
   border: 1px solid transparent;
   transition: all 0.2s ease;
+  white-space: nowrap;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 
   /* Modo Oscuro Botón Login */
   :host-context(.dark) & {
@@ -9187,59 +10157,265 @@ export class NavbarComponent {
 }
 
 .navbar__icon-btn {
-  width: 42px;
+  /* TAMAÑO DEL CONTENEDOR DE LA IMAGEN DE PERFIL */
+  width: 42px; 
   height: 42px;
   border-radius: 50%;
   border: 2px solid #0f172a;
   background: #fff;
-  font-size: 1.1rem;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0; 
+  overflow: hidden; 
   transition: all 0.3s ease;
 
+  @media (max-width: 768px) {
+    width: 36px;
+    height: 36px;
+  }
+  
   /* Modo Oscuro Icon Buttons */
   :host-context(.dark) & {
     border-color: #f1f5f9;
     background: #1e293b;
     color: #f1f5f9;
-
     &:hover {
         background: #334155;
     }
+  }
+}
+
+// Menú móvil
+.navbar__mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #d9ecf9;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 10px rgba(30, 64, 175, 0.1);
+  animation: slideDown 0.3s ease-out;
+  z-index: 100;
+
+  :host-context(.dark) & {
+    background: rgba(15, 23, 42, 0.98);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.navbar__mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.5rem;
+}
+
+.navbar__mobile-link {
+  text-decoration: none;
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+
+  :host-context(.dark) & {
+    color: #f1f5f9;
+  }
+
+  &:hover,
+  &.active {
+    background: rgba(30, 64, 175, 0.1);
+    color: vars.$color-secondary;
+
+    :host-context(.dark) & {
+      background: rgba(34, 211, 238, 0.1);
+      color: #22d3ee;
+    }
+  }
+}
+
+.navbar__mobile-actions {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+
+  :host-context(.dark) & {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+.navbar__mobile-login {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: #0f172a;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.2s ease;
+
+  :host-context(.dark) & {
+    background: #38bdf8;
+    color: #0f172a;
+  }
+
+  &:hover {
+    opacity: 0.85;
+  }
+}
+
+.navbar__mobile-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  color: #1e293b;
+  font-weight: 600;
+  transition: all 0.2s ease;
+
+  :host-context(.dark) & {
+    color: #f1f5f9;
+  }
+
+  &:hover {
+    background: rgba(30, 64, 175, 0.1);
+
+    :host-context(.dark) & {
+      background: rgba(34, 211, 238, 0.1);
+    }
+  }
+}
+
+.navbar__mobile-profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #0f172a;
+
+  :host-context(.dark) & {
+    border-color: #f1f5f9;
   }
 }
 --- END OF FILE: src\app\shared\components\navbar\navbar.component.scss ---
 
 
 --- START OF FILE: src\app\shared\components\navbar\navbar.component.ts ---
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject, signal, input, HostListener, ElementRef } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common'; // Importante DatePipe para la fecha
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../core/services/auth.service';
+import { NotificationService } from '../../../core/services/notification.service';
+import { Notification } from '../../../core/models/notification';
+
+const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, LanguageSelectorComponent, ThemeToggleComponent, TranslateModule],
+  imports: [CommonModule, RouterLink, RouterLinkActive, LanguageSelectorComponent, ThemeToggleComponent, TranslateModule, DatePipe],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  // Inyección de Auth (Añadido de tu versión)
   auth = inject(AuthService);
+  router = inject(Router);
+  notificationService = inject(NotificationService);
+  private elementRef = inject(ElementRef);
   
+  // Input opcional para mostrar QR solo en el dashboard
+  showQR = input<boolean>(false);
+
   readonly navLinks = [
-    { label: 'Inicio', path: '/', key: 'nav.home' },
-    // Se mantiene /dashboard (tu versión) porque es la ruta protegida que estamos usando
-    { label: 'Clases', path: '/dashboard', key: 'nav.classes' }, 
-    { label: 'Entrenadores', path: '/users', key: 'nav.trainers' },
-    { label: 'Membresía', path: '/register', key: 'nav.membership' }
+    { label: 'Inicio', path: '/', key: 'nav.home', exact: true },
+    { label: 'Clases', path: '/clases', key: 'nav.classes', exact: false }, 
+    { label: 'Entrenadores', path: '/trainers', key: 'nav.trainers', exact: false },
+    { label: 'Centros', path: '/centers', key: 'nav.centers', exact: false }
   ];
+
+  // Estado del menú móvil
+  isMobileMenuOpen = signal(false);
+  
+  // Estado de notificaciones
+  showNotifications = signal(false);
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen.update(open => !open);
+  }
+
+  closeMobileMenu(): void {
+    this.isMobileMenuOpen.set(false);
+  }
+
+  logout(): void {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+    this.closeMobileMenu();
+  }
+
+  getProfileImageUrl(profileImageUrl: string | null | undefined): string {
+    return profileImageUrl ? profileImageUrl : DEFAULT_PROFILE_IMAGE_URL;
+  }
+
+  // --- LÓGICA DE NOTIFICACIONES ---
+  toggleNotifications() {
+    const newState = !this.showNotifications();
+    this.showNotifications.set(newState);
+    if (newState) {
+      // Recargar al abrir para asegurar datos frescos
+      this.notificationService.loadNotifications();
+    }
+  }
+
+  handleNotificationClick(notification: Notification) {
+    if (!notification.read) {
+      this.notificationService.markAsRead(notification.id);
+    }
+    
+    if (notification.link) {
+      this.router.navigateByUrl(notification.link);
+      this.showNotifications.set(false);
+    }
+  }
+
+  markAllRead() {
+    this.notificationService.markAllAsRead();
+  }
+
+  // Cerrar dropdowns si se hace clic fuera
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    
+    // Gestión cierre notificaciones
+    const isBell = target.closest('.notification-btn');
+    const isNotifDropdown = target.closest('.notification-dropdown');
+    
+    if (!isBell && !isNotifDropdown) {
+      this.showNotifications.set(false);
+    }
+  }
 }
 --- END OF FILE: src\app\shared\components\navbar\navbar.component.ts ---
 
@@ -9374,6 +10550,7 @@ export class ProfileImageManagerComponent {
 
   /**
    * Elimina la imagen de perfil del usuario.
+   * Después de eliminar, permite seleccionar una nueva imagen.
    */
   deleteImage(): void {
     if (!confirm('¿Estás seguro de que quieres eliminar tu imagen de perfil?')) {
@@ -9388,12 +10565,40 @@ export class ProfileImageManagerComponent {
       next: (updatedUser) => {
         this.isUploading.set(false);
         this.authService.refreshUser();
+        // Después de eliminar, abrir automáticamente el selector para subir una nueva imagen
+        setTimeout(() => {
+          this.triggerFileInput();
+        }, 300);
       },
       error: (error) => {
         this.isUploading.set(false);
         this.errorMessage.set(error.error?.message || 'Error al eliminar la imagen');
       }
     });
+  }
+
+  /**
+   * Activa el input de archivo para seleccionar una nueva imagen.
+   */
+  triggerFileInput(): void {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.onchange = (event: any) => {
+      const file = event.target.files?.[0];
+      if (file) {
+        if (!file.type.startsWith('image/')) {
+          this.errorMessage.set('Por favor, selecciona un archivo de imagen válido');
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          this.errorMessage.set('La imagen no debe superar los 5MB');
+          return;
+        }
+        this.uploadImage(file);
+      }
+    };
+    input.click();
   }
 
   /**
@@ -9565,7 +10770,9 @@ export class ThemeToggleComponent {
     "classes": "Classes",
     "trainers": "Trainers",
     "membership": "Membership",
-    "login": "Sign In"
+    "centers": "Centers",
+    "login": "Sign In",
+    "register": "Sign Up"
   },
   "classes": {
     "title": "Gym Classes",
@@ -9600,12 +10807,97 @@ export class ThemeToggleComponent {
     }
   },
   "dashboard": {
+    "title": "Dashboard",
+    "loading": "Loading...",
+    "logout": "Logout",
+    "roles": {
+      "SUPERADMIN": "Super Administrator",
+      "ADMIN_CENTER": "Center Administrator",
+      "TRAINER": "Trainer",
+      "CLEANER": "Cleaner",
+      "USER": "User"
+    },
     "cards": {
       "classes": {
         "title": "Classes",
         "description": "Manage all group classes for your Meta Force centers.",
         "button": "Go to classes"
+      },
+      "centers": {
+        "title": "Centers",
+        "description": "Manage all Meta Force centers.",
+        "button": "Go to centers"
+      },
+      "machines": {
+        "title": "Machines",
+        "description": "Manage all machines in your centers.",
+        "button": "Go to machines"
+      },
+      "users": {
+        "title": "Users",
+        "description": "Manage all system users.",
+        "button": "Go to users"
+      },
+      "myCenter": {
+        "title": "My Center",
+        "description": "Manage your center information.",
+        "button": "View center"
+      },
+      "employees": {
+        "title": "Employees",
+        "description": "Manage your center employees.",
+        "button": "View employees"
+      },
+      "statistics": {
+        "title": "Statistics",
+        "description": "View your center statistics.",
+        "button": "View statistics"
+      },
+      "myQR": {
+        "title": "My QR",
+        "description": "Access your personal QR code.",
+        "button": "View my QR"
+      },
+      "myProfile": {
+        "title": "My Profile",
+        "description": "Manage your personal information.",
+        "button": "View profile"
+      },
+      "myClasses": {
+        "title": "My Classes",
+        "description": "Manage your classes as trainer.",
+        "button": "View my classes"
       }
+    },
+    "userInfo": {
+      "title": "User Information",
+      "name": "Name",
+      "email": "Email",
+      "role": "Role",
+      "center": "Center",
+      "registrationDate": "Registration Date"
+    },
+    "roleEditor": {
+      "title": "Change Role",
+      "selectRole": "Select a role",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving..."
+    }
+  },
+  "trainers": {
+    "title": "Trainers",
+    "selectCenter": "Select Center",
+    "showingTrainersFrom": "Showing trainers from",
+    "noTrainersFound": "No trainers found in this center.",
+    "noCentersAvailable": "No centers available.",
+    "favorite": "Favorite",
+    "activeInCenter": "Active in center",
+    "noCenter": "No center",
+    "centerNotFound": "Center not found",
+    "errors": {
+      "load": "Error loading trainers.",
+      "loadCenters": "Error loading centers."
     }
   },
   "common": {
@@ -9690,7 +10982,9 @@ export class ThemeToggleComponent {
     "classes": "Clases",
     "trainers": "Entrenadores",
     "membership": "Membresía",
-    "login": "Iniciar sesión"
+    "centers": "Centros",
+    "login": "Iniciar sesión",
+    "register": "Registrarse"
   },
   "classes": {
     "title": "Clases de gimnasio",
@@ -9725,12 +11019,97 @@ export class ThemeToggleComponent {
     }
   },
   "dashboard": {
+    "title": "Dashboard",
+    "loading": "Cargando...",
+    "logout": "Cerrar sesión",
+    "roles": {
+      "SUPERADMIN": "Super Administrador",
+      "ADMIN_CENTER": "Administrador de Centro",
+      "TRAINER": "Entrenador",
+      "CLEANER": "Limpieza",
+      "USER": "Usuario"
+    },
     "cards": {
       "classes": {
         "title": "Clases",
         "description": "Gestiona todas las clases grupales de tus centros Meta Force.",
         "button": "Ir a clases"
+      },
+      "centers": {
+        "title": "Centros",
+        "description": "Gestiona todos los centros Meta Force.",
+        "button": "Ir a centros"
+      },
+      "machines": {
+        "title": "Máquinas",
+        "description": "Gestiona todas las máquinas de tus centros.",
+        "button": "Ir a máquinas"
+      },
+      "users": {
+        "title": "Usuarios",
+        "description": "Gestiona todos los usuarios del sistema.",
+        "button": "Ir a usuarios"
+      },
+      "myCenter": {
+        "title": "Mi Centro",
+        "description": "Gestiona la información de tu centro.",
+        "button": "Ver centro"
+      },
+      "employees": {
+        "title": "Empleados",
+        "description": "Gestiona los empleados de tu centro.",
+        "button": "Ver empleados"
+      },
+      "statistics": {
+        "title": "Estadísticas",
+        "description": "Visualiza las estadísticas de tu centro.",
+        "button": "Ver estadísticas"
+      },
+      "myQR": {
+        "title": "Mi QR",
+        "description": "Accede a tu código QR personal.",
+        "button": "Ver mi QR"
+      },
+      "myProfile": {
+        "title": "Mi Perfil",
+        "description": "Gestiona tu información personal.",
+        "button": "Ver perfil"
+      },
+      "myClasses": {
+        "title": "Mis Clases",
+        "description": "Gestiona tus clases como entrenador.",
+        "button": "Ver mis clases"
       }
+    },
+    "userInfo": {
+      "title": "Información del Usuario",
+      "name": "Nombre",
+      "email": "Email",
+      "role": "Rol",
+      "center": "Centro",
+      "registrationDate": "Fecha de Registro"
+    },
+    "roleEditor": {
+      "title": "Cambiar Rol",
+      "selectRole": "Selecciona un rol",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saving": "Guardando..."
+    }
+  },
+  "trainers": {
+    "title": "Entrenadores",
+    "selectCenter": "Seleccionar Centro",
+    "showingTrainersFrom": "Mostrando entrenadores de",
+    "noTrainersFound": "No se encontraron entrenadores en este centro.",
+    "noCentersAvailable": "No hay centros disponibles.",
+    "favorite": "Favorito",
+    "activeInCenter": "Activo en el centro",
+    "noCenter": "Sin centro",
+    "centerNotFound": "Centro no encontrado",
+    "errors": {
+      "load": "Error al cargar los entrenadores.",
+      "loadCenters": "Error al cargar los centros."
     }
   },
   "common": {
@@ -9815,7 +11194,9 @@ export class ThemeToggleComponent {
     "classes": "Cours",
     "trainers": "Entraîneurs",
     "membership": "Adhésion",
-    "login": "Se connecter"
+    "centers": "Centres",
+    "login": "Se connecter",
+    "register": "S'inscrire"
   },
   "classes": {
     "title": "Cours de gym",
@@ -9850,12 +11231,97 @@ export class ThemeToggleComponent {
     }
   },
   "dashboard": {
+    "title": "Tableau de bord",
+    "loading": "Chargement...",
+    "logout": "Déconnexion",
+    "roles": {
+      "SUPERADMIN": "Super Administrateur",
+      "ADMIN_CENTER": "Administrateur de Centre",
+      "TRAINER": "Entraîneur",
+      "CLEANER": "Nettoyage",
+      "USER": "Utilisateur"
+    },
     "cards": {
       "classes": {
         "title": "Cours",
         "description": "Gérez tous les cours collectifs de vos centres Meta Force.",
         "button": "Aller aux cours"
+      },
+      "centers": {
+        "title": "Centres",
+        "description": "Gérez tous les centres Meta Force.",
+        "button": "Aller aux centres"
+      },
+      "machines": {
+        "title": "Machines",
+        "description": "Gérez toutes les machines de vos centres.",
+        "button": "Aller aux machines"
+      },
+      "users": {
+        "title": "Utilisateurs",
+        "description": "Gérez tous les utilisateurs du système.",
+        "button": "Aller aux utilisateurs"
+      },
+      "myCenter": {
+        "title": "Mon Centre",
+        "description": "Gérez les informations de votre centre.",
+        "button": "Voir le centre"
+      },
+      "employees": {
+        "title": "Employés",
+        "description": "Gérez les employés de votre centre.",
+        "button": "Voir les employés"
+      },
+      "statistics": {
+        "title": "Statistiques",
+        "description": "Visualisez les statistiques de votre centre.",
+        "button": "Voir les statistiques"
+      },
+      "myQR": {
+        "title": "Mon QR",
+        "description": "Accédez à votre code QR personnel.",
+        "button": "Voir mon QR"
+      },
+      "myProfile": {
+        "title": "Mon Profil",
+        "description": "Gérez vos informations personnelles.",
+        "button": "Voir le profil"
+      },
+      "myClasses": {
+        "title": "Mes Cours",
+        "description": "Gérez vos cours en tant qu'entraîneur.",
+        "button": "Voir mes cours"
       }
+    },
+    "userInfo": {
+      "title": "Informations de l'utilisateur",
+      "name": "Nom",
+      "email": "Email",
+      "role": "Rôle",
+      "center": "Centre",
+      "registrationDate": "Date d'inscription"
+    },
+    "roleEditor": {
+      "title": "Changer de rôle",
+      "selectRole": "Sélectionnez un rôle",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement..."
+    }
+  },
+  "trainers": {
+    "title": "Entraîneurs",
+    "selectCenter": "Sélectionner le Centre",
+    "showingTrainersFrom": "Affichage des entraîneurs de",
+    "noTrainersFound": "Aucun entraîneur trouvé dans ce centre.",
+    "noCentersAvailable": "Aucun centre disponible.",
+    "favorite": "Favori",
+    "activeInCenter": "Actif dans le centre",
+    "noCenter": "Aucun centre",
+    "centerNotFound": "Centre introuvable",
+    "errors": {
+      "load": "Erreur lors du chargement des entraîneurs.",
+      "loadCenters": "Erreur lors du chargement des centres."
     }
   },
   "common": {

@@ -11,6 +11,7 @@ import { QrScannerComponent } from './pages/qr-scanner/qr-scanner.component';
 import { MachinesComponent } from './pages/machines/machines.component';
 import { ClasesComponent } from './pages/clases/clases.component';
 import { HomeComponent } from './pages/home/home.component';
+import { TrainersComponent } from './pages/trainers/trainers.component';
 import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
@@ -66,6 +67,11 @@ export const routes: Routes = [
     {
         path: 'clases',
         component: ClasesComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'trainers',
+        component: TrainersComponent,
         canActivate: [authGuard]
     }
 ];

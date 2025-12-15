@@ -1,4 +1,4 @@
-// Enhanced styling for centers page
+// Enhanced styling for trainers page
 
 // Improved spacing and layout
 .min-h-screen {
@@ -23,20 +23,20 @@ main {
 }
 
 // Improved filter section
-.bg-white.dark\:bg-gray-800.rounded-2xl {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+.bg-blue-100.dark\:bg-gray-800.rounded-xl {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 // Better button styling
-button {
+button, select {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
   &:hover:not(:disabled) {
-    transform: scale(1.05);
+    transform: scale(1.02);
   }
   
   &:active:not(:disabled) {
-    transform: scale(0.95);
+    transform: scale(0.98);
   }
 }
 
@@ -50,7 +50,7 @@ button {
 }
 
 // Better form inputs
-input, select, textarea {
+input, select {
   transition: all 0.2s ease;
   
   &:focus {
@@ -93,4 +93,9 @@ input, select, textarea {
   &:hover::before {
     opacity: 1;
   }
+}
+
+// Profile image hover effect
+img {
+  transition: all 0.3s ease;
 }

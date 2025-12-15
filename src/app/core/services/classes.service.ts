@@ -18,10 +18,15 @@ export class ClassesService {
 
   /**
    * Obtiene todas las clases de gimnasio disponibles.
+   * @param centerId - Opcional: filtra las clases que tienen horarios en este centro
    * @returns Observable que emite un array de clases
    */
-  listClasses(): Observable<GymClass[]> {
-    return this.http.get<GymClass[]>(this.apiUrl);
+  listClasses(centerId?: string | null): Observable<GymClass[]> {
+    const params: any = {};
+    if (centerId) {
+      params.centerId = centerId;
+    }
+    return this.http.get<GymClass[]>(this.apiUrl, { params });
   }
 
   /**
@@ -59,6 +64,53 @@ export class ClassesService {
    */
   deleteClass(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
+  /**
+   * Agrega un centro a una clase existente con entrenadores y horarios.
+   * @param classId - El identificador único de la clase
+   * @param data - Datos del centro, entrenadores y horarios
+   * @returns Observable que emite la clase actualizada
+   */
+  addCenterToClass(classId: string, data: {
+    centerId: string;
+    trainerIds: string[];
+    schedules: Array<{
+      dayOfWeek: number;
+      startTime: string;
+      endTime: string;
+    }>;
+  }): Observable<GymClass> {
+    return this.http.post<GymClass>(`${this.apiUrl}/${classId}/centers`, data);
+  }
+
+  /**
+   * Elimina un centro de una clase.
+   * @param classId - El identificador único de la clase
+   * @param centerId - El identificador único del centro
+   * @returns Observable que emite la clase actualizada
+   */
+  removeCenterFromClass(classId: string, centerId: string): Observable<GymClass> {
+    return this.http.delete<GymClass>(`${this.apiUrl}/${classId}/centers/${centerId}`);
+  }
+
+  /**
+   * Actualiza un centro en una clase (entrenadores y horarios).
+   * @param classId - El identificador único de la clase
+   * @param centerId - El identificador único del centro
+   * @param data - Datos de entrenadores y horarios a actualizar
+   * @returns Observable que emite la clase actualizada
+   */
+  updateCenterInClass(classId: string, centerId: string, data: {
+    trainerIds?: string[];
+    schedules?: Array<{
+      id?: string;
+      dayOfWeek: number;
+      startTime: string;
+      endTime: string;
+    }>;
+  }): Observable<GymClass> {
+    return this.http.patch<GymClass>(`${this.apiUrl}/${classId}/centers/${centerId}`, data);
   }
 }
 
