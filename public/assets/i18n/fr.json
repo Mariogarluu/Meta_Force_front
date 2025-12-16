@@ -40,7 +40,8 @@
       "previous": "Précédent",
       "next": "Suivant",
       "goToSlide": "Aller au slide"
-    }
+    },
+    "contactButton": "Contactez-nous"
   },
   "login": {
     "title": "Meta Force",
@@ -433,5 +434,65 @@
     "upload": "Télécharger l'image",
     "delete": "Supprimer l'image",
     "uploading": "Téléchargement de l'image..."
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "intro": "Nous sommes là pour vous aider ! Envoyez-nous vos questions, suggestions ou préoccupations.",
+    "name": "Nom",
+    "email": "Email",
+    "phone": "Téléphone",
+    "center": "Centre le plus proche",
+    "selectCenter": "Sélectionner un centre",
+    "subject": "Sujet",
+    "description": "Description",
+    "attachments": "Pièces jointes",
+    "attachmentsHint": "Vous pouvez télécharger des images (JPG, PNG, GIF, WEBP) et des PDF. Maximum 5 fichiers, 2Mo par fichier.",
+    "fileTooLarge": "Le fichier dépasse la taille maximale de 2Mo",
+    "send": "Envoyer",
+    "sending": "Envoi...",
+    "reset": "Réinitialiser",
+    "success": "Votre message a été envoyé avec succès ! Nous vous contacterons bientôt.",
+    "errors": {
+      "requiredFields": "Veuillez remplir tous les champs obligatoires.",
+      "invalidEmail": "Veuillez entrer un email valide.",
+      "invalidFileType": "Seules les images (JPG, PNG, GIF, WEBP) et les PDF sont autorisés.",
+      "fileTooLarge": "Le fichier dépasse la taille maximale de 2Mo",
+      "nameRequired": "Le nom est obligatoire",
+      "emailRequired": "L'email est obligatoire",
+      "centerIdRequired": "Vous devez sélectionner un centre",
+      "subjectRequired": "Le sujet est obligatoire",
+      "descriptionRequired": "La description est obligatoire",
+      "loadCenters": "Erreur lors du chargement des centres"
+    }
+  },
+  "tickets": {
+    "title": "Tickets de Contact",
+    "subtitle": "Gérez les messages de contact des utilisateurs",
+    "from": "De",
+    "phone": "Téléphone",
+    "center": "Centre",
+    "status": "Statut",
+    "createdAt": "Créé le",
+    "completedAt": "Complété le",
+    "description": "Description",
+    "attachments": "Pièces jointes",
+    "openInNewTab": "Ouvrir dans un nouvel onglet",
+    "view": "Voir",
+    "changeStatus": "Changer le statut",
+    "markAsPending": "Marquer comme En Attente",
+    "markAsInProgress": "Marquer comme En Cours",
+    "markAsCompleted": "Marquer comme Complété",
+    "filterStatus": "Filtrer par statut",
+    "filterCenter": "Filtrer par centre",
+    "allStatuses": "Tous les statuts",
+    "allCenters": "Tous les centres",
+    "noTickets": "Aucun ticket disponible",
+    "confirmDelete": "Confirmer la suppression",
+    "confirmDeleteMessage": "Êtes-vous sûr de vouloir supprimer ce ticket ? Cette action ne peut pas être annulée.",
+    "statuses": {
+      "pending": "En Attente",
+      "in_progress": "En Cours",
+      "completed": "Complété"
+    }
   }
 }

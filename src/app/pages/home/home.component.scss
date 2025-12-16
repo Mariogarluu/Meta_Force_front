@@ -305,3 +305,42 @@
     font-size: 0.9rem;
   }
 }
+
+.contact-section {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2rem 0;
+}
+
+.contact-button {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: #60a5fa;
+  color: #0f172a;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  :host-context(.dark) & {
+    background: #3b82f6;
+    color: #f1f5f9;
+
+    &:hover {
+      background: #2563eb;
+    }
+  }
+
+  @media (min-width: 640px) {
+    padding: 1.25rem 3rem;
+    font-size: 1.25rem;
+  }
+}

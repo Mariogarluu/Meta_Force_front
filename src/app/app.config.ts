@@ -50,7 +50,8 @@ export const appConfig: ApplicationConfig = {
           provide: TranslateLoader,
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
-        }
+        },
+        useDefaultLang: true
       })
     )
   ]
