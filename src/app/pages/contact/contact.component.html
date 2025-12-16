@@ -1,0 +1,206 @@
+<div class="contact-page">
+  <app-navbar></app-navbar>
+
+  <main class="contact-main">
+    <!-- Sección de información del gym (similar a Figma) -->
+    <section class="contact-info">
+      <div class="info-card">
+        <h2 class="info-card__title">VISITA NUESTRO GYM</h2>
+        <div class="info-card__content">
+          <p class="info-detail">
+            <strong>Dirección:</strong><br>
+            Rodney 13th St, General Martin Villamor, 8000 Davao City
+          </p>
+          <p class="info-detail">
+            <strong>Email:</strong><br>
+            email&#64;email.com
+          </p>
+          <p class="info-detail">
+            <strong>Teléfono:</strong><br>
+            9838471990
+          </p>
+          <div class="socials">
+            <p class="socials__title">OUR SOCIALS</p>
+            <div class="socials__icons">
+              <a href="#" aria-label="Facebook" class="social-icon">📘</a>
+              <a href="#" aria-label="Twitter" class="social-icon">🐦</a>
+              <a href="#" aria-label="Instagram" class="social-icon">📷</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Formulario de contacto -->
+    <section class="contact-form-section">
+      <div class="form-container">
+        <h2 class="form-title">{{ 'contact.title' | translate }}</h2>
+
+        @if(isSuccess()) {
+          <div class="success-message">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="success-icon">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            <p>{{ 'contact.success' | translate }}</p>
+          </div>
+        }
+
+        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">{{ 'contact.name' | translate }}</label>
+              <input
+                type="text"
+                id="name"
+                formControlName="name"
+                class="form-input"
+                [class.error]="contactForm.get('name')?.invalid && contactForm.get('name')?.touched" />
+              @if(getError('name')) {
+                <p class="error-message">{{ getError('name') }}</p>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">{{ 'contact.email' | translate }}</label>
+              <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="form-input"
+                [class.error]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" />
+              @if(getError('email')) {
+                <p class="error-message">{{ getError('email') }}</p>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">{{ 'contact.phone' | translate }}</label>
+              <input
+                type="tel"
+                id="phone"
+                formControlName="phone"
+                class="form-input" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="center">{{ 'contact.center' | translate }}</label>
+              <select
+                id="center"
+                formControlName="centerId"
+                class="form-input"
+                [class.error]="contactForm.get('centerId')?.invalid && contactForm.get('centerId')?.touched">
+                <option value="">{{ 'contact.selectCenter' | translate }}</option>
+                @for(center of centers(); track center.id) {
+                  <option [value]="center.id">{{ center.name }}</option>
+                }
+              </select>
+              @if(getError('centerId')) {
+                <p class="error-message">{{ getError('centerId') }}</p>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="subject">{{ 'contact.subject' | translate }}</label>
+              <input
+                type="text"
+                id="subject"
+                formControlName="subject"
+                class="form-input"
+                [class.error]="contactForm.get('subject')?.invalid && contactForm.get('subject')?.touched" />
+              @if(getError('subject')) {
+                <p class="error-message">{{ getError('subject') }}</p>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="description">{{ 'contact.description' | translate }}</label>
+              <textarea
+                id="description"
+                formControlName="description"
+                rows="5"
+                class="form-textarea"
+                [class.error]="contactForm.get('description')?.invalid && contactForm.get('description')?.touched"></textarea>
+              @if(getError('description')) {
+                <p class="error-message">{{ getError('description') }}</p>
+              }
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="attachments">{{ 'contact.attachments' | translate }}</label>
+              <input
+                type="file"
+                id="attachments"
+                (change)="onFileSelected($event)"
+                multiple
+                accept="image/*,.pdf"
+                class="form-file-input" />
+              <p class="form-hint">{{ 'contact.attachmentsHint' | translate }}</p>
+              
+              @if(fileError()) {
+                <p class="error-message" style="white-space: pre-line;">{{ fileError() }}</p>
+              }
+              
+              @if(selectedFiles().length > 0) {
+                <div class="files-list">
+                  @for(file of selectedFiles(); track $index) {
+                    <div class="file-item">
+                      <span class="file-icon">
+                        @if(isImageFile(file)) {
+                          🖼️
+                        } @else if(isPdfFile(file)) {
+                          📄
+                        }
+                      </span>
+                      <span class="file-name">{{ getFileName(file) }}</span>
+                      <button
+                        type="button"
+                        (click)="removeFile($index)"
+                        class="file-remove"
+                        [attr.aria-label]="'common.delete' | translate">
+                        ×
+                      </button>
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button
+              type="button"
+              (click)="resetForm()"
+              class="btn btn-secondary">
+              {{ 'contact.reset' | translate }}
+            </button>
+            <button
+              type="submit"
+              [disabled]="isLoading()"
+              class="btn btn-primary">
+              @if(isLoading()) {
+                <span class="spinner"></span>
+                {{ 'contact.sending' | translate }}
+              } @else {
+                {{ 'contact.send' | translate }}
+              }
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <app-footer></app-footer>
+</div>

@@ -40,7 +40,8 @@
       "previous": "Anterior",
       "next": "Siguiente",
       "goToSlide": "Ir al slide"
-    }
+    },
+    "contactButton": "Contacto"
   },
   "login": {
     "title": "Meta Force",
@@ -457,5 +458,64 @@
     "upload": "Subir imagen",
     "delete": "Eliminar imagen",
     "uploading": "Subiendo imagen..."
+  },
+  "contact": {
+    "title": "Consultas",
+    "name": "Nombre",
+    "email": "Email",
+    "phone": "Teléfono",
+    "center": "Centro más cercano",
+    "selectCenter": "Selecciona un centro",
+    "subject": "Asunto",
+    "description": "Descripción",
+    "attachments": "Archivos adjuntos",
+    "attachmentsHint": "Puedes subir imágenes (JPG, PNG, GIF, WEBP) y PDFs. Máximo 5 archivos, 2MB por archivo.",
+    "fileTooLarge": "El archivo excede el tamaño máximo de 2MB",
+    "send": "Enviar",
+    "sending": "Enviando...",
+    "reset": "Reiniciar",
+    "success": "¡Tu mensaje ha sido enviado correctamente! Nos pondremos en contacto contigo pronto.",
+    "errors": {
+      "requiredFields": "Por favor, completa todos los campos obligatorios.",
+      "invalidEmail": "Por favor, introduce un email válido.",
+      "invalidFileType": "Solo se permiten imágenes (JPG, PNG, GIF, WEBP) y PDFs.",
+      "fileTooLarge": "El archivo excede el tamaño máximo de 2MB",
+      "nameRequired": "El nombre es obligatorio",
+      "emailRequired": "El email es obligatorio",
+      "centerIdRequired": "Debes seleccionar un centro",
+      "subjectRequired": "El asunto es obligatorio",
+      "descriptionRequired": "La descripción es obligatoria"
+    }
+  },
+  "tickets": {
+    "title": "Tickets de Contacto",
+    "subtitle": "Gestiona los mensajes de contacto de los usuarios",
+    "from": "De",
+    "phone": "Teléfono",
+    "center": "Centro",
+    "status": "Estado",
+    "createdAt": "Creado el",
+    "completedAt": "Completado el",
+    "description": "Descripción",
+    "attachments": "Archivos adjuntos",
+    "openInNewTab": "Abrir en nueva pestaña",
+    "view": "Ver",
+    "changeStatus": "Cambiar estado",
+    "markAsPending": "Marcar como Pendiente",
+    "markAsInProgress": "Marcar como En Proceso",
+    "markAsCompleted": "Marcar como Completado",
+    "filterStatus": "Filtrar por estado",
+    "filterCenter": "Filtrar por centro",
+    "allStatuses": "Todos los estados",
+    "allCenters": "Todos los centros",
+    "noTickets": "No hay tickets disponibles",
+    "confirmDelete": "Confirmar eliminación",
+    "confirmDeleteMessage": "¿Estás seguro de que quieres eliminar este ticket? Esta acción no se puede deshacer.",
+    "statuses": {
+      "pending": "Pendiente",
+      "in_progress": "En Proceso",
+      "completed": "Completado"
+    }
   }
+
 }
