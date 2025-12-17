@@ -12,6 +12,8 @@ import { MachinesComponent } from './pages/machines/machines.component';
 import { ClasesComponent } from './pages/clases/clases.component';
 import { HomeComponent } from './pages/home/home.component';
 import { TrainersComponent } from './pages/trainers/trainers.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { TicketsComponent } from './pages/tickets/tickets.component';
 import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
@@ -73,5 +75,14 @@ export const routes: Routes = [
         path: 'trainers',
         component: TrainersComponent,
         canActivate: [authGuard]
+    },
+    {
+        path: 'contact',
+        component: ContactComponent
+    },
+    {
+        path: 'tickets',
+        component: TicketsComponent,
+        canActivate: [authGuard, roleGuard('SUPERADMIN', 'ADMIN_CENTER')]
     }
 ];

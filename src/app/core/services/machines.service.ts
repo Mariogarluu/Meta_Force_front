@@ -1,8 +1,15 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { CreateMachineInput, Machine, UpdateMachineInput } from '../models/machine';
+import {
+  MachineTypeModel,
+  CreateMachineTypeInput,
+  UpdateMachineTypeInput,
+  AddMachineToCenterInput,
+  UpdateMachineInCenterInput,
+} from '../models/machine';
 
 @Injectable({
   providedIn: 'root'
@@ -12,34 +19,91 @@ export class MachinesService {
   private apiUrl = `${environment.apiUrl}/machines`;
 
   /**
-   * Lista todas las máquinas del sistema.
-   * Uso: Principalmente para SUPERADMIN.
+   * Lista todos los tipos de máquinas con sus instancias en centros
    */
-  listMachines(): Observable<Machine[]> {
-    return this.http.get<Machine[]>(this.apiUrl);
+  listMachineTypes(centerId?: string | null): Observable<MachineTypeModel[]> {
+    let params = new HttpParams();
+    if (centerId) {
+      params = params.set('centerId', centerId);
+    }
+    return this.http.get<any[]>(`${this.apiUrl}/types`, { params }).pipe(
+      map(data => data.map(item => ({
+        ...item,
+        instances: item.machines || [] // Mapear 'machines' a 'instances'
+      })))
+    );
   }
 
   /**
-   * Lista las máquinas pertenecientes a un centro específico.
-   * Uso: Para ADMIN_CENTER (viendo su propio centro) o SUPERADMIN (filtrando).
+   * Obtiene un tipo de máquina por ID con sus instancias
    */
-  listMachinesByCenter(centerId: string): Observable<Machine[]> {
-    return this.http.get<Machine[]>(`${this.apiUrl}/center/${centerId}`);
+  getMachineType(id: string): Observable<MachineTypeModel> {
+    return this.http.get<any>(`${this.apiUrl}/types/${id}`).pipe(
+      map(item => ({
+        ...item,
+        instances: item.machines || []
+      }))
+    );
   }
 
-  getMachine(id: string): Observable<Machine> {
-    return this.http.get<Machine>(`${this.apiUrl}/${id}`);
+  /**
+   * Crea un nuevo tipo de máquina (solo nombre y tipo)
+   */
+  createMachineType(data: CreateMachineTypeInput): Observable<MachineTypeModel> {
+    return this.http.post<any>(`${this.apiUrl}/types`, data).pipe(
+      map(item => ({
+        ...item,
+        instances: item.machines || []
+      }))
+    );
   }
 
-  createMachine(data: CreateMachineInput): Observable<Machine> {
-    return this.http.post<Machine>(this.apiUrl, data);
+  /**
+   * Actualiza un tipo de máquina
+   */
+  updateMachineType(id: string, data: UpdateMachineTypeInput): Observable<MachineTypeModel> {
+    return this.http.patch<any>(`${this.apiUrl}/types/${id}`, data).pipe(
+      map(item => ({
+        ...item,
+        instances: item.machines || []
+      }))
+    );
   }
 
-  updateMachine(id: string, data: UpdateMachineInput): Observable<Machine> {
-    return this.http.patch<Machine>(`${this.apiUrl}/${id}`, data);
+  /**
+   * Elimina un tipo de máquina (y todas sus instancias)
+   */
+  deleteMachineType(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/types/${id}`);
   }
 
-  deleteMachine(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  /**
+   * Agrega instancias de un tipo de máquina a un centro
+   */
+  addMachineToCenter(machineTypeId: string, data: AddMachineToCenterInput): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/types/${machineTypeId}/centers`, data).pipe(
+      map(response => {
+        // El backend devuelve un array de máquinas creadas
+        if (Array.isArray(response)) {
+          return response;
+        }
+        return response;
+      })
+    );
+  }
+
+  /**
+   * Actualiza una instancia específica de máquina en un centro
+   */
+  updateMachineInCenter(machineTypeId: string, centerId: string, instanceNumber: number, data: UpdateMachineInCenterInput): Observable<any> {
+    return this.http.patch<any>(`${this.apiUrl}/types/${machineTypeId}/centers/${centerId}/instances/${instanceNumber}`, data);
+  }
+
+  /**
+   * Elimina una instancia específica de máquina de un centro
+   */
+  removeMachineFromCenter(machineTypeId: string, centerId: string, instanceNumber: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/types/${machineTypeId}/centers/${centerId}/instances/${instanceNumber}`);
   }
 }
+
