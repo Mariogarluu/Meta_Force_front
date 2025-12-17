@@ -58,5 +58,14 @@ export class LanguageSelectorComponent {
       this.showDropdown = false;
     }
   }
+
+  /**
+   * Listener que detecta teclas Escape para cerrar el dropdown.
+   * @param event - El evento de teclado del documento
+   */
+  @HostListener('document:keydown.escape')
+  onEscapeKey() {
+    this.showDropdown = false;
+  }
 }
 

@@ -1,10 +1,13 @@
 <div class="relative">
   <button
+    type="button"
     class="p-2 rounded-lg transition-colors bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 flex items-center gap-2"
     [attr.aria-label]="'Select language'"
+    [attr.aria-expanded]="showDropdown"
+    [attr.aria-haspopup]="'true'"
     [title]="'Select language'"
     (click)="showDropdown = !showDropdown">
-    <span class="text-lg">{{ currentLanguageInfo()?.flag }}</span>
+    <span class="text-lg" role="img" [attr.aria-label]="currentLanguageInfo()?.name">{{ currentLanguageInfo()?.flag }}</span>
     <span class="text-sm font-medium hidden sm:inline">{{ currentLanguageInfo()?.name }}</span>
     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
       <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
@@ -12,17 +15,20 @@
   </button>
 
   @if(showDropdown) {
-    <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
+    <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50" role="menu">
       @for(lang of languages; track lang.code) {
         <button
-          (click)="selectLanguage(lang.code); showDropdown = false"
+          type="button"
+          role="menuitem"
+          (click)="selectLanguage(lang.code)"
           class="w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 flex items-center gap-3 transition-colors first:rounded-t-lg last:rounded-b-lg"
           [class.bg-blue-50]="currentLanguage() === lang.code"
-          [class.dark:bg-gray-700]="currentLanguage() === lang.code">
-          <span class="text-xl">{{ lang.flag }}</span>
+          [class.dark:bg-gray-700]="currentLanguage() === lang.code"
+          [attr.aria-current]="currentLanguage() === lang.code ? 'true' : null">
+          <span class="text-xl" role="img" [attr.aria-label]="lang.name">{{ lang.flag }}</span>
           <span class="text-sm font-medium text-gray-800 dark:text-gray-200">{{ lang.name }}</span>
           @if(currentLanguage() === lang.code) {
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 text-blue-600 dark:text-blue-400 ml-auto">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 text-blue-600 dark:text-blue-400 ml-auto" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
           }
