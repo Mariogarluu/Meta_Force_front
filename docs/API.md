@@ -1,5 +1,8 @@
 # Documentación de API - Meta Force Frontend
 
+> **Versión de API**: v1.0  
+> **Última actualización**: Diciembre 2024
+
 ## 📡 Información General
 
 La aplicación frontend se conecta a un backend REST API construido con Node.js/Express y MongoDB.

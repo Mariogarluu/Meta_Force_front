@@ -4,6 +4,8 @@
 
 Meta Force Frontend es una **Single Page Application (SPA)** construida con Angular 19 que sigue una arquitectura modular y escalable basada en componentes standalone.
 
+> **Nota sobre Standalone Components**: A partir de Angular 15+, los componentes standalone no requieren NgModules, permitiendo una arquitectura más simple y modular. Cada componente declara sus dependencias directamente en su decorador `@Component`.
+
 ## 🏛️ Arquitectura General
 
 ```

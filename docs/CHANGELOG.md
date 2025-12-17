@@ -19,7 +19,7 @@ y este proyecto adhiere a [Semantic Versioning](https://semver.org/lang/es/).
 
 ---
 
-## [1.0.0] - 2024-12-17
+## [1.0.0] - 2024-12
 
 ### 🎉 Release Inicial
 
