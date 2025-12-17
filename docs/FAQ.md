@@ -248,6 +248,8 @@ Para Vercel, las variables deben estar en el código fuente, no en Vercel Enviro
 4. HTTP Interceptor añade token en cada petición
 5. Backend valida token en cada request
 
+**Expiración de Token**: Los tokens JWT expiran después de 24 horas. Cuando un token expira, el usuario debe hacer login nuevamente. El sistema detecta automáticamente tokens expirados y redirige al login.
+
 ### ¿Por qué se guarda el token en localStorage?
 
 **localStorage** es la opción actual por simplicidad. Para mayor seguridad, se recomienda migrar a **HttpOnly cookies** en el futuro.
