@@ -1,0 +1,283 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
+  <div class="max-w-6xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8">
+      <a routerLink="/dashboard" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline mb-4">
+        ← Volver al Dashboard
+      </a>
+      <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+        🎨 Demostración de Componentes Personalizados
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400">
+        Pipes, Directivas y ControlValueAccessor implementados
+      </p>
+    </div>
+
+    <!-- Sección 1: Pipes Personalizados -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+        📊 Pipes Personalizados
+      </h2>
+      
+      <!-- TimeSince Pipe -->
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
+          1. TimeSince Pipe
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-3">
+          Convierte fechas en texto de tiempo transcurrido legible.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          @for (item of sampleDates; track item.label) {
+            <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+              <div class="text-sm text-gray-600 dark:text-gray-400">{{ item.label }}</div>
+              <div class="text-lg font-semibold text-blue-600 dark:text-blue-400">
+                {{ item.date | timeSince }}
+              </div>
+              <div class="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                Fecha: {{ item.date | date:'short' }}
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- RoleName Pipe -->
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
+          2. RoleName Pipe
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-3">
+          Formatea códigos de roles en nombres legibles.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+          @for (role of sampleRoles; track role) {
+            <div class="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-center">
+              <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">{{ role }}</div>
+              <div class="font-semibold text-purple-600 dark:text-purple-400">
+                {{ role | roleName }}
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- StatusBadge Pipe -->
+      <div>
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
+          3. StatusBadge Pipe
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-3">
+          Retorna clases CSS para badges de estado con colores apropiados.
+        </p>
+        <div class="flex flex-wrap gap-3">
+          @for (status of sampleStatuses; track status.key) {
+            <span 
+              [ngClass]="status.key | statusBadge"
+              class="px-4 py-2 rounded-full text-sm font-medium">
+              {{ status.label }}
+            </span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 2: Directivas Personalizadas -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+        ✨ Directivas Personalizadas
+      </h2>
+
+      <!-- Highlight Directive -->
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
+          1. Highlight Directive
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-3">
+          Resalta elementos al pasar el mouse. Pasa el cursor sobre las tarjetas:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div appHighlight class="p-4 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer">
+            <div class="text-center">
+              <div class="text-3xl mb-2">🎨</div>
+              <div class="font-semibold text-gray-900 dark:text-white">Amarillo por defecto</div>
+            </div>
+          </div>
+          <div [appHighlight]="'#86efac'" class="p-4 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer">
+            <div class="text-center">
+              <div class="text-3xl mb-2">💚</div>
+              <div class="font-semibold text-gray-900 dark:text-white">Verde personalizado</div>
+            </div>
+          </div>
+          <div [appHighlight]="'#fca5a5'" class="p-4 border-2 border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer">
+            <div class="text-center">
+              <div class="text-3xl mb-2">❤️</div>
+              <div class="font-semibold text-gray-900 dark:text-white">Rojo personalizado</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Permission Directive -->
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
+          2. Permission Directive
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-3">
+          Muestra u oculta contenido según el rol del usuario autenticado:
+        </p>
+        <div class="space-y-3">
+          <div *appPermission="'SUPERADMIN'" class="p-4 bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 rounded">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">👑</span>
+              <div>
+                <div class="font-semibold text-red-700 dark:text-red-300">Solo SUPERADMIN</div>
+                <div class="text-sm text-red-600 dark:text-red-400">Este contenido solo es visible para Super Administradores</div>
+              </div>
+            </div>
+          </div>
+          
+          <div *appPermission="['SUPERADMIN', 'ADMIN_CENTER']" class="p-4 bg-orange-50 dark:bg-orange-900/20 border-l-4 border-orange-500 rounded">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">👨‍💼</span>
+              <div>
+                <div class="font-semibold text-orange-700 dark:text-orange-300">Administradores</div>
+                <div class="text-sm text-orange-600 dark:text-orange-400">Visible para SUPERADMIN y ADMIN_CENTER</div>
+              </div>
+            </div>
+          </div>
+          
+          <div *appPermission="['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER']" class="p-4 bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 rounded">
+            <div class="flex items-center gap-2">
+              <span class="text-2xl">💪</span>
+              <div>
+                <div class="font-semibold text-blue-700 dark:text-blue-300">Staff</div>
+                <div class="text-sm text-blue-600 dark:text-blue-400">Visible para administradores y entrenadores</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ClickOutside Directive -->
+      <div>
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
+          3. ClickOutside Directive
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-3">
+          Detecta clics fuera del elemento. Útil para cerrar dropdowns:
+        </p>
+        <div class="relative inline-block">
+          <button 
+            (click)="toggleDropdown()"
+            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            {{ dropdownOpen ? '✓ Dropdown Abierto' : 'Abrir Dropdown' }}
+          </button>
+          
+          @if (dropdownOpen) {
+            <div 
+              (appClickOutside)="closeDropdown()"
+              class="absolute top-full mt-2 w-64 bg-white dark:bg-gray-700 rounded-lg shadow-xl border border-gray-200 dark:border-gray-600 p-4 z-10">
+              <div class="font-semibold text-gray-900 dark:text-white mb-2">
+                Menú Dropdown
+              </div>
+              <div class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                Haz clic fuera de esta caja para cerrarla automáticamente
+              </div>
+              <button 
+                (click)="closeDropdown()"
+                class="w-full px-3 py-2 bg-gray-100 dark:bg-gray-600 text-gray-900 dark:text-white rounded hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors">
+                Cerrar
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección 3: ControlValueAccessor -->
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+        🎛️ ControlValueAccessor
+      </h2>
+      
+      <div class="mb-6">
+        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
+          Center Selector Component
+        </h3>
+        <p class="text-gray-600 dark:text-gray-400 mb-4">
+          Componente personalizado que implementa ControlValueAccessor para integrarse con formularios reactivos.
+        </p>
+      </div>
+
+      <form [formGroup]="demoForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <!-- Center Selector (CVA) -->
+        <app-center-selector formControlName="centerId"></app-center-selector>
+        
+        @if (demoForm.get('centerId')?.touched && demoForm.get('centerId')?.invalid) {
+          <p class="text-sm text-red-600 dark:text-red-400">
+            Por favor, selecciona un centro
+          </p>
+        }
+
+        <!-- Campo adicional para demostrar integración -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Nombre
+          </label>
+          <input 
+            type="text"
+            formControlName="name"
+            placeholder="Ingresa tu nombre"
+            class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg 
+                   bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100
+                   focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          @if (demoForm.get('name')?.touched && demoForm.get('name')?.invalid) {
+            <p class="text-sm text-red-600 dark:text-red-400 mt-1">
+              El nombre es requerido
+            </p>
+          }
+        </div>
+
+        <!-- Botones -->
+        <div class="flex gap-3">
+          <button 
+            type="submit"
+            class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+            [disabled]="demoForm.invalid">
+            Enviar Formulario
+          </button>
+          <button 
+            type="button"
+            (click)="resetForm()"
+            class="px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+            Resetear
+          </button>
+        </div>
+
+        <!-- Resultado -->
+        @if (formSubmitted && demoForm.valid) {
+          <div class="mt-4 p-4 bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500 rounded">
+            <div class="font-semibold text-green-700 dark:text-green-300 mb-2">
+              ✓ Formulario enviado con éxito
+            </div>
+            <div class="text-sm text-green-600 dark:text-green-400">
+              <strong>Centro ID:</strong> {{ demoForm.value.centerId }}<br>
+              <strong>Nombre:</strong> {{ demoForm.value.name }}
+            </div>
+          </div>
+        }
+      </form>
+    </div>
+
+    <!-- Footer de la demo -->
+    <div class="mt-8 text-center text-gray-600 dark:text-gray-400">
+      <p class="mb-2">
+        Esta página demuestra la implementación de 3 pipes personalizados, 3 directivas personalizadas y 1 componente con ControlValueAccessor.
+      </p>
+      <a routerLink="/dashboard" class="text-blue-600 dark:text-blue-400 hover:underline">
+        ← Volver al Dashboard
+      </a>
+    </div>
+  </div>
+</div>
