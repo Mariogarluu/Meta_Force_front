@@ -306,6 +306,16 @@
   "users": {
     "title": "Users",
     "backToDashboard": "Back to Dashboard",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "center": "Center",
+    "allRoles": "All roles",
+    "allStatuses": "All statuses",
+    "allCenters": "All centers",
+    "dateFrom": "Date from",
+    "dateTo": "Date to",
     "filters": "Filters",
     "hideFilters": "Hide filters",
     "searchFilters": "Search filters",
@@ -320,8 +330,66 @@
     "loading": "Loading users...",
     "noUsersFound": "No users match your filters.",
     "noUsersAvailable": "No users registered yet.",
+    "statuses": {
+      "PENDING": "Pending",
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive"
+    },
     "errors": {
       "load": "Error loading users."
+    }
+  },
+  "machines": {
+    "title": "Machines",
+    "subtitle": "Manage all machines in your Meta Force centers.",
+    "newMachine": "New Machine",
+    "editMachine": "Edit Machine",
+    "deleteMachine": "Delete Machine",
+    "back": "Back",
+    "name": "Name",
+    "type": "Type",
+    "status": "Status",
+    "center": "Center",
+    "filters": "Filters",
+    "hideFilters": "Hide filters",
+    "searchFilters": "Search filters",
+    "clearFilters": "Clear filters",
+    "searchByName": "Search by name",
+    "searchByType": "Search by type",
+    "searchByStatus": "Search by status",
+    "searchByCenter": "Search by center",
+    "allTypes": "All types",
+    "allStatuses": "All statuses",
+    "namePlaceholder": "Machine name",
+    "showing": "Showing",
+    "of": "of",
+    "machines": "machines",
+    "loading": "Loading machines...",
+    "noMachinesFound": "No machines match your filters.",
+    "noMachinesAvailable": "No machines created yet.",
+    "noMachinesRegistered": "No machines registered.",
+    "registerFirstMachine": "Register your first machine",
+    "createdAt": "Created at",
+    "saving": "Saving...",
+    "deleting": "Deleting...",
+    "confirmDelete": "Are you sure you want to delete the machine",
+    "types": {
+      "CARDIO": "Cardio",
+      "STRENGTH": "Strength",
+      "FLEXIBILITY": "Flexibility",
+      "FUNCTIONAL": "Functional"
+    },
+    "statuses": {
+      "AVAILABLE": "Available",
+      "IN_USE": "In use",
+      "MAINTENANCE": "Maintenance",
+      "OUT_OF_SERVICE": "Out of service"
+    },
+    "errors": {
+      "nameRequired": "Machine name is required.",
+      "load": "Error loading machines.",
+      "save": "Error saving the machine.",
+      "delete": "Error deleting the machine."
     }
   },
   "common": {

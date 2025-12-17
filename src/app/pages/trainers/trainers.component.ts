@@ -76,81 +76,65 @@ export class TrainersComponent implements OnInit {
     this.loadCenters();
   }
 
-  loadTrainers() {
+  loadTrainers(): void {
     this.isLoading.set(true);
     this.errorMessage.set('');
     
     this.usersService.listTrainers().subscribe({
       next: (data) => {
-        // Los datos ya vienen filtrados como entrenadores activos desde el backend
         this.trainers.set(data);
         
-        // Si el usuario tiene un centro favorito, seleccionarlo por defecto
-        const userFavoriteCenterId = this.currentUser()?.favoriteCenterId;
-        if (userFavoriteCenterId && !this.selectedCenterId()) {
-          this.selectedCenterId.set(userFavoriteCenterId);
-        } else if (this.centers().length > 0 && !this.selectedCenterId()) {
-          // Si no tiene favorito, seleccionar el primer centro disponible
-          const firstCenter = this.centers()[0];
-          if (firstCenter?.id) {
-            this.selectedCenterId.set(firstCenter.id);
-          }
+        // Set default center selection if not already set
+        if (!this.selectedCenterId()) {
+          this.setDefaultCenter();
         }
         
         this.isLoading.set(false);
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || this.translate.instant('trainers.errors.load'));
+        const errorMsg = error.error?.message || this.translate.instant('trainers.errors.load');
+        this.errorMessage.set(errorMsg);
         this.isLoading.set(false);
       }
     });
   }
 
-  loadCenters() {
-    // Usar listCentersWithIds para obtener todos los centros con IDs
+  loadCenters(): void {
     this.centersService.listCentersWithIds().subscribe({
       next: (data) => {
-        // Filtrar solo centros que tengan ID válido
         const validCenters = data.filter(c => c.id);
         this.centers.set(validCenters);
         
-        // Si no hay centro seleccionado y hay centros disponibles, seleccionar el primero
         if (!this.selectedCenterId() && validCenters.length > 0) {
-          const userFavoriteCenterId = this.currentUser()?.favoriteCenterId;
-          if (userFavoriteCenterId && validCenters.find(c => c.id === userFavoriteCenterId)) {
-            this.selectedCenterId.set(userFavoriteCenterId);
-          } else {
-            const firstCenter = validCenters[0];
-            if (firstCenter?.id) {
-              this.selectedCenterId.set(firstCenter.id);
-            }
-          }
+          this.setDefaultCenter();
         }
       },
       error: (error) => {
-        console.error('Error al cargar centros:', error);
+        console.error('Error loading centers:', error);
         const errorMsg = this.translate.instant('trainers.errors.loadCenters');
-        this.errorMessage.set(errorMsg ? errorMsg : 'Error al cargar los centros');
-        // Asegurar que centers esté vacío en caso de error
+        this.errorMessage.set(errorMsg || 'Error loading centers');
         this.centers.set([]);
       }
     });
   }
 
-  onCenterChange(centerId: string) {
+  private setDefaultCenter(): void {
+    const userFavoriteCenterId = this.currentUser()?.favoriteCenterId;
+    const centers = this.centers();
+    
+    if (userFavoriteCenterId && centers.find(c => c.id === userFavoriteCenterId)) {
+      this.selectedCenterId.set(userFavoriteCenterId);
+    } else if (centers.length > 0 && centers[0]?.id) {
+      this.selectedCenterId.set(centers[0].id);
+    }
+  }
+
+  onCenterChange(centerId: string): void {
     if (centerId) {
       this.selectedCenterId.set(centerId);
-    } else if (this.centers().length > 0) {
-      // Si se intenta deseleccionar, mantener el centro actual o seleccionar el primero
-      const currentCenter = this.selectedCenterId();
-      if (currentCenter) {
-        this.selectedCenterId.set(currentCenter);
-      } else {
-        const firstCenter = this.centers()[0];
-        if (firstCenter?.id) {
-          this.selectedCenterId.set(firstCenter.id);
-        }
-      }
+    } else {
+      // Prevent deselection - keep current or set first available
+      this.setDefaultCenter();
     }
   }
 

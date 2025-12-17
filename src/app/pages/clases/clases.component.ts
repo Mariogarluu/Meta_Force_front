@@ -185,34 +185,36 @@ export class ClasesComponent implements OnInit {
   centerTrainers = signal<User[]>([]);
 
   openCreateModal(): void {
+    this.resetFormState();
     this.isEditing.set(false);
     this.selectedClass.set(null);
+    this.showFormModal.set(true);
+  }
+
+  private resetFormState(): void {
     this.formName = '';
     this.formDescription = '';
-    this.showFormModal.set(true);
+    this.formTrainerIds.set([]);
+    this.formSchedules.set([]);
     this.errorMessage.set('');
   }
 
   openAddCenterModal(): void {
-    // Para cuando se abre desde el modal de edición
     if (!this.selectedClass()) {
       this.errorMessage.set(this.translate.instant('classes.errors.classNotFound'));
       return;
     }
-    this.selectedCenterForAdd.set('');
-    this.centerTrainers.set([]);
-    this.formTrainerIds.set([]);
-    this.formSchedules.set([]);
-    this.newScheduleDayOfWeek = 1;
-    this.newScheduleStartTime = '09:00';
-    this.newScheduleEndTime = '10:00';
+    this.resetCenterFormState();
     this.showAddCenterModal.set(true);
-    this.errorMessage.set('');
   }
 
   openAddCenterModalForClass(item: GymClass): void {
-    // Para cuando se abre desde la tarjeta de la clase
     this.selectedClass.set(item);
+    this.resetCenterFormState();
+    this.showAddCenterModal.set(true);
+  }
+
+  private resetCenterFormState(): void {
     this.selectedCenterForAdd.set('');
     this.centerTrainers.set([]);
     this.formTrainerIds.set([]);
@@ -220,16 +222,12 @@ export class ClasesComponent implements OnInit {
     this.newScheduleDayOfWeek = 1;
     this.newScheduleStartTime = '09:00';
     this.newScheduleEndTime = '10:00';
-    this.showAddCenterModal.set(true);
     this.errorMessage.set('');
   }
 
   closeAddCenterModal(): void {
     this.showAddCenterModal.set(false);
-    this.selectedCenterForAdd.set('');
-    this.centerTrainers.set([]);
-    this.formTrainerIds.set([]);
-    this.formSchedules.set([]);
+    this.resetCenterFormState();
   }
 
   onCenterSelectedForAdd(centerId: string): void {
@@ -247,18 +245,9 @@ export class ClasesComponent implements OnInit {
   }
 
   addCenterToClass(): void {
-    if (!this.selectedCenterForAdd()) {
-      this.errorMessage.set(this.translate.instant('classes.errors.centerRequired'));
-      return;
-    }
-
-    if (this.formTrainerIds().length === 0) {
-      this.errorMessage.set(this.translate.instant('classes.errors.trainerRequired'));
-      return;
-    }
-
-    if (this.formSchedules().length === 0) {
-      this.errorMessage.set(this.translate.instant('classes.errors.scheduleRequired'));
+    const validationError = this.validateCenterData();
+    if (validationError) {
+      this.errorMessage.set(validationError);
       return;
     }
 
@@ -327,9 +316,7 @@ export class ClasesComponent implements OnInit {
 
   closeFormModal(): void {
     this.showFormModal.set(false);
-    this.errorMessage.set('');
-    this.formTrainerIds.set([]);
-    this.formSchedules.set([]);
+    this.resetFormState();
   }
 
   openDeleteModal(item: GymClass): void {
@@ -558,13 +545,9 @@ export class ClasesComponent implements OnInit {
       return;
     }
 
-    if (this.formTrainerIds().length === 0) {
-      this.errorMessage.set(this.translate.instant('classes.errors.trainerRequired'));
-      return;
-    }
-
-    if (this.formSchedules().length === 0) {
-      this.errorMessage.set(this.translate.instant('classes.errors.scheduleRequired'));
+    const validationError = this.validateCenterData();
+    if (validationError) {
+      this.errorMessage.set(validationError);
       return;
     }
 
@@ -603,5 +586,21 @@ export class ClasesComponent implements OnInit {
     const classItem = this.selectedClass();
     if (!classItem || !classItem.schedules || !centerId) return false;
     return classItem.schedules.some(s => s.centerId === centerId);
+  }
+
+  private validateCenterData(): string | null {
+    if (!this.selectedCenterForAdd()) {
+      return this.translate.instant('classes.errors.centerRequired');
+    }
+
+    if (this.formTrainerIds().length === 0) {
+      return this.translate.instant('classes.errors.trainerRequired');
+    }
+
+    if (this.formSchedules().length === 0) {
+      return this.translate.instant('classes.errors.scheduleRequired');
+    }
+
+    return null;
   }
 }
