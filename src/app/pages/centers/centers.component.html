@@ -467,6 +467,107 @@
               </div>
             }
           </div>
+
+          <!-- Sección de Máquinas -->
+          @if(viewCenter()?.id; as centerId) {
+            <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+              <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                {{ 'machines.title' | translate }}
+              </h4>
+              
+              @if(isLoadingMachines()) {
+                <div class="flex items-center justify-center py-8">
+                  <div class="text-center">
+                    <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-500 mx-auto mb-2"></div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">{{ 'machines.loading' | translate }}</p>
+                  </div>
+                </div>
+              } @else {
+                @if(machines().length === 0) {
+                  <p class="text-gray-500 dark:text-gray-400 text-sm text-center py-4">
+                    {{ 'machines.noMachinesAvailable' | translate }}
+                  </p>
+                } @else {
+                  <div class="space-y-3">
+                    @for(machineType of machines(); track machineType.id) {
+                      @if(getInstancesForCenter(machineType, centerId).length > 0) {
+                        @if(getInstancesForCenter(machineType, centerId).length >= 2) {
+                          <!-- Desplegable para 2 o más instancias -->
+                          <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600 overflow-hidden">
+                            <button
+                              (click)="toggleMachineTypeExpanded(machineType.id)"
+                              class="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700/70 transition-colors">
+                              <div class="flex items-center gap-3">
+                                <svg 
+                                  xmlns="http://www.w3.org/2000/svg" 
+                                  fill="none" 
+                                  viewBox="0 0 24 24" 
+                                  stroke-width="2" 
+                                  stroke="currentColor" 
+                                  [class.rotate-90]="isMachineTypeExpanded(machineType.id)"
+                                  class="w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                                <div class="text-left">
+                                  <h5 class="font-medium text-gray-900 dark:text-white">
+                                    {{ machineType.name }}
+                                  </h5>
+                                  <p class="text-xs text-gray-500 dark:text-gray-400">
+                                    {{ 'machines.types.' + machineType.type | translate }}
+                                  </p>
+                                </div>
+                              </div>
+                              <span class="text-sm text-gray-600 dark:text-gray-400">
+                                {{ getInstancesForCenter(machineType, centerId).length }} {{ 'machines.instances' | translate }}
+                              </span>
+                            </button>
+                            
+                            @if(isMachineTypeExpanded(machineType.id)) {
+                              <div class="px-4 pb-4 pt-2 border-t border-gray-200 dark:border-gray-600">
+                                <div class="space-y-2">
+                                  @for(instance of getInstancesForCenter(machineType, centerId); track instance.id) {
+                                    <div class="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+                                      <div class="flex items-center justify-between">
+                                        <span class="font-medium text-gray-900 dark:text-white text-sm">
+                                          {{ machineType.name }} {{ instance.instanceNumber }}
+                                        </span>
+                                        <span [class]="'px-2 py-1 rounded text-xs font-medium border ' + getStatusColor(instance.status)">
+                                          {{ 'machines.statuses.' + instance.status | translate }}
+                                        </span>
+                                      </div>
+                                    </div>
+                                  }
+                                </div>
+                              </div>
+                            }
+                          </div>
+                        } @else {
+                          <!-- Sin desplegable para 1 instancia -->
+                          @for(instance of getInstancesForCenter(machineType, centerId); track instance.id) {
+                            <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+                              <div class="flex items-center justify-between">
+                                <div>
+                                  <span class="font-medium text-gray-900 dark:text-white">
+                                    {{ machineType.name }} {{ instance.instanceNumber }}
+                                  </span>
+                                  <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                    {{ 'machines.types.' + machineType.type | translate }}
+                                  </p>
+                                </div>
+                                <span [class]="'px-2 py-1 rounded text-xs font-medium border ' + getStatusColor(instance.status)">
+                                  {{ 'machines.statuses.' + instance.status | translate }}
+                                </span>
+                              </div>
+                            </div>
+                          }
+                        }
+                      }
+                    }
+                  </div>
+                }
+              }
+            </div>
+          }
         }
 
         <div class="flex gap-3 mt-6">

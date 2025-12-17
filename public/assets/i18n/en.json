@@ -40,7 +40,8 @@
       "previous": "Previous",
       "next": "Next",
       "goToSlide": "Go to slide"
-    }
+    },
+    "contactButton": "Contact us"
   },
   "login": {
     "title": "Meta Force",
@@ -365,5 +366,69 @@
     "upload": "Upload image",
     "delete": "Delete image",
     "uploading": "Uploading image..."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "intro": "We're here to help! Send us your questions, suggestions, or concerns.",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "center": "Nearest Center",
+    "selectCenter": "Select a center",
+    "subject": "Subject",
+    "description": "Description",
+    "attachments": "Attachments",
+    "attachmentsHint": "You can upload images (JPG, PNG, GIF, WEBP) and PDFs. Maximum 5 files, 2MB per file.",
+    "fileTooLarge": "File exceeds maximum size of 2MB",
+    "send": "Send",
+    "sending": "Sending...",
+    "reset": "Reset",
+    "success": "Your message has been sent successfully! We will contact you soon.",
+    "errors": {
+      "requiredFields": "Please complete all required fields.",
+      "invalidEmail": "Please enter a valid email.",
+      "invalidFileType": "Only images (JPG, PNG, GIF, WEBP) and PDFs are allowed.",
+      "fileTooLarge": "File exceeds maximum size of 2MB",
+      "nameRequired": "Name is required",
+      "nameMinLength": "Name must be at least {{min}} characters",
+      "emailRequired": "Email is required",
+      "centerIdRequired": "You must select a center",
+      "subjectRequired": "Subject is required",
+      "subjectMinLength": "Subject must be at least {{min}} characters",
+      "descriptionRequired": "Description is required",
+      "descriptionMinLength": "Description must be at least {{min}} characters",
+      "fieldTooLong": "This field is too long",
+      "loadCenters": "Error loading centers"
+    }
+  },
+  "tickets": {
+    "title": "Contact Tickets",
+    "subtitle": "Manage user contact messages",
+    "from": "From",
+    "phone": "Phone",
+    "center": "Center",
+    "status": "Status",
+    "createdAt": "Created on",
+    "completedAt": "Completed on",
+    "description": "Description",
+    "attachments": "Attachments",
+    "openInNewTab": "Open in new tab",
+    "view": "View",
+    "changeStatus": "Change status",
+    "markAsPending": "Mark as Pending",
+    "markAsInProgress": "Mark as In Progress",
+    "markAsCompleted": "Mark as Completed",
+    "filterStatus": "Filter by status",
+    "filterCenter": "Filter by center",
+    "allStatuses": "All statuses",
+    "allCenters": "All centers",
+    "noTickets": "No tickets available",
+    "confirmDelete": "Confirm deletion",
+    "confirmDeleteMessage": "Are you sure you want to delete this ticket? This action cannot be undone.",
+    "statuses": {
+      "pending": "Pending",
+      "in_progress": "In Progress",
+      "completed": "Completed"
+    }
   }
 }

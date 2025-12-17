@@ -3,8 +3,10 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CentersService } from '../../core/services/centers.service';
+import { MachinesService } from '../../core/services/machines.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Center, CreateCenterInput } from '../../core/models/center';
+import { MachineTypeModel, MachineCenterInstance } from '../../core/models/machine';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
@@ -19,12 +21,16 @@ type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 })
 export class CentersComponent implements OnInit {
   centersService = inject(CentersService);
+  machinesService = inject(MachinesService);
   auth = inject(AuthService);
   translate = inject(TranslateService);
 
   centers = signal<Center[]>([]);
   isLoading = signal(false);
   errorMessage = signal<string>('');
+  machines = signal<MachineTypeModel[]>([]);
+  isLoadingMachines = signal(false);
+  expandedMachineTypes = signal<Set<string>>(new Set());
   
   // --- ESTADO Y FILTROS ---
   filterName = signal<string>('');
@@ -198,19 +204,37 @@ export class CentersComponent implements OnInit {
       this.showViewModal.set(true);
       return;
     }
+    const centerId = center.id;
     this.isLoading.set(true);
     this.errorMessage.set('');
     
-    this.centersService.getCenter(center.id).subscribe({
+    this.centersService.getCenter(centerId).subscribe({
       next: (fullCenter) => {
         this.viewCenter.set(fullCenter);
         this.showViewModal.set(true);
         this.isLoading.set(false);
+        this.loadMachinesForCenter(centerId);
       },
       error: (error) => {
         this.viewCenter.set(center);
         this.showViewModal.set(true);
         this.isLoading.set(false);
+        this.loadMachinesForCenter(centerId);
+      }
+    });
+  }
+
+  loadMachinesForCenter(centerId: string) {
+    this.isLoadingMachines.set(true);
+    this.machinesService.listMachineTypes(centerId).subscribe({
+      next: (data) => {
+        this.machines.set(data);
+        this.isLoadingMachines.set(false);
+      },
+      error: (error) => {
+        console.error('Error al cargar máquinas:', error);
+        this.machines.set([]);
+        this.isLoadingMachines.set(false);
       }
     });
   }
@@ -219,6 +243,8 @@ export class CentersComponent implements OnInit {
     this.showViewModal.set(false);
     this.viewCenter.set(null);
     this.errorMessage.set('');
+    this.machines.set([]);
+    this.expandedMachineTypes.set(new Set());
   }
 
   closeEditModal() {
@@ -319,5 +345,33 @@ export class CentersComponent implements OnInit {
     this.filterEmail.set('');
     this.filterDateFrom.set('');
     this.filterDateTo.set('');
+  }
+
+  toggleMachineTypeExpanded(machineTypeId: string): void {
+    const expanded = new Set(this.expandedMachineTypes());
+    if (expanded.has(machineTypeId)) {
+      expanded.delete(machineTypeId);
+    } else {
+      expanded.add(machineTypeId);
+    }
+    this.expandedMachineTypes.set(expanded);
+  }
+
+  isMachineTypeExpanded(machineTypeId: string): boolean {
+    return this.expandedMachineTypes().has(machineTypeId);
+  }
+
+  getInstancesForCenter(machineType: MachineTypeModel, centerId: string): MachineCenterInstance[] {
+    if (!machineType.instances) return [];
+    return machineType.instances.filter(i => i.centerId === centerId);
+  }
+
+  getStatusColor(status: string): string {
+    const colors: Record<string, string> = {
+      'operativa': 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-400 border-green-300 dark:border-green-700',
+      'en mantenimiento': 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-400 border-yellow-300 dark:border-yellow-700',
+      'fuera de servicio': 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-400 border-red-300 dark:border-red-700'
+    };
+    return colors[status] || 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 border-gray-300 dark:border-gray-600';
   }
 }
