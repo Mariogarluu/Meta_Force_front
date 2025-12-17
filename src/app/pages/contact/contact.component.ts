@@ -32,12 +32,12 @@ export class ContactComponent implements OnInit {
 
   // Formulario reactivo
   contactForm = this.formBuilder.group({
-    name: ['', [Validators.required]],
-    email: ['', [Validators.required, Validators.email]],
-    phone: [''],
+    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]],
+    email: ['', [Validators.required, Validators.email, Validators.maxLength(100)]],
+    phone: ['', [Validators.maxLength(20)]],
     centerId: ['', [Validators.required]],
-    subject: ['', [Validators.required]],
-    description: ['', [Validators.required]]
+    subject: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]],
+    description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(5000)]]
   });
 
   ngOnInit(): void {
@@ -180,6 +180,21 @@ export class ContactComponent implements OnInit {
     }
     if (control === 'email' && formControl.errors['email']) {
       return this.translate.instant('contact.errors.invalidEmail');
+    }
+    if (formControl.errors['minlength']) {
+      const minLength = formControl.errors['minlength'].requiredLength;
+      if (control === 'subject') {
+        return this.translate.instant('contact.errors.subjectMinLength', { min: minLength });
+      }
+      if (control === 'description') {
+        return this.translate.instant('contact.errors.descriptionMinLength', { min: minLength });
+      }
+      if (control === 'name') {
+        return this.translate.instant('contact.errors.nameMinLength', { min: minLength });
+      }
+    }
+    if (formControl.errors['maxlength']) {
+      return this.translate.instant('contact.errors.fieldTooLong');
     }
 
     return '';

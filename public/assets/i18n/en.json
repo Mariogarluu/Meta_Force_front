@@ -390,10 +390,14 @@
       "invalidFileType": "Only images (JPG, PNG, GIF, WEBP) and PDFs are allowed.",
       "fileTooLarge": "File exceeds maximum size of 2MB",
       "nameRequired": "Name is required",
+      "nameMinLength": "Name must be at least {{min}} characters",
       "emailRequired": "Email is required",
       "centerIdRequired": "You must select a center",
       "subjectRequired": "Subject is required",
+      "subjectMinLength": "Subject must be at least {{min}} characters",
       "descriptionRequired": "Description is required",
+      "descriptionMinLength": "Description must be at least {{min}} characters",
+      "fieldTooLong": "This field is too long",
       "loadCenters": "Error loading centers"
     }
   },
