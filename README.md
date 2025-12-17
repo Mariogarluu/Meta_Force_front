@@ -5,7 +5,7 @@ Proyecto frontend desarrollado con Angular para Meta Force.
 ## 📋 Requisitos Previos
 
 - Node.js (versión 18 o superior)
-- npm (viene incluido con Node.js)
+- npm (versión 9 o superior, viene incluido con Node.js)
 - Git
 
 ## 🚀 Instalación
@@ -239,12 +239,45 @@ Meta_Force_front/
 
 ## 🔧 Tecnologías Principales
 
-- **Angular 18+** - Framework principal
-- **TypeScript** - Lenguaje de programación
-- **Tailwind CSS** - Framework de estilos
-- **ngx-translate** - Sistema de internacionalización
-- **RxJS** - Programación reactiva
+- **Angular 19+** - Framework principal
+- **TypeScript 5.7+** - Lenguaje de programación
+- **Tailwind CSS 3.4+** - Framework de estilos
+- **ngx-translate 17+** - Sistema de internacionalización
+- **RxJS 7.8+** - Programación reactiva
 - **Angular Signals** - Gestión de estado reactivo
+- **html5-qrcode** - Escáner y generación de códigos QR
+
+## ✨ Características Principales
+
+### Gestión de Clases
+- **Clases grupales**: Crea y gestiona clases de gimnasio con múltiples centros
+- **Horarios flexibles**: Asigna múltiples horarios por centro
+- **Entrenadores asignados**: Vincula entrenadores específicos a cada clase por centro
+- **Filtros avanzados**: Búsqueda por nombre, descripción y centro
+
+### Gestión de Entrenadores
+- **Visualización por centro**: Filtra entrenadores por centro deportivo
+- **Estado en tiempo real**: Indica si el entrenador está actualmente en el gimnasio
+- **Centro favorito**: Muestra el centro principal de cada entrenador
+- **Perfil completo**: Incluye foto de perfil y datos de contacto
+
+### Sistema QR
+- **Códigos personales**: Cada usuario tiene su código QR único
+- **Escáner integrado**: Lectura de códigos con cámara del dispositivo
+- **Control de acceso**: Registro automático de entradas y salidas
+- **Validación temporal**: Los códigos tienen caducidad de seguridad
+
+### Multi-idioma (i18n)
+- **3 idiomas**: Español, Inglés y Francés totalmente implementados
+- **Cambio dinámico**: Selector de idioma en toda la aplicación
+- **Persistencia**: Recordar el idioma seleccionado
+- **Traducciones completas**: Todos los componentes y mensajes traducidos
+
+### Temas
+- **Modo claro/oscuro**: Toggle para cambiar entre temas
+- **Persistencia**: Guarda la preferencia del usuario
+- **Transiciones suaves**: Cambios visuales optimizados
+- **Responsive**: Ambos temas adaptados a todos los dispositivos
 
 ## 🤝 Contribuir
 
