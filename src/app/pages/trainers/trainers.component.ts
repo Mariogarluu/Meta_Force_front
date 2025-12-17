@@ -110,7 +110,6 @@ export class TrainersComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.error('Error loading centers:', error);
         const errorMsg = this.translate.instant('trainers.errors.loadCenters');
         this.errorMessage.set(errorMsg || 'Error loading centers');
         this.centers.set([]);

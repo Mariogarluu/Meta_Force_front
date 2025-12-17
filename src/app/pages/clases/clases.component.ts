@@ -104,8 +104,8 @@ export class ClasesComponent implements OnInit {
       next: (data) => {
         this.trainers.set(data);
       },
-      error: (error) => {
-        console.error('Error al cargar entrenadores:', error);
+      error: () => {
+        // Silently fail as trainers are optional for viewing classes
       }
     });
   }
@@ -132,7 +132,7 @@ export class ClasesComponent implements OnInit {
       next: (data) => {
         this.centers.set(data);
         
-        // Seleccionar el centro favorito del usuario por defecto
+        // Select user's favorite center by default
         if (!this.filterCenterId() && data.length > 0) {
           const userFavoriteCenterId = this.currentUser()?.favoriteCenterId;
           if (userFavoriteCenterId && data.find(c => c.id === userFavoriteCenterId)) {
@@ -142,8 +142,8 @@ export class ClasesComponent implements OnInit {
           }
         }
       },
-      error: (error) => {
-        console.error('Error al cargar centros:', error);
+      error: () => {
+        // Silently fail as centers can be loaded independently
       }
     });
   }
@@ -232,13 +232,11 @@ export class ClasesComponent implements OnInit {
 
   onCenterSelectedForAdd(centerId: string): void {
     this.selectedCenterForAdd.set(centerId);
-    // Cargar entrenadores de este centro
     this.usersService.listTrainers(centerId).subscribe({
       next: (trainers) => {
         this.centerTrainers.set(trainers);
       },
-      error: (error) => {
-        console.error('Error al cargar entrenadores:', error);
+      error: () => {
         this.errorMessage.set(this.translate.instant('classes.errors.loadTrainers'));
       }
     });
@@ -479,16 +477,13 @@ export class ClasesComponent implements OnInit {
     const center = this.centers().find(c => c.id === centerId);
     if (!center) return;
 
-    // Cargar entrenadores de este centro
     this.usersService.listTrainers(centerId).subscribe({
       next: (trainers) => {
         this.centerTrainers.set(trainers);
         
-        // Cargar entrenadores actuales de la clase para este centro
         const currentTrainers = this.getTrainersForCenterInClass(centerId);
         this.formTrainerIds.set(currentTrainers.map(t => t.trainerId));
         
-        // Cargar horarios actuales de este centro
         const currentSchedules = this.getSchedulesForCenterInClass(centerId);
         this.formSchedules.set(currentSchedules.map(s => ({
           id: s.id,
@@ -502,8 +497,7 @@ export class ClasesComponent implements OnInit {
         this.showAddCenterModal.set(true);
         this.errorMessage.set('');
       },
-      error: (error) => {
-        console.error('Error al cargar entrenadores:', error);
+      error: () => {
         this.errorMessage.set(this.translate.instant('classes.errors.loadTrainers'));
       }
     });
