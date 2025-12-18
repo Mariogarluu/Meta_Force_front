@@ -488,8 +488,10 @@
       "subjectMinLength": "El asunto debe tener al menos {{min}} caracteres",
       "descriptionRequired": "La descripción es obligatoria",
       "descriptionMinLength": "La descripción debe tener al menos {{min}} caracteres",
-      "fieldTooLong": "Este campo es demasiado largo"
-    }
+      "fieldTooLong": "Este campo es demasiado largo",
+      "loadCenters": "Error al cargar los centros"
+    },
+    "intro": "¡Estamos aquí para ayudarte! Envíanos tus preguntas, sugerencias o inquietudes."
   },
   "tickets": {
     "title": "Tickets de Contacto",
@@ -521,5 +523,4 @@
       "completed": "Completado"
     }
   }
-
 }
