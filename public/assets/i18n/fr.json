@@ -65,7 +65,7 @@
     "home": "Accueil",
     "classes": "Cours",
     "trainers": "Entraîneurs",
-    "membership": "Adhésion",
+    "memberships": "Adhésions",
     "centers": "Centres",
     "login": "Se connecter",
     "register": "S'inscrire"
@@ -197,6 +197,20 @@
         "title": "Mes Cours",
         "description": "Gérez vos cours en tant qu'entraîneur.",
         "button": "Voir mes cours"
+      },
+      "myDiets": {
+        "title": "Mes Régimes"
+      },
+      "myWorkouts": {
+        "title": "Mes Entraînements"
+      },
+      "myStatistics": {
+        "title": "Mes Statistiques"
+      },
+      "memberships": {
+        "title": "Plans d'Adhésion",
+        "description": "Découvrez nos plans et choisissez celui qui vous convient le mieux",
+        "button": "Voir les Plans"
       }
     },
     "userInfo": {
@@ -212,7 +226,9 @@
       "selectRole": "Sélectionnez un rôle",
       "cancel": "Annuler",
       "save": "Enregistrer",
-      "saving": "Enregistrement..."
+      "saving": "Enregistrement...",
+      "successMessage": "Rôle mis à jour vers {{role}}. Veuillez vous reconnecter pour que les modifications prennent effet.",
+      "error": "Erreur lors de la mise à jour du rôle"
     }
   },
   "trainers": {
@@ -239,11 +255,12 @@
     "scannerTitle": "Scanner de Codes QR",
     "startScanner": "Démarrer le Scanner",
     "stopScanner": "Arrêter le Scanner",
+    "openScanner": "Ouvrir le Scanner",
     "user": "Utilisateur",
     "instructions": "Instructions",
     "instruction1": "Sélectionnez un centre avant de scanner",
     "instruction2": "Cliquez sur 'Démarrer le Scanner' pour activer la caméra",
-    "instruction3": "Pointez la caméra vers le code QR de l'utilisateur",
+    "instruction3": "Scannez les codes QR pour gérer les accès aux centres",
     "instruction4": "Le système détectera automatiquement s'il s'agit d'une entrée ou d'une sortie",
     "instruction5": "Le flash vert indique l'entrée, le flash rouge indique la sortie",
     "loading": "Chargement...",
@@ -344,8 +361,26 @@
     "title": "Machines",
     "subtitle": "Gérez toutes les machines de vos centres Meta Force.",
     "newMachine": "Nouvelle Machine",
+    "newModel": "Nouveau Modèle",
     "editMachine": "Modifier la Machine",
     "deleteMachine": "Supprimer la Machine",
+    "modelsTab": "Modèles",
+    "instancesTab": "Instances",
+    "instances": "Instances",
+    "instance": "Instance",
+    "noInstancesInCenter": "Aucune instance de machine dans ce centre",
+    "selectCenterToViewInstances": "Sélectionnez un centre pour voir les instances de machines",
+    "manageInstances": "Gérer les Instances dans les Centres",
+    "addInstancesToCenter": "Ajouter des Instances à un Centre",
+    "addInstances": "Ajouter des Instances",
+    "editInstance": "Modifier l'Instance",
+    "quantity": "Quantité",
+    "quantityHelp": "Nombre d'instances à créer (ex: 5 créera 'Tapis 1', 'Tapis 2', ... 'Tapis 5')",
+    "model": "Modèle",
+    "selectModel": "Sélectionnez un modèle",
+    "addToCenter": "Ajouter au Centre",
+    "noCentersAssigned": "Aucun centre assigné à ce modèle",
+    "confirmDeleteInstance": "Êtes-vous sûr de vouloir supprimer cette instance ?",
     "back": "Retour",
     "name": "Nom",
     "type": "Type",
@@ -361,6 +396,7 @@
     "searchByCenter": "Rechercher par centre",
     "allTypes": "Tous les types",
     "allStatuses": "Tous les statuts",
+    "allCenters": "Tous les centres",
     "namePlaceholder": "Nom de la machine",
     "showing": "Affichage de",
     "of": "sur",
@@ -375,22 +411,28 @@
     "deleting": "Suppression...",
     "confirmDelete": "Êtes-vous sûr de vouloir supprimer la machine",
     "types": {
-      "CARDIO": "Cardio",
-      "STRENGTH": "Force",
-      "FLEXIBILITY": "Flexibilité",
-      "FUNCTIONAL": "Fonctionnel"
+      "cardio": "Cardio",
+      "fuerza": "Force",
+      "peso libre": "Poids libres",
+      "funcional": "Fonctionnel",
+      "otro": "Autre"
     },
     "statuses": {
-      "AVAILABLE": "Disponible",
-      "IN_USE": "En cours d'utilisation",
-      "MAINTENANCE": "Maintenance",
-      "OUT_OF_SERVICE": "Hors service"
+      "operativa": "Opérationnelle",
+      "en mantenimiento": "En maintenance",
+      "fuera de servicio": "Hors service"
     },
     "errors": {
       "nameRequired": "Le nom de la machine est obligatoire.",
       "load": "Erreur lors du chargement des machines.",
       "save": "Erreur lors de l'enregistrement de la machine.",
-      "delete": "Erreur lors de la suppression de la machine."
+      "delete": "Erreur lors de la suppression de la machine.",
+      "machineTypeNotFound": "Type de machine introuvable",
+      "instanceNotFound": "Instance introuvable",
+      "machineTypeOrCenterRequired": "Vous devez sélectionner un modèle et un centre",
+      "quantityRequired": "La quantité doit être supérieure à 0",
+      "deleteInstance": "Erreur lors de la suppression de l'instance",
+      "deleteCenter": "Erreur lors de la suppression du centre"
     }
   },
   "common": {
@@ -433,7 +475,12 @@
     "manage": "Gérer l'image",
     "upload": "Télécharger l'image",
     "delete": "Supprimer l'image",
-    "uploading": "Téléchargement de l'image..."
+    "uploading": "Téléchargement de l'image...",
+    "errors": {
+      "invalidFile": "Veuillez sélectionner un fichier image valide",
+      "fileTooLarge": "L'image ne doit pas dépasser 5 Mo",
+      "uploadError": "Erreur lors du téléchargement de l'image"
+    }
   },
   "contact": {
     "title": "Contactez-nous",
@@ -497,6 +544,52 @@
       "pending": "En Attente",
       "in_progress": "En Cours",
       "completed": "Complété"
+    }
+  },
+  "memberships": {
+    "title": "Plans d'Adhésion",
+    "subtitle": "Choisissez le plan qui vous convient le mieux",
+    "newPlan": "Nouveau Plan",
+    "editPlan": "Modifier le Plan d'Adhésion",
+    "deletePlan": "Supprimer le Plan",
+    "createPlan": "Créer un Plan d'Adhésion",
+    "saveChanges": "Enregistrer les Modifications",
+    "name": "Nom",
+    "description": "Description",
+    "price": "Prix (€)",
+    "duration": "Durée (mois)",
+    "features": "Caractéristiques",
+    "addFeature": "Ajouter une caractéristique",
+    "addFeaturePlaceholder": "Ajouter une caractéristique",
+    "isActive": "Plan actif",
+    "inactive": "Inactif",
+    "loading": "Chargement des plans d'adhésion...",
+    "noPlansAvailable": "Aucun plan d'adhésion disponible",
+    "perMonth": "/ Mois",
+    "month": "Mois",
+    "months": "{{count}} mois",
+    "year": "1 an",
+    "years": "{{count}} ans",
+    "validation": "Veuillez remplir tous les champs obligatoires correctement",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "cancel": "Annuler",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer le plan",
+    "confirmDeleteMessage": "Cette action ne peut pas être annulée.",
+    "errors": {
+      "load": "Erreur lors du chargement des plans d'adhésion",
+      "create": "Erreur lors de la création du plan d'adhésion",
+      "update": "Erreur lors de la mise à jour du plan d'adhésion",
+      "delete": "Erreur lors de la suppression du plan d'adhésion"
+    }
+  },
+  "dashboard": {
+    "cards": {
+      "memberships": {
+        "title": "Plans d'Adhésion",
+        "description": "Découvrez nos plans et choisissez celui qui vous convient le mieux",
+        "button": "Voir les Plans"
+      }
     }
   }
 }

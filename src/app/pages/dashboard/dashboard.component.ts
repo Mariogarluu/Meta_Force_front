@@ -139,7 +139,8 @@ export class DashboardComponent {
         this.isLoading.set(false);
         this.showRoleEditor.set(false);
         
-        alert(`Rol actualizado a ${newRole}. Por favor, inicia sesión nuevamente para que los cambios surtan efecto.`);
+        const roleName = this.translate.instant(`dashboard.roles.${newRole}`);
+        alert(this.translate.instant('dashboard.roleEditor.successMessage', { role: roleName }));
         
         setTimeout(() => {
           this.auth.logout();
@@ -148,7 +149,7 @@ export class DashboardComponent {
       },
       error: (error) => {
         this.isLoading.set(false);
-        this.errorMessage.set(error.error?.message || 'Error al actualizar el rol');
+        this.errorMessage.set(error.error?.message || this.translate.instant('dashboard.roleEditor.error'));
       }
     });
   }
@@ -177,14 +178,14 @@ export class DashboardComponent {
     input.onchange = (event: any) => {
       const file = event.target.files?.[0];
       if (file) {
-        if (!file.type.startsWith('image/')) {
-          alert('Por favor, selecciona un archivo de imagen válido');
-          return;
-        }
-        if (file.size > 5 * 1024 * 1024) {
-          alert('La imagen no debe superar los 5MB');
-          return;
-        }
+      if (!file.type.startsWith('image/')) {
+        alert(this.translate.instant('profileImage.errors.invalidFile'));
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        alert(this.translate.instant('profileImage.errors.fileTooLarge'));
+        return;
+      }
         this.uploadProfileImage(file);
       }
     };
@@ -201,7 +202,7 @@ export class DashboardComponent {
         this.auth.refreshUser();
       },
       error: (error) => {
-        alert(error.error?.message || 'Error al subir la imagen');
+        alert(error.error?.message || this.translate.instant('profileImage.errors.uploadError'));
       }
     });
   }
