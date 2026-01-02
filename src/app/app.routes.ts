@@ -14,6 +14,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { TrainersComponent } from './pages/trainers/trainers.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { TicketsComponent } from './pages/tickets/tickets.component';
+import { WorkoutsComponent } from './pages/workouts/workouts.component';
+import { DietsComponent } from './pages/diets/diets.component';
+import { ExercisesComponent } from './pages/exercises/exercises.component';
+import { MealsComponent } from './pages/meals/meals.component';
 import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
@@ -84,5 +88,25 @@ export const routes: Routes = [
         path: 'tickets',
         component: TicketsComponent,
         canActivate: [authGuard, roleGuard('SUPERADMIN', 'ADMIN_CENTER')]
+    },
+    {
+        path: 'workouts',
+        component: WorkoutsComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'diets',
+        component: DietsComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'exercises',
+        component: ExercisesComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'meals',
+        component: MealsComponent,
+        canActivate: [authGuard]
     }
 ];

@@ -1,0 +1,22 @@
+// Estilos para drag and drop
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  opacity: 0.8;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0.3;
+  background: #e5e7eb;
+  border: 2px dashed #9ca3af;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.cdk-drop-list-dragging .cdk-drag:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
