@@ -481,10 +481,14 @@
       "invalidFileType": "Solo se permiten imágenes (JPG, PNG, GIF, WEBP) y PDFs.",
       "fileTooLarge": "El archivo excede el tamaño máximo de 2MB",
       "nameRequired": "El nombre es obligatorio",
+      "nameMinLength": "El nombre debe tener al menos {{min}} caracteres",
       "emailRequired": "El email es obligatorio",
       "centerIdRequired": "Debes seleccionar un centro",
       "subjectRequired": "El asunto es obligatorio",
-      "descriptionRequired": "La descripción es obligatoria"
+      "subjectMinLength": "El asunto debe tener al menos {{min}} caracteres",
+      "descriptionRequired": "La descripción es obligatoria",
+      "descriptionMinLength": "La descripción debe tener al menos {{min}} caracteres",
+      "fieldTooLong": "Este campo es demasiado largo"
     }
   },
   "tickets": {
