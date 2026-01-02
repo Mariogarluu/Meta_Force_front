@@ -1,0 +1,357 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+  <app-navbar></app-navbar>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 shadow-lg">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div class="flex items-center gap-4">
+            <div class="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8 text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+              </svg>
+            </div>
+            <div>
+              <h1 class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent mb-2">
+                Entrenamientos
+              </h1>
+              <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
+                Gestiona tus rutinas de entrenamiento semanales
+              </p>
+            </div>
+          </div>
+          <button 
+            (click)="openCreateWorkoutModal()"
+            class="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl transition-all text-sm font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            Nuevo Entrenamiento
+          </button>
+        </div>
+      </div>
+    </div>
+
+    @if(errorMessage()) {
+      <div class="mb-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-800 dark:text-red-200 px-4 py-3 rounded-lg">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <!-- Lista de Entrenamientos -->
+      <div class="lg:col-span-1">
+        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg p-6">
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Mis Entrenamientos</h2>
+          
+          @if(isLoading()) {
+            <div class="text-center py-8">
+              <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            </div>
+          } @else if(workouts().length === 0) {
+            <div class="text-center py-8 text-gray-500 dark:text-gray-400">
+              <p>No tienes entrenamientos aún</p>
+              <p class="text-sm mt-2">Crea uno nuevo para comenzar</p>
+            </div>
+          } @else {
+            <div class="space-y-3">
+              @for(workout of workouts(); track workout.id) {
+                <div 
+                  (click)="selectWorkout(workout)"
+                  [class.bg-blue-50]="selectedWorkout()?.id === workout.id"
+                  [class.dark:bg-gray-700]="selectedWorkout()?.id === workout.id"
+                  [class.border-blue-500]="selectedWorkout()?.id === workout.id"
+                  class="p-4 rounded-lg border-2 border-gray-200 dark:border-gray-700 cursor-pointer hover:border-blue-400 dark:hover:border-blue-600 transition-all">
+                  <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                      <h3 class="font-semibold text-gray-900 dark:text-white">{{ workout.name }}</h3>
+                      @if(workout.description) {
+                        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">{{ workout.description }}</p>
+                      }
+                      <p class="text-xs text-gray-500 dark:text-gray-500 mt-2">
+                        {{ workout.exercises.length }} ejercicios
+                      </p>
+                    </div>
+                    <div class="flex gap-2 ml-2">
+                      <button
+                        (click)="openEditWorkoutModal(workout); $event.stopPropagation()"
+                        class="p-2 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                        </svg>
+                      </button>
+                      <button
+                        (click)="deleteWorkout(workout); $event.stopPropagation()"
+                        class="p-2 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Vista del Entrenamiento Seleccionado -->
+      <div class="lg:col-span-2">
+        @if(!selectedWorkout()) {
+          <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg p-12 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 text-gray-400 mx-auto mb-4">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h4.125M8.25 8.25l6.75 6.75" />
+            </svg>
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Selecciona un entrenamiento</h3>
+            <p class="text-gray-600 dark:text-gray-400">Elige un entrenamiento de la lista para ver y editar su horario semanal</p>
+          </div>
+        } @else {
+          <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg p-6">
+            <div class="mb-6">
+              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ selectedWorkout()!.name }}</h2>
+              @if(selectedWorkout()!.description) {
+                <p class="text-gray-600 dark:text-gray-400">{{ selectedWorkout()!.description }}</p>
+              }
+            </div>
+
+            <!-- Horario Semanal -->
+            <div class="space-y-4">
+              @for(day of daysOfWeek; track day.value) {
+                <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                  <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-semibold text-gray-900 dark:text-white">{{ day.label }}</h3>
+                    <button
+                      (click)="openAddExerciseModal(day.value)"
+                      class="px-3 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                      </svg>
+                      Agregar
+                    </button>
+                  </div>
+                  
+                  <div 
+                    cdkDropList
+                    [id]="'day-' + day.value"
+                    (cdkDropListDropped)="dropExercise($event, day.value)"
+                    class="min-h-[60px] space-y-2">
+                    @if(exercisesByDay()[day.value] && exercisesByDay()[day.value].length > 0) {
+                      @for(exercise of exercisesByDay()[day.value]; track exercise.id) {
+                        <div
+                          cdkDrag
+                          class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 rounded-lg p-3 border border-blue-200 dark:border-gray-600 cursor-move hover:shadow-md transition-all">
+                          <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                              <h4 class="font-medium text-gray-900 dark:text-white">
+                                {{ getExerciseName(exercise.exerciseId) }}
+                              </h4>
+                              <div class="flex flex-wrap gap-3 mt-2 text-sm text-gray-600 dark:text-gray-400">
+                                @if(exercise.sets) {
+                                  <span>{{ exercise.sets }} series</span>
+                                }
+                                @if(exercise.reps) {
+                                  <span>{{ exercise.reps }} reps</span>
+                                }
+                                @if(exercise.weight) {
+                                  <span>{{ exercise.weight }} kg</span>
+                                }
+                                @if(exercise.duration) {
+                                  <span>{{ Math.floor(exercise.duration / 60) }} min</span>
+                                }
+                              </div>
+                              @if(exercise.notes) {
+                                <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">{{ exercise.notes }}</p>
+                              }
+                            </div>
+                            <div class="flex gap-2 ml-2">
+                              <button
+                                (click)="openEditExerciseModal(exercise)"
+                                class="p-1.5 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                </svg>
+                              </button>
+                              <button
+                                (click)="deleteExercise(exercise)"
+                                class="p-1.5 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                </svg>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      }
+                    } @else {
+                      <div class="text-center py-4 text-gray-400 dark:text-gray-500 text-sm">
+                        Arrastra ejercicios aquí o haz clic en "Agregar"
+                      </div>
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </main>
+
+  <!-- Modal Crear/Editar Entrenamiento -->
+  @if(showWorkoutFormModal()) {
+    <div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" (click)="showWorkoutFormModal.set(false)">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full p-6" (click)="$event.stopPropagation()">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+          {{ isEditingWorkout() ? 'Editar' : 'Nuevo' }} Entrenamiento
+        </h3>
+        <form (ngSubmit)="saveWorkout()" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Nombre</label>
+            <input
+              type="text"
+              [(ngModel)]="workoutForm.name"
+              name="name"
+              required
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descripción</label>
+            <textarea
+              [(ngModel)]="workoutForm.description"
+              name="description"
+              rows="3"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+          </div>
+          <div class="flex gap-3 pt-4">
+            <button
+              type="button"
+              (click)="showWorkoutFormModal.set(false)"
+              class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors disabled:opacity-50">
+              {{ isEditingWorkout() ? 'Actualizar' : 'Crear' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  <!-- Modal Agregar/Editar Ejercicio -->
+  @if(showExerciseModal()) {
+    <div class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" (click)="showExerciseModal.set(false)">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto" (click)="$event.stopPropagation()">
+        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+          {{ isEditingExercise() ? 'Editar' : 'Agregar' }} Ejercicio
+        </h3>
+        <form (ngSubmit)="saveExercise()" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Ejercicio</label>
+            <select
+              [(ngModel)]="exerciseForm.exerciseId"
+              name="exerciseId"
+              [disabled]="isEditingExercise()"
+              required
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <option value="">Selecciona un ejercicio</option>
+              @for(exercise of exercises(); track exercise.id) {
+                <option [value]="exercise.id">{{ exercise.name }}</option>
+              }
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Día</label>
+            <select
+              [(ngModel)]="exerciseForm.dayOfWeek"
+              name="dayOfWeek"
+              required
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              @for(day of daysOfWeek; track day.value) {
+                <option [value]="day.value">{{ day.label }}</option>
+              }
+            </select>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Series</label>
+              <input
+                type="number"
+                [(ngModel)]="exerciseForm.sets"
+                name="sets"
+                min="1"
+                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Repeticiones</label>
+              <input
+                type="number"
+                [(ngModel)]="exerciseForm.reps"
+                name="reps"
+                min="1"
+                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Peso (kg)</label>
+              <input
+                type="number"
+                [(ngModel)]="exerciseForm.weight"
+                name="weight"
+                min="0"
+                step="0.5"
+                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Duración (seg)</label>
+              <input
+                type="number"
+                [(ngModel)]="exerciseForm.duration"
+                name="duration"
+                min="1"
+                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Descanso (seg)</label>
+            <input
+              type="number"
+              [(ngModel)]="exerciseForm.restSeconds"
+              name="restSeconds"
+              min="0"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Notas</label>
+            <textarea
+              [(ngModel)]="exerciseForm.notes"
+              name="notes"
+              rows="2"
+              class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent"></textarea>
+          </div>
+          <div class="flex gap-3 pt-4">
+            <button
+              type="button"
+              (click)="showExerciseModal.set(false)"
+              class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              [disabled]="isLoading()"
+              class="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors disabled:opacity-50">
+              {{ isEditingExercise() ? 'Actualizar' : 'Agregar' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>
+
