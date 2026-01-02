@@ -65,7 +65,7 @@
     "home": "Home",
     "classes": "Classes",
     "trainers": "Trainers",
-    "membership": "Membership",
+    "memberships": "Memberships",
     "centers": "Centers",
     "login": "Sign In",
     "register": "Sign Up"
@@ -197,6 +197,20 @@
         "title": "My Classes",
         "description": "Manage your classes as trainer.",
         "button": "View my classes"
+      },
+      "myDiets": {
+        "title": "My Diets"
+      },
+      "myWorkouts": {
+        "title": "My Workouts"
+      },
+      "myStatistics": {
+        "title": "My Statistics"
+      },
+      "memberships": {
+        "title": "Membership Plans",
+        "description": "Check out our plans and choose the one that best fits you",
+        "button": "View Plans"
       }
     },
     "userInfo": {
@@ -212,7 +226,9 @@
       "selectRole": "Select a role",
       "cancel": "Cancel",
       "save": "Save",
-      "saving": "Saving..."
+      "saving": "Saving...",
+      "successMessage": "Role updated to {{role}}. Please log in again for the changes to take effect.",
+      "error": "Error updating role"
     }
   },
   "trainers": {
@@ -239,11 +255,12 @@
     "scannerTitle": "QR Code Scanner",
     "startScanner": "Start Scanner",
     "stopScanner": "Stop Scanner",
+    "openScanner": "Open Scanner",
     "user": "User",
     "instructions": "Instructions",
     "instruction1": "Select a center before scanning",
     "instruction2": "Click 'Start Scanner' to activate the camera",
-    "instruction3": "Point the camera at the user's QR code",
+    "instruction3": "Scan QR codes to manage access to centers",
     "instruction4": "The system will automatically detect if it's entry or exit",
     "instruction5": "Green flash indicates entry, red flash indicates exit",
     "loading": "Loading...",
@@ -307,6 +324,16 @@
   "users": {
     "title": "Users",
     "backToDashboard": "Back to Dashboard",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "status": "Status",
+    "center": "Center",
+    "allRoles": "All roles",
+    "allStatuses": "All statuses",
+    "allCenters": "All centers",
+    "dateFrom": "Date from",
+    "dateTo": "Date to",
     "filters": "Filters",
     "hideFilters": "Hide filters",
     "searchFilters": "Search filters",
@@ -321,8 +348,91 @@
     "loading": "Loading users...",
     "noUsersFound": "No users match your filters.",
     "noUsersAvailable": "No users registered yet.",
+    "statuses": {
+      "PENDING": "Pending",
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive"
+    },
     "errors": {
       "load": "Error loading users."
+    }
+  },
+  "machines": {
+    "title": "Machines",
+    "subtitle": "Manage all machines in your Meta Force centers.",
+    "newMachine": "New Machine",
+    "newModel": "New Model",
+    "editMachine": "Edit Machine",
+    "deleteMachine": "Delete Machine",
+    "modelsTab": "Models",
+    "instancesTab": "Instances",
+    "instances": "Instances",
+    "instance": "Instance",
+    "noInstancesInCenter": "No machine instances in this center",
+    "selectCenterToViewInstances": "Select a center to view machine instances",
+    "manageInstances": "Manage Instances in Centers",
+    "addInstancesToCenter": "Add Instances to a Center",
+    "addInstances": "Add Instances",
+    "editInstance": "Edit Instance",
+    "quantity": "Quantity",
+    "quantityHelp": "Number of instances to create (e.g., 5 will create 'Treadmill 1', 'Treadmill 2', ... 'Treadmill 5')",
+    "model": "Model",
+    "selectModel": "Select a model",
+    "addToCenter": "Add to Center",
+    "noCentersAssigned": "No centers assigned to this model",
+    "confirmDeleteInstance": "Are you sure you want to delete this instance?",
+    "back": "Back",
+    "name": "Name",
+    "type": "Type",
+    "status": "Status",
+    "center": "Center",
+    "filters": "Filters",
+    "hideFilters": "Hide filters",
+    "searchFilters": "Search filters",
+    "clearFilters": "Clear filters",
+    "searchByName": "Search by name",
+    "searchByType": "Search by type",
+    "searchByStatus": "Search by status",
+    "searchByCenter": "Search by center",
+    "allTypes": "All types",
+    "allStatuses": "All statuses",
+    "allCenters": "All centers",
+    "namePlaceholder": "Machine name",
+    "showing": "Showing",
+    "of": "of",
+    "machines": "machines",
+    "loading": "Loading machines...",
+    "noMachinesFound": "No machines match your filters.",
+    "noMachinesAvailable": "No machines created yet.",
+    "noMachinesRegistered": "No machines registered.",
+    "registerFirstMachine": "Register your first machine",
+    "createdAt": "Created at",
+    "saving": "Saving...",
+    "deleting": "Deleting...",
+    "confirmDelete": "Are you sure you want to delete the machine",
+    "types": {
+      "cardio": "Cardio",
+      "fuerza": "Strength",
+      "peso libre": "Free weights",
+      "funcional": "Functional",
+      "otro": "Other"
+    },
+    "statuses": {
+      "operativa": "Operational",
+      "en mantenimiento": "Under maintenance",
+      "fuera de servicio": "Out of service"
+    },
+    "errors": {
+      "nameRequired": "The machine name is required.",
+      "load": "Error loading machines.",
+      "save": "Error saving the machine.",
+      "delete": "Error deleting the machine.",
+      "machineTypeNotFound": "Machine type not found",
+      "instanceNotFound": "Instance not found",
+      "machineTypeOrCenterRequired": "You must select a model and a center",
+      "quantityRequired": "Quantity must be greater than 0",
+      "deleteInstance": "Error deleting the instance",
+      "deleteCenter": "Error deleting from center"
     }
   },
   "common": {
@@ -365,7 +475,12 @@
     "manage": "Manage image",
     "upload": "Upload image",
     "delete": "Delete image",
-    "uploading": "Uploading image..."
+    "uploading": "Uploading image...",
+    "errors": {
+      "invalidFile": "Please select a valid image file",
+      "fileTooLarge": "The image must not exceed 5MB",
+      "uploadError": "Error uploading image"
+    }
   },
   "contact": {
     "title": "Contact Us",
@@ -429,6 +544,52 @@
       "pending": "Pending",
       "in_progress": "In Progress",
       "completed": "Completed"
+    }
+  },
+  "memberships": {
+    "title": "Membership Plans",
+    "subtitle": "Choose the plan that best fits your needs",
+    "newPlan": "New Plan",
+    "editPlan": "Edit Membership Plan",
+    "deletePlan": "Delete Plan",
+    "createPlan": "Create Membership Plan",
+    "saveChanges": "Save Changes",
+    "name": "Name",
+    "description": "Description",
+    "price": "Price (€)",
+    "duration": "Duration (months)",
+    "features": "Features",
+    "addFeature": "Add feature",
+    "addFeaturePlaceholder": "Add feature",
+    "isActive": "Active plan",
+    "inactive": "Inactive",
+    "loading": "Loading membership plans...",
+    "noPlansAvailable": "No membership plans available",
+    "perMonth": "/ Month",
+    "month": "Month",
+    "months": "{{count}} months",
+    "year": "1 year",
+    "years": "{{count}} years",
+    "validation": "Please complete all required fields correctly",
+    "edit": "Edit",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "confirmDelete": "Are you sure you want to delete the plan",
+    "confirmDeleteMessage": "This action cannot be undone.",
+    "errors": {
+      "load": "Error loading membership plans",
+      "create": "Error creating membership plan",
+      "update": "Error updating membership plan",
+      "delete": "Error deleting membership plan"
+    }
+  },
+  "dashboard": {
+    "cards": {
+      "memberships": {
+        "title": "Membership Plans",
+        "description": "Check out our plans and choose the one that best fits you",
+        "button": "View Plans"
+      }
     }
   }
 }
