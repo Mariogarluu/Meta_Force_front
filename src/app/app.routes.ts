@@ -18,6 +18,7 @@ import { WorkoutsComponent } from './pages/workouts/workouts.component';
 import { DietsComponent } from './pages/diets/diets.component';
 import { ExercisesComponent } from './pages/exercises/exercises.component';
 import { MealsComponent } from './pages/meals/meals.component';
+import { MembershipsComponent } from './pages/memberships/memberships.component';
 import { roleGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
@@ -107,6 +108,11 @@ export const routes: Routes = [
     {
         path: 'meals',
         component: MealsComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'memberships',
+        component: MembershipsComponent,
         canActivate: [authGuard]
     }
 ];
