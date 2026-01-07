@@ -1,0 +1,51 @@
+[
+  {
+    "id": "exe-102",
+    "nombre": "Press de Banca",
+    "tipo": "Fuerza",
+    "equipo": "Barra",
+    "dificultad": "Intermedio",
+    "musculos": {
+      "primarios": ["Pectoral mayor"],
+      "secundarios": ["Tríceps", "Deltoides anterior"]
+    },
+    "metricas_sugeridas": {
+      "series_recomendadas": 4,
+      "repeticiones_objetivo": "8-12",
+      "descanso_segundos": 90
+    }
+  },
+  {
+    "id": "exe-105",
+    "nombre": "Sentadilla Búlgara",
+    "tipo": "Fuerza / Hipertrofia",
+    "equipo": "Mancuernas",
+    "dificultad": "Avanzado",
+    "musculos": {
+      "primarios": ["Cuádriceps", "Glúteo mayor"],
+      "secundarios": ["Isquiosurales", "Core"]
+    },
+    "metricas_sugeridas": {
+      "series_recomendadas": 3,
+      "repeticiones_objetivo": "10-12 por pierna",
+      "descanso_segundos": 60
+    }
+  },
+  {
+    "id": "exe-201",
+    "nombre": "Dominadas Pronas",
+    "tipo": "Calistenia / Fuerza",
+    "equipo": "Barra fija",
+    "dificultad": "Avanzado",
+    "musculos": {
+      "primarios": ["Dorsal ancho"],
+      "secundarios": ["Bíceps braquial", "Braquiorradial", "Trapecio inferior"]
+    },
+    "metricas_sugeridas": {
+      "series_recomendadas": 4,
+      "repeticiones_objetivo": "Fallo técnico",
+      "descanso_segundos": 120
+    }
+  }
+]
+

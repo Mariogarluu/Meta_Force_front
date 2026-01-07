@@ -109,89 +109,231 @@
           </div>
         } @else {
           <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg p-6">
-            <div class="mb-6">
-              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ selectedWorkout()!.name }}</h2>
-              @if(selectedWorkout()!.description) {
-                <p class="text-gray-600 dark:text-gray-400">{{ selectedWorkout()!.description }}</p>
-              }
+            <div class="mb-6 flex items-center justify-between flex-wrap gap-4">
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ selectedWorkout()!.name }}</h2>
+                @if(selectedWorkout()!.description) {
+                  <p class="text-gray-600 dark:text-gray-400">{{ selectedWorkout()!.description }}</p>
+                }
+              </div>
             </div>
 
-            <!-- Horario Semanal -->
-            <div class="space-y-4">
-              @for(day of daysOfWeek; track day.value) {
-                <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-                  <div class="flex items-center justify-between mb-3">
-                    <h3 class="font-semibold text-gray-900 dark:text-white">{{ day.label }}</h3>
-                    <button
-                      (click)="openAddExerciseModal(day.value)"
-                      class="px-3 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors flex items-center gap-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                      </svg>
-                      Agregar
-                    </button>
+            <!-- Horario Semanal tipo Calendario -->
+            <div class="overflow-x-auto">
+              <div class="min-w-full">
+                <!-- Header de la tabla -->
+                <div class="grid grid-cols-8 gap-2 mb-4">
+                  <div class="col-span-1"></div>
+                  @for(day of daysOfWeek; track day.value) {
+                    <div class="text-center">
+                      <div class="font-semibold text-gray-900 dark:text-white text-sm">{{ day.short }}</div>
+                      <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        <input 
+                          type="number" 
+                          [(ngModel)]="exerciseSlotsPerDay()[day.value]"
+                          (change)="updateExerciseSlots(day.value, exerciseSlotsPerDay()[day.value])"
+                          min="1" 
+                          max="10"
+                          class="w-12 px-2 py-1 text-center text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                        slots
+                      </div>
+                    </div>
+                  }
+                </div>
+
+                <!-- Fila única de ejercicios -->
+                <div class="grid grid-cols-8 gap-2">
+                  <!-- Columna de título -->
+                  <div class="flex items-center justify-center bg-gradient-to-r from-blue-100 to-purple-100 dark:from-gray-700 dark:to-gray-600 rounded-lg p-3 border border-blue-200 dark:border-gray-600">
+                    <span class="font-semibold text-gray-900 dark:text-white text-sm text-center">Ejercicios</span>
                   </div>
                   
-                  <div 
-                    cdkDropList
-                    [id]="'day-' + day.value"
-                    (cdkDropListDropped)="dropExercise($event, day.value)"
-                    class="min-h-[60px] space-y-2">
-                    @if(exercisesByDay()[day.value] && exercisesByDay()[day.value].length > 0) {
-                      @for(exercise of exercisesByDay()[day.value]; track exercise.id) {
-                        <div
-                          cdkDrag
-                          class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 rounded-lg p-3 border border-blue-200 dark:border-gray-600 cursor-move hover:shadow-md transition-all">
-                          <div class="flex items-start justify-between">
-                            <div class="flex-1">
-                              <h4 class="font-medium text-gray-900 dark:text-white">
-                                {{ getExerciseName(exercise.exerciseId) }}
-                              </h4>
-                              <div class="flex flex-wrap gap-3 mt-2 text-sm text-gray-600 dark:text-gray-400">
-                                @if(exercise.sets) {
-                                  <span>{{ exercise.sets }} series</span>
+                  <!-- Columnas por día -->
+                  @for(day of daysOfWeek; track day.value) {
+                    <div 
+                      cdkDropList
+                      [id]="'day-' + day.value"
+                      [cdkDropListConnectedTo]="getConnectedLists()"
+                      (cdkDropListDropped)="dropExercise($event, day.value)"
+                      class="min-h-[200px] bg-gray-50 dark:bg-gray-700/30 rounded-lg p-2 border-2 border-dashed border-gray-300 dark:border-gray-600 space-y-2">
+                      
+                      <!-- Ejercicios existentes -->
+                      @if(exercisesByDay()[day.value] && exercisesByDay()[day.value].length > 0) {
+                        @for(exercise of exercisesByDay()[day.value]; track exercise.id) {
+                          <div
+                            cdkDrag
+                            class="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-700 dark:to-gray-600 rounded-lg p-2 border border-blue-300 dark:border-gray-500 cursor-move hover:shadow-md transition-all group">
+                            <div class="flex items-start justify-between gap-1">
+                              <div class="flex-1 min-w-0">
+                                <h4 class="font-medium text-gray-900 dark:text-white text-xs truncate">
+                                  {{ getExerciseName(exercise.exerciseId) }}
+                                </h4>
+                                
+                                <!-- Edición inline de series -->
+                                @if(editingExercise()?.exerciseId === exercise.id && editingExercise()?.field === 'sets') {
+                                  <div class="mt-1 flex gap-1">
+                                    <input
+                                      type="number"
+                                      [(ngModel)]="inlineEditForm().sets"
+                                      (keyup.enter)="saveInlineEdit(exercise)"
+                                      (keyup.escape)="cancelInlineEdit()"
+                                      min="1"
+                                      class="w-12 px-1 py-0.5 text-xs border border-blue-400 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                                    <button
+                                      (click)="saveInlineEdit(exercise)"
+                                      class="px-1 py-0.5 text-xs bg-blue-600 text-white rounded">✓</button>
+                                    <button
+                                      (click)="cancelInlineEdit()"
+                                      class="px-1 py-0.5 text-xs bg-gray-400 text-white rounded">✕</button>
+                                  </div>
+                                } @else {
+                                  <div 
+                                    (click)="startInlineEdit(exercise, 'sets')"
+                                    class="mt-1 text-xs text-gray-600 dark:text-gray-400 cursor-pointer hover:text-blue-600 dark:hover:text-blue-400">
+                                    @if(exercise.sets) {
+                                      {{ exercise.sets }} series
+                                    } @else {
+                                      <span class="text-gray-400">Clic para series</span>
+                                    }
+                                  </div>
                                 }
-                                @if(exercise.reps) {
-                                  <span>{{ exercise.reps }} reps</span>
+
+                                <!-- Edición inline de reps -->
+                                @if(editingExercise()?.exerciseId === exercise.id && editingExercise()?.field === 'reps') {
+                                  <div class="mt-1 flex gap-1">
+                                    <input
+                                      type="number"
+                                      [(ngModel)]="inlineEditForm().reps"
+                                      (keyup.enter)="saveInlineEdit(exercise)"
+                                      (keyup.escape)="cancelInlineEdit()"
+                                      min="1"
+                                      class="w-12 px-1 py-0.5 text-xs border border-blue-400 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                                    <button
+                                      (click)="saveInlineEdit(exercise)"
+                                      class="px-1 py-0.5 text-xs bg-blue-600 text-white rounded">✓</button>
+                                    <button
+                                      (click)="cancelInlineEdit()"
+                                      class="px-1 py-0.5 text-xs bg-gray-400 text-white rounded">✕</button>
+                                  </div>
+                                } @else {
+                                  <div 
+                                    (click)="startInlineEdit(exercise, 'reps')"
+                                    class="mt-1 text-xs text-gray-600 dark:text-gray-400 cursor-pointer hover:text-blue-600 dark:hover:text-blue-400">
+                                    @if(exercise.reps) {
+                                      {{ exercise.reps }} reps
+                                    } @else {
+                                      <span class="text-gray-400">Clic para reps</span>
+                                    }
+                                  </div>
                                 }
-                                @if(exercise.weight) {
-                                  <span>{{ exercise.weight }} kg</span>
+
+                                <!-- Edición inline de peso -->
+                                @if(editingExercise()?.exerciseId === exercise.id && editingExercise()?.field === 'weight') {
+                                  <div class="mt-1 flex gap-1">
+                                    <input
+                                      type="number"
+                                      [(ngModel)]="inlineEditForm().weight"
+                                      (keyup.enter)="saveInlineEdit(exercise)"
+                                      (keyup.escape)="cancelInlineEdit()"
+                                      min="0"
+                                      step="0.5"
+                                      class="w-12 px-1 py-0.5 text-xs border border-blue-400 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                                    <button
+                                      (click)="saveInlineEdit(exercise)"
+                                      class="px-1 py-0.5 text-xs bg-blue-600 text-white rounded">✓</button>
+                                    <button
+                                      (click)="cancelInlineEdit()"
+                                      class="px-1 py-0.5 text-xs bg-gray-400 text-white rounded">✕</button>
+                                  </div>
+                                } @else {
+                                  <div 
+                                    (click)="startInlineEdit(exercise, 'weight')"
+                                    class="mt-1 text-xs text-gray-600 dark:text-gray-400 cursor-pointer hover:text-blue-600 dark:hover:text-blue-400">
+                                    @if(exercise.weight) {
+                                      {{ exercise.weight }} kg
+                                    } @else {
+                                      <span class="text-gray-400">Clic para peso</span>
+                                    }
+                                  </div>
                                 }
-                                @if(exercise.duration) {
-                                  <span>{{ Math.floor(exercise.duration / 60) }} min</span>
+
+                                <!-- Duración y descanso -->
+                                <div class="mt-1 flex gap-2 text-xs text-gray-500 dark:text-gray-500">
+                                  @if(exercise.duration) {
+                                    <span>{{ Math.floor(exercise.duration / 60) }} min</span>
+                                  }
+                                  @if(exercise.restSeconds) {
+                                    <span>{{ exercise.restSeconds }}s desc.</span>
+                                  }
+                                </div>
+
+                                <!-- Edición inline de notas -->
+                                @if(editingExercise()?.exerciseId === exercise.id && editingExercise()?.field === 'notes') {
+                                  <div class="mt-1 flex gap-1">
+                                    <input
+                                      type="text"
+                                      [(ngModel)]="inlineEditForm().notes"
+                                      (keyup.enter)="saveInlineEdit(exercise)"
+                                      (keyup.escape)="cancelInlineEdit()"
+                                      placeholder="Notas..."
+                                      class="flex-1 px-1 py-0.5 text-xs border border-blue-400 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                                    <button
+                                      (click)="saveInlineEdit(exercise)"
+                                      class="px-1 py-0.5 text-xs bg-blue-600 text-white rounded">✓</button>
+                                    <button
+                                      (click)="cancelInlineEdit()"
+                                      class="px-1 py-0.5 text-xs bg-gray-400 text-white rounded">✕</button>
+                                  </div>
+                                } @else if(exercise.notes) {
+                                  <p 
+                                    (click)="startInlineEdit(exercise, 'notes')"
+                                    class="text-xs text-gray-500 dark:text-gray-500 mt-1 cursor-pointer hover:text-blue-600 dark:hover:text-blue-400 truncate" 
+                                    title="{{ exercise.notes }}">
+                                    {{ exercise.notes }}
+                                  </p>
+                                } @else {
+                                  <p 
+                                    (click)="startInlineEdit(exercise, 'notes')"
+                                    class="text-xs text-gray-400 mt-1 cursor-pointer hover:text-blue-600">
+                                    + Notas
+                                  </p>
                                 }
                               </div>
-                              @if(exercise.notes) {
-                                <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">{{ exercise.notes }}</p>
-                              }
-                            </div>
-                            <div class="flex gap-2 ml-2">
-                              <button
-                                (click)="openEditExerciseModal(exercise)"
-                                class="p-1.5 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                </svg>
-                              </button>
-                              <button
-                                (click)="deleteExercise(exercise)"
-                                class="p-1.5 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                                  <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                </svg>
-                              </button>
+                              <div class="flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button
+                                  (click)="openEditExerciseModal(exercise); $event.stopPropagation()"
+                                  class="p-1 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded transition-colors">
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                  </svg>
+                                </button>
+                                <button
+                                  (click)="deleteExercise(exercise); $event.stopPropagation()"
+                                  class="p-1 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors">
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                  </svg>
+                                </button>
+                              </div>
                             </div>
                           </div>
+                        }
+                      }
+                      
+                      <!-- Slots vacíos -->
+                      @for(slot of getEmptySlots(day.value); track slot) {
+                        <div
+                          (click)="addExerciseToSlot(day.value, slot)"
+                          class="h-20 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg flex items-center justify-center cursor-pointer hover:border-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition-colors group">
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400 group-hover:text-blue-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                          </svg>
                         </div>
                       }
-                    } @else {
-                      <div class="text-center py-4 text-gray-400 dark:text-gray-500 text-sm">
-                        Arrastra ejercicios aquí o haz clic en "Agregar"
-                      </div>
-                    }
-                  </div>
+                    </div>
+                  }
                 </div>
-              }
+              </div>
             </div>
           </div>
         }
