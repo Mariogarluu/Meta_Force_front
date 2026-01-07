@@ -65,7 +65,7 @@
     "home": "Inicio",
     "classes": "Clases",
     "trainers": "Entrenadores",
-    "membership": "Membresía",
+    "memberships": "Membresías",
     "centers": "Centros",
     "login": "Iniciar sesión",
     "register": "Registrarse"
@@ -197,6 +197,20 @@
         "title": "Mis Clases",
         "description": "Gestiona tus clases como entrenador.",
         "button": "Ver mis clases"
+      },
+      "myDiets": {
+        "title": "Mis Dietas"
+      },
+      "myWorkouts": {
+        "title": "Mis Entrenos"
+      },
+      "myStatistics": {
+        "title": "Mis Estadísticas"
+      },
+      "memberships": {
+        "title": "Planes de Membresía",
+        "description": "Consulta nuestros planes y elige el que mejor se adapte a ti",
+        "button": "Ver Planes"
       }
     },
     "userInfo": {
@@ -212,7 +226,9 @@
       "selectRole": "Selecciona un rol",
       "cancel": "Cancelar",
       "save": "Guardar",
-      "saving": "Guardando..."
+      "saving": "Guardando...",
+      "successMessage": "Rol actualizado a {{role}}. Por favor, inicia sesión nuevamente para que los cambios surtan efecto.",
+      "error": "Error al actualizar el rol"
     }
   },
   "trainers": {
@@ -239,11 +255,12 @@
     "scannerTitle": "Escáner de Códigos QR",
     "startScanner": "Iniciar Escáner",
     "stopScanner": "Detener Escáner",
+    "openScanner": "Abrir Escáner",
     "user": "Usuario",
     "instructions": "Instrucciones",
     "instruction1": "Selecciona un centro antes de escanear",
     "instruction2": "Haz clic en 'Iniciar Escáner' para activar la cámara",
-    "instruction3": "Apunta la cámara al código QR del usuario",
+    "instruction3": "Escanea códigos QR para gestionar accesos a centros",
     "instruction4": "El sistema detectará automáticamente si es entrada o salida",
     "instruction5": "El flash verde indica entrada, el rojo indica salida",
     "loading": "Cargando...",
@@ -379,6 +396,7 @@
     "searchByCenter": "Buscar por centro",
     "allTypes": "Todos los tipos",
     "allStatuses": "Todos los estados",
+    "allCenters": "Todos los centros",
     "namePlaceholder": "Nombre de la máquina",
     "showing": "Mostrando",
     "of": "de",
@@ -457,10 +475,16 @@
     "manage": "Gestionar imagen",
     "upload": "Subir imagen",
     "delete": "Eliminar imagen",
-    "uploading": "Subiendo imagen..."
+    "uploading": "Subiendo imagen...",
+    "errors": {
+      "invalidFile": "Por favor, selecciona un archivo de imagen válido",
+      "fileTooLarge": "La imagen no debe superar los 5MB",
+      "uploadError": "Error al subir la imagen"
+    }
   },
   "contact": {
     "title": "Consultas",
+    "intro": "¡Estamos aquí para ayudarte! Envíanos tus preguntas, sugerencias o inquietudes.",
     "name": "Nombre",
     "email": "Email",
     "phone": "Teléfono",
@@ -488,7 +512,8 @@
       "subjectMinLength": "El asunto debe tener al menos {{min}} caracteres",
       "descriptionRequired": "La descripción es obligatoria",
       "descriptionMinLength": "La descripción debe tener al menos {{min}} caracteres",
-      "fieldTooLong": "Este campo es demasiado largo"
+      "fieldTooLong": "Este campo es demasiado largo",
+      "loadCenters": "Error al cargar los centros"
     }
   },
   "tickets": {
@@ -520,6 +545,42 @@
       "in_progress": "En Proceso",
       "completed": "Completado"
     }
+  },
+  "memberships": {
+    "title": "Planes de Membresía",
+    "subtitle": "Elige el plan que mejor se adapte a tus necesidades",
+    "newPlan": "Nuevo Plan",
+    "editPlan": "Editar Plan de Membresía",
+    "deletePlan": "Eliminar Plan",
+    "createPlan": "Crear Plan de Membresía",
+    "saveChanges": "Guardar Cambios",
+    "name": "Nombre",
+    "description": "Descripción",
+    "price": "Precio (€)",
+    "duration": "Duración (meses)",
+    "features": "Características",
+    "addFeature": "Añadir característica",
+    "addFeaturePlaceholder": "Añadir característica",
+    "isActive": "Plan activo",
+    "inactive": "Inactivo",
+    "loading": "Cargando planes de membresía...",
+    "noPlansAvailable": "No hay planes de membresía disponibles",
+    "perMonth": "/ Mes",
+    "month": "Mes",
+    "months": "{{count}} meses",
+    "year": "1 año",
+    "years": "{{count}} años",
+    "validation": "Por favor completa todos los campos requeridos correctamente",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "confirmDelete": "¿Estás seguro de que deseas eliminar el plan",
+    "confirmDeleteMessage": "Esta acción no se puede deshacer.",
+    "errors": {
+      "load": "Error al cargar los planes de membresía",
+      "create": "Error al crear el plan de membresía",
+      "update": "Error al actualizar el plan de membresía",
+      "delete": "Error al eliminar el plan de membresía"
+    }
   }
-
 }
