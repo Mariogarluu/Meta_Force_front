@@ -109,92 +109,173 @@
           </div>
         } @else {
           <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg p-6">
-            <div class="mb-6">
-              <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ selectedDiet()!.name }}</h2>
-              @if(selectedDiet()!.description) {
-                <p class="text-gray-600 dark:text-gray-400">{{ selectedDiet()!.description }}</p>
-              }
+            <div class="mb-6 flex items-center justify-between flex-wrap gap-4">
+              <div>
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">{{ selectedDiet()!.name }}</h2>
+                @if(selectedDiet()!.description) {
+                  <p class="text-gray-600 dark:text-gray-400">{{ selectedDiet()!.description }}</p>
+                }
+              </div>
             </div>
 
-            <!-- Horario Semanal con Tipos de Comida -->
-            <div class="space-y-6">
-              @for(day of daysOfWeek; track day.value) {
-                <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
-                  <h3 class="font-semibold text-gray-900 dark:text-white mb-4 text-lg">{{ day.label }}</h3>
-                  
-                  <!-- Tipos de Comida -->
-                  @for(mealType of mealTypes; track mealType.value) {
-                    <div class="mb-4 last:mb-0">
-                      <div class="flex items-center justify-between mb-2">
-                        <h4 class="font-medium text-gray-700 dark:text-gray-300 text-sm uppercase tracking-wide">
-                          {{ mealType.label }}
-                        </h4>
-                        <button
-                          (click)="openAddMealModal(day.value, mealType.value)"
-                          class="px-2 py-1 text-xs bg-green-600 hover:bg-green-700 text-white rounded transition-colors flex items-center gap-1">
-                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                          </svg>
-                          Agregar
-                        </button>
-                      </div>
-                      
-                      <div 
-                        cdkDropList
-                        [id]="'day-' + day.value + '-type-' + mealType.value"
-                        (cdkDropListDropped)="dropMeal($event, day.value, mealType.value)"
-                        class="min-h-[50px] space-y-2 bg-gray-50 dark:bg-gray-700/30 rounded-lg p-2">
-                        @if(mealsByDayAndType()[day.value] && mealsByDayAndType()[day.value][mealType.value] && mealsByDayAndType()[day.value][mealType.value].length > 0) {
-                          @for(meal of mealsByDayAndType()[day.value][mealType.value]; track meal.id) {
-                            <div
-                              cdkDrag
-                              class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-700 dark:to-gray-600 rounded-lg p-3 border border-green-200 dark:border-gray-600 cursor-move hover:shadow-md transition-all">
-                              <div class="flex items-start justify-between">
-                                <div class="flex-1">
-                                  <h5 class="font-medium text-gray-900 dark:text-white">
-                                    {{ getMealName(meal.mealId) }}
-                                  </h5>
-                                  <div class="flex flex-wrap gap-3 mt-2 text-sm text-gray-600 dark:text-gray-400">
-                                    @if(meal.quantity) {
-                                      <span>{{ meal.quantity }} porciones</span>
-                                    }
-                                    @if(getMealCalories(meal.mealId, meal.quantity)) {
-                                      <span>{{ getMealCalories(meal.mealId, meal.quantity) }} kcal</span>
-                                    }
-                                  </div>
-                                  @if(meal.notes) {
-                                    <p class="text-xs text-gray-500 dark:text-gray-500 mt-1">{{ meal.notes }}</p>
-                                  }
-                                </div>
-                                <div class="flex gap-2 ml-2">
-                                  <button
-                                    (click)="openEditMealModal(meal)"
-                                    class="p-1.5 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/30 rounded transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                                      <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-                                    </svg>
-                                  </button>
-                                  <button
-                                    (click)="deleteMeal(meal)"
-                                    class="p-1.5 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                                      <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                    </svg>
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          }
-                        } @else {
-                          <div class="text-center py-3 text-gray-400 dark:text-gray-500 text-xs">
-                            Arrastra comidas aquí o haz clic en "Agregar"
-                          </div>
-                        }
+            <!-- Horario Semanal tipo Calendario -->
+            <div class="overflow-x-auto">
+              <div class="min-w-full">
+                <!-- Header de la tabla -->
+                <div class="grid grid-cols-8 gap-2 mb-4">
+                  <div class="col-span-1"></div>
+                  @for(day of daysOfWeek; track day.value) {
+                    <div class="text-center">
+                      <div class="font-semibold text-gray-900 dark:text-white text-sm">{{ day.short }}</div>
+                      <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        <input 
+                          type="number" 
+                          [(ngModel)]="mealSlotsPerDay()[day.value]"
+                          (change)="updateMealSlots(day.value, mealSlotsPerDay()[day.value])"
+                          min="1" 
+                          max="10"
+                          class="w-12 px-2 py-1 text-center text-xs border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                        slots
                       </div>
                     </div>
                   }
                 </div>
-              }
+
+                <!-- Filas por tipo de comida -->
+                @for(mealType of mealTypes; track mealType.value) {
+                  <div class="mb-4">
+                    <div class="grid grid-cols-8 gap-2">
+                      <!-- Columna de tipo de comida -->
+                      <div class="flex items-center justify-center bg-gradient-to-r from-green-100 to-emerald-100 dark:from-gray-700 dark:to-gray-600 rounded-lg p-3 border border-green-200 dark:border-gray-600">
+                        <span class="font-semibold text-gray-900 dark:text-white text-sm text-center">{{ mealType.label }}</span>
+                      </div>
+                      
+                      <!-- Columnas por día -->
+                      @for(day of daysOfWeek; track day.value) {
+                        <div 
+                          cdkDropList
+                          [id]="'day-' + day.value + '-type-' + mealType.value"
+                          [cdkDropListConnectedTo]="getConnectedLists(day.value, mealType.value)"
+                          (cdkDropListDropped)="dropMeal($event, day.value, mealType.value)"
+                          class="min-h-[120px] bg-gray-50 dark:bg-gray-700/30 rounded-lg p-2 border-2 border-dashed border-gray-300 dark:border-gray-600 space-y-2">
+                          
+                          <!-- Comidas existentes -->
+                          @if(mealsByDayAndType()[day.value] && mealsByDayAndType()[day.value][mealType.value] && mealsByDayAndType()[day.value][mealType.value].length > 0) {
+                            @for(meal of mealsByDayAndType()[day.value][mealType.value]; track meal.id) {
+                              <div
+                                cdkDrag
+                                class="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-gray-700 dark:to-gray-600 rounded-lg p-2 border border-green-300 dark:border-gray-500 cursor-move hover:shadow-md transition-all group">
+                                <div class="flex items-start justify-between gap-1">
+                                  <div class="flex-1 min-w-0">
+                                    <h5 class="font-medium text-gray-900 dark:text-white text-xs truncate">
+                                      {{ getMealName(meal.mealId) }}
+                                    </h5>
+                                    
+                                    <!-- Edición inline de cantidad -->
+                                    @if(editingMeal()?.mealId === meal.id && editingMeal()?.field === 'quantity') {
+                                      <div class="mt-1 flex gap-1">
+                                        <input
+                                          type="number"
+                                          [(ngModel)]="inlineEditForm().quantity"
+                                          (keyup.enter)="saveInlineEdit(meal)"
+                                          (keyup.escape)="cancelInlineEdit()"
+                                          min="0"
+                                          step="0.5"
+                                          class="w-16 px-1 py-0.5 text-xs border border-green-400 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                                        <button
+                                          (click)="saveInlineEdit(meal)"
+                                          class="px-1 py-0.5 text-xs bg-green-600 text-white rounded">✓</button>
+                                        <button
+                                          (click)="cancelInlineEdit()"
+                                          class="px-1 py-0.5 text-xs bg-gray-400 text-white rounded">✕</button>
+                                      </div>
+                                    } @else {
+                                      <div 
+                                        (click)="startInlineEdit(meal, 'quantity')"
+                                        class="mt-1 text-xs text-gray-600 dark:text-gray-400 cursor-pointer hover:text-green-600 dark:hover:text-green-400">
+                                        @if(meal.quantity) {
+                                          {{ meal.quantity }} porc.
+                                        } @else {
+                                          <span class="text-gray-400">Clic para cantidad</span>
+                                        }
+                                      </div>
+                                    }
+
+                                    <!-- Edición inline de notas -->
+                                    @if(editingMeal()?.mealId === meal.id && editingMeal()?.field === 'notes') {
+                                      <div class="mt-1 flex gap-1">
+                                        <input
+                                          type="text"
+                                          [(ngModel)]="inlineEditForm().notes"
+                                          (keyup.enter)="saveInlineEdit(meal)"
+                                          (keyup.escape)="cancelInlineEdit()"
+                                          placeholder="Notas..."
+                                          class="flex-1 px-1 py-0.5 text-xs border border-green-400 rounded bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+                                        <button
+                                          (click)="saveInlineEdit(meal)"
+                                          class="px-1 py-0.5 text-xs bg-green-600 text-white rounded">✓</button>
+                                        <button
+                                          (click)="cancelInlineEdit()"
+                                          class="px-1 py-0.5 text-xs bg-gray-400 text-white rounded">✕</button>
+                                      </div>
+                                    } @else if(meal.notes) {
+                                      <p 
+                                        (click)="startInlineEdit(meal, 'notes')"
+                                        class="text-xs text-gray-500 dark:text-gray-500 mt-1 cursor-pointer hover:text-green-600 dark:hover:text-green-400 truncate" 
+                                        title="{{ meal.notes }}">
+                                        {{ meal.notes }}
+                                      </p>
+                                    } @else {
+                                      <p 
+                                        (click)="startInlineEdit(meal, 'notes')"
+                                        class="text-xs text-gray-400 mt-1 cursor-pointer hover:text-green-600">
+                                        + Notas
+                                      </p>
+                                    }
+
+                                    @if(getMealCalories(meal.mealId, meal.quantity)) {
+                                      <div class="text-xs text-green-600 dark:text-green-400 mt-1">
+                                        {{ getMealCalories(meal.mealId, meal.quantity) }} kcal
+                                      </div>
+                                    }
+                                  </div>
+                                  <div class="flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button
+                                      (click)="openEditMealModal(meal); $event.stopPropagation()"
+                                      class="p-1 text-green-600 hover:bg-green-100 dark:hover:bg-green-900/30 rounded transition-colors">
+                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                      </svg>
+                                    </button>
+                                    <button
+                                      (click)="deleteMeal(meal); $event.stopPropagation()"
+                                      class="p-1 text-red-600 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors">
+                                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            }
+                          }
+                          
+                          <!-- Slots vacíos -->
+                          @for(slot of getEmptySlots(day.value, mealType.value); track slot) {
+                            <div
+                              (click)="addMealToSlot(day.value, mealType.value, slot)"
+                              class="h-16 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg flex items-center justify-center cursor-pointer hover:border-green-400 hover:bg-green-50/50 dark:hover:bg-green-900/10 transition-colors group">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-400 group-hover:text-green-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                              </svg>
+                            </div>
+                          }
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
             </div>
           </div>
         }
