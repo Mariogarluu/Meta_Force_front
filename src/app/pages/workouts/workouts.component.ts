@@ -80,15 +80,15 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
     notes: ''
   };
 
-  /** Días de la semana con sus etiquetas */
+  /** Días de la semana con sus etiquetas (empieza en lunes) */
   daysOfWeek = [
-    { value: 0, label: 'Domingo', short: 'Dom' },
     { value: 1, label: 'Lunes', short: 'Lun' },
     { value: 2, label: 'Martes', short: 'Mar' },
     { value: 3, label: 'Miércoles', short: 'Mié' },
     { value: 4, label: 'Jueves', short: 'Jue' },
     { value: 5, label: 'Viernes', short: 'Vie' },
-    { value: 6, label: 'Sábado', short: 'Sáb' }
+    { value: 6, label: 'Sábado', short: 'Sáb' },
+    { value: 0, label: 'Domingo', short: 'Dom' }
   ];
 
   /** Usuario actual autenticado */
@@ -176,8 +176,10 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
   /**
    * Carga la lista de entrenamientos desde el servidor.
    * Si el usuario es entrenador, carga todos los entrenamientos; si no, solo los suyos.
+   * Actualiza automáticamente el entrenamiento seleccionado si existe.
    */
   loadWorkouts() {
+    const currentSelectedId = this.selectedWorkout()?.id;
     this.isLoading.set(true);
     const userId = this.isTrainer() ? null : this.currentUser()?.id;
     this.workoutsService.listWorkouts(userId)
@@ -185,6 +187,16 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (workouts) => {
           this.workouts.set(workouts);
+          // Actualizar automáticamente el entrenamiento seleccionado si existe
+          if (currentSelectedId) {
+            const updated = workouts.find(w => w.id === currentSelectedId);
+            if (updated) {
+              this.selectedWorkout.set(updated);
+            } else {
+              // Si el entrenamiento seleccionado ya no existe, seleccionar el primero
+              this.selectedWorkout.set(workouts.length > 0 ? workouts[0] : null);
+            }
+          }
           this.isLoading.set(false);
         },
         error: (err) => {
@@ -257,6 +269,28 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
         this.isLoading.set(false);
       }
     });
+  }
+
+  /**
+   * Duplica un entrenamiento existente y selecciona la copia.
+   * El backend se encarga de generar el nombre con sufijo (1), (2), etc.
+   */
+  duplicateWorkout(workout: Workout) {
+    this.isLoading.set(true);
+    this.workoutsService.duplicateWorkout(workout.id)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (duplicated) => {
+          // Recargamos la lista y seleccionamos la nueva rutina
+          this.loadWorkouts();
+          this.selectedWorkout.set(duplicated);
+          this.isLoading.set(false);
+        },
+        error: (err) => {
+          this.errorMessage.set(err.error?.message || 'Error al duplicar entrenamiento');
+          this.isLoading.set(false);
+        }
+      });
   }
 
   /**
@@ -566,7 +600,13 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
       moveItemInArray(exercises, event.previousIndex, event.currentIndex);
     } else {
       // Obtener el exercise del contenedor anterior
-      const previousExercise = event.previousContainer.data[event.previousIndex];
+      const previousData = event.previousContainer.data;
+      if (!previousData || !Array.isArray(previousData) || event.previousIndex >= previousData.length) {
+        console.error('Error: datos del contenedor anterior inválidos', { previousData, previousIndex: event.previousIndex });
+        return;
+      }
+      
+      const previousExercise = previousData[event.previousIndex];
       if (previousExercise) {
         // Actualizar el exercise para moverlo al nuevo día
         this.isLoading.set(true);

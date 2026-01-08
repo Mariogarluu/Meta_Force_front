@@ -58,5 +58,13 @@ export class WorkoutsService {
   reorderWorkoutExercises(workoutId: string, data: ReorderWorkoutExercisesInput): Observable<Workout> {
     return this.http.post<Workout>(`${this.apiUrl}/${workoutId}/reorder`, data);
   }
+
+  /**
+   * Duplica un entrenamiento existente.
+   * Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.
+   */
+  duplicateWorkout(id: string): Observable<Workout> {
+    return this.http.post<Workout>(`${this.apiUrl}/${id}/duplicate`, {});
+  }
 }
 
