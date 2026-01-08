@@ -80,15 +80,15 @@ export class DietsComponent implements OnInit, OnDestroy {
     notes: ''
   };
 
-  /** Días de la semana con sus etiquetas */
+  /** Días de la semana con sus etiquetas (empieza en lunes) */
   daysOfWeek = [
-    { value: 0, label: 'Domingo', short: 'Dom' },
     { value: 1, label: 'Lunes', short: 'Lun' },
     { value: 2, label: 'Martes', short: 'Mar' },
     { value: 3, label: 'Miércoles', short: 'Mié' },
     { value: 4, label: 'Jueves', short: 'Jue' },
     { value: 5, label: 'Viernes', short: 'Vie' },
-    { value: 6, label: 'Sábado', short: 'Sáb' }
+    { value: 6, label: 'Sábado', short: 'Sáb' },
+    { value: 0, label: 'Domingo', short: 'Dom' }
   ];
 
   /** Tipos de comida disponibles */
@@ -187,8 +187,10 @@ export class DietsComponent implements OnInit, OnDestroy {
   /**
    * Carga la lista de dietas desde el servidor.
    * Si el usuario es entrenador, carga todas las dietas; si no, solo las suyas.
+   * Actualiza automáticamente la dieta seleccionada si existe.
    */
   loadDiets() {
+    const currentSelectedId = this.selectedDiet()?.id;
     this.isLoading.set(true);
     const userId = this.isTrainer() ? null : this.currentUser()?.id;
     this.dietsService.listDiets(userId)
@@ -196,6 +198,16 @@ export class DietsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (diets) => {
           this.diets.set(diets);
+          // Actualizar automáticamente la dieta seleccionada si existe
+          if (currentSelectedId) {
+            const updated = diets.find(d => d.id === currentSelectedId);
+            if (updated) {
+              this.selectedDiet.set(updated);
+            } else {
+              // Si la dieta seleccionada ya no existe, seleccionar la primera
+              this.selectedDiet.set(diets.length > 0 ? diets[0] : null);
+            }
+          }
           this.isLoading.set(false);
         },
         error: (err) => {
