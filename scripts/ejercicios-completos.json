@@ -1,0 +1,185 @@
+[
+  {
+    "name": "Press de Banca",
+    "description": "Ejercicio compuesto fundamental para desarrollar el pecho, hombros y tríceps",
+    "instructions": "Acuéstate en el banco plano, agarra la barra con las manos separadas ligeramente más que el ancho de los hombros. Baja la barra controladamente hasta tocar el pecho y empuja hacia arriba hasta extender completamente los brazos.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Sentadillas",
+    "description": "Ejercicio compuesto rey para el desarrollo de piernas y glúteos",
+    "instructions": "Coloca la barra sobre los hombros, mantén la espalda recta y baja flexionando las rodillas hasta que los muslos queden paralelos al suelo. Empuja con los talones para volver a la posición inicial.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Peso Muerto",
+    "description": "Ejercicio fundamental para desarrollar la cadena posterior y fuerza general",
+    "instructions": "De pie, con los pies al ancho de los hombros, agarra la barra con las manos separadas. Mantén la espalda recta y baja la barra flexionando las caderas y rodillas. Sube empujando con las piernas y extendiendo las caderas.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Press Militar",
+    "description": "Ejercicio para desarrollar hombros y tríceps",
+    "instructions": "De pie o sentado, agarra la barra a la altura de los hombros. Empuja la barra hacia arriba hasta extender completamente los brazos sobre la cabeza. Baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Dominadas",
+    "description": "Ejercicio de calistenia para desarrollar la espalda y bíceps",
+    "instructions": "Cuelga de una barra con las palmas mirando hacia adelante. Tira del cuerpo hacia arriba hasta que la barbilla pase la barra. Baja controladamente hasta extender completamente los brazos.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Remo con Barra",
+    "description": "Ejercicio para desarrollar la espalda y bíceps",
+    "instructions": "Flexiona las rodillas ligeramente, inclínate hacia adelante manteniendo la espalda recta. Tira de la barra hacia el abdomen, apretando los omóplatos. Baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Press Inclinado con Mancuernas",
+    "description": "Variación del press de banca para enfocar la parte superior del pecho",
+    "instructions": "Acuéstate en un banco inclinado a 30-45 grados. Empuja las mancuernas hacia arriba y afuera en un arco. Baja controladamente hasta sentir el estiramiento en el pecho.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Prensa de Piernas",
+    "description": "Ejercicio para desarrollar cuádriceps, glúteos e isquiotibiales",
+    "instructions": "Siéntate en la máquina con los pies en la plataforma al ancho de los hombros. Empuja la plataforma extendiendo las piernas. Baja controladamente flexionando las rodillas.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Curl de Bíceps con Barra",
+    "description": "Ejercicio de aislamiento para desarrollar los bíceps",
+    "instructions": "De pie, agarra la barra con las palmas hacia arriba. Mantén los codos fijos y flexiona los brazos llevando la barra hacia los hombros. Baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Extensiones de Tríceps",
+    "description": "Ejercicio de aislamiento para desarrollar los tríceps",
+    "instructions": "De pie o sentado, agarra una mancuerna con ambas manos detrás de la cabeza. Extiende los brazos elevando la mancuerna sobre la cabeza. Baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Elevaciones Laterales",
+    "description": "Ejercicio para desarrollar los deltoides laterales",
+    "instructions": "De pie, con una mancuerna en cada mano, eleva los brazos lateralmente hasta la altura de los hombros. Baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Zancadas",
+    "description": "Ejercicio unilateral para desarrollar piernas y glúteos",
+    "instructions": "Da un paso largo hacia adelante, baja la rodilla trasera casi hasta el suelo. Empuja con el talón delantero para volver a la posición inicial. Alterna las piernas.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Plancha",
+    "description": "Ejercicio isométrico para fortalecer el core",
+    "instructions": "En posición de flexión, apoya los antebrazos en el suelo. Mantén el cuerpo recto desde la cabeza hasta los talones. Aguanta la posición.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Pull-ups",
+    "description": "Variación de dominadas con agarre supino",
+    "instructions": "Cuelga de una barra con las palmas mirando hacia ti. Tira del cuerpo hacia arriba hasta que la barbilla pase la barra. Baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Fondos en Paralelas",
+    "description": "Ejercicio de peso corporal para tríceps y pecho",
+    "instructions": "Sujétate de las barras paralelas, baja el cuerpo flexionando los brazos. Empuja hacia arriba extendiendo los brazos. Mantén el cuerpo recto.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Prensa de Hombros con Mancuernas",
+    "description": "Ejercicio para desarrollar los hombros",
+    "instructions": "Sentado o de pie, empuja las mancuernas desde la altura de los hombros hacia arriba. Baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Curl de Martillo",
+    "description": "Variación del curl de bíceps que también trabaja los antebrazos",
+    "instructions": "De pie, agarra las mancuernas con las palmas mirándose entre sí. Flexiona los brazos llevando las mancuernas hacia los hombros. Baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Sentadilla Búlgara",
+    "description": "Ejercicio unilateral avanzado para piernas",
+    "instructions": "Coloca el empeine del pie trasero en un banco. Baja la rodilla delantera flexionando la pierna. Empuja con el talón delantero para volver arriba.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Remo T",
+    "description": "Ejercicio para desarrollar la espalda media",
+    "instructions": "Con una barra T, flexiona las rodillas e inclínate. Tira de la barra hacia el pecho, apretando los omóplatos. Baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Aperturas con Mancuernas",
+    "description": "Ejercicio de aislamiento para el pecho",
+    "instructions": "Acostado en un banco plano, abre los brazos con las mancuernas hasta sentir el estiramiento. Cierra los brazos en un arco hasta que las mancuernas se encuentren sobre el pecho.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Curl de Piernas",
+    "description": "Ejercicio de aislamiento para los isquiotibiales",
+    "instructions": "Acostado boca abajo en la máquina, flexiona las piernas llevando los talones hacia los glúteos. Baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Extensiones de Piernas",
+    "description": "Ejercicio de aislamiento para los cuádriceps",
+    "instructions": "Sentado en la máquina, extiende las piernas levantando el peso. Baja controladamente flexionando las rodillas.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Elevaciones Frontales",
+    "description": "Ejercicio para desarrollar los deltoides anteriores",
+    "instructions": "De pie, eleva una mancuerna o barra hacia adelante hasta la altura de los hombros. Baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Encogimientos de Hombros",
+    "description": "Ejercicio para desarrollar los trapecios superiores",
+    "instructions": "De pie, con mancuernas o barra en las manos, eleva los hombros hacia las orejas. Mantén la posición un momento y baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Curl de Muñeca",
+    "description": "Ejercicio para fortalecer los antebrazos",
+    "instructions": "Sentado, apoya los antebrazos en un banco. Flexiona las muñecas levantando el peso. Baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  },
+  {
+    "name": "Abdominales Crunch",
+    "description": "Ejercicio básico para el recto abdominal",
+    "instructions": "Acostado boca arriba, flexiona las rodillas. Eleva el torso contrayendo los abdominales. Baja controladamente.",
+    "imageUrl": "",
+    "videoUrl": ""
+  }
+]
+
