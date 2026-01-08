@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Press de Banca",
+    "description": "Tipo: Fuerza | Dificultad: Intermedio | Equipo: Barra",
+    "instructions": "Músculos primarios: Pectoral mayor\nMúsculos secundarios: Tríceps, Deltoides anterior\nMétricas sugeridas: 4 series, 8-12 repeticiones, 90s de descanso"
+  },
+  {
+    "name": "Sentadilla Búlgara",
+    "description": "Tipo: Fuerza / Hipertrofia | Dificultad: Avanzado | Equipo: Mancuernas",
+    "instructions": "Músculos primarios: Cuádriceps, Glúteo mayor\nMúsculos secundarios: Isquiosurales, Core\nMétricas sugeridas: 3 series, 10-12 por pierna repeticiones, 60s de descanso"
+  },
+  {
+    "name": "Dominadas Pronas",
+    "description": "Tipo: Calistenia / Fuerza | Dificultad: Avanzado | Equipo: Barra fija",
+    "instructions": "Músculos primarios: Dorsal ancho\nMúsculos secundarios: Bíceps braquial, Braquiorradial, Trapecio inferior\nMétricas sugeridas: 4 series, Fallo técnico repeticiones, 120s de descanso"
+  }
+]
