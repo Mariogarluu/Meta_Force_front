@@ -582,14 +582,5 @@
       "update": "Erreur lors de la mise à jour du plan d'adhésion",
       "delete": "Erreur lors de la suppression du plan d'adhésion"
     }
-  },
-  "dashboard": {
-    "cards": {
-      "memberships": {
-        "title": "Plans d'Adhésion",
-        "description": "Découvrez nos plans et choisissez celui qui vous convient le mieux",
-        "button": "Voir les Plans"
-      }
-    }
   }
 }

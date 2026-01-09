@@ -1,4 +1,4 @@
-import { Component, inject, signal, input, HostListener, ElementRef } from '@angular/core';
+import { Component, inject, signal, input } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common'; // Importante DatePipe para la fecha
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
@@ -7,13 +7,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from '../../../core/services/auth.service';
 import { NotificationService } from '../../../core/services/notification.service';
 import { Notification } from '../../../core/models/notification';
+import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 
 const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, RouterLink, RouterLinkActive, LanguageSelectorComponent, ThemeToggleComponent, TranslateModule, DatePipe],
+  imports: [CommonModule, RouterLink, RouterLinkActive, LanguageSelectorComponent, ThemeToggleComponent, TranslateModule, DatePipe, ClickOutsideDirective],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
@@ -21,7 +22,6 @@ export class NavbarComponent {
   auth = inject(AuthService);
   router = inject(Router);
   notificationService = inject(NotificationService);
-  private elementRef = inject(ElementRef);
   
   // Input opcional para mostrar QR solo en el dashboard
   showQR = input<boolean>(false);
@@ -83,17 +83,11 @@ export class NavbarComponent {
     this.notificationService.markAllAsRead();
   }
 
-  // Cerrar dropdowns si se hace clic fuera
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-    
-    // Gestión cierre notificaciones
-    const isBell = target.closest('.notification-btn');
-    const isNotifDropdown = target.closest('.notification-dropdown');
-    
-    if (!isBell && !isNotifDropdown) {
-      this.showNotifications.set(false);
-    }
+  /**
+   * Cierra el dropdown de notificaciones cuando se hace clic fuera.
+   * Se llama desde la directiva ClickOutsideDirective.
+   */
+  closeNotifications() {
+    this.showNotifications.set(false);
   }
 }
