@@ -21,7 +21,7 @@ class CustomTranslateLoader implements TranslateLoader {
    * @returns Observable que emite el objeto de traducciones
    */
   getTranslation(lang: string): Observable<any> {
-    return this.http.get(`./assets/i18n/${lang}.json`);
+    return this.http.get(`/assets/i18n/${lang}.json`);
   }
 }
 
@@ -45,12 +45,14 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
     importProvidersFrom(
       TranslateModule.forRoot({
+        defaultLanguage: 'es',
         fallbackLang: 'es',
         loader: {
           provide: TranslateLoader,
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
-        }
+        },
+        useDefaultLang: true
       })
     )
   ]

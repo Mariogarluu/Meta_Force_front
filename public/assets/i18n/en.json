@@ -582,14 +582,5 @@
       "update": "Error updating membership plan",
       "delete": "Error deleting membership plan"
     }
-  },
-  "dashboard": {
-    "cards": {
-      "memberships": {
-        "title": "Membership Plans",
-        "description": "Check out our plans and choose the one that best fits you",
-        "button": "View Plans"
-      }
-    }
   }
 }
