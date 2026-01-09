@@ -1,6 +1,7 @@
-import { Component, inject, HostListener, ElementRef, computed } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TranslationService, Language } from '../../../core/services/translation.service';
+import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 
 /**
  * Componente selector de idioma que permite cambiar el idioma de la aplicación.
@@ -10,13 +11,12 @@ import { TranslationService, Language } from '../../../core/services/translation
 @Component({
   selector: 'app-language-selector',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ClickOutsideDirective],
   templateUrl: './language-selector.component.html',
   styleUrl: './language-selector.component.scss'
 })
 export class LanguageSelectorComponent {
   translationService = inject(TranslationService);
-  private elementRef = inject(ElementRef);
 
   currentLanguage = this.translationService.language;
   showDropdown = false;
@@ -49,14 +49,11 @@ export class LanguageSelectorComponent {
   }
 
   /**
-   * Listener que detecta clics fuera del componente para cerrar el dropdown.
-   * @param event - El evento de clic del documento
+   * Cierra el dropdown cuando se hace clic fuera del componente.
+   * Se llama desde la directiva ClickOutsideDirective.
    */
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent) {
-    if (!this.elementRef.nativeElement.contains(event.target)) {
-      this.showDropdown = false;
-    }
+  closeDropdown() {
+    this.showDropdown = false;
   }
 }
 
