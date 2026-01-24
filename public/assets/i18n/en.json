@@ -329,9 +329,22 @@
     "role": "Role",
     "status": "Status",
     "center": "Center",
+    "favoriteCenter": "Favorite center",
+    "favoriteCenterDescription": "User's preferred center (optional).",
+    "noFavoriteCenter": "No favorite center",
+    "currentlyIn": "Currently in",
+    "currentCenter": "Current center",
+    "notInAnyCenter": "Not in any center",
+    "registered": "Registered",
+    "registrationDate": "Registration date",
+    "viewUser": "View user",
+    "editUser": "Edit user",
+    "deleteUser": "Delete user",
     "allRoles": "All roles",
     "allStatuses": "All statuses",
     "allCenters": "All centers",
+    "noCenter": "No center",
+    "centerNotFound": "Center not found",
     "dateFrom": "Date from",
     "dateTo": "Date to",
     "filters": "Filters",
@@ -348,13 +361,17 @@
     "loading": "Loading users...",
     "noUsersFound": "No users match your filters.",
     "noUsersAvailable": "No users registered yet.",
+    "confirmDelete": "Are you sure you want to delete the user",
+    "deleting": "Deleting...",
+    "validate": "Validate",
     "statuses": {
       "PENDING": "Pending",
       "ACTIVE": "Active",
       "INACTIVE": "Inactive"
     },
     "errors": {
-      "load": "Error loading users."
+      "load": "Error loading users.",
+      "nameEmailRequired": "Name and email are required."
     }
   },
   "machines": {
@@ -377,6 +394,9 @@
     "quantity": "Quantity",
     "quantityHelp": "Number of instances to create (e.g., 5 will create 'Treadmill 1', 'Treadmill 2', ... 'Treadmill 5')",
     "model": "Model",
+    "addCenter": "Add Center",
+    "selectCenter": "Select center",
+    "centerNotFound": "Center not found",
     "selectModel": "Select a model",
     "addToCenter": "Add to Center",
     "noCentersAssigned": "No centers assigned to this model",
@@ -467,8 +487,10 @@
       "emailInvalid": "Email is invalid",
       "passwordRequired": "Password is required",
       "passwordMinLength": "Password must be at least 6 characters",
+      "passwordPattern": "Password does not meet the required format",
       "confirmPasswordRequired": "You must confirm the password",
-      "passwordsNotMatch": "Passwords do not match"
+      "passwordsNotMatch": "Passwords do not match",
+      "passwordsDoNotMatch": "Passwords do not match"
     }
   },
   "profileImage": {
@@ -580,16 +602,8 @@
       "load": "Error loading membership plans",
       "create": "Error creating membership plan",
       "update": "Error updating membership plan",
-      "delete": "Error deleting membership plan"
-    }
-  },
-  "dashboard": {
-    "cards": {
-      "memberships": {
-        "title": "Membership Plans",
-        "description": "Check out our plans and choose the one that best fits you",
-        "button": "View Plans"
-      }
+      "delete": "Error deleting membership plan",
+      "validation": "Please complete all required fields correctly"
     }
   }
 }
