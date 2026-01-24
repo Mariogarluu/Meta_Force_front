@@ -329,9 +329,22 @@
     "role": "Rol",
     "status": "Estado",
     "center": "Centro",
+    "favoriteCenter": "Centro favorito",
+    "favoriteCenterDescription": "Centro preferido del usuario (opcional).",
+    "noFavoriteCenter": "Sin centro favorito",
+    "currentlyIn": "Actualmente en",
+    "currentCenter": "Centro actual",
+    "notInAnyCenter": "No está en ningún centro",
+    "registered": "Registrado",
+    "registrationDate": "Fecha de registro",
+    "viewUser": "Ver usuario",
+    "editUser": "Editar usuario",
+    "deleteUser": "Eliminar usuario",
     "allRoles": "Todos los roles",
     "allStatuses": "Todos los estados",
     "allCenters": "Todos los centros",
+    "noCenter": "Sin centro",
+    "centerNotFound": "Centro no encontrado",
     "dateFrom": "Fecha desde",
     "dateTo": "Fecha hasta",
     "filters": "Filtros",
@@ -348,13 +361,17 @@
     "loading": "Cargando usuarios...",
     "noUsersFound": "No hay usuarios que coincidan con tus filtros.",
     "noUsersAvailable": "Aún no hay usuarios registrados.",
+    "confirmDelete": "¿Seguro que quieres eliminar al usuario",
+    "deleting": "Eliminando...",
+    "validate": "Validar",
     "statuses": {
       "PENDING": "Pendiente",
       "ACTIVE": "Activo",
       "INACTIVE": "Inactivo"
     },
     "errors": {
-      "load": "Error al cargar los usuarios."
+      "load": "Error al cargar los usuarios.",
+      "nameEmailRequired": "Nombre y email son obligatorios."
     }
   },
   "machines": {
@@ -377,6 +394,9 @@
     "quantity": "Cantidad",
     "quantityHelp": "Número de instancias a crear (ej: 5 creará 'Cinta 1', 'Cinta 2', ... 'Cinta 5')",
     "model": "Modelo",
+    "addCenter": "Agregar Centro",
+    "selectCenter": "Seleccionar centro",
+    "centerNotFound": "Centro no encontrado",
     "selectModel": "Selecciona un modelo",
     "addToCenter": "Agregar al Centro",
     "noCentersAssigned": "No hay centros asignados a este modelo",
@@ -467,8 +487,10 @@
       "emailInvalid": "El email no es válido",
       "passwordRequired": "La contraseña es obligatoria",
       "passwordMinLength": "La contraseña debe tener al menos 6 caracteres",
+      "passwordPattern": "La contraseña no cumple el formato requerido",
       "confirmPasswordRequired": "Debes confirmar la contraseña",
-      "passwordsNotMatch": "Las contraseñas no coinciden"
+      "passwordsNotMatch": "Las contraseñas no coinciden",
+      "passwordsDoNotMatch": "Las contraseñas no coinciden"
     }
   },
   "profileImage": {
@@ -580,7 +602,8 @@
       "load": "Error al cargar los planes de membresía",
       "create": "Error al crear el plan de membresía",
       "update": "Error al actualizar el plan de membresía",
-      "delete": "Error al eliminar el plan de membresía"
+      "delete": "Error al eliminar el plan de membresía",
+      "validation": "Por favor completa todos los campos requeridos correctamente"
     }
   }
 }
