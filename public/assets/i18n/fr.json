@@ -329,9 +329,22 @@
     "role": "Rôle",
     "status": "Statut",
     "center": "Centre",
+    "favoriteCenter": "Centre favori",
+    "favoriteCenterDescription": "Centre préféré de l'utilisateur (optionnel).",
+    "noFavoriteCenter": "Aucun centre favori",
+    "currentlyIn": "Actuellement dans",
+    "currentCenter": "Centre actuel",
+    "notInAnyCenter": "N'est dans aucun centre",
+    "registered": "Inscrit",
+    "registrationDate": "Date d'inscription",
+    "viewUser": "Voir l'utilisateur",
+    "editUser": "Modifier l'utilisateur",
+    "deleteUser": "Supprimer l'utilisateur",
     "allRoles": "Tous les rôles",
     "allStatuses": "Tous les statuts",
     "allCenters": "Tous les centres",
+    "noCenter": "Aucun centre",
+    "centerNotFound": "Centre introuvable",
     "dateFrom": "Date de",
     "dateTo": "Date jusqu'à",
     "filters": "Filtres",
@@ -348,13 +361,17 @@
     "loading": "Chargement des utilisateurs...",
     "noUsersFound": "Aucun utilisateur ne correspond à vos filtres.",
     "noUsersAvailable": "Aucun utilisateur enregistré pour le moment.",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer l'utilisateur",
+    "deleting": "Suppression...",
+    "validate": "Valider",
     "statuses": {
       "PENDING": "En attente",
       "ACTIVE": "Actif",
       "INACTIVE": "Inactif"
     },
     "errors": {
-      "load": "Erreur lors du chargement des utilisateurs."
+      "load": "Erreur lors du chargement des utilisateurs.",
+      "nameEmailRequired": "Le nom et l'email sont obligatoires."
     }
   },
   "machines": {
@@ -377,6 +394,9 @@
     "quantity": "Quantité",
     "quantityHelp": "Nombre d'instances à créer (ex: 5 créera 'Tapis 1', 'Tapis 2', ... 'Tapis 5')",
     "model": "Modèle",
+    "addCenter": "Ajouter un centre",
+    "selectCenter": "Sélectionner un centre",
+    "centerNotFound": "Centre introuvable",
     "selectModel": "Sélectionnez un modèle",
     "addToCenter": "Ajouter au Centre",
     "noCentersAssigned": "Aucun centre assigné à ce modèle",
@@ -467,8 +487,10 @@
       "emailInvalid": "L'email n'est pas valide",
       "passwordRequired": "Le mot de passe est obligatoire",
       "passwordMinLength": "Le mot de passe doit contenir au moins 6 caractères",
+      "passwordPattern": "Le mot de passe ne respecte pas le format requis",
       "confirmPasswordRequired": "Vous devez confirmer le mot de passe",
-      "passwordsNotMatch": "Les mots de passe ne correspondent pas"
+      "passwordsNotMatch": "Les mots de passe ne correspondent pas",
+      "passwordsDoNotMatch": "Les mots de passe ne correspondent pas"
     }
   },
   "profileImage": {
@@ -580,7 +602,8 @@
       "load": "Erreur lors du chargement des plans d'adhésion",
       "create": "Erreur lors de la création du plan d'adhésion",
       "update": "Erreur lors de la mise à jour du plan d'adhésion",
-      "delete": "Erreur lors de la suppression du plan d'adhésion"
+      "delete": "Erreur lors de la suppression du plan d'adhésion",
+      "validation": "Veuillez remplir tous les champs obligatoires correctement"
     }
   }
 }
