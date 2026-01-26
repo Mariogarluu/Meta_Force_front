@@ -34,7 +34,7 @@
         <app-language-selector></app-language-selector>
 
         @if (auth.currentUser()) {
-          <div class="relative" (clickOutside)="closeNotifications()">
+          <div class="relative" appClickOutside (clickOutside)="closeNotifications()">
             <button 
               type="button" 
               class="notification-btn p-2 rounded-lg transition-colors bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 relative flex items-center justify-center" 
