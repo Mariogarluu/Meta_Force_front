@@ -207,6 +207,26 @@
       "myStatistics": {
         "title": "My Statistics"
       },
+      "workouts": {
+        "title": "Workouts",
+        "description": "Manage workouts and exercises",
+        "button": "Manage"
+      },
+      "diets": {
+        "title": "Diets",
+        "description": "Manage diets and meals",
+        "button": "Manage"
+      },
+      "exercises": {
+        "title": "Exercises",
+        "description": "Available exercise library",
+        "button": "Manage"
+      },
+      "meals": {
+        "title": "Meals",
+        "description": "Available meal library",
+        "button": "Manage"
+      },
       "memberships": {
         "title": "Membership Plans",
         "description": "Check out our plans and choose the one that best fits you",

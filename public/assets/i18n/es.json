@@ -207,6 +207,26 @@
       "myStatistics": {
         "title": "Mis Estadísticas"
       },
+      "workouts": {
+        "title": "Entrenamientos",
+        "description": "Gestiona entrenamientos y ejercicios",
+        "button": "Gestionar"
+      },
+      "diets": {
+        "title": "Dietas",
+        "description": "Gestiona dietas y comidas",
+        "button": "Gestionar"
+      },
+      "exercises": {
+        "title": "Ejercicios",
+        "description": "Banco de ejercicios disponibles",
+        "button": "Gestionar"
+      },
+      "meals": {
+        "title": "Comidas",
+        "description": "Banco de comidas disponibles",
+        "button": "Gestionar"
+      },
       "memberships": {
         "title": "Planes de Membresía",
         "description": "Consulta nuestros planes y elige el que mejor se adapte a ti",
