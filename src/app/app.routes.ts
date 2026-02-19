@@ -67,9 +67,9 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard('SUPERADMIN', 'ADMIN_CENTER')]
     },
     {
-         path: 'machines',
-         component: MachinesComponent,
-         canActivate: [authGuard]
+        path: 'machines',
+        component: MachinesComponent,
+        canActivate: [authGuard]
     },
     {
         path: 'clases',
@@ -113,6 +113,11 @@ export const routes: Routes = [
     {
         path: 'memberships',
         component: MembershipsComponent,
+        canActivate: [authGuard]
+    },
+    {
+        path: 'ai-chat',
+        loadComponent: () => import('./pages/ai-chat/ai-chat.component').then(m => m.AiChatComponent),
         canActivate: [authGuard]
     }
 ];

@@ -21,17 +21,14 @@ export class AuthService {
 
 
   constructor() {
-    const token = this.getToken();
-    if (token) {
-      this.loadUserProfile();
-    } else {
-      this._initialLoadComplete.next(true);
-    }
+    // Siempre intentar cargar perfil: puede haber sesión por cookie (HttpOnly)
+    // o token legacy en localStorage. Si falla (401), loadUserProfile maneja el error.
+    this.loadUserProfile();
   }
 
   /**
-   * Obtiene el token JWT almacenado en el localStorage del navegador.
-   * Retorna null si no existe ningún token almacenado.
+   * Obtiene el token JWT del localStorage (legacy). Para sesión segura por cookie
+   * no se usa; el navegador envía auth_token automáticamente con withCredentials.
    */
   private getToken(): string | null {
     return localStorage.getItem('jwt_token');
