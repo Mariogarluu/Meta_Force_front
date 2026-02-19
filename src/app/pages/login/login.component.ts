@@ -19,20 +19,20 @@ import { LanguageSelectorComponent } from '../../shared/components/language-sele
 export class LoginComponent implements OnDestroy {
   formLogin;
   errorMsg = signal<string>('');
-  private router:Router = inject(Router);
-  readonly navigateTo:string;
+  private router: Router = inject(Router);
+  readonly navigateTo: string;
   translate = inject(TranslateService);
-  
-  showPassword = signal(false); 
+
+  showPassword = signal(false);
   private authSubscription?: Subscription;
 
   constructor(
-    private formSvc:FormBuilder,
-    private auth:AuthService
-  ){
+    private formSvc: FormBuilder,
+    private auth: AuthService
+  ) {
     this.formLogin = this.formSvc.group({
-      'email':['', [Validators.required, Validators.email]],
-      'password':['', [Validators.required]],
+      'email': ['', [Validators.required, Validators.email]],
+      'password': ['', [Validators.required]],
     });
     this.navigateTo = history.state?.['navigateTo'] || '/dashboard';
   }
@@ -51,7 +51,7 @@ export class LoginComponent implements OnDestroy {
    * Redirige al dashboard o a la URL guardada si el login es exitoso.
    * Muestra mensajes de error si la autenticación falla.
    */
-  onSubmit(){
+  onSubmit() {
     if (this.formLogin.invalid) {
       this.formLogin.markAllAsTouched();
       return;
@@ -76,7 +76,7 @@ export class LoginComponent implements OnDestroy {
         }
       });
   }
-  
+
   /**
    * Navega a la página de registro del usuario.
    * Redirige al componente de registro para que el usuario pueda crear una nueva cuenta.
@@ -98,7 +98,7 @@ export class LoginComponent implements OnDestroy {
    * Genera mensajes personalizados según el tipo de error de validación encontrado.
    * Retorna cadena vacía si no hay errores o si el control no ha sido tocado.
    */
-  getError(control:string): string {
+  getError(control: string): string {
     // Si es un error global (del servidor: 400 o 401)
     if (control === 'global') {
       const msg = this.errorMsg();
@@ -108,7 +108,7 @@ export class LoginComponent implements OnDestroy {
       }
       return msg;
     }
-    
+
 
     const formControl = this.formLogin.get(control);
     if (!formControl || !formControl.touched || !formControl.errors) {
