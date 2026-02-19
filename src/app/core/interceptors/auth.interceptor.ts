@@ -1,24 +1,39 @@
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 
-/**
- * Interceptor HTTP que agrega automáticamente el token JWT a todas las peticiones HTTP.
- * Obtiene el token del localStorage y lo añade como header Authorization Bearer.
- */
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const token = localStorage.getItem('jwt_token');
+  const router = inject(Router);
 
-  let cloned = req.clone({
-    withCredentials: true
-  });
+  // 1. Obtención segura del token
+  const token = localStorage.getItem('auth_token');
 
+  // 2. Clonado y firma de la petición
+  let authReq = req;
   if (token) {
-    cloned = cloned.clone({
+    authReq = req.clone({
       setHeaders: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
+        'X-Requested-With': 'XMLHttpRequest'
       }
     });
   }
 
-  return next(cloned);
-};
+  return next(authReq).pipe(
+    catchError((error: HttpErrorResponse) => {
+      // 3. Manejo Centralizado de Errores
 
+      if (error.status === 401) {
+        localStorage.removeItem('auth_token');
+        router.navigate(['/auth/login']);
+      }
+
+      if (error.status === 403) {
+        console.warn('Intento de acceso no autorizado detectado.');
+      }
+
+      return throwError(() => error);
+    })
+  );
+};
