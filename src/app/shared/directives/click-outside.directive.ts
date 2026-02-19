@@ -1,18 +1,5 @@
 import { Directive, ElementRef, EventEmitter, inject, OnDestroy, Output } from '@angular/core';
 
-/**
- * Directiva que detecta clicks fuera del elemento al que está aplicada
- * y emite un evento cuando esto ocurre.
- * 
- * Útil para cerrar dropdowns, modales, menús, etc. cuando el usuario hace clic fuera de ellos.
- * 
- * @example
- * ```html
- * <div (clickOutside)="closeDropdown()">
- *   <!-- Contenido del dropdown -->
- * </div>
- * ```
- */
 @Directive({
   selector: '[appClickOutside]',
   standalone: true
