@@ -13,7 +13,7 @@ import { GlobalErrorHandler } from './core/handlers/global-error-handler';
  * Loader personalizado para cargar las traducciones desde archivos JSON.
  */
 class CustomTranslateLoader implements TranslateLoader {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getTranslation(lang: string): Observable<any> {
     return this.http.get(`/assets/i18n/${lang}.json`);
@@ -33,26 +33,24 @@ export function HttpLoaderFactory(http: HttpClient) {
  */
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }), 
-    provideRouter(routes), 
-    
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+
     // HTTP Client con Fetch API y Interceptor de Auth (Seguridad de Transporte)
     provideHttpClient(
-      withFetch(), 
+      withFetch(),
       withInterceptors([authInterceptor])
     ),
 
     // Configuración de Idiomas (Preservada)
     importProvidersFrom(
       TranslateModule.forRoot({
-        defaultLanguage: 'es',
         fallbackLang: 'es',
         loader: {
           provide: TranslateLoader,
           useFactory: HttpLoaderFactory,
           deps: [HttpClient]
-        },
-        useDefaultLang: true
+        }
       })
     ),
 
