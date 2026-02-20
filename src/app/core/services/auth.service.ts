@@ -31,7 +31,7 @@ export class AuthService {
    * no se usa; el navegador envía auth_token automáticamente con withCredentials.
    */
   private getToken(): string | null {
-    return localStorage.getItem('jwt_token');
+    return localStorage.getItem('auth_token');
   }
 
   /**
@@ -39,8 +39,7 @@ export class AuthService {
    * Almacena el token en localStorage para persistencia entre recargas de página.
    */
   private setSession(authResult: AuthResponse) {
-    // Ya no guardamos el token en localStorage por seguridad (HttpOnly Cookie)
-    // localStorage.setItem('jwt_token', authResult.token);
+    localStorage.setItem('auth_token', authResult.token);
     this._currentUser.set(authResult.user);
   }
 
@@ -100,13 +99,11 @@ export class AuthService {
     // Llamar al endpoint de logout para borrar la cookie
     this.http.post(`${this.apiUrl}/logout`, {}).subscribe({
       next: () => {
-        localStorage.removeItem('jwt_token'); // Limpiar por si acaso queda algo legacy
+        localStorage.removeItem('auth_token');
         this._currentUser.set(null);
-        // Redirigir a login si fuera necesario, pero eso suele hacerlo el componente/guard
       },
       error: () => {
-        // Incluso si falla, limpiamos el estado local
-        localStorage.removeItem('jwt_token');
+        localStorage.removeItem('auth_token');
         this._currentUser.set(null);
       }
     });
