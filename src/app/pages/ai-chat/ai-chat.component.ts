@@ -308,14 +308,14 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
   }
 
   savePlan(plan: AiWorkoutPlan) {
-    alert(\`✅ Rutina "\${plan.name}" lista para guardar en tu perfil.\\n\\n (La integración con Guardar Rutinas se realizará próximamente).\`);
+    alert(`✅ Rutina "${plan.name}" lista para guardar en tu perfil.\n\n (La integración con Guardar Rutinas se realizará próximamente).`);
   }
 
   // Helper to format basic markdown to HTML for better display if needed (e.g., bold text)
   formatMessage(text: string): string {
     if (!text) return '';
     // Format bold markdown (**text** -> <strong>text</strong>)
-    let formatted = text.replace(/\\*\\*(.*?)\\*\\*/g, '<strong>$1</strong>');
+    let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     return formatted;
   }
 }
