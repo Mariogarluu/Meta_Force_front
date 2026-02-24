@@ -79,7 +79,7 @@ interface ChatMessage {
         </div>
 
         <!-- Messages Area -->
-        <div class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 scroll-smooth pb-32" #scrollContainer>
+        <div class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 scroll-smooth" #scrollContainer>
           
           <!-- Empty State & Quick Prompts -->
           <div *ngIf="messages().length === 0" class="h-full flex flex-col items-center justify-center animate-fade-in-up mt-10">
@@ -176,9 +176,9 @@ interface ChatMessage {
           
         </div>
 
-        <!-- Input Area (Floating) -->
-        <div class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-white via-white/95 to-transparent pt-10">
-          <div class="relative max-w-4xl mx-auto flex items-end gap-2 bg-white rounded-2xl p-2 shadow-lg border border-gray-100 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-transparent transition-all">
+        <!-- Input Area (Static at Bottom) -->
+        <div class="p-4 bg-white/95 border-t border-gray-100 mt-auto">
+          <div class="relative max-w-4xl mx-auto flex items-end gap-2 bg-white rounded-2xl p-2 shadow-sm border border-gray-200 focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500 transition-all">
             <textarea 
               [(ngModel)]="userInput" 
               (keydown.enter)="onEnter($event)"
