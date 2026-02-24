@@ -3,17 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Observable } from 'rxjs';
 
-export interface AiWorkoutPlan {
+export interface AiGeneratedPlan {
+    type: "WORKOUT" | "DIET";
     name: string;
     description: string;
     days: {
         dayOfWeek: number;
-        exercises: {
-            exerciseName: string;
-            sets: number;
-            reps: number;
-            weight?: number;
-            restSeconds?: number;
+        items: {
+            name: string;
+            sets?: number;
+            reps?: number;
+            quantity?: string;
             notes?: string;
         }[];
     }[];
@@ -23,7 +23,7 @@ export interface ChatResponse {
     sessionId: string;
     response: {
         message: string;
-        plan?: AiWorkoutPlan;
+        plan?: AiGeneratedPlan;
     };
 }
 
@@ -51,5 +51,9 @@ export class AiService {
 
     getSessions(): Observable<ChatSession[]> {
         return this.http.get<ChatSession[]>(`${this.apiUrl}/sessions`);
+    }
+
+    savePlan(plan: AiGeneratedPlan): Observable<any> {
+        return this.http.post<any>(`${this.apiUrl}/save-plan`, { plan });
     }
 }
