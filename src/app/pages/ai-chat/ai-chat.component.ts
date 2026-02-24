@@ -1,13 +1,13 @@
 import { Component, inject, signal, OnInit, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AiService, AiWorkoutPlan, ChatSession } from '../../services/ai.service';
+import { AiService, AiGeneratedPlan, ChatSession } from '../../services/ai.service';
 import { finalize } from 'rxjs/operators';
 
 interface ChatMessage {
   role: 'user' | 'model';
   content: string;
-  plan?: AiWorkoutPlan;
+  plan?: AiGeneratedPlan;
 }
 
 @Component({
@@ -125,6 +125,10 @@ interface ChatMessage {
                     <div class="flex items-center gap-2 mb-1">
                       <span class="text-xl">📋</span>
                       <h4 class="font-black text-indigo-900 text-lg uppercase tracking-wide">{{ msg.plan.name }}</h4>
+                      <span *ngIf="msg.plan.type" class="text-xs font-bold px-2 py-0.5 rounded-full ml-auto"
+                            [ngClass]="msg.plan.type === 'WORKOUT' ? 'bg-indigo-200 text-indigo-800' : 'bg-orange-200 text-orange-800'">
+                        {{ msg.plan.type === 'WORKOUT' ? 'ENTRENAMIENTO' : 'DIETA' }}
+                      </span>
                     </div>
                     <p class="text-sm text-indigo-600/80 mb-4 font-medium">{{ msg.plan.description }}</p>
                     
@@ -132,26 +136,33 @@ interface ChatMessage {
                       <div *ngFor="let day of msg.plan.days" class="bg-white rounded-lg p-3 shadow-sm border border-gray-50 hover:shadow-md transition-shadow">
                         <div class="font-bold text-indigo-700 border-b pb-2 mb-2 flex justify-between items-center">
                           <span>Día {{ day.dayOfWeek }}</span>
-                          <span class="text-xs bg-indigo-100 px-2 py-1 rounded-full text-indigo-600">{{ day.exercises.length }} ej.</span>
+                          <span class="text-xs bg-indigo-100 px-2 py-1 rounded-full text-indigo-600">{{ day.items.length }} items</span>
                         </div>
                         <ul class="space-y-2">
-                          <li *ngFor="let ex of day.exercises" class="text-xs">
-                            <div class="font-semibold text-gray-700">{{ ex.exerciseName }}</div>
-                            <div class="text-gray-500 flex gap-2 mt-0.5">
-                               <span class="bg-gray-100 px-1.5 py-0.5 rounded">{{ ex.sets }} sets</span>
-                               <span class="bg-gray-100 px-1.5 py-0.5 rounded">{{ ex.reps }} reps</span>
+                          <li *ngFor="let item of day.items" class="text-xs">
+                            <div class="font-semibold text-gray-700">{{ item.name }}</div>
+                            <div class="text-gray-500 flex flex-wrap gap-2 mt-0.5">
+                               <span *ngIf="item.sets" class="bg-gray-100 px-1.5 py-0.5 rounded">{{ item.sets }} sets</span>
+                               <span *ngIf="item.reps" class="bg-gray-100 px-1.5 py-0.5 rounded">{{ item.reps }} reps</span>
+                               <span *ngIf="item.quantity" class="bg-orange-50 text-orange-700 px-1.5 py-0.5 rounded">{{ item.quantity }}</span>
+                               <span *ngIf="item.notes" class="text-gray-400 italic">"{{ item.notes }}"</span>
                             </div>
                           </li>
                         </ul>
                       </div>
                     </div>
                     
-                    <button (click)="savePlan(msg.plan)" class="mt-4 w-full bg-indigo-600 text-white py-2.5 rounded-lg hover:bg-indigo-700 transition-colors font-bold text-sm shadow-md hover:shadow-lg flex items-center justify-center gap-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <button (click)="savePlan(msg.plan)" [disabled]="isSavingPlan()" class="mt-4 w-full bg-indigo-600 text-white py-2.5 rounded-lg hover:bg-indigo-700 disabled:bg-indigo-300 transition-colors font-bold text-sm shadow-md flex items-center justify-center gap-2">
+                      <svg *ngIf="!isSavingPlan()" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
                       </svg>
-                      Guardar esta Rutina
+                      <span *ngIf="isSavingPlan()" class="h-4 w-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
+                      {{ isSavingPlan() ? 'Guardando...' : 'Guardar en mi Perfil' }}
                     </button>
+                    <div *ngIf="saveMessage()" class="mt-2 text-center text-xs font-bold p-2 rounded"
+                         [ngClass]="saveMessage().includes('Error') ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'">
+                       {{ saveMessage() }}
+                    </div>
                   </div>
                 </div>
 
@@ -224,6 +235,8 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
 
   userInput = '';
   isLoading = signal(false);
+  isSavingPlan = signal(false);
+  saveMessage = signal('');
 
   quickPrompts = [
     { icon: '💪', title: 'Rutina de Fuerza', desc: 'Plan de 3 días para hipertrofia', text: 'Hazme una rutina de fuerza de 3 días a la semana para ganar masa muscular.' },
@@ -307,8 +320,23 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
       });
   }
 
-  savePlan(plan: AiWorkoutPlan) {
-    alert(`✅ Rutina "${plan.name}" lista para guardar en tu perfil.\n\n (La integración con Guardar Rutinas se realizará próximamente).`);
+  savePlan(plan: AiGeneratedPlan) {
+    this.isSavingPlan.set(true);
+    this.saveMessage.set('');
+
+    this.aiService.savePlan(plan).pipe(
+      finalize(() => this.isSavingPlan.set(false))
+    ).subscribe({
+      next: (res) => {
+        this.saveMessage.set(`✅ ¡${plan.type === 'WORKOUT' ? 'Rutina' : 'Dieta'} guardada exitosamente!`);
+        setTimeout(() => this.saveMessage.set(''), 4000);
+      },
+      error: (err) => {
+        console.error('Error guardando plan', err);
+        this.saveMessage.set('❌ Error al guardar en tu perfil.');
+        setTimeout(() => this.saveMessage.set(''), 4000);
+      }
+    });
   }
 
   // Helper to format basic markdown to HTML for better display if needed (e.g., bold text)
