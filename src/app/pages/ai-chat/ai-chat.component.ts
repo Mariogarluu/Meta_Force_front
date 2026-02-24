@@ -136,10 +136,10 @@ interface ChatMessage {
                       <div *ngFor="let day of msg.plan.days" class="bg-white rounded-lg p-3 shadow-sm border border-gray-50 hover:shadow-md transition-shadow">
                         <div class="font-bold text-indigo-700 border-b pb-2 mb-2 flex justify-between items-center">
                           <span>Día {{ day.dayOfWeek }}</span>
-                          <span class="text-xs bg-indigo-100 px-2 py-1 rounded-full text-indigo-600">{{ day.items.length }} items</span>
+                          <span class="text-xs bg-indigo-100 px-2 py-1 rounded-full text-indigo-600">{{ getItems(day).length }} items</span>
                         </div>
                         <ul class="space-y-2">
-                          <li *ngFor="let item of day.items" class="text-xs">
+                          <li *ngFor="let item of getItems(day)" class="text-xs">
                             <div class="font-semibold text-gray-700">{{ item.name }}</div>
                             <div class="text-gray-500 flex flex-wrap gap-2 mt-0.5">
                                <span *ngIf="item.sets" class="bg-gray-100 px-1.5 py-0.5 rounded">{{ item.sets }} sets</span>
@@ -324,7 +324,16 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     this.isSavingPlan.set(true);
     this.saveMessage.set('');
 
-    this.aiService.savePlan(plan).pipe(
+    // Safety fallback before sending to backend to ensure "items" is always populated
+    const sanitizedPlan: AiGeneratedPlan = {
+      ...plan,
+      days: plan.days.map(d => ({
+        ...d,
+        items: this.getItems(d)
+      }))
+    };
+
+    this.aiService.savePlan(sanitizedPlan).pipe(
       finalize(() => this.isSavingPlan.set(false))
     ).subscribe({
       next: (res) => {
@@ -337,6 +346,10 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
         setTimeout(() => this.saveMessage.set(''), 4000);
       }
     });
+  }
+
+  getItems(day: any): any[] {
+    return day.items || day.exercises || day.meals || [];
   }
 
   // Helper to format basic markdown to HTML for better display if needed (e.g., bold text)
