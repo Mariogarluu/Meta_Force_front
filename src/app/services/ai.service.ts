@@ -56,4 +56,8 @@ export class AiService {
     savePlan(plan: AiGeneratedPlan): Observable<any> {
         return this.http.post<any>(`${this.apiUrl}/save-plan`, { plan });
     }
+
+    deleteSession(sessionId: string): Observable<any> {
+        return this.http.delete<any>(`${this.apiUrl}/sessions/${sessionId}`);
+    }
 }

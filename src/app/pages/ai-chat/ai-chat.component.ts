@@ -40,15 +40,26 @@ interface ChatMessage {
           </div>
 
           <div *ngFor="let session of sessions()" 
-               (click)="loadSession(session)"
                [class.bg-indigo-500]="currentSessionId() === session.id"
                [class.text-white]="currentSessionId() === session.id"
                [class.hover:bg-gray-50]="currentSessionId() !== session.id"
-               class="p-3 rounded-xl cursor-pointer text-sm truncate border border-transparent transition-all duration-200 shadow-sm group">
-             <div class="font-medium truncate group-hover:text-indigo-600 transition-colors" [class.text-white]="currentSessionId() === session.id" [class.group-hover:text-white]="currentSessionId() === session.id">
-               {{ session.title || 'Chat del ' + (session.createdAt | date:'shortDate') }}
+               class="p-3 rounded-xl text-sm border border-transparent transition-all duration-200 shadow-sm group flex items-center justify-between relative">
+               
+             <div class="flex-1 cursor-pointer overflow-hidden" (click)="loadSession(session)">
+               <div class="font-medium truncate group-hover:text-indigo-600 transition-colors" [class.text-white]="currentSessionId() === session.id" [class.group-hover:text-white]="currentSessionId() === session.id">
+                 {{ session.title || 'Chat del ' + (session.createdAt | date:'shortDate') }}
+               </div>
+               <div class="text-xs opacity-70 mt-1">{{ session.createdAt | date:'shortTime' }}</div>
              </div>
-             <div class="text-xs opacity-70 mt-1">{{ session.createdAt | date:'shortTime' }}</div>
+             
+             <!-- Delete Button on Hover -->
+             <button (click)="confirmDeleteSession($event, session)"
+                     class="opacity-0 group-hover:opacity-100 p-2 rounded-lg hover:bg-red-500/20 text-red-400 hover:text-red-600 transition-all absolute right-2"
+                     title="Borrar Chat">
+               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+               </svg>
+             </button>
           </div>
         </div>
       </div>
@@ -210,6 +221,33 @@ interface ChatMessage {
         </div>
       </div>
     </div>
+
+    <!-- Custom Tailwind App Modal for Delete Confirmation -->
+    <div *ngIf="showDeleteModal()" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl p-6 max-w-sm w-full border border-gray-100 shadow-2xl animate-fade-in-up">
+        <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mb-4 mx-auto">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-center text-gray-800 mb-2">¿Eliminar chat?</h3>
+        <p class="text-sm text-center text-gray-500 mb-6">
+          Estás a punto de eliminar "{{ sessionToDelete()?.title || 'este chat' }}". Esta acción no se puede deshacer.
+        </p>
+        <div class="flex gap-3">
+          <button (click)="cancelDelete()"
+                  class="flex-1 py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition-colors font-medium text-sm">
+            Cancelar
+          </button>
+          <button (click)="executeDelete()"
+                  [disabled]="isDeleting()"
+                  class="flex-1 py-2.5 px-4 bg-red-600 hover:bg-red-700 text-white rounded-xl transition-colors disabled:opacity-50 disabled:bg-gray-300 font-medium text-sm flex items-center justify-center gap-2">
+            <span *ngIf="isDeleting()" class="h-4 w-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
+            {{ isDeleting() ? 'Eliminando...' : 'Eliminar' }}
+          </button>
+        </div>
+      </div>
+    </div>
   `,
   styles: [`
     .animate-fade-in { animation: fadeIn 0.3s ease-out forwards; }
@@ -237,6 +275,10 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
   isLoading = signal(false);
   isSavingPlan = signal(false);
   saveMessage = signal('');
+
+  showDeleteModal = signal(false);
+  sessionToDelete = signal<ChatSession | null>(null);
+  isDeleting = signal(false);
 
   quickPrompts = [
     { icon: '💪', title: 'Rutina de Fuerza', desc: 'Plan de 3 días para hipertrofia', text: 'Hazme una rutina de fuerza de 3 días a la semana para ganar masa muscular.' },
@@ -358,5 +400,38 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     // Format bold markdown (**text** -> <strong>text</strong>)
     let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     return formatted;
+  }
+
+  confirmDeleteSession(event: Event, session: ChatSession) {
+    event.stopPropagation();
+    this.sessionToDelete.set(session);
+    this.showDeleteModal.set(true);
+  }
+
+  cancelDelete() {
+    this.showDeleteModal.set(false);
+    this.sessionToDelete.set(null);
+  }
+
+  executeDelete() {
+    const session = this.sessionToDelete();
+    if (!session) return;
+
+    this.isDeleting.set(true);
+    this.aiService.deleteSession(session.id).pipe(
+      finalize(() => this.isDeleting.set(false))
+    ).subscribe({
+      next: () => {
+        if (this.currentSessionId() === session.id) {
+          this.startNewChat();
+        }
+        this.refreshSessions();
+        this.cancelDelete();
+      },
+      error: (err) => {
+        console.error('Error deleting session', err);
+        this.cancelDelete();
+      }
+    });
   }
 }
