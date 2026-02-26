@@ -223,27 +223,32 @@ interface ChatMessage {
     </div>
 
     <!-- Custom Tailwind App Modal for Delete Confirmation -->
-    <div *ngIf="showDeleteModal()" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div class="bg-white rounded-2xl p-6 max-w-sm w-full border border-gray-100 shadow-2xl animate-fade-in-up">
-        <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mb-4 mx-auto">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+    <div *ngIf="showDeleteModal()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl animate-fade-in-up border border-indigo-50">
+        
+        <div class="w-16 h-16 rounded-full bg-red-50 text-red-500 flex items-center justify-center mb-6 mx-auto shadow-sm border border-red-100">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
         </div>
-        <h3 class="text-xl font-bold text-center text-gray-800 mb-2">¿Eliminar chat?</h3>
-        <p class="text-sm text-center text-gray-500 mb-6">
-          Estás a punto de eliminar "{{ sessionToDelete()?.title || 'este chat' }}". Esta acción no se puede deshacer.
+        
+        <h3 class="text-2xl font-bold text-center text-gray-800 mb-3 tracking-tight">¿Eliminar chat?</h3>
+        
+        <p class="text-base text-center text-gray-500 mb-8 leading-relaxed">
+          Estás a punto de eliminar <span class="font-semibold text-gray-700">"{{ sessionToDelete()?.title || 'este chat' }}"</span>. Esta acción no se puede deshacer.
         </p>
-        <div class="flex gap-3">
+        
+        <div class="flex gap-4">
           <button (click)="cancelDelete()"
-                  class="flex-1 py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl transition-colors font-medium text-sm">
+                  class="flex-1 py-3 px-4 bg-gray-50 hover:bg-gray-100 text-gray-700 rounded-xl transition-all font-semibold text-sm border border-gray-200 shadow-sm">
             Cancelar
           </button>
+          
           <button (click)="executeDelete()"
                   [disabled]="isDeleting()"
-                  class="flex-1 py-2.5 px-4 bg-red-600 hover:bg-red-700 text-white rounded-xl transition-colors disabled:opacity-50 disabled:bg-gray-300 font-medium text-sm flex items-center justify-center gap-2">
+                  class="flex-1 py-3 px-4 bg-red-500 hover:bg-red-600 active:bg-red-700 text-white rounded-xl transition-all disabled:opacity-50 font-semibold text-sm shadow-md shadow-red-500/20 flex items-center justify-center gap-2">
             <span *ngIf="isDeleting()" class="h-4 w-4 rounded-full border-2 border-white border-t-transparent animate-spin"></span>
-            {{ isDeleting() ? 'Eliminando...' : 'Eliminar' }}
+            {{ isDeleting() ? 'Borrando...' : 'Sí, eliminar' }}
           </button>
         </div>
       </div>
