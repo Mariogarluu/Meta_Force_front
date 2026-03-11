@@ -13,28 +13,25 @@ export class AuthService {
   private http = inject(HttpClient);
   private apiUrl = `${environment.apiUrl}/auth`;
   private _currentUser = signal<User | null>(null);
-  
+
   public readonly currentUser = this._currentUser.asReadonly();
-  
+
   private _initialLoadComplete = new ReplaySubject<boolean>(1);
   public readonly initialLoadComplete = this._initialLoadComplete.asObservable();
 
 
   constructor() {
-    const token = this.getToken();
-    if (token) {
-      this.loadUserProfile();
-    } else {
-      this._initialLoadComplete.next(true); 
-    }
+    // Siempre intentar cargar perfil: puede haber sesión por cookie (HttpOnly)
+    // o token legacy en localStorage. Si falla (401), loadUserProfile maneja el error.
+    this.loadUserProfile();
   }
 
   /**
-   * Obtiene el token JWT almacenado en el localStorage del navegador.
-   * Retorna null si no existe ningún token almacenado.
+   * Obtiene el token JWT del localStorage (legacy). Para sesión segura por cookie
+   * no se usa; el navegador envía auth_token automáticamente con withCredentials.
    */
   private getToken(): string | null {
-    return localStorage.getItem('jwt_token');
+    return localStorage.getItem('auth_token');
   }
 
   /**
@@ -42,10 +39,10 @@ export class AuthService {
    * Almacena el token en localStorage para persistencia entre recargas de página.
    */
   private setSession(authResult: AuthResponse) {
-    localStorage.setItem('jwt_token', authResult.token);
+    localStorage.setItem('auth_token', authResult.token);
     this._currentUser.set(authResult.user);
   }
-  
+
   /**
    * Carga el perfil del usuario autenticado desde la API utilizando el token almacenado.
    * Actualiza el signal del usuario actual con la información obtenida.
@@ -99,8 +96,17 @@ export class AuthService {
    * Debe llamarse cuando el usuario hace logout o cuando se detecta una sesión inválida.
    */
   logout() {
-    localStorage.removeItem('jwt_token');
-    this._currentUser.set(null);
+    // Llamar al endpoint de logout para borrar la cookie
+    this.http.post(`${this.apiUrl}/logout`, {}).subscribe({
+      next: () => {
+        localStorage.removeItem('auth_token');
+        this._currentUser.set(null);
+      },
+      error: () => {
+        localStorage.removeItem('auth_token');
+        this._currentUser.set(null);
+      }
+    });
   }
 
   /**
