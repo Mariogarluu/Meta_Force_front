@@ -1,25 +1,10 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { authGuard } from './core/guards/auth.guard';
 import { guestGuard } from './core/guards/guest.guard';
-import { RegisterComponent } from './pages/register/register.component';
-import { CentersComponent } from './pages/centers/centers.component';
-import { UsersComponent } from './pages/users/users.component';
-import { QrComponent } from './pages/qr/qr.component';
-import { QrScannerComponent } from './pages/qr-scanner/qr-scanner.component';
-import { MachinesComponent } from './pages/machines/machines.component';
-import { ClasesComponent } from './pages/clases/clases.component';
-import { HomeComponent } from './pages/home/home.component';
-import { TrainersComponent } from './pages/trainers/trainers.component';
-import { ContactComponent } from './pages/contact/contact.component';
-import { TicketsComponent } from './pages/tickets/tickets.component';
-import { WorkoutsComponent } from './pages/workouts/workouts.component';
-import { DietsComponent } from './pages/diets/diets.component';
-import { ExercisesComponent } from './pages/exercises/exercises.component';
-import { MealsComponent } from './pages/meals/meals.component';
-import { MembershipsComponent } from './pages/memberships/memberships.component';
 import { roleGuard } from './core/guards/role.guard';
+import { HomeComponent } from './pages/home/home.component';
+import { ContactComponent } from './pages/contact/contact.component';
+
 
 export const routes: Routes = [
     {
@@ -33,52 +18,52 @@ export const routes: Routes = [
     },
     {
         path: 'login',
-        component: LoginComponent,
+        loadComponent: () => import('./pages/login/login.component').then(m => m.LoginComponent),
         canActivate: [guestGuard]
     },
     {
         path: 'register',
-        component: RegisterComponent,
+        loadComponent: () => import('./pages/register/register.component').then(m => m.RegisterComponent),
         canActivate: [guestGuard]
     },
     {
         path: 'dashboard',
-        component: DashboardComponent,
+        loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
         canActivate: [authGuard]
     },
     {
         path: 'centers',
-        component: CentersComponent,
+        loadComponent: () => import('./pages/centers/centers.component').then(m => m.CentersComponent),
         canActivate: [authGuard]
     },
     {
         path: 'users',
-        component: UsersComponent,
+        loadComponent: () => import('./pages/users/users.component').then(m => m.UsersComponent),
         canActivate: [authGuard]
     },
     {
         path: 'qr',
-        component: QrComponent,
+        loadComponent: () => import('./pages/qr/qr.component').then(m => m.QrComponent),
         canActivate: [authGuard]
     },
     {
         path: 'qr-scanner',
-        component: QrScannerComponent,
+        loadComponent: () => import('./pages/qr-scanner/qr-scanner.component').then(m => m.QrScannerComponent),
         canActivate: [authGuard, roleGuard('SUPERADMIN', 'ADMIN_CENTER')]
     },
     {
-         path: 'machines',
-         component: MachinesComponent,
-         canActivate: [authGuard]
+        path: 'machines',
+        loadComponent: () => import('./pages/machines/machines.component').then(m => m.MachinesComponent),
+        canActivate: [authGuard]
     },
     {
         path: 'clases',
-        component: ClasesComponent,
+        loadComponent: () => import('./pages/clases/clases.component').then(m => m.ClasesComponent),
         canActivate: [authGuard]
     },
     {
         path: 'trainers',
-        component: TrainersComponent,
+        loadComponent: () => import('./pages/trainers/trainers.component').then(m => m.TrainersComponent),
         canActivate: [authGuard]
     },
     {
@@ -87,32 +72,37 @@ export const routes: Routes = [
     },
     {
         path: 'tickets',
-        component: TicketsComponent,
+        loadComponent: () => import('./pages/tickets/tickets.component').then(m => m.TicketsComponent),
         canActivate: [authGuard, roleGuard('SUPERADMIN', 'ADMIN_CENTER')]
     },
     {
         path: 'workouts',
-        component: WorkoutsComponent,
+        loadComponent: () => import('./pages/workouts/workouts.component').then(m => m.WorkoutsComponent),
         canActivate: [authGuard]
     },
     {
         path: 'diets',
-        component: DietsComponent,
+        loadComponent: () => import('./pages/diets/diets.component').then(m => m.DietsComponent),
         canActivate: [authGuard]
     },
     {
         path: 'exercises',
-        component: ExercisesComponent,
+        loadComponent: () => import('./pages/exercises/exercises.component').then(m => m.ExercisesComponent),
         canActivate: [authGuard]
     },
     {
         path: 'meals',
-        component: MealsComponent,
+        loadComponent: () => import('./pages/meals/meals.component').then(m => m.MealsComponent),
         canActivate: [authGuard]
     },
     {
         path: 'memberships',
-        component: MembershipsComponent,
+        loadComponent: () => import('./pages/memberships/memberships.component').then(m => m.MembershipsComponent),
+        canActivate: [authGuard]
+    },
+    {
+        path: 'ai-chat',
+        loadComponent: () => import('./pages/ai-chat/ai-chat.component').then(m => m.AiChatComponent),
         canActivate: [authGuard]
     }
 ];
