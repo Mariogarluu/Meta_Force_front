@@ -2,6 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+/**
+ * Global footer component.
+ * Displays navigation links and resource references for the application.
+ */
 @Component({
   selector: 'app-footer',
   standalone: true,

@@ -4,10 +4,12 @@ export type MachineType = 'cardio' | 'fuerza' | 'peso libre' | 'funcional' | 'ot
 export type MachineStatus = 'operativa' | 'en mantenimiento' | 'fuera de servicio';
 
 // Instancia de una máquina en un centro específico
+/** Instance of a machine in a specific center */
 export interface MachineCenterInstance {
   id: string;
   machineTypeId: string;
-  instanceNumber: number; // Número de instancia: 1, 2, 3... (ej: "Cinta 1", "Cinta 2")
+  /** Instance number (e.g., Treadmill 1, Treadmill 2) */
+  instanceNumber: number;
   centerId: string;
   status: MachineStatus;
   machineType?: {
@@ -25,13 +27,14 @@ export interface MachineCenterInstance {
 }
 
 // Tipo de máquina (ej: "Cinta de correr", "Prensa de piernas")
+/** Machine type definition (e.g., "Treadmill", "Leg Press") */
 export interface MachineTypeModel {
   id: string;
   name: string;
   type: MachineType;
   createdAt?: string;
   updatedAt?: string;
-  // Instancias de esta máquina en diferentes centros
+  /** Instances of this machine in different centers */
   instances?: MachineCenterInstance[];
 }
 

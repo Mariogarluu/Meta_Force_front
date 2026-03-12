@@ -1,3 +1,4 @@
+/** Priority levels for notifications */
 export type NotificationType = 'INFO' | 'WARNING' | 'SUCCESS' | 'ERROR';
 
 export interface Notification {

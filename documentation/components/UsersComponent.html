@@ -1,0 +1,3516 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>credentials documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">credentials documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  UsersComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/users/users.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Users administration page component.
+Provides functionality for searching, filtering, and managing user profiles,
+including roles, statuses, and assigned centers.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-users</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                                <code><a href="https://angular.io/api/router/RouterModule" target="_blank" >RouterModule</a></code>
+                                <code><a href="https://angular.io/api/common/DatePipe" target="_blank" >DatePipe</a></code>
+                            <code>TranslateModule</code>
+                                <code><a href="../components/NavbarComponent.html" target="_self" >NavbarComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./users.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./users.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#auth" >auth</a>
+                            </li>
+                            <li>
+                                <a href="#canAssignCenter" >canAssignCenter</a>
+                            </li>
+                            <li>
+                                <a href="#canDelete" >canDelete</a>
+                            </li>
+                            <li>
+                                <a href="#canEdit" >canEdit</a>
+                            </li>
+                            <li>
+                                <a href="#centers" >centers</a>
+                            </li>
+                            <li>
+                                <a href="#centersService" >centersService</a>
+                            </li>
+                            <li>
+                                <a href="#currentUser" >currentUser</a>
+                            </li>
+                            <li>
+                                <a href="#errorMessage" >errorMessage</a>
+                            </li>
+                            <li>
+                                <a href="#filterCenter" >filterCenter</a>
+                            </li>
+                            <li>
+                                <a href="#filterDateFrom" >filterDateFrom</a>
+                            </li>
+                            <li>
+                                <a href="#filterDateTo" >filterDateTo</a>
+                            </li>
+                            <li>
+                                <a href="#filteredUsers" >filteredUsers</a>
+                            </li>
+                            <li>
+                                <a href="#filterEmail" >filterEmail</a>
+                            </li>
+                            <li>
+                                <a href="#filterName" >filterName</a>
+                            </li>
+                            <li>
+                                <a href="#filterRole" >filterRole</a>
+                            </li>
+                            <li>
+                                <a href="#filterStatus" >filterStatus</a>
+                            </li>
+                            <li>
+                                <a href="#hasActiveFilters" >hasActiveFilters</a>
+                            </li>
+                            <li>
+                                <a href="#isAdminCenter" >isAdminCenter</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#isSuperAdmin" >isSuperAdmin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#roles" >roles</a>
+                            </li>
+                            <li>
+                                <a href="#selectedUser" >selectedUser</a>
+                            </li>
+                            <li>
+                                <a href="#showDeleteModal" >showDeleteModal</a>
+                            </li>
+                            <li>
+                                <a href="#showEditModal" >showEditModal</a>
+                            </li>
+                            <li>
+                                <a href="#showFilters" >showFilters</a>
+                            </li>
+                            <li>
+                                <a href="#showViewModal" >showViewModal</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#statuses" >statuses</a>
+                            </li>
+                            <li>
+                                <a href="#translate" >translate</a>
+                            </li>
+                            <li>
+                                <a href="#userForm" >userForm</a>
+                            </li>
+                            <li>
+                                <a href="#users" >users</a>
+                            </li>
+                            <li>
+                                <a href="#usersService" >usersService</a>
+                            </li>
+                            <li>
+                                <a href="#viewUser" >viewUser</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clearFilters" >clearFilters</a>
+                            </li>
+                            <li>
+                                <a href="#closeDeleteModal" >closeDeleteModal</a>
+                            </li>
+                            <li>
+                                <a href="#closeEditModal" >closeEditModal</a>
+                            </li>
+                            <li>
+                                <a href="#closeViewModal" >closeViewModal</a>
+                            </li>
+                            <li>
+                                <a href="#deleteUser" >deleteUser</a>
+                            </li>
+                            <li>
+                                <a href="#getCenterName" >getCenterName</a>
+                            </li>
+                            <li>
+                                <a href="#getRoleIcon" >getRoleIcon</a>
+                            </li>
+                            <li>
+                                <a href="#getRoleName" >getRoleName</a>
+                            </li>
+                            <li>
+                                <a href="#getStatusColor" >getStatusColor</a>
+                            </li>
+                            <li>
+                                <a href="#getStatusName" >getStatusName</a>
+                            </li>
+                            <li>
+                                <a href="#getStatusText" >getStatusText</a>
+                            </li>
+                            <li>
+                                <a href="#loadCenters" >loadCenters</a>
+                            </li>
+                            <li>
+                                <a href="#loadUsers" >loadUsers</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openDeleteModal" >openDeleteModal</a>
+                            </li>
+                            <li>
+                                <a href="#openEditModal" >openEditModal</a>
+                            </li>
+                            <li>
+                                <a href="#openViewModal" >openViewModal</a>
+                            </li>
+                            <li>
+                                <a href="#toggleFilters" >toggleFilters</a>
+                            </li>
+                            <li>
+                                <a href="#updateUser" >updateUser</a>
+                            </li>
+                            <li>
+                                <a href="#validateUser" >validateUser</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="clearFilters"></a>
+                    <span class="name">
+                        <span ><b>clearFilters</b></span>
+                        <a href="#clearFilters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>clearFilters()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="346"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:346</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeDeleteModal"></a>
+                    <span class="name">
+                        <span ><b>closeDeleteModal</b></span>
+                        <a href="#closeDeleteModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeDeleteModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="216"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:216</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeEditModal"></a>
+                    <span class="name">
+                        <span ><b>closeEditModal</b></span>
+                        <a href="#closeEditModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeEditModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="204"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:204</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeViewModal"></a>
+                    <span class="name">
+                        <span ><b>closeViewModal</b></span>
+                        <a href="#closeViewModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeViewModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="174"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:174</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteUser"></a>
+                    <span class="name">
+                        <span ><b>deleteUser</b></span>
+                        <a href="#deleteUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteUser()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="261"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:261</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCenterName"></a>
+                    <span class="name">
+                        <span ><b>getCenterName</b></span>
+                        <a href="#getCenterName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCenterName(centerId?: string | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="332"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:332</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>centerId</td>
+                                            <td>
+                                                        <code>string | null</code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRoleIcon"></a>
+                    <span class="name">
+                        <span ><b>getRoleIcon</b></span>
+                        <a href="#getRoleIcon"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getRoleIcon(role: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="312"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:312</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>role</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getRoleName"></a>
+                    <span class="name">
+                        <span ><b>getRoleName</b></span>
+                        <a href="#getRoleName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getRoleName(role: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="328"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:328</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>role</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getStatusColor"></a>
+                    <span class="name">
+                        <span ><b>getStatusColor</b></span>
+                        <a href="#getStatusColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getStatusColor(status?: <a href="../miscellaneous/typealiases.html#UserStatus" target="_self">UserStatus</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="292"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:292</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>status</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#UserStatus" target="_self" >UserStatus</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getStatusName"></a>
+                    <span class="name">
+                        <span ><b>getStatusName</b></span>
+                        <a href="#getStatusName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getStatusName(status: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="338"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:338</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>status</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getStatusText"></a>
+                    <span class="name">
+                        <span ><b>getStatusText</b></span>
+                        <a href="#getStatusText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getStatusText(status?: <a href="../miscellaneous/typealiases.html#UserStatus" target="_self">UserStatus</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="301"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:301</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>status</td>
+                                            <td>
+                                                            <code><a href="../miscellaneous/typealiases.html#UserStatus" target="_self" >UserStatus</a></code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadCenters"></a>
+                    <span class="name">
+                        <span ><b>loadCenters</b></span>
+                        <a href="#loadCenters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadCenters()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="145"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:145</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadUsers"></a>
+                    <span class="name">
+                        <span ><b>loadUsers</b></span>
+                        <a href="#loadUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadUsers()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="129"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:129</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="122"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:122</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDeleteModal"></a>
+                    <span class="name">
+                        <span ><b>openDeleteModal</b></span>
+                        <a href="#openDeleteModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openDeleteModal(user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="210"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:210</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openEditModal"></a>
+                    <span class="name">
+                        <span ><b>openEditModal</b></span>
+                        <a href="#openEditModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openEditModal(user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="180"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:180</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openViewModal"></a>
+                    <span class="name">
+                        <span ><b>openViewModal</b></span>
+                        <a href="#openViewModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openViewModal(user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="156"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:156</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleFilters"></a>
+                    <span class="name">
+                        <span ><b>toggleFilters</b></span>
+                        <a href="#toggleFilters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleFilters()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="342"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:342</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateUser"></a>
+                    <span class="name">
+                        <span ><b>updateUser</b></span>
+                        <a href="#updateUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateUser()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="222"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:222</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateUser"></a>
+                    <span class="name">
+                        <span ><b>validateUser</b></span>
+                        <a href="#validateUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>validateUser(user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="281"
+                                    class="link-to-prism">src/app/pages/users/users.component.ts:281</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>user</td>
+                                            <td>
+                                                            <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="auth"></a>
+                    <span class="name">
+                        <span ><b>auth</b></span>
+                        <a href="#auth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/pages/users/users.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canAssignCenter"></a>
+                    <span class="name">
+                        <span ><b>canAssignCenter</b></span>
+                        <a href="#canAssignCenter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.isSuperAdmin())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/pages/users/users.component.ts:69</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canDelete"></a>
+                    <span class="name">
+                        <span ><b>canDelete</b></span>
+                        <a href="#canDelete"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.isSuperAdmin() || this.isAdminCenter())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/pages/users/users.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canEdit"></a>
+                    <span class="name">
+                        <span ><b>canEdit</b></span>
+                        <a href="#canEdit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.isSuperAdmin() || this.isAdminCenter())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/pages/users/users.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="centers"></a>
+                    <span class="name">
+                        <span ><b>centers</b></span>
+                        <a href="#centers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Center[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/users/users.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="centersService"></a>
+                    <span class="name">
+                        <span ><b>centersService</b></span>
+                        <a href="#centersService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(CentersService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/pages/users/users.component.ts:27</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentUser"></a>
+                    <span class="name">
+                        <span ><b>currentUser</b></span>
+                        <a href="#currentUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.auth.currentUser())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="64" class="link-to-prism">src/app/pages/users/users.component.ts:64</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorMessage"></a>
+                    <span class="name">
+                        <span ><b>errorMessage</b></span>
+                        <a href="#errorMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/users/users.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterCenter"></a>
+                    <span class="name">
+                        <span ><b>filterCenter</b></span>
+                        <a href="#filterCenter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/pages/users/users.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterDateFrom"></a>
+                    <span class="name">
+                        <span ><b>filterDateFrom</b></span>
+                        <a href="#filterDateFrom"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/users/users.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterDateTo"></a>
+                    <span class="name">
+                        <span ><b>filterDateTo</b></span>
+                        <a href="#filterDateTo"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/pages/users/users.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredUsers"></a>
+                    <span class="name">
+                        <span ><b>filteredUsers</b></span>
+                        <a href="#filteredUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    let filtered &#x3D; this.users();
+    
+    if (this.filterName()) {
+      const nameFilter &#x3D; this.filterName().toLowerCase();
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; u.name.toLowerCase().includes(nameFilter));
+    }
+    
+    if (this.filterEmail()) {
+      const emailFilter &#x3D; this.filterEmail().toLowerCase();
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; u.email.toLowerCase().includes(emailFilter));
+    }
+    
+    if (this.filterRole()) {
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; u.role &#x3D;&#x3D;&#x3D; this.filterRole());
+    }
+    
+    if (this.filterStatus()) {
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; u.status &#x3D;&#x3D;&#x3D; this.filterStatus());
+    }
+    
+    if (this.filterCenter()) {
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; 
+        u.favoriteCenterId &#x3D;&#x3D;&#x3D; this.filterCenter() || 
+        u.favoriteCenter?.id &#x3D;&#x3D;&#x3D; this.filterCenter() ||
+        u.centerId &#x3D;&#x3D;&#x3D; this.filterCenter() ||
+        u.center?.id &#x3D;&#x3D;&#x3D; this.filterCenter()
+      );
+    }
+    
+    if (this.filterDateFrom()) {
+      const dateFrom &#x3D; new Date(this.filterDateFrom());
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; {
+        if (!u.createdAt) return false;
+        return new Date(u.createdAt) &gt;&#x3D; dateFrom;
+      });
+    }
+    
+    if (this.filterDateTo()) {
+      const dateTo &#x3D; new Date(this.filterDateTo());
+      dateTo.setHours(23, 59, 59, 999); // Incluir todo el día
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; {
+        if (!u.createdAt) return false;
+        return new Date(u.createdAt) &lt;&#x3D; dateTo;
+      });
+    }
+    
+    return filtered;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/pages/users/users.component.ts:72</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterEmail"></a>
+                    <span class="name">
+                        <span ><b>filterEmail</b></span>
+                        <a href="#filterEmail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/pages/users/users.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterName"></a>
+                    <span class="name">
+                        <span ><b>filterName</b></span>
+                        <a href="#filterName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/users/users.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterRole"></a>
+                    <span class="name">
+                        <span ><b>filterRole</b></span>
+                        <a href="#filterRole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Role | &#x27;&#x27;&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/pages/users/users.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterStatus"></a>
+                    <span class="name">
+                        <span ><b>filterStatus</b></span>
+                        <a href="#filterStatus"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;UserStatus | &#x27;&#x27;&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/pages/users/users.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="hasActiveFilters"></a>
+                    <span class="name">
+                        <span ><b>hasActiveFilters</b></span>
+                        <a href="#hasActiveFilters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    return !!(
+      this.filterName() ||
+      this.filterEmail() ||
+      this.filterRole() ||
+      this.filterStatus() ||
+      this.filterCenter() ||
+      this.filterDateFrom() ||
+      this.filterDateTo()
+    );
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="356" class="link-to-prism">src/app/pages/users/users.component.ts:356</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAdminCenter"></a>
+                    <span class="name">
+                        <span ><b>isAdminCenter</b></span>
+                        <a href="#isAdminCenter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;ADMIN_CENTER&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/pages/users/users.component.ts:66</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/users/users.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isSuperAdmin"></a>
+                    <span class="name">
+                        <span ><b>isSuperAdmin</b></span>
+                        <a href="#isSuperAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;SUPERADMIN&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/pages/users/users.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="roles"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>roles</b></span>
+                        <a href="#roles"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#Role" target="_self" >Role[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;SUPERADMIN&#x27;, &#x27;ADMIN_CENTER&#x27;, &#x27;TRAINER&#x27;, &#x27;CLEANER&#x27;, &#x27;USER&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/pages/users/users.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedUser"></a>
+                    <span class="name">
+                        <span ><b>selectedUser</b></span>
+                        <a href="#selectedUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;User | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/pages/users/users.component.ts:51</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showDeleteModal"></a>
+                    <span class="name">
+                        <span ><b>showDeleteModal</b></span>
+                        <a href="#showDeleteModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/pages/users/users.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showEditModal"></a>
+                    <span class="name">
+                        <span ><b>showEditModal</b></span>
+                        <a href="#showEditModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/pages/users/users.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showFilters"></a>
+                    <span class="name">
+                        <span ><b>showFilters</b></span>
+                        <a href="#showFilters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/pages/users/users.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showViewModal"></a>
+                    <span class="name">
+                        <span ><b>showViewModal</b></span>
+                        <a href="#showViewModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/pages/users/users.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="statuses"></a>
+                    <span class="name">
+                            <span class="modifier">Readonly</span>
+                        <span ><b>statuses</b></span>
+                        <a href="#statuses"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >UserStatus[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[&#x27;PENDING&#x27;, &#x27;ACTIVE&#x27;, &#x27;INACTIVE&#x27;]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/pages/users/users.component.ts:62</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="translate"></a>
+                    <span class="name">
+                        <span ><b>translate</b></span>
+                        <a href="#translate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(TranslateService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/users/users.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userForm"></a>
+                    <span class="name">
+                        <span ><b>userForm</b></span>
+                        <a href="#userForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/UpdateUserInput.html" target="_self" >UpdateUserInput</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    name: &#x27;&#x27;,
+    email: &#x27;&#x27;,
+    role: &#x27;USER&#x27;,
+    status: &#x27;PENDING&#x27;,
+    favoriteCenterId: null
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/pages/users/users.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="users"></a>
+                    <span class="name">
+                        <span ><b>users</b></span>
+                        <a href="#users"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;User[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/pages/users/users.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usersService"></a>
+                    <span class="name">
+                        <span ><b>usersService</b></span>
+                        <a href="#usersService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(UsersService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/pages/users/users.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="viewUser"></a>
+                    <span class="name">
+                        <span ><b>viewUser</b></span>
+                        <a href="#viewUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;User | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/pages/users/users.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject, signal, computed, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule, DatePipe } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
+import { UsersService, UpdateUserInput } from &#x27;../../core/services/users.service&#x27;;
+import { CentersService } from &#x27;../../core/services/centers.service&#x27;;
+import { AuthService } from &#x27;../../core/services/auth.service&#x27;;
+import { User, Role, UserStatus } from &#x27;../../core/models/user&#x27;;
+import { Center } from &#x27;../../core/models/center&#x27;;
+import { TranslateModule, TranslateService } from &#x27;@ngx-translate/core&#x27;;
+import { NavbarComponent } from &#x27;../../shared/components/navbar/navbar.component&#x27;;
+
+/**
+ * Users administration page component.
+ * Provides functionality for searching, filtering, and managing user profiles,
+ * including roles, statuses, and assigned centers.
+ */
+@Component({
+  selector: &#x27;app-users&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule, DatePipe, TranslateModule, NavbarComponent],
+  templateUrl: &#x27;./users.component.html&#x27;,
+  styleUrl: &#x27;./users.component.scss&#x27;
+})
+export class UsersComponent implements OnInit {
+  usersService &#x3D; inject(UsersService);
+  centersService &#x3D; inject(CentersService);
+  auth &#x3D; inject(AuthService);
+  translate &#x3D; inject(TranslateService);
+
+  users &#x3D; signal&lt;User[]&gt;([]);
+  centers &#x3D; signal&lt;Center[]&gt;([]);
+  isLoading &#x3D; signal(false);
+  errorMessage &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  
+  // Filters
+  filterName &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  filterEmail &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  filterRole &#x3D; signal&lt;Role | &#x27;&#x27;&gt;(&#x27;&#x27;);
+  filterStatus &#x3D; signal&lt;UserStatus | &#x27;&#x27;&gt;(&#x27;&#x27;);
+  filterCenter &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  filterDateFrom &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  filterDateTo &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  showFilters &#x3D; signal(false);
+  
+  // Modal states
+  showEditModal &#x3D; signal(false);
+  showDeleteModal &#x3D; signal(false);
+  showViewModal &#x3D; signal(false);
+  
+  selectedUser &#x3D; signal&lt;User | null&gt;(null);
+  viewUser &#x3D; signal&lt;User | null&gt;(null);
+  userForm: UpdateUserInput &#x3D; {
+    name: &#x27;&#x27;,
+    email: &#x27;&#x27;,
+    role: &#x27;USER&#x27;,
+    status: &#x27;PENDING&#x27;,
+    favoriteCenterId: null
+  };
+
+  readonly roles: Role[] &#x3D; [&#x27;SUPERADMIN&#x27;, &#x27;ADMIN_CENTER&#x27;, &#x27;TRAINER&#x27;, &#x27;CLEANER&#x27;, &#x27;USER&#x27;];
+  readonly statuses: UserStatus[] &#x3D; [&#x27;PENDING&#x27;, &#x27;ACTIVE&#x27;, &#x27;INACTIVE&#x27;];
+
+  currentUser &#x3D; computed(() &#x3D;&gt; this.auth.currentUser());
+  isSuperAdmin &#x3D; computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;SUPERADMIN&#x27;);
+  isAdminCenter &#x3D; computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;ADMIN_CENTER&#x27;);
+  canEdit &#x3D; computed(() &#x3D;&gt; this.isSuperAdmin() || this.isAdminCenter());
+  canDelete &#x3D; computed(() &#x3D;&gt; this.isSuperAdmin() || this.isAdminCenter());
+  canAssignCenter &#x3D; computed(() &#x3D;&gt; this.isSuperAdmin());
+
+  // Filtered users
+  filteredUsers &#x3D; computed(() &#x3D;&gt; {
+    let filtered &#x3D; this.users();
+    
+    if (this.filterName()) {
+      const nameFilter &#x3D; this.filterName().toLowerCase();
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; u.name.toLowerCase().includes(nameFilter));
+    }
+    
+    if (this.filterEmail()) {
+      const emailFilter &#x3D; this.filterEmail().toLowerCase();
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; u.email.toLowerCase().includes(emailFilter));
+    }
+    
+    if (this.filterRole()) {
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; u.role &#x3D;&#x3D;&#x3D; this.filterRole());
+    }
+    
+    if (this.filterStatus()) {
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; u.status &#x3D;&#x3D;&#x3D; this.filterStatus());
+    }
+    
+    if (this.filterCenter()) {
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; 
+        u.favoriteCenterId &#x3D;&#x3D;&#x3D; this.filterCenter() || 
+        u.favoriteCenter?.id &#x3D;&#x3D;&#x3D; this.filterCenter() ||
+        u.centerId &#x3D;&#x3D;&#x3D; this.filterCenter() ||
+        u.center?.id &#x3D;&#x3D;&#x3D; this.filterCenter()
+      );
+    }
+    
+    if (this.filterDateFrom()) {
+      const dateFrom &#x3D; new Date(this.filterDateFrom());
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; {
+        if (!u.createdAt) return false;
+        return new Date(u.createdAt) &gt;&#x3D; dateFrom;
+      });
+    }
+    
+    if (this.filterDateTo()) {
+      const dateTo &#x3D; new Date(this.filterDateTo());
+      dateTo.setHours(23, 59, 59, 999); // Incluir todo el día
+      filtered &#x3D; filtered.filter(u &#x3D;&gt; {
+        if (!u.createdAt) return false;
+        return new Date(u.createdAt) &lt;&#x3D; dateTo;
+      });
+    }
+    
+    return filtered;
+  });
+
+  ngOnInit() {
+    this.loadUsers();
+    if (this.isSuperAdmin()) {
+      this.loadCenters();
+    }
+  }
+
+  loadUsers() {
+    this.isLoading.set(true);
+    this.errorMessage.set(&#x27;&#x27;);
+    
+    this.usersService.listUsers().subscribe({
+      next: (data) &#x3D;&gt; {
+        this.users.set(data);
+        this.isLoading.set(false);
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || &#x27;Error al cargar los usuarios&#x27;);
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  loadCenters() {
+    this.centersService.listCenters().subscribe({
+      next: (data) &#x3D;&gt; {
+        this.centers.set(data);
+      },
+      error: (error) &#x3D;&gt; {
+        console.error(&#x27;Error al cargar centros:&#x27;, error);
+      }
+    });
+  }
+
+  openViewModal(user: User) {
+    this.isLoading.set(true);
+    this.errorMessage.set(&#x27;&#x27;);
+    
+    this.usersService.getUser(user.id).subscribe({
+      next: (fullUser) &#x3D;&gt; {
+        this.viewUser.set(fullUser);
+        this.showViewModal.set(true);
+        this.isLoading.set(false);
+      },
+      error: (error) &#x3D;&gt; {
+        this.viewUser.set(user);
+        this.showViewModal.set(true);
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  closeViewModal() {
+    this.showViewModal.set(false);
+    this.viewUser.set(null);
+    this.errorMessage.set(&#x27;&#x27;);
+  }
+
+  openEditModal(user: User) {
+    this.isLoading.set(true);
+    this.errorMessage.set(&#x27;&#x27;);
+    
+    this.usersService.getUser(user.id).subscribe({
+      next: (fullUser) &#x3D;&gt; {
+        this.selectedUser.set(fullUser);
+        this.userForm &#x3D; {
+          name: fullUser.name,
+          email: fullUser.email,
+          role: fullUser.role,
+          status: fullUser.status || &#x27;PENDING&#x27;,
+          favoriteCenterId: fullUser.favoriteCenterId || null
+        };
+        this.showEditModal.set(true);
+        this.isLoading.set(false);
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || &#x27;Error al cargar el usuario&#x27;);
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  closeEditModal() {
+    this.showEditModal.set(false);
+    this.selectedUser.set(null);
+    this.errorMessage.set(&#x27;&#x27;);
+  }
+
+  openDeleteModal(user: User) {
+    this.selectedUser.set(user);
+    this.showDeleteModal.set(true);
+    this.errorMessage.set(&#x27;&#x27;);
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal.set(false);
+    this.selectedUser.set(null);
+    this.errorMessage.set(&#x27;&#x27;);
+  }
+
+  updateUser() {
+    const user &#x3D; this.selectedUser();
+    if (!user?.id) return;
+
+    if (!this.userForm.name?.trim() || !this.userForm.email?.trim()) {
+      this.errorMessage.set(this.translate.instant(&#x27;users.errors.nameEmailRequired&#x27;));
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.errorMessage.set(&#x27;&#x27;);
+
+    const updateData: UpdateUserInput &#x3D; {
+      name: this.userForm.name,
+      email: this.userForm.email,
+    };
+
+    // Solo SUPERADMIN puede cambiar rol y asignar centro favorito
+    if (this.isSuperAdmin()) {
+      updateData.role &#x3D; this.userForm.role;
+      updateData.favoriteCenterId &#x3D; this.userForm.favoriteCenterId;
+    }
+
+    // Ambos pueden cambiar el status
+    updateData.status &#x3D; this.userForm.status;
+
+    this.usersService.updateUser(user.id, updateData).subscribe({
+      next: () &#x3D;&gt; {
+        this.isLoading.set(false);
+        this.closeEditModal();
+        this.loadUsers();
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || &#x27;Error al actualizar el usuario&#x27;);
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  deleteUser() {
+    const user &#x3D; this.selectedUser();
+    if (!user?.id) return;
+
+    this.isLoading.set(true);
+    this.errorMessage.set(&#x27;&#x27;);
+
+    this.usersService.deleteUser(user.id).subscribe({
+      next: () &#x3D;&gt; {
+        this.isLoading.set(false);
+        this.closeDeleteModal();
+        this.loadUsers();
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || &#x27;Error al eliminar el usuario&#x27;);
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  validateUser(user: User) {
+    this.usersService.updateUser(user.id, { status: &#x27;ACTIVE&#x27; }).subscribe({
+      next: () &#x3D;&gt; {
+        this.loadUsers();
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || &#x27;Error al validar el usuario&#x27;);
+      }
+    });
+  }
+
+  getStatusColor(status?: UserStatus): string {
+    const colors: Record&lt;UserStatus, string&gt; &#x3D; {
+      &#x27;PENDING&#x27;: &#x27;bg-yellow-500&#x27;,
+      &#x27;ACTIVE&#x27;: &#x27;bg-green-500&#x27;,
+      &#x27;INACTIVE&#x27;: &#x27;bg-red-500&#x27;
+    };
+    return colors[status || &#x27;PENDING&#x27;] || &#x27;bg-gray-500&#x27;;
+  }
+
+  getStatusText(status?: UserStatus): string {
+    if (!status) return &#x27;&#x27;;
+    return this.getStatusName(status);
+    const texts: Record&lt;UserStatus, string&gt; &#x3D; {
+      &#x27;PENDING&#x27;: &#x27;Pendiente&#x27;,
+      &#x27;ACTIVE&#x27;: &#x27;Activo&#x27;,
+      &#x27;INACTIVE&#x27;: &#x27;Inactivo&#x27;
+    };
+    return texts[status || &#x27;PENDING&#x27;] || &#x27;Desconocido&#x27;;
+  }
+
+  getRoleIcon(role: string): string {
+    const size &#x3D; &#x27;w-5 h-5&#x27;;
+    switch (role) {
+      case &#x27;SUPERADMIN&#x27;: 
+        return &#x60;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;${size}&quot;&gt;&lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M15.5 12c.7-3.5-3.5-3.5-3.5-3.5S8.5 8.5 9.5 12s3.5 3.5 3.5 3.5S16.5 15.5 15.5 12zM12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z&quot; /&gt;&lt;/svg&gt;&#x60;;
+      case &#x27;ADMIN_CENTER&#x27;: 
+        return &#x60;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;${size}&quot;&gt;&lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M3.75 21h16.5M4.5 3h15M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18&quot; /&gt;&lt;/svg&gt;&#x60;;
+      case &#x27;TRAINER&#x27;: 
+        return &#x60;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;${size}&quot;&gt;&lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M21 8.25c0-1.036-.84-1.875-1.875-1.875h-4.636V6.184c0-1.036-.84-1.875-1.875-1.875h-2.25c-1.036 0-1.875.84-1.875 1.875v.191H4.875C3.839 6.359 3 7.198 3 8.234V15.75h18V8.25z&quot; /&gt;&lt;/svg&gt;&#x60;;
+      case &#x27;CLEANER&#x27;: 
+        return &#x60;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;${size}&quot;&gt;&lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M14.5 19.5l-5-5-5-5M12 10.5v12M12 4.5l-5 5-5 5M12 4.5l5 5 5 5M12 4.5l-5 5-5 5&quot; /&gt;&lt;/svg&gt;&#x60;;
+      case &#x27;USER&#x27;: default: 
+        return &#x60;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;${size}&quot;&gt;&lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z&quot;/&gt;&lt;/svg&gt;&#x60;;
+    }
+  }
+
+  getRoleName(role: string): string {
+    return this.translate.instant(&#x60;dashboard.roles.${role}&#x60;) || this.translate.instant(&#x27;dashboard.roles.USER&#x27;);
+  }
+
+  getCenterName(centerId?: string | null): string {
+    if (!centerId) return this.translate.instant(&#x27;users.noCenter&#x27;);
+    const center &#x3D; this.centers().find(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; centerId);
+    return center?.name || this.translate.instant(&#x27;users.centerNotFound&#x27;);
+  }
+
+  getStatusName(status: string): string {
+    return this.translate.instant(&#x60;users.statuses.${status}&#x60;) || status;
+  }
+
+  toggleFilters() {
+    this.showFilters.set(!this.showFilters());
+  }
+
+  clearFilters() {
+    this.filterName.set(&#x27;&#x27;);
+    this.filterEmail.set(&#x27;&#x27;);
+    this.filterRole.set(&#x27;&#x27;);
+    this.filterStatus.set(&#x27;&#x27;);
+    this.filterCenter.set(&#x27;&#x27;);
+    this.filterDateFrom.set(&#x27;&#x27;);
+    this.filterDateTo.set(&#x27;&#x27;);
+  }
+
+  hasActiveFilters &#x3D; computed(() &#x3D;&gt; {
+    return !!(
+      this.filterName() ||
+      this.filterEmail() ||
+      this.filterRole() ||
+      this.filterStatus() ||
+      this.filterCenter() ||
+      this.filterDateFrom() ||
+      this.filterDateTo()
+    );
+  });
+}
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900&quot;&gt;
+  &lt;app-navbar&gt;&lt;/app-navbar&gt;
+
+  &lt;!-- Main Content --&gt;
+  &lt;main class&#x3D;&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8&quot;&gt;
+    @if(errorMessage()) {
+      &lt;div class&#x3D;&quot;mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400&quot;&gt;
+        {{ errorMessage() }}
+      &lt;/div&gt;
+    }
+
+    &lt;!-- Filter Button --&gt;
+    &lt;div class&#x3D;&quot;mb-4 flex items-center justify-between&quot;&gt;
+      &lt;button 
+        (click)&#x3D;&quot;toggleFilters()&quot;
+        [class.bg-cyan-500]&#x3D;&quot;!showFilters()&quot;
+        [class.bg-cyan-600]&#x3D;&quot;showFilters()&quot;
+        [class.text-white]&#x3D;&quot;!hasActiveFilters()&quot;
+        [class.text-yellow-300]&#x3D;&quot;hasActiveFilters()&quot;
+        class&#x3D;&quot;px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90&quot;&gt;
+        &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-4 h-4&quot;&gt;
+          &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z&quot; /&gt;
+        &lt;/svg&gt;
+        @if(showFilters()) {
+          &lt;span&gt;{{ &#x27;users.hideFilters&#x27; | translate }}&lt;/span&gt;
+        } @else {
+          &lt;span&gt;{{ &#x27;users.filters&#x27; | translate }}&lt;/span&gt;
+        }
+        @if(hasActiveFilters()) {
+          &lt;span class&#x3D;&quot;px-1.5 py-0.5 bg-yellow-500/30 rounded text-xs&quot;&gt;{{ filteredUsers().length }}/{{ users().length }}&lt;/span&gt;
+        }
+      &lt;/button&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Filters Panel --&gt;
+    @if(showFilters()) {
+      &lt;div class&#x3D;&quot;mb-6 bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm&quot;&gt;
+        &lt;div class&#x3D;&quot;flex items-center justify-between mb-4&quot;&gt;
+          &lt;h2 class&#x3D;&quot;text-lg font-bold text-gray-900 dark:text-white&quot;&gt;{{ &#x27;users.searchFilters&#x27; | translate }}&lt;/h2&gt;
+          @if(hasActiveFilters()) {
+            &lt;button 
+              (click)&#x3D;&quot;clearFilters()&quot;
+              class&#x3D;&quot;px-3 py-1 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors text-sm&quot;&gt;
+              {{ &#x27;users.clearFilters&#x27; | translate }}
+            &lt;/button&gt;
+          }
+        &lt;/div&gt;
+        
+        &lt;div class&#x3D;&quot;grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4&quot;&gt;
+          &lt;div&gt;
+            &lt;label class&#x3D;&quot;block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2&quot;&gt;{{ &#x27;users.name&#x27; | translate }}&lt;/label&gt;
+            &lt;input 
+              type&#x3D;&quot;text&quot;
+              [ngModel]&#x3D;&quot;filterName()&quot;
+              (ngModelChange)&#x3D;&quot;filterName.set($event)&quot;
+              [placeholder]&#x3D;&quot;&#x27;users.searchByName&#x27; | translate&quot;
+              class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500&quot;&gt;
+          &lt;/div&gt;
+
+          &lt;div&gt;
+            &lt;label class&#x3D;&quot;block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2&quot;&gt;{{ &#x27;users.email&#x27; | translate }}&lt;/label&gt;
+            &lt;input 
+              type&#x3D;&quot;text&quot;
+              [ngModel]&#x3D;&quot;filterEmail()&quot;
+              (ngModelChange)&#x3D;&quot;filterEmail.set($event)&quot;
+              [placeholder]&#x3D;&quot;&#x27;users.searchByEmail&#x27; | translate&quot;
+              class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500&quot;&gt;
+          &lt;/div&gt;
+
+          &lt;div&gt;
+            &lt;label class&#x3D;&quot;block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2&quot;&gt;{{ &#x27;users.role&#x27; | translate }}&lt;/label&gt;
+            &lt;select 
+              [ngModel]&#x3D;&quot;filterRole()&quot;
+              (ngModelChange)&#x3D;&quot;filterRole.set($event)&quot;
+              class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500&quot;&gt;
+              &lt;option value&#x3D;&quot;&quot;&gt;{{ &#x27;users.allRoles&#x27; | translate }}&lt;/option&gt;
+              @for(role of roles; track role) {
+                &lt;option [value]&#x3D;&quot;role&quot;&gt;{{ getRoleName(role) }}&lt;/option&gt;
+              }
+            &lt;/select&gt;
+          &lt;/div&gt;
+
+          &lt;div&gt;
+            &lt;label class&#x3D;&quot;block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2&quot;&gt;{{ &#x27;users.status&#x27; | translate }}&lt;/label&gt;
+            &lt;select 
+              [ngModel]&#x3D;&quot;filterStatus()&quot;
+              (ngModelChange)&#x3D;&quot;filterStatus.set($event)&quot;
+              class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500&quot;&gt;
+              &lt;option value&#x3D;&quot;&quot;&gt;{{ &#x27;users.allStatuses&#x27; | translate }}&lt;/option&gt;
+              @for(status of statuses; track status) {
+                &lt;option [value]&#x3D;&quot;status&quot;&gt;{{ getStatusText(status) }}&lt;/option&gt;
+              }
+            &lt;/select&gt;
+          &lt;/div&gt;
+
+          @if(isSuperAdmin() &amp;&amp; centers().length &gt; 0) {
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-300 text-sm font-medium mb-2&quot;&gt;{{ &#x27;users.center&#x27; | translate }}&lt;/label&gt;
+              &lt;select 
+                [ngModel]&#x3D;&quot;filterCenter()&quot;
+                (ngModelChange)&#x3D;&quot;filterCenter.set($event)&quot;
+                class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500&quot;&gt;
+                &lt;option value&#x3D;&quot;&quot;&gt;{{ &#x27;users.allCenters&#x27; | translate }}&lt;/option&gt;
+                @for(center of centers(); track center.id) {
+                  &lt;option [value]&#x3D;&quot;center.id&quot;&gt;{{ center.name }}&lt;/option&gt;
+                }
+              &lt;/select&gt;
+            &lt;/div&gt;
+          }
+
+          &lt;div&gt;
+            &lt;label class&#x3D;&quot;block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2&quot;&gt;{{ &#x27;users.dateFrom&#x27; | translate }}&lt;/label&gt;
+            &lt;input 
+              type&#x3D;&quot;date&quot;
+              [ngModel]&#x3D;&quot;filterDateFrom()&quot;
+              (ngModelChange)&#x3D;&quot;filterDateFrom.set($event)&quot;
+              class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500&quot;&gt;
+          &lt;/div&gt;
+
+          &lt;div&gt;
+            &lt;label class&#x3D;&quot;block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2&quot;&gt;{{ &#x27;users.dateTo&#x27; | translate }}&lt;/label&gt;
+            &lt;input 
+              type&#x3D;&quot;date&quot;
+              [ngModel]&#x3D;&quot;filterDateTo()&quot;
+              (ngModelChange)&#x3D;&quot;filterDateTo.set($event)&quot;
+              class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500&quot;&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        @if(hasActiveFilters()) {
+          &lt;div class&#x3D;&quot;mt-4 pt-4 border-t border-gray-700&quot;&gt;
+            &lt;p class&#x3D;&quot;text-sm text-gray-600 dark:text-gray-400&quot;&gt;
+              {{ &#x27;users.showing&#x27; | translate }} &lt;span class&#x3D;&quot;text-gray-900 dark:text-white font-semibold&quot;&gt;{{ filteredUsers().length }}&lt;/span&gt; {{ &#x27;users.of&#x27; | translate }} 
+              &lt;span class&#x3D;&quot;text-gray-900 dark:text-white font-semibold&quot;&gt;{{ users().length }}&lt;/span&gt; {{ &#x27;users.users&#x27; | translate }}
+            &lt;/p&gt;
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+    }
+
+    @if(isLoading() &amp;&amp; users().length &#x3D;&#x3D;&#x3D; 0) {
+      &lt;div class&#x3D;&quot;flex items-center justify-center py-12&quot;&gt;
+        &lt;div class&#x3D;&quot;text-center&quot;&gt;
+          &lt;div class&#x3D;&quot;animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4&quot;&gt;&lt;/div&gt;
+          &lt;p class&#x3D;&quot;text-gray-700 dark:text-gray-300&quot;&gt;{{ &#x27;common.loading&#x27; | translate }}&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    } @else {
+      @if(filteredUsers().length &#x3D;&#x3D;&#x3D; 0) {
+        &lt;div class&#x3D;&quot;text-center py-12&quot;&gt;
+          &lt;p class&#x3D;&quot;text-gray-600 dark:text-gray-400 text-lg&quot;&gt;
+            @if(hasActiveFilters()) {
+              {{ &#x27;users.noUsersFound&#x27; | translate }}
+            } @else {
+              {{ &#x27;users.noUsersAvailable&#x27; | translate }}
+            }
+          &lt;/p&gt;
+        &lt;/div&gt;
+      } @else {
+        &lt;div class&#x3D;&quot;grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6&quot;&gt;
+          @for(user of filteredUsers(); track user.id) {
+            &lt;div class&#x3D;&quot;bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm&quot;&gt;
+              &lt;div 
+                (click)&#x3D;&quot;openViewModal(user)&quot;
+                class&#x3D;&quot;cursor-pointer&quot;&gt;
+                &lt;div class&#x3D;&quot;flex items-start justify-between mb-4&quot;&gt;
+                  &lt;div class&#x3D;&quot;flex-1&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex items-center gap-2 mb-2&quot;&gt;
+                      &lt;span [innerHTML]&#x3D;&quot;getRoleIcon(user.role)&quot;&gt;&lt;/span&gt;
+                      &lt;h3 class&#x3D;&quot;text-xl font-bold text-gray-900 dark:text-white&quot;&gt;{{ user.name }}&lt;/h3&gt;
+                    &lt;/div&gt;
+                    &lt;p class&#x3D;&quot;text-gray-600 dark:text-gray-400 text-sm mb-2&quot;&gt;{{ user.email }}&lt;/p&gt;
+                    &lt;div class&#x3D;&quot;flex items-center gap-2 mb-2&quot;&gt;
+                      &lt;span class&#x3D;&quot;text-xs px-2 py-1 rounded-full text-white&quot; [class]&#x3D;&quot;getStatusColor(user.status)&quot;&gt;
+                        {{ getStatusText(user.status) }}
+                      &lt;/span&gt;
+                      &lt;span class&#x3D;&quot;text-xs text-gray-500&quot;&gt;{{ getRoleName(user.role) }}&lt;/span&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;space-y-2 mb-4&quot;&gt;
+                  @if(user.favoriteCenter) {
+                    &lt;p class&#x3D;&quot;text-gray-300 text-sm flex items-center gap-1&quot;&gt;
+                      &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-4 h-4 text-yellow-400&quot;&gt;
+                        &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z&quot; /&gt;
+                      &lt;/svg&gt;
+                      {{ &#x27;users.favoriteCenter&#x27; | translate }}: {{ user.favoriteCenter.name }}
+                    &lt;/p&gt;
+                  } @else if(user.favoriteCenterId) {
+                    &lt;p class&#x3D;&quot;text-gray-300 text-sm flex items-center gap-1&quot;&gt;
+                      &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-4 h-4 text-yellow-400&quot;&gt;
+                        &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z&quot; /&gt;
+                      &lt;/svg&gt;
+                      {{ &#x27;users.favoriteCenter&#x27; | translate }}: {{ getCenterName(user.favoriteCenterId) }}
+                    &lt;/p&gt;
+                  } @else {
+                    &lt;p class&#x3D;&quot;text-gray-400 text-sm&quot;&gt;{{ &#x27;users.noFavoriteCenter&#x27; | translate }}&lt;/p&gt;
+                  }
+                  @if(user.center) {
+                    &lt;p class&#x3D;&quot;text-green-400 text-sm&quot;&gt;
+                      📍 {{ &#x27;users.currentlyIn&#x27; | translate }}: {{ user.center.name }}
+                    &lt;/p&gt;
+                  } @else if(user.centerId) {
+                    &lt;p class&#x3D;&quot;text-green-400 text-sm&quot;&gt;
+                      📍 {{ &#x27;users.currentlyIn&#x27; | translate }}: {{ getCenterName(user.centerId) }}
+                    &lt;/p&gt;
+                  }
+                  @if(user.createdAt) {
+                    &lt;p class&#x3D;&quot;text-gray-400 text-xs&quot;&gt;
+                      {{ &#x27;users.registered&#x27; | translate }}: {{ user.createdAt | date:&#x27;dd/MM/yyyy&#x27; }}
+                    &lt;/p&gt;
+                  }
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;flex gap-2 mt-4&quot; (click)&#x3D;&quot;$event.stopPropagation()&quot;&gt;
+                @if(canEdit()) {
+                  &lt;button 
+                    (click)&#x3D;&quot;openEditModal(user)&quot;
+                    class&#x3D;&quot;flex-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium&quot;&gt;
+                    {{ &#x27;common.edit&#x27; | translate }}
+                  &lt;/button&gt;
+                }
+                @if(user.status &#x3D;&#x3D;&#x3D; &#x27;PENDING&#x27; &amp;&amp; canEdit()) {
+                  &lt;button 
+                    (click)&#x3D;&quot;validateUser(user)&quot;
+                    class&#x3D;&quot;flex-1 px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium&quot;&gt;
+                    {{ &#x27;users.validate&#x27; | translate }}
+                  &lt;/button&gt;
+                }
+                @if(canDelete()) {
+                  &lt;button 
+                    (click)&#x3D;&quot;openDeleteModal(user)&quot;
+                    class&#x3D;&quot;flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium&quot;&gt;
+                    {{ &#x27;common.delete&#x27; | translate }}
+                  &lt;/button&gt;
+                }
+              &lt;/div&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      }
+    }
+  &lt;/main&gt;
+
+  &lt;!-- View Modal --&gt;
+  @if(showViewModal()) {
+    &lt;div class&#x3D;&quot;fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4&quot;&gt;
+      &lt;div class&#x3D;&quot;bg-blue-50 dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-blue-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-lg&quot;&gt;
+        &lt;h3 class&#x3D;&quot;text-2xl font-bold text-gray-900 dark:text-white mb-6&quot;&gt;{{ &#x27;users.viewUser&#x27; | translate }}&lt;/h3&gt;
+        
+        @if(viewUser()) {
+          &lt;div class&#x3D;&quot;space-y-4&quot;&gt;
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-400 text-sm font-medium mb-1&quot;&gt;{{ &#x27;users.name&#x27; | translate }}&lt;/label&gt;
+              &lt;p class&#x3D;&quot;text-white text-lg font-semibold&quot;&gt;{{ viewUser()!.name }}&lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-400 text-sm font-medium mb-1&quot;&gt;{{ &#x27;users.email&#x27; | translate }}&lt;/label&gt;
+              &lt;p class&#x3D;&quot;text-gray-300&quot;&gt;{{ viewUser()!.email }}&lt;/p&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;grid grid-cols-1 md:grid-cols-2 gap-4&quot;&gt;
+              &lt;div&gt;
+                &lt;label class&#x3D;&quot;block text-gray-400 text-sm font-medium mb-1&quot;&gt;{{ &#x27;users.role&#x27; | translate }}&lt;/label&gt;
+                &lt;p class&#x3D;&quot;text-gray-300 flex items-center gap-2&quot;&gt;{{ getRoleName(viewUser()!.role) }} &lt;span [innerHTML]&#x3D;&quot;getRoleIcon(viewUser()!.role)&quot;&gt;&lt;/span&gt;&lt;/p&gt;
+              &lt;/div&gt;
+
+              &lt;div&gt;
+                &lt;label class&#x3D;&quot;block text-gray-400 text-sm font-medium mb-1&quot;&gt;{{ &#x27;users.status&#x27; | translate }}&lt;/label&gt;
+                &lt;span class&#x3D;&quot;inline-block px-3 py-1 rounded-full text-sm text-white&quot; [class]&#x3D;&quot;getStatusColor(viewUser()!.status)&quot;&gt;
+                  {{ getStatusText(viewUser()!.status) }}
+                &lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-400 text-sm font-medium mb-1&quot;&gt;{{ &#x27;users.favoriteCenter&#x27; | translate }}&lt;/label&gt;
+              @if(viewUser()!.favoriteCenter) {
+                &lt;p class&#x3D;&quot;text-gray-300 flex items-center gap-1&quot;&gt;
+                  &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-4 h-4 text-yellow-400&quot;&gt;
+                    &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z&quot; /&gt;
+                  &lt;/svg&gt;
+                  {{ viewUser()!.favoriteCenter?.name }}
+                &lt;/p&gt;
+              } @else if(viewUser()!.favoriteCenterId) {
+                &lt;p class&#x3D;&quot;text-gray-300 flex items-center gap-1&quot;&gt;
+                  &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-4 h-4 text-yellow-400&quot;&gt;
+                    &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z&quot; /&gt;
+                  &lt;/svg&gt;
+                  {{ getCenterName(viewUser()!.favoriteCenterId) }}
+                &lt;/p&gt;
+              } @else {
+                &lt;p class&#x3D;&quot;text-gray-400&quot;&gt;{{ &#x27;users.noFavoriteCenter&#x27; | translate }}&lt;/p&gt;
+              }
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-400 text-sm font-medium mb-1&quot;&gt;{{ &#x27;users.currentCenter&#x27; | translate }}&lt;/label&gt;
+              @if(viewUser()!.center) {
+                &lt;p class&#x3D;&quot;text-green-400&quot;&gt;📍 {{ viewUser()!.center?.name }}&lt;/p&gt;
+              } @else if(viewUser()!.centerId) {
+                &lt;p class&#x3D;&quot;text-green-400&quot;&gt;📍 {{ getCenterName(viewUser()!.centerId) }}&lt;/p&gt;
+              } @else {
+                &lt;p class&#x3D;&quot;text-gray-400&quot;&gt;{{ &#x27;users.notInAnyCenter&#x27; | translate }}&lt;/p&gt;
+              }
+            &lt;/div&gt;
+
+            @if(viewUser()!.id) {
+              &lt;div&gt;
+                &lt;label class&#x3D;&quot;block text-gray-400 text-sm font-medium mb-1&quot;&gt;ID&lt;/label&gt;
+                &lt;p class&#x3D;&quot;text-gray-500 text-xs font-mono&quot;&gt;{{ viewUser()!.id }}&lt;/p&gt;
+              &lt;/div&gt;
+            }
+
+            @if(viewUser()!.createdAt) {
+              &lt;div&gt;
+                &lt;label class&#x3D;&quot;block text-gray-400 text-sm font-medium mb-1&quot;&gt;{{ &#x27;users.registrationDate&#x27; | translate }}&lt;/label&gt;
+                &lt;p class&#x3D;&quot;text-gray-300&quot;&gt;{{ viewUser()!.createdAt | date:&#x27;dd/MM/yyyy HH:mm&#x27; }}&lt;/p&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+
+        &lt;div class&#x3D;&quot;flex gap-3 mt-6&quot;&gt;
+          &lt;button 
+            (click)&#x3D;&quot;closeViewModal()&quot;
+            class&#x3D;&quot;flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors&quot;&gt;
+            {{ &#x27;common.close&#x27; | translate }}
+          &lt;/button&gt;
+          @if(canEdit() &amp;&amp; viewUser()?.id) {
+            &lt;button 
+              (click)&#x3D;&quot;closeViewModal(); openEditModal(viewUser()!)&quot;
+              class&#x3D;&quot;flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors&quot;&gt;
+              {{ &#x27;common.edit&#x27; | translate }}
+            &lt;/button&gt;
+          }
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  }
+
+  &lt;!-- Edit Modal --&gt;
+  @if(showEditModal()) {
+    &lt;div class&#x3D;&quot;fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4&quot;&gt;
+      &lt;div class&#x3D;&quot;bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto&quot;&gt;
+        &lt;h3 class&#x3D;&quot;text-2xl font-bold text-white mb-6&quot;&gt;{{ &#x27;users.editUser&#x27; | translate }}&lt;/h3&gt;
+        
+        @if(errorMessage()) {
+          &lt;div class&#x3D;&quot;mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm&quot;&gt;
+            {{ errorMessage() }}
+          &lt;/div&gt;
+        }
+
+        &lt;form (ngSubmit)&#x3D;&quot;updateUser()&quot; class&#x3D;&quot;space-y-4&quot;&gt;
+          &lt;div&gt;
+            &lt;label class&#x3D;&quot;block text-gray-300 text-sm font-medium mb-2&quot;&gt;{{ &#x27;users.name&#x27; | translate }} *&lt;/label&gt;
+            &lt;input 
+              type&#x3D;&quot;text&quot;
+              [(ngModel)]&#x3D;&quot;userForm.name&quot;
+              name&#x3D;&quot;name&quot;
+              required
+              class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500&quot;&gt;
+          &lt;/div&gt;
+
+          &lt;div&gt;
+            &lt;label class&#x3D;&quot;block text-gray-300 text-sm font-medium mb-2&quot;&gt;{{ &#x27;users.email&#x27; | translate }} *&lt;/label&gt;
+            &lt;input 
+              type&#x3D;&quot;email&quot;
+              [(ngModel)]&#x3D;&quot;userForm.email&quot;
+              name&#x3D;&quot;email&quot;
+              required
+              class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500&quot;&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;grid grid-cols-1 md:grid-cols-2 gap-4&quot;&gt;
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2&quot;&gt;{{ &#x27;users.status&#x27; | translate }}&lt;/label&gt;
+              &lt;select 
+                [(ngModel)]&#x3D;&quot;userForm.status&quot;
+                name&#x3D;&quot;status&quot;
+                class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500&quot;&gt;
+                @for(status of statuses; track status) {
+                  &lt;option [value]&#x3D;&quot;status&quot;&gt;{{ getStatusText(status) }}&lt;/option&gt;
+                }
+              &lt;/select&gt;
+            &lt;/div&gt;
+
+            @if(isSuperAdmin()) {
+              &lt;div&gt;
+                &lt;label class&#x3D;&quot;block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2&quot;&gt;{{ &#x27;users.role&#x27; | translate }}&lt;/label&gt;
+                &lt;select 
+                  [(ngModel)]&#x3D;&quot;userForm.role&quot;
+                  name&#x3D;&quot;role&quot;
+                  class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500&quot;&gt;
+                  @for(role of roles; track role) {
+                    &lt;option [value]&#x3D;&quot;role&quot;&gt;{{ getRoleName(role) }}&lt;/option&gt;
+                  }
+                &lt;/select&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+
+          @if(isSuperAdmin()) {
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-gray-300 text-sm font-medium mb-2&quot;&gt;{{ &#x27;users.favoriteCenter&#x27; | translate }}&lt;/label&gt;
+              &lt;select 
+                [(ngModel)]&#x3D;&quot;userForm.favoriteCenterId&quot;
+                name&#x3D;&quot;favoriteCenterId&quot;
+                class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500&quot;&gt;
+                &lt;option [value]&#x3D;&quot;null&quot;&gt;{{ &#x27;users.noCenter&#x27; | translate }}&lt;/option&gt;
+                @for(center of centers(); track center.id) {
+                  &lt;option [value]&#x3D;&quot;center.id&quot;&gt;{{ center.name }}&lt;/option&gt;
+                }
+              &lt;/select&gt;
+              &lt;p class&#x3D;&quot;text-xs text-gray-400 mt-1&quot;&gt;{{ &#x27;users.favoriteCenterDescription&#x27; | translate }}&lt;/p&gt;
+            &lt;/div&gt;
+          }
+
+          &lt;div class&#x3D;&quot;flex gap-3 mt-6&quot;&gt;
+            &lt;button 
+              type&#x3D;&quot;button&quot;
+              (click)&#x3D;&quot;closeEditModal()&quot;
+              [disabled]&#x3D;&quot;isLoading()&quot;
+              class&#x3D;&quot;flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50&quot;&gt;
+              {{ &#x27;common.cancel&#x27; | translate }}
+            &lt;/button&gt;
+            &lt;button 
+              type&#x3D;&quot;submit&quot;
+              [disabled]&#x3D;&quot;isLoading()&quot;
+              class&#x3D;&quot;flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors disabled:opacity-50&quot;&gt;
+              @if(isLoading()) {
+                {{ &#x27;dashboard.roleEditor.saving&#x27; | translate }}
+              } @else {
+                {{ &#x27;common.save&#x27; | translate }}
+              }
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  }
+
+  &lt;!-- Delete Modal --&gt;
+  @if(showDeleteModal()) {
+    &lt;div class&#x3D;&quot;fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4&quot;&gt;
+      &lt;div class&#x3D;&quot;bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-700&quot;&gt;
+        &lt;h3 class&#x3D;&quot;text-2xl font-bold text-white mb-4&quot;&gt;{{ &#x27;users.deleteUser&#x27; | translate }}&lt;/h3&gt;
+        
+        @if(selectedUser()) {
+          &lt;p class&#x3D;&quot;text-gray-300 mb-6&quot;&gt;
+            {{ &#x27;users.confirmDelete&#x27; | translate }} &lt;span class&#x3D;&quot;font-semibold text-white&quot;&gt;{{ selectedUser()!.name }}&lt;/span&gt;?
+            Esta acción no se puede deshacer.
+          &lt;/p&gt;
+        }
+
+        @if(errorMessage()) {
+          &lt;div class&#x3D;&quot;mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm&quot;&gt;
+            {{ errorMessage() }}
+          &lt;/div&gt;
+        }
+
+        &lt;div class&#x3D;&quot;flex gap-3&quot;&gt;
+          &lt;button 
+            (click)&#x3D;&quot;closeDeleteModal()&quot;
+            [disabled]&#x3D;&quot;isLoading()&quot;
+            class&#x3D;&quot;flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50&quot;&gt;
+            {{ &#x27;common.cancel&#x27; | translate }}
+          &lt;/button&gt;
+          &lt;button 
+            (click)&#x3D;&quot;deleteUser()&quot;
+            [disabled]&#x3D;&quot;isLoading()&quot;
+            class&#x3D;&quot;flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors disabled:opacity-50&quot;&gt;
+            @if(isLoading()) {
+              {{ &#x27;users.deleting&#x27; | translate }}
+            } @else {
+              {{ &#x27;common.delete&#x27; | translate }}
+            }
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  }
+&lt;/div&gt;
+
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">  <app-navbar></app-navbar>  <!-- Main Content -->  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">    @if(errorMessage()) {      <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-400">        {{ errorMessage() }}      </div>    }    <!-- Filter Button -->    <div class="mb-4 flex items-center justify-between">      <button         (click)="toggleFilters()"        [class.bg-cyan-500]="!showFilters()"        [class.bg-cyan-600]="showFilters()"        [class.text-white]="!hasActiveFilters()"        [class.text-yellow-300]="hasActiveFilters()"        class="px-3 py-1.5 rounded-lg transition-colors text-xs font-medium flex items-center gap-2 hover:opacity-90">        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />        </svg>        @if(showFilters()) {          <span>{{ \'users.hideFilters\' | translate }}</span>        } @else {          <span>{{ \'users.filters\' | translate }}</span>        }        @if(hasActiveFilters()) {          <span class="px-1.5 py-0.5 bg-yellow-500/30 rounded text-xs">{{ filteredUsers().length }}/{{ users().length }}</span>        }      </button>    </div>    <!-- Filters Panel -->    @if(showFilters()) {      <div class="mb-6 bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm">        <div class="flex items-center justify-between mb-4">          <h2 class="text-lg font-bold text-gray-900 dark:text-white">{{ \'users.searchFilters\' | translate }}</h2>          @if(hasActiveFilters()) {            <button               (click)="clearFilters()"              class="px-3 py-1 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors text-sm">              {{ \'users.clearFilters\' | translate }}            </button>          }        </div>                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">          <div>            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ \'users.name\' | translate }}</label>            <input               type="text"              [ngModel]="filterName()"              (ngModelChange)="filterName.set($event)"              [placeholder]="\'users.searchByName\' | translate"              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">          </div>          <div>            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ \'users.email\' | translate }}</label>            <input               type="text"              [ngModel]="filterEmail()"              (ngModelChange)="filterEmail.set($event)"              [placeholder]="\'users.searchByEmail\' | translate"              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">          </div>          <div>            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ \'users.role\' | translate }}</label>            <select               [ngModel]="filterRole()"              (ngModelChange)="filterRole.set($event)"              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">              <option value="">{{ \'users.allRoles\' | translate }}</option>              @for(role of roles; track role) {                <option [value]="role">{{ getRoleName(role) }}</option>              }            </select>          </div>          <div>            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ \'users.status\' | translate }}</label>            <select               [ngModel]="filterStatus()"              (ngModelChange)="filterStatus.set($event)"              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">              <option value="">{{ \'users.allStatuses\' | translate }}</option>              @for(status of statuses; track status) {                <option [value]="status">{{ getStatusText(status) }}</option>              }            </select>          </div>          @if(isSuperAdmin() && centers().length > 0) {            <div>              <label class="block text-gray-300 text-sm font-medium mb-2">{{ \'users.center\' | translate }}</label>              <select                 [ngModel]="filterCenter()"                (ngModelChange)="filterCenter.set($event)"                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">                <option value="">{{ \'users.allCenters\' | translate }}</option>                @for(center of centers(); track center.id) {                  <option [value]="center.id">{{ center.name }}</option>                }              </select>            </div>          }          <div>            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ \'users.dateFrom\' | translate }}</label>            <input               type="date"              [ngModel]="filterDateFrom()"              (ngModelChange)="filterDateFrom.set($event)"              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">          </div>          <div>            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ \'users.dateTo\' | translate }}</label>            <input               type="date"              [ngModel]="filterDateTo()"              (ngModelChange)="filterDateTo.set($event)"              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">          </div>        </div>        @if(hasActiveFilters()) {          <div class="mt-4 pt-4 border-t border-gray-700">            <p class="text-sm text-gray-600 dark:text-gray-400">              {{ \'users.showing\' | translate }} <span class="text-gray-900 dark:text-white font-semibold">{{ filteredUsers().length }}</span> {{ \'users.of\' | translate }}               <span class="text-gray-900 dark:text-white font-semibold">{{ users().length }}</span> {{ \'users.users\' | translate }}            </p>          </div>        }      </div>    }    @if(isLoading() && users().length === 0) {      <div class="flex items-center justify-center py-12">        <div class="text-center">          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>          <p class="text-gray-700 dark:text-gray-300">{{ \'common.loading\' | translate }}</p>        </div>      </div>    } @else {      @if(filteredUsers().length === 0) {        <div class="text-center py-12">          <p class="text-gray-600 dark:text-gray-400 text-lg">            @if(hasActiveFilters()) {              {{ \'users.noUsersFound\' | translate }}            } @else {              {{ \'users.noUsersAvailable\' | translate }}            }          </p>        </div>      } @else {        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">          @for(user of filteredUsers(); track user.id) {            <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-colors shadow-sm">              <div                 (click)="openViewModal(user)"                class="cursor-pointer">                <div class="flex items-start justify-between mb-4">                  <div class="flex-1">                    <div class="flex items-center gap-2 mb-2">                      <span [innerHTML]="getRoleIcon(user.role)"></span>                      <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ user.name }}</h3>                    </div>                    <p class="text-gray-600 dark:text-gray-400 text-sm mb-2">{{ user.email }}</p>                    <div class="flex items-center gap-2 mb-2">                      <span class="text-xs px-2 py-1 rounded-full text-white" [class]="getStatusColor(user.status)">                        {{ getStatusText(user.status) }}                      </span>                      <span class="text-xs text-gray-500">{{ getRoleName(user.role) }}</span>                    </div>                  </div>                </div>                <div class="space-y-2 mb-4">                  @if(user.favoriteCenter) {                    <p class="text-gray-300 text-sm flex items-center gap-1">                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-yellow-400">                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />                      </svg>                      {{ \'users.favoriteCenter\' | translate }}: {{ user.favoriteCenter.name }}                    </p>                  } @else if(user.favoriteCenterId) {                    <p class="text-gray-300 text-sm flex items-center gap-1">                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-yellow-400">                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />                      </svg>                      {{ \'users.favoriteCenter\' | translate }}: {{ getCenterName(user.favoriteCenterId) }}                    </p>                  } @else {                    <p class="text-gray-400 text-sm">{{ \'users.noFavoriteCenter\' | translate }}</p>                  }                  @if(user.center) {                    <p class="text-green-400 text-sm">                      📍 {{ \'users.currentlyIn\' | translate }}: {{ user.center.name }}                    </p>                  } @else if(user.centerId) {                    <p class="text-green-400 text-sm">                      📍 {{ \'users.currentlyIn\' | translate }}: {{ getCenterName(user.centerId) }}                    </p>                  }                  @if(user.createdAt) {                    <p class="text-gray-400 text-xs">                      {{ \'users.registered\' | translate }}: {{ user.createdAt | date:\'dd/MM/yyyy\' }}                    </p>                  }                </div>              </div>              <div class="flex gap-2 mt-4" (click)="$event.stopPropagation()">                @if(canEdit()) {                  <button                     (click)="openEditModal(user)"                    class="flex-1 px-3 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm font-medium">                    {{ \'common.edit\' | translate }}                  </button>                }                @if(user.status === \'PENDING\' && canEdit()) {                  <button                     (click)="validateUser(user)"                    class="flex-1 px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium">                    {{ \'users.validate\' | translate }}                  </button>                }                @if(canDelete()) {                  <button                     (click)="openDeleteModal(user)"                    class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium">                    {{ \'common.delete\' | translate }}                  </button>                }              </div>            </div>          }        </div>      }    }  </main>  <!-- View Modal -->  @if(showViewModal()) {    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">      <div class="bg-blue-50 dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-blue-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-lg">        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">{{ \'users.viewUser\' | translate }}</h3>                @if(viewUser()) {          <div class="space-y-4">            <div>              <label class="block text-gray-400 text-sm font-medium mb-1">{{ \'users.name\' | translate }}</label>              <p class="text-white text-lg font-semibold">{{ viewUser()!.name }}</p>            </div>            <div>              <label class="block text-gray-400 text-sm font-medium mb-1">{{ \'users.email\' | translate }}</label>              <p class="text-gray-300">{{ viewUser()!.email }}</p>            </div>            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">              <div>                <label class="block text-gray-400 text-sm font-medium mb-1">{{ \'users.role\' | translate }}</label>                <p class="text-gray-300 flex items-center gap-2">{{ getRoleName(viewUser()!.role) }} <span [innerHTML]="getRoleIcon(viewUser()!.role)"></span></p>              </div>              <div>                <label class="block text-gray-400 text-sm font-medium mb-1">{{ \'users.status\' | translate }}</label>                <span class="inline-block px-3 py-1 rounded-full text-sm text-white" [class]="getStatusColor(viewUser()!.status)">                  {{ getStatusText(viewUser()!.status) }}                </span>              </div>            </div>            <div>              <label class="block text-gray-400 text-sm font-medium mb-1">{{ \'users.favoriteCenter\' | translate }}</label>              @if(viewUser()!.favoriteCenter) {                <p class="text-gray-300 flex items-center gap-1">                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-yellow-400">                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />                  </svg>                  {{ viewUser()!.favoriteCenter?.name }}                </p>              } @else if(viewUser()!.favoriteCenterId) {                <p class="text-gray-300 flex items-center gap-1">                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-yellow-400">                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />                  </svg>                  {{ getCenterName(viewUser()!.favoriteCenterId) }}                </p>              } @else {                <p class="text-gray-400">{{ \'users.noFavoriteCenter\' | translate }}</p>              }            </div>            <div>              <label class="block text-gray-400 text-sm font-medium mb-1">{{ \'users.currentCenter\' | translate }}</label>              @if(viewUser()!.center) {                <p class="text-green-400">📍 {{ viewUser()!.center?.name }}</p>              } @else if(viewUser()!.centerId) {                <p class="text-green-400">📍 {{ getCenterName(viewUser()!.centerId) }}</p>              } @else {                <p class="text-gray-400">{{ \'users.notInAnyCenter\' | translate }}</p>              }            </div>            @if(viewUser()!.id) {              <div>                <label class="block text-gray-400 text-sm font-medium mb-1">ID</label>                <p class="text-gray-500 text-xs font-mono">{{ viewUser()!.id }}</p>              </div>            }            @if(viewUser()!.createdAt) {              <div>                <label class="block text-gray-400 text-sm font-medium mb-1">{{ \'users.registrationDate\' | translate }}</label>                <p class="text-gray-300">{{ viewUser()!.createdAt | date:\'dd/MM/yyyy HH:mm\' }}</p>              </div>            }          </div>        }        <div class="flex gap-3 mt-6">          <button             (click)="closeViewModal()"            class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors">            {{ \'common.close\' | translate }}          </button>          @if(canEdit() && viewUser()?.id) {            <button               (click)="closeViewModal(); openEditModal(viewUser()!)"              class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">              {{ \'common.edit\' | translate }}            </button>          }        </div>      </div>    </div>  }  <!-- Edit Modal -->  @if(showEditModal()) {    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">      <div class="bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-700 max-h-[90vh] overflow-y-auto">        <h3 class="text-2xl font-bold text-white mb-6">{{ \'users.editUser\' | translate }}</h3>                @if(errorMessage()) {          <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">            {{ errorMessage() }}          </div>        }        <form (ngSubmit)="updateUser()" class="space-y-4">          <div>            <label class="block text-gray-300 text-sm font-medium mb-2">{{ \'users.name\' | translate }} *</label>            <input               type="text"              [(ngModel)]="userForm.name"              name="name"              required              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">          </div>          <div>            <label class="block text-gray-300 text-sm font-medium mb-2">{{ \'users.email\' | translate }} *</label>            <input               type="email"              [(ngModel)]="userForm.email"              name="email"              required              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">          </div>          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">            <div>              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ \'users.status\' | translate }}</label>              <select                 [(ngModel)]="userForm.status"                name="status"                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">                @for(status of statuses; track status) {                  <option [value]="status">{{ getStatusText(status) }}</option>                }              </select>            </div>            @if(isSuperAdmin()) {              <div>                <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ \'users.role\' | translate }}</label>                <select                   [(ngModel)]="userForm.role"                  name="role"                  class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">                  @for(role of roles; track role) {                    <option [value]="role">{{ getRoleName(role) }}</option>                  }                </select>              </div>            }          </div>          @if(isSuperAdmin()) {            <div>              <label class="block text-gray-300 text-sm font-medium mb-2">{{ \'users.favoriteCenter\' | translate }}</label>              <select                 [(ngModel)]="userForm.favoriteCenterId"                name="favoriteCenterId"                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">                <option [value]="null">{{ \'users.noCenter\' | translate }}</option>                @for(center of centers(); track center.id) {                  <option [value]="center.id">{{ center.name }}</option>                }              </select>              <p class="text-xs text-gray-400 mt-1">{{ \'users.favoriteCenterDescription\' | translate }}</p>            </div>          }          <div class="flex gap-3 mt-6">            <button               type="button"              (click)="closeEditModal()"              [disabled]="isLoading()"              class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">              {{ \'common.cancel\' | translate }}            </button>            <button               type="submit"              [disabled]="isLoading()"              class="flex-1 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors disabled:opacity-50">              @if(isLoading()) {                {{ \'dashboard.roleEditor.saving\' | translate }}              } @else {                {{ \'common.save\' | translate }}              }            </button>          </div>        </form>      </div>    </div>  }  <!-- Delete Modal -->  @if(showDeleteModal()) {    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">      <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-700">        <h3 class="text-2xl font-bold text-white mb-4">{{ \'users.deleteUser\' | translate }}</h3>                @if(selectedUser()) {          <p class="text-gray-300 mb-6">            {{ \'users.confirmDelete\' | translate }} <span class="font-semibold text-white">{{ selectedUser()!.name }}</span>?            Esta acción no se puede deshacer.          </p>        }        @if(errorMessage()) {          <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">            {{ errorMessage() }}          </div>        }        <div class="flex gap-3">          <button             (click)="closeDeleteModal()"            [disabled]="isLoading()"            class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">            {{ \'common.cancel\' | translate }}          </button>          <button             (click)="deleteUser()"            [disabled]="isLoading()"            class="flex-1 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors disabled:opacity-50">            @if(isLoading()) {              {{ \'users.deleting\' | translate }}            } @else {              {{ \'common.delete\' | translate }}            }          </button>        </div>      </div>    </div>  }</div></div>'
+    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
+    var DIRECTIVES = [{'name': 'ClickOutsideDirective', 'selector': '[appClickOutside]'}];
+    var ACTUAL_COMPONENT = {'name': 'UsersComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'UsersComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

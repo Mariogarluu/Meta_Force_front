@@ -1,4 +1,6 @@
+/** Possible user roles within the system */
 export type Role = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
+/** Possible registration and account statuses */
 export type UserStatus = 'PENDING' | 'ACTIVE' | 'INACTIVE';
 
 export interface User {

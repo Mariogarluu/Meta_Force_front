@@ -8,6 +8,10 @@ import {
   UpdateMembershipPlanInput,
 } from '../models/membership';
 
+/**
+ * Service for managing membership plans and their associated data.
+ * Provides functionality for listing available plans and administrative CRUD operations.
+ */
 @Injectable({
   providedIn: 'root',
 })

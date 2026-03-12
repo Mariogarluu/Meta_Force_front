@@ -15,6 +15,11 @@ import { AppError, ErrorType } from '../models/app-error';
  * - Auto-limpieza de errores después de un tiempo configurable
  * - Señales reactivas para integración con componentes
  */
+/**
+ * Service for centralized application error management.
+ * Provides a unified way to handle errors from any part of the application,
+ * converting them into user-friendly messages displayed via a global toast.
+ */
 @Injectable({ providedIn: 'root' })
 export class ErrorService {
   

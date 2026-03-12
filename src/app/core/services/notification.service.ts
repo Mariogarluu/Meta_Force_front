@@ -4,6 +4,10 @@ import { environment } from '../../../environments/environment';
 import { Notification } from '../models/notification';
 import { AuthService } from './auth.service';
 
+/**
+ * Service for managing user notifications and unread counts.
+ * Implements a polling mechanism to keep the notification state synchronized with the backend.
+ */
 @Injectable({
   providedIn: 'root'
 })

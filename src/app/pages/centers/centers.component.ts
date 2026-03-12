@@ -12,6 +12,10 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
 
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
+/**
+ * Centers management page component.
+ * Allows administrators to view, create, update, and delete gym locations.
+ */
 @Component({
   selector: 'app-centers',
   standalone: true,

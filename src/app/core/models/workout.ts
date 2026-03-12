@@ -1,22 +1,30 @@
 import { Exercise } from './exercise';
 
+/**
+ * Represents an exercise entry within a workout routine.
+ */
 export interface WorkoutExercise {
   id: string;
   workoutId: string;
   exerciseId: string;
   exercise: Exercise;
-  dayOfWeek: number; // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
+  /** 0 = Sunday, 1 = Monday, ..., 6 = Saturday */
+  dayOfWeek: number;
   order: number;
   sets?: number | null;
   reps?: number | null;
   weight?: number | null;
-  duration?: number | null; // en segundos
+  /** Duration in seconds */
+  duration?: number | null;
   restSeconds?: number | null;
   notes?: string | null;
   createdAt: string;
   updatedAt: string;
 }
 
+/**
+ * Represents a user's workout routine containing multiple exercises.
+ */
 export interface Workout {
   id: string;
   userId: string;

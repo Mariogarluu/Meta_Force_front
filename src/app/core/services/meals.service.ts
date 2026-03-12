@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Meal, CreateMealInput, UpdateMealInput } from '../models/meal';
 
+/**
+ * Service for managing available meals and nutritional data.
+ * Handles the catalog of meals and provides functionality for importing meal data.
+ */
 @Injectable({
   providedIn: 'root'
 })

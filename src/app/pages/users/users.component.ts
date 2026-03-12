@@ -10,6 +10,11 @@ import { Center } from '../../core/models/center';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
+/**
+ * Users administration page component.
+ * Provides functionality for searching, filtering, and managing user profiles,
+ * including roles, statuses, and assigned centers.
+ */
 @Component({
   selector: 'app-users',
   standalone: true,
