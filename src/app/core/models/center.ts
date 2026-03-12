@@ -1,3 +1,6 @@
+/**
+ * Represents a gym training center.
+ */
 export interface Center {
   id?: string;
   name: string;
@@ -11,6 +14,9 @@ export interface Center {
   updatedAt?: string;
 }
 
+/**
+ * Input for creating a new center.
+ */
 export interface CreateCenterInput {
   name: string;
   description?: string;
@@ -21,6 +27,9 @@ export interface CreateCenterInput {
   email?: string;
 }
 
+/**
+ * Input for updating an existing center.
+ */
 export interface UpdateCenterInput {
   name?: string;
   description?: string;

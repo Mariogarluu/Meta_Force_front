@@ -3,6 +3,11 @@ import { ErrorService } from '../../../core/services/error.service';
 import { CommonModule } from '@angular/common';
 import { ErrorType } from '../../../core/models/app-error';
 
+/**
+ * Global error notification component.
+ * Displays temporary toast messages for various application-level errors
+ * injected through the ErrorService.
+ */
 @Component({
   selector: 'app-error-toast',
   standalone: true,

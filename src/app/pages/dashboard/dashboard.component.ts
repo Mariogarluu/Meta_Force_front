@@ -16,6 +16,12 @@ type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
 const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
 
+/**
+ * Main application dashboard component.
+ * Serves as the primary landing page for authenticated users, providing
+ * access to notifications, profile management (including role editing and
+ * image uploads), and navigation to other system modules.
+ */
 @Component({
   selector: 'app-dashboard',
   standalone: true,

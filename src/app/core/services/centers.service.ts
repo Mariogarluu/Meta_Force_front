@@ -4,6 +4,11 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Center, CreateCenterInput, UpdateCenterInput } from '../models/center';
 
+/**
+ * Service for managing training centers and their metadata.
+ * Provides functionality for listing, retrieving, and performing administrative 
+ * operations (create/update/delete) on gym centers.
+ */
 @Injectable({
   providedIn: 'root'
 })

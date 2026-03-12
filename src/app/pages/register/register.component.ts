@@ -25,6 +25,11 @@ export function passwordsMatchValidator(group: AbstractControl): ValidationError
   return password === confirmPassword ? null : { passwordsDoNotMatch: true };
 }
 
+/**
+ * User registration page component.
+ * Facilitates the creation of new user accounts, including role selection
+ * (if permitted by the user's permissions or system configuration).
+ */
 @Component({
   selector: 'app-register',
   standalone: true,

@@ -12,6 +12,10 @@ export interface UpdateUserInput {
   favoriteCenterId?: string | null; // Solo se puede cambiar favoriteCenterId, no centerId
 }
 
+/**
+ * Service for managing user-related data and profile operations.
+ * Handles user listing, profile updates, and image management.
+ */
 @Injectable({
   providedIn: 'root'
 })

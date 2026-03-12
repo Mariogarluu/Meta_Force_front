@@ -6,6 +6,10 @@ import { User } from '../models/user';
 import { AuthInput, RegisterInput, AuthResponse } from '../models/auth';
 import { environment } from '../../../environments/environment';
 
+/**
+ * Service handling authentication, session management, and user profile data.
+ * Manages the current user state via Angular signals and handles both cookie-based and token-based (legacy) authentication.
+ */
 @Injectable({
   providedIn: 'root'
 })

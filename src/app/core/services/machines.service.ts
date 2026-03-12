@@ -11,6 +11,10 @@ import {
   UpdateMachineInCenterInput,
 } from '../models/machine';
 
+/**
+ * Service for managing machine types and their physical instances in centers.
+ * Handles the catalog of equipment and their distribution across gym locations.
+ */
 @Injectable({
   providedIn: 'root'
 })

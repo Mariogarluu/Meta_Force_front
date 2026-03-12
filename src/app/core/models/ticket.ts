@@ -1,7 +1,11 @@
 import { Center } from './center';
 
+/** Possible lifecycle states for a support ticket */
 export type TicketStatus = 'pending' | 'in_progress' | 'completed';
 
+/**
+ * Represents a support or contact request.
+ */
 export interface Ticket {
   id: string;
   name: string;
