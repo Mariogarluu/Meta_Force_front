@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import {
   MachineTypeModel,
+  MachineCenterInstance,
   CreateMachineTypeInput,
   UpdateMachineTypeInput,
   AddMachineToCenterInput,
@@ -36,6 +37,17 @@ export class MachinesService {
         instances: item.machines || [] // Mapear 'machines' a 'instances'
       })))
     );
+  }
+
+  /**
+   * Lista todas las máquinas (instancias) para un centro específico
+   */
+  listMachines(centerId: string): Observable<MachineCenterInstance[]> {
+    let params = new HttpParams();
+    if (centerId) {
+      params = params.set('centerId', centerId);
+    }
+    return this.http.get<MachineCenterInstance[]>(`${this.apiUrl}`, { params });
   }
 
   /**
