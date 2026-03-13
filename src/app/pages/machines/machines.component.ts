@@ -19,6 +19,12 @@ import { Center } from '../../core/models/center';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
+// Interface for machine instance with detailed names (for display in instances tab)
+interface MachineCenterInstanceWithDetails extends MachineCenterInstance {
+  machineTypeName: string;
+  centerName: string;
+}
+
 @Component({
   selector: 'app-machines',
   standalone: true,
@@ -32,11 +38,12 @@ export class MachinesComponent implements OnInit {
   public auth = inject(AuthService);
   translate = inject(TranslateService);
 
-  machineTypes = signal<MachineTypeModel[]>([]);
-  centers = signal<Center[]>([]);
-  isLoading = signal(false);
-  errorMessage = signal<string>('');
-  addCenterErrorMessage = signal<string>(''); 
+   machineTypes = signal<MachineTypeModel[]>([]);
+   centers = signal<Center[]>([]);
+   machineInstances = signal<MachineCenterInstance[]>([]);
+   isLoading = signal(false);
+   errorMessage = signal<string>('');
+   addCenterErrorMessage = signal<string>('');
 
   // --- FILTROS ---
   filterName = signal<string>('');
@@ -73,80 +80,105 @@ export class MachinesComponent implements OnInit {
   machineTypeOptions: MachineType[] = ['cardio', 'fuerza', 'peso libre', 'funcional', 'otro'];
   machineStatusOptions: MachineStatus[] = ['operativa', 'en mantenimiento', 'fuera de servicio'];
 
-  // --- LÓGICA DE FILTRADO ---
-  filteredMachineTypes = computed(() => {
-    let filtered = this.machineTypes();
+   // Separate filtering logic for each tab
+   filteredMachineTypes = computed(() => {
+     let filtered = this.machineTypes();
 
-    if (this.filterName()) {
-      const term = this.filterName().toLowerCase();
-      filtered = filtered.filter(m => m.name.toLowerCase().includes(term));
-    }
+     if (this.filterName()) {
+       const term = this.filterName().toLowerCase();
+       filtered = filtered.filter(m => m.name.toLowerCase().includes(term));
+     }
 
-    if (this.filterType()) {
-      filtered = filtered.filter(m => m.type === this.filterType());
-    }
+     if (this.filterType()) {
+       filtered = filtered.filter(m => m.type === this.filterType());
+     }
 
-    if (this.filterCenterId()) {
-      filtered = filtered.filter(m =>
-        m.instances?.some(i => i.centerId === this.filterCenterId())
-      );
-    }
-
-    return filtered;
-  });
+     // Machine types tab: Do NOT filter by centerId (machine types are global)
+     // The centerId filter is only applicable to the instances tab
+     return filtered;
+   });
 
   hasActiveFilters = computed(() => {
     return !!(this.filterName() || this.filterType() || this.filterCenterId());
   });
 
-  ngOnInit(): void {
-    this.loadMachineTypes();
-    this.loadCenters();
-  }
+   ngOnInit(): void {
+     this.loadMachineTypes();
+     this.loadCenters();
+     this.loadMachineInstances();
+   }
 
-  loadMachineTypes(): void {
-    this.isLoading.set(true);
-    this.errorMessage.set('');
-    // Los administradores de centro deben ver todos los modelos, pero pueden filtrar las instancias por centro
-    // Solo pasamos centerId para filtrar las instancias, pero siempre mostramos todos los modelos
-    const centerId = this.filterCenterId() || null;
-    this.machinesService.listMachineTypes(centerId).subscribe({
-      next: (data) => {
-        this.machineTypes.set(data);
-        this.isLoading.set(false);
-      },
-      error: (error) => {
-        this.errorMessage.set(error.error?.message || this.translate.instant('machines.errors.load'));
-        this.isLoading.set(false);
-      }
-    });
-  }
+   loadMachineTypes(): void {
+     this.isLoading.set(true);
+     this.errorMessage.set('');
+     // Always get all machine types (they are global)
+     // Center filtering is applied at the instance level, not type level
+     this.machinesService.listMachineTypes(null).subscribe({
+       next: (data) => {
+         this.machineTypes.set(data);
+         this.isLoading.set(false);
+       },
+       error: (error) => {
+         this.errorMessage.set(error.error?.message || this.translate.instant('machines.errors.load'));
+         this.isLoading.set(false);
+       }
+     });
+   }
 
-  loadCenters(): void {
-    this.centersService.listCentersWithIds().subscribe({
-      next: (data) => {
-        this.centers.set(data);
-        // Para administradores de centro, establecer su centro por defecto
-        if (!this.filterCenterId() && data.length > 0) {
-          const user = this.currentUser();
-          if (this.isAdminCenter() && user?.centerId) {
-            // Si es admin de centro, usar su centro
-            this.filterCenterId.set(user.centerId);
-          } else {
-            const userFavoriteCenterId = user?.favoriteCenterId;
-            if (userFavoriteCenterId && data.find(c => c.id === userFavoriteCenterId)) {
-              this.filterCenterId.set(userFavoriteCenterId);
-            } else if (data.length > 0) {
-              this.filterCenterId.set(data[0].id || '');
-            }
-          }
-        }
-      },
-      error: (error) => {
-        console.error('Error al cargar centros:', error);
-      }
-    });
-  }
+   loadCenters(): void {
+     this.centersService.listCentersWithIds().subscribe({
+       next: (data) => {
+         this.centers.set(data);
+         // Para administradores de centro, establecer su centro por defecto
+         if (!this.filterCenterId() && data.length > 0) {
+           const user = this.currentUser();
+           if (this.isAdminCenter() && user?.centerId) {
+             // Si es admin de centro, usar su centro
+             this.filterCenterId.set(user.centerId);
+           } else {
+             const userFavoriteCenterId = user?.favoriteCenterId;
+             if (userFavoriteCenterId && data.find(c => c.id === userFavoriteCenterId)) {
+               this.filterCenterId.set(userFavoriteCenterId);
+             } else if (data.length > 0) {
+               this.filterCenterId.set(data[0].id || '');
+             }
+           }
+         }
+       },
+       error: (error) => {
+         console.error('Error al cargar centros:', error);
+       }
+     });
+   }
+
+   loadMachineInstances(): void {
+     if (!this.filterCenterId()) {
+       this.machineInstances.set([]);
+       return;
+     }
+     
+     this.isLoading.set(true);
+     this.errorMessage.set('');
+     
+     // Get all machines for the selected center
+     this.machinesService.listMachines(this.filterCenterId()).subscribe({
+       next: (machines: MachineCenterInstance[]) => {
+         // Transform to include machine type and center names for display
+         const instancesWithDetails: MachineCenterInstanceWithDetails[] = machines.map(machine => ({
+           ...machine,
+           machineTypeName: machine.machineType?.name || 'Desconocido',
+           centerName: machine.center?.name || 'Desconocido'
+         }));
+         
+         this.machineInstances.set(instancesWithDetails);
+         this.isLoading.set(false);
+       },
+       error: (error) => {
+         this.errorMessage.set(error.error?.message || this.translate.instant('machines.errors.load'));
+         this.isLoading.set(false);
+       }
+     });
+   }
 
   onCenterChange(centerId: string): void {
     this.filterCenterId.set(centerId);
