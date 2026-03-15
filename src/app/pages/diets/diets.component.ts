@@ -74,7 +74,7 @@ export class DietsComponent implements OnInit, OnDestroy {
   /** Formulario para agregar/editar comidas a la dieta */
   mealForm = {
     mealId: '',
-    dayOfWeek: 1,
+    dayOfWeek: 0,
     mealType: 'desayuno' as MealType,
     quantity: null as number | null,
     notes: ''
@@ -82,13 +82,13 @@ export class DietsComponent implements OnInit, OnDestroy {
 
   /** Días de la semana con sus etiquetas (empieza en lunes) */
   daysOfWeek = [
-    { value: 1, label: 'Lunes', short: 'Lun' },
-    { value: 2, label: 'Martes', short: 'Mar' },
-    { value: 3, label: 'Miércoles', short: 'Mié' },
-    { value: 4, label: 'Jueves', short: 'Jue' },
-    { value: 5, label: 'Viernes', short: 'Vie' },
-    { value: 6, label: 'Sábado', short: 'Sáb' },
-    { value: 0, label: 'Domingo', short: 'Dom' }
+    { value: 0, label: 'Lunes', short: 'Lun' },
+    { value: 1, label: 'Martes', short: 'Mar' },
+    { value: 2, label: 'Miércoles', short: 'Mié' },
+    { value: 3, label: 'Jueves', short: 'Jue' },
+    { value: 4, label: 'Viernes', short: 'Vie' },
+    { value: 5, label: 'Sábado', short: 'Sáb' },
+    { value: 6, label: 'Domingo', short: 'Dom' }
   ];
 
   /** Tipos de comida disponibles */

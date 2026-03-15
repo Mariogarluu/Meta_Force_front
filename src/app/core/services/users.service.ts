@@ -68,6 +68,13 @@ export class UsersService {
   }
 
   /**
+   * Actualiza el perfil del usuario autenticado.
+   */
+  updateProfile(data: { name?: string; email?: string; gender?: string; birthDate?: string; height?: number; currentWeight?: number; medicalNotes?: string }): Observable<User> {
+    return this.http.patch<User>(`${this.apiUrl}/me`, data);
+  }
+
+  /**
    * Sube una imagen de perfil para el usuario autenticado.
    * @param file - Archivo de imagen a subir
    * @returns Observable que emite el usuario actualizado con la nueva URL de imagen

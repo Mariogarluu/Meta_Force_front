@@ -5,7 +5,7 @@ export interface ClassCenterSchedule {
   id: string;
   classId: string;
   centerId: string;
-  /** 0 = Sunday, 1 = Monday, ..., 6 = Saturday */
+  /** 0 = Monday, 1 = Tuesday, ..., 6 = Sunday */
   dayOfWeek: number;
   /** Start time in HH:mm format (e.g., "09:00") */
   startTime: string;
