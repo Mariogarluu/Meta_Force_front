@@ -8,7 +8,7 @@ export interface WorkoutExercise {
   workoutId: string;
   exerciseId: string;
   exercise: Exercise;
-  /** 0 = Sunday, 1 = Monday, ..., 6 = Saturday */
+  /** 0 = Monday, 1 = Tuesday, ..., 6 = Sunday */
   dayOfWeek: number;
   order: number;
   sets?: number | null;

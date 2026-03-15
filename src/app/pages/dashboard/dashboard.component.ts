@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed, ElementRef, HostListener } from '@angular/core';
+import { Component, inject, signal, computed, ElementRef, HostListener, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -44,6 +44,15 @@ export class DashboardComponent {
   // Estado para el dropdown de notificaciones
   showNotifications = signal(false);
 
+  // Perfil Físico
+  physicalDataForm = signal({
+    gender: '',
+    birthDate: '',
+    height: 0,
+    currentWeight: 0,
+    medicalNotes: ''
+  });
+
   readonly roles: RoleType[] = ['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER', 'CLEANER', 'USER'];
   currentUser = computed(() => this.auth.currentUser());
   
@@ -71,6 +80,20 @@ export class DashboardComponent {
     if (user) {
       this.selectedRole.set(user.role);
     }
+
+    // Sincronizar formulario físico cuando cambia el usuario
+    effect(() => {
+      const user = this.currentUser();
+      if (user) {
+        this.physicalDataForm.set({
+          gender: user.gender || '',
+          birthDate: user.birthDate ? new Date(user.birthDate).toISOString().split('T')[0] : '',
+          height: user.height || 0,
+          currentWeight: user.currentWeight || 0,
+          medicalNotes: user.medicalNotes || ''
+        });
+      }
+    });
   }
 
   // --- LÓGICA DE NOTIFICACIONES ---
@@ -156,6 +179,21 @@ export class DashboardComponent {
       error: (error) => {
         this.isLoading.set(false);
         this.errorMessage.set(error.error?.message || this.translate.instant('dashboard.roleEditor.error'));
+      }
+    });
+  }
+
+  updatePhysicalData() {
+    this.isLoading.set(true);
+    this.usersService.updateProfile(this.physicalDataForm()).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.auth.refreshUser();
+        // Opcional: mostrar notificación de éxito (ya tenemos NotificationService)
+      },
+      error: (error) => {
+        this.isLoading.set(false);
+        alert('Error al actualizar datos físicos: ' + (error.error?.message || error.message));
       }
     });
   }

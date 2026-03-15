@@ -8,7 +8,7 @@ export interface DietMeal {
   dietId: string;
   mealId: string;
   meal: Meal;
-  /** 0 = Sunday, 1 = Monday, ..., 6 = Saturday */
+  /** 0 = Monday, 1 = Tuesday, ..., 6 = Sunday */
   dayOfWeek: number;
   mealType: 'desayuno' | 'almuerzo' | 'comida' | 'merienda' | 'cena';
   order: number;

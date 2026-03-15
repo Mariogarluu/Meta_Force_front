@@ -10,6 +10,11 @@ export interface User {
   role: Role;
   status?: UserStatus;
   profileImageUrl?: string | null; // URL de la imagen de perfil en Cloudinary
+  gender?: string;
+  birthDate?: string;
+  height?: number;
+  currentWeight?: number;
+  medicalNotes?: string;
   createdAt?: string;
   centerId?: string; // Centro actual donde está físicamente (solo se actualiza desde QR scanner)
   favoriteCenterId?: string | null; // Centro favorito/asignado (se puede cambiar desde CRUD)
