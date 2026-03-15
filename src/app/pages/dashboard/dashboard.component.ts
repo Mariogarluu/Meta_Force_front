@@ -50,7 +50,9 @@ export class DashboardComponent {
     birthDate: '',
     height: 0,
     currentWeight: 0,
-    medicalNotes: ''
+    medicalNotes: '',
+    activityLevel: '',
+    goal: ''
   });
 
   readonly roles: RoleType[] = ['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER', 'CLEANER', 'USER'];
@@ -90,7 +92,9 @@ export class DashboardComponent {
           birthDate: user.birthDate ? new Date(user.birthDate).toISOString().split('T')[0] : '',
           height: user.height || 0,
           currentWeight: user.currentWeight || 0,
-          medicalNotes: user.medicalNotes || ''
+          medicalNotes: user.medicalNotes || '',
+          activityLevel: user.activityLevel || '',
+          goal: user.goal || ''
         });
       }
     });

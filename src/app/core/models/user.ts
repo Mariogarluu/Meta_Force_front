@@ -14,6 +14,8 @@ export interface User {
   birthDate?: string;
   height?: number;
   currentWeight?: number;
+  activityLevel?: string;
+  goal?: string;
   medicalNotes?: string;
   createdAt?: string;
   centerId?: string; // Centro actual donde está físicamente (solo se actualiza desde QR scanner)
