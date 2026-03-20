@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build -- --configuration production",
+  "buildCommand": "npm run build -- --configuration production && npm run compodoc:build",
   "outputDirectory": "dist/credentials/browser",
   "devCommand": "npm run start",
   "installCommand": "npm install",
