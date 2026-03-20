@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "compodoc": "compodoc -p tsconfig.json -s",
-    "compodoc:build": "compodoc -p tsconfig.json -d dist/credentials/browser/documentation"
+    "compodoc:build": "compodoc -p tsconfig.json -d dist/credentials/browser/documentation -n \"Meta Force Documentation\""
   },
   "private": true,
   "dependencies": {
