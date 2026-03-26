@@ -1,0 +1,579 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>credentials documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="./" class="navbar-brand">credentials documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content readme">
+                   <div class="content-data">
+
+
+<h1>Meta Force Frontend 🏋️</h1>
+<p>Aplicación frontend desarrollada con Angular 19 para la gestión integral de centros deportivos Meta Force. Sistema completo de gestión de usuarios, centros, máquinas, clases y entrenadores con soporte multiidioma y temas personalizables.</p>
+<h2>🌟 Características Principales</h2>
+<ul>
+<li><strong>🔐 Autenticación y Autorización*</strong> Sistema JWT con roles (SUPERADMIN, ADMIN_CENTER, CLIENT)</li>
+<li><strong>👥 Gestión de Usuarios*</strong> CRUD completo con control de acceso por roles</li>
+<li><strong>🏢 Gestión de Centros*</strong> Administración de centros deportivos</li>
+<li><strong>💪 Gestión de Máquinas*</strong> Control de equipamiento y estados</li>
+<li><strong>📅 Gestión de Clases*</strong> Programación y seguimiento de clases</li>
+<li><strong>👨‍🏫 Gestión de Entrenadores**</strong>Administración del personal</li>
+<li><strong>📱 Código QR*</strong> Generación y escaneo de códigos QR para acceso</li>
+<li><strong>🌍 Multiidioma*</strong> Soporte para Español, Inglés y Francés</li>
+<li><strong>🎨 Temas*</strong> Modo claro y oscuro con persistencia</li>
+<li><strong>📊 Dashboard Interactivo*</strong> Visualización de datos y estadísticas</li>
+<li><strong>🔔 Sistema de Notificaciones*</strong> Alertas y mensajes en tiempo real</li>
+<li><strong>📸 Gestión de Imágenes*</strong> Upload y manejo de fotos de perfil</li>
+<li><strong>🛡️ Seguridad*</strong> Guards, interceptores y manejo de errores</li>
+</ul>
+<h2>📋 Requisitos Previos</h2>
+<ul>
+<li><strong>Node.js</strong> (versión 18 o superior) - <a href="https://nodejs.org/">Descargar</a></li>
+<li><strong>npm</strong> (viene incluido con Node.js)</li>
+<li><strong>Git</strong> - <a href="https://git-scm.com/">Descargar</a></li>
+<li><strong>Angular CLI</strong> (opcional, recomendado): <code>npm install -g @angular/cli</code></li>
+</ul>
+<h2>🚀 Instalación</h2>
+<ol>
+<li>Clona el repositorio:</li>
+</ol>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">git clone https://github.com/Mariogarluu/Meta_Force_front.git
+cd Meta_Force_front</code></pre></div><ol start="2">
+<li>Instala las dependencias:</li>
+</ol>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm install</code></pre></div><ol start="3">
+<li>Inicia el servidor de desarrollo:</li>
+</ol>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm start</code></pre></div><p>La aplicación estará disponible en <code>http://localhost:4200/</code></p>
+<h2>📝 Scripts Disponibles</h2>
+<ul>
+<li><code>npm start</code> - Inicia el servidor de desarrollo en <a href="http://localhost:4200">http://localhost:4200</a></li>
+<li><code>npm run build</code> - Compila el proyecto para producción</li>
+<li><code>npm run watch</code> - Compila el proyecto en modo desarrollo con watch</li>
+<li><code>npm test</code> - Ejecuta las pruebas unitarias con Karma y Jasmine</li>
+<li><code>ng serve</code> - Alternativa para iniciar el servidor de desarrollo</li>
+<li><code>ng generate component &lt;name&gt;</code> - Genera un nuevo componente</li>
+<li><code>ng build --configuration production</code> - Build optimizado para producción</li>
+</ul>
+<h2>🎨 Temas</h2>
+<p>La aplicación soporta modo claro y oscuro:</p>
+<ul>
+<li><strong>Toggle de tema</strong>: Disponible en todas las páginas principales</li>
+<li><strong>Persistencia</strong>: La preferencia de tema se guarda en localStorage</li>
+<li><strong>Adaptación automática</strong>: Los componentes se adaptan automáticamente al tema seleccionado</li>
+</ul>
+<h2>🔄 Flujo de Trabajo con Git (Workflow)</h2>
+<h3>Proceso para Subir Cambios desde tu Rama Personal</h3>
+<p>Sigue estos pasos para integrar tus cambios a la rama <code>develop</code>:</p>
+<h4>1. <strong>Commit en tu rama personal</strong></h4>
+<p>Primero, asegúrate de estar en tu rama y realiza los commits de tus cambios:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Verifica que estés en tu rama
+git branch
+
+# Añade los archivos modificados
+git add .
+
+# Realiza el commit con un mensaje descriptivo
+git commit -m &quot;Descripción clara de los cambios realizados&quot;</code></pre></div><h4>2. <strong>Pull de develop</strong></h4>
+<p>Antes de hacer el merge, actualiza tu rama local de <code>develop</code> con los últimos cambios del repositorio remoto:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Cambia a la rama develop
+git checkout develop
+
+# Actualiza develop con los cambios remotos
+git pull origin develop</code></pre></div><h4>3. <strong>Merge en tu rama</strong></h4>
+<p>Vuelve a tu rama personal e integra los cambios de <code>develop</code>:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Regresa a tu rama personal
+git checkout tu-rama-personal
+
+# Realiza el merge de develop en tu rama
+git merge develop</code></pre></div><p><strong>Importante:</strong> Si hay conflictos durante el merge, resuélvelos manualmente:</p>
+<ul>
+<li>Abre los archivos con conflictos</li>
+<li>Busca las marcas de conflicto (<code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>)</li>
+<li>Edita el archivo para mantener los cambios correctos</li>
+<li>Guarda los archivos</li>
+<li>Añade los archivos resueltos: <code>git add .</code></li>
+<li>Completa el merge: <code>git commit</code></li>
+</ul>
+<h4>4. <strong>Cuando el merge esté completado</strong></h4>
+<p>Una vez que hayas resuelto todos los conflictos y probado que todo funciona correctamente:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Cambia a la rama develop
+git checkout develop
+
+# Realiza el merge de tu rama en develop
+git merge tu-rama-personal
+
+# Sube los cambios a develop en el repositorio remoto
+git push origin develop</code></pre></div><h3>📌 Resumen del Flujo</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-none">1. git checkout tu-rama-personal
+2. git add .
+3. git commit -m &quot;tu mensaje&quot;
+4. git checkout develop
+5. git pull origin develop
+6. git checkout tu-rama-personal
+7. git merge develop
+8. [Resolver conflictos si existen]
+9. git checkout develop
+10. git merge tu-rama-personal
+11. git push origin develop</code></pre></div><h3>⚠️ Buenas Prácticas</h3>
+<ul>
+<li><strong>Commits frecuentes</strong>: Realiza commits pequeños y con mensajes descriptivos</li>
+<li><strong>Pull antes de push</strong>: Siempre actualiza <code>develop</code> antes de mergear tus cambios</li>
+<li><strong>Prueba antes de mergear</strong>: Asegúrate de que tu código funcione correctamente antes de mergear a <code>develop</code></li>
+<li><strong>Resuelve conflictos con cuidado</strong>: Revisa detenidamente los conflictos antes de resolverlos</li>
+<li><strong>Mantén tu rama actualizada</strong>: Haz merge de <code>develop</code> en tu rama personal regularmente para evitar conflictos grandes</li>
+</ul>
+<h2>🌐 Internacionalización (i18n)</h2>
+<p>La aplicación soporta múltiples idiomas mediante <code>ngx-translate</code>. Los idiomas disponibles son:</p>
+<ul>
+<li><strong>Español (es)</strong> - Idioma por defecto</li>
+<li><strong>Inglés (en)</strong></li>
+<li><strong>Francés (fr)</strong></li>
+</ul>
+<h3>Características de Traducción</h3>
+<ul>
+<li><strong>Selector de idioma</strong>: Disponible en todas las páginas principales</li>
+<li><strong>Traducción dinámica</strong>: Todos los textos de interfaz se traducen automáticamente</li>
+<li><strong>Persistencia</strong>: El idioma seleccionado se guarda en localStorage</li>
+<li><strong>Filtros traducidos</strong>: Los filtros de búsqueda se adaptan al idioma seleccionado</li>
+<li><strong>Estados y roles</strong>: Los estados de usuarios, roles y tipos de máquinas se traducen dinámicamente</li>
+</ul>
+<h3>Archivos de Traducción</h3>
+<p>Los archivos de traducción se encuentran en:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-none">public/assets/i18n/
+├── es.json  # Español
+├── en.json  # Inglés
+└── fr.json  # Francés</code></pre></div><h3>Uso en Componentes</h3>
+<p>Para usar traducciones en un componente:</p>
+<ol>
+<li>Importa <code>TranslateModule</code>:</li>
+</ol>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { TranslateModule } from &#39;&#64;ngx-translate/core&#39;;
+
+&#64;Component({
+  imports: [CommonModule, TranslateModule, ...],
+  ...
+})</code></pre></div><ol start="2">
+<li>Usa el pipe <code>translate</code> en el template:</li>
+</ol>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-html">&lt;h1&gt;{{ &#39;users.title&#39; | translate }}&lt;/h1&gt;
+&lt;button&gt;{{ &#39;common.save&#39; | translate }}&lt;/button&gt;</code></pre></div><ol start="3">
+<li>Para traducciones en TypeScript:</li>
+</ol>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-typescript">import { TranslateService } from &#39;&#64;ngx-translate/core&#39;;
+
+constructor(private translate: TranslateService) {}
+
+getMessage() {
+  return this.translate.instant(&#39;users.title&#39;);
+}</code></pre></div><h3>Componentes Traducidos</h3>
+<ul>
+<li>✅ Login</li>
+<li>✅ Register</li>
+<li>✅ Dashboard</li>
+<li>✅ Home</li>
+<li>✅ Navbar</li>
+<li>✅ QR Code</li>
+<li>✅ QR Scanner</li>
+<li>✅ Users Management</li>
+<li>✅ Centers Management</li>
+<li>✅ Machines Management</li>
+<li>✅ Theme Toggle</li>
+<li>✅ Language Selector</li>
+</ul>
+<h2>🏗️ Estructura del Proyecto</h2>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-none">Meta_Force_front/
+├── src/
+│   ├── app/
+│   │   ├── core/                    # Funcionalidad core de la aplicación
+│   │   │   ├── guards/              # Guards de rutas (auth, guest, role)
+│   │   │   ├── interceptors/        # HTTP interceptors (auth)
+│   │   │   ├── models/              # Interfaces y tipos TypeScript
+│   │   │   └── services/            # Servicios core
+│   │   │       ├── auth.service.ts           # Autenticación JWT
+│   │   │       ├── users.service.ts          # Gestión de usuarios
+│   │   │       ├── centers.service.ts        # Gestión de centros
+│   │   │       ├── machines.service.ts       # Gestión de máquinas
+│   │   │       ├── classes.service.ts        # Gestión de clases
+│   │   │       ├── theme.service.ts          # Gestión de temas
+│   │   │       ├── translation.service.ts    # Gestión de idiomas
+│   │   │       ├── notification.service.ts   # Sistema de notificaciones
+│   │   │       └── error.service.ts          # Manejo de errores
+│   │   ├── pages/                   # Páginas de la aplicación
+│   │   │   ├── home/                # Página principal (landing)
+│   │   │   ├── login/               # Página de login
+│   │   │   ├── register/            # Página de registro
+│   │   │   ├── dashboard/           # Dashboard principal
+│   │   │   ├── users/               # Gestión de usuarios (CRUD)
+│   │   │   ├── centers/             # Gestión de centros (CRUD)
+│   │   │   ├── machines/            # Gestión de máquinas (CRUD)
+│   │   │   ├── clases/              # Gestión de clases (CRUD)
+│   │   │   ├── trainers/            # Gestión de entrenadores (CRUD)
+│   │   │   ├── qr/                  # Generador de código QR
+│   │   │   └── qr-scanner/          # Escáner QR (roles específicos)
+│   │   └── shared/                  # Componentes compartidos
+│   │       └── components/
+│   │           ├── navbar/                    # Barra de navegación
+│   │           ├── footer/                    # Pie de página
+│   │           ├── theme-toggle/              # Selector de tema
+│   │           ├── language-selector/         # Selector de idioma
+│   │           ├── error-toast/               # Componente de errores
+│   │           └── profile-image-manager/     # Gestión de imágenes
+│   ├── environments/            # Variables de entorno
+│   │   ├── environment.ts               # Producción
+│   │   └── environment.development.ts   # Desarrollo
+│   ├── styles/                  # Estilos globales
+│   └── index.html               # Archivo HTML principal
+├── public/
+│   ├── assets/
+│   │   └── i18n/                # Archivos de traducción (es, en, fr)
+│   └── Logo.png                 # Logo de la aplicación
+├── docs/                        # Documentación adicional
+├── angular.json                 # Configuración de Angular
+├── package.json                 # Dependencias del proyecto
+├── tailwind.config.js           # Configuración de Tailwind CSS
+├── tsconfig.json                # Configuración de TypeScript
+└── vercel.json                  # Configuración de despliegue en Vercel</code></pre></div><h2>🔧 Tecnologías y Dependencias</h2>
+<h3>Framework y Lenguajes</h3>
+<ul>
+<li><strong>Angular 19.2</strong> - Framework principal</li>
+<li><strong>TypeScript 5.7</strong> - Lenguaje de programación</li>
+<li><strong>RxJS 7.8</strong> - Programación reactiva</li>
+<li><strong>Angular Signals</strong> - Gestión de estado reactivo</li>
+</ul>
+<h3>Estilos</h3>
+<ul>
+<li><strong>Tailwind CSS 3.4</strong> - Framework de estilos utility-first</li>
+<li><strong>SCSS</strong> - Preprocesador CSS</li>
+<li><strong>PostCSS &amp; Autoprefixer</strong> - Procesamiento de CSS</li>
+</ul>
+<h3>Internacionalización</h3>
+<ul>
+<li><strong>@ngx-translate/core 17.0</strong> - Sistema de internacionalización</li>
+<li><strong>@ngx-translate/http-loader</strong> - Carga de traducciones</li>
+</ul>
+<h3>Autenticación y Seguridad</h3>
+<ul>
+<li><strong>JWT (jsonwebtoken)</strong> - Tokens de autenticación</li>
+<li><strong>HTTP Interceptors</strong> - Inyección automática de tokens</li>
+<li><strong>Guards</strong> - Protección de rutas</li>
+</ul>
+<h3>Utilidades</h3>
+<ul>
+<li><strong>html5-qrcode 2.3</strong> - Generación y escaneo de códigos QR</li>
+</ul>
+<h3>Testing</h3>
+<ul>
+<li><strong>Jasmine 5.6</strong> - Framework de testing</li>
+<li><strong>Karma 6.4</strong> - Test runner</li>
+</ul>
+<h3>Herramientas de Desarrollo</h3>
+<ul>
+<li><strong>Angular CLI 19.2</strong> - Herramienta de línea de comandos</li>
+<li><strong>Angular DevKit</strong> - Herramientas de desarrollo</li>
+</ul>
+<h2>🔐 Autenticación y Roles</h2>
+<p>El sistema implementa un sistema de autenticación basado en JWT con tres roles principales:</p>
+<h3>Roles Disponibles</h3>
+<ol>
+<li><p><strong>SUPERADMIN</strong> </p>
+<ul>
+<li>Acceso completo a todas las funcionalidades</li>
+<li>Gestión de usuarios, centros, máquinas, clases y entrenadores</li>
+<li>Acceso al escáner QR</li>
+</ul>
+</li>
+<li><p><strong>ADMIN_CENTER</strong></p>
+<ul>
+<li>Gestión de su centro específico</li>
+<li>Gestión de máquinas y clases de su centro</li>
+<li>Acceso al escáner QR</li>
+<li>Visualización de estadísticas</li>
+</ul>
+</li>
+<li><p><strong>CLIENT</strong></p>
+<ul>
+<li>Acceso a su perfil y datos personales</li>
+<li>Visualización de clases disponibles</li>
+<li>Generación de código QR personal</li>
+<li>Visualización del dashboard</li>
+</ul>
+</li>
+</ol>
+<h3>Flujo de Autenticación</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-none">1. Usuario → Login/Register
+2. Backend valida credenciales
+3. Backend genera JWT token
+4. Frontend almacena token en localStorage
+5. HTTP Interceptor añade token en cada petición
+6. Guards protegen rutas según roles</code></pre></div><h2>🌐 Integración con API</h2>
+<p>La aplicación se conecta a un backend REST API desplegado en Vercel:</p>
+<ul>
+<li><strong>API URL (Producción)</strong>: <code>https://meta-force-back.vercel.app/api</code></li>
+<li><strong>Configuración</strong>: <code>/src/environments/environment.ts</code></li>
+</ul>
+<h3>Endpoints Principales</h3>
+<ul>
+<li><code>POST /api/auth/login</code> - Autenticación</li>
+<li><code>POST /api/auth/register</code> - Registro</li>
+<li><code>GET /api/auth/profile</code> - Perfil del usuario</li>
+<li><code>GET /api/users</code> - Listar usuarios</li>
+<li><code>GET /api/centers</code> - Listar centros</li>
+<li><code>GET /api/machines</code> - Listar máquinas</li>
+<li><code>GET /api/classes</code> - Listar clases</li>
+</ul>
+<p>Ver documentación completa en <a href="./docs/API.md">API.md</a></p>
+<h2>🚀 Despliegue</h2>
+<p>El proyecto está configurado para desplegarse en <strong>Vercel</strong>:</p>
+<ol>
+<li><strong>Build Command</strong>: <code>npm run build -- --configuration production</code></li>
+<li><strong>Output Directory</strong>: <code>dist/credentials/browser</code></li>
+<li><strong>Framework</strong>: Angular</li>
+</ol>
+<p>La configuración de despliegue se encuentra en <code>vercel.json</code> con rewrites para SPA.</p>
+<p>Para más detalles sobre despliegue: <a href="./docs/DEPLOYMENT.md">DEPLOYMENT.md</a></p>
+<h2>🛡️ Seguridad</h2>
+<p>El proyecto implementa múltiples capas de seguridad:</p>
+<ul>
+<li><strong>JWT Authentication</strong>: Tokens seguros con expiración</li>
+<li><strong>Route Guards</strong>: Protección de rutas por autenticación y roles</li>
+<li><strong>HTTP Interceptors</strong>: Inyección automática de tokens</li>
+<li><strong>Error Handling</strong>: Manejo centralizado de errores</li>
+<li><strong>CORS</strong>: Configuración de orígenes permitidos</li>
+<li><strong>XSS Protection</strong>: Sanitización de inputs</li>
+</ul>
+<p>Ver más en <a href="./docs/SECURITY.md">SECURITY.md</a></p>
+<h2>🐛 Solución de Problemas</h2>
+<h3>Error: &quot;Cannot find module @angular/...&quot;</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">rm -rf node_modules package-lock.json
+npm install</code></pre></div><h3>Error: Puerto 4200 ya en uso</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Encuentra el proceso usando el puerto
+lsof -ti:4200 | xargs kill -9
+# O usa un puerto diferente
+ng serve --port 4300</code></pre></div><h3>Problemas con traducciones</h3>
+<ul>
+<li>Verificar que existan los archivos en <code>public/assets/i18n/</code></li>
+<li>Limpiar caché del navegador</li>
+<li>Revisar que las keys estén en todos los idiomas</li>
+</ul>
+<h3>Build falla en producción</h3>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Aumentar memoria de Node.js
+export NODE_OPTIONS=--max_old_space_size=4096
+npm run build</code></pre></div><h2>🧪 Testing</h2>
+<p>Ejecutar tests:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash"># Todos los tests
+npm test
+
+# Tests con cobertura
+ng test --code-coverage
+
+# Tests en modo headless (CI)
+ng test --watch=false --browsers=ChromeHeadless</code></pre></div><h2>📚 Documentación Adicional</h2>
+<ul>
+<li><a href="./docs/ARCHITECTURE.md">ARCHITECTURE.md</a> - Arquitectura técnica detallada</li>
+<li><a href="./docs/CONTRIBUTING.md">CONTRIBUTING.md</a> - Guía de contribución</li>
+<li><a href="./docs/API.md">API.md</a> - Documentación de la API</li>
+<li><a href="./docs/DEPLOYMENT.md">DEPLOYMENT.md</a> - Guía de despliegue</li>
+<li><a href="./docs/SECURITY.md">SECURITY.md</a> - Prácticas de seguridad</li>
+</ul>
+<h2>🤝 Contribuir</h2>
+<p>Si deseas contribuir al proyecto, por favor lee <a href="./docs/CONTRIBUTING.md">CONTRIBUTING.md</a> y sigue el flujo de trabajo descrito.</p>
+<p>Puntos clave:</p>
+<ol>
+<li>Crear una rama con un nombre descriptivo</li>
+<li>Escribir código limpio y comentado cuando sea necesario</li>
+<li>Probar tus cambios antes de hacer el merge</li>
+<li>Seguir las convenciones de código del proyecto (EditorConfig)</li>
+<li>Agregar traducciones para nuevos textos en los 3 idiomas (es, en, fr)</li>
+<li>Mantener la consistencia en el uso de traducciones (no hardcodear textos)</li>
+</ol>
+<h2>👥 Equipo</h2>
+<p>Desarrollado por el equipo de Meta Force.</p>
+<h2>📄 Licencia</h2>
+<p>Este proyecto es privado y pertenece a Meta Force.</p>
+<hr>
+<p><strong>¿Necesitas ayuda?</strong> Consulta la documentación o contacta al equipo de desarrollo.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'readme';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+
+       <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

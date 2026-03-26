@@ -9,6 +9,11 @@ import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
+/**
+ * Authentication page component for user login.
+ * Handles credential validation, password visibility toggling, and redirection
+ * to the dashboard or a previously attempted URL.
+ */
 @Component({
   selector: 'app-login',
   standalone: true,

@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Ticket, CreateTicketInput, UpdateTicketInput } from '../models/ticket';
 
+/**
+ * Service for managing contact and support tickets.
+ * Handles public ticket creation (including file attachments) and authenticated ticket management.
+ */
 @Injectable({
   providedIn: 'root'
 })

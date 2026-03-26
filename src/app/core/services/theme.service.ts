@@ -7,6 +7,10 @@ export type Theme = 'dark' | 'light';
  * Persiste la preferencia del usuario en localStorage y aplica el tema
  * al documento HTML mediante la clase 'dark' de Tailwind CSS.
  */
+/**
+ * Service managing the application's visual theme (light/dark mode).
+ * Persists user preference and applies the 'dark' class to the HTML document.
+ */
 @Injectable({
   providedIn: 'root'
 })

@@ -1,3 +1,6 @@
+/**
+ * Represents a specific physical exercise.
+ */
 export interface Exercise {
   id: string;
   name: string;

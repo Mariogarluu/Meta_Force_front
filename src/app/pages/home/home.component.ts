@@ -5,6 +5,10 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
+/**
+ * Home page component providing a public-facing overview of the gym's services.
+ * Features an automatic image slider and service highlights.
+ */
 @Component({
   selector: 'app-home',
   standalone: true,

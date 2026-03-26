@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Exercise, CreateExerciseInput, UpdateExerciseInput } from '../models/exercise';
 
+/**
+ * Service for managing the library of exercises and machine types.
+ * Supports individual record management and bulk import of exercises.
+ */
 @Injectable({
   providedIn: 'root'
 })

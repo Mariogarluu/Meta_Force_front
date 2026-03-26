@@ -11,6 +11,11 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
 
 const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
 
+/**
+ * Global navigation bar component.
+ * Provides access to main system modules, user profile settings,
+ * real-time notifications, and session management.
+ */
 @Component({
   selector: 'app-navbar',
   standalone: true,

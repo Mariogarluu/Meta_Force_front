@@ -1,0 +1,729 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>credentials documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">credentials documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  ScanResult</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/pages/qr-scanner/qr-scanner.component.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interfaz para el resultado de un escaneo de QR.
+Contiene información sobre el tipo de operación (entrada/salida) y el usuario procesado.</p>
+
+            </p>
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#message" 
+>
+                                            message
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#success" 
+>
+                                            success
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#type" 
+>
+                                            type
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#user" 
+>
+                                            user
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="message"></a>
+                                        <span class="name "><b>message</b>
+                                            <a href="#message">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>message:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="success"></a>
+                                        <span class="name "><b>success</b>
+                                            <a href="#success">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>success:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="type"></a>
+                                        <span class="name "><b>type</b>
+                                            <a href="#type">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>type:     <code>&quot;entry&quot; | &quot;exit&quot;</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>&quot;entry&quot; | &quot;exit&quot;</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="user"></a>
+                                        <span class="name "><b>user</b>
+                                            <a href="#user">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>user:     <code>literal type</code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>literal type</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject, OnInit, OnDestroy, signal, computed } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { Html5Qrcode } from &#x27;html5-qrcode&#x27;;
+import { AuthService } from &#x27;../../core/services/auth.service&#x27;;
+import { CentersService } from &#x27;../../core/services/centers.service&#x27;;
+import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { environment } from &#x27;../../../environments/environment&#x27;;
+import { Center } from &#x27;../../core/models/center&#x27;;
+import { ThemeToggleComponent } from &#x27;../../shared/components/theme-toggle/theme-toggle.component&#x27;;
+import { TranslateModule, TranslateService } from &#x27;@ngx-translate/core&#x27;;
+import { LanguageSelectorComponent } from &#x27;../../shared/components/language-selector/language-selector.component&#x27;;
+
+/**
+ * Interfaz para el resultado de un escaneo de QR.
+ * Contiene información sobre el tipo de operación (entrada/salida) y el usuario procesado.
+ */
+interface ScanResult {
+  success: boolean;
+  type: &#x27;entry&#x27; | &#x27;exit&#x27;;
+  message: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}
+
+/**
+ * Componente para escanear códigos QR y registrar entradas/salidas de usuarios en centros.
+ * 
+ * Funcionalidades:
+ * - Acceso a la cámara del dispositivo para escanear QR codes
+ * - Selección automática o manual del centro según el rol del usuario
+ * - Detección automática de entrada/salida basada en el estado del usuario
+ * - Feedback visual con flash verde (entrada) o rojo (salida)
+ * - Validación de expiración del QR (20 minutos)
+ * 
+ * Solo accesible para SUPERADMIN y ADMIN_CENTER.
+ */
+@Component({
+  selector: &#x27;app-qr-scanner&#x27;,
+  standalone: true,
+  imports: [CommonModule, RouterModule, FormsModule, ThemeToggleComponent, TranslateModule, LanguageSelectorComponent],
+  templateUrl: &#x27;./qr-scanner.component.html&#x27;,
+  styleUrl: &#x27;./qr-scanner.component.scss&#x27;
+})
+export class QrScannerComponent implements OnInit, OnDestroy {
+  auth &#x3D; inject(AuthService);
+  centersService &#x3D; inject(CentersService);
+  http &#x3D; inject(HttpClient);
+  translate &#x3D; inject(TranslateService);
+
+  currentUser &#x3D; this.auth.currentUser;
+  centers &#x3D; signal&lt;Center[]&gt;([]);
+  selectedCenterId &#x3D; signal&lt;string | null&gt;(null);
+  isScanning &#x3D; signal(false);
+  scanner: Html5Qrcode | null &#x3D; null;
+  lastScanResult &#x3D; signal&lt;ScanResult | null&gt;(null);
+  scanError &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  showFlash &#x3D; signal(false);
+  flashType &#x3D; signal&lt;&#x27;entry&#x27; | &#x27;exit&#x27; | null&gt;(null);
+
+  /**
+   * Determina si el usuario necesita seleccionar un centro antes de escanear.
+   * SUPERADMIN siempre necesita seleccionar si hay centros disponibles.
+   * ADMIN_CENTER solo necesita seleccionar si tiene acceso a más de un centro.
+   * 
+   * @returns true si se requiere selección de centro, false si se puede iniciar automáticamente
+   */
+  needsCenterSelection &#x3D; computed(() &#x3D;&gt; {
+    const user &#x3D; this.currentUser();
+    if (!user) return false;
+    
+    if (user.role &#x3D;&#x3D;&#x3D; &#x27;SUPERADMIN&#x27;) {
+      return this.centers().length &gt; 0;
+    }
+    
+    if (user.role &#x3D;&#x3D;&#x3D; &#x27;ADMIN_CENTER&#x27;) {
+      return this.centers().length &gt; 1;
+    }
+    
+    return false;
+  });
+
+  ngOnInit() {
+    this.loadCenters();
+  }
+
+  ngOnDestroy() {
+    this.stopScanning();
+  }
+
+  /**
+   * Carga los centros disponibles según el rol del usuario autenticado.
+   * SUPERADMIN ve todos los centros del sistema.
+   * ADMIN_CENTER solo ve su propio centro (o centros si tiene acceso a múltiples).
+   * 
+   * Si solo hay un centro disponible, lo selecciona automáticamente e inicia el escáner.
+   * Si hay múltiples centros, muestra un selector para que el usuario elija.
+   */
+  async loadCenters() {
+    try {
+      const centers &#x3D; await this.centersService.listCenters().toPromise();
+      if (centers) {
+        this.centers.set(centers);
+        
+        // Si solo hay un centro, seleccionarlo automáticamente
+        if (centers.length &#x3D;&#x3D;&#x3D; 1 &amp;&amp; centers[0].id) {
+          this.selectedCenterId.set(centers[0].id);
+          this.startScanning();
+        } else if (centers.length &gt; 1 &amp;&amp; this.needsCenterSelection()) {
+          // Esperar a que el usuario seleccione
+        } else {
+          // Si es ADMIN_CENTER con un solo centro asignado
+          const user &#x3D; this.currentUser();
+          if (user?.centerId) {
+            this.selectedCenterId.set(user.centerId);
+            this.startScanning();
+          }
+        }
+      }
+    } catch (error) {
+      console.error(&#x27;Error cargando centros:&#x27;, error);
+      this.scanError.set(this.translate.instant(&#x27;qrScanner.errors.loadCenters&#x27;));
+    }
+  }
+
+  /**
+   * Callback que se ejecuta cuando el usuario selecciona un centro del dropdown.
+   * Inicia automáticamente el escáner de QR si se ha seleccionado un centro válido.
+   */
+  async onCenterSelected() {
+    if (this.selectedCenterId()) {
+      await this.startScanning();
+    }
+  }
+
+  /**
+   * Inicia el escáner de QR usando la cámara trasera del dispositivo.
+   * Configura Html5Qrcode con una frecuencia de 10 FPS y un área de escaneo de 250x250px.
+   * Requiere permisos de cámara del navegador.
+   * 
+   * @throws Error si no se puede acceder a la cámara o si no hay un centro seleccionado
+   */
+  async startScanning() {
+    if (!this.selectedCenterId()) {
+      this.scanError.set(this.translate.instant(&#x27;qrScanner.errors.selectCenter&#x27;));
+      return;
+    }
+
+    try {
+      this.scanner &#x3D; new Html5Qrcode(&#x27;qr-reader&#x27;);
+      this.isScanning.set(true);
+      this.scanError.set(&#x27;&#x27;);
+
+      await this.scanner.start(
+        { facingMode: &#x27;environment&#x27; },
+        {
+          fps: 10,
+          qrbox: { width: 250, height: 250 }
+        },
+        (decodedText) &#x3D;&gt; {
+          this.handleQRScan(decodedText);
+        },
+        (errorMessage) &#x3D;&gt; {
+          // Ignorar errores de escaneo continuo
+        }
+      );
+    } catch (error: any) {
+      console.error(&#x27;Error iniciando escáner:&#x27;, error);
+      this.scanError.set(this.translate.instant(&#x27;qrScanner.errors.cameraAccess&#x27;));
+      this.isScanning.set(false);
+    }
+  }
+
+  /**
+   * Detiene el escáner de QR y libera los recursos de la cámara.
+   * Limpia la instancia de Html5Qrcode y restablece el estado de escaneo.
+   * Debe llamarse cuando el componente se destruye o cuando el usuario detiene manualmente el escáner.
+   */
+  async stopScanning() {
+    if (this.scanner) {
+      try {
+        await this.scanner.stop();
+        await this.scanner.clear();
+      } catch (error) {
+        console.error(&#x27;Error deteniendo escáner:&#x27;, error);
+      }
+      this.scanner &#x3D; null;
+    }
+    this.isScanning.set(false);
+  }
+
+  /**
+   * Procesa un código QR escaneado, valida su formato y expiración, y envía los datos al backend.
+   * 
+   * El proceso incluye:
+   * 1. Parsear el JSON del QR
+   * 2. Validar que contenga id y timestamp
+   * 3. Verificar que no haya expirado (máximo 20 minutos)
+   * 4. Enviar al endpoint /api/access/scan
+   * 5. Mostrar feedback visual según el resultado
+   * 6. Reanudar el escaneo después de 2 segundos
+   * 
+   * @param qrText - Texto del QR parseado (debe ser un JSON válido)
+   */
+  async handleQRScan(qrText: string) {
+    try {
+      // Pausar el escáner temporalmente
+      if (this.scanner) {
+        await this.scanner.pause();
+      }
+
+      // Parsear el QR
+      const qrData &#x3D; JSON.parse(qrText);
+      
+      if (!qrData.id || !qrData.timestamp) {
+        this.scanError.set(this.translate.instant(&#x27;qrScanner.errors.invalidQR&#x27;));
+        this.resumeScanning();
+        return;
+      }
+
+      // Validar expiración del QR (20 minutos)
+      const qrTime &#x3D; new Date(qrData.timestamp).getTime();
+      const now &#x3D; Date.now();
+      const twentyMinutes &#x3D; 20 * 60 * 1000;
+
+      if (now - qrTime &gt; twentyMinutes) {
+        this.scanError.set(this.translate.instant(&#x27;qrScanner.errors.expiredQR&#x27;));
+        this.resumeScanning();
+        return;
+      }
+
+      // Enviar al backend
+      const result &#x3D; await this.http.post&lt;ScanResult&gt;(
+        &#x60;${environment.apiUrl}/access/scan&#x60;,
+        {
+          qrData: {
+            id: qrData.id,
+            email: qrData.email,
+            name: qrData.name,
+            timestamp: qrData.timestamp
+          },
+          centerId: this.selectedCenterId()
+        }
+      ).toPromise();
+
+      if (result) {
+        this.lastScanResult.set(result);
+        this.scanError.set(&#x27;&#x27;);
+        
+        // Mostrar flash según el tipo
+        this.showFlashEffect(result.type);
+        
+        // Reanudar escaneo después de 2 segundos
+        setTimeout(() &#x3D;&gt; {
+          this.resumeScanning();
+          this.showFlash.set(false);
+          this.flashType.set(null);
+        }, 2000);
+      }
+    } catch (error: any) {
+      console.error(&#x27;Error procesando QR:&#x27;, error);
+      this.scanError.set(error.error?.message || this.translate.instant(&#x27;qrScanner.errors.processingError&#x27;));
+      this.resumeScanning();
+    }
+  }
+
+  /**
+   * Muestra un efecto visual de flash alrededor del área de la cámara.
+   * Verde para entrada (entry) y rojo para salida (exit).
+   * El efecto se oculta automáticamente después de 2 segundos.
+   * 
+   * @param type - Tipo de operación: &#x27;entry&#x27; para entrada (verde) o &#x27;exit&#x27; para salida (rojo)
+   */
+  showFlashEffect(type: &#x27;entry&#x27; | &#x27;exit&#x27;) {
+    this.flashType.set(type);
+    this.showFlash.set(true);
+    
+    // El flash se oculta automáticamente después de 2 segundos
+    setTimeout(() &#x3D;&gt; {
+      this.showFlash.set(false);
+      this.flashType.set(null);
+    }, 2000);
+  }
+
+  /**
+   * Reanuda el escaneo de QR después de procesar un código exitosamente.
+   * Si falla al reanudar, reinicia completamente el escáner.
+   * Se llama automáticamente después de procesar un QR para continuar escaneando.
+   */
+  async resumeScanning() {
+    if (this.scanner &amp;&amp; this.isScanning()) {
+      try {
+        await this.scanner.resume();
+      } catch (error) {
+        console.error(&#x27;Error reanudando escáner:&#x27;, error);
+        // Si falla, reiniciar
+        await this.stopScanning();
+        await this.startScanning();
+      }
+    }
+  }
+}
+
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'ScanResult.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

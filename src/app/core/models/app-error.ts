@@ -1,3 +1,6 @@
+/**
+ * Categorization of application-level errors.
+ */
 export enum ErrorType {
   AUTH = 'auth',
   NETWORK = 'network',
@@ -6,6 +9,9 @@ export enum ErrorType {
   UNKNOWN = 'unknown'
 }
 
+/**
+ * Standard structure for application-level error tracking.
+ */
 export interface AppError {
   type: ErrorType;
   message: string;

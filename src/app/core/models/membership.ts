@@ -1,10 +1,15 @@
+/**
+ * Represents a gymnasium membership subscription plan.
+ */
 export interface MembershipPlan {
   id: string;
   name: string;
   description?: string;
   price: number;
-  duration: number; // Duración en meses
-  features: string[]; // Array de características
+  /** Duration in months */
+  duration: number;
+  /** List of features included in the plan */
+  features: string[];
   isActive: boolean;
   createdAt?: string;
   updatedAt?: string;

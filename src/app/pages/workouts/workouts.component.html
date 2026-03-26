@@ -195,6 +195,14 @@
                               </div>
                               <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <button
+                                  (click)="openPerformanceLog(exercise); $event.stopPropagation()"
+                                  title="Registrar progreso"
+                                  class="p-1 text-emerald-600 hover:bg-emerald-100 dark:hover:bg-emerald-900/30 rounded transition-colors">
+                                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                  </svg>
+                                </button>
+                                <button
                                   (click)="openEditExerciseModal(exercise); $event.stopPropagation()"
                                   class="p-1 text-blue-600 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded transition-colors">
                                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3">
@@ -385,6 +393,128 @@
             </button>
           </div>
         </form>
+      </div>
+    </div>
+  }
+
+  <!-- Modal Log de Rendimiento -->
+  @if(showPerformanceModal()) {
+    <div class="fixed inset-0 bg-black/50 z-[60] flex items-center justify-center p-4" (click)="showPerformanceModal.set(false)">
+      <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full flex flex-col md:flex-row max-h-[90vh] overflow-hidden" (click)="$event.stopPropagation()">
+        
+        <!-- Formulario (Izquierda) -->
+        <div class="flex-1 p-6 border-b md:border-b-0 md:border-r border-gray-200 dark:border-gray-700 overflow-y-auto">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
+            Registrar Rendimiento
+          </h3>
+          <p class="text-sm text-gray-500 mb-6">
+            {{ getExerciseName(performanceForm().exerciseId) }}
+          </p>
+
+          <form (ngSubmit)="savePerformanceLog()" class="space-y-4">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Peso (kg)</label>
+                <input
+                  type="number"
+                  [(ngModel)]="performanceForm().weight"
+                  name="perfWeight"
+                  min="0"
+                  step="0.5"
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Repeticiones</label>
+                <input
+                  type="number"
+                  [(ngModel)]="performanceForm().reps"
+                  name="perfReps"
+                  min="1"
+                  class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Series realizadas</label>
+              <input
+                type="number"
+                [(ngModel)]="performanceForm().sets"
+                name="perfSets"
+                min="1"
+                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Notas / Sensaciones</label>
+              <textarea
+                [(ngModel)]="performanceForm().notes"
+                name="perfNotes"
+                rows="3"
+                placeholder="¿Cómo te has sentido?"
+                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-emerald-500"></textarea>
+            </div>
+            <div class="flex gap-3 pt-4">
+              <button
+                type="button"
+                (click)="showPerformanceModal.set(false)"
+                class="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                Cerrar
+              </button>
+              <button
+                type="submit"
+                [disabled]="isLoading()"
+                class="flex-1 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors disabled:opacity-50">
+                Guardar Log
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Historial (Derecha) -->
+        <div class="flex-1 p-6 bg-gray-50 dark:bg-gray-900/50 overflow-y-auto">
+          <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-blue-500">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+            </svg>
+            Historial Reciente
+          </h4>
+
+          @if(isLoadingHistory()) {
+            <div class="flex justify-center py-12">
+              <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            </div>
+          } @else if(exerciseHistory().length === 0) {
+            <div class="text-center py-12 text-gray-500">
+              No hay registros previos para este ejercicio
+            </div>
+          } @else {
+            <div class="space-y-3">
+              @for(log of exerciseHistory(); track log.id) {
+                <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+                  <div class="flex justify-between items-start mb-2">
+                    <span class="text-xs font-bold text-blue-600 dark:text-blue-400">
+                      {{ log.date | date:'dd/MM/yyyy HH:mm' }}
+                    </span>
+                    <div class="flex gap-2">
+                      @if(log.weight) {
+                        <span class="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">
+                          {{ log.weight }}kg
+                        </span>
+                      }
+                    </div>
+                  </div>
+                  <div class="flex gap-4 text-sm text-gray-600 dark:text-gray-300">
+                    @if(log.sets) { <span>Series: <strong>{{ log.sets }}</strong></span> }
+                    @if(log.reps) { <span>Reps: <strong>{{ log.reps }}</strong></span> }
+                  </div>
+                  @if(log.notes) {
+                    <p class="mt-2 text-xs italic text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-700 pt-2">
+                      "{{ log.notes }}"
+                    </p>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
       </div>
     </div>
   }

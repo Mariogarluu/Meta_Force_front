@@ -1,10 +1,21 @@
 {
-  "buildCommand": "npm run build -- --configuration production",
+  "buildCommand": "npm run build -- --configuration production && npm run compodoc:build",
   "outputDirectory": "dist/credentials/browser",
   "devCommand": "npm run start",
   "installCommand": "npm install",
   "framework": "angular",
+  "redirects": [
+    {
+      "source": "/documentation",
+      "destination": "/documentation/",
+      "permanent": true
+    }
+  ],
   "rewrites": [
+    {
+      "source": "/documentation/:path*",
+      "destination": "/documentation/:path*"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"

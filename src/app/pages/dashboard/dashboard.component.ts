@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed, ElementRef, HostListener } from '@angular/core';
+import { Component, inject, signal, computed, ElementRef, HostListener, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -16,6 +16,12 @@ type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
 const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
 
+/**
+ * Main application dashboard component.
+ * Serves as the primary landing page for authenticated users, providing
+ * access to notifications, profile management (including role editing and
+ * image uploads), and navigation to other system modules.
+ */
 @Component({
   selector: 'app-dashboard',
   standalone: true,
@@ -37,6 +43,17 @@ export class DashboardComponent {
   errorMessage = signal<string>('');
   // Estado para el dropdown de notificaciones
   showNotifications = signal(false);
+
+  // Perfil Físico
+  physicalDataForm = signal({
+    gender: '',
+    birthDate: '',
+    height: 0,
+    currentWeight: 0,
+    medicalNotes: '',
+    activityLevel: '',
+    goal: ''
+  });
 
   readonly roles: RoleType[] = ['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER', 'CLEANER', 'USER'];
   currentUser = computed(() => this.auth.currentUser());
@@ -65,6 +82,22 @@ export class DashboardComponent {
     if (user) {
       this.selectedRole.set(user.role);
     }
+
+    // Sincronizar formulario físico cuando cambia el usuario
+    effect(() => {
+      const user = this.currentUser();
+      if (user) {
+        this.physicalDataForm.set({
+          gender: user.gender || '',
+          birthDate: user.birthDate ? new Date(user.birthDate).toISOString().split('T')[0] : '',
+          height: user.height || 0,
+          currentWeight: user.currentWeight || 0,
+          medicalNotes: user.medicalNotes || '',
+          activityLevel: user.activityLevel || '',
+          goal: user.goal || ''
+        });
+      }
+    });
   }
 
   // --- LÓGICA DE NOTIFICACIONES ---
@@ -150,6 +183,21 @@ export class DashboardComponent {
       error: (error) => {
         this.isLoading.set(false);
         this.errorMessage.set(error.error?.message || this.translate.instant('dashboard.roleEditor.error'));
+      }
+    });
+  }
+
+  updatePhysicalData() {
+    this.isLoading.set(true);
+    this.usersService.updateProfile(this.physicalDataForm()).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.auth.refreshUser();
+        // Opcional: mostrar notificación de éxito (ya tenemos NotificationService)
+      },
+      error: (error) => {
+        this.isLoading.set(false);
+        alert('Error al actualizar datos físicos: ' + (error.error?.message || error.message));
       }
     });
   }

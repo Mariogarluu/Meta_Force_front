@@ -11,6 +11,7 @@ import { Exercise } from '../../core/models/exercise';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { Subject, takeUntil } from 'rxjs';
+import { ProgressService, ExerciseLog } from '../../core/services/progress.service';
 
 /**
  * Componente para gestionar entrenamientos y rutinas de ejercicio semanales.
@@ -36,6 +37,8 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
   public auth = inject(AuthService);
   /** Servicio de traducción */
   translate = inject(TranslateService);
+  /** Servicio de progreso/logs */
+  private progressService = inject(ProgressService);
   /** Subject para gestionar la suscripción y evitar memory leaks */
   private destroy$ = new Subject<void>();
 
@@ -62,6 +65,12 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
   isEditingExercise = signal(false);
   /** Ejercicio seleccionado para edición */
   selectedExercise = signal<WorkoutExercise | null>(null);
+  /** Indica si se está cargando el historial de un ejercicio */
+  isLoadingHistory = signal(false);
+  /** Historial del ejercicio seleccionado */
+  exerciseHistory = signal<ExerciseLog[]>([]);
+  /** Indica si el modal de log de rendimiento está visible */
+  showPerformanceModal = signal(false);
 
   /** Formulario para crear/editar entrenamientos */
   workoutForm = {
@@ -71,7 +80,7 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
   /** Formulario para agregar/editar ejercicios al entrenamiento */
   exerciseForm = {
     exerciseId: '',
-    dayOfWeek: 1,
+    dayOfWeek: 0,
     sets: null as number | null,
     reps: null as number | null,
     weight: null as number | null,
@@ -79,16 +88,24 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
     restSeconds: null as number | null,
     notes: ''
   };
+  /** Formulario para log de rendimiento */
+  performanceForm = signal({
+    exerciseId: '',
+    weight: null as number | null,
+    reps: null as number | null,
+    sets: null as number | null,
+    notes: ''
+  });
 
   /** Días de la semana con sus etiquetas (empieza en lunes) */
   daysOfWeek = [
-    { value: 1, label: 'Lunes', short: 'Lun' },
-    { value: 2, label: 'Martes', short: 'Mar' },
-    { value: 3, label: 'Miércoles', short: 'Mié' },
-    { value: 4, label: 'Jueves', short: 'Jue' },
-    { value: 5, label: 'Viernes', short: 'Vie' },
-    { value: 6, label: 'Sábado', short: 'Sáb' },
-    { value: 0, label: 'Domingo', short: 'Dom' }
+    { value: 0, label: 'Lunes', short: 'Lun' },
+    { value: 1, label: 'Martes', short: 'Mar' },
+    { value: 2, label: 'Miércoles', short: 'Mié' },
+    { value: 3, label: 'Jueves', short: 'Jue' },
+    { value: 4, label: 'Viernes', short: 'Vie' },
+    { value: 5, label: 'Sábado', short: 'Sáb' },
+    { value: 6, label: 'Domingo', short: 'Dom' }
   ];
 
   /** Usuario actual autenticado */
@@ -694,6 +711,73 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
       lists.push(`day-${day.value}`);
     });
     return lists;
+  }
+
+  /**
+   * Abre el modal de log de rendimiento para un ejercicio.
+   */
+  openPerformanceLog(exercise: WorkoutExercise) {
+    this.selectedExercise.set(exercise);
+    this.performanceForm.set({
+      exerciseId: exercise.exerciseId,
+      weight: exercise.weight || null,
+      reps: exercise.reps || null,
+      sets: exercise.sets || null,
+      notes: ''
+    });
+    this.showPerformanceModal.set(true);
+    this.loadExerciseHistory(exercise.exerciseId);
+  }
+
+  /**
+   * Carga el historial de un ejercicio.
+   */
+  loadExerciseHistory(exerciseId: string) {
+    this.isLoadingHistory.set(true);
+    this.progressService.getExerciseHistory(exerciseId)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (history) => {
+          this.exerciseHistory.set(history);
+          this.isLoadingHistory.set(false);
+        },
+        error: (err) => {
+          console.error('Error al cargar historial:', err);
+          this.isLoadingHistory.set(false);
+        }
+      });
+  }
+
+  /**
+   * Guarda un nuevo log de rendimiento.
+   */
+  savePerformanceLog() {
+    const data = this.performanceForm();
+    if (!data.exerciseId) return;
+
+    // Convertir null a undefined para la API
+    const logData = {
+      exerciseId: data.exerciseId,
+      weight: data.weight ?? undefined,
+      reps: data.reps ?? undefined,
+      sets: data.sets ?? undefined,
+      notes: data.notes || undefined
+    };
+
+    this.isLoading.set(true);
+    this.progressService.logExercisePerformance(logData)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: () => {
+          this.showPerformanceModal.set(false);
+          this.isLoading.set(false);
+          // Opcional: mostrar feedback visual
+        },
+        error: (err) => {
+          alert('Error al guardar rendimiento: ' + (err.error?.message || err.message));
+          this.isLoading.set(false);
+        }
+      });
   }
 }
 

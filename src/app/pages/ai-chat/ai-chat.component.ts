@@ -376,6 +376,7 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
       ...plan,
       days: plan.days.map(d => ({
         ...d,
+        dayOfWeek: d.dayOfWeek,
         items: this.getItems(d)
       }))
     };

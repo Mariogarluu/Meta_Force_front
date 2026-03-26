@@ -1,11 +1,15 @@
 import { Meal } from './meal';
 
+/**
+ * Represents a specific meal within a dietary plan.
+ */
 export interface DietMeal {
   id: string;
   dietId: string;
   mealId: string;
   meal: Meal;
-  dayOfWeek: number; // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
+  /** 0 = Monday, 1 = Tuesday, ..., 6 = Sunday */
+  dayOfWeek: number;
   mealType: 'desayuno' | 'almuerzo' | 'comida' | 'merienda' | 'cena';
   order: number;
   quantity?: number | null;
@@ -14,6 +18,9 @@ export interface DietMeal {
   updatedAt: string;
 }
 
+/**
+ * Represents a user's dietary plan containing multiple meals.
+ */
 export interface Diet {
   id: string;
   userId: string;
