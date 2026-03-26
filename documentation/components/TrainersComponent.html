@@ -1,0 +1,1455 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>credentials documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">credentials documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  TrainersComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/trainers/trainers.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-trainers</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                                <code><a href="https://angular.io/api/router/RouterModule" target="_blank" >RouterModule</a></code>
+                            <code>TranslateModule</code>
+                                <code><a href="../components/NavbarComponent.html" target="_self" >NavbarComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./trainers.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./trainers.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#auth" >auth</a>
+                            </li>
+                            <li>
+                                <a href="#centers" >centers</a>
+                            </li>
+                            <li>
+                                <a href="#centersService" >centersService</a>
+                            </li>
+                            <li>
+                                <a href="#currentUser" >currentUser</a>
+                            </li>
+                            <li>
+                                <a href="#errorMessage" >errorMessage</a>
+                            </li>
+                            <li>
+                                <a href="#filteredTrainers" >filteredTrainers</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#isNormalUser" >isNormalUser</a>
+                            </li>
+                            <li>
+                                <a href="#selectedCenterId" >selectedCenterId</a>
+                            </li>
+                            <li>
+                                <a href="#trainers" >trainers</a>
+                            </li>
+                            <li>
+                                <a href="#translate" >translate</a>
+                            </li>
+                            <li>
+                                <a href="#usersService" >usersService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getCenterName" >getCenterName</a>
+                            </li>
+                            <li>
+                                <a href="#getProfileImageUrl" >getProfileImageUrl</a>
+                            </li>
+                            <li>
+                                <a href="#loadCenters" >loadCenters</a>
+                            </li>
+                            <li>
+                                <a href="#loadTrainers" >loadTrainers</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onCenterChange" >onCenterChange</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCenterName"></a>
+                    <span class="name">
+                        <span ><b>getCenterName</b></span>
+                        <a href="#getCenterName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCenterName(centerId?: string | null)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="161"
+                                    class="link-to-prism">src/app/pages/trainers/trainers.component.ts:161</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>centerId</td>
+                                            <td>
+                                                        <code>string | null</code>
+                                            </td>
+
+                                            <td>
+                                                    Yes
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProfileImageUrl"></a>
+                    <span class="name">
+                        <span ><b>getProfileImageUrl</b></span>
+                        <a href="#getProfileImageUrl"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getProfileImageUrl(profileImageUrl: string | null | undefined)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="157"
+                                    class="link-to-prism">src/app/pages/trainers/trainers.component.ts:157</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>profileImageUrl</td>
+                                            <td>
+                                                        <code>string | null | undefined</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadCenters"></a>
+                    <span class="name">
+                        <span ><b>loadCenters</b></span>
+                        <a href="#loadCenters"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadCenters()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="109"
+                                    class="link-to-prism">src/app/pages/trainers/trainers.component.ts:109</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadTrainers"></a>
+                    <span class="name">
+                        <span ><b>loadTrainers</b></span>
+                        <a href="#loadTrainers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadTrainers()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/app/pages/trainers/trainers.component.ts:79</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/app/pages/trainers/trainers.component.ts:74</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onCenterChange"></a>
+                    <span class="name">
+                        <span ><b>onCenterChange</b></span>
+                        <a href="#onCenterChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onCenterChange(centerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="140"
+                                    class="link-to-prism">src/app/pages/trainers/trainers.component.ts:140</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>centerId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="auth"></a>
+                    <span class="name">
+                        <span ><b>auth</b></span>
+                        <a href="#auth"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/pages/trainers/trainers.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="centers"></a>
+                    <span class="name">
+                        <span ><b>centers</b></span>
+                        <a href="#centers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;Center[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/trainers/trainers.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="centersService"></a>
+                    <span class="name">
+                        <span ><b>centersService</b></span>
+                        <a href="#centersService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(CentersService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/trainers/trainers.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentUser"></a>
+                    <span class="name">
+                        <span ><b>currentUser</b></span>
+                        <a href="#currentUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.auth.currentUser())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/trainers/trainers.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorMessage"></a>
+                    <span class="name">
+                        <span ><b>errorMessage</b></span>
+                        <a href="#errorMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/trainers/trainers.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filteredTrainers"></a>
+                    <span class="name">
+                        <span ><b>filteredTrainers</b></span>
+                        <a href="#filteredTrainers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    let filtered &#x3D; this.trainers();
+    const centerId &#x3D; this.selectedCenterId();
+
+    // Filtrar por centro seleccionado usando favoriteCenterId del entrenador (centro donde trabaja)
+    if (centerId) {
+      filtered &#x3D; filtered.filter(trainer &#x3D;&gt; 
+        trainer.favoriteCenterId &#x3D;&#x3D;&#x3D; centerId ||
+        trainer.favoriteCenter?.id &#x3D;&#x3D;&#x3D; centerId
+      );
+    }
+
+    // Ordenar: primero los que tienen centerId activo (están en el gimnasio), luego por nombre
+    filtered.sort((a, b) &#x3D;&gt; {
+      // Primero: los que tienen centerId activo (están físicamente en el centro)
+      const aIsActive &#x3D; !!(a.centerId || a.center?.id);
+      const bIsActive &#x3D; !!(b.centerId || b.center?.id);
+      
+      if (aIsActive &amp;&amp; !bIsActive) return -1;
+      if (!aIsActive &amp;&amp; bIsActive) return 1;
+      
+      // Si ambos tienen el mismo estado de actividad, ordenar por nombre
+      return a.name.localeCompare(b.name);
+    });
+
+    return filtered;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/pages/trainers/trainers.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/pages/trainers/trainers.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isNormalUser"></a>
+                    <span class="name">
+                        <span ><b>isNormalUser</b></span>
+                        <a href="#isNormalUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;USER&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/pages/trainers/trainers.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedCenterId"></a>
+                    <span class="name">
+                        <span ><b>selectedCenterId</b></span>
+                        <a href="#selectedCenterId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/pages/trainers/trainers.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="trainers"></a>
+                    <span class="name">
+                        <span ><b>trainers</b></span>
+                        <a href="#trainers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;User[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/trainers/trainers.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="translate"></a>
+                    <span class="name">
+                        <span ><b>translate</b></span>
+                        <a href="#translate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(TranslateService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/trainers/trainers.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="usersService"></a>
+                    <span class="name">
+                        <span ><b>usersService</b></span>
+                        <a href="#usersService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(UsersService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/trainers/trainers.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject, signal, computed, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
+import { UsersService } from &#x27;../../core/services/users.service&#x27;;
+import { CentersService } from &#x27;../../core/services/centers.service&#x27;;
+import { AuthService } from &#x27;../../core/services/auth.service&#x27;;
+import { User } from &#x27;../../core/models/user&#x27;;
+import { Center } from &#x27;../../core/models/center&#x27;;
+import { TranslateModule, TranslateService } from &#x27;@ngx-translate/core&#x27;;
+import { NavbarComponent } from &#x27;../../shared/components/navbar/navbar.component&#x27;;
+
+const DEFAULT_PROFILE_IMAGE_URL &#x3D; &#x27;https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg&#x27;;
+
+@Component({
+  selector: &#x27;app-trainers&#x27;,
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    TranslateModule,
+    NavbarComponent
+  ],
+  templateUrl: &#x27;./trainers.component.html&#x27;,
+  styleUrl: &#x27;./trainers.component.scss&#x27;
+})
+export class TrainersComponent implements OnInit {
+  usersService &#x3D; inject(UsersService);
+  centersService &#x3D; inject(CentersService);
+  auth &#x3D; inject(AuthService);
+  translate &#x3D; inject(TranslateService);
+
+  trainers &#x3D; signal&lt;User[]&gt;([]);
+  centers &#x3D; signal&lt;Center[]&gt;([]);
+  isLoading &#x3D; signal(false);
+  errorMessage &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  
+  // Centro seleccionado para filtrar
+  selectedCenterId &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+
+  currentUser &#x3D; computed(() &#x3D;&gt; this.auth.currentUser());
+  isNormalUser &#x3D; computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;USER&#x27;);
+
+  // Entrenadores filtrados y ordenados
+  filteredTrainers &#x3D; computed(() &#x3D;&gt; {
+    let filtered &#x3D; this.trainers();
+    const centerId &#x3D; this.selectedCenterId();
+
+    // Filtrar por centro seleccionado usando favoriteCenterId del entrenador (centro donde trabaja)
+    if (centerId) {
+      filtered &#x3D; filtered.filter(trainer &#x3D;&gt; 
+        trainer.favoriteCenterId &#x3D;&#x3D;&#x3D; centerId ||
+        trainer.favoriteCenter?.id &#x3D;&#x3D;&#x3D; centerId
+      );
+    }
+
+    // Ordenar: primero los que tienen centerId activo (están en el gimnasio), luego por nombre
+    filtered.sort((a, b) &#x3D;&gt; {
+      // Primero: los que tienen centerId activo (están físicamente en el centro)
+      const aIsActive &#x3D; !!(a.centerId || a.center?.id);
+      const bIsActive &#x3D; !!(b.centerId || b.center?.id);
+      
+      if (aIsActive &amp;&amp; !bIsActive) return -1;
+      if (!aIsActive &amp;&amp; bIsActive) return 1;
+      
+      // Si ambos tienen el mismo estado de actividad, ordenar por nombre
+      return a.name.localeCompare(b.name);
+    });
+
+    return filtered;
+  });
+
+  ngOnInit() {
+    this.loadTrainers();
+    this.loadCenters();
+  }
+
+  loadTrainers() {
+    this.isLoading.set(true);
+    this.errorMessage.set(&#x27;&#x27;);
+    
+    this.usersService.listTrainers().subscribe({
+      next: (data) &#x3D;&gt; {
+        // Los datos ya vienen filtrados como entrenadores activos desde el backend
+        this.trainers.set(data);
+        
+        // Si el usuario tiene un centro favorito, seleccionarlo por defecto
+        const userFavoriteCenterId &#x3D; this.currentUser()?.favoriteCenterId;
+        if (userFavoriteCenterId &amp;&amp; !this.selectedCenterId()) {
+          this.selectedCenterId.set(userFavoriteCenterId);
+        } else if (this.centers().length &gt; 0 &amp;&amp; !this.selectedCenterId()) {
+          // Si no tiene favorito, seleccionar el primer centro disponible
+          const firstCenter &#x3D; this.centers()[0];
+          if (firstCenter?.id) {
+            this.selectedCenterId.set(firstCenter.id);
+          }
+        }
+        
+        this.isLoading.set(false);
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || this.translate.instant(&#x27;trainers.errors.load&#x27;));
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  loadCenters() {
+    // Usar listCentersWithIds para obtener todos los centros con IDs
+    this.centersService.listCentersWithIds().subscribe({
+      next: (data) &#x3D;&gt; {
+        // Filtrar solo centros que tengan ID válido
+        const validCenters &#x3D; data.filter(c &#x3D;&gt; c.id);
+        this.centers.set(validCenters);
+        
+        // Si no hay centro seleccionado y hay centros disponibles, seleccionar el primero
+        if (!this.selectedCenterId() &amp;&amp; validCenters.length &gt; 0) {
+          const userFavoriteCenterId &#x3D; this.currentUser()?.favoriteCenterId;
+          if (userFavoriteCenterId &amp;&amp; validCenters.find(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; userFavoriteCenterId)) {
+            this.selectedCenterId.set(userFavoriteCenterId);
+          } else {
+            const firstCenter &#x3D; validCenters[0];
+            if (firstCenter?.id) {
+              this.selectedCenterId.set(firstCenter.id);
+            }
+          }
+        }
+      },
+      error: (error) &#x3D;&gt; {
+        console.error(&#x27;Error al cargar centros:&#x27;, error);
+        const errorMsg &#x3D; this.translate.instant(&#x27;trainers.errors.loadCenters&#x27;);
+        this.errorMessage.set(errorMsg ? errorMsg : &#x27;Error al cargar los centros&#x27;);
+        // Asegurar que centers esté vacío en caso de error
+        this.centers.set([]);
+      }
+    });
+  }
+
+  onCenterChange(centerId: string) {
+    if (centerId) {
+      this.selectedCenterId.set(centerId);
+    } else if (this.centers().length &gt; 0) {
+      // Si se intenta deseleccionar, mantener el centro actual o seleccionar el primero
+      const currentCenter &#x3D; this.selectedCenterId();
+      if (currentCenter) {
+        this.selectedCenterId.set(currentCenter);
+      } else {
+        const firstCenter &#x3D; this.centers()[0];
+        if (firstCenter?.id) {
+          this.selectedCenterId.set(firstCenter.id);
+        }
+      }
+    }
+  }
+
+  getProfileImageUrl(profileImageUrl: string | null | undefined): string {
+    return profileImageUrl ? profileImageUrl : DEFAULT_PROFILE_IMAGE_URL;
+  }
+
+  getCenterName(centerId?: string | null): string {
+    if (!centerId) return this.translate.instant(&#x27;trainers.noCenter&#x27;);
+    const center &#x3D; this.centers().find(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; centerId);
+    return center?.name || this.translate.instant(&#x27;trainers.centerNotFound&#x27;);
+  }
+}
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900&quot;&gt;
+  &lt;app-navbar&gt;&lt;/app-navbar&gt;
+
+  &lt;!-- Main Content --&gt;
+  &lt;main class&#x3D;&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8&quot;&gt;
+    @if(errorMessage()) {
+      &lt;div class&#x3D;&quot;mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-600 dark:text-red-400&quot;&gt;
+        {{ errorMessage() }}
+      &lt;/div&gt;
+    }
+
+    &lt;!-- Page Header --&gt;
+    &lt;div class&#x3D;&quot;mb-8 relative&quot;&gt;
+      &lt;div class&#x3D;&quot;absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 rounded-3xl blur-3xl&quot;&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;relative bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 sm:p-8 border border-blue-200/50 dark:border-gray-700 shadow-lg&quot;&gt;
+        &lt;div class&#x3D;&quot;flex items-center gap-4&quot;&gt;
+          &lt;div class&#x3D;&quot;p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg&quot;&gt;
+            &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;2&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-6 h-6 sm:w-8 sm:h-8 text-white&quot;&gt;
+              &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z&quot; /&gt;
+            &lt;/svg&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;h1 class&#x3D;&quot;text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent mb-2&quot;&gt;
+              {{ &#x27;trainers.title&#x27; | translate }}
+            &lt;/h1&gt;
+            &lt;p class&#x3D;&quot;text-gray-600 dark:text-gray-300 text-sm sm:text-base&quot;&gt;
+              {{ &#x27;trainers.description&#x27; | translate }}
+            &lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Selector de Centro --&gt;
+    @if(centers().length &gt; 0) {
+      &lt;div class&#x3D;&quot;mb-6 bg-blue-100 dark:bg-gray-800 rounded-xl p-4 border border-blue-300 dark:border-gray-700 shadow-sm&quot;&gt;
+        &lt;label class&#x3D;&quot;block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2&quot;&gt;
+          {{ &#x27;trainers.selectCenter&#x27; | translate }}
+        &lt;/label&gt;
+        &lt;select 
+          [ngModel]&#x3D;&quot;selectedCenterId()&quot;
+          (ngModelChange)&#x3D;&quot;onCenterChange($event)&quot;
+          class&#x3D;&quot;w-full md:w-auto px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500&quot;&gt;
+          @for(center of centers(); track center.id || center.name) {
+            @if(center.id) {
+              &lt;option [value]&#x3D;&quot;center.id&quot;&gt;{{ center.name }}&lt;/option&gt;
+            }
+          }
+        &lt;/select&gt;
+        @if(selectedCenterId()) {
+          &lt;p class&#x3D;&quot;mt-2 text-sm text-gray-600 dark:text-gray-400&quot;&gt;
+            {{ &#x27;trainers.showingTrainersFrom&#x27; | translate }}: &lt;span class&#x3D;&quot;font-semibold&quot;&gt;{{ getCenterName(selectedCenterId()) }}&lt;/span&gt;
+          &lt;/p&gt;
+        }
+      &lt;/div&gt;
+    } @else if(!isLoading()) {
+      &lt;div class&#x3D;&quot;mb-6 bg-yellow-100 dark:bg-yellow-900/20 rounded-xl p-6 border border-yellow-300 dark:border-yellow-700 shadow-sm&quot;&gt;
+        &lt;p class&#x3D;&quot;text-yellow-800 dark:text-yellow-300 text-sm&quot;&gt;
+          {{ &#x27;trainers.noCentersAvailable&#x27; | translate }}
+        &lt;/p&gt;
+      &lt;/div&gt;
+    }
+
+    @if(isLoading() &amp;&amp; trainers().length &#x3D;&#x3D;&#x3D; 0) {
+      &lt;div class&#x3D;&quot;flex items-center justify-center py-12&quot;&gt;
+        &lt;div class&#x3D;&quot;text-center&quot;&gt;
+          &lt;div class&#x3D;&quot;animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4&quot;&gt;&lt;/div&gt;
+          &lt;p class&#x3D;&quot;text-gray-700 dark:text-gray-300&quot;&gt;{{ &#x27;common.loading&#x27; | translate }}&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    } @else {
+      @if(filteredTrainers().length &#x3D;&#x3D;&#x3D; 0) {
+        &lt;div class&#x3D;&quot;text-center py-12&quot;&gt;
+          &lt;p class&#x3D;&quot;text-gray-600 dark:text-gray-400 text-lg&quot;&gt;
+            {{ &#x27;trainers.noTrainersFound&#x27; | translate }}
+          &lt;/p&gt;
+        &lt;/div&gt;
+      } @else {
+        &lt;div class&#x3D;&quot;grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6&quot;&gt;
+          @for(trainer of filteredTrainers(); track trainer.id) {
+            &lt;div class&#x3D;&quot;group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-all shadow-md hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden&quot;&gt;
+              &lt;div class&#x3D;&quot;absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300&quot;&gt;&lt;/div&gt;
+              &lt;div class&#x3D;&quot;relative z-10&quot;&gt;
+                &lt;!-- Imagen de perfil --&gt;
+                &lt;div class&#x3D;&quot;flex flex-col items-center text-center&quot;&gt;
+                &lt;div class&#x3D;&quot;mb-4 relative&quot;&gt;
+                  &lt;div class&#x3D;&quot;absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full blur-md opacity-50 group-hover:opacity-75 transition-opacity&quot;&gt;&lt;/div&gt;
+                  &lt;img 
+                    [src]&#x3D;&quot;getProfileImageUrl(trainer.profileImageUrl)&quot;
+                    [alt]&#x3D;&quot;trainer.name&quot;
+                    class&#x3D;&quot;relative w-24 h-24 rounded-full object-cover border-4 border-blue-400 dark:border-cyan-500 shadow-lg group-hover:scale-110 transition-transform duration-300&quot;&gt;
+                &lt;/div&gt;
+                
+                &lt;!-- Nombre del entrenador --&gt;
+                &lt;div class&#x3D;&quot;flex items-center justify-center gap-2 mb-2&quot;&gt;
+                  &lt;h3 class&#x3D;&quot;text-xl font-bold text-gray-900 dark:text-white&quot;&gt;
+                    {{ trainer.name }}
+                  &lt;/h3&gt;
+                  &lt;!-- Tick verde si está activo en el centro (tiene centerId) --&gt;
+                  @if(trainer.centerId || trainer.center?.id) {
+                    &lt;div class&#x3D;&quot;flex items-center&quot; title&#x3D;&quot;{{ &#x27;trainers.activeInCenter&#x27; | translate }}&quot;&gt;
+                      &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;2.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-5 h-5 text-green-500&quot;&gt;
+                        &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z&quot; /&gt;
+                      &lt;/svg&gt;
+                    &lt;/div&gt;
+                  }
+                &lt;/div&gt;
+
+                &lt;!-- Indicador de favorito si es del centro favorito del usuario --&gt;
+                @if(currentUser()?.favoriteCenterId &amp;&amp; 
+                    (trainer.favoriteCenterId &#x3D;&#x3D;&#x3D; currentUser()?.favoriteCenterId || 
+                     trainer.favoriteCenter?.id &#x3D;&#x3D;&#x3D; currentUser()?.favoriteCenterId)) {
+                  &lt;div class&#x3D;&quot;flex items-center gap-1 text-yellow-400 text-sm&quot;&gt;
+                    &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-4 h-4&quot;&gt;
+                      &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z&quot; /&gt;
+                    &lt;/svg&gt;
+                    &lt;span&gt;{{ &#x27;trainers.favorite&#x27; | translate }}&lt;/span&gt;
+                  &lt;/div&gt;
+                }
+              &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          }
+        &lt;/div&gt;
+      }
+    }
+  &lt;/main&gt;
+&lt;/div&gt;
+
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">  <app-navbar></app-navbar>  <!-- Main Content -->  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">    @if(errorMessage()) {      <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-600 dark:text-red-400">        {{ errorMessage() }}      </div>    }    <!-- Page Header -->    <div class="mb-8 relative">      <div class="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 rounded-3xl blur-3xl"></div>      <div class="relative bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 sm:p-8 border border-blue-200/50 dark:border-gray-700 shadow-lg">        <div class="flex items-center gap-4">          <div class="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg">            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 sm:w-8 sm:h-8 text-white">              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />            </svg>          </div>          <div>            <h1 class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent mb-2">              {{ \'trainers.title\' | translate }}            </h1>            <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base">              {{ \'trainers.description\' | translate }}            </p>          </div>        </div>      </div>    </div>    <!-- Selector de Centro -->    @if(centers().length > 0) {      <div class="mb-6 bg-blue-100 dark:bg-gray-800 rounded-xl p-4 border border-blue-300 dark:border-gray-700 shadow-sm">        <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">          {{ \'trainers.selectCenter\' | translate }}        </label>        <select           [ngModel]="selectedCenterId()"          (ngModelChange)="onCenterChange($event)"          class="w-full md:w-auto px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">          @for(center of centers(); track center.id || center.name) {            @if(center.id) {              <option [value]="center.id">{{ center.name }}</option>            }          }        </select>        @if(selectedCenterId()) {          <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">            {{ \'trainers.showingTrainersFrom\' | translate }}: <span class="font-semibold">{{ getCenterName(selectedCenterId()) }}</span>          </p>        }      </div>    } @else if(!isLoading()) {      <div class="mb-6 bg-yellow-100 dark:bg-yellow-900/20 rounded-xl p-6 border border-yellow-300 dark:border-yellow-700 shadow-sm">        <p class="text-yellow-800 dark:text-yellow-300 text-sm">          {{ \'trainers.noCentersAvailable\' | translate }}        </p>      </div>    }    @if(isLoading() && trainers().length === 0) {      <div class="flex items-center justify-center py-12">        <div class="text-center">          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>          <p class="text-gray-700 dark:text-gray-300">{{ \'common.loading\' | translate }}</p>        </div>      </div>    } @else {      @if(filteredTrainers().length === 0) {        <div class="text-center py-12">          <p class="text-gray-600 dark:text-gray-400 text-lg">            {{ \'trainers.noTrainersFound\' | translate }}          </p>        </div>      } @else {        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">          @for(trainer of filteredTrainers(); track trainer.id) {            <div class="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-all shadow-md hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden">              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>              <div class="relative z-10">                <!-- Imagen de perfil -->                <div class="flex flex-col items-center text-center">                <div class="mb-4 relative">                  <div class="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full blur-md opacity-50 group-hover:opacity-75 transition-opacity"></div>                  <img                     [src]="getProfileImageUrl(trainer.profileImageUrl)"                    [alt]="trainer.name"                    class="relative w-24 h-24 rounded-full object-cover border-4 border-blue-400 dark:border-cyan-500 shadow-lg group-hover:scale-110 transition-transform duration-300">                </div>                                <!-- Nombre del entrenador -->                <div class="flex items-center justify-center gap-2 mb-2">                  <h3 class="text-xl font-bold text-gray-900 dark:text-white">                    {{ trainer.name }}                  </h3>                  <!-- Tick verde si está activo en el centro (tiene centerId) -->                  @if(trainer.centerId || trainer.center?.id) {                    <div class="flex items-center" title="{{ \'trainers.activeInCenter\' | translate }}">                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5 text-green-500">                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />                      </svg>                    </div>                  }                </div>                <!-- Indicador de favorito si es del centro favorito del usuario -->                @if(currentUser()?.favoriteCenterId &&                     (trainer.favoriteCenterId === currentUser()?.favoriteCenterId ||                      trainer.favoriteCenter?.id === currentUser()?.favoriteCenterId)) {                  <div class="flex items-center gap-1 text-yellow-400 text-sm">                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">                      <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />                    </svg>                    <span>{{ \'trainers.favorite\' | translate }}</span>                  </div>                }              </div>              </div>            </div>          }        </div>      }    }  </main></div></div>'
+    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
+    var DIRECTIVES = [{'name': 'ClickOutsideDirective', 'selector': '[appClickOutside]'}];
+    var ACTUAL_COMPONENT = {'name': 'TrainersComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'TrainersComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

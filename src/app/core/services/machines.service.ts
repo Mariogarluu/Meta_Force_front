@@ -5,12 +5,17 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import {
   MachineTypeModel,
+  MachineCenterInstance,
   CreateMachineTypeInput,
   UpdateMachineTypeInput,
   AddMachineToCenterInput,
   UpdateMachineInCenterInput,
 } from '../models/machine';
 
+/**
+ * Service for managing machine types and their physical instances in centers.
+ * Handles the catalog of equipment and their distribution across gym locations.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -32,6 +37,17 @@ export class MachinesService {
         instances: item.machines || [] // Mapear 'machines' a 'instances'
       })))
     );
+  }
+
+  /**
+   * Lista todas las máquinas (instancias) para un centro específico
+   */
+  listMachines(centerId: string): Observable<MachineCenterInstance[]> {
+    let params = new HttpParams();
+    if (centerId) {
+      params = params.set('centerId', centerId);
+    }
+    return this.http.get<MachineCenterInstance[]>(`${this.apiUrl}`, { params });
   }
 
   /**

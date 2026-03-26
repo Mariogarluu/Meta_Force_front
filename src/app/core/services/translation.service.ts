@@ -12,6 +12,10 @@ export type Language = 'es' | 'en' | 'fr';
  * Soporta español (por defecto), inglés y francés.
  * Las traducciones se cargan desde archivos JSON en assets/i18n/.
  */
+/**
+ * Service for managing application internationalization (i18n).
+ * Handles language switching, translation loading, and persistent user preferences.
+ */
 @Injectable({
   providedIn: 'root'
 })

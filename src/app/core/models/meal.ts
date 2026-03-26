@@ -1,3 +1,6 @@
+/**
+ * Represents a meal with nutritional information.
+ */
 export interface Meal {
   id: string;
   name: string;

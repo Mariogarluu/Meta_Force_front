@@ -1,10 +1,16 @@
+/**
+ * Schedule for a gym class in a specific center.
+ */
 export interface ClassCenterSchedule {
   id: string;
   classId: string;
   centerId: string;
-  dayOfWeek: number; // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
-  startTime: string; // Formato HH:mm (ej: "09:00")
-  endTime: string; // Formato HH:mm (ej: "10:30")
+  /** 0 = Monday, 1 = Tuesday, ..., 6 = Sunday */
+  dayOfWeek: number;
+  /** Start time in HH:mm format (e.g., "09:00") */
+  startTime: string;
+  /** End time in HH:mm format (e.g., "10:30") */
+  endTime: string;
   center?: {
     id: string;
     name: string;
@@ -13,6 +19,9 @@ export interface ClassCenterSchedule {
   updatedAt?: string;
 }
 
+/**
+ * Association between a gym class and a trainer.
+ */
 export interface ClassTrainer {
   id: string;
   classId: string;
@@ -25,17 +34,20 @@ export interface ClassTrainer {
   createdAt?: string;
 }
 
+/**
+ * Represents a gym class (e.g., Yoga, HIIT).
+ */
 export interface GymClass {
   id: string;
   name: string;
   description?: string | null;
   createdAt?: string;
   updatedAt?: string;
-  // Entrenadores que enseñan la clase
+  /** Trainers who teach this class */
   trainers?: ClassTrainer[];
-  // Horarios de la clase en diferentes centros
+  /** Schedules for this class in different centers */
   schedules?: ClassCenterSchedule[];
-  // Centros donde se imparte la clase (derivado de schedules)
+  /** Centers where the class is taught (derived from schedules) */
   centers?: Array<{
     id: string;
     name: string;

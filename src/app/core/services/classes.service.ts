@@ -9,6 +9,10 @@ import { CreateClassInput, GymClass, UpdateClassInput } from '../models/class';
  * Proporciona métodos para listar, obtener, crear, actualizar y eliminar clases.
  * Todas las operaciones se comunican con el backend mediante HTTP.
  */
+/**
+ * Service for managing gym classes, schedules, and center associations.
+ * Provides a full set of CRUD operations for classes and handles trainers and schedules.
+ */
 @Injectable({
   providedIn: 'root'
 })

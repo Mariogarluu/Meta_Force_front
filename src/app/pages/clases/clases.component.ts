@@ -62,7 +62,7 @@ export class ClasesComponent implements OnInit {
   
   // Campos para agregar nuevo horario
   newScheduleCenterId = '';
-  newScheduleDayOfWeek = 1; // Lunes por defecto
+  newScheduleDayOfWeek = 0; // Lunes por defecto
   newScheduleStartTime = '09:00';
   newScheduleEndTime = '10:00';
 
@@ -160,7 +160,7 @@ export class ClasesComponent implements OnInit {
   }
 
   getDayName(dayOfWeek: number): string {
-    const days = ['classes.sunday', 'classes.monday', 'classes.tuesday', 'classes.wednesday', 'classes.thursday', 'classes.friday', 'classes.saturday'];
+    const days = ['classes.monday', 'classes.tuesday', 'classes.wednesday', 'classes.thursday', 'classes.friday', 'classes.saturday', 'classes.sunday'];
     return this.translate.instant(days[dayOfWeek] || 'classes.unknownDay');
   }
 
@@ -203,7 +203,7 @@ export class ClasesComponent implements OnInit {
     this.centerTrainers.set([]);
     this.formTrainerIds.set([]);
     this.formSchedules.set([]);
-    this.newScheduleDayOfWeek = 1;
+    this.newScheduleDayOfWeek = 0;
     this.newScheduleStartTime = '09:00';
     this.newScheduleEndTime = '10:00';
     this.showAddCenterModal.set(true);
@@ -217,7 +217,7 @@ export class ClasesComponent implements OnInit {
     this.centerTrainers.set([]);
     this.formTrainerIds.set([]);
     this.formSchedules.set([]);
-    this.newScheduleDayOfWeek = 1;
+    this.newScheduleDayOfWeek = 0;
     this.newScheduleStartTime = '09:00';
     this.newScheduleEndTime = '10:00';
     this.showAddCenterModal.set(true);
@@ -317,7 +317,7 @@ export class ClasesComponent implements OnInit {
     
     // Inicializar campos de nuevo horario
     this.newScheduleCenterId = '';
-    this.newScheduleDayOfWeek = 1;
+    this.newScheduleDayOfWeek = 0;
     this.newScheduleStartTime = '09:00';
     this.newScheduleEndTime = '10:00';
     
@@ -363,7 +363,7 @@ export class ClasesComponent implements OnInit {
     this.formSchedules.set([...this.formSchedules(), newSchedule]);
     
     // Resetear campos
-    this.newScheduleDayOfWeek = 1;
+    this.newScheduleDayOfWeek = 0;
     this.newScheduleStartTime = '09:00';
     this.newScheduleEndTime = '10:00';
     this.errorMessage.set('');

@@ -2,6 +2,10 @@ import { Injectable, signal } from '@angular/core';
 import { Credentials, RegisterInfo } from '../models/credentials';
 import { HttpResponse } from '@angular/common/http';
 
+/**
+ * Service for managing authentication using browser LocalStorage.
+ * Primarily used for mock authentication and persistence when backend is unavailable.
+ */
 @Injectable({
   providedIn: 'root',
 })

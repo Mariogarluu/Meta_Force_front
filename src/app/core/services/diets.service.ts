@@ -12,6 +12,10 @@ import {
   DietMeal,
 } from '../models/diet';
 
+/**
+ * Service for managing dietary plans and meals within those plans.
+ * Provides CRUD operations for diets and allows for reordering and updating meals.
+ */
 @Injectable({
   providedIn: 'root'
 })

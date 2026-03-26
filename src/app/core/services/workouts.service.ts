@@ -12,6 +12,10 @@ import {
   WorkoutExercise,
 } from '../models/workout';
 
+/**
+ * Service for managing workout routines and exercises within those routines.
+ * Handles creation, duplication, and modification of workout plans.
+ */
 @Injectable({
   providedIn: 'root'
 })
