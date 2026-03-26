@@ -101,6 +101,11 @@ export const routes: Routes = [
         canActivate: [authGuard]
     },
     {
+        path: 'performance',
+        loadComponent: () => import('./pages/performance/performance.component').then(m => m.PerformanceComponent),
+        canActivate: [authGuard]
+    },
+    {
         path: 'ai-chat',
         loadComponent: () => import('./pages/ai-chat/ai-chat.component').then(m => m.AiChatComponent),
         canActivate: [authGuard]
