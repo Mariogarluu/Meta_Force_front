@@ -12,16 +12,7 @@ import { TranslationService } from './core/services/translation.service';
  */
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ErrorToastComponent, TranslateModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
-})
-/**
- * Root component of the MetaForce application.
- * Orchestrates core service initialization and ensures translation bundles are correctly loaded.
- */
-@Component({
-  selector: 'app-root',
+  standalone: true,
   imports: [RouterOutlet, ErrorToastComponent, TranslateModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
