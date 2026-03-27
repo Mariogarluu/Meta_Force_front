@@ -4,12 +4,12 @@
     "types": []
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "documentation/template-playground/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     "dist",
-    "documentation",
     "src/test.ts",
     "src/**/*.spec.ts"
   ]
