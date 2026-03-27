@@ -27,7 +27,7 @@
     "chart.js": "^4.5.1",
     "html5-qrcode": "^2.3.8",
     "jsonwebtoken": "^9.0.2",
-    "ng2-charts": "^10.0.0",
+    "ng2-charts": "^6.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zod": "^4.3.6",
