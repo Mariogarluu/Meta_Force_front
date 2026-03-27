@@ -14,16 +14,25 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class AuthService {
+  /** Injected HttpClient for authentication API calls */
   private http = inject(HttpClient);
+  /** Base API URL for authentication operations */
   private apiUrl = `${environment.apiUrl}/auth`;
+  /** Internal signal for the currently authenticated user */
   private _currentUser = signal<User | null>(null);
 
+  /** Public read-only signal for the current user */
   public readonly currentUser = this._currentUser.asReadonly();
 
+  /** ReplaySubject emitting true once the initial user profile load attempt finishes */
   private _initialLoadComplete = new ReplaySubject<boolean>(1);
+  /** Observable tracking if the initial authentication check is complete */
   public readonly initialLoadComplete = this._initialLoadComplete.asObservable();
 
 
+  /**
+   * Initializes the service and attempts to load the user profile if a session exists.
+   */
   constructor() {
     // Siempre intentar cargar perfil: puede haber sesión por cookie (HttpOnly)
     // o token legacy en localStorage. Si falla (401), loadUserProfile maneja el error.
@@ -31,16 +40,16 @@ export class AuthService {
   }
 
   /**
-   * Obtiene el token JWT del localStorage (legacy). Para sesión segura por cookie
-   * no se usa; el navegador envía auth_token automáticamente con withCredentials.
+   * Retrieves the legacy JWT token from LocalStorage.
+   * @returns The stored auth token or null
    */
   private getToken(): string | null {
     return localStorage.getItem('auth_token');
   }
 
   /**
-   * Establece la sesión del usuario guardando el token JWT y actualizando el signal del usuario actual.
-   * Almacena el token en localStorage para persistencia entre recargas de página.
+   * Establishes a user session by storing the JWT and updating the current user signal.
+   * @param authResult - Authentication response containing user and token
    */
   private setSession(authResult: AuthResponse) {
     localStorage.setItem('auth_token', authResult.token);
@@ -48,9 +57,8 @@ export class AuthService {
   }
 
   /**
-   * Carga el perfil del usuario autenticado desde la API utilizando el token almacenado.
-   * Actualiza el signal del usuario actual con la información obtenida.
-   * Si falla la carga, cierra la sesión automáticamente por seguridad.
+   * Attempts to load the authenticated user's profile from the API.
+   * Cleans up the session if the profile fails to load (e.g., expired session).
    */
   private loadUserProfile() {
     this.http.get<User>(`${environment.apiUrl}/users/me`).pipe(
@@ -67,9 +75,9 @@ export class AuthService {
   }
 
   /**
-   * Autentica un usuario con sus credenciales de email y contraseña.
-   * Realiza una petición POST al endpoint de login y establece la sesión si es exitoso.
-   * Retorna un Observable que emite la respuesta con el usuario y el token JWT.
+   * Authenticates a user with email and password credentials.
+   * @param credentials - User's login email and password
+   * @returns Observable emitting the authentication response
    */
   login(credentials: AuthInput): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
@@ -79,9 +87,10 @@ export class AuthService {
   }
 
   /**
-   * Registra un nuevo usuario en el sistema.
-   * Realiza una petición POST al endpoint de registro y establece la sesión automáticamente.
-   * Retorna un Observable que emite la respuesta con el usuario creado y el token JWT.
+   * Registers a new user in the system.
+   * Automatically establishes a session if the new user's status is ACTIVE.
+   * @param data - User registration information
+   * @returns Observable emitting the authentication response
    */
   register(data: RegisterInput): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.apiUrl}/register`, data).pipe(
@@ -96,8 +105,7 @@ export class AuthService {
   }
 
   /**
-   * Cierra la sesión del usuario eliminando el token del localStorage y limpiando el usuario actual.
-   * Debe llamarse cuando el usuario hace logout o cuando se detecta una sesión inválida.
+   * Logs out the user by calling the API logout endpoint and clearing local state.
    */
   logout() {
     // Llamar al endpoint de logout para borrar la cookie
@@ -114,19 +122,19 @@ export class AuthService {
   }
 
   /**
-   * Recarga el perfil del usuario desde la API actualizando la información en el signal.
-   * Útil para refrescar los datos del usuario después de actualizaciones en el backend.
+   * Reloads the authenticated user's profile from the API.
    */
   refreshUser() {
     this.loadUserProfile();
   }
 
   /**
-   * Maneja errores HTTP transformándolos en errores manejables.
-   * Extrae el mensaje de error del cuerpo de la respuesta o usa un mensaje genérico.
+   * Generic error handler for authentication HTTP requests.
+   * @param error - The HTTP error response
+   * @returns Observable throwing an Error with a user-friendly message
    */
   private handleError(error: HttpErrorResponse) {
     const errorMessage = error.error?.message || 'Error desconocido';
     return throwError(() => new Error(errorMessage));
   }
-}
+}

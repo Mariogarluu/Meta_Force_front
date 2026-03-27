@@ -16,8 +16,14 @@ import { ErrorType } from '../../../core/models/app-error';
   styleUrl: './error-toast.component.scss'
 })
 export class ErrorToastComponent {
+  /** Injected ErrorService containing the active global error state and signals */
   errorService = inject(ErrorService);
   
+  /**
+   * Translates an internal error type identifier into a localized, user-friendly display title.
+   * @param type - The system's classification of the error (e.g., 'auth', 'network')
+   * @returns A string representing the error category in Spanish
+   */
   getErrorTitle(type: ErrorType): string {
     const titles: Record<string, string> = {
       auth: 'Error de Autenticación',
@@ -29,6 +35,12 @@ export class ErrorToastComponent {
     return titles[type] || 'Error';
   }
   
+  /**
+   * Determines the structural CSS background classes based on the error urgency/type.
+   * Returns a Tailwind-based gradient string.
+   * @param type - The severity or category of the error
+   * @returns A class string for the component's background styling
+   */
   getBackgroundClass(type: ErrorType): string {
     const classes: Record<string, string> = {
       auth: 'bg-gradient-to-br from-red-600 via-red-500 to-pink-600',

@@ -144,6 +144,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Data needed to add physical machines to a center.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -226,6 +233,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Target center ID</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -264,6 +277,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Maximum number of users that can use it at once</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -297,6 +316,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Number of machine instances to add</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -335,6 +360,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Initial status for the instances</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -344,70 +375,109 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Center } from &#x27;./center&#x27;;
 
+/** Categorization of fitness equipment types */
 export type MachineType &#x3D; &#x27;cardio&#x27; | &#x27;fuerza&#x27; | &#x27;peso libre&#x27; | &#x27;funcional&#x27; | &#x27;otro&#x27;;
+/** Current physical and operational condition of a machine instance */
 export type MachineStatus &#x3D; &#x27;operativa&#x27; | &#x27;en mantenimiento&#x27; | &#x27;fuera de servicio&#x27;;
 
 // Instancia de una máquina en un centro específico
 /** Instance of a machine in a specific center */
+/** Instance of a machine in a specific center */
 export interface MachineCenterInstance {
+  /** Unique identifier for the instance */
   id: string;
+  /** ID of the machine type it belongs to */
   machineTypeId: string;
   /** Instance number (e.g., Treadmill 1, Treadmill 2) */
   instanceNumber: number;
+  /** ID of the center where it&#x27;s located */
   centerId: string;
+  /** Current operational status of the machine instance */
   status: MachineStatus;
+  /** Basic machine type information */
   machineType?: {
     id: string;
     name: string;
     type: MachineType;
   };
+  /** Basic center information */
   center?: {
     id: string;
     name: string;
     city?: string;
   };
+  /** ISO date string of creation */
   createdAt?: string;
+  /** ISO date string of last update */
   updatedAt?: string;
 }
 
-// Tipo de máquina (ej: &quot;Cinta de correr&quot;, &quot;Prensa de piernas&quot;)
 /** Machine type definition (e.g., &quot;Treadmill&quot;, &quot;Leg Press&quot;) */
 export interface MachineTypeModel {
+  /** Unique identifier for the machine type */
   id: string;
+  /** Display name of the machine */
   name: string;
+  /** Category of the machine */
   type: MachineType;
+  /** ISO date string of creation */
   createdAt?: string;
+  /** ISO date string of last update */
   updatedAt?: string;
   /** Instances of this machine in different centers */
   instances?: MachineCenterInstance[];
 }
 
-// Para compatibilidad con el código existente, mantenemos Machine como alias
+/** 
+ * Interface for Machine for backwards compatibility.
+ */
 export interface Machine extends MachineTypeModel {
-  // Para mostrar en listados, puede incluir información del centro si hay instancias
+  /** Instances of this machine in different centers */
   instances?: MachineCenterInstance[];
 }
 
+/**
+ * Data needed to create a new machine type.
+ */
 export interface CreateMachineTypeInput {
+  /** Name of the new machine type */
   name: string;
+  /** Category of the machine */
   type: MachineType;
 }
 
+/**
+ * Data needed to update an existing machine type.
+ */
 export interface UpdateMachineTypeInput {
+  /** Updated name */
   name?: string;
+  /** Updated category */
   type?: MachineType;
 }
 
+/**
+ * Data needed to add physical machines to a center.
+ */
 export interface AddMachineToCenterInput {
+  /** Target center ID */
   centerId: string;
+  /** Number of machine instances to add */
   quantity: number;
-  status?: MachineStatus; // Opcional, por defecto será &quot;operativa&quot;
+  /** Initial status for the instances */
+  status?: MachineStatus;
+  /** Maximum number of users that can use it at once */
   maxUsers?: number;
 }
 
+/**
+ * Data needed to update a specific machine instance in a center.
+ */
 export interface UpdateMachineInCenterInput {
+  /** New status for the instance */
   status?: MachineStatus;
 }
+
 </code></pre>
     </div>
 </div>

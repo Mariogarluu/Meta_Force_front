@@ -8,17 +8,17 @@ import { LanguageSelectorComponent } from '../../shared/components/language-sele
 import { TranslateModule } from '@ngx-translate/core';
 
 /**
- * Componente para generar y mostrar el código QR personal del usuario.
+ * Component for generating and displaying the user's personal access QR code.
  * 
- * El QR contiene información del usuario (id, email, name) y un timestamp que se actualiza
- * automáticamente cada 20 minutos para mantener el código válido. El QR NO incluye centerId
- * porque un usuario puede acceder a múltiples centros.
+ * The QR contains JSON-encoded user identity (ID, email, name) and a dynamic timestamp
+ * that rotates every 20 minutes to prevent spoofing and ensure validity. 
+ * Center IDs are excluded as users may have access to multiple facilities.
  * 
- * Características:
- * - Actualización automática cada 20 minutos
- * - Colores adaptativos según el tema (claro/oscuro)
- * - Funcionalidad de descarga del QR como imagen PNG
- * - Validación de expiración en el backend (20 minutos máximo)
+ * Features:
+ * - Automatic rotation every 20 minutes
+ * - Adaptive light/dark mode color palettes
+ * - PNG download capability with branded overlay
+ * - Backend-enforced expiration validation
  */
 @Component({
   selector: 'app-qr',
@@ -28,31 +28,32 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './qr.component.scss'
 })
 export class QrComponent implements OnInit, OnDestroy {
+  /** Injected AuthService for user identity context */
   auth = inject(AuthService);
   
+  /** Signal for the currently authenticated user session */
   currentUser = this.auth.currentUser;
+  /** Computed signal tracking loading state if user data is missing */
   isLoading = computed(() => !this.currentUser());
+  /** Internal handle for the 20-minute refresh timer */
   private refreshInterval: any;
 
   /**
-   * Timestamp actual del QR que se actualiza automáticamente cada 20 minutos.
-   * Se usa para generar un nuevo QR y mantenerlo válido según las políticas de expiración.
+   * Current QR generation timestamp, updated every 20 minutes.
+   * Used as a salt to ensure QR codes are short-lived and verifiable.
    */
   qrTimestamp = signal<string>(new Date().toISOString());
 
   /**
-   * Genera los datos del QR en formato JSON string.
+   * Generates the raw JSON payload for the QR code.
    * 
-   * El QR contiene:
-   * - id: ID único del usuario
-   * - email: Email del usuario
-   * - name: Nombre del usuario
-   * - timestamp: Fecha y hora de generación (ISO string)
+   * Payload includes:
+   * - id: User UUID
+   * - email: Account email
+   * - name: Full display name
+   * - timestamp: ISO string of generation time
    * 
-   * NO incluye centerId porque el usuario puede acceder a múltiples centros.
-   * El timestamp se actualiza cada 20 minutos para mantener el QR válido.
-   * 
-   * @returns JSON string con los datos del usuario para el QR
+   * @returns A JSON-encoded string for the QR engine
    */
   qrData = computed(() => {
     const user = this.currentUser();
@@ -69,10 +70,10 @@ export class QrComponent implements OnInit, OnDestroy {
   });
 
   /**
-   * Genera la URL del código QR para modo claro usando la API de QR Server.
-   * Usa colores azul oscuro sobre fondo blanco para mejor legibilidad en modo claro.
+   * Resolves the QR image URL for light theme application.
+   * Uses dark blue on white for high contrast.
    * 
-   * @returns URL de la imagen del QR para modo claro
+   * @returns QR Server API URL for light mode
    */
   qrUrl = computed(() => {
     const data = this.qrData();
@@ -83,10 +84,10 @@ export class QrComponent implements OnInit, OnDestroy {
   });
 
   /**
-   * Genera la URL del código QR para modo oscuro usando la API de QR Server.
-   * Usa colores cyan claro sobre fondo gris oscuro para mejor legibilidad en modo oscuro.
+   * Resolves the QR image URL for dark theme application.
+   * Uses light cyan on dark slate for high contrast.
    * 
-   * @returns URL de la imagen del QR para modo oscuro
+   * @returns QR Server API URL for dark mode
    */
   qrUrlDark = computed(() => {
     const data = this.qrData();
@@ -97,18 +98,16 @@ export class QrComponent implements OnInit, OnDestroy {
   });
 
   /**
-   * Inicializa el componente y configura la actualización automática del QR cada 20 minutos.
-   * Esto asegura que el código QR siempre esté dentro del período de validez (20 minutos).
+   * Initialization logic. Starts the 20-minute rotation interval.
    */
   ngOnInit() {
     this.refreshInterval = setInterval(() => {
       this.qrTimestamp.set(new Date().toISOString());
-    }, 20 * 60 * 1000); // 20 minutos
+    }, 20 * 60 * 1000);
   }
 
   /**
-   * Limpia el intervalo de actualización cuando el componente se destruye.
-   * Previene memory leaks al eliminar el timer activo.
+   * Cleanup logic. Disposes of the refresh timer to prevent memory leaks.
    */
   ngOnDestroy() {
     if (this.refreshInterval) {
@@ -117,12 +116,13 @@ export class QrComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Genera y descarga el código QR como una imagen PNG.
+   * Merges the QR code with branding and user identity into a downloadable PNG.
    * 
-   * Crea un canvas con el QR, el nombre del usuario y el logo de Meta Force Gym.
-   * El fondo y los colores se adaptan según el tema actual (claro/oscuro).
-   * 
-   * El archivo se descarga con el nombre: `qr-{nombreUsuario}-{timestamp}.png`
+   * Process:
+   * 1. Detects current document theme (light/dark)
+   * 2. Draws QR image onto a 400x500 canvas
+   * 3. Adds user name and gym branding text
+   * 4. Triggers an automatic browser download
    */
   downloadQR() {
     const user = this.currentUser();

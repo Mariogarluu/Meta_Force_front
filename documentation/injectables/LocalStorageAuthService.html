@@ -213,10 +213,16 @@ Primarily used for mock authentication and persistence when backend is unavailab
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/core/services/local-storate-auth.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/core/services/local-storate-auth.service.ts:25</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Initializes the service and restores the session from LocalStorage if available.</p>
+</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -246,14 +252,16 @@ Primarily used for mock authentication and persistence when backend is unavailab
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="27"
-                                    class="link-to-prism">src/app/core/services/local-storate-auth.service.ts:27</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">src/app/core/services/local-storate-auth.service.ts:41</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Simulates a login process by checking credentials against LocalStorage.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -264,6 +272,7 @@ Primarily used for mock authentication and persistence when backend is unavailab
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -278,6 +287,12 @@ Primarily used for mock authentication and persistence when backend is unavailab
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The user&#39;s login email and password</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -287,7 +302,8 @@ Primarily used for mock authentication and persistence when backend is unavailab
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Promise resolving to a successful HttpResponse or rejecting with 401</p>
+
                             </div>
                 </td>
             </tr>
@@ -313,14 +329,16 @@ Primarily used for mock authentication and persistence when backend is unavailab
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="50"
-                                    class="link-to-prism">src/app/core/services/local-storate-auth.service.ts:50</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">src/app/core/services/local-storate-auth.service.ts:67</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Logs out the user by removing their session from LocalStorage.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -350,14 +368,16 @@ Primarily used for mock authentication and persistence when backend is unavailab
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="55"
-                                    class="link-to-prism">src/app/core/services/local-storate-auth.service.ts:55</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="77"
+                                    class="link-to-prism">src/app/core/services/local-storate-auth.service.ts:77</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Simulates user registration by saving user info to LocalStorage.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -368,6 +388,7 @@ Primarily used for mock authentication and persistence when backend is unavailab
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -382,6 +403,12 @@ Primarily used for mock authentication and persistence when backend is unavailab
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Detailed registration information</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -391,7 +418,8 @@ Primarily used for mock authentication and persistence when backend is unavailab
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Promise resolving to a successful HttpResponse or rejecting if email is taken</p>
+
                             </div>
                 </td>
             </tr>
@@ -433,10 +461,16 @@ Primarily used for mock authentication and persistence when backend is unavailab
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/core/services/local-storate-auth.service.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/core/services/local-storate-auth.service.ts:18</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Mock default user data</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -460,10 +494,16 @@ Primarily used for mock authentication and persistence when backend is unavailab
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/core/services/local-storate-auth.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/core/services/local-storate-auth.service.ts:25</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal containing the currently authenticated user session</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -481,26 +521,40 @@ import { HttpResponse } from &#x27;@angular/common/http&#x27;;
  * Service for managing authentication using browser LocalStorage.
  * Primarily used for mock authentication and persistence when backend is unavailable.
  */
+/**
+ * Service for managing authentication using browser LocalStorage.
+ * Primarily used for mock authentication and persistence when backend is unavailable.
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;,
 })
 export class LocalStorageAuthService {
+  /** Mock default user data */
   private readonly _user: any &#x3D; {
     name: &#x27;Juan&#x27;,
     surname: &#x27;García&#x27;,
     email: &#x27;juan@juan.es&#x27;,
   };
 
+  /** Signal containing the currently authenticated user session */
   public user: any | null;
 
+  /**
+   * Initializes the service and restores the session from LocalStorage if available.
+   */
   constructor() {
     this.user &#x3D; signal&lt;any&gt;(null);
     let cookie &#x3D; localStorage.getItem(&#x27;AUTHENTICATION&#x27;);
     if (cookie) this.user.set(JSON.parse(cookie));
   }
 
-  login(credentials: Credentials):Promise&lt;HttpResponse&lt;any&gt;&gt; {
-    return new Promise((resolve, reject)&#x3D;&gt;{
+  /**
+   * Simulates a login process by checking credentials against LocalStorage.
+   * @param credentials - The user&#x27;s login email and password
+   * @returns Promise resolving to a successful HttpResponse or rejecting with 401
+   */
+  login(credentials: Credentials): Promise&lt;HttpResponse&lt;any&gt;&gt; {
+    return new Promise((resolve, reject) &#x3D;&gt; {
       let users: RegisterInfo[] | null &#x3D;
         localStorage.getItem(&#x27;USERS&#x27;) !&#x3D; null
           ? JSON.parse(localStorage.getItem(&#x27;USERS&#x27;)!)
@@ -508,34 +562,42 @@ export class LocalStorageAuthService {
       if (
         users !&#x3D; null &amp;&amp;
         users.find(
-          u&#x3D;&gt;
+          u &#x3D;&gt;
             u.email &#x3D;&#x3D; credentials.email &amp;&amp;
             u.password &#x3D;&#x3D; credentials.password
-        )!&#x3D;undefined
+        ) !&#x3D; undefined
       ) {
         localStorage.setItem(&#x27;AUTHENTICATION&#x27;, JSON.stringify(credentials));
         this.user.set(credentials);
-        resolve(new HttpResponse({&#x27;status&#x27;:200, &#x27;statusText&#x27;:&#x27;User signed in&#x27;}));
+        resolve(new HttpResponse({ &#x27;status&#x27;: 200, &#x27;statusText&#x27;: &#x27;User signed in&#x27; }));
       }
       else
-        reject(new HttpResponse({&#x27;status&#x27;:401, &#x27;statusText&#x27;:&#x27;Unauthorized&#x27;}))
+        reject(new HttpResponse({ &#x27;status&#x27;: 401, &#x27;statusText&#x27;: &#x27;Unauthorized&#x27; }))
     });
   }
 
+  /**
+   * Logs out the user by removing their session from LocalStorage.
+   */
   logout() {
     localStorage.removeItem(&#x27;AUTHENTICATION&#x27;);
     this.user.set(null);
   }
 
-  register(userInfo: RegisterInfo):Promise&lt;HttpResponse&lt;any&gt;&gt;{
-    return new Promise((resolve,reject)&#x3D;&gt;{
+  /**
+   * Simulates user registration by saving user info to LocalStorage.
+   * @param userInfo - Detailed registration information
+   * @returns Promise resolving to a successful HttpResponse or rejecting if email is taken
+   */
+  register(userInfo: RegisterInfo): Promise&lt;HttpResponse&lt;any&gt;&gt; {
+    return new Promise((resolve, reject) &#x3D;&gt; {
       let users: RegisterInfo[] | null &#x3D;
-            localStorage.getItem(&#x27;USERS&#x27;) !&#x3D; null
-              ? JSON.parse(localStorage.getItem(&#x27;USERS&#x27;)!)
-              : null;
+        localStorage.getItem(&#x27;USERS&#x27;) !&#x3D; null
+          ? JSON.parse(localStorage.getItem(&#x27;USERS&#x27;)!)
+          : null;
       if (
         users &#x3D;&#x3D; null ||
-        users.find(u &#x3D;&gt; u.email &#x3D;&#x3D; userInfo.email, false)&#x3D;&#x3D;undefined
+        users.find(u &#x3D;&gt; u.email &#x3D;&#x3D; userInfo.email, false) &#x3D;&#x3D; undefined
       ) {
         let user &#x3D; { email: userInfo.email, password: userInfo.password }
         localStorage.setItem(
@@ -543,18 +605,18 @@ export class LocalStorageAuthService {
           JSON.stringify(user)
         );
         this.user.set(user);
-        if(users)
+        if (users)
           users.push(userInfo);
         else
           users &#x3D; [userInfo];
         localStorage.setItem(&#x27;USERS&#x27;, JSON.stringify(users));
-        resolve(new HttpResponse({&#x27;status&#x27;:201, &#x27;statusText&#x27;:&#x27;User signed up&#x27;}));
+        resolve(new HttpResponse({ &#x27;status&#x27;: 201, &#x27;statusText&#x27;: &#x27;User signed up&#x27; }));
       }
-      reject(new HttpResponse({&#x27;status&#x27;:403, &#x27;statusText&#x27;:&#x27;email already registered&#x27;}));
+      reject(new HttpResponse({ &#x27;status&#x27;: 403, &#x27;statusText&#x27;: &#x27;email already registered&#x27; }));
     });
-    
   }
 }
+
 </code></pre>
     </div>
 

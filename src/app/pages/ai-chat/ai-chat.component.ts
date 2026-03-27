@@ -4,17 +4,30 @@ import { FormsModule } from '@angular/forms';
 import { AiService, AiGeneratedPlan, ChatSession } from '../../services/ai.service';
 import { finalize } from 'rxjs/operators';
 
+/**
+ * Internal interface for chat messages in the UI.
+ * Maps backend messages to a format suitable for the template.
+ */
 interface ChatMessage {
+  /** Role of the sender ('user' for the human, 'model' for the AI) */
   role: 'user' | 'model';
+  /** Text content of the message */
   content: string;
+  /** Optional AI-generated workout or nutrition plan attached to the message */
   plan?: AiGeneratedPlan;
 }
 
+/**
+ * Component for interaction with the MetaForce AI Coach.
+ * Powered by Google Gemini, it allows users to generate workout routines and diet plans via natural language.
+ * Features include session history, quick prompts, and plan persistence to the user profile.
+ */
 @Component({
   selector: 'app-ai-chat',
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: `
+    <!-- Template remains unchanged -->
     <div class="flex h-[calc(100vh-80px)] md:h-[calc(100vh-100px)] gap-4 md:p-4 p-2 bg-gradient-to-br from-gray-50 to-indigo-50/30">
       
       <!-- Sidebar History -->
@@ -269,22 +282,35 @@ interface ChatMessage {
   `]
 })
 export class AiChatComponent implements OnInit, AfterViewChecked {
+  /** Injected AiService for backend communication and Gemini integration */
   private aiService = inject(AiService);
+  /** Reference to the chat scroll container for automatic bottom positioning */
   @ViewChild('scrollContainer') private scrollContainer!: ElementRef;
 
+  /** Signal containing the linear history of messages in the current session */
   messages = signal<ChatMessage[]>([]);
+  /** Signal containing the list of previous chat sessions for the sidebar */
   sessions = signal<ChatSession[]>([]);
+  /** Signal storing the UUID of the active chat session */
   currentSessionId = signal<string | undefined>(undefined);
 
+  /** Current text captured from the user input textarea */
   userInput = '';
+  /** Signal reflecting the loading state while waiting for the AI coach's response */
   isLoading = signal(false);
+  /** Signal reflecting the loading state during plan persistence operations */
   isSavingPlan = signal(false);
+  /** Status message for providing feedback on plan save outcomes */
   saveMessage = signal('');
 
+  /** Signal controlling the visibility of the session deletion confirmation modal */
   showDeleteModal = signal(false);
+  /** The specific chat session object selected for potential deletion */
   sessionToDelete = signal<ChatSession | null>(null);
+  /** Signal tracking the backend deletion process for a session */
   isDeleting = signal(false);
 
+  /** Pre-defined queries to help users get started with the AI */
   quickPrompts = [
     { icon: '💪', title: 'Rutina de Fuerza', desc: 'Plan de 3 días para hipertrofia', text: 'Hazme una rutina de fuerza de 3 días a la semana para ganar masa muscular.' },
     { icon: '🥗', title: 'Dieta de Definición', desc: 'Déficit calórico suave', text: 'Sugiere ideas de comidas para un déficit calórico enfocado en definición muscular.' },
@@ -292,31 +318,51 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     { icon: '🤕', title: 'Estiramientos', desc: 'Recuperación activa', text: '¿Qué estiramientos recomiendas después de una sesión pesada de piernas?' }
   ];
 
+  /**
+   * Component initialization. Loads recent sessions.
+   */
   ngOnInit() {
     this.refreshSessions();
   }
 
+  /**
+   * Lifecycle hook triggered after every view check.
+   * Ensures the chat follows the latest message.
+   */
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
 
+  /**
+   * Scrolls the messages container to its absolute bottom.
+   */
   scrollToBottom(): void {
     try {
       this.scrollContainer.nativeElement.scrollTop = this.scrollContainer.nativeElement.scrollHeight;
     } catch (err) { }
   }
 
+  /**
+   * Fetches the updated list of chat sessions from the backend.
+   */
   refreshSessions() {
     this.aiService.getSessions().subscribe(sessions => {
       this.sessions.set(sessions);
     });
   }
 
+  /**
+   * Resets the local state to start a fresh chat conversation.
+   */
   startNewChat() {
     this.currentSessionId.set(undefined);
     this.messages.set([]);
   }
 
+  /**
+   * Loads a specific existing session and populates the message history.
+   * @param session - The chat session entity to load
+   */
   loadSession(session: ChatSession) {
     this.currentSessionId.set(session.id);
     const uiMessages: ChatMessage[] = session.messages.map(m => ({
@@ -326,16 +372,27 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     this.messages.set(uiMessages);
   }
 
+  /**
+   * Triggers a message send with pre-filled prompt text.
+   * @param text - The prompt content
+   */
   sendQuickPrompt(text: string) {
     this.userInput = text;
     this.sendMessage();
   }
 
+  /**
+   * Handles Enter key detection in the textarea.
+   * @param event - Keyboard event
+   */
   onEnter(event: Event) {
     event.preventDefault();
     this.sendMessage();
   }
 
+  /**
+   * Sends the user's input to Gemini and handles the streaming or full response.
+   */
   sendMessage() {
     if (!this.userInput.trim() || this.isLoading()) return;
 
@@ -367,11 +424,14 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
       });
   }
 
+  /**
+   * Saves a generated workout or meal plan to the user's permanent profile.
+   * @param plan - The generated plan object
+   */
   savePlan(plan: AiGeneratedPlan) {
     this.isSavingPlan.set(true);
     this.saveMessage.set('');
 
-    // Safety fallback before sending to backend to ensure "items" is always populated
     const sanitizedPlan: AiGeneratedPlan = {
       ...plan,
       days: plan.days.map(d => ({
@@ -396,29 +456,49 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  /**
+   * Normalizes different naming variants for list items (exercises, meals, etc).
+   * @param day - Day schedule object
+   * @returns Array of plan items
+   */
   getItems(day: any): any[] {
     return day.items || day.exercises || day.meals || [];
   }
 
-  // Helper to format basic markdown to HTML for better display if needed (e.g., bold text)
+  /**
+   * Formats raw markdown string to basic safe HTML for UI display.
+   * Currently handles bold text.
+   * @param text - Raw markdown
+   * @returns Formatted HTML string
+   */
   formatMessage(text: string): string {
     if (!text) return '';
-    // Format bold markdown (**text** -> <strong>text</strong>)
     let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
     return formatted;
   }
 
+  /**
+   * Trigger for the session deletion modal.
+   * @param event - DOM event to stop propagation
+   * @param session - Target session to confirm for deletion
+   */
   confirmDeleteSession(event: Event, session: ChatSession) {
     event.stopPropagation();
     this.sessionToDelete.set(session);
     this.showDeleteModal.set(true);
   }
 
+  /**
+   * Closes the deletion confirmation modal.
+   */
   cancelDelete() {
     this.showDeleteModal.set(false);
     this.sessionToDelete.set(null);
   }
 
+  /**
+   * Final execution of the session deletion API call.
+   */
   executeDelete() {
     const session = this.sessionToDelete();
     if (!session) return;

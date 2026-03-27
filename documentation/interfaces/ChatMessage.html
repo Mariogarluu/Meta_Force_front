@@ -144,6 +144,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Internal interface for chat messages in the UI.
+Maps backend messages to a format suitable for the template.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -219,6 +227,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Text content of the message</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -257,6 +271,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Optional AI-generated workout or nutrition plan attached to the message</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -290,6 +310,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Role of the sender (&#39;user&#39; for the human, &#39;model&#39; for the AI)</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -303,17 +329,30 @@ import { FormsModule } from &#x27;@angular/forms&#x27;;
 import { AiService, AiGeneratedPlan, ChatSession } from &#x27;../../services/ai.service&#x27;;
 import { finalize } from &#x27;rxjs/operators&#x27;;
 
+/**
+ * Internal interface for chat messages in the UI.
+ * Maps backend messages to a format suitable for the template.
+ */
 interface ChatMessage {
+  /** Role of the sender (&#x27;user&#x27; for the human, &#x27;model&#x27; for the AI) */
   role: &#x27;user&#x27; | &#x27;model&#x27;;
+  /** Text content of the message */
   content: string;
+  /** Optional AI-generated workout or nutrition plan attached to the message */
   plan?: AiGeneratedPlan;
 }
 
+/**
+ * Component for interaction with the MetaForce AI Coach.
+ * Powered by Google Gemini, it allows users to generate workout routines and diet plans via natural language.
+ * Features include session history, quick prompts, and plan persistence to the user profile.
+ */
 @Component({
   selector: &#x27;app-ai-chat&#x27;,
   standalone: true,
   imports: [CommonModule, FormsModule],
   template: &#x60;
+    &lt;!-- Template remains unchanged --&gt;
     &lt;div class&#x3D;&quot;flex h-[calc(100vh-80px)] md:h-[calc(100vh-100px)] gap-4 md:p-4 p-2 bg-gradient-to-br from-gray-50 to-indigo-50/30&quot;&gt;
       
       &lt;!-- Sidebar History --&gt;
@@ -568,22 +607,35 @@ interface ChatMessage {
   &#x60;]
 })
 export class AiChatComponent implements OnInit, AfterViewChecked {
+  /** Injected AiService for backend communication and Gemini integration */
   private aiService &#x3D; inject(AiService);
+  /** Reference to the chat scroll container for automatic bottom positioning */
   @ViewChild(&#x27;scrollContainer&#x27;) private scrollContainer!: ElementRef;
 
+  /** Signal containing the linear history of messages in the current session */
   messages &#x3D; signal&lt;ChatMessage[]&gt;([]);
+  /** Signal containing the list of previous chat sessions for the sidebar */
   sessions &#x3D; signal&lt;ChatSession[]&gt;([]);
+  /** Signal storing the UUID of the active chat session */
   currentSessionId &#x3D; signal&lt;string | undefined&gt;(undefined);
 
+  /** Current text captured from the user input textarea */
   userInput &#x3D; &#x27;&#x27;;
+  /** Signal reflecting the loading state while waiting for the AI coach&#x27;s response */
   isLoading &#x3D; signal(false);
+  /** Signal reflecting the loading state during plan persistence operations */
   isSavingPlan &#x3D; signal(false);
+  /** Status message for providing feedback on plan save outcomes */
   saveMessage &#x3D; signal(&#x27;&#x27;);
 
+  /** Signal controlling the visibility of the session deletion confirmation modal */
   showDeleteModal &#x3D; signal(false);
+  /** The specific chat session object selected for potential deletion */
   sessionToDelete &#x3D; signal&lt;ChatSession | null&gt;(null);
+  /** Signal tracking the backend deletion process for a session */
   isDeleting &#x3D; signal(false);
 
+  /** Pre-defined queries to help users get started with the AI */
   quickPrompts &#x3D; [
     { icon: &#x27;💪&#x27;, title: &#x27;Rutina de Fuerza&#x27;, desc: &#x27;Plan de 3 días para hipertrofia&#x27;, text: &#x27;Hazme una rutina de fuerza de 3 días a la semana para ganar masa muscular.&#x27; },
     { icon: &#x27;🥗&#x27;, title: &#x27;Dieta de Definición&#x27;, desc: &#x27;Déficit calórico suave&#x27;, text: &#x27;Sugiere ideas de comidas para un déficit calórico enfocado en definición muscular.&#x27; },
@@ -591,31 +643,51 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     { icon: &#x27;🤕&#x27;, title: &#x27;Estiramientos&#x27;, desc: &#x27;Recuperación activa&#x27;, text: &#x27;¿Qué estiramientos recomiendas después de una sesión pesada de piernas?&#x27; }
   ];
 
+  /**
+   * Component initialization. Loads recent sessions.
+   */
   ngOnInit() {
     this.refreshSessions();
   }
 
+  /**
+   * Lifecycle hook triggered after every view check.
+   * Ensures the chat follows the latest message.
+   */
   ngAfterViewChecked() {
     this.scrollToBottom();
   }
 
+  /**
+   * Scrolls the messages container to its absolute bottom.
+   */
   scrollToBottom(): void {
     try {
       this.scrollContainer.nativeElement.scrollTop &#x3D; this.scrollContainer.nativeElement.scrollHeight;
     } catch (err) { }
   }
 
+  /**
+   * Fetches the updated list of chat sessions from the backend.
+   */
   refreshSessions() {
     this.aiService.getSessions().subscribe(sessions &#x3D;&gt; {
       this.sessions.set(sessions);
     });
   }
 
+  /**
+   * Resets the local state to start a fresh chat conversation.
+   */
   startNewChat() {
     this.currentSessionId.set(undefined);
     this.messages.set([]);
   }
 
+  /**
+   * Loads a specific existing session and populates the message history.
+   * @param session - The chat session entity to load
+   */
   loadSession(session: ChatSession) {
     this.currentSessionId.set(session.id);
     const uiMessages: ChatMessage[] &#x3D; session.messages.map(m &#x3D;&gt; ({
@@ -625,16 +697,27 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     this.messages.set(uiMessages);
   }
 
+  /**
+   * Triggers a message send with pre-filled prompt text.
+   * @param text - The prompt content
+   */
   sendQuickPrompt(text: string) {
     this.userInput &#x3D; text;
     this.sendMessage();
   }
 
+  /**
+   * Handles Enter key detection in the textarea.
+   * @param event - Keyboard event
+   */
   onEnter(event: Event) {
     event.preventDefault();
     this.sendMessage();
   }
 
+  /**
+   * Sends the user&#x27;s input to Gemini and handles the streaming or full response.
+   */
   sendMessage() {
     if (!this.userInput.trim() || this.isLoading()) return;
 
@@ -666,15 +749,19 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
       });
   }
 
+  /**
+   * Saves a generated workout or meal plan to the user&#x27;s permanent profile.
+   * @param plan - The generated plan object
+   */
   savePlan(plan: AiGeneratedPlan) {
     this.isSavingPlan.set(true);
     this.saveMessage.set(&#x27;&#x27;);
 
-    // Safety fallback before sending to backend to ensure &quot;items&quot; is always populated
     const sanitizedPlan: AiGeneratedPlan &#x3D; {
       ...plan,
       days: plan.days.map(d &#x3D;&gt; ({
         ...d,
+        dayOfWeek: d.dayOfWeek,
         items: this.getItems(d)
       }))
     };
@@ -694,29 +781,49 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  /**
+   * Normalizes different naming variants for list items (exercises, meals, etc).
+   * @param day - Day schedule object
+   * @returns Array of plan items
+   */
   getItems(day: any): any[] {
     return day.items || day.exercises || day.meals || [];
   }
 
-  // Helper to format basic markdown to HTML for better display if needed (e.g., bold text)
+  /**
+   * Formats raw markdown string to basic safe HTML for UI display.
+   * Currently handles bold text.
+   * @param text - Raw markdown
+   * @returns Formatted HTML string
+   */
   formatMessage(text: string): string {
     if (!text) return &#x27;&#x27;;
-    // Format bold markdown (**text** -&gt; &lt;strong&gt;text&lt;/strong&gt;)
     let formatted &#x3D; text.replace(/\*\*(.*?)\*\*/g, &#x27;&lt;strong&gt;$1&lt;/strong&gt;&#x27;);
     return formatted;
   }
 
+  /**
+   * Trigger for the session deletion modal.
+   * @param event - DOM event to stop propagation
+   * @param session - Target session to confirm for deletion
+   */
   confirmDeleteSession(event: Event, session: ChatSession) {
     event.stopPropagation();
     this.sessionToDelete.set(session);
     this.showDeleteModal.set(true);
   }
 
+  /**
+   * Closes the deletion confirmation modal.
+   */
   cancelDelete() {
     this.showDeleteModal.set(false);
     this.sessionToDelete.set(null);
   }
 
+  /**
+   * Final execution of the session deletion API call.
+   */
   executeDelete() {
     const session &#x3D; this.sessionToDelete();
     if (!session) return;
