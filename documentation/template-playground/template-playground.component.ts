@@ -4,45 +4,89 @@ import { TemplateEditorService } from './template-editor.service';
 import { ZipExportService } from './zip-export.service';
 import { HbsRenderService } from './hbs-render.service';
 
+/**
+ * Represents a documentation template file available in the playground.
+ */
 interface Template {
+  /** The display name of the template */
   name: string;
+  /** The relative path to the template file on the server */
   path: string;
+  /** The category of the file (main template or reusable partial) */
   type: 'template' | 'partial';
 }
 
+/**
+ * Represents a playground session created on the server.
+ */
 interface Session {
+  /** Unique session identifier */
   sessionId: string;
+  /** Whether the session was successfully initialized */
   success: boolean;
+  /** Optional status or error message from the server */
   message: string;
 }
 
+/**
+ * Configuration options for Compodoc generation in the playground session.
+ * Maps to standard Compodoc command-line flags.
+ */
 interface CompoDocConfig {
+  /** Whether to hide the 'Generated with Compodoc' footer */
   hideGenerator?: boolean;
+  /** Disable the 'Source' tab in the documentation */
   disableSourceCode?: boolean;
+  /** Disable the dependency graph visualization */
   disableGraph?: boolean;
+  /** Disable the documentation coverage report */
   disableCoverage?: boolean;
+  /** Exclude private members from documentation */
   disablePrivate?: boolean;
+  /** Exclude protected members from documentation */
   disableProtected?: boolean;
+  /** Exclude internal members from documentation */
   disableInternal?: boolean;
+  /** Disable the 'Lifecycle' tab for components */
   disableLifeCycleHooks?: boolean;
+  /** Exclude constructors from documentation */
   disableConstructors?: boolean;
+  /** Disable the routing graph visualization */
   disableRoutesGraph?: boolean;
+  /** Disable the global search feature */
   disableSearch?: boolean;
+  /** Disable the 'Dependencies' tab */
   disableDependencies?: boolean;
+  /** Disable the 'Properties' list for classes */
   disableProperties?: boolean;
+  /** Disable the DOM tree visualization in the template tab */
   disableDomTree?: boolean;
+  /** Disable the 'Template' tab entirely */
   disableTemplateTab?: boolean;
+  /** Disable the 'Styles' tab entirely */
   disableStyleTab?: boolean;
+  /** Disable the main application graph */
   disableMainGraph?: boolean;
+  /** Hide the file path in the component header */
   disableFilePath?: boolean;
+  /** Disable the 'Overview' page */
   disableOverview?: boolean;
+  /** Hide the dark mode toggle button */
   hideDarkModeToggle?: boolean;
+  /** Enable minimal display mode */
   minimal?: boolean;
+  /** URL or path to a custom favicon */
   customFavicon?: string;
+  /** Path to additional documentation files to include */
   includes?: string;
+  /** Display name for the included documentation section */
   includesName?: string;
 }
 
+/**
+ * Root component for the Compodoc Template Playground.
+ * Provides a live-editable environment for customizing documentation themes and layouts.
+ */
 @Component({
   selector: 'template-playground-root',
   template: `
@@ -390,24 +434,46 @@ interface CompoDocConfig {
   `]
 })
 export class TemplatePlaygroundComponent implements OnInit, OnDestroy {
+  /** Reference to the Monaco editor container element */
   @ViewChild('editorContainer', { static: true }) editorContainer!: ElementRef;
+  /** Reference to the preview iframe element */
   @ViewChild('previewFrame', { static: true }) previewFrame!: ElementRef;
 
+  /** The unique ID for the current playground session */
   sessionId: string = '';
+  /** List of editable template files in the current session */
   templates: Template[] = [];
+  /** The template file currently open in the editor */
   selectedFile: Template | null = null;
+  /** Active Compodoc configuration for the session */
   config: CompoDocConfig = {};
+  /** Whether the configuration side-panel is visible */
   showConfigPanel: boolean = false;
+  /** Indicates if a background save operation is in progress */
   saving: boolean = false;
+  /** Timestamp of the last successful save operation */
   lastSaved: Date | null = null;
 
+  /** Reference to the background auto-save timer */
   private saveTimeout?: number;
+  /** Delay in milliseconds for the debounced auto-save operation */
   private readonly SAVE_DELAY = 300; // 300ms debounce
 
+  /**
+   * Computed property returning the standard URL for the documentation preview session.
+   * @returns The API endpoint for the session's rendered docs
+   */
   get previewUrl(): string {
     return this.sessionId ? `/api/session/${this.sessionId}/docs/` : '';
   }
 
+  /**
+   * Initializes the playground component with required services.
+   * @param http - Angular HttpClient for API communication
+   * @param editorService - Service for managing the Monaco editor
+   * @param zipService - Service for exporting templates as ZIP
+   * @param hbsService - Service for rendering Handlebars templates
+   */
   constructor(
     private http: HttpClient,
     private editorService: TemplateEditorService,
@@ -415,6 +481,10 @@ export class TemplatePlaygroundComponent implements OnInit, OnDestroy {
     private hbsService: HbsRenderService
   ) {}
 
+  /**
+   * Component initialization lifecycle hook.
+   * Creates a session, loads initial data, and prepares the editor.
+   */
   async ngOnInit() {
     try {
       await this.createSession();
@@ -426,12 +496,20 @@ export class TemplatePlaygroundComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Component destruction lifecycle hook.
+   * Cleans up pending save operations.
+   */
   ngOnDestroy() {
     if (this.saveTimeout) {
       clearTimeout(this.saveTimeout);
     }
   }
 
+  /**
+   * Requests the server to create a new playground session.
+   * @throws Error if the session creation fails
+   */
   private async createSession(): Promise<void> {
     const response = await this.http.post<Session>('/api/session/create', {}).toPromise();
     if (response && response.success) {
@@ -442,6 +520,10 @@ export class TemplatePlaygroundComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Retrieves the list of available template files for the current session.
+   * Automatically selects the first template if none are selected.
+   */
   private async loadSessionTemplates(): Promise<void> {
     if (!this.sessionId) return;
 
@@ -456,6 +538,9 @@ export class TemplatePlaygroundComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Fetches the current Compodoc configuration from the session.
+   */
   private async loadSessionConfig(): Promise<void> {
     if (!this.sessionId) return;
 
@@ -465,6 +550,9 @@ export class TemplatePlaygroundComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Injects the editor service into the container and sets up change listeners.
+   */
   initializeEditor() {
     this.editorService.initializeEditor(this.editorContainer.nativeElement);
 
@@ -474,6 +562,10 @@ export class TemplatePlaygroundComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Loads the content of a specific template file into the editor.
+   * @param template - The template file metadata to select
+   */
   async selectFile(template: Template) {
     this.selectedFile = template;
 
@@ -489,6 +581,10 @@ export class TemplatePlaygroundComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Throttles save requests to avoid overwhelming the server during typing.
+   * @param content - The current editor content to save
+   */
   private scheduleAutoSave(content: string): void {
     if (!this.selectedFile || !this.sessionId) return;
 
@@ -513,6 +609,11 @@ export class TemplatePlaygroundComponent implements OnInit, OnDestroy {
     }, this.SAVE_DELAY);
   }
 
+  /**
+   * Persists the current template content to the server-side session storage.
+   * @param content - The template content to save
+   * @throws Error if the save operation fails
+   */
   private async saveTemplate(content: string): Promise<void> {
     if (!this.selectedFile || !this.sessionId) return;
 
@@ -525,6 +626,9 @@ export class TemplatePlaygroundComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Updates the Compodoc generation configuration and triggers partial doc regeneration.
+   */
   async updateConfig(): Promise<void> {
     if (!this.sessionId) return;
 
@@ -541,16 +645,25 @@ export class TemplatePlaygroundComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Toggles the visibility of the configuration side-panel.
+   */
   toggleConfigPanel(): void {
     this.showConfigPanel = !this.showConfigPanel;
   }
 
+  /**
+   * Forces a refresh of the preview iframe by resetting its source attribute.
+   */
   refreshPreview(): void {
     if (this.previewFrame?.nativeElement) {
       this.previewFrame.nativeElement.src = this.previewFrame.nativeElement.src;
     }
   }
 
+  /**
+   * Prompts the user and resets all templates to their factory defaults.
+   */
   resetToDefault(): void {
     // Implementation for resetting to default templates
     if (confirm('Are you sure you want to reset all templates to their default values? This action cannot be undone.')) {
@@ -559,6 +672,9 @@ export class TemplatePlaygroundComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * Bundles all customized templates into a ZIP file and triggers a browser download.
+   */
   async exportZip(): Promise<void> {
     try {
       if (!this.sessionId) {
@@ -608,6 +724,12 @@ export class TemplatePlaygroundComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * TrackBy function for the template file list iteration.
+   * @param index - Item index
+   * @param item - Template item
+   * @returns Template name as unique key
+   */
   trackByName(index: number, item: Template): string {
     return item.name;
   }

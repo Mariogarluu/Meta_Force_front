@@ -1,14 +1,26 @@
 import { Injectable } from '@angular/core';
 
+/** Global monaco editor instance provided by the library */
 declare const monaco: any;
 
+/**
+ * Service for managing Monaco editor instances in the template playground.
+ * Handles language configuration and editor lifecycle.
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class TemplateEditorService {
+  /** The active Monaco editor instance */
   private editor: any;
+  /** Callback function triggered when the editor content changes */
   private onChangeCallback: ((value: string) => void) | null = null;
 
+  /**
+   * Initializes the Monaco Editor into the provided DOM container.
+   * Sets default configuration and basic change listeners.
+   * @param container - HTML element to host the editor
+   */
   initializeEditor(container: HTMLElement) {
     // Initialize Monaco Editor
     this.editor = monaco.editor.create(container, {
@@ -56,6 +68,11 @@ export class TemplateEditorService {
     this.registerHandlebarsLanguage();
   }
 
+  /**
+   * Updates the editor content and adjusts the language mode based on the file type.
+   * @param content - New source code string
+   * @param fileType - File extension or type identifier
+   */
   setEditorContent(content: string, fileType: string) {
     if (this.editor) {
       const language = this.getLanguageFromFileType(fileType);
@@ -64,10 +81,19 @@ export class TemplateEditorService {
     }
   }
 
+  /**
+   * Sets the listener for editor content changes.
+   * @param callback - Function to execute on every keystroke/change
+   */
   setOnChangeCallback(callback: (value: string) => void) {
     this.onChangeCallback = callback;
   }
 
+  /**
+   * Maps file extensions to Monaco language identifiers.
+   * @param fileType - Input extension
+   * @returns Monaco compatible language ID
+   */
   private getLanguageFromFileType(fileType: string): string {
     switch (fileType) {
       case 'hbs':
@@ -84,6 +110,10 @@ export class TemplateEditorService {
     }
   }
 
+  /**
+   * Configures a custom Monarch tokenizer for Handlebars specifically for Monaco.
+   * Adds syntax highlighting for Handlebars tags and helpers.
+   */
   private registerHandlebarsLanguage() {
     // Register Handlebars language for Monaco Editor
     if (monaco.languages.getLanguages().find((lang: any) => lang.id === 'handlebars')) {
@@ -164,6 +194,9 @@ export class TemplateEditorService {
     });
   }
 
+  /**
+   * Disposes of the editor instance and releases resources.
+   */
   destroy() {
     if (this.editor) {
       this.editor.dispose();
