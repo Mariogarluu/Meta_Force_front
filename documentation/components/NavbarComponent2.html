@@ -138,6 +138,14 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Secondary navigation bar component.
+Used for specific landing pages or alternative layouts.</p>
+
+    </p>
 
 
 
@@ -270,10 +278,17 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/shared/components/navbar/navbar.component 2.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/shared/components/navbar/navbar.component 2.ts:21</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>List of static navigation links for the secondary menu.
+Includes display labels and target routes for landing page contexts.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -287,6 +302,10 @@
 import { Component } from &#x27;@angular/core&#x27;;
 import { RouterLink, RouterLinkActive } from &#x27;@angular/router&#x27;;
 
+/**
+ * Secondary navigation bar component.
+ * Used for specific landing pages or alternative layouts.
+ */
 @Component({
   selector: &#x27;app-navbar2&#x27;,
   standalone: true,
@@ -295,6 +314,10 @@ import { RouterLink, RouterLinkActive } from &#x27;@angular/router&#x27;;
   styleUrl: &#x27;./navbar.component 2.scss&#x27;
 })
 export class NavbarComponent2 {
+  /** 
+   * List of static navigation links for the secondary menu.
+   * Includes display labels and target routes for landing page contexts.
+   */
   readonly navLinks &#x3D; [
     { label: &#x27;Inicio&#x27;, path: &#x27;/&#x27; },
     { label: &#x27;Clases&#x27;, path: &#x27;/dashboard&#x27; },
@@ -366,7 +389,7 @@ export class NavbarComponent2 {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><header class="navbar">  <div class="navbar__inner">    <a routerLink="/" class="navbar__brand" aria-label="Meta Force Inicio">      <img src="/Logo.png" alt="Meta Force" class="navbar__logo" />    </a>    <nav class="navbar__menu">      @for (link of navLinks; track link.path) {        <a          [routerLink]="link.path"          routerLinkActive="active"          class="navbar__link">          {{ link.label }}        </a>      }    </nav>    <div class="navbar__actions">      <button type="button" class="navbar__icon-btn" aria-label="Buscar">        <span>🔍</span>      </button>      <a routerLink="/login" class="navbar__login">Iniciar sesión</a>      <button type="button" class="navbar__icon-btn" aria-label="Perfil">        <span>👤</span>      </button>    </div>  </div></header></div>'
-    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
+    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
     var DIRECTIVES = [{'name': 'ClickOutsideDirective', 'selector': '[appClickOutside]'}];
     var ACTUAL_COMPONENT = {'name': 'NavbarComponent2'};
 </script>

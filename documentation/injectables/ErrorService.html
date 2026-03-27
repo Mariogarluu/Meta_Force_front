@@ -143,7 +143,8 @@
             <p class="comment">
                 <p>Service for centralized application error management.
 Provides a unified way to handle errors from any part of the application,
-converting them into user-friendly messages displayed via a global toast.</p>
+converting them into user-friendly messages displayed via a global toast.
+Features automatic HTTP error parsing, custom error codes, and auto-cleanup.</p>
 
             </p>
 
@@ -246,17 +247,15 @@ converting them into user-friendly messages displayed via a global toast.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="187"
-                                    class="link-to-prism">src/app/core/services/error.service.ts:187</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="155"
+                                    class="link-to-prism">src/app/core/services/error.service.ts:155</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Limpia el error actual inmediatamente.</p>
-<p>Típicamente llamado cuando el usuario cierra manualmente el toast
-o cuando se auto-limpia después del duration.</p>
+                        <div class="io-description"><p>Clears the currently active error, removing it from the UI.</p>
 </div>
 
                         <div class="io-description">
@@ -289,23 +288,15 @@ o cuando se auto-limpia después del duration.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="173"
-                                    class="link-to-prism">src/app/core/services/error.service.ts:173</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="144"
+                                    class="link-to-prism">src/app/core/services/error.service.ts:144</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Determina el tipo de error basándose en el prefijo del código.</p>
-<p>Convenciones de prefijos:</p>
-<ul>
-<li>ERR_AUTH* → ErrorType.AUTH</li>
-<li>ERR_NETWORK* → ErrorType.NETWORK</li>
-<li>ERR_VALIDATION* → ErrorType.VALIDATION</li>
-<li>ERR_SERVER* → ErrorType.SERVER</li>
-<li>Otro → ErrorType.UNKNOWN</li>
-</ul>
+                        <div class="io-description"><p>Determines the ErrorType based on the error code prefix.</p>
 </div>
 
                             <div class="io-description">
@@ -334,7 +325,7 @@ o cuando se auto-limpia después del duration.</p>
 
                                             <td>
                                                     <ul>
-<li>Código de error personalizado</li>
+<li>The internal error code string</li>
 </ul>
 
                                             </td>
@@ -347,7 +338,7 @@ o cuando se auto-limpia después del duration.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>Tipo de error correspondiente</p>
+                                <p>The corresponding ErrorType enum value</p>
 
                             </div>
                 </td>
@@ -382,12 +373,9 @@ o cuando se auto-limpia después del duration.</p>
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Maneja cualquier tipo de error de la aplicación.</p>
-<p>Detecta automáticamente el tipo de error (HttpErrorResponse, Error custom, etc.)
-y lo convierte en un AppError con mensaje legible.</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-html">this.http.post(...).subscribe({
-  error: (err) =&gt; this.errorService.handleError(err)
-});</code></pre></div></div>
+                        <div class="io-description"><p>Handles any type of application error.
+Automatically detects error type and converts it into a displayable AppError.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -418,7 +406,7 @@ y lo convierte en un AppError con mensaje legible.</p>
 
                                             <td>
                                                     <ul>
-<li>Objeto de error de cualquier tipo</li>
+<li>Any error object (HttpErrorResponse, Error, custom, etc.)</li>
 </ul>
 
                                             </td>
@@ -439,7 +427,7 @@ y lo convierte en un AppError con mensaje legible.</p>
 
                                             <td>
                                                     <ul>
-<li>Tiempo en ms que se muestra el error (0 = permanente)</li>
+<li>Time in ms to display the error (0 for permanent)</li>
 </ul>
 
                                             </td>
@@ -480,21 +468,15 @@ y lo convierte en un AppError con mensaje legible.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="100"
-                                    class="link-to-prism">src/app/core/services/error.service.ts:100</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="88"
+                                    class="link-to-prism">src/app/core/services/error.service.ts:88</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Determina el tipo de error y lo convierte a AppError.</p>
-<p>Estrategia de parseo:</p>
-<ol>
-<li>Si es HttpErrorResponse → usa parseHttpError()</li>
-<li>Si tiene propiedad &#39;code&#39; → busca en errorMap</li>
-<li>Caso contrario → retorna error desconocido</li>
-</ol>
+                        <div class="io-description"><p>Parses an unknown error object into a structured AppError.</p>
 </div>
 
                             <div class="io-description">
@@ -523,7 +505,7 @@ y lo convierte en un AppError con mensaje legible.</p>
 
                                             <td>
                                                     <ul>
-<li>Error de cualquier tipo</li>
+<li>The error object to parse</li>
 </ul>
 
                                             </td>
@@ -536,7 +518,7 @@ y lo convierte en un AppError con mensaje legible.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>AppError con tipo, mensaje y metadata</p>
+                                <p>A structured AppError object</p>
 
                             </div>
                 </td>
@@ -565,24 +547,15 @@ y lo convierte en un AppError con mensaje legible.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="137"
-                                    class="link-to-prism">src/app/core/services/error.service.ts:137</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="116"
+                                    class="link-to-prism">src/app/core/services/error.service.ts:116</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Convierte errores HTTP en objetos AppError con tipo y mensaje apropiados.</p>
-<p>Mapeo de códigos HTTP:</p>
-<ul>
-<li>400 → VALIDATION: &quot;Datos inválidos&quot;</li>
-<li>401 → AUTH: &quot;Credenciales incorrectas&quot;</li>
-<li>403 → AUTH: &quot;No tienes permisos&quot;</li>
-<li>404 → NETWORK: &quot;Recurso no encontrado&quot;</li>
-<li>500 → SERVER: &quot;Error del servidor&quot;</li>
-<li>0 → NETWORK: &quot;Error de conexión&quot;</li>
-</ul>
+                        <div class="io-description"><p>Maps HTTP status codes to application error types and messages.</p>
 </div>
 
                             <div class="io-description">
@@ -611,7 +584,7 @@ y lo convierte en un AppError con mensaje legible.</p>
 
                                             <td>
                                                     <ul>
-<li>HttpErrorResponse de Angular</li>
+<li>The Angular HttpErrorResponse object</li>
 </ul>
 
                                             </td>
@@ -624,7 +597,7 @@ y lo convierte en un AppError con mensaje legible.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>AppError con código HTTP_{status}</p>
+                                <p>A structured AppError based on HTTP status</p>
 
                             </div>
                 </td>
@@ -651,18 +624,16 @@ y lo convierte en un AppError con mensaje legible.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="203"
-                                    class="link-to-prism">src/app/core/services/error.service.ts:203</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="164"
+                                    class="link-to-prism">src/app/core/services/error.service.ts:164</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Registra dinámicamente un nuevo código de error con su mensaje.</p>
-<p>Permite extender el errorMap en tiempo de ejecución sin modificar
-el código del servicio.</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-html">this.errorService.registerErrorMessage(&#39;ERR_QUOTA_EXCEEDED&#39;, &#39;Has superado tu cuota&#39;);</code></pre></div></div>
+                        <div class="io-description"><p>Registers a new error code and message mapping dynamically.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -690,7 +661,7 @@ el código del servicio.</p>
 
                                             <td>
                                                     <ul>
-<li>Código de error único</li>
+<li>Unique error code string</li>
 </ul>
 
                                             </td>
@@ -708,7 +679,7 @@ el código del servicio.</p>
 
                                             <td>
                                                     <ul>
-<li>Mensaje legible para el usuario</li>
+<li>User-friendly Spanish message for this code</li>
 </ul>
 
                                             </td>
@@ -747,18 +718,17 @@ el código del servicio.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="76"
-                                    class="link-to-prism">src/app/core/services/error.service.ts:76</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/app/core/services/error.service.ts:70</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Establece un error manualmente con mensaje y tipo específicos.</p>
-<p>Útil para errores personalizados del dominio de negocio que no provienen
-de llamadas HTTP.</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-html">this.errorService.setError(&#39;Usuario o contraseña incorrectos&#39;, ErrorType.AUTH);</code></pre></div></div>
+                        <div class="io-description"><p>Manually sets an error with a specific message and type.
+Useful for business logic errors not originating from HTTP calls.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -789,7 +759,7 @@ de llamadas HTTP.</p>
 
                                             <td>
                                                     <ul>
-<li>Mensaje de error legible para el usuario</li>
+<li>User-friendly error message</li>
 </ul>
 
                                             </td>
@@ -810,7 +780,7 @@ de llamadas HTTP.</p>
 
                                             <td>
                                                     <ul>
-<li>Tipo de error (AUTH, NETWORK, VALIDATION, SERVER, UNKNOWN)</li>
+<li>The category of the error</li>
 </ul>
 
                                             </td>
@@ -831,7 +801,7 @@ de llamadas HTTP.</p>
 
                                             <td>
                                                     <ul>
-<li>Tiempo en ms que se muestra el error (0 = permanente)</li>
+<li>Time in ms to display the error</li>
 </ul>
 
                                             </td>
@@ -881,10 +851,16 @@ de llamadas HTTP.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/core/services/error.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/core/services/error.service.ts:32</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Internal signal for the currently active application error</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -912,10 +888,16 @@ de llamadas HTTP.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/core/services/error.service.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/core/services/error.service.ts:35</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Public read-only signal of the current error</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -952,10 +934,16 @@ de llamadas HTTP.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/core/services/error.service.ts:30</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/core/services/error.service.ts:38</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Map of error codes to user-friendly Spanish messages</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -987,13 +975,21 @@ import { AppError, ErrorType } from &#x27;../models/app-error&#x27;;
  * Provides a unified way to handle errors from any part of the application,
  * converting them into user-friendly messages displayed via a global toast.
  */
+/**
+ * Service for centralized application error management.
+ * Provides a unified way to handle errors from any part of the application,
+ * converting them into user-friendly messages displayed via a global toast.
+ * Features automatic HTTP error parsing, custom error codes, and auto-cleanup.
+ */
 @Injectable({ providedIn: &#x27;root&#x27; })
 export class ErrorService {
-  
+  /** Internal signal for the currently active application error */
   private currentError &#x3D; signal&lt;AppError | null&gt;(null);
   
+  /** Public read-only signal of the current error */
   error &#x3D; this.currentError.asReadonly();
   
+  /** Map of error codes to user-friendly Spanish messages */
   private errorMap &#x3D; new Map&lt;string, string&gt;([
     [&#x27;ERR_NETWORK&#x27;, &#x27;Error de conexión&#x27;],
     [&#x27;ERR_AUTH_INVALID&#x27;, &#x27;Credenciales incorrectas&#x27;],
@@ -1005,18 +1001,10 @@ export class ErrorService {
   ]);
   
   /**
-   * Maneja cualquier tipo de error de la aplicación.
-   * 
-   * Detecta automáticamente el tipo de error (HttpErrorResponse, Error custom, etc.)
-   * y lo convierte en un AppError con mensaje legible.
-   * 
-   * @param error - Objeto de error de cualquier tipo
-   * @param duration - Tiempo en ms que se muestra el error (0 &#x3D; permanente)
-   * 
-   * @example
-   * this.http.post(...).subscribe({
-   *   error: (err) &#x3D;&gt; this.errorService.handleError(err)
-   * });
+   * Handles any type of application error.
+   * Automatically detects error type and converts it into a displayable AppError.
+   * @param error - Any error object (HttpErrorResponse, Error, custom, etc.)
+   * @param duration - Time in ms to display the error (0 for permanent)
    */
   handleError(error: any, duration: number &#x3D; 5000) {
     const appError &#x3D; this.parseError(error);
@@ -1028,17 +1016,11 @@ export class ErrorService {
   }
   
   /**
-   * Establece un error manualmente con mensaje y tipo específicos.
-   * 
-   * Útil para errores personalizados del dominio de negocio que no provienen
-   * de llamadas HTTP.
-   * 
-   * @param message - Mensaje de error legible para el usuario
-   * @param type - Tipo de error (AUTH, NETWORK, VALIDATION, SERVER, UNKNOWN)
-   * @param duration - Tiempo en ms que se muestra el error (0 &#x3D; permanente)
-   * 
-   * @example
-   * this.errorService.setError(&#x27;Usuario o contraseña incorrectos&#x27;, ErrorType.AUTH);
+   * Manually sets an error with a specific message and type.
+   * Useful for business logic errors not originating from HTTP calls.
+   * @param message - User-friendly error message
+   * @param type - The category of the error
+   * @param duration - Time in ms to display the error
    */
   setError(message: string, type: ErrorType &#x3D; ErrorType.UNKNOWN, duration: number &#x3D; 5000) {
     const appError: AppError &#x3D; {
@@ -1054,15 +1036,9 @@ export class ErrorService {
   }
   
   /**
-   * Determina el tipo de error y lo convierte a AppError.
-   * 
-   * Estrategia de parseo:
-   * 1. Si es HttpErrorResponse → usa parseHttpError()
-   * 2. Si tiene propiedad &#x27;code&#x27; → busca en errorMap
-   * 3. Caso contrario → retorna error desconocido
-   * 
-   * @param error - Error de cualquier tipo
-   * @returns AppError con tipo, mensaje y metadata
+   * Parses an unknown error object into a structured AppError.
+   * @param error - The error object to parse
+   * @returns A structured AppError object
    */
   private parseError(error: any): AppError {
     if (error instanceof HttpErrorResponse) {
@@ -1088,18 +1064,9 @@ export class ErrorService {
   }
   
   /**
-   * Convierte errores HTTP en objetos AppError con tipo y mensaje apropiados.
-   * 
-   * Mapeo de códigos HTTP:
-   * - 400 → VALIDATION: &quot;Datos inválidos&quot;
-   * - 401 → AUTH: &quot;Credenciales incorrectas&quot;
-   * - 403 → AUTH: &quot;No tienes permisos&quot;
-   * - 404 → NETWORK: &quot;Recurso no encontrado&quot;
-   * - 500 → SERVER: &quot;Error del servidor&quot;
-   * - 0 → NETWORK: &quot;Error de conexión&quot;
-   * 
-   * @param error - HttpErrorResponse de Angular
-   * @returns AppError con código HTTP_{status}
+   * Maps HTTP status codes to application error types and messages.
+   * @param error - The Angular HttpErrorResponse object
+   * @returns A structured AppError based on HTTP status
    */
   private parseHttpError(error: HttpErrorResponse): AppError {
     const statusMap: Record&lt;number, { type: ErrorType; message: string }&gt; &#x3D; {
@@ -1125,17 +1092,9 @@ export class ErrorService {
   }
   
   /**
-   * Determina el tipo de error basándose en el prefijo del código.
-   * 
-   * Convenciones de prefijos:
-   * - ERR_AUTH* → ErrorType.AUTH
-   * - ERR_NETWORK* → ErrorType.NETWORK
-   * - ERR_VALIDATION* → ErrorType.VALIDATION
-   * - ERR_SERVER* → ErrorType.SERVER
-   * - Otro → ErrorType.UNKNOWN
-   * 
-   * @param code - Código de error personalizado
-   * @returns Tipo de error correspondiente
+   * Determines the ErrorType based on the error code prefix.
+   * @param code - The internal error code string
+   * @returns The corresponding ErrorType enum value
    */
   private getErrorType(code: string): ErrorType {
     if (code.startsWith(&#x27;ERR_AUTH&#x27;)) return ErrorType.AUTH;
@@ -1146,31 +1105,22 @@ export class ErrorService {
   }
   
   /**
-   * Limpia el error actual inmediatamente.
-   * 
-   * Típicamente llamado cuando el usuario cierra manualmente el toast
-   * o cuando se auto-limpia después del duration.
+   * Clears the currently active error, removing it from the UI.
    */
   clearError() {
     this.currentError.set(null);
   }
   
   /**
-   * Registra dinámicamente un nuevo código de error con su mensaje.
-   * 
-   * Permite extender el errorMap en tiempo de ejecución sin modificar
-   * el código del servicio.
-   * 
-   * @param code - Código de error único
-   * @param message - Mensaje legible para el usuario
-   * 
-   * @example
-   * this.errorService.registerErrorMessage(&#x27;ERR_QUOTA_EXCEEDED&#x27;, &#x27;Has superado tu cuota&#x27;);
+   * Registers a new error code and message mapping dynamically.
+   * @param code - Unique error code string
+   * @param message - User-friendly Spanish message for this code
    */
   registerErrorMessage(code: string, message: string) {
     this.errorMap.set(code, message);
   }
 }
+
 
 </code></pre>
     </div>

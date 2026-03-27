@@ -11,6 +11,10 @@ import {
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
+/**
+ * Component for managing and displaying membership plans (Diets, Training, etc.).
+ * Provides CRUD functionality for administrators and viewing capabilities for regular users.
+ */
 @Component({
   selector: 'app-memberships',
   standalone: true,
@@ -19,21 +23,31 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
   styleUrl: './memberships.component.scss',
 })
 export class MembershipsComponent implements OnInit {
+  /** Injected MembershipsService for plan operations */
   private membershipsService = inject(MembershipsService);
+  /** Injected AuthService to identify administrative privileges */
   private authService = inject(AuthService);
+  /** Injected TranslateService for internationalization */
   translate = inject(TranslateService);
 
+  /** Signal containing the full list of membership plans */
   memberships = signal<MembershipPlan[]>([]);
+  /** Signal tracking background activity for loading states */
   isLoading = signal(false);
+  /** Signal for displaying error text to the user */
   errorMessage = signal<string>('');
 
-  // Modal states
+  /** Signal managing the create plan modal visibility */
   showCreateModal = signal(false);
+  /** Signal managing the edit plan modal visibility */
   showEditModal = signal(false);
+  /** Signal managing the delete confirmation modal visibility */
   showDeleteModal = signal(false);
 
+  /** Signal for the membership plan currently being edited or deleted */
   selectedMembership = signal<MembershipPlan | null>(null);
 
+  /** Form state for creating or updating a membership plan */
   membershipForm: CreateMembershipPlanInput = {
     name: '',
     description: '',
@@ -43,14 +57,22 @@ export class MembershipsComponent implements OnInit {
     isActive: true,
   };
 
+  /** Temporary signal for a new feature string before adding it to the plan */
   currentFeature = signal<string>('');
 
+  /** Computed signal for the current user session */
   currentUser = computed(() => this.authService.currentUser());
+  /** Computed signal checking if user is SUPERADMIN */
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
+  /** Computed signal checking if user is ADMIN_CENTER */
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
+  /** Computed signal checking if the user can perform administrative actions */
   canManage = computed(() => this.isSuperAdmin() || this.isAdminCenter());
 
-  // Solo mostrar planes activos para usuarios normales
+  /** 
+   * Computed signal for the memberships visible to current user.
+   * Filters out inactive plans for regular users.
+   */
   displayedMemberships = computed(() => {
     if (this.canManage()) {
       return this.memberships();
@@ -58,10 +80,16 @@ export class MembershipsComponent implements OnInit {
     return this.memberships().filter((m) => m.isActive);
   });
 
+  /**
+   * Initializes the component by loading the membership plans.
+   */
   ngOnInit() {
     this.loadMemberships();
   }
 
+  /**
+   * Fetches the membership catalog from the backend.
+   */
   loadMemberships() {
     this.isLoading.set(true);
     this.errorMessage.set('');
@@ -78,7 +106,9 @@ export class MembershipsComponent implements OnInit {
     });
   }
 
-  // Modal Management
+  /**
+   * Prepares and opens the creation modal with a blank form.
+   */
   openCreateModal() {
     this.membershipForm = {
       name: '',
@@ -92,6 +122,9 @@ export class MembershipsComponent implements OnInit {
     this.showCreateModal.set(true);
   }
 
+  /**
+   * Closes the creation modal and resets the form state.
+   */
   closeCreateModal() {
     this.showCreateModal.set(false);
     this.membershipForm = {
@@ -105,6 +138,10 @@ export class MembershipsComponent implements OnInit {
     this.currentFeature.set('');
   }
 
+  /**
+   * Prepares and opens the edit modal for a specific plan.
+   * @param membership - The membership plan to edit
+   */
   openEditModal(membership: MembershipPlan) {
     this.selectedMembership.set(membership);
     this.membershipForm = {
@@ -119,23 +156,35 @@ export class MembershipsComponent implements OnInit {
     this.showEditModal.set(true);
   }
 
+  /**
+   * Closes the edit modal and clears the selection.
+   */
   closeEditModal() {
     this.showEditModal.set(false);
     this.selectedMembership.set(null);
     this.currentFeature.set('');
   }
 
+  /**
+   * Opens the deletion confirmation modal.
+   * @param membership - The membership plan to delete
+   */
   openDeleteModal(membership: MembershipPlan) {
     this.selectedMembership.set(membership);
     this.showDeleteModal.set(true);
   }
 
+  /**
+   * Closes the deletion confirmation modal and clears the selection.
+   */
   closeDeleteModal() {
     this.showDeleteModal.set(false);
     this.selectedMembership.set(null);
   }
 
-  // Feature Management
+  /**
+   * Adds the current feature text to the form's feature list.
+   */
   addFeature() {
     const feature = this.currentFeature().trim();
     if (feature && !this.membershipForm.features?.includes(feature)) {
@@ -145,13 +194,19 @@ export class MembershipsComponent implements OnInit {
     }
   }
 
+  /**
+   * Removes a feature from the form's list by index.
+   * @param index - Position of the feature in the array
+   */
   removeFeature(index: number) {
     if (this.membershipForm.features) {
       this.membershipForm.features.splice(index, 1);
     }
   }
 
-  // CRUD Operations
+  /**
+   * Submits the create form to the backend after basic validation.
+   */
   createMembership() {
     if (!this.membershipForm.name || this.membershipForm.price < 0 || this.membershipForm.duration < 1) {
       this.errorMessage.set(this.translate.instant('memberships.errors.validation'));
@@ -172,6 +227,9 @@ export class MembershipsComponent implements OnInit {
     });
   }
 
+  /**
+   * Submits updates for the selected membership plan to the backend.
+   */
   updateMembership() {
     const id = this.selectedMembership()?.id;
     if (!id) return;
@@ -204,6 +262,9 @@ export class MembershipsComponent implements OnInit {
     });
   }
 
+  /**
+   * Permanently deletes the selected membership plan from the backend.
+   */
   deleteMembership() {
     const id = this.selectedMembership()?.id;
     if (!id) return;
@@ -222,6 +283,11 @@ export class MembershipsComponent implements OnInit {
     });
   }
 
+  /**
+   * Formats a numeric price into a currency string based on the current language/locale.
+   * @param price - Numeric value to format
+   * @returns Formatted currency string (e.g., "10,00 €")
+   */
   formatPrice(price: number): string {
     const currentLang = this.translate.currentLang || 'es';
     const locale = currentLang === 'es' ? 'es-ES' : currentLang === 'fr' ? 'fr-FR' : 'en-US';
@@ -231,6 +297,11 @@ export class MembershipsComponent implements OnInit {
     }).format(price);
   }
 
+  /**
+   * Returns a user-friendly duration string (e.g., "1 Mes", "2 Años").
+   * @param duration - Duration in months
+   * @returns Translated duration string
+   */
   getDurationText(duration: number): string {
     const params = { count: duration };
     if (duration === 1) {
@@ -246,4 +317,5 @@ export class MembershipsComponent implements OnInit {
     return this.translate.instant('memberships.years', { count: years });
   }
 }
+
 

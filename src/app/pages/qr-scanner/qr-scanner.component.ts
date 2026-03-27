@@ -13,13 +13,17 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 /**
- * Interfaz para el resultado de un escaneo de QR.
- * Contiene información sobre el tipo de operación (entrada/salida) y el usuario procesado.
+ * Interface representing the result of a QR scan.
+ * Contains information about the operation type (entry/exit) and the processed user.
  */
 interface ScanResult {
+  /** Indicates if the backend successfully processed the access */
   success: boolean;
+  /** Whether the user was entering or exiting the facility */
   type: 'entry' | 'exit';
+  /** Human-readable status message from the server */
   message: string;
+  /** Basic user information associated with the scanned QR */
   user: {
     id: string;
     name: string;
@@ -28,16 +32,16 @@ interface ScanResult {
 }
 
 /**
- * Componente para escanear códigos QR y registrar entradas/salidas de usuarios en centros.
+ * Component for scanning QR codes and registering user entries/exits at gym centers.
  * 
- * Funcionalidades:
- * - Acceso a la cámara del dispositivo para escanear QR codes
- * - Selección automática o manual del centro según el rol del usuario
- * - Detección automática de entrada/salida basada en el estado del usuario
- * - Feedback visual con flash verde (entrada) o rojo (salida)
- * - Validación de expiración del QR (20 minutos)
- * 
- * Solo accesible para SUPERADMIN y ADMIN_CENTER.
+ * Features:
+ * - Device camera access for real-time QR code scanning
+ * - Automatic or manual center selection based on user role
+ * - Automated entry/exit detection based on user's current occupancy state
+ * - Visual feedback with green (entry) or red (exit) flash animations
+ * - QR expiration validation (20-minute window)
+ *
+ * Accessible only to SUPERADMIN and ADMIN_CENTER roles.
  */
 @Component({
   selector: 'app-qr-scanner',
@@ -47,27 +51,40 @@ interface ScanResult {
   styleUrl: './qr-scanner.component.scss'
 })
 export class QrScannerComponent implements OnInit, OnDestroy {
+  /** Injected AuthService for permission and session context */
   auth = inject(AuthService);
+  /** Injected CentersService for accessing gym location data */
   centersService = inject(CentersService);
+  /** Injected HttpClient for manual backend requests during scanning */
   http = inject(HttpClient);
+  /** Injected TranslateService for multi-language UI feedback */
   translate = inject(TranslateService);
 
+  /** Signal for the currently authenticated administrator */
   currentUser = this.auth.currentUser;
+  /** Signal containing the list of gym centers the admin can manage */
   centers = signal<Center[]>([]);
+  /** Signal storing the ID of the gym center where scanning is active */
   selectedCenterId = signal<string | null>(null);
+  /** Signal tracking the active state of the camera/scanner */
   isScanning = signal(false);
+  /** Instance of the Html5Qrcode library for camera stream processing */
   scanner: Html5Qrcode | null = null;
+  /** Signal storing the metadata of the most recently processed scan */
   lastScanResult = signal<ScanResult | null>(null);
+  /** Signal for displaying camera-related or API error messages */
   scanError = signal<string>('');
+  /** Signal controlling the visibility of the success/failure flash overlay */
   showFlash = signal(false);
+  /** Signal determining the color/type of the visual feedback flash */
   flashType = signal<'entry' | 'exit' | null>(null);
 
   /**
-   * Determina si el usuario necesita seleccionar un centro antes de escanear.
-   * SUPERADMIN siempre necesita seleccionar si hay centros disponibles.
-   * ADMIN_CENTER solo necesita seleccionar si tiene acceso a más de un centro.
+   * Determines if the admin must manually pick a gym center from the UI.
+   * Super Admins always choose if centers exist.
+   * Center Admins choose only if they have access to multiple facilities.
    * 
-   * @returns true si se requiere selección de centro, false si se puede iniciar automáticamente
+   * @returns true if center selection UI should be shown
    */
   needsCenterSelection = computed(() => {
     const user = this.currentUser();
@@ -84,21 +101,25 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     return false;
   });
 
+  /**
+   * Initializes the component by fetching available gym centers.
+   */
   ngOnInit() {
     this.loadCenters();
   }
 
+  /**
+   * Lifecycle hook to ensure the camera scanner is stopped when the component is destroyed.
+   */
   ngOnDestroy() {
     this.stopScanning();
   }
 
   /**
-   * Carga los centros disponibles según el rol del usuario autenticado.
-   * SUPERADMIN ve todos los centros del sistema.
-   * ADMIN_CENTER solo ve su propio centro (o centros si tiene acceso a múltiples).
+   * Loads accessible gym centers based on the authenticated user's role.
+   * Superior admins see all facilities; local admins see only assigned ones.
    * 
-   * Si solo hay un centro disponible, lo selecciona automáticamente e inicia el escáner.
-   * Si hay múltiples centros, muestra un selector para que el usuario elija.
+   * If only one center is found, it is automatically selected to speed up the process.
    */
   async loadCenters() {
     try {
@@ -106,14 +127,14 @@ export class QrScannerComponent implements OnInit, OnDestroy {
       if (centers) {
         this.centers.set(centers);
         
-        // Si solo hay un centro, seleccionarlo automáticamente
+        // Auto-select if there is exactly one center
         if (centers.length === 1 && centers[0].id) {
           this.selectedCenterId.set(centers[0].id);
           this.startScanning();
         } else if (centers.length > 1 && this.needsCenterSelection()) {
-          // Esperar a que el usuario seleccione
+          // Wait for manual user selection
         } else {
-          // Si es ADMIN_CENTER con un solo centro asignado
+          // Case for ADMIN_CENTER with a single assigned facility
           const user = this.currentUser();
           if (user?.centerId) {
             this.selectedCenterId.set(user.centerId);
@@ -122,14 +143,14 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         }
       }
     } catch (error) {
-      console.error('Error cargando centros:', error);
+      console.error('Error loading facilities:', error);
       this.scanError.set(this.translate.instant('qrScanner.errors.loadCenters'));
     }
   }
 
   /**
-   * Callback que se ejecuta cuando el usuario selecciona un centro del dropdown.
-   * Inicia automáticamente el escáner de QR si se ha seleccionado un centro válido.
+   * Event trigger when the administrator manually selects a facility from the dropdown.
+   * Automatically initializes the QR scanner for the chosen center.
    */
   async onCenterSelected() {
     if (this.selectedCenterId()) {
@@ -138,11 +159,11 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Inicia el escáner de QR usando la cámara trasera del dispositivo.
-   * Configura Html5Qrcode con una frecuencia de 10 FPS y un área de escaneo de 250x250px.
-   * Requiere permisos de cámara del navegador.
+   * Initializes the QR scanner using the device's environment-facing (rear) camera.
+   * Configures a 10 FPS refresh rate and a 250x250px scan area.
    * 
-   * @throws Error si no se puede acceder a la cámara o si no hay un centro seleccionado
+   * Requires explicit browser camera permissions.
+   * @throws Error if camera access is denied or hardware is unavailable.
    */
   async startScanning() {
     if (!this.selectedCenterId()) {
@@ -165,20 +186,19 @@ export class QrScannerComponent implements OnInit, OnDestroy {
           this.handleQRScan(decodedText);
         },
         (errorMessage) => {
-          // Ignorar errores de escaneo continuo
+          // Silent failure for periodic scans that don't find a code
         }
       );
     } catch (error: any) {
-      console.error('Error iniciando escáner:', error);
+      console.error('Error starting scanner:', error);
       this.scanError.set(this.translate.instant('qrScanner.errors.cameraAccess'));
       this.isScanning.set(false);
     }
   }
 
   /**
-   * Detiene el escáner de QR y libera los recursos de la cámara.
-   * Limpia la instancia de Html5Qrcode y restablece el estado de escaneo.
-   * Debe llamarse cuando el componente se destruye o cuando el usuario detiene manualmente el escáner.
+   * Stops the active QR scanner and releases the camera hardware.
+   * Resets the scan state and cleans up library instances.
    */
   async stopScanning() {
     if (this.scanner) {
@@ -186,7 +206,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         await this.scanner.stop();
         await this.scanner.clear();
       } catch (error) {
-        console.error('Error deteniendo escáner:', error);
+        console.error('Error stopping scanner:', error);
       }
       this.scanner = null;
     }
@@ -194,26 +214,27 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Procesa un código QR escaneado, valida su formato y expiración, y envía los datos al backend.
+   * Processes the decoded text from a QR code.
+   * Performs validation on the JSON format, timestamp expiration (20 mins), and registers access.
    * 
-   * El proceso incluye:
-   * 1. Parsear el JSON del QR
-   * 2. Validar que contenga id y timestamp
-   * 3. Verificar que no haya expirado (máximo 20 minutos)
-   * 4. Enviar al endpoint /api/access/scan
-   * 5. Mostrar feedback visual según el resultado
-   * 6. Reanudar el escaneo después de 2 segundos
+   * Workflow:
+   * 1. Pause scanner
+   * 2. Validate JSON structure (id, timestamp)
+   * 3. Check for expiration
+   * 4. POST to /api/access/scan
+   * 5. Trigger visual feedback effect
+   * 6. Resume scanner after 2 seconds
    * 
-   * @param qrText - Texto del QR parseado (debe ser un JSON válido)
+   * @param qrText - Raw string from the scanned QR code (expected JSON format)
    */
   async handleQRScan(qrText: string) {
     try {
-      // Pausar el escáner temporalmente
+      // Pause scanner while processing
       if (this.scanner) {
         await this.scanner.pause();
       }
 
-      // Parsear el QR
+      // Parse JSON payload
       const qrData = JSON.parse(qrText);
       
       if (!qrData.id || !qrData.timestamp) {
@@ -222,7 +243,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         return;
       }
 
-      // Validar expiración del QR (20 minutos)
+      // Validate 20-minute expiration window
       const qrTime = new Date(qrData.timestamp).getTime();
       const now = Date.now();
       const twentyMinutes = 20 * 60 * 1000;
@@ -233,7 +254,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         return;
       }
 
-      // Enviar al backend
+      // Submit access record to backend
       const result = await this.http.post<ScanResult>(
         `${environment.apiUrl}/access/scan`,
         {
@@ -251,10 +272,10 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         this.lastScanResult.set(result);
         this.scanError.set('');
         
-        // Mostrar flash según el tipo
+        // Apply visual feedback based on entry/exit
         this.showFlashEffect(result.type);
         
-        // Reanudar escaneo después de 2 segundos
+        // Auto-resume after cooldown
         setTimeout(() => {
           this.resumeScanning();
           this.showFlash.set(false);
@@ -262,24 +283,22 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         }, 2000);
       }
     } catch (error: any) {
-      console.error('Error procesando QR:', error);
+      console.error('QR Processing Error:', error);
       this.scanError.set(error.error?.message || this.translate.instant('qrScanner.errors.processingError'));
       this.resumeScanning();
     }
   }
 
   /**
-   * Muestra un efecto visual de flash alrededor del área de la cámara.
-   * Verde para entrada (entry) y rojo para salida (exit).
-   * El efecto se oculta automáticamente después de 2 segundos.
-   * 
-   * @param type - Tipo de operación: 'entry' para entrada (verde) o 'exit' para salida (rojo)
+   * Triggers a screen-flash visual effect to signal status to the administrator.
+   * Green flash for check-in ('entry'), red flash for check-out ('exit').
+   * @param type - The type of access recorded
    */
   showFlashEffect(type: 'entry' | 'exit') {
     this.flashType.set(type);
     this.showFlash.set(true);
     
-    // El flash se oculta automáticamente después de 2 segundos
+    // Auto-hide overlay after 2 seconds
     setTimeout(() => {
       this.showFlash.set(false);
       this.flashType.set(null);
@@ -287,17 +306,16 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Reanuda el escaneo de QR después de procesar un código exitosamente.
-   * Si falla al reanudar, reinicia completamente el escáner.
-   * Se llama automáticamente después de procesar un QR para continuar escaneando.
+   * Resumes the camera scan loop after a successful registration or error.
+   * Fully restarts the scanner instance if resumption fails.
    */
   async resumeScanning() {
     if (this.scanner && this.isScanning()) {
       try {
         await this.scanner.resume();
       } catch (error) {
-        console.error('Error reanudando escáner:', error);
-        // Si falla, reiniciar
+        console.error('Error resuming camera:', error);
+        // Fallback: full restart on hardware failure
         await this.stopScanning();
         await this.startScanning();
       }

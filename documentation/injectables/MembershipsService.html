@@ -233,16 +233,16 @@ Provides functionality for listing available plans and administrative CRUD opera
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="42"
-                                    class="link-to-prism">src/app/core/services/memberships.service.ts:42</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="52"
+                                    class="link-to-prism">src/app/core/services/memberships.service.ts:52</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Crea un nuevo plan de membresía.
-Solo accesible para SUPERADMIN.</p>
+                        <div class="io-description"><p>Creates a new membership plan.
+Accessible only to SUPERADMIN.</p>
 </div>
 
                             <div class="io-description">
@@ -254,6 +254,7 @@ Solo accesible para SUPERADMIN.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -268,6 +269,12 @@ Solo accesible para SUPERADMIN.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Input data for the new membership plan</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -277,7 +284,8 @@ Solo accesible para SUPERADMIN.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the created plan</p>
+
                             </div>
                 </td>
             </tr>
@@ -303,16 +311,16 @@ Solo accesible para SUPERADMIN.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="61"
-                                    class="link-to-prism">src/app/core/services/memberships.service.ts:61</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="76"
+                                    class="link-to-prism">src/app/core/services/memberships.service.ts:76</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Elimina un plan de membresía.
-Solo accesible para SUPERADMIN.</p>
+                        <div class="io-description"><p>Deletes a membership plan from the system.
+Accessible only to SUPERADMIN.</p>
 </div>
 
                             <div class="io-description">
@@ -324,6 +332,7 @@ Solo accesible para SUPERADMIN.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -338,6 +347,12 @@ Solo accesible para SUPERADMIN.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the plan to delete</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -347,7 +362,8 @@ Solo accesible para SUPERADMIN.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting void on success</p>
+
                             </div>
                 </td>
             </tr>
@@ -373,15 +389,15 @@ Solo accesible para SUPERADMIN.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="34"
-                                    class="link-to-prism">src/app/core/services/memberships.service.ts:34</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="42"
+                                    class="link-to-prism">src/app/core/services/memberships.service.ts:42</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Obtiene un plan de membresía específico por su ID.</p>
+                        <div class="io-description"><p>Retrieves a specific membership plan by its ID.</p>
 </div>
 
                             <div class="io-description">
@@ -393,6 +409,7 @@ Solo accesible para SUPERADMIN.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -407,6 +424,12 @@ Solo accesible para SUPERADMIN.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the plan to fetch</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -416,7 +439,8 @@ Solo accesible para SUPERADMIN.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the membership plan object</p>
+
                             </div>
                 </td>
             </tr>
@@ -442,23 +466,26 @@ Solo accesible para SUPERADMIN.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="27"
-                                    class="link-to-prism">src/app/core/services/memberships.service.ts:27</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="33"
+                                    class="link-to-prism">src/app/core/services/memberships.service.ts:33</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Lista todos los planes de membresía.
-Los usuarios normales solo ven planes activos.
-SUPERADMIN ve todos los planes (activos e inactivos).</p>
+                        <div class="io-description"><p>Lists all available membership plans.
+Regular users see active plans only; SUPERADMIN sees both active and inactive plans.</p>
 </div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="../interfaces/MembershipPlan.html" target="_self" >Observable&lt;MembershipPlan[]&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>Observable emitting an array of membership plans</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -483,16 +510,16 @@ SUPERADMIN ve todos los planes (activos e inactivos).</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="50"
-                                    class="link-to-prism">src/app/core/services/memberships.service.ts:50</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">src/app/core/services/memberships.service.ts:63</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Actualiza un plan de membresía existente.
-Solo accesible para SUPERADMIN.</p>
+                        <div class="io-description"><p>Updates an existing membership plan.
+Accessible only to SUPERADMIN.</p>
 </div>
 
                             <div class="io-description">
@@ -504,6 +531,7 @@ Solo accesible para SUPERADMIN.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -518,6 +546,12 @@ Solo accesible para SUPERADMIN.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the plan to update</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -530,6 +564,12 @@ Solo accesible para SUPERADMIN.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The updated plan data</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -539,7 +579,8 @@ Solo accesible para SUPERADMIN.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the updated plan</p>
+
                             </div>
                 </td>
             </tr>
@@ -576,10 +617,16 @@ Solo accesible para SUPERADMIN.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/core/services/memberships.service.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/core/services/memberships.service.ts:26</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Base API URL for membership operations</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -608,10 +655,16 @@ Solo accesible para SUPERADMIN.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/core/services/memberships.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/core/services/memberships.service.ts:24</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected HttpClient for API requests</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -635,40 +688,53 @@ import {
  * Service for managing membership plans and their associated data.
  * Provides functionality for listing available plans and administrative CRUD operations.
  */
+/**
+ * Service for managing membership plans and their associated data.
+ * Provides functionality for listing available plans and administrative CRUD operations.
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;,
 })
 export class MembershipsService {
+  /** Injected HttpClient for API requests */
   private http &#x3D; inject(HttpClient);
+  /** Base API URL for membership operations */
   private apiUrl &#x3D; &#x60;${environment.apiUrl}/memberships&#x60;;
 
   /**
-   * Lista todos los planes de membresía.
-   * Los usuarios normales solo ven planes activos.
-   * SUPERADMIN ve todos los planes (activos e inactivos).
+   * Lists all available membership plans.
+   * Regular users see active plans only; SUPERADMIN sees both active and inactive plans.
+   * @returns Observable emitting an array of membership plans
    */
   listMembershipPlans(): Observable&lt;MembershipPlan[]&gt; {
     return this.http.get&lt;MembershipPlan[]&gt;(this.apiUrl);
   }
 
   /**
-   * Obtiene un plan de membresía específico por su ID.
+   * Retrieves a specific membership plan by its ID.
+   * @param id - The ID of the plan to fetch
+   * @returns Observable emitting the membership plan object
    */
   getMembershipPlan(id: string): Observable&lt;MembershipPlan&gt; {
     return this.http.get&lt;MembershipPlan&gt;(&#x60;${this.apiUrl}/${id}&#x60;);
   }
 
   /**
-   * Crea un nuevo plan de membresía.
-   * Solo accesible para SUPERADMIN.
+   * Creates a new membership plan.
+   * Accessible only to SUPERADMIN.
+   * @param data - Input data for the new membership plan
+   * @returns Observable emitting the created plan
    */
   createMembershipPlan(data: CreateMembershipPlanInput): Observable&lt;MembershipPlan&gt; {
     return this.http.post&lt;MembershipPlan&gt;(this.apiUrl, data);
   }
 
   /**
-   * Actualiza un plan de membresía existente.
-   * Solo accesible para SUPERADMIN.
+   * Updates an existing membership plan.
+   * Accessible only to SUPERADMIN.
+   * @param id - The ID of the plan to update
+   * @param data - The updated plan data
+   * @returns Observable emitting the updated plan
    */
   updateMembershipPlan(
     id: string,
@@ -678,13 +744,16 @@ export class MembershipsService {
   }
 
   /**
-   * Elimina un plan de membresía.
-   * Solo accesible para SUPERADMIN.
+   * Deletes a membership plan from the system.
+   * Accessible only to SUPERADMIN.
+   * @param id - The ID of the plan to delete
+   * @returns Observable emitting void on success
    */
   deleteMembershipPlan(id: string): Observable&lt;void&gt; {
     return this.http.delete&lt;void&gt;(&#x60;${this.apiUrl}/${id}&#x60;);
   }
 }
+
 
 </code></pre>
     </div>

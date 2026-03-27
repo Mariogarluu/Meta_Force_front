@@ -16,15 +16,29 @@ import { TranslationService } from './core/services/translation.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
+/**
+ * Root component of the MetaForce application.
+ * Orchestrates core service initialization and ensures translation bundles are correctly loaded.
+ */
+@Component({
+  selector: 'app-root',
+  imports: [RouterOutlet, ErrorToastComponent, TranslateModule],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
+})
 export class AppComponent implements OnInit {
+  /** Internal application title identifier */
   title = 'credentials';
+  /** Injected ThemeService for system-wide light/dark mode persistence */
   private themeService = inject(ThemeService);
+  /** Injected TranslationService for high-level language management */
   private translationService = inject(TranslationService);
+  /** Injected TranslateService from ngx-translate for reactive UI labels */
   private translateService = inject(TranslateService);
 
   /**
-   * Inicializa el componente asegurando que las traducciones estén configuradas.
-   * Configura español como idioma por defecto y carga las traducciones.
+   * Application constructor.
+   * Sets the default language to Spanish ('es') and initiates the translation loading process.
    */
   constructor() {
     this.translateService.setDefaultLang('es');
@@ -39,8 +53,8 @@ export class AppComponent implements OnInit {
   }
 
   /**
-   * Hook del ciclo de vida que se ejecuta después de la inicialización.
-   * Asegura que los servicios estén completamente inicializados.
+   * Component initialization lifecycle hook.
+   * Ensures that all global state providers are stable before UI rendering.
    */
   ngOnInit() {
   }

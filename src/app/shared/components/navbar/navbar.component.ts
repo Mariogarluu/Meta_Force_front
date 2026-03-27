@@ -9,6 +9,7 @@ import { NotificationService } from '../../../core/services/notification.service
 import { Notification } from '../../../core/models/notification';
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 
+/** Default fallback image URL for user profiles when no custom image is provided */
 const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
 
 /**
@@ -24,13 +25,20 @@ const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/up
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+  /** Injected AuthService for session state and logout */
   auth = inject(AuthService);
+  /** Injected Router for programmatic navigation */
   router = inject(Router);
+  /** Injected NotificationService for fetching and managing user alerts */
   notificationService = inject(NotificationService);
   
-  // Input opcional para mostrar QR solo en el dashboard
+  /** Input signal determining whether to display the QR access button */
   showQR = input<boolean>(false);
 
+  /** 
+   * List of main navigation links for the menu.
+   * Each entry contains a label, a router path, a translation key, and an exact match flag.
+   */
   readonly navLinks = [
     { label: 'Inicio', path: '/', key: 'nav.home', exact: true },
     { label: 'Clases', path: '/clases', key: 'nav.classes', exact: false }, 
@@ -39,40 +47,60 @@ export class NavbarComponent {
     { label: 'Membresías', path: '/memberships', key: 'nav.memberships', exact: false }
   ];
 
-  // Estado del menú móvil
+  /** Signal tracking the open/closed state of the mobile hamburger menu */
   isMobileMenuOpen = signal(false);
   
-  // Estado de notificaciones
+  /** Signal tracking the visibility of the notifications dropdown */
   showNotifications = signal(false);
 
+  /**
+   * Toggles the mobile navigation menu.
+   */
   toggleMobileMenu(): void {
     this.isMobileMenuOpen.update(open => !open);
   }
 
+  /**
+   * Explicitly closes the mobile navigation menu.
+   */
   closeMobileMenu(): void {
     this.isMobileMenuOpen.set(false);
   }
 
+  /**
+   * Terminates the user session and redirects to the login page.
+   */
   logout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);
     this.closeMobileMenu();
   }
 
+  /**
+   * Resolves the profile image URL, falling back to a default if none is provided.
+   * @param profileImageUrl - The custom profile image URL string
+   * @returns The resolved image URL to display
+   */
   getProfileImageUrl(profileImageUrl: string | null | undefined): string {
     return profileImageUrl ? profileImageUrl : DEFAULT_PROFILE_IMAGE_URL;
   }
 
-  // --- LÓGICA DE NOTIFICACIONES ---
+  /**
+   * Toggles the notifications dropdown and refreshes data if opening.
+   */
   toggleNotifications() {
     const newState = !this.showNotifications();
     this.showNotifications.set(newState);
     if (newState) {
-      // Recargar al abrir para asegurar datos frescos
       this.notificationService.loadNotifications();
     }
   }
 
+  /**
+   * Handles a click on a notification item.
+   * Marks as read and navigates to the associated link if present.
+   * @param notification - The notification entity clicked
+   */
   handleNotificationClick(notification: Notification) {
     if (!notification.read) {
       this.notificationService.markAsRead(notification.id);
@@ -84,13 +112,16 @@ export class NavbarComponent {
     }
   }
 
+  /**
+   * Marks all notifications in the user's history as read.
+   */
   markAllRead() {
     this.notificationService.markAllAsRead();
   }
 
   /**
-   * Cierra el dropdown de notificaciones cuando se hace clic fuera.
-   * Se llama desde la directiva ClickOutsideDirective.
+   * Closes the notifications dropdown when clicking outside its area.
+   * Invoked via ClickOutsideDirective.
    */
   closeNotifications() {
     this.showNotifications.set(false);

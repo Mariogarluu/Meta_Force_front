@@ -193,6 +193,9 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                 <a href="#getMachineType" >getMachineType</a>
                             </li>
                             <li>
+                                <a href="#listMachines" >listMachines</a>
+                            </li>
+                            <li>
                                 <a href="#listMachineTypes" >listMachineTypes</a>
                             </li>
                             <li>
@@ -242,15 +245,15 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="87"
-                                    class="link-to-prism">src/app/core/services/machines.service.ts:87</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="122"
+                                    class="link-to-prism">src/app/core/services/machines.service.ts:122</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Agrega instancias de un tipo de máquina a un centro</p>
+                        <div class="io-description"><p>Deploys instances of a machine type to a specific center.</p>
 </div>
 
                             <div class="io-description">
@@ -262,6 +265,7 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -276,6 +280,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The type of machine to add</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -288,6 +298,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Center ID and number of instances to create</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -297,7 +313,8 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the created machine instances</p>
+
                             </div>
                 </td>
             </tr>
@@ -323,15 +340,15 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="56"
-                                    class="link-to-prism">src/app/core/services/machines.service.ts:56</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="83"
+                                    class="link-to-prism">src/app/core/services/machines.service.ts:83</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Crea un nuevo tipo de máquina (solo nombre y tipo)</p>
+                        <div class="io-description"><p>Creates a new machine type record.</p>
 </div>
 
                             <div class="io-description">
@@ -343,6 +360,7 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -357,6 +375,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Input data for the new machine type</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -366,7 +390,8 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the created machine type</p>
+
                             </div>
                 </td>
             </tr>
@@ -392,15 +417,15 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="80"
-                                    class="link-to-prism">src/app/core/services/machines.service.ts:80</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="112"
+                                    class="link-to-prism">src/app/core/services/machines.service.ts:112</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Elimina un tipo de máquina (y todas sus instancias)</p>
+                        <div class="io-description"><p>Deletes a machine type and all its associated physical instances.</p>
 </div>
 
                             <div class="io-description">
@@ -412,6 +437,7 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -426,6 +452,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the machine type to delete</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -435,7 +467,8 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting void on success</p>
+
                             </div>
                 </td>
             </tr>
@@ -461,15 +494,15 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="44"
-                                    class="link-to-prism">src/app/core/services/machines.service.ts:44</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="69"
+                                    class="link-to-prism">src/app/core/services/machines.service.ts:69</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Obtiene un tipo de máquina por ID con sus instancias</p>
+                        <div class="io-description"><p>Retrieves a specific machine type by its ID, including its center instances.</p>
 </div>
 
                             <div class="io-description">
@@ -481,6 +514,7 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -495,6 +529,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the machine type to fetch</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -504,7 +544,85 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                         </div>
                             <div class="io-description">
+                                <p>Observable emitting the machine type object</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="listMachines"></a>
+                    <span class="name">
+                        <span ><b>listMachines</b></span>
+                        <a href="#listMachines"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>listMachines(centerId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/app/core/services/machines.service.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Lists all physical machine instances located in a specific center.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
                                 
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>centerId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The ID of the center to query</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Observable&lt;MachineCenterInstance[]&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable emitting an array of machine instances</p>
+
                             </div>
                 </td>
             </tr>
@@ -530,15 +648,16 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="28"
-                                    class="link-to-prism">src/app/core/services/machines.service.ts:28</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="38"
+                                    class="link-to-prism">src/app/core/services/machines.service.ts:38</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Lista todos los tipos de máquinas con sus instancias en centros</p>
+                        <div class="io-description"><p>Lists all available machine types, optionally including counts for a specific center.
+Maps backend &#39;machines&#39; field to &#39;instances&#39; for consistency.</p>
 </div>
 
                             <div class="io-description">
@@ -550,6 +669,7 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -564,6 +684,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Optional: filter instances by center ID</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -573,7 +699,8 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting an array of machine types</p>
+
                             </div>
                 </td>
             </tr>
@@ -599,15 +726,15 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="109"
-                                    class="link-to-prism">src/app/core/services/machines.service.ts:109</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="153"
+                                    class="link-to-prism">src/app/core/services/machines.service.ts:153</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Elimina una instancia específica de máquina de un centro</p>
+                        <div class="io-description"><p>Removes a specific physical machine instance from a center.</p>
 </div>
 
                             <div class="io-description">
@@ -619,6 +746,7 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -633,6 +761,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The machine type ID</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>centerId</td>
@@ -645,6 +779,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The center ID</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>instanceNumber</td>
@@ -657,6 +797,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The specific instance number identifier</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -666,7 +812,8 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting void on success</p>
+
                             </div>
                 </td>
             </tr>
@@ -692,15 +839,15 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="102"
-                                    class="link-to-prism">src/app/core/services/machines.service.ts:102</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="142"
+                                    class="link-to-prism">src/app/core/services/machines.service.ts:142</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Actualiza una instancia específica de máquina en un centro</p>
+                        <div class="io-description"><p>Updates metadata for a specific physical machine instance in a center.</p>
 </div>
 
                             <div class="io-description">
@@ -712,6 +859,7 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -726,6 +874,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The machine type ID</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>centerId</td>
@@ -738,6 +892,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The center ID</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>instanceNumber</td>
@@ -750,6 +910,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The specific instance number identifier</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -762,6 +928,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Updated instance data (e.g., status, notes)</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -771,7 +943,8 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the updated instance</p>
+
                             </div>
                 </td>
             </tr>
@@ -797,15 +970,15 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="68"
-                                    class="link-to-prism">src/app/core/services/machines.service.ts:68</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="98"
+                                    class="link-to-prism">src/app/core/services/machines.service.ts:98</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Actualiza un tipo de máquina</p>
+                        <div class="io-description"><p>Updates an existing machine type record.</p>
 </div>
 
                             <div class="io-description">
@@ -817,6 +990,7 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -831,6 +1005,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the machine type to update</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -843,6 +1023,12 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The updated data</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -852,7 +1038,8 @@ Handles the catalog of equipment and their distribution across gym locations.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the updated machine type</p>
+
                             </div>
                 </td>
             </tr>
@@ -889,10 +1076,16 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/core/services/machines.service.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/core/services/machines.service.ts:30</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Base API URL for machine operations</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -921,10 +1114,16 @@ Handles the catalog of equipment and their distribution across gym locations.</p
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/core/services/machines.service.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/core/services/machines.service.ts:28</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected HttpClient for API requests</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -941,6 +1140,7 @@ import { map } from &#x27;rxjs/operators&#x27;;
 import { environment } from &#x27;../../../environments/environment&#x27;;
 import {
   MachineTypeModel,
+  MachineCenterInstance,
   CreateMachineTypeInput,
   UpdateMachineTypeInput,
   AddMachineToCenterInput,
@@ -951,15 +1151,24 @@ import {
  * Service for managing machine types and their physical instances in centers.
  * Handles the catalog of equipment and their distribution across gym locations.
  */
+/**
+ * Service for managing machine types and their physical instances in centers.
+ * Handles the catalog of equipment and their distribution across gym locations.
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
 export class MachinesService {
+  /** Injected HttpClient for API requests */
   private http &#x3D; inject(HttpClient);
+  /** Base API URL for machine operations */
   private apiUrl &#x3D; &#x60;${environment.apiUrl}/machines&#x60;;
 
   /**
-   * Lista todos los tipos de máquinas con sus instancias en centros
+   * Lists all available machine types, optionally including counts for a specific center.
+   * Maps backend &#x27;machines&#x27; field to &#x27;instances&#x27; for consistency.
+   * @param centerId - Optional: filter instances by center ID
+   * @returns Observable emitting an array of machine types
    */
   listMachineTypes(centerId?: string | null): Observable&lt;MachineTypeModel[]&gt; {
     let params &#x3D; new HttpParams();
@@ -975,7 +1184,22 @@ export class MachinesService {
   }
 
   /**
-   * Obtiene un tipo de máquina por ID con sus instancias
+   * Lists all physical machine instances located in a specific center.
+   * @param centerId - The ID of the center to query
+   * @returns Observable emitting an array of machine instances
+   */
+  listMachines(centerId: string): Observable&lt;MachineCenterInstance[]&gt; {
+    let params &#x3D; new HttpParams();
+    if (centerId) {
+      params &#x3D; params.set(&#x27;centerId&#x27;, centerId);
+    }
+    return this.http.get&lt;MachineCenterInstance[]&gt;(&#x60;${this.apiUrl}&#x60;, { params });
+  }
+
+  /**
+   * Retrieves a specific machine type by its ID, including its center instances.
+   * @param id - The ID of the machine type to fetch
+   * @returns Observable emitting the machine type object
    */
   getMachineType(id: string): Observable&lt;MachineTypeModel&gt; {
     return this.http.get&lt;any&gt;(&#x60;${this.apiUrl}/types/${id}&#x60;).pipe(
@@ -987,7 +1211,9 @@ export class MachinesService {
   }
 
   /**
-   * Crea un nuevo tipo de máquina (solo nombre y tipo)
+   * Creates a new machine type record.
+   * @param data - Input data for the new machine type
+   * @returns Observable emitting the created machine type
    */
   createMachineType(data: CreateMachineTypeInput): Observable&lt;MachineTypeModel&gt; {
     return this.http.post&lt;any&gt;(&#x60;${this.apiUrl}/types&#x60;, data).pipe(
@@ -999,7 +1225,10 @@ export class MachinesService {
   }
 
   /**
-   * Actualiza un tipo de máquina
+   * Updates an existing machine type record.
+   * @param id - The ID of the machine type to update
+   * @param data - The updated data
+   * @returns Observable emitting the updated machine type
    */
   updateMachineType(id: string, data: UpdateMachineTypeInput): Observable&lt;MachineTypeModel&gt; {
     return this.http.patch&lt;any&gt;(&#x60;${this.apiUrl}/types/${id}&#x60;, data).pipe(
@@ -1011,14 +1240,19 @@ export class MachinesService {
   }
 
   /**
-   * Elimina un tipo de máquina (y todas sus instancias)
+   * Deletes a machine type and all its associated physical instances.
+   * @param id - The ID of the machine type to delete
+   * @returns Observable emitting void on success
    */
   deleteMachineType(id: string): Observable&lt;void&gt; {
     return this.http.delete&lt;void&gt;(&#x60;${this.apiUrl}/types/${id}&#x60;);
   }
 
   /**
-   * Agrega instancias de un tipo de máquina a un centro
+   * Deploys instances of a machine type to a specific center.
+   * @param machineTypeId - The type of machine to add
+   * @param data - Center ID and number of instances to create
+   * @returns Observable emitting the created machine instances
    */
   addMachineToCenter(machineTypeId: string, data: AddMachineToCenterInput): Observable&lt;any&gt; {
     return this.http.post&lt;any&gt;(&#x60;${this.apiUrl}/types/${machineTypeId}/centers&#x60;, data).pipe(
@@ -1033,19 +1267,29 @@ export class MachinesService {
   }
 
   /**
-   * Actualiza una instancia específica de máquina en un centro
+   * Updates metadata for a specific physical machine instance in a center.
+   * @param machineTypeId - The machine type ID
+   * @param centerId - The center ID
+   * @param instanceNumber - The specific instance number identifier
+   * @param data - Updated instance data (e.g., status, notes)
+   * @returns Observable emitting the updated instance
    */
   updateMachineInCenter(machineTypeId: string, centerId: string, instanceNumber: number, data: UpdateMachineInCenterInput): Observable&lt;any&gt; {
     return this.http.patch&lt;any&gt;(&#x60;${this.apiUrl}/types/${machineTypeId}/centers/${centerId}/instances/${instanceNumber}&#x60;, data);
   }
 
   /**
-   * Elimina una instancia específica de máquina de un centro
+   * Removes a specific physical machine instance from a center.
+   * @param machineTypeId - The machine type ID
+   * @param centerId - The center ID
+   * @param instanceNumber - The specific instance number identifier
+   * @returns Observable emitting void on success
    */
   removeMachineFromCenter(machineTypeId: string, centerId: string, instanceNumber: number): Observable&lt;void&gt; {
     return this.http.delete&lt;void&gt;(&#x60;${this.apiUrl}/types/${machineTypeId}/centers/${centerId}/instances/${instanceNumber}&#x60;);
   }
 }
+
 
 </code></pre>
     </div>

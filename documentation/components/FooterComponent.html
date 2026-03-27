@@ -138,6 +138,14 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Global footer component.
+Displays site navigation links, resources, and social information.</p>
+
+    </p>
 
 
 
@@ -273,10 +281,17 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/shared/components/footer/footer.component 2.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/shared/components/footer/footer.component 2.ts:21</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Main navigation links for the footer.
+Provides quick access to internal application routes.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -309,10 +324,17 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/shared/components/footer/footer.component 2.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/shared/components/footer/footer.component 2.ts:32</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Resource and anchor links for the footer.
+Useful for internal page navigation and external references.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -326,6 +348,10 @@
 import { Component } from &#x27;@angular/core&#x27;;
 import { RouterLink } from &#x27;@angular/router&#x27;;
 
+/**
+ * Global footer component.
+ * Displays site navigation links, resources, and social information.
+ */
 @Component({
   selector: &#x27;app-footer&#x27;,
   standalone: true,
@@ -334,6 +360,10 @@ import { RouterLink } from &#x27;@angular/router&#x27;;
   styleUrl: &#x27;./footer.component.scss&#x27;
 })
 export class FooterComponent {
+  /** 
+   * Main navigation links for the footer.
+   * Provides quick access to internal application routes.
+   */
   readonly quickLinks &#x3D; [
     { label: &#x27;Inicio&#x27;, path: &#x27;/home&#x27; },
     { label: &#x27;Dashboard&#x27;, path: &#x27;/dashboard&#x27; },
@@ -341,6 +371,10 @@ export class FooterComponent {
     { label: &#x27;Usuarios&#x27;, path: &#x27;/users&#x27; }
   ];
 
+  /** 
+   * Resource and anchor links for the footer.
+   * Useful for internal page navigation and external references.
+   */
   readonly resources &#x3D; [
     { label: &#x27;Entrenadores&#x27;, path: &#x27;/home#trainers&#x27; },
     { label: &#x27;Dietas&#x27;, path: &#x27;/home#diets&#x27; },
@@ -417,7 +451,7 @@ export class FooterComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><footer class="footer">  <div class="footer__inner">    <div>      <p class="footer__title">GYM</p>      <ul>        <li><a routerLink="/home">Why Join Us</a></li>        <li><a routerLink="/home#services">About</a></li>        <li><a routerLink="/dashboard">Plan</a></li>        <li><a routerLink="/users">Coaches</a></li>        <li><a routerLink="/register">Inquiry</a></li>      </ul>    </div>    <div>      <p class="footer__title">MEMBERS</p>      <ul>        <li><a routerLink="/register">FAQs</a></li>        <li><a routerLink="/home#contact">Contact Us</a></li>      </ul>    </div>    <div>      <p class="footer__title">CONTACTO</p>      <p>EMAIL: metaforce&#64;fit.com</p>      <p>TELF: 09826047580</p>    </div>    <div id="contact">      <p class="footer__title">LOCALIZACIÓN</p>      <p>12TH ST. GENERAL MATHA</p>      <p>VILLAMOR AIR BASE PASAY CITY</p>    </div>  </div></footer></div>'
-    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
+    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
     var DIRECTIVES = [{'name': 'ClickOutsideDirective', 'selector': '[appClickOutside]'}];
     var ACTUAL_COMPONENT = {'name': 'FooterComponent'};
 </script>

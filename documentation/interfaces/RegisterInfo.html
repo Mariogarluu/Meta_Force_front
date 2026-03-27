@@ -237,6 +237,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Password confirmation for validation</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -270,6 +276,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>User&#39;s email address</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -303,6 +315,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>User&#39;s first name</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -336,6 +354,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>User&#39;s chosen password</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -369,6 +393,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>User&#39;s last name or surname</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -382,18 +412,31 @@
 /**
  * Detailed information required for a full registration process.
  */
-export interface RegisterInfo{
-    name:string,
-    surname:string,
-    email:string,
-    password:string,
-    confirmPassword:string
+/**
+ * Detailed information required for a full registration process.
+ */
+export interface RegisterInfo {
+  /** User&#x27;s first name */
+  name: string;
+  /** User&#x27;s last name or surname */
+  surname: string;
+  /** User&#x27;s email address */
+  email: string;
+  /** User&#x27;s chosen password */
+  password: string;
+  /** Password confirmation for validation */
+  confirmPassword: string;
 }
 
-export interface Credentials{
-    email:string;
-    password:string;
-}</code></pre>
+/**
+ * Basic login credentials.
+ */
+export interface Credentials {
+  /** Registered email address */
+  email: string;
+  /** Account password */
+  password: string;
+}</code></pre>
     </div>
 </div>
 

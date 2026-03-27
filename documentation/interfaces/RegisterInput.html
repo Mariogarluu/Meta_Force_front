@@ -226,6 +226,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>User&#39;s full name</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -264,6 +270,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Desired role for the new user</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -276,8 +288,13 @@
 /**
  * Input for standard authentication (login).
  */
+/**
+ * Input for standard authentication (login).
+ */
 export interface AuthInput {
+  /** User&#x27;s email address */
   email: string;
+  /** User&#x27;s password */
   password?: string;
 }
 
@@ -285,22 +302,36 @@ export interface AuthInput {
  * Input for user registration, extending standard authentication.
  */
 export interface RegisterInput extends AuthInput {
+  /** User&#x27;s full name */
   name: string;
+  /** Desired role for the new user */
   role?: Role;
 }
 
+/**
+ * Successful authentication response containing JWT and user data.
+ */
 export interface AuthResponse {
+  /** JSON Web Token for authenticated requests */
   token: string;
+  /** Basic user information included in the token response */
   user: {
+    /** Unique identifier for the user */
     id: string;
+    /** User&#x27;s email */
     email: string;
+    /** User&#x27;s full name */
     name: string;
+    /** User&#x27;s assigned role */
     role: Role;
+    /** User&#x27;s current account status */
     status?: UserStatus;
+    /** ISO date string of creation */
     createdAt?: string;
+    /** ID of the center the user is currently checked into */
     centerId?: string;
   };
-}</code></pre>
+}</code></pre>
     </div>
 </div>
 

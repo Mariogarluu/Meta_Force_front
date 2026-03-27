@@ -1,0 +1,2618 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>credentials documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">credentials documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  MembershipsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/pages/memberships/memberships.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-memberships</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/FormsModule" target="_blank" >FormsModule</a></code>
+                            <code>TranslateModule</code>
+                                <code><a href="../components/NavbarComponent.html" target="_self" >NavbarComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./memberships.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./memberships.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#authService" >authService</a>
+                            </li>
+                            <li>
+                                <a href="#canManage" >canManage</a>
+                            </li>
+                            <li>
+                                <a href="#currentFeature" >currentFeature</a>
+                            </li>
+                            <li>
+                                <a href="#currentUser" >currentUser</a>
+                            </li>
+                            <li>
+                                <a href="#displayedMemberships" >displayedMemberships</a>
+                            </li>
+                            <li>
+                                <a href="#errorMessage" >errorMessage</a>
+                            </li>
+                            <li>
+                                <a href="#isAdminCenter" >isAdminCenter</a>
+                            </li>
+                            <li>
+                                <a href="#isLoading" >isLoading</a>
+                            </li>
+                            <li>
+                                <a href="#isSuperAdmin" >isSuperAdmin</a>
+                            </li>
+                            <li>
+                                <a href="#membershipForm" >membershipForm</a>
+                            </li>
+                            <li>
+                                <a href="#memberships" >memberships</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#membershipsService" >membershipsService</a>
+                            </li>
+                            <li>
+                                <a href="#selectedMembership" >selectedMembership</a>
+                            </li>
+                            <li>
+                                <a href="#showCreateModal" >showCreateModal</a>
+                            </li>
+                            <li>
+                                <a href="#showDeleteModal" >showDeleteModal</a>
+                            </li>
+                            <li>
+                                <a href="#showEditModal" >showEditModal</a>
+                            </li>
+                            <li>
+                                <a href="#translate" >translate</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addFeature" >addFeature</a>
+                            </li>
+                            <li>
+                                <a href="#closeCreateModal" >closeCreateModal</a>
+                            </li>
+                            <li>
+                                <a href="#closeDeleteModal" >closeDeleteModal</a>
+                            </li>
+                            <li>
+                                <a href="#closeEditModal" >closeEditModal</a>
+                            </li>
+                            <li>
+                                <a href="#createMembership" >createMembership</a>
+                            </li>
+                            <li>
+                                <a href="#deleteMembership" >deleteMembership</a>
+                            </li>
+                            <li>
+                                <a href="#formatPrice" >formatPrice</a>
+                            </li>
+                            <li>
+                                <a href="#getDurationText" >getDurationText</a>
+                            </li>
+                            <li>
+                                <a href="#loadMemberships" >loadMemberships</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#openCreateModal" >openCreateModal</a>
+                            </li>
+                            <li>
+                                <a href="#openDeleteModal" >openDeleteModal</a>
+                            </li>
+                            <li>
+                                <a href="#openEditModal" >openEditModal</a>
+                            </li>
+                            <li>
+                                <a href="#removeFeature" >removeFeature</a>
+                            </li>
+                            <li>
+                                <a href="#updateMembership" >updateMembership</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addFeature"></a>
+                    <span class="name">
+                        <span ><b>addFeature</b></span>
+                        <a href="#addFeature"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addFeature()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="195"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:195</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Adds the current feature text to the form&#39;s feature list.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeCreateModal"></a>
+                    <span class="name">
+                        <span ><b>closeCreateModal</b></span>
+                        <a href="#closeCreateModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeCreateModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="135"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:135</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Closes the creation modal and resets the form state.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeDeleteModal"></a>
+                    <span class="name">
+                        <span ><b>closeDeleteModal</b></span>
+                        <a href="#closeDeleteModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeDeleteModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="187"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:187</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Closes the deletion confirmation modal and clears the selection.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeEditModal"></a>
+                    <span class="name">
+                        <span ><b>closeEditModal</b></span>
+                        <a href="#closeEditModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeEditModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="169"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:169</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Closes the edit modal and clears the selection.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createMembership"></a>
+                    <span class="name">
+                        <span ><b>createMembership</b></span>
+                        <a href="#createMembership"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createMembership()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="217"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:217</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Submits the create form to the backend after basic validation.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteMembership"></a>
+                    <span class="name">
+                        <span ><b>deleteMembership</b></span>
+                        <a href="#deleteMembership"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteMembership()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="275"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:275</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Permanently deletes the selected membership plan from the backend.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatPrice"></a>
+                    <span class="name">
+                        <span ><b>formatPrice</b></span>
+                        <a href="#formatPrice"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>formatPrice(price: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="298"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:298</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Formats a numeric price into a currency string based on the current language/locale.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>price</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Numeric value to format</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Formatted currency string (e.g., &quot;10,00 €&quot;)</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getDurationText"></a>
+                    <span class="name">
+                        <span ><b>getDurationText</b></span>
+                        <a href="#getDurationText"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getDurationText(duration: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="312"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:312</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Returns a user-friendly duration string (e.g., &quot;1 Mes&quot;, &quot;2 Años&quot;).</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>duration</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Duration in months</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Translated duration string</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadMemberships"></a>
+                    <span class="name">
+                        <span ><b>loadMemberships</b></span>
+                        <a href="#loadMemberships"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadMemberships()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="100"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:100</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Fetches the membership catalog from the backend.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="93"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:93</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Initializes the component by loading the membership plans.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openCreateModal"></a>
+                    <span class="name">
+                        <span ><b>openCreateModal</b></span>
+                        <a href="#openCreateModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openCreateModal()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="119"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:119</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Prepares and opens the creation modal with a blank form.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openDeleteModal"></a>
+                    <span class="name">
+                        <span ><b>openDeleteModal</b></span>
+                        <a href="#openDeleteModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openDeleteModal(membership: <a href="../interfaces/MembershipPlan.html" target="_self">MembershipPlan</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="179"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:179</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Opens the deletion confirmation modal.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>membership</td>
+                                            <td>
+                                                            <code><a href="../interfaces/MembershipPlan.html" target="_self" >MembershipPlan</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The membership plan to delete</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openEditModal"></a>
+                    <span class="name">
+                        <span ><b>openEditModal</b></span>
+                        <a href="#openEditModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openEditModal(membership: <a href="../interfaces/MembershipPlan.html" target="_self">MembershipPlan</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="152"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:152</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Prepares and opens the edit modal for a specific plan.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>membership</td>
+                                            <td>
+                                                            <code><a href="../interfaces/MembershipPlan.html" target="_self" >MembershipPlan</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The membership plan to edit</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="removeFeature"></a>
+                    <span class="name">
+                        <span ><b>removeFeature</b></span>
+                        <a href="#removeFeature"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>removeFeature(index: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="208"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:208</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Removes a feature from the form&#39;s list by index.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>index</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Position of the feature in the array</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateMembership"></a>
+                    <span class="name">
+                        <span ><b>updateMembership</b></span>
+                        <a href="#updateMembership"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateMembership()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="240"
+                                    class="link-to-prism">src/app/pages/memberships/memberships.component.ts:240</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Submits updates for the selected membership plan to the backend.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="authService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>authService</b></span>
+                        <a href="#authService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(AuthService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected AuthService to identify administrative privileges</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canManage"></a>
+                    <span class="name">
+                        <span ><b>canManage</b></span>
+                        <a href="#canManage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.isSuperAdmin() || this.isAdminCenter())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:77</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal checking if the user can perform administrative actions</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentFeature"></a>
+                    <span class="name">
+                        <span ><b>currentFeature</b></span>
+                        <a href="#currentFeature"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Temporary signal for a new feature string before adding it to the plan</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="currentUser"></a>
+                    <span class="name">
+                        <span ><b>currentUser</b></span>
+                        <a href="#currentUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.authService.currentUser())</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal for the current user session</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="displayedMemberships"></a>
+                    <span class="name">
+                        <span ><b>displayedMemberships</b></span>
+                        <a href="#displayedMemberships"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; {
+    if (this.canManage()) {
+      return this.memberships();
+    }
+    return this.memberships().filter((m) &#x3D;&gt; m.isActive);
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal for the memberships visible to current user.
+Filters out inactive plans for regular users.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorMessage"></a>
+                    <span class="name">
+                        <span ><b>errorMessage</b></span>
+                        <a href="#errorMessage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;string&gt;(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for displaying error text to the user</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAdminCenter"></a>
+                    <span class="name">
+                        <span ><b>isAdminCenter</b></span>
+                        <a href="#isAdminCenter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;ADMIN_CENTER&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="75" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:75</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal checking if user is ADMIN_CENTER</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isLoading"></a>
+                    <span class="name">
+                        <span ><b>isLoading</b></span>
+                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal tracking background activity for loading states</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isSuperAdmin"></a>
+                    <span class="name">
+                        <span ><b>isSuperAdmin</b></span>
+                        <a href="#isSuperAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;SUPERADMIN&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal checking if user is SUPERADMIN</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="membershipForm"></a>
+                    <span class="name">
+                        <span ><b>membershipForm</b></span>
+                        <a href="#membershipForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/CreateMembershipPlanInput.html" target="_self" >CreateMembershipPlanInput</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    name: &#x27;&#x27;,
+    description: &#x27;&#x27;,
+    price: 0,
+    duration: 1,
+    features: [],
+    isActive: true,
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:58</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Form state for creating or updating a membership plan</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="memberships"></a>
+                    <span class="name">
+                        <span ><b>memberships</b></span>
+                        <a href="#memberships"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;MembershipPlan[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal containing the full list of membership plans</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="membershipsService"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>membershipsService</b></span>
+                        <a href="#membershipsService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(MembershipsService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected MembershipsService for plan operations</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedMembership"></a>
+                    <span class="name">
+                        <span ><b>selectedMembership</b></span>
+                        <a href="#selectedMembership"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;MembershipPlan | null&gt;(null)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:55</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for the membership plan currently being edited or deleted</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showCreateModal"></a>
+                    <span class="name">
+                        <span ><b>showCreateModal</b></span>
+                        <a href="#showCreateModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal managing the create plan modal visibility</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showDeleteModal"></a>
+                    <span class="name">
+                        <span ><b>showDeleteModal</b></span>
+                        <a href="#showDeleteModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:52</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal managing the delete confirmation modal visibility</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showEditModal"></a>
+                    <span class="name">
+                        <span ><b>showEditModal</b></span>
+                        <a href="#showEditModal"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:50</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal managing the edit plan modal visibility</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="translate"></a>
+                    <span class="name">
+                        <span ><b>translate</b></span>
+                        <a href="#translate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>inject(TranslateService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/pages/memberships/memberships.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected TranslateService for internationalization</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject, signal, computed, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { MembershipsService } from &#x27;../../core/services/memberships.service&#x27;;
+import { AuthService } from &#x27;../../core/services/auth.service&#x27;;
+import {
+  MembershipPlan,
+  CreateMembershipPlanInput,
+  UpdateMembershipPlanInput,
+} from &#x27;../../core/models/membership&#x27;;
+import { TranslateModule, TranslateService } from &#x27;@ngx-translate/core&#x27;;
+import { NavbarComponent } from &#x27;../../shared/components/navbar/navbar.component&#x27;;
+
+@Component({
+  selector: &#x27;app-memberships&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, TranslateModule, NavbarComponent],
+  templateUrl: &#x27;./memberships.component.html&#x27;,
+  styleUrl: &#x27;./memberships.component.scss&#x27;,
+})
+/**
+ * Component for managing and displaying membership plans (Diets, Training, etc.).
+ * Provides CRUD functionality for administrators and viewing capabilities for regular users.
+ */
+@Component({
+  selector: &#x27;app-memberships&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, TranslateModule, NavbarComponent],
+  templateUrl: &#x27;./memberships.component.html&#x27;,
+  styleUrl: &#x27;./memberships.component.scss&#x27;,
+})
+export class MembershipsComponent implements OnInit {
+  /** Injected MembershipsService for plan operations */
+  private membershipsService &#x3D; inject(MembershipsService);
+  /** Injected AuthService to identify administrative privileges */
+  private authService &#x3D; inject(AuthService);
+  /** Injected TranslateService for internationalization */
+  translate &#x3D; inject(TranslateService);
+
+  /** Signal containing the full list of membership plans */
+  memberships &#x3D; signal&lt;MembershipPlan[]&gt;([]);
+  /** Signal tracking background activity for loading states */
+  isLoading &#x3D; signal(false);
+  /** Signal for displaying error text to the user */
+  errorMessage &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+
+  /** Signal managing the create plan modal visibility */
+  showCreateModal &#x3D; signal(false);
+  /** Signal managing the edit plan modal visibility */
+  showEditModal &#x3D; signal(false);
+  /** Signal managing the delete confirmation modal visibility */
+  showDeleteModal &#x3D; signal(false);
+
+  /** Signal for the membership plan currently being edited or deleted */
+  selectedMembership &#x3D; signal&lt;MembershipPlan | null&gt;(null);
+
+  /** Form state for creating or updating a membership plan */
+  membershipForm: CreateMembershipPlanInput &#x3D; {
+    name: &#x27;&#x27;,
+    description: &#x27;&#x27;,
+    price: 0,
+    duration: 1,
+    features: [],
+    isActive: true,
+  };
+
+  /** Temporary signal for a new feature string before adding it to the plan */
+  currentFeature &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+
+  /** Computed signal for the current user session */
+  currentUser &#x3D; computed(() &#x3D;&gt; this.authService.currentUser());
+  /** Computed signal checking if user is SUPERADMIN */
+  isSuperAdmin &#x3D; computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;SUPERADMIN&#x27;);
+  /** Computed signal checking if user is ADMIN_CENTER */
+  isAdminCenter &#x3D; computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;ADMIN_CENTER&#x27;);
+  /** Computed signal checking if the user can perform administrative actions */
+  canManage &#x3D; computed(() &#x3D;&gt; this.isSuperAdmin() || this.isAdminCenter());
+
+  /** 
+   * Computed signal for the memberships visible to current user.
+   * Filters out inactive plans for regular users.
+   */
+  displayedMemberships &#x3D; computed(() &#x3D;&gt; {
+    if (this.canManage()) {
+      return this.memberships();
+    }
+    return this.memberships().filter((m) &#x3D;&gt; m.isActive);
+  });
+
+  /**
+   * Initializes the component by loading the membership plans.
+   */
+  ngOnInit() {
+    this.loadMemberships();
+  }
+
+  /**
+   * Fetches the membership catalog from the backend.
+   */
+  loadMemberships() {
+    this.isLoading.set(true);
+    this.errorMessage.set(&#x27;&#x27;);
+
+    this.membershipsService.listMembershipPlans().subscribe({
+      next: (data) &#x3D;&gt; {
+        this.memberships.set(data);
+        this.isLoading.set(false);
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || this.translate.instant(&#x27;memberships.errors.load&#x27;));
+        this.isLoading.set(false);
+      },
+    });
+  }
+
+  /**
+   * Prepares and opens the creation modal with a blank form.
+   */
+  openCreateModal() {
+    this.membershipForm &#x3D; {
+      name: &#x27;&#x27;,
+      description: &#x27;&#x27;,
+      price: 0,
+      duration: 1,
+      features: [],
+      isActive: true,
+    };
+    this.currentFeature.set(&#x27;&#x27;);
+    this.showCreateModal.set(true);
+  }
+
+  /**
+   * Closes the creation modal and resets the form state.
+   */
+  closeCreateModal() {
+    this.showCreateModal.set(false);
+    this.membershipForm &#x3D; {
+      name: &#x27;&#x27;,
+      description: &#x27;&#x27;,
+      price: 0,
+      duration: 1,
+      features: [],
+      isActive: true,
+    };
+    this.currentFeature.set(&#x27;&#x27;);
+  }
+
+  /**
+   * Prepares and opens the edit modal for a specific plan.
+   * @param membership - The membership plan to edit
+   */
+  openEditModal(membership: MembershipPlan) {
+    this.selectedMembership.set(membership);
+    this.membershipForm &#x3D; {
+      name: membership.name,
+      description: membership.description || &#x27;&#x27;,
+      price: membership.price,
+      duration: membership.duration,
+      features: [...membership.features],
+      isActive: membership.isActive,
+    };
+    this.currentFeature.set(&#x27;&#x27;);
+    this.showEditModal.set(true);
+  }
+
+  /**
+   * Closes the edit modal and clears the selection.
+   */
+  closeEditModal() {
+    this.showEditModal.set(false);
+    this.selectedMembership.set(null);
+    this.currentFeature.set(&#x27;&#x27;);
+  }
+
+  /**
+   * Opens the deletion confirmation modal.
+   * @param membership - The membership plan to delete
+   */
+  openDeleteModal(membership: MembershipPlan) {
+    this.selectedMembership.set(membership);
+    this.showDeleteModal.set(true);
+  }
+
+  /**
+   * Closes the deletion confirmation modal and clears the selection.
+   */
+  closeDeleteModal() {
+    this.showDeleteModal.set(false);
+    this.selectedMembership.set(null);
+  }
+
+  /**
+   * Adds the current feature text to the form&#x27;s feature list.
+   */
+  addFeature() {
+    const feature &#x3D; this.currentFeature().trim();
+    if (feature &amp;&amp; !this.membershipForm.features?.includes(feature)) {
+      this.membershipForm.features &#x3D; this.membershipForm.features || [];
+      this.membershipForm.features.push(feature);
+      this.currentFeature.set(&#x27;&#x27;);
+    }
+  }
+
+  /**
+   * Removes a feature from the form&#x27;s list by index.
+   * @param index - Position of the feature in the array
+   */
+  removeFeature(index: number) {
+    if (this.membershipForm.features) {
+      this.membershipForm.features.splice(index, 1);
+    }
+  }
+
+  /**
+   * Submits the create form to the backend after basic validation.
+   */
+  createMembership() {
+    if (!this.membershipForm.name || this.membershipForm.price &lt; 0 || this.membershipForm.duration &lt; 1) {
+      this.errorMessage.set(this.translate.instant(&#x27;memberships.errors.validation&#x27;));
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.membershipsService.createMembershipPlan(this.membershipForm).subscribe({
+      next: () &#x3D;&gt; {
+        this.loadMemberships();
+        this.closeCreateModal();
+        this.isLoading.set(false);
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || this.translate.instant(&#x27;memberships.errors.create&#x27;));
+        this.isLoading.set(false);
+      },
+    });
+  }
+
+  /**
+   * Submits updates for the selected membership plan to the backend.
+   */
+  updateMembership() {
+    const id &#x3D; this.selectedMembership()?.id;
+    if (!id) return;
+
+    if (!this.membershipForm.name || this.membershipForm.price &lt; 0 || this.membershipForm.duration &lt; 1) {
+      this.errorMessage.set(this.translate.instant(&#x27;memberships.errors.validation&#x27;));
+      return;
+    }
+
+    this.isLoading.set(true);
+    const updateData: UpdateMembershipPlanInput &#x3D; {
+      name: this.membershipForm.name,
+      description: this.membershipForm.description,
+      price: this.membershipForm.price,
+      duration: this.membershipForm.duration,
+      features: this.membershipForm.features,
+      isActive: this.membershipForm.isActive,
+    };
+
+    this.membershipsService.updateMembershipPlan(id, updateData).subscribe({
+      next: () &#x3D;&gt; {
+        this.loadMemberships();
+        this.closeEditModal();
+        this.isLoading.set(false);
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || this.translate.instant(&#x27;memberships.errors.update&#x27;));
+        this.isLoading.set(false);
+      },
+    });
+  }
+
+  /**
+   * Permanently deletes the selected membership plan from the backend.
+   */
+  deleteMembership() {
+    const id &#x3D; this.selectedMembership()?.id;
+    if (!id) return;
+
+    this.isLoading.set(true);
+    this.membershipsService.deleteMembershipPlan(id).subscribe({
+      next: () &#x3D;&gt; {
+        this.loadMemberships();
+        this.closeDeleteModal();
+        this.isLoading.set(false);
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || this.translate.instant(&#x27;memberships.errors.delete&#x27;));
+        this.isLoading.set(false);
+      },
+    });
+  }
+
+  /**
+   * Formats a numeric price into a currency string based on the current language/locale.
+   * @param price - Numeric value to format
+   * @returns Formatted currency string (e.g., &quot;10,00 €&quot;)
+   */
+  formatPrice(price: number): string {
+    const currentLang &#x3D; this.translate.currentLang || &#x27;es&#x27;;
+    const locale &#x3D; currentLang &#x3D;&#x3D;&#x3D; &#x27;es&#x27; ? &#x27;es-ES&#x27; : currentLang &#x3D;&#x3D;&#x3D; &#x27;fr&#x27; ? &#x27;fr-FR&#x27; : &#x27;en-US&#x27;;
+    return new Intl.NumberFormat(locale, {
+      style: &#x27;currency&#x27;,
+      currency: &#x27;EUR&#x27;,
+    }).format(price);
+  }
+
+  /**
+   * Returns a user-friendly duration string (e.g., &quot;1 Mes&quot;, &quot;2 Años&quot;).
+   * @param duration - Duration in months
+   * @returns Translated duration string
+   */
+  getDurationText(duration: number): string {
+    const params &#x3D; { count: duration };
+    if (duration &#x3D;&#x3D;&#x3D; 1) {
+      return this.translate.instant(&#x27;memberships.month&#x27;);
+    }
+    if (duration &lt; 12) {
+      return this.translate.instant(&#x27;memberships.months&#x27;, params);
+    }
+    const years &#x3D; Math.floor(duration / 12);
+    if (years &#x3D;&#x3D;&#x3D; 1) {
+      return this.translate.instant(&#x27;memberships.year&#x27;);
+    }
+    return this.translate.instant(&#x27;memberships.years&#x27;, { count: years });
+  }
+}
+
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300&quot;&gt;
+  &lt;app-navbar&gt;&lt;/app-navbar&gt;
+
+  &lt;main class&#x3D;&quot;max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8&quot;&gt;
+    @if(errorMessage()) {
+      &lt;div class&#x3D;&quot;mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-600 dark:text-red-400&quot;&gt;
+        {{ errorMessage() }}
+      &lt;/div&gt;
+    }
+
+    &lt;!-- Page Header --&gt;
+    &lt;div class&#x3D;&quot;mb-8 relative&quot;&gt;
+      &lt;div class&#x3D;&quot;absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-indigo-500/10 rounded-3xl blur-3xl&quot;&gt;&lt;/div&gt;
+      &lt;div class&#x3D;&quot;relative bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 sm:p-8 border border-purple-200/50 dark:border-gray-700 shadow-lg&quot;&gt;
+        &lt;div class&#x3D;&quot;flex items-center justify-between flex-wrap gap-4&quot;&gt;
+          &lt;div class&#x3D;&quot;flex items-center gap-4&quot;&gt;
+            &lt;div class&#x3D;&quot;p-3 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl shadow-lg&quot;&gt;
+              &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;2&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-6 h-6 sm:w-8 sm:h-8 text-white&quot;&gt;
+                &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z&quot; /&gt;
+              &lt;/svg&gt;
+            &lt;/div&gt;
+            &lt;div&gt;
+              &lt;h1 class&#x3D;&quot;text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2&quot;&gt;
+                {{ &#x27;memberships.title&#x27; | translate }}
+              &lt;/h1&gt;
+              &lt;p class&#x3D;&quot;text-gray-600 dark:text-gray-300 text-sm sm:text-base&quot;&gt;
+                {{ &#x27;memberships.subtitle&#x27; | translate }}
+              &lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          @if(canManage()) {
+            &lt;button 
+              (click)&#x3D;&quot;openCreateModal()&quot;
+              class&#x3D;&quot;px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl transition-all text-sm font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap&quot;&gt;
+              &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;2.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-5 h-5&quot;&gt;
+                &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M12 4.5v15m7.5-7.5h-15&quot; /&gt;
+              &lt;/svg&gt;
+              {{ &#x27;memberships.newPlan&#x27; | translate }}
+            &lt;/button&gt;
+          }
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Loading State --&gt;
+    @if(isLoading() &amp;&amp; memberships().length &#x3D;&#x3D;&#x3D; 0) {
+      &lt;div class&#x3D;&quot;flex items-center justify-center py-20&quot;&gt;
+        &lt;div class&#x3D;&quot;animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-600&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+    }
+
+    &lt;!-- Memberships Grid --&gt;
+    @if(!isLoading() || memberships().length &gt; 0) {
+      &lt;div class&#x3D;&quot;grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8&quot;&gt;
+        @for(membership of displayedMemberships(); track membership.id) {
+          &lt;div class&#x3D;&quot;relative bg-white dark:bg-gray-800 rounded-2xl p-6 border-2 transition-all duration-300 hover:shadow-xl&quot;
+               [class.border-purple-300]&#x3D;&quot;membership.isActive&quot;
+               [class.border-gray-300]&#x3D;&quot;!membership.isActive&quot;
+               [class.opacity-60]&#x3D;&quot;!membership.isActive&quot;&gt;
+            
+            @if(!membership.isActive &amp;&amp; canManage()) {
+              &lt;div class&#x3D;&quot;absolute top-4 right-4 px-3 py-1 bg-gray-500 text-white text-xs font-semibold rounded-full&quot;&gt;
+                {{ &#x27;memberships.inactive&#x27; | translate }}
+              &lt;/div&gt;
+            }
+
+            &lt;div class&#x3D;&quot;mb-4&quot;&gt;
+              &lt;h3 class&#x3D;&quot;text-2xl font-bold text-gray-900 dark:text-white mb-2&quot;&gt;
+                {{ membership.name }}
+              &lt;/h3&gt;
+              @if(membership.description) {
+                &lt;p class&#x3D;&quot;text-gray-600 dark:text-gray-400 text-sm mb-4&quot;&gt;
+                  {{ membership.description }}
+                &lt;/p&gt;
+              }
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;mb-6&quot;&gt;
+              &lt;div class&#x3D;&quot;flex items-baseline gap-2&quot;&gt;
+                &lt;span class&#x3D;&quot;text-4xl font-bold text-purple-600 dark:text-purple-400&quot;&gt;
+                  {{ formatPrice(membership.price) }}
+                &lt;/span&gt;
+                &lt;span class&#x3D;&quot;text-gray-600 dark:text-gray-400&quot;&gt;
+                  / {{ getDurationText(membership.duration) }}
+                &lt;/span&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;mb-6&quot;&gt;
+              &lt;ul class&#x3D;&quot;space-y-3&quot;&gt;
+                @for(feature of membership.features; track $index) {
+                  &lt;li class&#x3D;&quot;flex items-start gap-2&quot;&gt;
+                    &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;2&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-5 h-5 text-green-500 flex-shrink-0 mt-0.5&quot;&gt;
+                      &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M4.5 12.75l6 6 9-13.5&quot; /&gt;
+                    &lt;/svg&gt;
+                    &lt;span class&#x3D;&quot;text-gray-700 dark:text-gray-300 text-sm&quot;&gt;{{ feature }}&lt;/span&gt;
+                  &lt;/li&gt;
+                }
+              &lt;/ul&gt;
+            &lt;/div&gt;
+
+            @if(canManage()) {
+              &lt;div class&#x3D;&quot;flex gap-2 pt-4 border-t border-gray-200 dark:border-gray-700&quot;&gt;
+                &lt;button 
+                  (click)&#x3D;&quot;openEditModal(membership)&quot;
+                  class&#x3D;&quot;flex-1 px-4 py-2 bg-purple-100 hover:bg-purple-200 dark:bg-purple-900/30 dark:hover:bg-purple-900/50 text-purple-700 dark:text-purple-300 rounded-lg transition-colors text-sm font-medium&quot;&gt;
+                  {{ &#x27;memberships.edit&#x27; | translate }}
+                &lt;/button&gt;
+                &lt;button 
+                  (click)&#x3D;&quot;openDeleteModal(membership)&quot;
+                  class&#x3D;&quot;flex-1 px-4 py-2 bg-red-100 hover:bg-red-200 dark:bg-red-900/30 dark:hover:bg-red-900/50 text-red-700 dark:text-red-300 rounded-lg transition-colors text-sm font-medium&quot;&gt;
+                  {{ &#x27;memberships.delete&#x27; | translate }}
+                &lt;/button&gt;
+              &lt;/div&gt;
+            }
+          &lt;/div&gt;
+        }
+      &lt;/div&gt;
+
+      @if(displayedMemberships().length &#x3D;&#x3D;&#x3D; 0) {
+        &lt;div class&#x3D;&quot;text-center py-12&quot;&gt;
+          &lt;p class&#x3D;&quot;text-gray-500 dark:text-gray-400&quot;&gt;{{ &#x27;memberships.noPlansAvailable&#x27; | translate }}&lt;/p&gt;
+        &lt;/div&gt;
+      }
+    }
+
+    &lt;!-- Create Modal --&gt;
+    @if(showCreateModal()) {
+      &lt;div class&#x3D;&quot;fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4&quot;&gt;
+        &lt;div class&#x3D;&quot;bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl&quot;&gt;
+          &lt;div class&#x3D;&quot;p-6 border-b border-gray-200 dark:border-gray-700&quot;&gt;
+            &lt;div class&#x3D;&quot;flex items-center justify-between&quot;&gt;
+              &lt;h2 class&#x3D;&quot;text-2xl font-bold text-gray-900 dark:text-white&quot;&gt;{{ &#x27;memberships.createPlan&#x27; | translate }}&lt;/h2&gt;
+              &lt;button 
+                (click)&#x3D;&quot;closeCreateModal()&quot;
+                class&#x3D;&quot;text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200&quot;&gt;
+                &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;2&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-6 h-6&quot;&gt;
+                  &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M6 18L18 6M6 6l12 12&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;p-6 space-y-4&quot;&gt;
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2&quot;&gt;{{ &#x27;memberships.name&#x27; | translate }} *&lt;/label&gt;
+              &lt;input 
+                type&#x3D;&quot;text&quot;
+                [(ngModel)]&#x3D;&quot;membershipForm.name&quot;
+                class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500&quot;&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2&quot;&gt;{{ &#x27;memberships.description&#x27; | translate }}&lt;/label&gt;
+              &lt;textarea 
+                [(ngModel)]&#x3D;&quot;membershipForm.description&quot;
+                rows&#x3D;&quot;3&quot;
+                class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500&quot;&gt;&lt;/textarea&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;grid grid-cols-2 gap-4&quot;&gt;
+              &lt;div&gt;
+                &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2&quot;&gt;{{ &#x27;memberships.price&#x27; | translate }} *&lt;/label&gt;
+                &lt;input 
+                  type&#x3D;&quot;number&quot;
+                  [(ngModel)]&#x3D;&quot;membershipForm.price&quot;
+                  min&#x3D;&quot;0&quot;
+                  step&#x3D;&quot;0.01&quot;
+                  class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500&quot;&gt;
+              &lt;/div&gt;
+
+              &lt;div&gt;
+                &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2&quot;&gt;{{ &#x27;memberships.duration&#x27; | translate }} *&lt;/label&gt;
+                &lt;input 
+                  type&#x3D;&quot;number&quot;
+                  [(ngModel)]&#x3D;&quot;membershipForm.duration&quot;
+                  min&#x3D;&quot;1&quot;
+                  class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500&quot;&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2&quot;&gt;{{ &#x27;memberships.features&#x27; | translate }}&lt;/label&gt;
+              &lt;div class&#x3D;&quot;flex gap-2 mb-2&quot;&gt;
+                &lt;input 
+                  type&#x3D;&quot;text&quot;
+                  [(ngModel)]&#x3D;&quot;currentFeature&quot;
+                  (keyup.enter)&#x3D;&quot;addFeature()&quot;
+                  [placeholder]&#x3D;&quot;&#x27;memberships.addFeaturePlaceholder&#x27; | translate&quot;
+                  class&#x3D;&quot;flex-1 px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500&quot;&gt;
+                &lt;button 
+                  (click)&#x3D;&quot;addFeature()&quot;
+                  class&#x3D;&quot;px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors&quot;&gt;
+                  {{ &#x27;memberships.addFeature&#x27; | translate }}
+                &lt;/button&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;flex flex-wrap gap-2&quot;&gt;
+                @for(feature of membershipForm.features; track $index) {
+                  &lt;span class&#x3D;&quot;px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm flex items-center gap-2&quot;&gt;
+                    {{ feature }}
+                    &lt;button 
+                      (click)&#x3D;&quot;removeFeature($index)&quot;
+                      class&#x3D;&quot;hover:text-red-500&quot;&gt;
+                      ×
+                    &lt;/button&gt;
+                  &lt;/span&gt;
+                }
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;flex items-center gap-2&quot;&gt;
+              &lt;input 
+                type&#x3D;&quot;checkbox&quot;
+                [(ngModel)]&#x3D;&quot;membershipForm.isActive&quot;
+                id&#x3D;&quot;isActiveCreate&quot;
+                class&#x3D;&quot;w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500&quot;&gt;
+              &lt;label for&#x3D;&quot;isActiveCreate&quot; class&#x3D;&quot;text-sm font-medium text-gray-700 dark:text-gray-300&quot;&gt;{{ &#x27;memberships.isActive&#x27; | translate }}&lt;/label&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3&quot;&gt;
+            &lt;button 
+              (click)&#x3D;&quot;closeCreateModal()&quot;
+              class&#x3D;&quot;px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors&quot;&gt;
+              {{ &#x27;memberships.cancel&#x27; | translate }}
+            &lt;/button&gt;
+            &lt;button 
+              (click)&#x3D;&quot;createMembership()&quot;
+              [disabled]&#x3D;&quot;isLoading()&quot;
+              class&#x3D;&quot;px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors disabled:opacity-50&quot;&gt;
+              {{ &#x27;memberships.createPlan&#x27; | translate }}
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    }
+
+    &lt;!-- Edit Modal --&gt;
+    @if(showEditModal()) {
+      &lt;div class&#x3D;&quot;fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4&quot;&gt;
+        &lt;div class&#x3D;&quot;bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl&quot;&gt;
+          &lt;div class&#x3D;&quot;p-6 border-b border-gray-200 dark:border-gray-700&quot;&gt;
+            &lt;div class&#x3D;&quot;flex items-center justify-between&quot;&gt;
+              &lt;h2 class&#x3D;&quot;text-2xl font-bold text-gray-900 dark:text-white&quot;&gt;{{ &#x27;memberships.editPlan&#x27; | translate }}&lt;/h2&gt;
+              &lt;button 
+                (click)&#x3D;&quot;closeEditModal()&quot;
+                class&#x3D;&quot;text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200&quot;&gt;
+                &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;2&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-6 h-6&quot;&gt;
+                  &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M6 18L18 6M6 6l12 12&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;p-6 space-y-4&quot;&gt;
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2&quot;&gt;{{ &#x27;memberships.name&#x27; | translate }} *&lt;/label&gt;
+              &lt;input 
+                type&#x3D;&quot;text&quot;
+                [(ngModel)]&#x3D;&quot;membershipForm.name&quot;
+                class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500&quot;&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2&quot;&gt;{{ &#x27;memberships.description&#x27; | translate }}&lt;/label&gt;
+              &lt;textarea 
+                [(ngModel)]&#x3D;&quot;membershipForm.description&quot;
+                rows&#x3D;&quot;3&quot;
+                class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500&quot;&gt;&lt;/textarea&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;grid grid-cols-2 gap-4&quot;&gt;
+              &lt;div&gt;
+                &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2&quot;&gt;{{ &#x27;memberships.price&#x27; | translate }} *&lt;/label&gt;
+                &lt;input 
+                  type&#x3D;&quot;number&quot;
+                  [(ngModel)]&#x3D;&quot;membershipForm.price&quot;
+                  min&#x3D;&quot;0&quot;
+                  step&#x3D;&quot;0.01&quot;
+                  class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500&quot;&gt;
+              &lt;/div&gt;
+
+              &lt;div&gt;
+                &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2&quot;&gt;{{ &#x27;memberships.duration&#x27; | translate }} *&lt;/label&gt;
+                &lt;input 
+                  type&#x3D;&quot;number&quot;
+                  [(ngModel)]&#x3D;&quot;membershipForm.duration&quot;
+                  min&#x3D;&quot;1&quot;
+                  class&#x3D;&quot;w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500&quot;&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+              &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2&quot;&gt;{{ &#x27;memberships.features&#x27; | translate }}&lt;/label&gt;
+              &lt;div class&#x3D;&quot;flex gap-2 mb-2&quot;&gt;
+                &lt;input 
+                  type&#x3D;&quot;text&quot;
+                  [(ngModel)]&#x3D;&quot;currentFeature&quot;
+                  (keyup.enter)&#x3D;&quot;addFeature()&quot;
+                  [placeholder]&#x3D;&quot;&#x27;memberships.addFeaturePlaceholder&#x27; | translate&quot;
+                  class&#x3D;&quot;flex-1 px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500&quot;&gt;
+                &lt;button 
+                  (click)&#x3D;&quot;addFeature()&quot;
+                  class&#x3D;&quot;px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors&quot;&gt;
+                  {{ &#x27;memberships.addFeature&#x27; | translate }}
+                &lt;/button&gt;
+              &lt;/div&gt;
+              &lt;div class&#x3D;&quot;flex flex-wrap gap-2&quot;&gt;
+                @for(feature of membershipForm.features; track $index) {
+                  &lt;span class&#x3D;&quot;px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm flex items-center gap-2&quot;&gt;
+                    {{ feature }}
+                    &lt;button 
+                      (click)&#x3D;&quot;removeFeature($index)&quot;
+                      class&#x3D;&quot;hover:text-red-500&quot;&gt;
+                      ×
+                    &lt;/button&gt;
+                  &lt;/span&gt;
+                }
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;div class&#x3D;&quot;flex items-center gap-2&quot;&gt;
+              &lt;input 
+                type&#x3D;&quot;checkbox&quot;
+                [(ngModel)]&#x3D;&quot;membershipForm.isActive&quot;
+                id&#x3D;&quot;isActiveEdit&quot;
+                class&#x3D;&quot;w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500&quot;&gt;
+              &lt;label for&#x3D;&quot;isActiveEdit&quot; class&#x3D;&quot;text-sm font-medium text-gray-700 dark:text-gray-300&quot;&gt;{{ &#x27;memberships.isActive&#x27; | translate }}&lt;/label&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3&quot;&gt;
+            &lt;button 
+              (click)&#x3D;&quot;closeEditModal()&quot;
+              class&#x3D;&quot;px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors&quot;&gt;
+              {{ &#x27;memberships.cancel&#x27; | translate }}
+            &lt;/button&gt;
+            &lt;button 
+              (click)&#x3D;&quot;updateMembership()&quot;
+              [disabled]&#x3D;&quot;isLoading()&quot;
+              class&#x3D;&quot;px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors disabled:opacity-50&quot;&gt;
+              {{ &#x27;memberships.saveChanges&#x27; | translate }}
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    }
+
+    &lt;!-- Delete Modal --&gt;
+    @if(showDeleteModal()) {
+      &lt;div class&#x3D;&quot;fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4&quot;&gt;
+        &lt;div class&#x3D;&quot;bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full shadow-2xl&quot;&gt;
+          &lt;div class&#x3D;&quot;p-6 border-b border-gray-200 dark:border-gray-700&quot;&gt;
+            &lt;h2 class&#x3D;&quot;text-2xl font-bold text-gray-900 dark:text-white&quot;&gt;{{ &#x27;memberships.deletePlan&#x27; | translate }}&lt;/h2&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;p-6&quot;&gt;
+            &lt;p class&#x3D;&quot;text-gray-700 dark:text-gray-300 mb-4&quot;&gt;
+              {{ &#x27;memberships.confirmDelete&#x27; | translate }} &lt;strong&gt;{{ selectedMembership()?.name }}&lt;/strong&gt;?
+            &lt;/p&gt;
+            &lt;p class&#x3D;&quot;text-sm text-red-600 dark:text-red-400&quot;&gt;{{ &#x27;memberships.confirmDeleteMessage&#x27; | translate }}&lt;/p&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3&quot;&gt;
+            &lt;button 
+              (click)&#x3D;&quot;closeDeleteModal()&quot;
+              class&#x3D;&quot;px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors&quot;&gt;
+              {{ &#x27;memberships.cancel&#x27; | translate }}
+            &lt;/button&gt;
+            &lt;button 
+              (click)&#x3D;&quot;deleteMembership()&quot;
+              [disabled]&#x3D;&quot;isLoading()&quot;
+              class&#x3D;&quot;px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors disabled:opacity-50&quot;&gt;
+              {{ &#x27;memberships.delete&#x27; | translate }}
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    }
+  &lt;/main&gt;
+&lt;/div&gt;
+
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis-network.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">  <app-navbar></app-navbar>  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">    @if(errorMessage()) {      <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-600 dark:text-red-400">        {{ errorMessage() }}      </div>    }    <!-- Page Header -->    <div class="mb-8 relative">      <div class="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-indigo-500/10 rounded-3xl blur-3xl"></div>      <div class="relative bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 sm:p-8 border border-purple-200/50 dark:border-gray-700 shadow-lg">        <div class="flex items-center justify-between flex-wrap gap-4">          <div class="flex items-center gap-4">            <div class="p-3 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl shadow-lg">              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 sm:w-8 sm:h-8 text-white">                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />              </svg>            </div>            <div>              <h1 class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400 bg-clip-text text-transparent mb-2">                {{ \'memberships.title\' | translate }}              </h1>              <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base">                {{ \'memberships.subtitle\' | translate }}              </p>            </div>          </div>          @if(canManage()) {            <button               (click)="openCreateModal()"              class="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl transition-all text-sm font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap">              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />              </svg>              {{ \'memberships.newPlan\' | translate }}            </button>          }        </div>      </div>    </div>    <!-- Loading State -->    @if(isLoading() && memberships().length === 0) {      <div class="flex items-center justify-center py-20">        <div class="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-600"></div>      </div>    }    <!-- Memberships Grid -->    @if(!isLoading() || memberships().length > 0) {      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">        @for(membership of displayedMemberships(); track membership.id) {          <div class="relative bg-white dark:bg-gray-800 rounded-2xl p-6 border-2 transition-all duration-300 hover:shadow-xl"               [class.border-purple-300]="membership.isActive"               [class.border-gray-300]="!membership.isActive"               [class.opacity-60]="!membership.isActive">                        @if(!membership.isActive && canManage()) {              <div class="absolute top-4 right-4 px-3 py-1 bg-gray-500 text-white text-xs font-semibold rounded-full">                {{ \'memberships.inactive\' | translate }}              </div>            }            <div class="mb-4">              <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">                {{ membership.name }}              </h3>              @if(membership.description) {                <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">                  {{ membership.description }}                </p>              }            </div>            <div class="mb-6">              <div class="flex items-baseline gap-2">                <span class="text-4xl font-bold text-purple-600 dark:text-purple-400">                  {{ formatPrice(membership.price) }}                </span>                <span class="text-gray-600 dark:text-gray-400">                  / {{ getDurationText(membership.duration) }}                </span>              </div>            </div>            <div class="mb-6">              <ul class="space-y-3">                @for(feature of membership.features; track $index) {                  <li class="flex items-start gap-2">                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5">                      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />                    </svg>                    <span class="text-gray-700 dark:text-gray-300 text-sm">{{ feature }}</span>                  </li>                }              </ul>            </div>            @if(canManage()) {              <div class="flex gap-2 pt-4 border-t border-gray-200 dark:border-gray-700">                <button                   (click)="openEditModal(membership)"                  class="flex-1 px-4 py-2 bg-purple-100 hover:bg-purple-200 dark:bg-purple-900/30 dark:hover:bg-purple-900/50 text-purple-700 dark:text-purple-300 rounded-lg transition-colors text-sm font-medium">                  {{ \'memberships.edit\' | translate }}                </button>                <button                   (click)="openDeleteModal(membership)"                  class="flex-1 px-4 py-2 bg-red-100 hover:bg-red-200 dark:bg-red-900/30 dark:hover:bg-red-900/50 text-red-700 dark:text-red-300 rounded-lg transition-colors text-sm font-medium">                  {{ \'memberships.delete\' | translate }}                </button>              </div>            }          </div>        }      </div>      @if(displayedMemberships().length === 0) {        <div class="text-center py-12">          <p class="text-gray-500 dark:text-gray-400">{{ \'memberships.noPlansAvailable\' | translate }}</p>        </div>      }    }    <!-- Create Modal -->    @if(showCreateModal()) {      <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">        <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">          <div class="p-6 border-b border-gray-200 dark:border-gray-700">            <div class="flex items-center justify-between">              <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ \'memberships.createPlan\' | translate }}</h2>              <button                 (click)="closeCreateModal()"                class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />                </svg>              </button>            </div>          </div>          <div class="p-6 space-y-4">            <div>              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ \'memberships.name\' | translate }} *</label>              <input                 type="text"                [(ngModel)]="membershipForm.name"                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">            </div>            <div>              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ \'memberships.description\' | translate }}</label>              <textarea                 [(ngModel)]="membershipForm.description"                rows="3"                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>            </div>            <div class="grid grid-cols-2 gap-4">              <div>                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ \'memberships.price\' | translate }} *</label>                <input                   type="number"                  [(ngModel)]="membershipForm.price"                  min="0"                  step="0.01"                  class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">              </div>              <div>                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ \'memberships.duration\' | translate }} *</label>                <input                   type="number"                  [(ngModel)]="membershipForm.duration"                  min="1"                  class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">              </div>            </div>            <div>              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ \'memberships.features\' | translate }}</label>              <div class="flex gap-2 mb-2">                <input                   type="text"                  [(ngModel)]="currentFeature"                  (keyup.enter)="addFeature()"                  [placeholder]="\'memberships.addFeaturePlaceholder\' | translate"                  class="flex-1 px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">                <button                   (click)="addFeature()"                  class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors">                  {{ \'memberships.addFeature\' | translate }}                </button>              </div>              <div class="flex flex-wrap gap-2">                @for(feature of membershipForm.features; track $index) {                  <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm flex items-center gap-2">                    {{ feature }}                    <button                       (click)="removeFeature($index)"                      class="hover:text-red-500">                      ×                    </button>                  </span>                }              </div>            </div>            <div class="flex items-center gap-2">              <input                 type="checkbox"                [(ngModel)]="membershipForm.isActive"                id="isActiveCreate"                class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500">              <label for="isActiveCreate" class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ \'memberships.isActive\' | translate }}</label>            </div>          </div>          <div class="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3">            <button               (click)="closeCreateModal()"              class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">              {{ \'memberships.cancel\' | translate }}            </button>            <button               (click)="createMembership()"              [disabled]="isLoading()"              class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors disabled:opacity-50">              {{ \'memberships.createPlan\' | translate }}            </button>          </div>        </div>      </div>    }    <!-- Edit Modal -->    @if(showEditModal()) {      <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">        <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">          <div class="p-6 border-b border-gray-200 dark:border-gray-700">            <div class="flex items-center justify-between">              <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ \'memberships.editPlan\' | translate }}</h2>              <button                 (click)="closeEditModal()"                class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />                </svg>              </button>            </div>          </div>          <div class="p-6 space-y-4">            <div>              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ \'memberships.name\' | translate }} *</label>              <input                 type="text"                [(ngModel)]="membershipForm.name"                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">            </div>            <div>              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ \'memberships.description\' | translate }}</label>              <textarea                 [(ngModel)]="membershipForm.description"                rows="3"                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500"></textarea>            </div>            <div class="grid grid-cols-2 gap-4">              <div>                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ \'memberships.price\' | translate }} *</label>                <input                   type="number"                  [(ngModel)]="membershipForm.price"                  min="0"                  step="0.01"                  class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">              </div>              <div>                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ \'memberships.duration\' | translate }} *</label>                <input                   type="number"                  [(ngModel)]="membershipForm.duration"                  min="1"                  class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">              </div>            </div>            <div>              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{{ \'memberships.features\' | translate }}</label>              <div class="flex gap-2 mb-2">                <input                   type="text"                  [(ngModel)]="currentFeature"                  (keyup.enter)="addFeature()"                  [placeholder]="\'memberships.addFeaturePlaceholder\' | translate"                  class="flex-1 px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500">                <button                   (click)="addFeature()"                  class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors">                  {{ \'memberships.addFeature\' | translate }}                </button>              </div>              <div class="flex flex-wrap gap-2">                @for(feature of membershipForm.features; track $index) {                  <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded-full text-sm flex items-center gap-2">                    {{ feature }}                    <button                       (click)="removeFeature($index)"                      class="hover:text-red-500">                      ×                    </button>                  </span>                }              </div>            </div>            <div class="flex items-center gap-2">              <input                 type="checkbox"                [(ngModel)]="membershipForm.isActive"                id="isActiveEdit"                class="w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500">              <label for="isActiveEdit" class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ \'memberships.isActive\' | translate }}</label>            </div>          </div>          <div class="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3">            <button               (click)="closeEditModal()"              class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">              {{ \'memberships.cancel\' | translate }}            </button>            <button               (click)="updateMembership()"              [disabled]="isLoading()"              class="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors disabled:opacity-50">              {{ \'memberships.saveChanges\' | translate }}            </button>          </div>        </div>      </div>    }    <!-- Delete Modal -->    @if(showDeleteModal()) {      <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">        <div class="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full shadow-2xl">          <div class="p-6 border-b border-gray-200 dark:border-gray-700">            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">{{ \'memberships.deletePlan\' | translate }}</h2>          </div>          <div class="p-6">            <p class="text-gray-700 dark:text-gray-300 mb-4">              {{ \'memberships.confirmDelete\' | translate }} <strong>{{ selectedMembership()?.name }}</strong>?            </p>            <p class="text-sm text-red-600 dark:text-red-400">{{ \'memberships.confirmDeleteMessage\' | translate }}</p>          </div>          <div class="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end gap-3">            <button               (click)="closeDeleteModal()"              class="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors">              {{ \'memberships.cancel\' | translate }}            </button>            <button               (click)="deleteMembership()"              [disabled]="isLoading()"              class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors disabled:opacity-50">              {{ \'memberships.delete\' | translate }}            </button>          </div>        </div>      </div>    }  </main></div></div>'
+    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'MembershipsComponent-1'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'MembershipsComponent-1.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

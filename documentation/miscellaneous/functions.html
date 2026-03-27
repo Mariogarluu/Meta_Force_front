@@ -227,9 +227,8 @@
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Validador personalizado que verifica que las contraseñas del formulario de registro coincidan.
-Compara los valores de los campos password y confirmPassword.
-Retorna null si coinciden o un objeto con el error si no coinciden.</p>
+                        <div class="io-description"><p>Custom validator that verifies that passwords in the registration form match.
+Compares the values of the password and confirmPassword fields.</p>
 </div>
 
                             <div class="io-description">
@@ -241,6 +240,7 @@ Retorna null si coinciden o un objeto con el error si no coinciden.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -255,6 +255,12 @@ Retorna null si coinciden o un objeto con el error si no coinciden.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The abstract control representing the form group</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -264,7 +270,8 @@ Retorna null si coinciden o un objeto con el error si no coinciden.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>null if they match, or a validation error object if they don&#39;t</p>
+
                             </div>
                 </td>
             </tr>
