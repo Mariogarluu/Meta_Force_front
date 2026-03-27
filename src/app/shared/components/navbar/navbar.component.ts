@@ -44,7 +44,8 @@ export class NavbarComponent {
     { label: 'Clases', path: '/clases', key: 'nav.classes', exact: false }, 
     { label: 'Entrenadores', path: '/trainers', key: 'nav.trainers', exact: false },
     { label: 'Centros', path: '/centers', key: 'nav.centers', exact: false },
-    { label: 'Membresías', path: '/memberships', key: 'nav.memberships', exact: false }
+    { label: 'Membresías', path: '/memberships', key: 'nav.memberships', exact: false },
+    { label: 'Rendimiento', path: '/performance', key: 'nav.performance', exact: false }
   ];
 
   /** Signal tracking the open/closed state of the mobile hamburger menu */
