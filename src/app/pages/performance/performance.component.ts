@@ -37,17 +37,8 @@ export class PerformanceComponent implements OnInit {
   /** Form model for adding a new exercise performance record */
   newExerciseRecord = { exerciseId: '', weight: 0, reps: 0, date: '', notes: '' };
 
-<<<<<<< HEAD
+  /** Visual and behavioral common options for all charts */
   private commonChartOptions: ChartConfiguration['options'] = {
-=======
-  /** Configuration for the body weight history line chart */
-  public weightChartData: ChartConfiguration['data'] = {
-    datasets: [{ data: [], label: 'Peso Corporal (kg)', borderColor: '#06b6d4', fill: false, tension: 0.1 }],
-    labels: []
-  };
-  /** Visual and behavioral options for the weight chart */
-  public weightChartOptions: ChartConfiguration['options'] = {
->>>>>>> 7bec13c21ba4f76dc75e600ddc4a08da2e6a76d9
     responsive: true,
     maintainAspectRatio: false,
     scales: {
@@ -65,17 +56,15 @@ export class PerformanceComponent implements OnInit {
       legend: { labels: { color: '#9ca3af' } }
     }
   };
-<<<<<<< HEAD
-
-  // Body Weight Chart
+  /** Configuration for the body weight history line chart */
   public weightChartData: ChartConfiguration['data'] = {
     datasets: [{ data: [], label: 'Peso Corporal (kg)', borderColor: '#0891b2', fill: false, tension: 0.1 }],
     labels: []
   };
+  /** Visual and behavioral options for the weight chart */
   public weightChartOptions: ChartConfiguration['options'] = this.commonChartOptions;
-=======
+
   /** The type of chart used for visualization */
->>>>>>> 7bec13c21ba4f76dc75e600ddc4a08da2e6a76d9
   public weightChartType: ChartType = 'line';
 
   /** The ID of the exercise currently displayed in the exercise chart */
@@ -86,16 +75,14 @@ export class PerformanceComponent implements OnInit {
     labels: []
   };
 
-<<<<<<< HEAD
+  /** Gets exercise records filtered by the currently selected exercise chart ID */
   get filteredExerciseRecords() {
     return this.exerciseRecords.filter(r => r.exercise.id === this.selectedExerciseChartId);
   }
 
-=======
   /**
    * Initializes data fetching for body weights, exercises, and records.
    */
->>>>>>> 7bec13c21ba4f76dc75e600ddc4a08da2e6a76d9
   ngOnInit() {
     this.loadBodyWeights();
     this.loadExercises();
