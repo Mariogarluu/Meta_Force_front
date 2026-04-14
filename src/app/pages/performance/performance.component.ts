@@ -134,13 +134,13 @@ export class PerformanceComponent implements OnInit {
   addBodyWeight() {
     if (this.newBodyWeight.weight <= 0 || !this.newBodyWeight.date) return;
     
-    const payload = {
-      ...this.newBodyWeight,
+    const payload: { weight: number; date: string; notes?: string } = {
       weight: Number(this.newBodyWeight.weight),
       date: new Date(this.newBodyWeight.date).toISOString()
     };
-    if (!payload.notes) {
-      delete payload.notes; // Prevent empty strings if backend dislikes them
+    
+    if (this.newBodyWeight.notes) {
+      payload.notes = this.newBodyWeight.notes;
     }
 
     this.performanceService.addBodyWeight(payload).subscribe({
@@ -169,14 +169,15 @@ export class PerformanceComponent implements OnInit {
   addExerciseRecord() {
     if (!this.newExerciseRecord.exerciseId || this.newExerciseRecord.weight <= 0 || this.newExerciseRecord.reps <= 0 || !this.newExerciseRecord.date) return;
     
-    const payload = {
-      ...this.newExerciseRecord,
+    const payload: { exerciseId: string; weight: number; reps: number; date: string; notes?: string } = {
+      exerciseId: this.newExerciseRecord.exerciseId,
       weight: Number(this.newExerciseRecord.weight),
       reps: Number(this.newExerciseRecord.reps),
       date: new Date(this.newExerciseRecord.date).toISOString()
     };
-    if (!payload.notes) {
-      delete payload.notes; // Prevent empty strings if backend dislikes them
+    
+    if (this.newExerciseRecord.notes) {
+      payload.notes = this.newExerciseRecord.notes;
     }
 
     this.performanceService.addExerciseRecord(payload).subscribe({
