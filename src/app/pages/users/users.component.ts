@@ -23,33 +23,53 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
   styleUrl: './users.component.scss'
 })
 export class UsersComponent implements OnInit {
+  /** Injected UsersService for CRUD operations on user accounts */
   usersService = inject(UsersService);
+  /** Injected CentersService for mapping users to physical gym locations */
   centersService = inject(CentersService);
+  /** Injected AuthService for permission checks and current session context */
   auth = inject(AuthService);
+  /** Injected TranslateService for UI multi-language support */
   translate = inject(TranslateService);
 
+  /** Signal containing the master list of system users */
   users = signal<User[]>([]);
+  /** Signal containing the list of available gym centers */
   centers = signal<Center[]>([]);
+  /** Signal tracking background API activity for user list loading */
   isLoading = signal(false);
+  /** Signal for displaying primary error messages in the UI */
   errorMessage = signal<string>('');
   
-  // Filters
+  /** Signal for the name/keyword filter input */
   filterName = signal<string>('');
+  /** Signal for the email address filter input */
   filterEmail = signal<string>('');
+  /** Signal for the role-based filter dropdown */
   filterRole = signal<Role | ''>('');
+  /** Signal for the user status filter dropdown */
   filterStatus = signal<UserStatus | ''>('');
+  /** Signal for the favorite center filter dropdown */
   filterCenter = signal<string>('');
+  /** Signal for the starting registration date filter */
   filterDateFrom = signal<string>('');
+  /** Signal for the ending registration date filter */
   filterDateTo = signal<string>('');
+  /** Signal controlling the visibility of the advanced filter sidebar */
   showFilters = signal(false);
   
-  // Modal states
+  /** Signal controlling the visibility of the user editing modal */
   showEditModal = signal(false);
+  /** Signal controlling the visibility of the deletion confirmation overlay */
   showDeleteModal = signal(false);
+  /** Signal controlling the visibility of the detailed user profile modal */
   showViewModal = signal(false);
   
+  /** Signal storing the user currently being edited or targeted for deletion */
   selectedUser = signal<User | null>(null);
+  /** Signal storing the user currently being viewed in full detail */
   viewUser = signal<User | null>(null);
+  /** Form state object for user profile updates */
   userForm: UpdateUserInput = {
     name: '',
     email: '',
@@ -58,17 +78,28 @@ export class UsersComponent implements OnInit {
     favoriteCenterId: null
   };
 
+  /** Immutable list of available system roles */
   readonly roles: Role[] = ['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER', 'CLEANER', 'USER'];
+  /** Immutable list of available user account statuses */
   readonly statuses: UserStatus[] = ['PENDING', 'ACTIVE', 'INACTIVE'];
 
+  /** Computed signal for the currently authenticated user */
   currentUser = computed(() => this.auth.currentUser());
+  /** Computed convenience flag for Super Admin permissions */
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
+  /** Computed convenience flag for Center Admin permissions */
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
+  /** Computed signal for general edit authorization */
   canEdit = computed(() => this.isSuperAdmin() || this.isAdminCenter());
+  /** Computed signal for general deletion authorization */
   canDelete = computed(() => this.isSuperAdmin() || this.isAdminCenter());
+  /** Computed signal for center assignment permission (restricted to Super Admins) */
   canAssignCenter = computed(() => this.isSuperAdmin());
 
-  // Filtered users
+  /** 
+   * Computed signal for the filtered list of users.
+   * Dynamically reacts to name, email, role, status, center, and date range filters.
+   */
   filteredUsers = computed(() => {
     let filtered = this.users();
     
@@ -109,7 +140,7 @@ export class UsersComponent implements OnInit {
     
     if (this.filterDateTo()) {
       const dateTo = new Date(this.filterDateTo());
-      dateTo.setHours(23, 59, 59, 999); // Incluir todo el día
+      dateTo.setHours(23, 59, 59, 999);
       filtered = filtered.filter(u => {
         if (!u.createdAt) return false;
         return new Date(u.createdAt) <= dateTo;
@@ -119,6 +150,9 @@ export class UsersComponent implements OnInit {
     return filtered;
   });
 
+  /**
+   * Component initialization. Triggers loading of users and centers.
+   */
   ngOnInit() {
     this.loadUsers();
     if (this.isSuperAdmin()) {
@@ -126,6 +160,9 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  /**
+   * Fetches the complete list of users from the backend directory.
+   */
   loadUsers() {
     this.isLoading.set(true);
     this.errorMessage.set('');
@@ -142,6 +179,9 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  /**
+   * Fetches the list of gym centers for filtering and assignment purposes.
+   */
   loadCenters() {
     this.centersService.listCenters().subscribe({
       next: (data) => {
@@ -153,6 +193,10 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  /**
+   * Fetches full detail for a user and opens the view modal.
+   * @param user - Summary user entity
+   */
   openViewModal(user: User) {
     this.isLoading.set(true);
     this.errorMessage.set('');
@@ -171,12 +215,19 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  /**
+   * Closes the detailed user profile modal.
+   */
   closeViewModal() {
     this.showViewModal.set(false);
     this.viewUser.set(null);
     this.errorMessage.set('');
   }
 
+  /**
+   * Fetches full detail for a user and opens the editing modal with form state.
+   * @param user - Summary user entity
+   */
   openEditModal(user: User) {
     this.isLoading.set(true);
     this.errorMessage.set('');
@@ -201,24 +252,38 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  /**
+   * Closes the user editing modal.
+   */
   closeEditModal() {
     this.showEditModal.set(false);
     this.selectedUser.set(null);
     this.errorMessage.set('');
   }
 
+  /**
+   * Opens the confirmation modal for user deletion.
+   * @param user - Target user to delete
+   */
   openDeleteModal(user: User) {
     this.selectedUser.set(user);
     this.showDeleteModal.set(true);
     this.errorMessage.set('');
   }
 
+  /**
+   * Closes the user deletion confirmation modal.
+   */
   closeDeleteModal() {
     this.showDeleteModal.set(false);
     this.selectedUser.set(null);
     this.errorMessage.set('');
   }
 
+  /**
+   * Submits the updated user profile data to the backend.
+   * Handles role and center assignment restrictions based on admin level.
+   */
   updateUser() {
     const user = this.selectedUser();
     if (!user?.id) return;
@@ -236,13 +301,11 @@ export class UsersComponent implements OnInit {
       email: this.userForm.email,
     };
 
-    // Solo SUPERADMIN puede cambiar rol y asignar centro favorito
     if (this.isSuperAdmin()) {
       updateData.role = this.userForm.role;
       updateData.favoriteCenterId = this.userForm.favoriteCenterId;
     }
 
-    // Ambos pueden cambiar el status
     updateData.status = this.userForm.status;
 
     this.usersService.updateUser(user.id, updateData).subscribe({
@@ -258,6 +321,9 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  /**
+   * Executes the deletion of the selected user account.
+   */
   deleteUser() {
     const user = this.selectedUser();
     if (!user?.id) return;
@@ -278,6 +344,10 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  /**
+   * Quickly transitions a user status to 'ACTIVE' (validation/approval).
+   * @param user - The user entity to validate
+   */
   validateUser(user: User) {
     this.usersService.updateUser(user.id, { status: 'ACTIVE' }).subscribe({
       next: () => {
@@ -289,6 +359,11 @@ export class UsersComponent implements OnInit {
     });
   }
 
+  /**
+   * Maps user status to UI color classes for the status badge.
+   * @param status - User status enum value
+   * @returns Tailwind CSS background color class
+   */
   getStatusColor(status?: UserStatus): string {
     const colors: Record<UserStatus, string> = {
       'PENDING': 'bg-yellow-500',
@@ -298,17 +373,21 @@ export class UsersComponent implements OnInit {
     return colors[status || 'PENDING'] || 'bg-gray-500';
   }
 
+  /**
+   * Resolves a human-readable and translated status string.
+   * @param status - User status enum value
+   * @returns Translated status text
+   */
   getStatusText(status?: UserStatus): string {
     if (!status) return '';
     return this.getStatusName(status);
-    const texts: Record<UserStatus, string> = {
-      'PENDING': 'Pendiente',
-      'ACTIVE': 'Activo',
-      'INACTIVE': 'Inactivo'
-    };
-    return texts[status || 'PENDING'] || 'Desconocido';
   }
 
+  /**
+   * Returns a raw SVG string representing the icon for a specific user role.
+   * @param role - Role enum value
+   * @returns SVG markup string
+   */
   getRoleIcon(role: string): string {
     const size = 'w-5 h-5';
     switch (role) {
@@ -325,24 +404,45 @@ export class UsersComponent implements OnInit {
     }
   }
 
+  /**
+   * Resolves the translated name of a system role.
+   * @param role - Role enum value
+   * @returns Translated string
+   */
   getRoleName(role: string): string {
     return this.translate.instant(`dashboard.roles.${role}`) || this.translate.instant('dashboard.roles.USER');
   }
 
+  /**
+   * Maps a center ID to its human-readable name.
+   * @param centerId - Entity ID
+   * @returns Translated center name or 'N/A'
+   */
   getCenterName(centerId?: string | null): string {
     if (!centerId) return this.translate.instant('users.noCenter');
     const center = this.centers().find(c => c.id === centerId);
     return center?.name || this.translate.instant('users.centerNotFound');
   }
 
+  /**
+   * Resolves the translated name of a user status.
+   * @param status - Status key
+   * @returns Translated string
+   */
   getStatusName(status: string): string {
     return this.translate.instant(`users.statuses.${status}`) || status;
   }
 
+  /**
+   * Toggles the visibility of the advanced filter panel.
+   */
   toggleFilters() {
     this.showFilters.set(!this.showFilters());
   }
 
+  /**
+   * Resets all search and date filters to their initial empty states.
+   */
   clearFilters() {
     this.filterName.set('');
     this.filterEmail.set('');
@@ -353,6 +453,7 @@ export class UsersComponent implements OnInit {
     this.filterDateTo.set('');
   }
 
+  /** Computed signal checking if any search criteria are currently active */
   hasActiveFilters = computed(() => {
     return !!(
       this.filterName() ||

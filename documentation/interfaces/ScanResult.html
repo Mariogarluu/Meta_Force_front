@@ -148,8 +148,8 @@
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>Interfaz para el resultado de un escaneo de QR.
-Contiene información sobre el tipo de operación (entrada/salida) y el usuario procesado.</p>
+                <p>Interface representing the result of a QR scan.
+Contains information about the operation type (entry/exit) and the processed user.</p>
 
             </p>
 
@@ -232,6 +232,12 @@ Contiene información sobre el tipo de operación (entrada/salida) y el usuario 
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Human-readable status message from the server</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -265,6 +271,12 @@ Contiene información sobre el tipo de operación (entrada/salida) y el usuario 
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Indicates if the backend successfully processed the access</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -298,6 +310,12 @@ Contiene información sobre el tipo de operación (entrada/salida) y el usuario 
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Whether the user was entering or exiting the facility</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -331,6 +349,12 @@ Contiene información sobre el tipo de operación (entrada/salida) y el usuario 
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Basic user information associated with the scanned QR</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -353,13 +377,17 @@ import { TranslateModule, TranslateService } from &#x27;@ngx-translate/core&#x27
 import { LanguageSelectorComponent } from &#x27;../../shared/components/language-selector/language-selector.component&#x27;;
 
 /**
- * Interfaz para el resultado de un escaneo de QR.
- * Contiene información sobre el tipo de operación (entrada/salida) y el usuario procesado.
+ * Interface representing the result of a QR scan.
+ * Contains information about the operation type (entry/exit) and the processed user.
  */
 interface ScanResult {
+  /** Indicates if the backend successfully processed the access */
   success: boolean;
+  /** Whether the user was entering or exiting the facility */
   type: &#x27;entry&#x27; | &#x27;exit&#x27;;
+  /** Human-readable status message from the server */
   message: string;
+  /** Basic user information associated with the scanned QR */
   user: {
     id: string;
     name: string;
@@ -368,16 +396,16 @@ interface ScanResult {
 }
 
 /**
- * Componente para escanear códigos QR y registrar entradas/salidas de usuarios en centros.
+ * Component for scanning QR codes and registering user entries/exits at gym centers.
  * 
- * Funcionalidades:
- * - Acceso a la cámara del dispositivo para escanear QR codes
- * - Selección automática o manual del centro según el rol del usuario
- * - Detección automática de entrada/salida basada en el estado del usuario
- * - Feedback visual con flash verde (entrada) o rojo (salida)
- * - Validación de expiración del QR (20 minutos)
- * 
- * Solo accesible para SUPERADMIN y ADMIN_CENTER.
+ * Features:
+ * - Device camera access for real-time QR code scanning
+ * - Automatic or manual center selection based on user role
+ * - Automated entry/exit detection based on user&#x27;s current occupancy state
+ * - Visual feedback with green (entry) or red (exit) flash animations
+ * - QR expiration validation (20-minute window)
+ *
+ * Accessible only to SUPERADMIN and ADMIN_CENTER roles.
  */
 @Component({
   selector: &#x27;app-qr-scanner&#x27;,
@@ -387,27 +415,40 @@ interface ScanResult {
   styleUrl: &#x27;./qr-scanner.component.scss&#x27;
 })
 export class QrScannerComponent implements OnInit, OnDestroy {
+  /** Injected AuthService for permission and session context */
   auth &#x3D; inject(AuthService);
+  /** Injected CentersService for accessing gym location data */
   centersService &#x3D; inject(CentersService);
+  /** Injected HttpClient for manual backend requests during scanning */
   http &#x3D; inject(HttpClient);
+  /** Injected TranslateService for multi-language UI feedback */
   translate &#x3D; inject(TranslateService);
 
+  /** Signal for the currently authenticated administrator */
   currentUser &#x3D; this.auth.currentUser;
+  /** Signal containing the list of gym centers the admin can manage */
   centers &#x3D; signal&lt;Center[]&gt;([]);
+  /** Signal storing the ID of the gym center where scanning is active */
   selectedCenterId &#x3D; signal&lt;string | null&gt;(null);
+  /** Signal tracking the active state of the camera/scanner */
   isScanning &#x3D; signal(false);
+  /** Instance of the Html5Qrcode library for camera stream processing */
   scanner: Html5Qrcode | null &#x3D; null;
+  /** Signal storing the metadata of the most recently processed scan */
   lastScanResult &#x3D; signal&lt;ScanResult | null&gt;(null);
+  /** Signal for displaying camera-related or API error messages */
   scanError &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  /** Signal controlling the visibility of the success/failure flash overlay */
   showFlash &#x3D; signal(false);
+  /** Signal determining the color/type of the visual feedback flash */
   flashType &#x3D; signal&lt;&#x27;entry&#x27; | &#x27;exit&#x27; | null&gt;(null);
 
   /**
-   * Determina si el usuario necesita seleccionar un centro antes de escanear.
-   * SUPERADMIN siempre necesita seleccionar si hay centros disponibles.
-   * ADMIN_CENTER solo necesita seleccionar si tiene acceso a más de un centro.
+   * Determines if the admin must manually pick a gym center from the UI.
+   * Super Admins always choose if centers exist.
+   * Center Admins choose only if they have access to multiple facilities.
    * 
-   * @returns true si se requiere selección de centro, false si se puede iniciar automáticamente
+   * @returns true if center selection UI should be shown
    */
   needsCenterSelection &#x3D; computed(() &#x3D;&gt; {
     const user &#x3D; this.currentUser();

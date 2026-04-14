@@ -315,7 +315,7 @@ Facilitates the creation of new user accounts, including role selection
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/pages/register/register.component.ts:51</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/pages/register/register.component.ts:62</a></div>
                             </td>
                         </tr>
 
@@ -352,17 +352,15 @@ Facilitates the creation of new user accounts, including role selection
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="133"
-                                    class="link-to-prism">src/app/pages/register/register.component.ts:133</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="138"
+                                    class="link-to-prism">src/app/pages/register/register.component.ts:138</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Retorna el mensaje de error correspondiente a un control específico del formulario de registro.
-Maneja errores de validación específicos incluyendo coincidencia de contraseñas.
-Genera mensajes descriptivos en español para cada tipo de error encontrado.</p>
+                        <div class="io-description"><p>Resolves the translated validation error message for a specific form control.</p>
 </div>
 
                             <div class="io-description">
@@ -374,6 +372,7 @@ Genera mensajes descriptivos en español para cada tipo de error encontrado.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -388,6 +387,12 @@ Genera mensajes descriptivos en español para cada tipo de error encontrado.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The name of the form control or &#39;global&#39; for general errors</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -397,7 +402,8 @@ Genera mensajes descriptivos en español para cada tipo de error encontrado.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Translated error string or empty string if no errors</p>
+
                             </div>
                 </td>
             </tr>
@@ -423,16 +429,15 @@ Genera mensajes descriptivos en español para cada tipo de error encontrado.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="124"
-                                    class="link-to-prism">src/app/pages/register/register.component.ts:124</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="129"
+                                    class="link-to-prism">src/app/pages/register/register.component.ts:129</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Navega a la página de login del usuario.
-Redirige al componente de login para usuarios que ya tienen cuenta.</p>
+                        <div class="io-description"><p>Navigates to the user login page.</p>
 </div>
 
                         <div class="io-description">
@@ -463,16 +468,15 @@ Redirige al componente de login para usuarios que ya tienen cuenta.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="100"
-                                    class="link-to-prism">src/app/pages/register/register.component.ts:100</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="108"
+                                    class="link-to-prism">src/app/pages/register/register.component.ts:108</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Limpia las suscripciones activas cuando el componente se destruye.
-Previene memory leaks cancelando las suscripciones a observables.</p>
+                        <div class="io-description"><p>Cleanup logic. Unsubscribes from auth observables to prevent memory leaks.</p>
 </div>
 
                         <div class="io-description">
@@ -503,18 +507,16 @@ Previene memory leaks cancelando las suscripciones a observables.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="70"
-                                    class="link-to-prism">src/app/pages/register/register.component.ts:70</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/app/pages/register/register.component.ts:79</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Procesa el envío del formulario de registro validando todos los campos.
-Crea un nuevo usuario en el sistema con los datos proporcionados.
-Redirige al dashboard si el registro es exitoso.
-Muestra mensajes de error si el registro falla o hay problemas de validación.</p>
+                        <div class="io-description"><p>Processes the registration form submission.
+Validates all fields, creates the user account, and redirects to the dashboard.</p>
 </div>
 
                         <div class="io-description">
@@ -545,16 +547,15 @@ Muestra mensajes de error si el registro falla o hay problemas de validación.</
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="116"
-                                    class="link-to-prism">src/app/pages/register/register.component.ts:116</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="122"
+                                    class="link-to-prism">src/app/pages/register/register.component.ts:122</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Alterna la visibilidad del campo de confirmación de contraseña.
-Permite al usuario verificar que escribió correctamente la contraseña.</p>
+                        <div class="io-description"><p>Toggles the visibility of the confirm password input field.</p>
 </div>
 
                         <div class="io-description">
@@ -585,16 +586,15 @@ Permite al usuario verificar que escribió correctamente la contraseña.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="108"
-                                    class="link-to-prism">src/app/pages/register/register.component.ts:108</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="115"
+                                    class="link-to-prism">src/app/pages/register/register.component.ts:115</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Alterna la visibilidad del campo de contraseña principal.
-Cambia entre mostrar el texto de la contraseña o mostrarla oculta.</p>
+                        <div class="io-description"><p>Toggles the visibility of the main password input field.</p>
 </div>
 
                         <div class="io-description">
@@ -635,10 +635,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/pages/register/register.component.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/pages/register/register.component.ts:47</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected AuthService for account creation API calls</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -663,10 +669,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/pages/register/register.component.ts:51</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="62" class="link-to-prism">src/app/pages/register/register.component.ts:62</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Handle for the active authentication subscription to prevent leaks</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -694,10 +706,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/register/register.component.ts:42</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/pages/register/register.component.ts:45</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected FormBuilder for constructing the registration form</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -725,10 +743,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/pages/register/register.component.ts:48</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/app/pages/register/register.component.ts:56</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for displaying registration-related error messages</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -751,10 +775,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/pages/register/register.component.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/pages/register/register.component.ts:43</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Reactive form group for user registration data</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -778,10 +808,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/pages/register/register.component.ts:46</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/pages/register/register.component.ts:53</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Target URL to navigate to after successful registration</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -809,10 +845,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/pages/register/register.component.ts:44</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/pages/register/register.component.ts:49</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected Router for post-registration navigation</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -840,10 +882,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/pages/register/register.component.ts:50</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/pages/register/register.component.ts:60</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal controlling the visibility of the confirm password field</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -871,10 +919,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/pages/register/register.component.ts:49</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/pages/register/register.component.ts:58</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal controlling the visibility of the password field</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -902,10 +956,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/pages/register/register.component.ts:45</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/pages/register/register.component.ts:51</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected TranslateService for multi-language validation messages</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -927,15 +987,16 @@ import { TranslateModule, TranslateService } from &#x27;@ngx-translate/core&#x27
 import { LanguageSelectorComponent } from &#x27;../../shared/components/language-selector/language-selector.component&#x27;;
 
 /**
- * Validador personalizado que verifica que las contraseñas del formulario de registro coincidan.
- * Compara los valores de los campos password y confirmPassword.
- * Retorna null si coinciden o un objeto con el error si no coinciden.
+ * Custom validator that verifies that passwords in the registration form match.
+ * Compares the values of the password and confirmPassword fields.
+ * @param group - The abstract control representing the form group
+ * @returns null if they match, or a validation error object if they don&#x27;t
  */
 export function passwordsMatchValidator(group: AbstractControl): ValidationErrors | null {
   const password &#x3D; group.get(&#x27;password&#x27;)?.value;
   const confirmPassword &#x3D; group.get(&#x27;confirmPassword&#x27;)?.value;
   
-  if (group.get(&#x27;confirmPassword&#x27;)?.pristine) {
+  if (confirmPassword &#x3D;&#x3D;&#x3D; undefined || group.get(&#x27;confirmPassword&#x27;)?.pristine) {
     return null;
   }
   
@@ -955,16 +1016,26 @@ export function passwordsMatchValidator(group: AbstractControl): ValidationError
   styleUrl: &#x27;./register.component.scss&#x27;
 })
 export class RegisterComponent implements OnDestroy {
+  /** Reactive form group for user registration data */
   formRegister: FormGroup;
+  /** Injected FormBuilder for constructing the registration form */
   builder: FormBuilder &#x3D; inject(FormBuilder);
+  /** Injected AuthService for account creation API calls */
   auth: AuthService &#x3D; inject(AuthService);
+  /** Injected Router for post-registration navigation */
   router: Router &#x3D; inject(Router);
+  /** Injected TranslateService for multi-language validation messages */
   translate &#x3D; inject(TranslateService);
+  /** Target URL to navigate to after successful registration */
   readonly navigateTo: string;
 
+  /** Signal for displaying registration-related error messages */
   errorMsg &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  /** Signal controlling the visibility of the password field */
   showPassword &#x3D; signal(false);
+  /** Signal controlling the visibility of the confirm password field */
   showConfirmPassword &#x3D; signal(false);
+  /** Handle for the active authentication subscription to prevent leaks */
   private authSubscription?: Subscription;
 
   constructor(){
@@ -979,10 +1050,8 @@ export class RegisterComponent implements OnDestroy {
   }
 
   /**
-   * Procesa el envío del formulario de registro validando todos los campos.
-   * Crea un nuevo usuario en el sistema con los datos proporcionados.
-   * Redirige al dashboard si el registro es exitoso.
-   * Muestra mensajes de error si el registro falla o hay problemas de validación.
+   * Processes the registration form submission.
+   * Validates all fields, creates the user account, and redirects to the dashboard.
    */
   onSubmit(){
     if (this.formRegister.invalid) {
@@ -1011,41 +1080,37 @@ export class RegisterComponent implements OnDestroy {
   }
 
   /**
-   * Limpia las suscripciones activas cuando el componente se destruye.
-   * Previene memory leaks cancelando las suscripciones a observables.
+   * Cleanup logic. Unsubscribes from auth observables to prevent memory leaks.
    */
   ngOnDestroy() {
     this.authSubscription?.unsubscribe();
   }
 
   /**
-   * Alterna la visibilidad del campo de contraseña principal.
-   * Cambia entre mostrar el texto de la contraseña o mostrarla oculta.
+   * Toggles the visibility of the main password input field.
    */
   togglePassword() {
     this.showPassword.update(value &#x3D;&gt; !value);
   }
 
   /**
-   * Alterna la visibilidad del campo de confirmación de contraseña.
-   * Permite al usuario verificar que escribió correctamente la contraseña.
+   * Toggles the visibility of the confirm password input field.
    */
   toggleConfirmPassword() {
     this.showConfirmPassword.update(value &#x3D;&gt; !value);
   }
 
   /**
-   * Navega a la página de login del usuario.
-   * Redirige al componente de login para usuarios que ya tienen cuenta.
+   * Navigates to the user login page.
    */
   goLogin() {
     this.router.navigate([&#x27;/login&#x27;]);
   }
   
   /**
-   * Retorna el mensaje de error correspondiente a un control específico del formulario de registro.
-   * Maneja errores de validación específicos incluyendo coincidencia de contraseñas.
-   * Genera mensajes descriptivos en español para cada tipo de error encontrado.
+   * Resolves the translated validation error message for a specific form control.
+   * @param control - The name of the form control or &#x27;global&#x27; for general errors
+   * @returns Translated error string or empty string if no errors
    */
   getError(control: string): string {
     if (control &#x3D;&#x3D;&#x3D; &#x27;global&#x27;) return this.errorMsg();
@@ -1270,7 +1335,7 @@ export class RegisterComponent implements OnDestroy {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="min-h-screen flex justify-center items-center bg-gray-50 dark:bg-gray-900 px-4 py-10">  <div class="absolute top-4 right-4 flex items-center gap-2 z-10">    <app-language-selector></app-language-selector>    <app-theme-toggle></app-theme-toggle>  </div>  <div    class="rounded-lg max-w-md w-full bg-gradient-to-br from-purple-500 via-blue-600 to-cyan-400 shadow-2xl p-0.5"  >    <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg">      <div class="flex justify-center mb-4">        <img           src="Logo.png"           alt="Meta Force Logo"           class="h-28 sm:h-36 md:h-40 w-auto"        />      </div>      <h1 class="text-center text-gray-900 dark:text-white text-2xl sm:text-3xl font-extrabold mb-1">        {{ \'register.title\' | translate }}      </h1>      <p class="mb-4 sm:mb-5 text-gray-600 dark:text-gray-400 text-xs sm:text-sm text-center">        {{ \'register.subtitle\' | translate }}      </p>      <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">                <div class="mb-4">          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="name">{{ \'register.name\' | translate }}</label>          <div class="relative">            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>            </span>            <input              id="name"              autocomplete="given-name"              formControlName="name"              [placeholder]="\'register.namePlaceholder\' | translate"              class="px-10 h-10 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"              type="text"            />          </div>          @if(formRegister.controls[\'name\'].touched && formRegister.controls[\'name\'].errors){            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">              {{getError(\'name\')}}            </span>          }        </div>        <div class="mb-4">          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="email">{{ \'register.email\' | translate }}</label>          <div class="relative">            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>            </span>            <input              id="email"              autocomplete="email"              formControlName="email"              [placeholder]="\'register.emailPlaceholder\' | translate"              class="px-10 h-10 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"              type="email"            />          </div>          @if(formRegister.controls[\'email\'].touched && formRegister.controls[\'email\'].errors){            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">              {{getError(\'email\')}}            </span>          }        </div>        <div class="mb-4">          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="password">{{ \'register.password\' | translate }}</label>          <div class="relative">            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>            </span>            <input              id="password"              formControlName="password"              autocomplete="new-password"              [type]="showPassword() ? \'text\' : \'password\'"              [placeholder]="\'register.passwordPlaceholder\' | translate"              class="px-10 h-10 w-full rounded-lg border-2 border-gray-700 bg-gray-700 text-white focus:border-cyan-400 focus:ring-cyan-400 transition-colors"            />            <button              type="button"              (click)="togglePassword()"              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"            >              <svg *ngIf="!showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.657 3.841 5.21 6.5 9.566 6.5 2.085 0 4.017-.63 5.617-1.707m-4.79 2.001A7.5 7.5 0 0 1 12 15a7.5 7.5 0 0 1-5.707-2.317M21 21l-18-18"/></svg>              <svg *ngIf="showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>            </button>          </div>          @if(formRegister.controls[\'password\'].touched && formRegister.controls[\'password\'].errors){            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">              {{getError(\'password\')}}            </span>          }        </div>        <div class="mb-4">          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="confirmPassword">{{ \'register.confirmPassword\' | translate }}</label>          <div class="relative">            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>            </span>            <input              id="confirmPassword"              formControlName="confirmPassword"              autocomplete="new-password"              [type]="showConfirmPassword() ? \'text\' : \'password\'"              [placeholder]="\'register.confirmPasswordPlaceholder\' | translate"              class="px-10 h-10 w-full rounded-lg border-2 border-gray-700 bg-gray-700 text-white focus:border-cyan-400 focus:ring-cyan-400 transition-colors"            />            <button              type="button"              (click)="toggleConfirmPassword()"              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"            >              <svg *ngIf="!showConfirmPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.657 3.841 5.21 6.5 9.566 6.5 2.085 0 4.017-.63 5.617-1.707m-4.79 2.001A7.5 7.5 0 0 1 12 15a7.5 7.5 0 0 1-5.707-2.317M21 21l-18-18"/></svg>              <svg *ngIf="showConfirmPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>            </button>          </div>          @if(formRegister.controls[\'confirmPassword\'].touched && (formRegister.controls[\'confirmPassword\'].errors || formRegister.errors?.[\'passwordsDoNotMatch\'])){            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">              {{getError(\'confirmPassword\')}}            </span>          }        </div>        @if(errorMsg()){          <div class="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50 p-2 rounded-lg text-center text-sm mb-4 border border-red-300 dark:border-red-700">            {{ getError(\'global\') }}          </div>        }        <button          class="rounded-lg w-full px-4 py-2.5 sm:py-2 font-bold text-base sm:text-lg bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white shadow-lg transition-all transform hover:scale-[1.01]"          type="submit"          [disabled]="formRegister.invalid"        >          {{ \'register.registerButton\' | translate }}        </button>      </form>      <div class="mt-4 sm:mt-6 text-center text-gray-900 dark:text-white text-xs sm:text-sm">        {{ \'register.alreadyHaveAccount\' | translate }}        <button          type="button"          (click)="goLogin()"          class="underline font-bold text-blue-600 dark:text-cyan-300 hover:text-blue-800 dark:hover:text-white ml-1 transition-colors"        >          {{ \'register.loginLink\' | translate }}        </button>      </div>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
+    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
     var DIRECTIVES = [{'name': 'ClickOutsideDirective', 'selector': '[appClickOutside]'}];
     var ACTUAL_COMPONENT = {'name': 'RegisterComponent'};
 </script>

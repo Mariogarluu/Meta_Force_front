@@ -166,18 +166,31 @@
 /**
  * Detailed information required for a full registration process.
  */
-export interface RegisterInfo{
-    name:string,
-    surname:string,
-    email:string,
-    password:string,
-    confirmPassword:string
+/**
+ * Detailed information required for a full registration process.
+ */
+export interface RegisterInfo {
+  /** User&#x27;s first name */
+  name: string;
+  /** User&#x27;s last name or surname */
+  surname: string;
+  /** User&#x27;s email address */
+  email: string;
+  /** User&#x27;s chosen password */
+  password: string;
+  /** Password confirmation for validation */
+  confirmPassword: string;
 }
 
-export interface Credentials{
-    email:string;
-    password:string;
-}</code></pre>
+/**
+ * Basic login credentials.
+ */
+export interface Credentials {
+  /** Registered email address */
+  email: string;
+  /** Account password */
+  password: string;
+}</code></pre>
     </div>
 </div>
 

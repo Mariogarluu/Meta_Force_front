@@ -12,40 +12,53 @@ import {
  * Service for managing membership plans and their associated data.
  * Provides functionality for listing available plans and administrative CRUD operations.
  */
+/**
+ * Service for managing membership plans and their associated data.
+ * Provides functionality for listing available plans and administrative CRUD operations.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class MembershipsService {
+  /** Injected HttpClient for API requests */
   private http = inject(HttpClient);
+  /** Base API URL for membership operations */
   private apiUrl = `${environment.apiUrl}/memberships`;
 
   /**
-   * Lista todos los planes de membresía.
-   * Los usuarios normales solo ven planes activos.
-   * SUPERADMIN ve todos los planes (activos e inactivos).
+   * Lists all available membership plans.
+   * Regular users see active plans only; SUPERADMIN sees both active and inactive plans.
+   * @returns Observable emitting an array of membership plans
    */
   listMembershipPlans(): Observable<MembershipPlan[]> {
     return this.http.get<MembershipPlan[]>(this.apiUrl);
   }
 
   /**
-   * Obtiene un plan de membresía específico por su ID.
+   * Retrieves a specific membership plan by its ID.
+   * @param id - The ID of the plan to fetch
+   * @returns Observable emitting the membership plan object
    */
   getMembershipPlan(id: string): Observable<MembershipPlan> {
     return this.http.get<MembershipPlan>(`${this.apiUrl}/${id}`);
   }
 
   /**
-   * Crea un nuevo plan de membresía.
-   * Solo accesible para SUPERADMIN.
+   * Creates a new membership plan.
+   * Accessible only to SUPERADMIN.
+   * @param data - Input data for the new membership plan
+   * @returns Observable emitting the created plan
    */
   createMembershipPlan(data: CreateMembershipPlanInput): Observable<MembershipPlan> {
     return this.http.post<MembershipPlan>(this.apiUrl, data);
   }
 
   /**
-   * Actualiza un plan de membresía existente.
-   * Solo accesible para SUPERADMIN.
+   * Updates an existing membership plan.
+   * Accessible only to SUPERADMIN.
+   * @param id - The ID of the plan to update
+   * @param data - The updated plan data
+   * @returns Observable emitting the updated plan
    */
   updateMembershipPlan(
     id: string,
@@ -55,11 +68,14 @@ export class MembershipsService {
   }
 
   /**
-   * Elimina un plan de membresía.
-   * Solo accesible para SUPERADMIN.
+   * Deletes a membership plan from the system.
+   * Accessible only to SUPERADMIN.
+   * @param id - The ID of the plan to delete
+   * @returns Observable emitting void on success
    */
   deleteMembershipPlan(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
+
 

@@ -51,8 +51,14 @@
 <!-- TemplatePlaygroundComponent&#45;&gt;TemplatePlaygroundModule -->
 <g id="edge1" class="edge">
 <title>TemplatePlaygroundComponent&#45;&gt;TemplatePlaygroundModule</title>
-<path fill="none" stroke="black" d="M710,-122.11C710,-141.34 710,-169 710,-169 710,-169 501.8,-169 501.8,-169"/>
-<polygon fill="black" stroke="black" points="501.8,-165.5 491.8,-169 501.8,-172.5 501.8,-165.5"/>
+<path fill="none" stroke="black" d="M743.12,-122.28C743.12,-143.32 743.12,-175 743.12,-175 743.12,-175 501.48,-175 501.48,-175"/>
+<polygon fill="black" stroke="black" points="501.48,-171.5 491.48,-175 501.48,-178.5 501.48,-171.5"/>
+</g>
+<!-- TemplatePlaygroundComponent&#45;&gt;TemplatePlaygroundModule -->
+<g id="edge6" class="edge">
+<title>TemplatePlaygroundComponent&#45;&gt;TemplatePlaygroundModule</title>
+<path fill="none" stroke="black" d="M676.88,-122.02C676.88,-139.37 676.88,-163 676.88,-163 676.88,-163 501.54,-163 501.54,-163"/>
+<polygon fill="black" stroke="black" points="501.54,-159.5 491.54,-163 501.54,-166.5 501.54,-159.5"/>
 </g>
 <!-- TemplatePlaygroundComponent  -->
 <g id="node3" class="node">
@@ -63,8 +69,14 @@
 <!-- TemplatePlaygroundModule&#45;&gt;TemplatePlaygroundComponent  -->
 <g id="edge2" class="edge">
 <title>TemplatePlaygroundModule&#45;&gt;TemplatePlaygroundComponent </title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M403,-187.11C403,-187.11 403,-205.99 403,-205.99"/>
-<polygon fill="black" stroke="black" points="399.5,-205.99 403,-215.99 406.5,-205.99 399.5,-205.99"/>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M373.51,-187.11C373.51,-187.11 373.51,-205.99 373.51,-205.99"/>
+<polygon fill="black" stroke="black" points="370.01,-205.99 373.51,-215.99 377.01,-205.99 370.01,-205.99"/>
+</g>
+<!-- TemplatePlaygroundModule&#45;&gt;TemplatePlaygroundComponent  -->
+<g id="edge7" class="edge">
+<title>TemplatePlaygroundModule&#45;&gt;TemplatePlaygroundComponent </title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M432.49,-187.11C432.49,-187.11 432.49,-205.99 432.49,-205.99"/>
+<polygon fill="black" stroke="black" points="428.99,-205.99 432.49,-215.99 435.99,-205.99 428.99,-205.99"/>
 </g>
 <!-- HbsRenderService -->
 <g id="node4" class="node">
@@ -75,8 +87,14 @@
 <!-- HbsRenderService&#45;&gt;TemplatePlaygroundModule -->
 <g id="edge3" class="edge">
 <title>HbsRenderService&#45;&gt;TemplatePlaygroundModule</title>
-<path fill="none" stroke="black" d="M456.03,-118.75C456.03,-118.75 456.03,-140.59 456.03,-140.59"/>
-<polygon fill="black" stroke="black" points="452.53,-140.59 456.03,-150.59 459.53,-140.59 452.53,-140.59"/>
+<path fill="none" stroke="black" d="M444.21,-116.84C444.21,-116.84 444.21,-140.52 444.21,-140.52"/>
+<polygon fill="black" stroke="black" points="440.71,-140.52 444.21,-150.52 447.71,-140.52 440.71,-140.52"/>
+</g>
+<!-- HbsRenderService&#45;&gt;TemplatePlaygroundModule -->
+<g id="edge8" class="edge">
+<title>HbsRenderService&#45;&gt;TemplatePlaygroundModule</title>
+<path fill="none" stroke="black" d="M467.84,-120.4C467.84,-120.4 467.84,-140.54 467.84,-140.54"/>
+<polygon fill="black" stroke="black" points="464.34,-140.54 467.84,-150.54 471.34,-140.54 464.34,-140.54"/>
 </g>
 <!-- TemplateEditorService -->
 <g id="node5" class="node">
@@ -87,8 +105,14 @@
 <!-- TemplateEditorService&#45;&gt;TemplatePlaygroundModule -->
 <g id="edge4" class="edge">
 <title>TemplateEditorService&#45;&gt;TemplatePlaygroundModule</title>
-<path fill="none" stroke="black" d="M358.56,-119.08C358.56,-119.08 358.56,-140.76 358.56,-140.76"/>
-<polygon fill="black" stroke="black" points="355.06,-140.76 358.56,-150.76 362.06,-140.76 355.06,-140.76"/>
+<path fill="none" stroke="black" d="M373.24,-116.84C373.24,-116.84 373.24,-140.52 373.24,-140.52"/>
+<polygon fill="black" stroke="black" points="369.74,-140.52 373.24,-150.52 376.74,-140.52 369.74,-140.52"/>
+</g>
+<!-- TemplateEditorService&#45;&gt;TemplatePlaygroundModule -->
+<g id="edge9" class="edge">
+<title>TemplateEditorService&#45;&gt;TemplatePlaygroundModule</title>
+<path fill="none" stroke="black" d="M343.88,-120.4C343.88,-120.4 343.88,-140.54 343.88,-140.54"/>
+<polygon fill="black" stroke="black" points="340.38,-140.54 343.88,-150.54 347.38,-140.54 340.38,-140.54"/>
 </g>
 <!-- ZipExportService -->
 <g id="node6" class="node">
@@ -99,8 +123,14 @@
 <!-- ZipExportService&#45;&gt;TemplatePlaygroundModule -->
 <g id="edge5" class="edge">
 <title>ZipExportService&#45;&gt;TemplatePlaygroundModule</title>
-<path fill="none" stroke="black" d="M104,-122.11C104,-141.34 104,-169 104,-169 104,-169 304.5,-169 304.5,-169"/>
-<polygon fill="black" stroke="black" points="304.5,-172.5 314.5,-169 304.5,-165.5 304.5,-172.5"/>
+<path fill="none" stroke="black" d="M130.56,-121.07C130.56,-138.49 130.56,-163 130.56,-163 130.56,-163 304.17,-163 304.17,-163"/>
+<polygon fill="black" stroke="black" points="304.17,-166.5 314.17,-163 304.17,-159.5 304.17,-166.5"/>
+</g>
+<!-- ZipExportService&#45;&gt;TemplatePlaygroundModule -->
+<g id="edge10" class="edge">
+<title>ZipExportService&#45;&gt;TemplatePlaygroundModule</title>
+<path fill="none" stroke="black" d="M77.44,-121.19C77.44,-142.2 77.44,-175 77.44,-175 77.44,-175 304.47,-175 304.47,-175"/>
+<polygon fill="black" stroke="black" points="304.47,-178.5 314.47,-175 304.47,-171.5 304.47,-178.5"/>
 </g>
 </g>
 </svg>

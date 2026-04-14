@@ -4,32 +4,33 @@ import { HttpClient } from '@angular/common/http';
 import { isPlatformBrowser } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
 
+/** Supported UI languages for internationalization */
 export type Language = 'es' | 'en' | 'fr';
 
 /**
- * Servicio de traducción que gestiona la internacionalización de la aplicación.
- * Utiliza ngx-translate para cargar y gestionar traducciones en múltiples idiomas.
- * Soporta español (por defecto), inglés y francés.
- * Las traducciones se cargan desde archivos JSON en assets/i18n/.
- */
-/**
  * Service for managing application internationalization (i18n).
  * Handles language switching, translation loading, and persistent user preferences.
+ * Supports Spanish (default), English, and French.
  */
 @Injectable({
   providedIn: 'root'
 })
 export class TranslationService {
+  /** Current active language signal */
   private _language = signal<Language>('es');
+  /** Injected HttpClient for translation file loading fallback */
   private http = inject(HttpClient);
+  /** Injected PLATFORM_ID to detect browser environment */
   private platformId = inject(PLATFORM_ID);
+  /** Set of languages already loaded into memory */
   private loadedLanguages = new Set<Language>();
   
+  /** Public read-only signal of the current language */
   public readonly language = this._language.asReadonly();
 
   /**
-   * Inicializa el servicio configurando español como idioma por defecto.
-   * Carga las traducciones de forma asíncrona y no bloqueante.
+   * Initializes the service by setting Spanish as default and attempting to load saved preference.
+   * @param ngxTranslate - Injected ngx-translate service
    */
   constructor(private ngxTranslate: NgxTranslateService) {
     if (isPlatformBrowser(this.platformId)) {
@@ -46,8 +47,9 @@ export class TranslationService {
   }
 
   /**
-   * Inicializa las traducciones cargando primero español y luego el idioma guardado.
-   * Si hay algún error, asegura que español esté siempre disponible como fallback.
+   * Initializes translations by loading Spanish first and then the user's saved language.
+   * Ensures Spanish is always available as a fallback.
+   * @returns Promise resolving when initial translations are ready
    */
   private async initializeTranslations() {
     try {
@@ -68,9 +70,9 @@ export class TranslationService {
   }
 
   /**
-   * Carga las traducciones de un idioma específico usando el loader de ngx-translate.
-   * El loader se encarga de cargar los archivos JSON automáticamente.
-   * @param lang - El idioma a cargar ('es', 'en' o 'fr')
+   * Loads translations for a specific language using the ngx-translate loader.
+   * @param lang - The language code ('es', 'en', or 'fr')
+   * @returns Promise resolving when the language is loaded
    */
   private async loadLanguage(lang: Language): Promise<void> {
     if (this.loadedLanguages.has(lang)) {
@@ -94,9 +96,8 @@ export class TranslationService {
   }
 
   /**
-   * Obtiene el idioma inicial desde localStorage o retorna 'es' por defecto.
-   * Valida que el idioma guardado sea uno de los soportados.
-   * @returns El idioma inicial válido o 'es' por defecto
+   * Retrieves the initial language from localStorage or defaults to Spanish.
+   * @returns The initial language code
    */
   private getInitialLanguage(): Language {
     try {
@@ -111,9 +112,9 @@ export class TranslationService {
   }
 
   /**
-   * Establece un idioma específico, carga sus traducciones si es necesario,
-   * actualiza el servicio de traducción y guarda la preferencia en localStorage.
-   * @param language - El idioma a establecer ('es', 'en' o 'fr')
+   * Sets the application language, loads translations if necessary, and persists preference.
+   * @param language - The language code to switch to
+   * @returns Promise resolving when the language switch is complete
    */
   async setLanguage(language: Language) {
     try {
@@ -133,11 +134,10 @@ export class TranslationService {
   }
 
   /**
-   * Obtiene una traducción instantánea por su clave.
-   * Si no existe la traducción, retorna la clave para evitar textos vacíos.
-   * @param key - La clave de traducción (ej: 'common.save')
-   * @param params - Parámetros opcionales para interpolación en la traducción
-   * @returns La traducción o la clave si no existe
+   * Synchronously gets a translation by key.
+   * @param key - Translation key (e.g., 'auth.login')
+   * @param params - Optional interpolation parameters
+   * @returns The translated string or the key if not found
    */
   translate(key: string, params?: any): string {
     const translation = this.ngxTranslate.instant(key, params);
@@ -145,21 +145,20 @@ export class TranslationService {
   }
 
   /**
-   * Método abreviado para obtener una traducción instantánea.
-   * @param key - La clave de traducción
-   * @param params - Parámetros opcionales para interpolación
-   * @returns La traducción o la clave si no existe
+   * Short alias for the translate method.
+   * @param key - Translation key
+   * @param params - Optional interpolation parameters
+   * @returns The translated string
    */
   t(key: string, params?: any): string {
     return this.translate(key, params);
   }
 
   /**
-   * Obtiene una traducción de forma asíncrona mediante un Observable.
-   * Útil cuando se necesita esperar a que las traducciones estén cargadas.
-   * @param key - La clave de traducción
-   * @param params - Parámetros opcionales para interpolación
-   * @returns Un Observable que emite la traducción
+   * Asynchronously gets a translation as an Observable.
+   * @param key - Translation key
+   * @param params - Optional interpolation parameters
+   * @returns Observable emitting the translated string
    */
   get(key: string, params?: any) {
     return this.ngxTranslate.get(key, params);

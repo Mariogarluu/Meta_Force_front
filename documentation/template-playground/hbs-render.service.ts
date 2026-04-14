@@ -1,17 +1,29 @@
 import { Injectable } from '@angular/core';
 
+/** Global Handlebars instance provided by the runtime environment */
 declare const Handlebars: any;
 
+/**
+ * Service for rendering Handlebars templates with dynamic data.
+ * Used for live preview of Compodoc documentation components in the playground.
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class HbsRenderService {
+  /** The local Handlebars instance configured with playground-specific helpers */
   private handlebarsInstance: any;
 
+  /**
+   * Initializes the Handlebars instance and registers required helpers.
+   */
   constructor() {
     this.initializeHandlebars();
   }
 
+  /**
+   * Initializes a new Handlebars instance and registers all required helpers.
+   */
   private initializeHandlebars() {
     // Create a new Handlebars instance for the playground
     this.handlebarsInstance = Handlebars.create();
@@ -20,6 +32,10 @@ export class HbsRenderService {
     this.registerHelpers();
   }
 
+  /**
+   * Registers custom Handlebars helpers for Compodoc template compatibility.
+   * Includes helpers like 'compare', 'unless', 'each', 'if', 'relativeURL', 't', 'orLength', etc.
+   */
   private registerHelpers() {
     // Register the 'compare' helper
     this.handlebarsInstance.registerHelper('compare', (left: any, operator: string, right: any, options: any) => {
@@ -128,6 +144,12 @@ export class HbsRenderService {
     });
   }
 
+  /**
+   * Compiles the template content and wraps it in a basic HTML structure for preview.
+   * @param templateContent - Raw Handlebars template
+   * @param data - Mock data context
+   * @returns Fully rendered HTML document string
+   */
   renderTemplate(templateContent: string, data: any): string {
     try {
       // Create a complete HTML document for preview
@@ -157,7 +179,7 @@ export class HbsRenderService {
         </body>
         </html>
       `;
-    } catch (error) {
+    } catch (error: any) {
       return `
         <!DOCTYPE html>
         <html>
@@ -181,6 +203,11 @@ export class HbsRenderService {
     }
   }
 
+  /**
+   * Generates a sample mock data object representing a component state.
+   * Used as the default context for template rendering.
+   * @returns Comprehensive mock data object
+   */
   getMockData(): any {
     return {
       documentationMainName: 'Sample Documentation',

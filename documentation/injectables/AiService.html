@@ -137,6 +137,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Service for interacting with the AI backend to generate plans and chat with users.
+Supports session persistence and direct plan saving into user profiles.</p>
+
+            </p>
 
 
 
@@ -222,14 +230,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="60"
-                                    class="link-to-prism">src/app/services/ai.service.ts:60</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="117"
+                                    class="link-to-prism">src/app/services/ai.service.ts:117</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Deletes a chat session and its history.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -240,6 +250,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -254,6 +265,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the session to delete</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -263,7 +280,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the deletion result</p>
+
                             </div>
                 </td>
             </tr>
@@ -289,19 +307,25 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="52"
-                                    class="link-to-prism">src/app/services/ai.service.ts:52</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">src/app/services/ai.service.ts:99</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Lists all chat sessions for the authenticated user.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>Observable&lt;ChatSession[]&gt;</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>Observable emitting an array of chat sessions</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -326,14 +350,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="56"
-                                    class="link-to-prism">src/app/services/ai.service.ts:56</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="108"
+                                    class="link-to-prism">src/app/services/ai.service.ts:108</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Saves a structured AI-generated plan into the user&#39;s records.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -344,6 +370,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -358,6 +385,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The structured plan object to save</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -367,7 +400,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the save result</p>
+
                             </div>
                 </td>
             </tr>
@@ -393,14 +427,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="48"
-                                    class="link-to-prism">src/app/services/ai.service.ts:48</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="91"
+                                    class="link-to-prism">src/app/services/ai.service.ts:91</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Sends a message to the AI and retrieves a response, potentially including a plan.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -411,6 +447,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -425,6 +462,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The user&#39;s prompt or question</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>sessionId</td>
@@ -437,6 +480,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Optional: existing session ID to continue a conversation</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -446,7 +495,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the chat response</p>
+
                             </div>
                 </td>
             </tr>
@@ -483,10 +533,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/services/ai.service.ts:46</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">src/app/services/ai.service.ts:83</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Base API URL for AI operations</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -515,10 +571,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/services/ai.service.ts:45</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/services/ai.service.ts:81</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected HttpClient for AI API requests</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -533,64 +595,122 @@ import { HttpClient } from &#x27;@angular/common/http&#x27;;
 import { environment } from &#x27;../../environments/environment&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 
+/**
+ * Represents a workout or diet plan generated by the AI.
+ */
 export interface AiGeneratedPlan {
+    /** The type of plan generated (&#x27;WORKOUT&#x27; for exercises or &#x27;DIET&#x27; for meals) */
     type: &quot;WORKOUT&quot; | &quot;DIET&quot;;
+    /** User-friendly name for the plan (e.g., &#x27;Mass Gain Phase 1&#x27;) */
     name: string;
+    /** Short summary of what the plan contains and its primary goals */
     description: string;
+    /** List of days and their associated items (exercises or meals) */
     days: {
+        /** Day of the week index (0 for Monday, 6 for Sunday) */
         dayOfWeek: number;
+        /** Items included in this specific day (exercises or meals) */
         items: {
+            /** Name of the exercise or meal component */
             name: string;
+            /** Number of sets (Workout only) */
             sets?: number;
+            /** Number of repetitions per set (Workout only) */
             reps?: number;
+            /** Portion size or quantity (Diet only) */
             quantity?: string;
+            /** Additional instructions, technical cues, or context */
             notes?: string;
         }[];
     }[];
 }
 
+/**
+ * Standard response structure for AI chat interactions.
+ */
 export interface ChatResponse {
+    /** Unique identifier for the chat session, used for thread persistence */
     sessionId: string;
+    /** The actual response content from the AI model */
     response: {
+        /** Textual explanation, greeting, or guidance from the AI assistant */
         message: string;
+        /** Optional: a structured plan if one was requested or generated during the turn */
         plan?: AiGeneratedPlan;
     };
 }
 
+/**
+ * Represents a historical or active chat session with the AI.
+ */
 export interface ChatSession {
+    /** Unique session identifier in the database */
     id: string;
+    /** Human-readable title for the session, often summarized from context */
     title: string | null;
+    /** ISO date string of when the session was originally started */
     createdAt: string;
+    /** History of messages exchanged in this session in chronological order */
     messages: {
+        /** Role of the sender (&#x27;user&#x27; for the client or &#x27;assistant&#x27; for the AI) */
         role: string;
+        /** Content text of the message */
         content: string;
+        /** ISO date string of when the message was sent */
         createdAt: string;
     }[];
 }
 
+/**
+ * Service for interacting with the AI backend to generate plans and chat with users.
+ * Supports session persistence and direct plan saving into user profiles.
+ */
 @Injectable({
     providedIn: &#x27;root&#x27;
 })
 export class AiService {
+    /** Injected HttpClient for AI API requests */
     private http &#x3D; inject(HttpClient);
+    /** Base API URL for AI operations */
     private apiUrl &#x3D; &#x60;${environment.apiUrl}/ai&#x60;;
 
+    /**
+     * Sends a message to the AI and retrieves a response, potentially including a plan.
+     * @param message - The user&#x27;s prompt or question
+     * @param sessionId - Optional: existing session ID to continue a conversation
+     * @returns Observable emitting the chat response
+     */
     sendMessage(message: string, sessionId?: string): Observable&lt;ChatResponse&gt; {
         return this.http.post&lt;ChatResponse&gt;(&#x60;${this.apiUrl}/chat&#x60;, { message, sessionId });
     }
 
+    /**
+     * Lists all chat sessions for the authenticated user.
+     * @returns Observable emitting an array of chat sessions
+     */
     getSessions(): Observable&lt;ChatSession[]&gt; {
         return this.http.get&lt;ChatSession[]&gt;(&#x60;${this.apiUrl}/sessions&#x60;);
     }
 
+    /**
+     * Saves a structured AI-generated plan into the user&#x27;s records.
+     * @param plan - The structured plan object to save
+     * @returns Observable emitting the save result
+     */
     savePlan(plan: AiGeneratedPlan): Observable&lt;any&gt; {
         return this.http.post&lt;any&gt;(&#x60;${this.apiUrl}/save-plan&#x60;, { plan });
     }
 
+    /**
+     * Deletes a chat session and its history.
+     * @param sessionId - The ID of the session to delete
+     * @returns Observable emitting the deletion result
+     */
     deleteSession(sessionId: string): Observable&lt;any&gt; {
         return this.http.delete&lt;any&gt;(&#x60;${this.apiUrl}/sessions/${sessionId}&#x60;);
     }
 }
+
 </code></pre>
     </div>
 

@@ -249,10 +249,16 @@ Manages the current user state via Angular signals and handles both cookie-based
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/core/services/auth.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/core/services/auth.service.ts:30</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Initializes the service and attempts to load the user profile if a session exists.</p>
+</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -284,22 +290,25 @@ Manages the current user state via Angular signals and handles both cookie-based
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="37"
-                                    class="link-to-prism">src/app/core/services/auth.service.ts:37</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="46"
+                                    class="link-to-prism">src/app/core/services/auth.service.ts:46</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Obtiene el token JWT del localStorage (legacy). Para sesión segura por cookie
-no se usa; el navegador envía auth_token automáticamente con withCredentials.</p>
+                        <div class="io-description"><p>Retrieves the legacy JWT token from LocalStorage.</p>
 </div>
 
                         <div class="io-description">
                             <b>Returns : </b>    <code>string | null</code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The stored auth token or null</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -326,16 +335,15 @@ no se usa; el navegador envía auth_token automáticamente con withCredentials.<
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="128"
-                                    class="link-to-prism">src/app/core/services/auth.service.ts:128</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="136"
+                                    class="link-to-prism">src/app/core/services/auth.service.ts:136</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Maneja errores HTTP transformándolos en errores manejables.
-Extrae el mensaje de error del cuerpo de la respuesta o usa un mensaje genérico.</p>
+                        <div class="io-description"><p>Generic error handler for authentication HTTP requests.</p>
 </div>
 
                             <div class="io-description">
@@ -347,6 +355,7 @@ Extrae el mensaje de error del cuerpo de la respuesta o usa un mensaje genérico
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -361,6 +370,12 @@ Extrae el mensaje de error del cuerpo de la respuesta o usa un mensaje genérico
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The HTTP error response</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -370,7 +385,8 @@ Extrae el mensaje de error del cuerpo de la respuesta o usa un mensaje genérico
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable throwing an Error with a user-friendly message</p>
+
                             </div>
                 </td>
             </tr>
@@ -398,17 +414,16 @@ Extrae el mensaje de error del cuerpo de la respuesta o usa un mensaje genérico
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="55"
-                                    class="link-to-prism">src/app/core/services/auth.service.ts:55</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">src/app/core/services/auth.service.ts:63</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Carga el perfil del usuario autenticado desde la API utilizando el token almacenado.
-Actualiza el signal del usuario actual con la información obtenida.
-Si falla la carga, cierra la sesión automáticamente por seguridad.</p>
+                        <div class="io-description"><p>Attempts to load the authenticated user&#39;s profile from the API.
+Cleans up the session if the profile fails to load (e.g., expired session).</p>
 </div>
 
                         <div class="io-description">
@@ -439,17 +454,15 @@ Si falla la carga, cierra la sesión automáticamente por seguridad.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="74"
-                                    class="link-to-prism">src/app/core/services/auth.service.ts:74</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="82"
+                                    class="link-to-prism">src/app/core/services/auth.service.ts:82</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Autentica un usuario con sus credenciales de email y contraseña.
-Realiza una petición POST al endpoint de login y establece la sesión si es exitoso.
-Retorna un Observable que emite la respuesta con el usuario y el token JWT.</p>
+                        <div class="io-description"><p>Authenticates a user with email and password credentials.</p>
 </div>
 
                             <div class="io-description">
@@ -461,6 +474,7 @@ Retorna un Observable que emite la respuesta con el usuario y el token JWT.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -475,6 +489,12 @@ Retorna un Observable que emite la respuesta con el usuario y el token JWT.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>User&#39;s login email and password</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -484,7 +504,8 @@ Retorna un Observable que emite la respuesta con el usuario y el token JWT.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the authentication response</p>
+
                             </div>
                 </td>
             </tr>
@@ -510,16 +531,15 @@ Retorna un Observable que emite la respuesta con el usuario y el token JWT.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="102"
-                                    class="link-to-prism">src/app/core/services/auth.service.ts:102</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="110"
+                                    class="link-to-prism">src/app/core/services/auth.service.ts:110</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Cierra la sesión del usuario eliminando el token del localStorage y limpiando el usuario actual.
-Debe llamarse cuando el usuario hace logout o cuando se detecta una sesión inválida.</p>
+                        <div class="io-description"><p>Logs out the user by calling the API logout endpoint and clearing local state.</p>
 </div>
 
                         <div class="io-description">
@@ -550,16 +570,15 @@ Debe llamarse cuando el usuario hace logout o cuando se detecta una sesión inv�
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="120"
-                                    class="link-to-prism">src/app/core/services/auth.service.ts:120</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="127"
+                                    class="link-to-prism">src/app/core/services/auth.service.ts:127</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Recarga el perfil del usuario desde la API actualizando la información en el signal.
-Útil para refrescar los datos del usuario después de actualizaciones en el backend.</p>
+                        <div class="io-description"><p>Reloads the authenticated user&#39;s profile from the API.</p>
 </div>
 
                         <div class="io-description">
@@ -590,17 +609,16 @@ Debe llamarse cuando el usuario hace logout o cuando se detecta una sesión inv�
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="86"
-                                    class="link-to-prism">src/app/core/services/auth.service.ts:86</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/app/core/services/auth.service.ts:95</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Registra un nuevo usuario en el sistema.
-Realiza una petición POST al endpoint de registro y establece la sesión automáticamente.
-Retorna un Observable que emite la respuesta con el usuario creado y el token JWT.</p>
+                        <div class="io-description"><p>Registers a new user in the system.
+Automatically establishes a session if the new user&#39;s status is ACTIVE.</p>
 </div>
 
                             <div class="io-description">
@@ -612,6 +630,7 @@ Retorna un Observable que emite la respuesta con el usuario creado y el token JW
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -626,6 +645,12 @@ Retorna un Observable que emite la respuesta con el usuario creado y el token JW
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>User registration information</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -635,7 +660,8 @@ Retorna un Observable que emite la respuesta con el usuario creado y el token JW
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the authentication response</p>
+
                             </div>
                 </td>
             </tr>
@@ -663,16 +689,15 @@ Retorna un Observable que emite la respuesta con el usuario creado y el token JW
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="45"
-                                    class="link-to-prism">src/app/core/services/auth.service.ts:45</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="54"
+                                    class="link-to-prism">src/app/core/services/auth.service.ts:54</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Establece la sesión del usuario guardando el token JWT y actualizando el signal del usuario actual.
-Almacena el token en localStorage para persistencia entre recargas de página.</p>
+                        <div class="io-description"><p>Establishes a user session by storing the JWT and updating the current user signal.</p>
 </div>
 
                             <div class="io-description">
@@ -684,6 +709,7 @@ Almacena el token en localStorage para persistencia entre recargas de página.</
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -698,6 +724,12 @@ Almacena el token en localStorage para persistencia entre recargas de página.</
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Authentication response containing user and token</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -744,10 +776,16 @@ Almacena el token en localStorage para persistencia entre recargas de página.</
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/core/services/auth.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/core/services/auth.service.ts:22</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Internal signal for the currently authenticated user</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -776,10 +814,16 @@ Almacena el token en localStorage para persistencia entre recargas de página.</
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/core/services/auth.service.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/core/services/auth.service.ts:28</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>ReplaySubject emitting true once the initial user profile load attempt finishes</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -808,10 +852,16 @@ Almacena el token en localStorage para persistencia entre recargas de página.</
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/core/services/auth.service.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/core/services/auth.service.ts:20</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Base API URL for authentication operations</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -841,10 +891,16 @@ Almacena el token en localStorage para persistencia entre recargas de página.</
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/core/services/auth.service.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/core/services/auth.service.ts:25</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Public read-only signal for the current user</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -873,10 +929,16 @@ Almacena el token en localStorage para persistencia entre recargas de página.</
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/core/services/auth.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/core/services/auth.service.ts:18</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected HttpClient for authentication API calls</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -906,10 +968,16 @@ Almacena el token en localStorage para persistencia entre recargas de página.</
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/core/services/auth.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/core/services/auth.service.ts:30</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Observable tracking if the initial authentication check is complete</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -935,16 +1003,25 @@ import { environment } from &#x27;../../../environments/environment&#x27;;
   providedIn: &#x27;root&#x27;
 })
 export class AuthService {
+  /** Injected HttpClient for authentication API calls */
   private http &#x3D; inject(HttpClient);
+  /** Base API URL for authentication operations */
   private apiUrl &#x3D; &#x60;${environment.apiUrl}/auth&#x60;;
+  /** Internal signal for the currently authenticated user */
   private _currentUser &#x3D; signal&lt;User | null&gt;(null);
 
+  /** Public read-only signal for the current user */
   public readonly currentUser &#x3D; this._currentUser.asReadonly();
 
+  /** ReplaySubject emitting true once the initial user profile load attempt finishes */
   private _initialLoadComplete &#x3D; new ReplaySubject&lt;boolean&gt;(1);
+  /** Observable tracking if the initial authentication check is complete */
   public readonly initialLoadComplete &#x3D; this._initialLoadComplete.asObservable();
 
 
+  /**
+   * Initializes the service and attempts to load the user profile if a session exists.
+   */
   constructor() {
     // Siempre intentar cargar perfil: puede haber sesión por cookie (HttpOnly)
     // o token legacy en localStorage. Si falla (401), loadUserProfile maneja el error.
@@ -952,16 +1029,16 @@ export class AuthService {
   }
 
   /**
-   * Obtiene el token JWT del localStorage (legacy). Para sesión segura por cookie
-   * no se usa; el navegador envía auth_token automáticamente con withCredentials.
+   * Retrieves the legacy JWT token from LocalStorage.
+   * @returns The stored auth token or null
    */
   private getToken(): string | null {
     return localStorage.getItem(&#x27;auth_token&#x27;);
   }
 
   /**
-   * Establece la sesión del usuario guardando el token JWT y actualizando el signal del usuario actual.
-   * Almacena el token en localStorage para persistencia entre recargas de página.
+   * Establishes a user session by storing the JWT and updating the current user signal.
+   * @param authResult - Authentication response containing user and token
    */
   private setSession(authResult: AuthResponse) {
     localStorage.setItem(&#x27;auth_token&#x27;, authResult.token);
@@ -969,9 +1046,8 @@ export class AuthService {
   }
 
   /**
-   * Carga el perfil del usuario autenticado desde la API utilizando el token almacenado.
-   * Actualiza el signal del usuario actual con la información obtenida.
-   * Si falla la carga, cierra la sesión automáticamente por seguridad.
+   * Attempts to load the authenticated user&#x27;s profile from the API.
+   * Cleans up the session if the profile fails to load (e.g., expired session).
    */
   private loadUserProfile() {
     this.http.get&lt;User&gt;(&#x60;${environment.apiUrl}/users/me&#x60;).pipe(
@@ -988,9 +1064,9 @@ export class AuthService {
   }
 
   /**
-   * Autentica un usuario con sus credenciales de email y contraseña.
-   * Realiza una petición POST al endpoint de login y establece la sesión si es exitoso.
-   * Retorna un Observable que emite la respuesta con el usuario y el token JWT.
+   * Authenticates a user with email and password credentials.
+   * @param credentials - User&#x27;s login email and password
+   * @returns Observable emitting the authentication response
    */
   login(credentials: AuthInput): Observable&lt;AuthResponse&gt; {
     return this.http.post&lt;AuthResponse&gt;(&#x60;${this.apiUrl}/login&#x60;, credentials).pipe(
@@ -1000,9 +1076,10 @@ export class AuthService {
   }
 
   /**
-   * Registra un nuevo usuario en el sistema.
-   * Realiza una petición POST al endpoint de registro y establece la sesión automáticamente.
-   * Retorna un Observable que emite la respuesta con el usuario creado y el token JWT.
+   * Registers a new user in the system.
+   * Automatically establishes a session if the new user&#x27;s status is ACTIVE.
+   * @param data - User registration information
+   * @returns Observable emitting the authentication response
    */
   register(data: RegisterInput): Observable&lt;AuthResponse&gt; {
     return this.http.post&lt;AuthResponse&gt;(&#x60;${this.apiUrl}/register&#x60;, data).pipe(
@@ -1017,8 +1094,7 @@ export class AuthService {
   }
 
   /**
-   * Cierra la sesión del usuario eliminando el token del localStorage y limpiando el usuario actual.
-   * Debe llamarse cuando el usuario hace logout o cuando se detecta una sesión inválida.
+   * Logs out the user by calling the API logout endpoint and clearing local state.
    */
   logout() {
     // Llamar al endpoint de logout para borrar la cookie
@@ -1035,22 +1111,22 @@ export class AuthService {
   }
 
   /**
-   * Recarga el perfil del usuario desde la API actualizando la información en el signal.
-   * Útil para refrescar los datos del usuario después de actualizaciones en el backend.
+   * Reloads the authenticated user&#x27;s profile from the API.
    */
   refreshUser() {
     this.loadUserProfile();
   }
 
   /**
-   * Maneja errores HTTP transformándolos en errores manejables.
-   * Extrae el mensaje de error del cuerpo de la respuesta o usa un mensaje genérico.
+   * Generic error handler for authentication HTTP requests.
+   * @param error - The HTTP error response
+   * @returns Observable throwing an Error with a user-friendly message
    */
   private handleError(error: HttpErrorResponse) {
     const errorMessage &#x3D; error.error?.message || &#x27;Error desconocido&#x27;;
     return throwError(() &#x3D;&gt; new Error(errorMessage));
   }
-}</code></pre>
+}</code></pre>
     </div>
 
 </div>

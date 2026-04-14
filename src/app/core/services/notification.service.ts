@@ -12,19 +12,28 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class NotificationService implements OnDestroy {
+  /** Injected HttpClient for notification API calls */
   private http = inject(HttpClient);
+  /** Injected AuthService to check user authentication state */
   private auth = inject(AuthService);
+  /** Base API URL for notification operations */
   private apiUrl = `${environment.apiUrl}/notifications`;
+  /** ID of the polling interval, used for cleanup on destroy */
   private intervalId: any;
 
-  // Estado reactivo
+  /** Reactive signal for the list of notifications */
   private _notifications = signal<Notification[]>([]);
+  /** Reactive signal for the count of unread notifications */
   private _unreadCount = signal<number>(0);
 
-  // Exponer señales de lectura
+  /** Public read-only signal of the notifications list */
   public notifications = this._notifications.asReadonly();
+  /** Public read-only signal of the unread count */
   public unreadCount = this._unreadCount.asReadonly();
 
+  /**
+   * Initializes the service and starts polling if a user is already authenticated.
+   */
   constructor() {
     // Iniciar polling solo si hay usuario
     if (this.auth.currentUser()) {
@@ -32,6 +41,9 @@ export class NotificationService implements OnDestroy {
     }
   }
 
+  /**
+   * Starts the polling mechanism to periodically fetch the unread notification count.
+   */
   startPolling() {
     this.loadNotifications();
     this.loadUnreadCount();
@@ -44,10 +56,16 @@ export class NotificationService implements OnDestroy {
     }, 60000);
   }
 
+  /**
+   * Lifecycle hook that cleans up the interval timer when the service is destroyed.
+   */
   ngOnDestroy() {
     if (this.intervalId) clearInterval(this.intervalId);
   }
 
+  /**
+   * Loads the full list of notifications from the server.
+   */
   loadNotifications() {
     this.http.get<Notification[]>(this.apiUrl).subscribe({
       next: (data) => this._notifications.set(data),
@@ -55,6 +73,9 @@ export class NotificationService implements OnDestroy {
     });
   }
 
+  /**
+   * Loads the unread notification count from the server.
+   */
   loadUnreadCount() {
     this.http.get<{ count: number }>(`${this.apiUrl}/unread-count`).subscribe({
       next: (data) => this._unreadCount.set(data.count),
@@ -62,6 +83,11 @@ export class NotificationService implements OnDestroy {
     });
   }
 
+  /**
+   * Marks a specific notification as read.
+   * Performs an optimistic update of the local state.
+   * @param id - The ID of the notification to mark as read
+   */
   markAsRead(id: string) {
     // Actualización optimista
     this._notifications.update(list => 
@@ -78,10 +104,13 @@ export class NotificationService implements OnDestroy {
     });
   }
 
+  /**
+   * Marks all notifications as read for the current user.
+   */
   markAllAsRead() {
     this._notifications.update(list => list.map(n => ({ ...n, read: true })));
     this._unreadCount.set(0);
 
     return this.http.patch(`${this.apiUrl}/read-all`, {}).subscribe();
   }
-}
+}

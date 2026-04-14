@@ -245,10 +245,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/core/services/notification.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/core/services/notification.service.ts:32</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Initializes the service and starts polling if a user is already authenticated.</p>
+</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -278,14 +284,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="51"
-                                    class="link-to-prism">src/app/core/services/notification.service.ts:51</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="69"
+                                    class="link-to-prism">src/app/core/services/notification.service.ts:69</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Loads the full list of notifications from the server.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -315,14 +323,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="58"
-                                    class="link-to-prism">src/app/core/services/notification.service.ts:58</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/app/core/services/notification.service.ts:79</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Loads the unread notification count from the server.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -352,14 +362,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="81"
-                                    class="link-to-prism">src/app/core/services/notification.service.ts:81</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="110"
+                                    class="link-to-prism">src/app/core/services/notification.service.ts:110</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Marks all notifications as read for the current user.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
@@ -389,14 +401,17 @@ Implements a polling mechanism to keep the notification state synchronized with 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="65"
-                                    class="link-to-prism">src/app/core/services/notification.service.ts:65</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="91"
+                                    class="link-to-prism">src/app/core/services/notification.service.ts:91</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Marks a specific notification as read.
+Performs an optimistic update of the local state.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -407,6 +422,7 @@ Implements a polling mechanism to keep the notification state synchronized with 
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -421,6 +437,12 @@ Implements a polling mechanism to keep the notification state synchronized with 
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the notification to mark as read</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -456,14 +478,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="47"
-                                    class="link-to-prism">src/app/core/services/notification.service.ts:47</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="62"
+                                    class="link-to-prism">src/app/core/services/notification.service.ts:62</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Lifecycle hook that cleans up the interval timer when the service is destroyed.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -493,14 +517,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">src/app/core/services/notification.service.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/app/core/services/notification.service.ts:47</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Starts the polling mechanism to periodically fetch the unread notification count.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -541,10 +567,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/core/services/notification.service.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/core/services/notification.service.ts:25</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Reactive signal for the list of notifications</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -573,10 +605,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/core/services/notification.service.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/core/services/notification.service.ts:27</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Reactive signal for the count of unread notifications</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -605,10 +643,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/core/services/notification.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/core/services/notification.service.ts:20</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Base API URL for notification operations</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -637,10 +681,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/core/services/notification.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/core/services/notification.service.ts:18</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected AuthService to check user authentication state</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -669,10 +719,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/core/services/notification.service.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/core/services/notification.service.ts:16</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected HttpClient for notification API calls</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -696,10 +752,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/core/services/notification.service.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/core/services/notification.service.ts:22</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>ID of the polling interval, used for cleanup on destroy</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -728,10 +790,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/core/services/notification.service.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/core/services/notification.service.ts:30</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Public read-only signal of the notifications list</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -760,10 +828,16 @@ Implements a polling mechanism to keep the notification state synchronized with 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/core/services/notification.service.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/core/services/notification.service.ts:32</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Public read-only signal of the unread count</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -787,19 +861,28 @@ import { AuthService } from &#x27;./auth.service&#x27;;
   providedIn: &#x27;root&#x27;
 })
 export class NotificationService implements OnDestroy {
+  /** Injected HttpClient for notification API calls */
   private http &#x3D; inject(HttpClient);
+  /** Injected AuthService to check user authentication state */
   private auth &#x3D; inject(AuthService);
+  /** Base API URL for notification operations */
   private apiUrl &#x3D; &#x60;${environment.apiUrl}/notifications&#x60;;
+  /** ID of the polling interval, used for cleanup on destroy */
   private intervalId: any;
 
-  // Estado reactivo
+  /** Reactive signal for the list of notifications */
   private _notifications &#x3D; signal&lt;Notification[]&gt;([]);
+  /** Reactive signal for the count of unread notifications */
   private _unreadCount &#x3D; signal&lt;number&gt;(0);
 
-  // Exponer señales de lectura
+  /** Public read-only signal of the notifications list */
   public notifications &#x3D; this._notifications.asReadonly();
+  /** Public read-only signal of the unread count */
   public unreadCount &#x3D; this._unreadCount.asReadonly();
 
+  /**
+   * Initializes the service and starts polling if a user is already authenticated.
+   */
   constructor() {
     // Iniciar polling solo si hay usuario
     if (this.auth.currentUser()) {
@@ -807,6 +890,9 @@ export class NotificationService implements OnDestroy {
     }
   }
 
+  /**
+   * Starts the polling mechanism to periodically fetch the unread notification count.
+   */
   startPolling() {
     this.loadNotifications();
     this.loadUnreadCount();
@@ -819,10 +905,16 @@ export class NotificationService implements OnDestroy {
     }, 60000);
   }
 
+  /**
+   * Lifecycle hook that cleans up the interval timer when the service is destroyed.
+   */
   ngOnDestroy() {
     if (this.intervalId) clearInterval(this.intervalId);
   }
 
+  /**
+   * Loads the full list of notifications from the server.
+   */
   loadNotifications() {
     this.http.get&lt;Notification[]&gt;(this.apiUrl).subscribe({
       next: (data) &#x3D;&gt; this._notifications.set(data),
@@ -830,6 +922,9 @@ export class NotificationService implements OnDestroy {
     });
   }
 
+  /**
+   * Loads the unread notification count from the server.
+   */
   loadUnreadCount() {
     this.http.get&lt;{ count: number }&gt;(&#x60;${this.apiUrl}/unread-count&#x60;).subscribe({
       next: (data) &#x3D;&gt; this._unreadCount.set(data.count),
@@ -837,6 +932,11 @@ export class NotificationService implements OnDestroy {
     });
   }
 
+  /**
+   * Marks a specific notification as read.
+   * Performs an optimistic update of the local state.
+   * @param id - The ID of the notification to mark as read
+   */
   markAsRead(id: string) {
     // Actualización optimista
     this._notifications.update(list &#x3D;&gt; 
@@ -853,13 +953,16 @@ export class NotificationService implements OnDestroy {
     });
   }
 
+  /**
+   * Marks all notifications as read for the current user.
+   */
   markAllAsRead() {
     this._notifications.update(list &#x3D;&gt; list.map(n &#x3D;&gt; ({ ...n, read: true })));
     this._unreadCount.set(0);
 
     return this.http.patch(&#x60;${this.apiUrl}/read-all&#x60;, {}).subscribe();
   }
-}</code></pre>
+}</code></pre>
     </div>
 
 </div>

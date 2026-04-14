@@ -331,9 +331,15 @@ real-time notifications, and session management.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:32</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:36</a></div>
                             </td>
                         </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Input signal determining whether to display the QR access button</p>
+</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -365,14 +371,16 @@ real-time notifications, and session management.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="52"
-                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:52</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="66"
+                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:66</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Explicitly closes the mobile navigation menu.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -402,16 +410,16 @@ real-time notifications, and session management.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="95"
-                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:95</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="126"
+                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:126</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Cierra el dropdown de notificaciones cuando se hace clic fuera.
-Se llama desde la directiva ClickOutsideDirective.</p>
+                        <div class="io-description"><p>Closes the notifications dropdown when clicking outside its area.
+Invoked via ClickOutsideDirective.</p>
 </div>
 
                         <div class="io-description">
@@ -442,14 +450,16 @@ Se llama desde la directiva ClickOutsideDirective.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="62"
-                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:62</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:84</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Resolves the profile image URL, falling back to a default if none is provided.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -460,6 +470,7 @@ Se llama desde la directiva ClickOutsideDirective.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -474,6 +485,12 @@ Se llama desde la directiva ClickOutsideDirective.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The custom profile image URL string</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -483,7 +500,8 @@ Se llama desde la directiva ClickOutsideDirective.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The resolved image URL to display</p>
+
                             </div>
                 </td>
             </tr>
@@ -509,14 +527,17 @@ Se llama desde la directiva ClickOutsideDirective.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="76"
-                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:76</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="104"
+                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:104</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Handles a click on a notification item.
+Marks as read and navigates to the associated link if present.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -527,6 +548,7 @@ Se llama desde la directiva ClickOutsideDirective.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -541,6 +563,12 @@ Se llama desde la directiva ClickOutsideDirective.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The notification entity clicked</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -576,14 +604,16 @@ Se llama desde la directiva ClickOutsideDirective.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="56"
-                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:56</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="73"
+                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:73</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Terminates the user session and redirects to the login page.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -613,14 +643,16 @@ Se llama desde la directiva ClickOutsideDirective.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="87"
-                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:87</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="118"
+                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:118</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Marks all notifications in the user&#39;s history as read.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -650,14 +682,16 @@ Se llama desde la directiva ClickOutsideDirective.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="48"
-                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:48</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:59</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the mobile navigation menu.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -687,14 +721,16 @@ Se llama desde la directiva ClickOutsideDirective.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="67"
-                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:67</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="91"
+                                    class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:91</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the notifications dropdown and refreshes data if opening.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -734,10 +770,16 @@ Se llama desde la directiva ClickOutsideDirective.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:29</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected AuthService for session state and logout</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -765,10 +807,16 @@ Se llama desde la directiva ClickOutsideDirective.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:51</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal tracking the open/closed state of the mobile hamburger menu</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -803,10 +851,17 @@ Se llama desde la directiva ClickOutsideDirective.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:42</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>List of main navigation links for the menu.
+Each entry contains a label, a router path, a translation key, and an exact match flag.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -834,10 +889,16 @@ Se llama desde la directiva ClickOutsideDirective.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:33</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected NotificationService for fetching and managing user alerts</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -865,10 +926,16 @@ Se llama desde la directiva ClickOutsideDirective.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:31</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected Router for programmatic navigation</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -896,10 +963,16 @@ Se llama desde la directiva ClickOutsideDirective.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:46</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/shared/components/navbar/navbar.component.ts:54</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal tracking the visibility of the notifications dropdown</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -920,6 +993,7 @@ import { NotificationService } from &#x27;../../../core/services/notification.se
 import { Notification } from &#x27;../../../core/models/notification&#x27;;
 import { ClickOutsideDirective } from &#x27;../../directives/click-outside.directive&#x27;;
 
+/** Default fallback image URL for user profiles when no custom image is provided */
 const DEFAULT_PROFILE_IMAGE_URL &#x3D; &#x27;https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg&#x27;;
 
 /**
@@ -935,13 +1009,20 @@ const DEFAULT_PROFILE_IMAGE_URL &#x3D; &#x27;https://res.cloudinary.com/dbzbik0z
   styleUrl: &#x27;./navbar.component.scss&#x27;
 })
 export class NavbarComponent {
+  /** Injected AuthService for session state and logout */
   auth &#x3D; inject(AuthService);
+  /** Injected Router for programmatic navigation */
   router &#x3D; inject(Router);
+  /** Injected NotificationService for fetching and managing user alerts */
   notificationService &#x3D; inject(NotificationService);
   
-  // Input opcional para mostrar QR solo en el dashboard
+  /** Input signal determining whether to display the QR access button */
   showQR &#x3D; input&lt;boolean&gt;(false);
 
+  /** 
+   * List of main navigation links for the menu.
+   * Each entry contains a label, a router path, a translation key, and an exact match flag.
+   */
   readonly navLinks &#x3D; [
     { label: &#x27;Inicio&#x27;, path: &#x27;/&#x27;, key: &#x27;nav.home&#x27;, exact: true },
     { label: &#x27;Clases&#x27;, path: &#x27;/clases&#x27;, key: &#x27;nav.classes&#x27;, exact: false }, 
@@ -950,40 +1031,60 @@ export class NavbarComponent {
     { label: &#x27;Membresías&#x27;, path: &#x27;/memberships&#x27;, key: &#x27;nav.memberships&#x27;, exact: false }
   ];
 
-  // Estado del menú móvil
+  /** Signal tracking the open/closed state of the mobile hamburger menu */
   isMobileMenuOpen &#x3D; signal(false);
   
-  // Estado de notificaciones
+  /** Signal tracking the visibility of the notifications dropdown */
   showNotifications &#x3D; signal(false);
 
+  /**
+   * Toggles the mobile navigation menu.
+   */
   toggleMobileMenu(): void {
     this.isMobileMenuOpen.update(open &#x3D;&gt; !open);
   }
 
+  /**
+   * Explicitly closes the mobile navigation menu.
+   */
   closeMobileMenu(): void {
     this.isMobileMenuOpen.set(false);
   }
 
+  /**
+   * Terminates the user session and redirects to the login page.
+   */
   logout(): void {
     this.auth.logout();
     this.router.navigate([&#x27;/login&#x27;]);
     this.closeMobileMenu();
   }
 
+  /**
+   * Resolves the profile image URL, falling back to a default if none is provided.
+   * @param profileImageUrl - The custom profile image URL string
+   * @returns The resolved image URL to display
+   */
   getProfileImageUrl(profileImageUrl: string | null | undefined): string {
     return profileImageUrl ? profileImageUrl : DEFAULT_PROFILE_IMAGE_URL;
   }
 
-  // --- LÓGICA DE NOTIFICACIONES ---
+  /**
+   * Toggles the notifications dropdown and refreshes data if opening.
+   */
   toggleNotifications() {
     const newState &#x3D; !this.showNotifications();
     this.showNotifications.set(newState);
     if (newState) {
-      // Recargar al abrir para asegurar datos frescos
       this.notificationService.loadNotifications();
     }
   }
 
+  /**
+   * Handles a click on a notification item.
+   * Marks as read and navigates to the associated link if present.
+   * @param notification - The notification entity clicked
+   */
   handleNotificationClick(notification: Notification) {
     if (!notification.read) {
       this.notificationService.markAsRead(notification.id);
@@ -995,13 +1096,16 @@ export class NavbarComponent {
     }
   }
 
+  /**
+   * Marks all notifications in the user&#x27;s history as read.
+   */
   markAllRead() {
     this.notificationService.markAllAsRead();
   }
 
   /**
-   * Cierra el dropdown de notificaciones cuando se hace clic fuera.
-   * Se llama desde la directiva ClickOutsideDirective.
+   * Closes the notifications dropdown when clicking outside its area.
+   * Invoked via ClickOutsideDirective.
    */
   closeNotifications() {
     this.showNotifications.set(false);
@@ -1252,7 +1356,7 @@ export class NavbarComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><header class="navbar">  <div class="navbar__inner relative">    <a routerLink="/" class="navbar__brand" aria-label="Meta Force Inicio">      <img src="/Logo.png" alt="Meta Force" class="navbar__logo" />    </a>    <button       class="navbar__hamburger"      (click)="toggleMobileMenu()"      [attr.aria-expanded]="isMobileMenuOpen()"      aria-label="Toggle menu"      aria-controls="mobile-menu">      <span class="navbar__hamburger-line" [class.active]="isMobileMenuOpen()"></span>      <span class="navbar__hamburger-line" [class.active]="isMobileMenuOpen()"></span>      <span class="navbar__hamburger-line" [class.active]="isMobileMenuOpen()"></span>    </button>    <nav class="navbar__menu">      @for (link of navLinks; track link.path) {        <a          [routerLink]="link.path"          [routerLinkActiveOptions]="{ exact: link.exact }"          routerLinkActive="active"          class="navbar__link"          (click)="closeMobileMenu()">         {{ (link.key | translate) || link.label }}        </a>      }    </nav>    <div class="navbar__actions flex items-center gap-3">      <div class="flex items-center gap-2">                <app-language-selector></app-language-selector>        @if (auth.currentUser()) {          <div class="relative" appClickOutside (clickOutside)="closeNotifications()">            <button               type="button"               class="notification-btn p-2 rounded-lg transition-colors bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 relative flex items-center justify-center"               (click)="toggleNotifications()"              aria-label="Notificaciones">              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />              </svg>                            @if (notificationService.unreadCount() > 0) {                <span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full min-w-[18px] flex justify-center items-center animate-pulse shadow-sm border-2 border-white dark:border-gray-800">                {{ notificationService.unreadCount() > 9 ? \'9+\' : notificationService.unreadCount() }}                </span>              }            </button>                  @if (showNotifications()) {              <div class="notification-dropdown absolute right-0 mt-2 w-80 sm:w-96 max-w-[90vw] bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden z-50 origin-top-right">                                <div class="p-3 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900">                  <h3 class="font-bold text-gray-800 dark:text-white text-sm">Notificaciones</h3>                  @if (notificationService.unreadCount() > 0) {                    <button (click)="markAllRead()" class="text-xs text-blue-600 dark:text-blue-400 hover:underline font-medium">                      Marcar todas leídas                    </button>                  }                </div>                      <div class="max-h-[400px] overflow-y-auto bg-white dark:bg-gray-800">                  @if (notificationService.notifications().length === 0) {                    <div class="p-8 text-center text-gray-500 dark:text-gray-400">                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 mx-auto mb-2 opacity-50">                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.143 17.082a24.248 24.248 0 0 0 3.844.148m-3.844-.148a23.856 23.856 0 0 1-5.455-1.31 8.964 8.964 0 0 0 2.3-6.062m3.155 6.062a23.789 23.789 0 0 1-5.455 1.31 8.99 8.99 0 0 0 2.3 6.062M15 9.75a3 3 0 1 1-6 0m6 0a3 3 0 1 0-6 0m6 0v.75A6 6 0 0 1 9.75 15v.75M15 9.75v.75m0 0v.75A6 6 0 0 1 9.75 15m5.25 0v.75a6 6 0 0 1-5.25 5.5v-.75" />                      </svg>                      <p class="text-sm">No tienes notificaciones</p>                    </div>                  }                        @for (notification of notificationService.notifications(); track notification.id) {                    <div                       (click)="handleNotificationClick(notification)"                      class="p-4 border-b border-gray-100 dark:border-gray-700 transition-colors cursor-pointer relative group flex gap-3"                      [class.bg-blue-50]="!notification.read"                      [class.dark:bg-gray-700]="!notification.read"                       [class.bg-white]="notification.read"                      [class.dark:bg-gray-800]="notification.read"                      [class.hover:bg-gray-100]="true"                      [class.dark:hover:bg-gray-600]="true">                                            <div class="mt-1 flex-shrink-0">                        @switch (notification.type) {                          @case (\'WARNING\') {                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-amber-500">                              <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />                            </svg>                          }                          @case (\'SUCCESS\') {                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-500">                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />                            </svg>                          }                          @case (\'ERROR\') {                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-red-500">                              <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />                            </svg>                          }                          @default {                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-blue-500">                              <path stroke-linecap="round" stroke-linejoin="round" d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />                            </svg>                          }                        }                      </div>                                  <div class="flex-1">                        <p class="text-sm font-semibold text-gray-900 dark:text-white mb-0.5">                          {{ notification.title }}                        </p>                        <p class="text-xs text-gray-600 dark:text-gray-300 leading-relaxed">                          {{ notification.message }}                        </p>                        <p class="text-[10px] text-gray-400 dark:text-gray-500 mt-2 font-medium">                          {{ notification.createdAt | date:\'dd MMM, HH:mm\' }}                        </p>                      </div>                            @if (!notification.read) {                        <div class="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>                      }                    </div>                  }                </div>              </div>            }          </div>        }        <app-theme-toggle></app-theme-toggle>      </div>      @if (!auth.currentUser()) {        <a routerLink="/login" class="navbar__login">          {{ \'nav.login\' | translate }}        </a>        <a routerLink="/register" class="navbar__login" style="background: #9333ea;">          {{ (\'nav.register\' | translate) || \'Registrarse\' }}        </a>      } @else {        @if (showQR()) {          <a             routerLink="/qr"            class="px-3 sm:px-4 py-2 bg-cyan-600 hover:bg-cyan-700 text-white rounded-lg transition-colors text-xs sm:text-sm font-medium whitespace-nowrap hidden sm:block">            {{ \'dashboard.cards.myQR.button\' | translate }}          </a>        }                <a           routerLink="/dashboard"          class="navbar__icon-btn"          aria-label="Perfil"          (click)="closeMobileMenu()">          <img             [src]="getProfileImageUrl(auth.currentUser()!.profileImageUrl)"             [alt]="auth.currentUser()!.name"             class="w-full h-full object-cover rounded-full"          />        </a>        <button           (click)="logout()"          class="px-3 sm:px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-xs sm:text-sm font-medium whitespace-nowrap hidden sm:block">          {{ \'dashboard.logout\' | translate }}        </button>      }    </div>  </div>  @if (isMobileMenuOpen()) {    <div class="navbar__mobile-menu" id="mobile-menu">      <nav class="navbar__mobile-nav">        @for (link of navLinks; track link.path) {          <a            [routerLink]="link.path"            [routerLinkActiveOptions]="{ exact: link.exact }"            routerLinkActive="active"            class="navbar__mobile-link"            (click)="closeMobileMenu()">            {{ (link.key | translate) || link.label }}          </a>        }                <div class="navbar__mobile-actions">          @if (!auth.currentUser()) {            <a routerLink="/login" class="navbar__mobile-login" (click)="closeMobileMenu()">              {{ \'nav.login\' | translate }}            </a>            <a routerLink="/register" class="navbar__mobile-login" (click)="closeMobileMenu()" style="background: #9333ea; margin-top: 0.5rem;">              {{ (\'nav.register\' | translate) || \'Registrarse\' }}            </a>          } @else {            @if (showQR()) {              <a routerLink="/qr" class="navbar__mobile-link" (click)="closeMobileMenu()">                {{ \'dashboard.cards.myQR.button\' | translate }}              </a>            }            <button               (click)="logout()"              class="navbar__mobile-login w-full">              {{ \'dashboard.logout\' | translate }}            </button>          }        </div>      </nav>    </div>  }</header></div>'
-    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
+    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
     var DIRECTIVES = [{'name': 'ClickOutsideDirective', 'selector': '[appClickOutside]'}];
     var ACTUAL_COMPONENT = {'name': 'NavbarComponent'};
 </script>

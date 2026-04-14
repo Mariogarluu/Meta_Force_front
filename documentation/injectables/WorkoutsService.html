@@ -248,14 +248,16 @@ Handles creation, duplication, and modification of workout plans.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="50"
-                                    class="link-to-prism">src/app/core/services/workouts.service.ts:50</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/core/services/workouts.service.ts:84</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Adds an exercise entry to an existing workout routine.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -266,6 +268,7 @@ Handles creation, duplication, and modification of workout plans.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -280,6 +283,12 @@ Handles creation, duplication, and modification of workout plans.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the workout to add an exercise to</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -292,6 +301,12 @@ Handles creation, duplication, and modification of workout plans.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Input data for the exercise entry</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -301,7 +316,8 @@ Handles creation, duplication, and modification of workout plans.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the created workout-exercise entry</p>
+
                             </div>
                 </td>
             </tr>
@@ -327,14 +343,16 @@ Handles creation, duplication, and modification of workout plans.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="38"
-                                    class="link-to-prism">src/app/core/services/workouts.service.ts:38</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">src/app/core/services/workouts.service.ts:55</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Creates a new workout routine.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -345,6 +363,7 @@ Handles creation, duplication, and modification of workout plans.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -359,6 +378,12 @@ Handles creation, duplication, and modification of workout plans.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Input data for the new workout</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -368,7 +393,8 @@ Handles creation, duplication, and modification of workout plans.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the created workout</p>
+
                             </div>
                 </td>
             </tr>
@@ -394,14 +420,16 @@ Handles creation, duplication, and modification of workout plans.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="46"
-                                    class="link-to-prism">src/app/core/services/workouts.service.ts:46</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="74"
+                                    class="link-to-prism">src/app/core/services/workouts.service.ts:74</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Deletes a workout routine by its ID.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -412,6 +440,7 @@ Handles creation, duplication, and modification of workout plans.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -426,6 +455,12 @@ Handles creation, duplication, and modification of workout plans.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the workout to delete</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -435,7 +470,8 @@ Handles creation, duplication, and modification of workout plans.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting void on success</p>
+
                             </div>
                 </td>
             </tr>
@@ -461,16 +497,16 @@ Handles creation, duplication, and modification of workout plans.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="70"
-                                    class="link-to-prism">src/app/core/services/workouts.service.ts:70</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="123"
+                                    class="link-to-prism">src/app/core/services/workouts.service.ts:123</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Duplica un entrenamiento existente.
-Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p>
+                        <div class="io-description"><p>Duplicates an existing workout routine.
+Creates a copy with the same content and a numeric suffix in the name (e.g., &quot;(1)&quot;).</p>
 </div>
 
                             <div class="io-description">
@@ -482,6 +518,7 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -496,6 +533,12 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the workout to duplicate</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -505,7 +548,8 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the new duplicated workout</p>
+
                             </div>
                 </td>
             </tr>
@@ -531,14 +575,16 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="34"
-                                    class="link-to-prism">src/app/core/services/workouts.service.ts:34</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="46"
+                                    class="link-to-prism">src/app/core/services/workouts.service.ts:46</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a specific workout routine by its ID.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -549,6 +595,7 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -563,6 +610,12 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the workout to fetch</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -572,7 +625,8 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the workout object</p>
+
                             </div>
                 </td>
             </tr>
@@ -598,14 +652,16 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">src/app/core/services/workouts.service.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="33"
+                                    class="link-to-prism">src/app/core/services/workouts.service.ts:33</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Lists all workout routines, optionally filtered by user ID.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -616,6 +672,7 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -630,6 +687,12 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Optional: filter workouts by user ID</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -639,7 +702,8 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting an array of workouts</p>
+
                             </div>
                 </td>
             </tr>
@@ -665,14 +729,16 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="58"
-                                    class="link-to-prism">src/app/core/services/workouts.service.ts:58</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="103"
+                                    class="link-to-prism">src/app/core/services/workouts.service.ts:103</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Removes an exercise entry from a workout routine.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -683,6 +749,7 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -697,6 +764,12 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the workout-exercise entry to remove</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -706,7 +779,8 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting void on success</p>
+
                             </div>
                 </td>
             </tr>
@@ -732,14 +806,16 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="62"
-                                    class="link-to-prism">src/app/core/services/workouts.service.ts:62</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="113"
+                                    class="link-to-prism">src/app/core/services/workouts.service.ts:113</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Reorders multiple exercise entries within a workout routine.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -750,6 +826,7 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -764,6 +841,12 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the workout to reorder exercises in</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -776,6 +859,12 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Selection and new ordering for exercises</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -785,7 +874,8 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the updated workout routine</p>
+
                             </div>
                 </td>
             </tr>
@@ -811,14 +901,16 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="42"
-                                    class="link-to-prism">src/app/core/services/workouts.service.ts:42</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="65"
+                                    class="link-to-prism">src/app/core/services/workouts.service.ts:65</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Updates an existing workout routine.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -829,6 +921,7 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -843,6 +936,12 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the workout to update</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -855,6 +954,12 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The updated workout data</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -864,7 +969,8 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the updated workout</p>
+
                             </div>
                 </td>
             </tr>
@@ -890,14 +996,16 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="54"
-                                    class="link-to-prism">src/app/core/services/workouts.service.ts:54</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="94"
+                                    class="link-to-prism">src/app/core/services/workouts.service.ts:94</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Updates an exercise entry within a workout routine.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -908,6 +1016,7 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -922,6 +1031,12 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the workout-exercise entry to update</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -934,6 +1049,12 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The updated data for the entry</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -943,7 +1064,8 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the updated workout-exercise entry</p>
+
                             </div>
                 </td>
             </tr>
@@ -980,10 +1102,16 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/core/services/workouts.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/core/services/workouts.service.ts:26</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Base API URL for workout operations</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1012,10 +1140,16 @@ Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.</p
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/core/services/workouts.service.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/core/services/workouts.service.ts:24</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected HttpClient for API requests</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1047,9 +1181,16 @@ import {
   providedIn: &#x27;root&#x27;
 })
 export class WorkoutsService {
+  /** Injected HttpClient for API requests */
   private http &#x3D; inject(HttpClient);
+  /** Base API URL for workout operations */
   private apiUrl &#x3D; &#x60;${environment.apiUrl}/workouts&#x60;;
 
+  /**
+   * Lists all workout routines, optionally filtered by user ID.
+   * @param userId - Optional: filter workouts by user ID
+   * @returns Observable emitting an array of workouts
+   */
   listWorkouts(userId?: string | null): Observable&lt;Workout[]&gt; {
     const params: any &#x3D; {};
     if (userId) {
@@ -1058,46 +1199,93 @@ export class WorkoutsService {
     return this.http.get&lt;Workout[]&gt;(this.apiUrl, { params });
   }
 
+  /**
+   * Retrieves a specific workout routine by its ID.
+   * @param id - The ID of the workout to fetch
+   * @returns Observable emitting the workout object
+   */
   getWorkout(id: string): Observable&lt;Workout&gt; {
     return this.http.get&lt;Workout&gt;(&#x60;${this.apiUrl}/${id}&#x60;);
   }
 
+  /**
+   * Creates a new workout routine.
+   * @param data - Input data for the new workout
+   * @returns Observable emitting the created workout
+   */
   createWorkout(data: CreateWorkoutInput): Observable&lt;Workout&gt; {
     return this.http.post&lt;Workout&gt;(this.apiUrl, data);
   }
 
+  /**
+   * Updates an existing workout routine.
+   * @param id - The ID of the workout to update
+   * @param data - The updated workout data
+   * @returns Observable emitting the updated workout
+   */
   updateWorkout(id: string, data: UpdateWorkoutInput): Observable&lt;Workout&gt; {
     return this.http.patch&lt;Workout&gt;(&#x60;${this.apiUrl}/${id}&#x60;, data);
   }
 
+  /**
+   * Deletes a workout routine by its ID.
+   * @param id - The ID of the workout to delete
+   * @returns Observable emitting void on success
+   */
   deleteWorkout(id: string): Observable&lt;void&gt; {
     return this.http.delete&lt;void&gt;(&#x60;${this.apiUrl}/${id}&#x60;);
   }
 
+  /**
+   * Adds an exercise entry to an existing workout routine.
+   * @param workoutId - The ID of the workout to add an exercise to
+   * @param data - Input data for the exercise entry
+   * @returns Observable emitting the created workout-exercise entry
+   */
   addExerciseToWorkout(workoutId: string, data: AddExerciseToWorkoutInput): Observable&lt;WorkoutExercise&gt; {
     return this.http.post&lt;WorkoutExercise&gt;(&#x60;${this.apiUrl}/${workoutId}/exercises&#x60;, data);
   }
 
+  /**
+   * Updates an exercise entry within a workout routine.
+   * @param exerciseId - The ID of the workout-exercise entry to update
+   * @param data - The updated data for the entry
+   * @returns Observable emitting the updated workout-exercise entry
+   */
   updateWorkoutExercise(exerciseId: string, data: UpdateWorkoutExerciseInput): Observable&lt;WorkoutExercise&gt; {
     return this.http.patch&lt;WorkoutExercise&gt;(&#x60;${this.apiUrl}/exercises/${exerciseId}&#x60;, data);
   }
 
+  /**
+   * Removes an exercise entry from a workout routine.
+   * @param exerciseId - The ID of the workout-exercise entry to remove
+   * @returns Observable emitting void on success
+   */
   removeExerciseFromWorkout(exerciseId: string): Observable&lt;void&gt; {
     return this.http.delete&lt;void&gt;(&#x60;${this.apiUrl}/exercises/${exerciseId}&#x60;);
   }
 
+  /**
+   * Reorders multiple exercise entries within a workout routine.
+   * @param workoutId - The ID of the workout to reorder exercises in
+   * @param data - Selection and new ordering for exercises
+   * @returns Observable emitting the updated workout routine
+   */
   reorderWorkoutExercises(workoutId: string, data: ReorderWorkoutExercisesInput): Observable&lt;Workout&gt; {
     return this.http.post&lt;Workout&gt;(&#x60;${this.apiUrl}/${workoutId}/reorder&#x60;, data);
   }
 
   /**
-   * Duplica un entrenamiento existente.
-   * Crea una copia con el mismo contenido y un sufijo en el nombre (1), (2), etc.
+   * Duplicates an existing workout routine.
+   * Creates a copy with the same content and a numeric suffix in the name (e.g., &quot;(1)&quot;).
+   * @param id - The ID of the workout to duplicate
+   * @returns Observable emitting the new duplicated workout
    */
   duplicateWorkout(id: string): Observable&lt;Workout&gt; {
     return this.http.post&lt;Workout&gt;(&#x60;${this.apiUrl}/${id}/duplicate&#x60;, {});
   }
 }
+
 
 </code></pre>
     </div>

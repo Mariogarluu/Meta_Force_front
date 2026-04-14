@@ -19,12 +19,21 @@ import { Center } from '../../core/models/center';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
-// Interface for machine instance with detailed names (for display in instances tab)
+/**
+ * Interface for machine instance with detailed names (for display in instances tab).
+ * Extends the base MachineCenterInstance with human-readable type and center names.
+ */
 interface MachineCenterInstanceWithDetails extends MachineCenterInstance {
+  /** The display name of the machine model type */
   machineTypeName: string;
+  /** The display name of the center where the machine is located */
   centerName: string;
 }
 
+/**
+ * Component for managing gym machine models and their specific instances across centers.
+ * Supports viewing machines, managing machine types, and assigning quantities to gyms.
+ */
 @Component({
   selector: 'app-machines',
   standalone: true,
@@ -33,192 +42,267 @@ interface MachineCenterInstanceWithDetails extends MachineCenterInstance {
   styleUrl: './machines.component.scss'
 })
 export class MachinesComponent implements OnInit {
+  /** Injected MachinesService for specialized machine operations */
   private machinesService = inject(MachinesService);
+  /** Injected CentersService for gym center metadata */
   private centersService = inject(CentersService);
+  /** Injected AuthService for permission and user context */
   public auth = inject(AuthService);
+  /** Injected TranslateService for I18n strings */
   translate = inject(TranslateService);
 
-   machineTypes = signal<MachineTypeModel[]>([]);
-   centers = signal<Center[]>([]);
-   machineInstances = signal<MachineCenterInstance[]>([]);
-   isLoading = signal(false);
-   errorMessage = signal<string>('');
-   addCenterErrorMessage = signal<string>('');
+  /** Signal containing the global catalog of machine models/types */
+  machineTypes = signal<MachineTypeModel[]>([]);
+  /** Signal containing the list of gym centers */
+  centers = signal<Center[]>([]);
+  /** Signal containing specific machine instances (physical hardware) */
+  machineInstances = signal<MachineCenterInstance[]>([]);
+  /** Signal tracking background API activity */
+  isLoading = signal(false);
+  /** Signal for displaying primary error messages */
+  errorMessage = signal<string>('');
+  /** Signal for displaying errors specific to adding/editing center-level machines */
+  addCenterErrorMessage = signal<string>('');
 
-  // --- FILTROS ---
+  /** Signal for the name filter input */
   filterName = signal<string>('');
+  /** Signal for the category/type filter dropdown */
   filterType = signal<string>('');
+  /** Signal for the center selection filter */
   filterCenterId = signal<string>('');
+  /** Signal for controlling the filter visibility toggle */
   showFilters = signal(false);
-  // ---------------
 
-  // Modal para crear/editar tipo de máquina
+  /** Signal for controlling machine type form modal visibility */
   showFormModal = signal(false);
+  /** Signal for controlling machine type deletion modal visibility */
   showDeleteModal = signal(false);
+  /** Flag determining if the current modal is in edit or create mode */
   isEditing = signal(false);
+  /** Signal for the machine type currently being managed in a modal */
   selectedMachineType = signal<MachineTypeModel | null>(null);
+
+  /** Text field for the machine type name in the form */
   formName = '';
+  /** Category selector for the machine type in the form */
   formType: MachineType = 'cardio';
 
-  // Modal para agregar/editar máquina en centro
+  /** Signal for controlling the 'Add to Center' modal visibility */
   showAddCenterModal = signal(false);
+  /** Signal for the target center ID when adding instances */
   selectedCenterForAdd = signal<string>('');
+  /** Quantity of machines to add in the current operation */
   formQuantity = 1;
+  /** Initial or updated status for the machine instances */
   formStatus: MachineStatus = 'operativa';
   
-  // Pestañas para separar Modelos e Instancias
+  /** Current active view mode ('models' catalog or specific 'instances' list) */
   activeTab = signal<'models' | 'instances'>('models');
   
-  // Control de desplegables por tipo de máquina
+  /** Signal tracking which machine types have their instances expanded in the UI */
   expandedMachineTypes = signal<Set<string>>(new Set());
 
+  /** Computed signal for the current user object */
   currentUser = computed(() => this.auth.currentUser());
+  /** Computed signal checking if user is SUPERADMIN */
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
+  /** Computed signal checking if user is ADMIN_CENTER */
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
+  /** Computed signal for general edit permissions */
   canEdit = computed(() => this.isSuperAdmin() || this.isAdminCenter());
 
+  /** Available machine categories for dropdowns */
   machineTypeOptions: MachineType[] = ['cardio', 'fuerza', 'peso libre', 'funcional', 'otro'];
+  /** Available machine statuses for dropdowns */
   machineStatusOptions: MachineStatus[] = ['operativa', 'en mantenimiento', 'fuera de servicio'];
 
-   // Separate filtering logic for each tab
-   filteredMachineTypes = computed(() => {
-     let filtered = this.machineTypes();
+  /** 
+   * Computed signal for filtered machine types (global catalog list).
+   * Filters by name and type.
+   */
+  filteredMachineTypes = computed(() => {
+    let filtered = this.machineTypes();
 
-     if (this.filterName()) {
-       const term = this.filterName().toLowerCase();
-       filtered = filtered.filter(m => m.name.toLowerCase().includes(term));
-     }
+    if (this.filterName()) {
+      const term = this.filterName().toLowerCase();
+      filtered = filtered.filter(m => m.name.toLowerCase().includes(term));
+    }
 
-     if (this.filterType()) {
-       filtered = filtered.filter(m => m.type === this.filterType());
-     }
+    if (this.filterType()) {
+      filtered = filtered.filter(m => m.type === this.filterType());
+    }
 
-     // Machine types tab: Do NOT filter by centerId (machine types are global)
-     // The centerId filter is only applicable to the instances tab
-     return filtered;
-   });
+    // Machine types tab: Do NOT filter by centerId (machine types are global)
+    // The centerId filter is only applicable to the instances tab
+    return filtered;
+  });
 
+  /** Computed signal checking if any search/filter criteria are currently active */
   hasActiveFilters = computed(() => {
     return !!(this.filterName() || this.filterType() || this.filterCenterId());
   });
 
-   ngOnInit(): void {
-     this.loadMachineTypes();
-     this.loadCenters();
-     this.loadMachineInstances();
-   }
+  /**
+   * Initializes the component by fetching models, centers, and existing instances.
+   */
+  ngOnInit(): void {
+    this.loadMachineTypes();
+    this.loadCenters();
+    this.loadMachineInstances();
+  }
 
-   loadMachineTypes(): void {
-     this.isLoading.set(true);
-     this.errorMessage.set('');
-     // Always get all machine types (they are global)
-     // Center filtering is applied at the instance level, not type level
-     this.machinesService.listMachineTypes(null).subscribe({
-       next: (data) => {
-         this.machineTypes.set(data);
-         this.isLoading.set(false);
-       },
-       error: (error) => {
-         this.errorMessage.set(error.error?.message || this.translate.instant('machines.errors.load'));
-         this.isLoading.set(false);
-       }
-     });
-   }
+  /**
+   * Fetches the global catalog of machine models.
+   */
+  loadMachineTypes(): void {
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+    // Always get all machine types (they are global)
+    // Center filtering is applied at the instance level, not type level
+    this.machinesService.listMachineTypes(null).subscribe({
+      next: (data) => {
+        this.machineTypes.set(data);
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || this.translate.instant('machines.errors.load'));
+        this.isLoading.set(false);
+      }
+    });
+  }
 
-   loadCenters(): void {
-     this.centersService.listCentersWithIds().subscribe({
-       next: (data) => {
-         this.centers.set(data);
-         // Para administradores de centro, establecer su centro por defecto
-         if (!this.filterCenterId() && data.length > 0) {
-           const user = this.currentUser();
-           if (this.isAdminCenter() && user?.centerId) {
-             // Si es admin de centro, usar su centro
-             this.filterCenterId.set(user.centerId);
-           } else {
-             const userFavoriteCenterId = user?.favoriteCenterId;
-             if (userFavoriteCenterId && data.find(c => c.id === userFavoriteCenterId)) {
-               this.filterCenterId.set(userFavoriteCenterId);
-             } else if (data.length > 0) {
-               this.filterCenterId.set(data[0].id || '');
-             }
-           }
-         }
-       },
-       error: (error) => {
-         console.error('Error al cargar centros:', error);
-       }
-     });
-   }
+  /**
+   * Fetches the list of gym centers and establishes default center filters based on user role.
+   */
+  loadCenters(): void {
+    this.centersService.listCentersWithIds().subscribe({
+      next: (data) => {
+        this.centers.set(data);
+        // Para administradores de centro, establecer su centro por defecto
+        if (!this.filterCenterId() && data.length > 0) {
+          const user = this.currentUser();
+          if (this.isAdminCenter() && user?.centerId) {
+            // Si es admin de centro, usar su centro
+            this.filterCenterId.set(user.centerId);
+          } else {
+            const userFavoriteCenterId = user?.favoriteCenterId;
+            if (userFavoriteCenterId && data.find(c => c.id === userFavoriteCenterId)) {
+              this.filterCenterId.set(userFavoriteCenterId);
+            } else if (data.length > 0) {
+              this.filterCenterId.set(data[0].id || '');
+            }
+          }
+        }
+      },
+      error: (error) => {
+        console.error('Error al cargar centros:', error);
+      }
+    });
+  }
 
-   loadMachineInstances(): void {
-     if (!this.filterCenterId()) {
-       this.machineInstances.set([]);
-       return;
-     }
-     
-     this.isLoading.set(true);
-     this.errorMessage.set('');
-     
-     // Get all machines for the selected center
-     this.machinesService.listMachines(this.filterCenterId()).subscribe({
-       next: (machines: MachineCenterInstance[]) => {
-         // Transform to include machine type and center names for display
-         const instancesWithDetails: MachineCenterInstanceWithDetails[] = machines.map(machine => ({
-           ...machine,
-           machineTypeName: machine.machineType?.name || 'Desconocido',
-           centerName: machine.center?.name || 'Desconocido'
-         }));
-         
-         this.machineInstances.set(instancesWithDetails);
-         this.isLoading.set(false);
-       },
-       error: (error) => {
-         this.errorMessage.set(error.error?.message || this.translate.instant('machines.errors.load'));
-         this.isLoading.set(false);
-       }
-     });
-   }
+  /**
+   * Fetches physical machine instances for the currently selected center.
+   */
+  loadMachineInstances(): void {
+    if (!this.filterCenterId()) {
+      this.machineInstances.set([]);
+      return;
+    }
+    
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+    
+    // Get all machines for the selected center
+    this.machinesService.listMachines(this.filterCenterId()).subscribe({
+      next: (machines: MachineCenterInstance[]) => {
+        // Transform to include machine type and center names for display
+        const instancesWithDetails: MachineCenterInstanceWithDetails[] = machines.map(machine => ({
+          ...machine,
+          machineTypeName: machine.machineType?.name || 'Desconocido',
+          centerName: machine.center?.name || 'Desconocido'
+        }));
+        
+        this.machineInstances.set(instancesWithDetails);
+        this.isLoading.set(false);
+      },
+      error: (error) => {
+        this.errorMessage.set(error.error?.message || this.translate.instant('machines.errors.load'));
+        this.isLoading.set(false);
+      }
+    });
+  }
 
+  /**
+   * Reactive callback for when the center filter changes.
+   * @param centerId - The new selected center's unique ID
+   */
   onCenterChange(centerId: string): void {
     this.filterCenterId.set(centerId);
     this.loadMachineTypes();
   }
 
+  /**
+   * Resolves a human-readable center name from an ID.
+   * @param centerId - The ID of the center
+   * @returns Translated center name or placeholder
+   */
   getCenterName(centerId?: string | null): string {
     if (!centerId) return this.translate.instant('machines.allCenters');
     const center = this.centers().find(c => c.id === centerId);
     return center?.name || this.translate.instant('machines.centerNotFound');
   }
 
+  /**
+   * Extracts instances belonging to a specific center from a machine type model.
+   * @param machineType - The machine type model containing nested instances
+   * @param centerId - (Optional) Filter by this center ID
+   * @returns Array of matching instances
+   */
   getInstancesForCenter(machineType: MachineTypeModel, centerId?: string): MachineCenterInstance[] {
     if (!machineType.instances) return [];
     if (!centerId) return machineType.instances;
     return machineType.instances.filter(i => i.centerId === centerId);
   }
 
+  /**
+   * Returns a list of centers that possess at least one instance of a given machine type.
+   * @param machineType - The machine type model to analyze
+   * @returns Array of Centers that have this machine type
+   */
   getCentersForMachineType(machineType: MachineTypeModel): Center[] {
     if (!machineType.instances) return [];
     const uniqueCenterIds = [...new Set(machineType.instances.map(i => i.centerId))];
     return this.centers().filter(c => uniqueCenterIds.includes(c.id || ''));
   }
 
+  /**
+   * Checks if a machine type already has presence in a specific center.
+   * @param centerId - The ID of the center to check
+   * @returns True if at least one instance exists in that center
+   */
   isCenterAlreadyInMachineType(centerId: string): boolean {
     return this.selectedMachineType()?.instances?.some(i => i.centerId === centerId) || false;
   }
 
-  // --- MÉTODOS DE FILTRO ---
+  /**
+   * Toggles the UI filter panel visibility.
+   */
   toggleFilters(): void {
     this.showFilters.set(!this.showFilters());
   }
 
+  /**
+   * Resets name and type filters to their default empty states.
+   */
   clearFilters(): void {
     this.filterName.set('');
     this.filterType.set('');
     // this.filterCenterId.set(''); // Keep selected center
   }
 
-  // --- MÉTODOS CRUD TIPO DE MÁQUINA ---
+  /**
+   * Prepares and opens the machine type creation modal.
+   */
   openCreateModal(): void {
     this.isEditing.set(false);
     this.selectedMachineType.set(null);
@@ -229,6 +313,10 @@ export class MachinesComponent implements OnInit {
     this.addCenterErrorMessage.set(''); // También limpiar el error del otro modal
   }
 
+  /**
+   * Prepares and opens the machine type editing modal with prefilled data.
+   * @param machineType - The machine type model to edit
+   */
   openEditModal(machineType: MachineTypeModel): void {
     this.isEditing.set(true);
     this.selectedMachineType.set(machineType);
@@ -239,22 +327,35 @@ export class MachinesComponent implements OnInit {
     this.addCenterErrorMessage.set(''); // También limpiar el error del otro modal
   }
 
+  /**
+   * Closes the machine type form modal and resets errors.
+   */
   closeFormModal(): void {
     this.showFormModal.set(false);
     this.selectedMachineType.set(null);
     this.errorMessage.set(''); // Limpiar error al cerrar
   }
 
+  /**
+   * Opens the confirmation modal for deleting a machine type.
+   * @param machineType - The machine type to delete
+   */
   openDeleteModal(machineType: MachineTypeModel): void {
     this.selectedMachineType.set(machineType);
     this.showDeleteModal.set(true);
   }
 
+  /**
+   * Closes the machine type deletion confirmation modal.
+   */
   closeDeleteModal(): void {
     this.showDeleteModal.set(false);
     this.selectedMachineType.set(null);
   }
 
+  /**
+   * Validates and submits the machine type form (Create or Update).
+   */
   onSubmit(): void {
     if (!this.formName.trim()) {
       this.errorMessage.set(this.translate.instant('machines.errors.nameRequired'));
@@ -317,6 +418,9 @@ export class MachinesComponent implements OnInit {
     }
   }
 
+  /**
+   * Executes the deletion of the selected machine type from the backend.
+   */
   confirmDelete(): void {
     const machineType = this.selectedMachineType();
     if (!machineType) return;
@@ -337,7 +441,9 @@ export class MachinesComponent implements OnInit {
     });
   }
 
-  // --- MÉTODOS PARA AGREGAR/EDITAR MÁQUINA EN CENTRO ---
+  /**
+   * Opens the modal to assign new machine instances to a gym.
+   */
   openAddCenterModal(): void {
     this.selectedMachineType.set(null);
     this.selectedCenterForAdd.set(this.filterCenterId() || '');
@@ -348,6 +454,10 @@ export class MachinesComponent implements OnInit {
     this.addCenterErrorMessage.set('');
   }
 
+  /**
+   * Opens the modal to add machines of a specific model to a center.
+   * @param machineType - The target machine model
+   */
   openAddCenterModalForMachineType(machineType: MachineTypeModel): void {
     this.selectedMachineType.set(machineType);
     this.selectedCenterForAdd.set('');
@@ -358,6 +468,11 @@ export class MachinesComponent implements OnInit {
     this.addCenterErrorMessage.set('');
   }
 
+  /**
+   * Opens the modal to edit an existing physical machine instance's status.
+   * @param machineType - The machine type model
+   * @param instance - The specific center instance
+   */
   openEditInstanceModal(machineType: MachineTypeModel, instance: MachineCenterInstance): void {
     this.selectedMachineType.set(machineType);
     this.selectedCenterForAdd.set(instance.centerId);
@@ -367,6 +482,9 @@ export class MachinesComponent implements OnInit {
     this.addCenterErrorMessage.set('');
   }
 
+  /**
+   * Closes the instance management modal.
+   */
   closeAddCenterModal(): void {
     this.showAddCenterModal.set(false);
     this.selectedCenterForAdd.set('');
@@ -375,6 +493,11 @@ export class MachinesComponent implements OnInit {
     this.addCenterErrorMessage.set('');
   }
 
+  /**
+   * Removes a physical machine instance from a center after confirmation.
+   * @param machineType - The machine type model
+   * @param instance - The specific instance record
+   */
   deleteInstanceFromCenter(machineType: MachineTypeModel, instance: MachineCenterInstance): void {
     if (!confirm(this.translate.instant('machines.confirmDeleteInstance'))) return;
 
@@ -391,6 +514,9 @@ export class MachinesComponent implements OnInit {
     });
   }
 
+  /**
+   * Submits updates to an existing machine instance (e.g., status changes).
+   */
   saveInstanceChanges(): void {
     const machineTypeId = this.selectedMachineType()?.id;
     const centerId = this.selectedCenterForAdd();
@@ -421,6 +547,9 @@ export class MachinesComponent implements OnInit {
     });
   }
 
+  /**
+   * Validates and submits the 'Add Machine to Center' or 'Update Instance' form.
+   */
   onAddCenterSubmit(): void {
     if (this.isEditing()) {
       this.saveInstanceChanges();
@@ -462,12 +591,20 @@ export class MachinesComponent implements OnInit {
     });
   }
 
+  /**
+   * Internal helper to finalize a successful data modification operation.
+   */
   private finishAction(): void {
     this.isLoading.set(false);
     this.closeFormModal();
     this.loadMachineTypes();
   }
 
+  /**
+   * Returns Tailwind CSS color classes based on the machine status.
+   * @param status - The machine's current operational status
+   * @returns String of CSS classes
+   */
   getStatusColor(status: string): string {
     switch (status) {
       case 'operativa': return 'bg-green-500/20 text-green-600 dark:text-green-400 border-green-500/50';
@@ -477,19 +614,36 @@ export class MachinesComponent implements OnInit {
     }
   }
 
+  /**
+   * Checks if the currently filtered list contains any machines with actual center instances.
+   * @returns True if there are instances to display
+   */
   hasInstancesInCenter(): boolean {
     return this.filteredMachineTypes().filter(m => m.instances && m.instances.length > 0).length > 0;
   }
 
+  /**
+   * Locates a machine type model in the global list by ID.
+   * @param id - The ID of the model to find
+   * @returns The matching model or null
+   */
   findMachineTypeById(id: string | null): MachineTypeModel | null {
     if (!id) return null;
     return this.machineTypes().find(m => m.id === id) || null;
   }
 
+  /**
+   * Sets the active machine type selected by the user.
+   * @param id - The unique identifier of the machine type
+   */
   onMachineTypeSelect(id: string | null): void {
     this.selectedMachineType.set(this.findMachineTypeById(id));
   }
 
+  /**
+   * Toggles the UI expansion state of a specific machine type's instance list.
+   * @param machineTypeId - The ID of the machine type to toggle
+   */
   toggleMachineTypeExpanded(machineTypeId: string): void {
     const expanded = new Set(this.expandedMachineTypes());
     if (expanded.has(machineTypeId)) {
@@ -500,6 +654,11 @@ export class MachinesComponent implements OnInit {
     this.expandedMachineTypes.set(expanded);
   }
 
+  /**
+   * Checks if a particular machine type is currently expanded in the view.
+   * @param machineTypeId - The entity ID
+   * @returns True if expanded
+   */
   isMachineTypeExpanded(machineTypeId: string): boolean {
     return this.expandedMachineTypes().has(machineTypeId);
   }

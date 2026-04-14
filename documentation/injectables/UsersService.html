@@ -196,6 +196,9 @@ Handles user listing, profile updates, and image management.</p>
                                 <a href="#listUsers" >listUsers</a>
                             </li>
                             <li>
+                                <a href="#updateProfile" >updateProfile</a>
+                            </li>
+                            <li>
                                 <a href="#updateUser" >updateUser</a>
                             </li>
                             <li>
@@ -239,15 +242,15 @@ Handles user listing, profile updates, and image management.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="85"
-                                    class="link-to-prism">src/app/core/services/users.service.ts:85</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="112"
+                                    class="link-to-prism">src/app/core/services/users.service.ts:112</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Elimina la imagen de perfil del usuario autenticado.</p>
+                        <div class="io-description"><p>Deletes the authenticated user&#39;s profile image.</p>
 </div>
 
                         <div class="io-description">
@@ -255,7 +258,7 @@ Handles user listing, profile updates, and image management.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>Observable que emite el usuario actualizado con profileImageUrl en null</p>
+                                <p>Observable emitting the user with profileImageUrl set to null</p>
 
                             </div>
                 </td>
@@ -282,15 +285,15 @@ Handles user listing, profile updates, and image management.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="58"
-                                    class="link-to-prism">src/app/core/services/users.service.ts:58</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="75"
+                                    class="link-to-prism">src/app/core/services/users.service.ts:75</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Elimina un usuario por su ID.</p>
+                        <div class="io-description"><p>Deletes a user by their ID.</p>
 </div>
 
                             <div class="io-description">
@@ -302,6 +305,7 @@ Handles user listing, profile updates, and image management.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -316,6 +320,12 @@ Handles user listing, profile updates, and image management.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>User ID to delete</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -325,7 +335,8 @@ Handles user listing, profile updates, and image management.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting void on success</p>
+
                             </div>
                 </td>
             </tr>
@@ -351,16 +362,15 @@ Handles user listing, profile updates, and image management.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="66"
-                                    class="link-to-prism">src/app/core/services/users.service.ts:66</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="84"
+                                    class="link-to-prism">src/app/core/services/users.service.ts:84</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Obtiene la información de un usuario específico por su ID.
-Retorna un Observable que emite el objeto User con toda su información pública.</p>
+                        <div class="io-description"><p>Retrieves information for a specific user by ID.</p>
 </div>
 
                             <div class="io-description">
@@ -372,6 +382,7 @@ Retorna un Observable que emite el objeto User con toda su información pública
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -386,6 +397,12 @@ Retorna un Observable que emite el objeto User con toda su información pública
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>User ID to fetch</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -395,7 +412,8 @@ Retorna un Observable que emite el objeto User con toda su información pública
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the user object</p>
+
                             </div>
                 </td>
             </tr>
@@ -421,16 +439,16 @@ Retorna un Observable que emite el objeto User con toda su información pública
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="39"
-                                    class="link-to-prism">src/app/core/services/users.service.ts:39</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">src/app/core/services/users.service.ts:51</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Lista todos los entrenadores activos.
-Accesible para todos los usuarios autenticados.</p>
+                        <div class="io-description"><p>Lists all active trainers.
+Accessible to all authenticated users.</p>
 </div>
 
                             <div class="io-description">
@@ -459,7 +477,7 @@ Accesible para todos los usuarios autenticados.</p>
 
                                             <td>
                                                     <ul>
-<li>Opcional: filtra entrenadores por centro favorito</li>
+<li>Optional: filter trainers by favorite center</li>
 </ul>
 
                                             </td>
@@ -472,7 +490,8 @@ Accesible para todos los usuarios autenticados.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting an array of trainers</p>
+
                             </div>
                 </td>
             </tr>
@@ -498,22 +517,103 @@ Accesible para todos los usuarios autenticados.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="30"
-                                    class="link-to-prism">src/app/core/services/users.service.ts:30</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">src/app/core/services/users.service.ts:41</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Lista todos los usuarios visibles para el usuario autenticado.
-SUPERADMIN ve todos, ADMIN_CENTER solo usuarios de su centro.</p>
+                        <div class="io-description"><p>Lists all users visible to the authenticated user.
+SUPERADMIN sees all, ADMIN_CENTER only users from their center.</p>
 </div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Observable&lt;User[]&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>Observable emitting an array of users</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateProfile"></a>
+                    <span class="name">
+                        <span ><b>updateProfile</b></span>
+                        <a href="#updateProfile"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateProfile(data: literal type)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="93"
+                                    class="link-to-prism">src/app/core/services/users.service.ts:93</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Updates the authenticated user&#39;s own profile.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>data</td>
+                                            <td>
+                                                        <code>literal type</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>Profile fields to update (gender, birthDate, etc.)</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Observable&lt;User&gt;</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>Observable emitting the updated user</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -538,16 +638,16 @@ SUPERADMIN ve todos, ADMIN_CENTER solo usuarios de su centro.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="51"
-                                    class="link-to-prism">src/app/core/services/users.service.ts:51</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="66"
+                                    class="link-to-prism">src/app/core/services/users.service.ts:66</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Actualiza los datos de un usuario específico identificado por su ID.
-Permite modificar nombre, email, rol, estado y centro según los permisos del usuario autenticado.</p>
+                        <div class="io-description"><p>Updates data for a specific user identified by ID.
+Allows modifying name, email, role, status, and center based on permissions.</p>
 </div>
 
                             <div class="io-description">
@@ -559,6 +659,7 @@ Permite modificar nombre, email, rol, estado y centro según los permisos del us
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -573,6 +674,12 @@ Permite modificar nombre, email, rol, estado y centro según los permisos del us
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>User ID to update</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -585,6 +692,12 @@ Permite modificar nombre, email, rol, estado y centro según los permisos del us
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Updated user data</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -594,7 +707,8 @@ Permite modificar nombre, email, rol, estado y centro según los permisos del us
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the updated user</p>
+
                             </div>
                 </td>
             </tr>
@@ -620,15 +734,15 @@ Permite modificar nombre, email, rol, estado y centro según los permisos del us
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="75"
-                                    class="link-to-prism">src/app/core/services/users.service.ts:75</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="102"
+                                    class="link-to-prism">src/app/core/services/users.service.ts:102</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Sube una imagen de perfil para el usuario autenticado.</p>
+                        <div class="io-description"><p>Uploads a new profile image for the authenticated user.</p>
 </div>
 
                             <div class="io-description">
@@ -657,7 +771,7 @@ Permite modificar nombre, email, rol, estado y centro según los permisos del us
 
                                             <td>
                                                     <ul>
-<li>Archivo de imagen a subir</li>
+<li>Image file to upload (Cloudinary)</li>
 </ul>
 
                                             </td>
@@ -670,7 +784,7 @@ Permite modificar nombre, email, rol, estado y centro según los permisos del us
 
                         </div>
                             <div class="io-description">
-                                <p>Observable que emite el usuario actualizado con la nueva URL de imagen</p>
+                                <p>Observable emitting the user with updated profileImageUrl</p>
 
                             </div>
                 </td>
@@ -708,10 +822,16 @@ Permite modificar nombre, email, rol, estado y centro según los permisos del us
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/core/services/users.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/core/services/users.service.ts:34</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Base API URL for user operations</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -740,10 +860,16 @@ Permite modificar nombre, email, rol, estado y centro según los permisos del us
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/core/services/users.service.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/core/services/users.service.ts:32</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected HttpClient for API requests</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -759,12 +885,20 @@ import { Observable } from &#x27;rxjs&#x27;;
 import { environment } from &#x27;../../../environments/environment&#x27;;
 import { User, Role, UserStatus } from &#x27;../models/user&#x27;;
 
+/**
+ * Data needed to update a user&#x27;s information.
+ */
 export interface UpdateUserInput {
+  /** Updated full name */
   name?: string;
+  /** Updated email address */
   email?: string;
+  /** Updated role (Admin only) */
   role?: Role;
+  /** Updated account status (Admin only) */
   status?: UserStatus;
-  favoriteCenterId?: string | null; // Solo se puede cambiar favoriteCenterId, no centerId
+  /** Updated favorite center ID (User/Admin) */
+  favoriteCenterId?: string | null;
 }
 
 /**
@@ -775,21 +909,25 @@ export interface UpdateUserInput {
   providedIn: &#x27;root&#x27;
 })
 export class UsersService {
+  /** Injected HttpClient for API requests */
   private http &#x3D; inject(HttpClient);
+  /** Base API URL for user operations */
   private apiUrl &#x3D; &#x60;${environment.apiUrl}/users&#x60;;
 
   /**
-   * Lista todos los usuarios visibles para el usuario autenticado.
-   * SUPERADMIN ve todos, ADMIN_CENTER solo usuarios de su centro.
+   * Lists all users visible to the authenticated user.
+   * SUPERADMIN sees all, ADMIN_CENTER only users from their center.
+   * @returns Observable emitting an array of users
    */
   listUsers(): Observable&lt;User[]&gt; {
     return this.http.get&lt;User[]&gt;(this.apiUrl);
   }
 
   /**
-   * Lista todos los entrenadores activos.
-   * Accesible para todos los usuarios autenticados.
-   * @param centerId - Opcional: filtra entrenadores por centro favorito
+   * Lists all active trainers.
+   * Accessible to all authenticated users.
+   * @param centerId - Optional: filter trainers by favorite center
+   * @returns Observable emitting an array of trainers
    */
   listTrainers(centerId?: string | null): Observable&lt;User[]&gt; {
     const params: any &#x3D; {};
@@ -800,32 +938,47 @@ export class UsersService {
   }
 
   /**
-   * Actualiza los datos de un usuario específico identificado por su ID.
-   * Permite modificar nombre, email, rol, estado y centro según los permisos del usuario autenticado.
+   * Updates data for a specific user identified by ID.
+   * Allows modifying name, email, role, status, and center based on permissions.
+   * @param id - User ID to update
+   * @param data - Updated user data
+   * @returns Observable emitting the updated user
    */
   updateUser(id: string, data: UpdateUserInput): Observable&lt;User&gt; {
     return this.http.patch&lt;User&gt;(&#x60;${this.apiUrl}/${id}&#x60;, data);
   }
 
   /**
-   * Elimina un usuario por su ID.
+   * Deletes a user by their ID.
+   * @param id - User ID to delete
+   * @returns Observable emitting void on success
    */
   deleteUser(id: string): Observable&lt;void&gt; {
     return this.http.delete&lt;void&gt;(&#x60;${this.apiUrl}/${id}&#x60;);
   }
 
   /**
-   * Obtiene la información de un usuario específico por su ID.
-   * Retorna un Observable que emite el objeto User con toda su información pública.
+   * Retrieves information for a specific user by ID.
+   * @param id - User ID to fetch
+   * @returns Observable emitting the user object
    */
   getUser(id: string): Observable&lt;User&gt; {
     return this.http.get&lt;User&gt;(&#x60;${this.apiUrl}/${id}&#x60;);
   }
 
   /**
-   * Sube una imagen de perfil para el usuario autenticado.
-   * @param file - Archivo de imagen a subir
-   * @returns Observable que emite el usuario actualizado con la nueva URL de imagen
+   * Updates the authenticated user&#x27;s own profile.
+   * @param data - Profile fields to update (gender, birthDate, etc.)
+   * @returns Observable emitting the updated user
+   */
+  updateProfile(data: { name?: string; email?: string; gender?: string; birthDate?: string; height?: number; currentWeight?: number; medicalNotes?: string }): Observable&lt;User&gt; {
+    return this.http.patch&lt;User&gt;(&#x60;${this.apiUrl}/me&#x60;, data);
+  }
+
+  /**
+   * Uploads a new profile image for the authenticated user.
+   * @param file - Image file to upload (Cloudinary)
+   * @returns Observable emitting the user with updated profileImageUrl
    */
   uploadProfileImage(file: File): Observable&lt;User&gt; {
     const formData &#x3D; new FormData();
@@ -834,13 +987,14 @@ export class UsersService {
   }
 
   /**
-   * Elimina la imagen de perfil del usuario autenticado.
-   * @returns Observable que emite el usuario actualizado con profileImageUrl en null
+   * Deletes the authenticated user&#x27;s profile image.
+   * @returns Observable emitting the user with profileImageUrl set to null
    */
   deleteProfileImage(): Observable&lt;User&gt; {
     return this.http.delete&lt;User&gt;(&#x60;${this.apiUrl}/me/profile-image&#x60;);
   }
 }
+
 
 </code></pre>
     </div>

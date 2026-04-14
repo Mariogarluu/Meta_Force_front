@@ -305,7 +305,7 @@ to the dashboard or a previously attempted URL.</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/login/login.component.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/pages/login/login.component.ts:39</a></div>
                             </td>
                         </tr>
 
@@ -392,9 +392,7 @@ to the dashboard or a previously attempted URL.</p>
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Retorna el mensaje de error correspondiente a un control específico del formulario.
-Genera mensajes personalizados según el tipo de error de validación encontrado.
-Retorna cadena vacía si no hay errores o si el control no ha sido tocado.</p>
+                        <div class="io-description"><p>Resolves the translated validation error message for a specific form control.</p>
 </div>
 
                             <div class="io-description">
@@ -406,6 +404,7 @@ Retorna cadena vacía si no hay errores o si el control no ha sido tocado.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -420,6 +419,12 @@ Retorna cadena vacía si no hay errores o si el control no ha sido tocado.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The name of the form control or &#39;global&#39; for general errors</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -429,7 +434,8 @@ Retorna cadena vacía si no hay errores o si el control no ha sido tocado.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Translated error string or empty string if no errors</p>
+
                             </div>
                 </td>
             </tr>
@@ -455,16 +461,15 @@ Retorna cadena vacía si no hay errores o si el control no ha sido tocado.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="89"
-                                    class="link-to-prism">src/app/pages/login/login.component.ts:89</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/pages/login/login.component.ts:90</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Navega a la página de registro del usuario.
-Redirige al componente de registro para que el usuario pueda crear una nueva cuenta.</p>
+                        <div class="io-description"><p>Navigates to the user registration page.</p>
 </div>
 
                         <div class="io-description">
@@ -503,8 +508,7 @@ Redirige al componente de registro para que el usuario pueda crear una nueva cue
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Limpia las suscripciones activas cuando el componente se destruye.
-Previene memory leaks cancelando las suscripciones a observables.</p>
+                        <div class="io-description"><p>Cleanup logic. Unsubscribes from auth observables to prevent memory leaks.</p>
 </div>
 
                         <div class="io-description">
@@ -535,18 +539,16 @@ Previene memory leaks cancelando las suscripciones a observables.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="59"
-                                    class="link-to-prism">src/app/pages/login/login.component.ts:59</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">src/app/pages/login/login.component.ts:63</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Procesa el envío del formulario de login validando las credenciales.
-Valida el formulario y realiza una petición de autenticación al backend.
-Redirige al dashboard o a la URL guardada si el login es exitoso.
-Muestra mensajes de error si la autenticación falla.</p>
+                        <div class="io-description"><p>Processes the login form submission.
+Validates credentials against the backend and redirects on success.</p>
 </div>
 
                         <div class="io-description">
@@ -577,16 +579,15 @@ Muestra mensajes de error si la autenticación falla.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="49"
-                                    class="link-to-prism">src/app/pages/login/login.component.ts:49</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="55"
+                                    class="link-to-prism">src/app/pages/login/login.component.ts:55</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Alterna la visibilidad de la contraseña en el campo de entrada.
-Cambia entre mostrar el texto de la contraseña o mostrarla oculta con asteriscos.</p>
+                        <div class="io-description"><p>Toggles the visibility of the password input field.</p>
 </div>
 
                         <div class="io-description">
@@ -624,10 +625,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta con asterisco
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/login/login.component.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/pages/login/login.component.ts:39</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Handle for the active authentication subscription to prevent leaks</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -655,10 +662,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta con asterisco
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/pages/login/login.component.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/pages/login/login.component.ts:28</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for displaying authentication-related error messages</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -681,10 +694,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta con asterisco
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/pages/login/login.component.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/pages/login/login.component.ts:26</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Reactive form group for user login credentials</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -708,10 +727,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta con asterisco
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/pages/login/login.component.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/login/login.component.ts:32</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Target URL to navigate to after successful authentication</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -740,10 +765,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta con asterisco
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/pages/login/login.component.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/login/login.component.ts:30</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected Router for post-login navigation</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -771,10 +802,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta con asterisco
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/pages/login/login.component.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/login/login.component.ts:37</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal controlling the visibility of the password field</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -802,10 +839,16 @@ Cambia entre mostrar el texto de la contraseña o mostrarla oculta con asterisco
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/pages/login/login.component.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/login/login.component.ts:34</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected TranslateService for multi-language validation messages</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -839,13 +882,20 @@ import { LanguageSelectorComponent } from &#x27;../../shared/components/language
   styleUrl: &#x27;./login.component.scss&#x27;
 })
 export class LoginComponent implements OnDestroy {
+  /** Reactive form group for user login credentials */
   formLogin;
+  /** Signal for displaying authentication-related error messages */
   errorMsg &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  /** Injected Router for post-login navigation */
   private router: Router &#x3D; inject(Router);
+  /** Target URL to navigate to after successful authentication */
   readonly navigateTo: string;
+  /** Injected TranslateService for multi-language validation messages */
   translate &#x3D; inject(TranslateService);
 
+  /** Signal controlling the visibility of the password field */
   showPassword &#x3D; signal(false);
+  /** Handle for the active authentication subscription to prevent leaks */
   private authSubscription?: Subscription;
 
   constructor(
@@ -860,18 +910,15 @@ export class LoginComponent implements OnDestroy {
   }
 
   /**
-   * Alterna la visibilidad de la contraseña en el campo de entrada.
-   * Cambia entre mostrar el texto de la contraseña o mostrarla oculta con asteriscos.
+   * Toggles the visibility of the password input field.
    */
   togglePassword() {
     this.showPassword.update(value &#x3D;&gt; !value);
   }
 
   /**
-   * Procesa el envío del formulario de login validando las credenciales.
-   * Valida el formulario y realiza una petición de autenticación al backend.
-   * Redirige al dashboard o a la URL guardada si el login es exitoso.
-   * Muestra mensajes de error si la autenticación falla.
+   * Processes the login form submission.
+   * Validates credentials against the backend and redirects on success.
    */
   onSubmit() {
     if (this.formLogin.invalid) {
@@ -892,39 +939,33 @@ export class LoginComponent implements OnDestroy {
           this.router.navigate([this.navigateTo]);
         },
         error: (err: Error) &#x3D;&gt; {
-          // Si es un error 400 de validación, el mensaje específico viene en err.message
-          // Si es un 401 de credenciales inválidas, err.message lo contiene
           this.errorMsg.set(err.message);
         }
       });
   }
 
   /**
-   * Navega a la página de registro del usuario.
-   * Redirige al componente de registro para que el usuario pueda crear una nueva cuenta.
+   * Navigates to the user registration page.
    */
   goRegister() {
     this.router.navigate([&#x27;/register&#x27;]);
   }
 
   /**
-   * Limpia las suscripciones activas cuando el componente se destruye.
-   * Previene memory leaks cancelando las suscripciones a observables.
+   * Cleanup logic. Unsubscribes from auth observables to prevent memory leaks.
    */
   ngOnDestroy() {
     this.authSubscription?.unsubscribe();
   }
 
   /**
-   * Retorna el mensaje de error correspondiente a un control específico del formulario.
-   * Genera mensajes personalizados según el tipo de error de validación encontrado.
-   * Retorna cadena vacía si no hay errores o si el control no ha sido tocado.
+   * Resolves the translated validation error message for a specific form control.
+   * @param control - The name of the form control or &#x27;global&#x27; for general errors
+   * @returns Translated error string or empty string if no errors
    */
   getError(control: string): string {
-    // Si es un error global (del servidor: 400 o 401)
     if (control &#x3D;&#x3D;&#x3D; &#x27;global&#x27;) {
       const msg &#x3D; this.errorMsg();
-      // Si el backend retornó un mensaje específico de error de credenciales
       if (msg &amp;&amp; msg.includes(&#x27;Credenciales inválidas&#x27;)) {
         return this.translate.instant(&#x27;login.errors.invalidCredentials&#x27;);
       }
@@ -1113,7 +1154,7 @@ export class LoginComponent implements OnDestroy {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="min-h-screen flex justify-center items-center bg-gray-50 dark:bg-gray-900 px-4 py-10">  <div class="absolute top-4 left-4 z-10">    <a       routerLink="/"       class="p-2 rounded-lg transition-colors hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center gap-2 group"      aria-label="Volver al inicio">      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />      </svg>      <span class="hidden sm:inline text-sm font-medium group-hover:text-gray-900 dark:group-hover:text-white transition-colors">Inicio</span>    </a>  </div>  <div class="absolute top-4 right-4 flex items-center gap-2 z-10">    <app-language-selector></app-language-selector>    <app-theme-toggle></app-theme-toggle>  </div>  <div    class="rounded-lg max-w-md w-full bg-gradient-to-br from-purple-500 via-blue-600 to-cyan-400 shadow-2xl p-0.5"  >    <div class="bg-white dark:bg-gray-800 p-4 sm:p-6 md:p-8 rounded-lg">      <div class="flex justify-center mb-4">        <a routerLink="/" class="cursor-pointer">          <img             src="Logo.png"             alt="Meta Force Logo"             class="h-28 sm:h-36 md:h-40 w-auto"          />        </a>      </div>      <h1 class="text-center text-gray-900 dark:text-white text-2xl sm:text-3xl font-extrabold mb-1">        {{ \'login.title\' | translate }}      </h1>      <p class="mb-4 sm:mb-5 text-gray-600 dark:text-gray-400 text-xs sm:text-sm text-center">        {{ \'login.subtitle\' | translate }}      </p>      <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">                <div class="mb-4">          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="email">{{ \'login.email\' | translate }}</label>          <div class="relative">            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>            </span>                 <input              id="email"              autocomplete="username"              formControlName="email"              [placeholder]="\'login.emailPlaceholder\' | translate"              class="px-10 h-10 rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white w-full focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"                    type="text"            />          </div>          @if(formLogin.controls.email.touched && formLogin.controls.email.errors){            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">              {{getError(\'email\')}}            </span>          }             </div>        <div class="mb-4">          <label class="block text-gray-900 dark:text-white mb-1 text-sm font-medium" for="password">{{ \'login.password\' | translate }}</label>          <div class="relative">            <span class="text-gray-500 dark:text-gray-400 absolute left-3 top-1/2 -translate-y-1/2">              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"/></svg>            </span>                 <input              id="password"              formControlName="password"              autocomplete="current-password"              [type]="showPassword() ? \'text\' : \'password\'"              [placeholder]="\'login.passwordPlaceholder\' | translate"              class="px-10 h-10 w-full               rounded-lg border-2 border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:border-cyan-400 dark:focus:border-cyan-400 focus:ring-cyan-400 dark:focus:ring-cyan-400 transition-colors"            />            <button              type="button"              (click)="togglePassword()"              class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white transition-colors"            >                <svg *ngIf="!showPassword()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">                <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12c1.657 3.841 5.21 6.5 9.566 6.5 2.085 0 4.017-.63 5.617-1.707m-4.79 2.001A7.5 7.5 0 0 1 12 15a7.5 7.5 0 0 1-5.707-2.317M21 21l-18-18"/>              </svg>              <svg *ngIf="showPassword()" xmlns="http://www.w3.org/2000/svg"  fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z"/>                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>              </svg>                </button>          </div>          @if(formLogin.controls.password.touched && formLogin.controls.password.errors){            <span class="text-red-600 dark:text-red-400 text-xs mt-1 block">              {{getError(\'password\')}}            </span>          }        </div>        @if(errorMsg()){           <div class="text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-950/50 p-2 rounded-lg text-center text-sm mb-4 border border-red-300 dark:border-red-700">            {{ getError(\'global\') }}          </div>        }        <button          class="rounded-lg w-full px-4 py-2.5 sm:py-2 font-bold text-base sm:text-lg bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white shadow-lg transition-all transform hover:scale-[1.01]"          type="submit"          [disabled]="formLogin.invalid"        >          {{ \'login.loginButton\' | translate }}        </button>      </form>      <div class="mt-4 sm:mt-6 text-center text-gray-900 dark:text-white text-xs sm:text-sm">        {{ \'login.noAccount\' | translate }}        <button          type="button"          (click)="goRegister()"          class="underline font-bold text-blue-600 dark:text-cyan-300 hover:text-blue-800 dark:hover:text-white ml-1 transition-colors"        >          {{ \'login.createAccount\' | translate }}        </button>      </div>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
+    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
     var DIRECTIVES = [{'name': 'ClickOutsideDirective', 'selector': '[appClickOutside]'}];
     var ACTUAL_COMPONENT = {'name': 'LoginComponent'};
 </script>

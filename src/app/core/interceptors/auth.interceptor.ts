@@ -3,6 +3,10 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 
+/**
+ * HTTP interceptor that appends the authentication token to outgoing requests
+ * and handles 401 Unauthorized responses by redirecting to login.
+ */
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
 

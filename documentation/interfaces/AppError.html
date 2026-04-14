@@ -244,6 +244,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Optional error code for programmatic handling</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -277,6 +283,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Human-readable error message</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -315,6 +327,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The original error object or cause, if available</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -348,6 +366,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>When the error occurred</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -381,6 +405,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Categorization of the error (e.g., AUTH, NETWORK)</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -399,13 +429,22 @@
 /**
  * Standard structure for application-level error tracking.
  */
+/**
+ * Standard structure for application-level error tracking.
+ */
 export interface AppError {
+  /** Categorization of the error (e.g., AUTH, NETWORK) */
   type: ErrorType;
+  /** Human-readable error message */
   message: string;
+  /** Optional error code for programmatic handling */
   code?: string;
+  /** The original error object or cause, if available */
   originalError?: any;
+  /** When the error occurred */
   timestamp: Date;
 }
+
 
 </code></pre>
     </div>

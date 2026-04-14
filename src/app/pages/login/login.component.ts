@@ -22,15 +22,28 @@ import { LanguageSelectorComponent } from '../../shared/components/language-sele
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnDestroy {
-  formLogin;
+  /** Reactive form group for user login credentials, managed via FormBuilder */
+  formLogin: any;
+  /** Signal for displaying authentication-related error messages */
   errorMsg = signal<string>('');
+  /** Injected Router for post-login navigation */
   private router: Router = inject(Router);
+  /** Target URL to navigate to after successful authentication */
   readonly navigateTo: string;
+  /** Injected TranslateService for multi-language validation messages */
   translate = inject(TranslateService);
 
+  /** Signal controlling the visibility of the password field */
   showPassword = signal(false);
+  /** Handle for the active authentication subscription to prevent leaks */
   private authSubscription?: Subscription;
 
+  /**
+   * Initializes the login form with email and password fields.
+   * Checks for a target navigation URL in the history state.
+   * @param formSvc - Injected FormBuilder to construct the reactive form
+   * @param auth - Injected AuthService for credential verification
+   */
   constructor(
     private formSvc: FormBuilder,
     private auth: AuthService
@@ -43,18 +56,15 @@ export class LoginComponent implements OnDestroy {
   }
 
   /**
-   * Alterna la visibilidad de la contraseña en el campo de entrada.
-   * Cambia entre mostrar el texto de la contraseña o mostrarla oculta con asteriscos.
+   * Toggles the visibility of the password input field.
    */
   togglePassword() {
     this.showPassword.update(value => !value);
   }
 
   /**
-   * Procesa el envío del formulario de login validando las credenciales.
-   * Valida el formulario y realiza una petición de autenticación al backend.
-   * Redirige al dashboard o a la URL guardada si el login es exitoso.
-   * Muestra mensajes de error si la autenticación falla.
+   * Processes the login form submission.
+   * Validates credentials against the backend and redirects on success.
    */
   onSubmit() {
     if (this.formLogin.invalid) {
@@ -75,39 +85,33 @@ export class LoginComponent implements OnDestroy {
           this.router.navigate([this.navigateTo]);
         },
         error: (err: Error) => {
-          // Si es un error 400 de validación, el mensaje específico viene en err.message
-          // Si es un 401 de credenciales inválidas, err.message lo contiene
           this.errorMsg.set(err.message);
         }
       });
   }
 
   /**
-   * Navega a la página de registro del usuario.
-   * Redirige al componente de registro para que el usuario pueda crear una nueva cuenta.
+   * Navigates to the user registration page.
    */
   goRegister() {
     this.router.navigate(['/register']);
   }
 
   /**
-   * Limpia las suscripciones activas cuando el componente se destruye.
-   * Previene memory leaks cancelando las suscripciones a observables.
+   * Cleanup logic. Unsubscribes from auth observables to prevent memory leaks.
    */
   ngOnDestroy() {
     this.authSubscription?.unsubscribe();
   }
 
   /**
-   * Retorna el mensaje de error correspondiente a un control específico del formulario.
-   * Genera mensajes personalizados según el tipo de error de validación encontrado.
-   * Retorna cadena vacía si no hay errores o si el control no ha sido tocado.
+   * Resolves the translated validation error message for a specific form control.
+   * @param control - The name of the form control or 'global' for general errors
+   * @returns Translated error string or empty string if no errors
    */
   getError(control: string): string {
-    // Si es un error global (del servidor: 400 o 401)
     if (control === 'global') {
       const msg = this.errorMsg();
-      // Si el backend retornó un mensaje específico de error de credenciales
       if (msg && msg.includes('Credenciales inválidas')) {
         return this.translate.instant('login.errors.invalidCredentials');
       }

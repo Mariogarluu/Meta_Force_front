@@ -137,6 +137,15 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Global error handler that captures unhandled exceptions across the application.
+Differentiates behavior between development (verbose logging) and
+production (suppressed technical details/user-friendly alerts).</p>
+
+            </p>
 
 
 
@@ -179,7 +188,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">src/app/core/handlers/global-error-handler.ts:5</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/core/handlers/global-error-handler.ts:10</a></div>
                             </td>
                         </tr>
 
@@ -193,6 +202,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -207,6 +217,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>Injected NgZone to ensure UI-thread safety for optional notifications</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -242,14 +258,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="8"
-                                    class="link-to-prism">src/app/core/handlers/global-error-handler.ts:8</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="20"
+                                    class="link-to-prism">src/app/core/handlers/global-error-handler.ts:20</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Intercepts and processes application-wide errors.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -260,6 +278,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -274,6 +293,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The error or exception object to handle</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -298,10 +323,22 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ErrorHandler, Injectable, NgZone } from &#x27;@angular/core&#x27;;
 import { environment } from &#x27;../../../environments/environment&#x27;; // Asegúrate de tener esto
 
+/**
+ * Global error handler that captures unhandled exceptions across the application.
+ * Differentiates behavior between development (verbose logging) and 
+ * production (suppressed technical details/user-friendly alerts).
+ */
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
+  /**
+   * @param zone - Injected NgZone to ensure UI-thread safety for optional notifications
+   */
   constructor(private zone: NgZone) {}
 
+  /**
+   * Intercepts and processes application-wide errors.
+   * @param error - The error or exception object to handle
+   */
   handleError(error: any): void {
     // 1. En Desarrollo: Mostramos todo para debuggear
     if (!environment.production) {

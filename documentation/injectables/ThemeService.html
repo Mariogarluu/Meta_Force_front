@@ -234,7 +234,7 @@ Persists user preference and applies the &#39;dark&#39; class to the HTML docume
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>Inicializa el servicio aplicando el tema guardado o el tema por defecto.</p>
+                            <div class="io-description"><p>Initializes the service by applying the stored or default theme.</p>
 </div>
                     </td>
                 </tr>
@@ -269,16 +269,15 @@ Persists user preference and applies the &#39;dark&#39; class to the HTML docume
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="48"
-                                    class="link-to-prism">src/app/core/services/theme.service.ts:48</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/app/core/services/theme.service.ts:47</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Aplica el tema al documento HTML agregando o removiendo la clase &#39;dark&#39;.
-Esta clase es utilizada por Tailwind CSS para aplicar los estilos del modo oscuro.</p>
+                        <div class="io-description"><p>Applies the theme to the HTML document by adding/removing the &#39;dark&#39; class.</p>
 </div>
 
                             <div class="io-description">
@@ -307,7 +306,7 @@ Esta clase es utilizada por Tailwind CSS para aplicar los estilos del modo oscur
 
                                             <td>
                                                     <ul>
-<li>El tema a aplicar (&#39;dark&#39; o &#39;light&#39;)</li>
+<li>The theme to apply (&#39;dark&#39; or &#39;light&#39;)</li>
 </ul>
 
                                             </td>
@@ -356,7 +355,7 @@ Esta clase es utilizada por Tailwind CSS para aplicar los estilos del modo oscur
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Obtiene el tema inicial desde localStorage o retorna &#39;dark&#39; por defecto.</p>
+                        <div class="io-description"><p>Retrieves the initial theme from localStorage or defaults to &#39;dark&#39;.</p>
 </div>
 
                         <div class="io-description">
@@ -364,7 +363,7 @@ Esta clase es utilizada por Tailwind CSS para aplicar los estilos del modo oscur
 
                         </div>
                             <div class="io-description">
-                                <p>El tema guardado o &#39;dark&#39; si no hay preferencia guardada</p>
+                                <p>The initial theme for the application</p>
 
                             </div>
                 </td>
@@ -391,15 +390,15 @@ Esta clase es utilizada por Tailwind CSS para aplicar los estilos del modo oscur
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="70"
-                                    class="link-to-prism">src/app/core/services/theme.service.ts:70</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="68"
+                                    class="link-to-prism">src/app/core/services/theme.service.ts:68</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Establece un tema específico, guarda la preferencia en localStorage y la aplica.</p>
+                        <div class="io-description"><p>Sets a specific theme, saves to localStorage, and applies it to the document.</p>
 </div>
 
                             <div class="io-description">
@@ -428,7 +427,7 @@ Esta clase es utilizada por Tailwind CSS para aplicar los estilos del modo oscur
 
                                             <td>
                                                     <ul>
-<li>El tema a establecer (&#39;dark&#39; o &#39;light&#39;)</li>
+<li>The theme to set</li>
 </ul>
 
                                             </td>
@@ -467,16 +466,15 @@ Esta clase es utilizada por Tailwind CSS para aplicar los estilos del modo oscur
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="61"
-                                    class="link-to-prism">src/app/core/services/theme.service.ts:61</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">src/app/core/services/theme.service.ts:59</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Alterna entre modo oscuro y claro.
-Guarda la nueva preferencia y la aplica inmediatamente.</p>
+                        <div class="io-description"><p>Toggles between dark and light modes.</p>
 </div>
 
                         <div class="io-description">
@@ -518,10 +516,16 @@ Guarda la nueva preferencia y la aplica inmediatamente.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/core/services/theme.service.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/core/services/theme.service.ts:15</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Internal signal for the current theme</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -551,10 +555,16 @@ Guarda la nueva preferencia y la aplica inmediatamente.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/core/services/theme.service.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/core/services/theme.service.ts:20</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal returns true if dark mode is active</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -588,6 +598,12 @@ Guarda la nueva preferencia y la aplica inmediatamente.</p>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal returns true if light mode is active</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -617,10 +633,16 @@ Guarda la nueva preferencia y la aplica inmediatamente.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/core/services/theme.service.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/core/services/theme.service.ts:18</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Public read-only signal of the current theme</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -632,13 +654,9 @@ Guarda la nueva preferencia y la aplica inmediatamente.</p>
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, signal, computed } from &#x27;@angular/core&#x27;;
 
+/** Supported visual themes for the application */
 export type Theme &#x3D; &#x27;dark&#x27; | &#x27;light&#x27;;
 
-/**
- * Servicio que gestiona el tema de la aplicación (modo claro/oscuro).
- * Persiste la preferencia del usuario en localStorage y aplica el tema
- * al documento HTML mediante la clase &#x27;dark&#x27; de Tailwind CSS.
- */
 /**
  * Service managing the application&#x27;s visual theme (light/dark mode).
  * Persists user preference and applies the &#x27;dark&#x27; class to the HTML document.
@@ -647,22 +665,26 @@ export type Theme &#x3D; &#x27;dark&#x27; | &#x27;light&#x27;;
   providedIn: &#x27;root&#x27;
 })
 export class ThemeService {
+  /** Internal signal for the current theme */
   private _theme &#x3D; signal&lt;Theme&gt;(this.getInitialTheme());
   
+  /** Public read-only signal of the current theme */
   public readonly theme &#x3D; this._theme.asReadonly();
+  /** Computed signal returns true if dark mode is active */
   public readonly isDark &#x3D; computed(() &#x3D;&gt; this._theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27;);
+  /** Computed signal returns true if light mode is active */
   public readonly isLight &#x3D; computed(() &#x3D;&gt; this._theme() &#x3D;&#x3D;&#x3D; &#x27;light&#x27;);
 
   /**
-   * Inicializa el servicio aplicando el tema guardado o el tema por defecto.
+   * Initializes the service by applying the stored or default theme.
    */
   constructor() {
     this.applyTheme(this._theme());
   }
 
   /**
-   * Obtiene el tema inicial desde localStorage o retorna &#x27;dark&#x27; por defecto.
-   * @returns El tema guardado o &#x27;dark&#x27; si no hay preferencia guardada
+   * Retrieves the initial theme from localStorage or defaults to &#x27;dark&#x27;.
+   * @returns The initial theme for the application
    */
   private getInitialTheme(): Theme {
     const saved &#x3D; localStorage.getItem(&#x27;theme&#x27;) as Theme;
@@ -673,9 +695,8 @@ export class ThemeService {
   }
 
   /**
-   * Aplica el tema al documento HTML agregando o removiendo la clase &#x27;dark&#x27;.
-   * Esta clase es utilizada por Tailwind CSS para aplicar los estilos del modo oscuro.
-   * @param theme - El tema a aplicar (&#x27;dark&#x27; o &#x27;light&#x27;)
+   * Applies the theme to the HTML document by adding/removing the &#x27;dark&#x27; class.
+   * @param theme - The theme to apply (&#x27;dark&#x27; or &#x27;light&#x27;)
    */
   private applyTheme(theme: Theme) {
     const html &#x3D; document.documentElement;
@@ -687,8 +708,7 @@ export class ThemeService {
   }
 
   /**
-   * Alterna entre modo oscuro y claro.
-   * Guarda la nueva preferencia y la aplica inmediatamente.
+   * Toggles between dark and light modes.
    */
   toggleTheme() {
     const newTheme: Theme &#x3D; this._theme() &#x3D;&#x3D;&#x3D; &#x27;dark&#x27; ? &#x27;light&#x27; : &#x27;dark&#x27;;
@@ -696,8 +716,8 @@ export class ThemeService {
   }
 
   /**
-   * Establece un tema específico, guarda la preferencia en localStorage y la aplica.
-   * @param theme - El tema a establecer (&#x27;dark&#x27; o &#x27;light&#x27;)
+   * Sets a specific theme, saves to localStorage, and applies it to the document.
+   * @param theme - The theme to set
    */
   setTheme(theme: Theme) {
     this._theme.set(theme);
@@ -705,6 +725,7 @@ export class ThemeService {
     this.applyTheme(theme);
   }
 }
+
 
 </code></pre>
     </div>
