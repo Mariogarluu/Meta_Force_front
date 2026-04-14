@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { BaseChartDirective } from 'ng2-charts';
 import { PerformanceService, BodyWeightRecord, ExerciseRecord, Exercise } from './performance.service';
 import { ChartConfiguration, ChartType } from 'chart.js';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-performance',
   standalone: true,
-  imports: [CommonModule, FormsModule, BaseChartDirective],
+  imports: [CommonModule, FormsModule, BaseChartDirective, NavbarComponent],
   templateUrl: './performance.component.html',
   styleUrls: ['./performance.component.scss']
 })
@@ -26,29 +27,43 @@ export class PerformanceComponent implements OnInit {
   newBodyWeight = { weight: 0, date: '', notes: '' };
   newExerciseRecord = { exerciseId: '', weight: 0, reps: 0, date: '', notes: '' };
 
-  // Body Weight Chart
-  public weightChartData: ChartConfiguration['data'] = {
-    datasets: [{ data: [], label: 'Peso Corporal (kg)', borderColor: '#06b6d4', fill: false, tension: 0.1 }],
-    labels: []
-  };
-  public weightChartOptions: ChartConfiguration['options'] = {
+  private commonChartOptions: ChartConfiguration['options'] = {
     responsive: true,
+    maintainAspectRatio: false,
     scales: {
-      y: { beginAtZero: false, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#e2e8f0'} },
-      x: { grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#e2e8f0'} }
+      y: { 
+        beginAtZero: false, 
+        grid: { color: 'rgba(156, 163, 175, 0.2)' }, 
+        ticks: { color: '#9ca3af' } 
+      },
+      x: { 
+        grid: { color: 'rgba(156, 163, 175, 0.2)' }, 
+        ticks: { color: '#9ca3af' } 
+      }
     },
     plugins: {
-      legend: { labels: { color: '#e2e8f0' } }
+      legend: { labels: { color: '#9ca3af' } }
     }
   };
+
+  // Body Weight Chart
+  public weightChartData: ChartConfiguration['data'] = {
+    datasets: [{ data: [], label: 'Peso Corporal (kg)', borderColor: '#0891b2', fill: false, tension: 0.1 }],
+    labels: []
+  };
+  public weightChartOptions: ChartConfiguration['options'] = this.commonChartOptions;
   public weightChartType: ChartType = 'line';
 
   // Exercises Chart
   public selectedExerciseChartId: string = '';
   public exerciseChartData: ChartConfiguration['data'] = {
-    datasets: [{ data: [], label: 'Peso Movido (kg)', borderColor: '#3b82f6', fill: false, tension: 0.1 }],
+    datasets: [{ data: [], label: 'Peso Movido (kg)', borderColor: '#2563eb', fill: false, tension: 0.1 }],
     labels: []
   };
+
+  get filteredExerciseRecords() {
+    return this.exerciseRecords.filter(r => r.exercise.id === this.selectedExerciseChartId);
+  }
 
   ngOnInit() {
     this.loadBodyWeights();
@@ -124,8 +139,10 @@ export class PerformanceComponent implements OnInit {
   }
 
   updateWeightChart() {
-    const dates = this.bodyWeights.map(w => new Date(w.date).toLocaleDateString());
-    const weights = this.bodyWeights.map(w => w.weight);
+    // Sort array by date so the chart draws properly (if not sorted)
+    const sorted = [...this.bodyWeights].sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    const dates = sorted.map(w => new Date(w.date).toLocaleDateString());
+    const weights = sorted.map(w => w.weight);
     this.weightChartData = {
       labels: dates,
       datasets: [{ data: weights, label: 'Peso Corporal (kg)', borderColor: '#06b6d4', backgroundColor: 'rgba(6, 182, 212, 0.2)', fill: true, tension: 0.3 }]
@@ -134,7 +151,7 @@ export class PerformanceComponent implements OnInit {
 
   updateExerciseChart() {
     if (!this.selectedExerciseChartId) return;
-    const records = this.exerciseRecords.filter(r => r.exercise.id === this.selectedExerciseChartId);
+    const records = this.filteredExerciseRecords.sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     const dates = records.map(r => new Date(r.date).toLocaleDateString());
     const weights = records.map(r => r.weight);
     const exName = this.exercises.find(e => e.id === this.selectedExerciseChartId)?.name || 'Ejercicio';
