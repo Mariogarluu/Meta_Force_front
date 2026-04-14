@@ -5,8 +5,8 @@ import { AuthService } from '../../../core/services/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 /**
- * Componente para gestionar la imagen de perfil del usuario.
- * Permite subir una nueva imagen o eliminar la existente.
+ * Component for managing the user's profile image.
+ * Provides functionality to upload new images via Cloudinary and delete existing ones.
  */
 @Component({
   selector: 'app-profile-image-manager',
@@ -16,16 +16,22 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './profile-image-manager.component.scss'
 })
 export class ProfileImageManagerComponent {
+  /** Injected UsersService for profile-specific API operations */
   private usersService = inject(UsersService);
+  /** Injected AuthService to refresh local session data after image updates */
   private authService = inject(AuthService);
 
+  /** Signal controlling the visibility of the image management dropdown menu */
   showMenu = signal(false);
+  /** Signal indicating an active upload or deletion process */
   isUploading = signal(false);
+  /** Signal for storing and displaying operation-specific error messages */
   errorMessage = signal<string>('');
 
   /**
-   * Maneja la selección de un archivo de imagen.
-   * Valida que sea una imagen y la sube a Cloudinary.
+   * Handles the selection of an image file from the system dialog.
+   * Validates file type and size constraints before initiating the upload.
+   * @param event - The DOM event from the file input change
    */
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -36,12 +42,12 @@ export class ProfileImageManagerComponent {
     }
 
     if (!file.type.startsWith('image/')) {
-      this.errorMessage.set('Por favor, selecciona un archivo de imagen válido');
+      this.errorMessage.set('Please select a valid image file');
       return;
     }
 
     if (file.size > 5 * 1024 * 1024) {
-      this.errorMessage.set('La imagen no debe superar los 5MB');
+      this.errorMessage.set('Image size should not exceed 5MB');
       return;
     }
 
@@ -50,8 +56,9 @@ export class ProfileImageManagerComponent {
   }
 
   /**
-   * Sube la imagen de perfil a Cloudinary.
-   * @param file - Archivo de imagen a subir
+   * Uploads the selected profile image to the server via Cloudinary.
+   * Refreshes the user session upon successful completion.
+   * @param file - The Image file object to be uploaded
    */
   private uploadImage(file: File): void {
     this.isUploading.set(true);
@@ -65,17 +72,17 @@ export class ProfileImageManagerComponent {
       },
       error: (error) => {
         this.isUploading.set(false);
-        this.errorMessage.set(error.error?.message || 'Error al subir la imagen');
+        this.errorMessage.set(error.error?.message || 'Error uploading image');
       }
     });
   }
 
   /**
-   * Elimina la imagen de perfil del usuario.
-   * Después de eliminar, permite seleccionar una nueva imagen.
+   * Deletes the user's current profile image.
+   * Prompts for confirmation and resets the view state.
    */
   deleteImage(): void {
-    if (!confirm('¿Estás seguro de que quieres eliminar tu imagen de perfil?')) {
+    if (!confirm('Are you sure you want to delete your profile image?')) {
       return;
     }
 
@@ -87,20 +94,21 @@ export class ProfileImageManagerComponent {
       next: (updatedUser) => {
         this.isUploading.set(false);
         this.authService.refreshUser();
-        // Después de eliminar, abrir automáticamente el selector para subir una nueva imagen
+        // After deletion, automatically open the selector to upload a new image
         setTimeout(() => {
           this.triggerFileInput();
         }, 300);
       },
       error: (error) => {
         this.isUploading.set(false);
-        this.errorMessage.set(error.error?.message || 'Error al eliminar la imagen');
+        this.errorMessage.set(error.error?.message || 'Error deleting image');
       }
     });
   }
 
   /**
-   * Activa el input de archivo para seleccionar una nueva imagen.
+   * Programmatically triggers a hidden file input to open the system's file picker.
+   * Includes inline validation for redundancy.
    */
   triggerFileInput(): void {
     const input = document.createElement('input');
@@ -110,11 +118,11 @@ export class ProfileImageManagerComponent {
       const file = event.target.files?.[0];
       if (file) {
         if (!file.type.startsWith('image/')) {
-          this.errorMessage.set('Por favor, selecciona un archivo de imagen válido');
+          this.errorMessage.set('Please select a valid image file');
           return;
         }
         if (file.size > 5 * 1024 * 1024) {
-          this.errorMessage.set('La imagen no debe superar los 5MB');
+          this.errorMessage.set('Image size should not exceed 5MB');
           return;
         }
         this.uploadImage(file);
@@ -124,14 +132,14 @@ export class ProfileImageManagerComponent {
   }
 
   /**
-   * Alterna la visibilidad del menú de gestión de imagen.
+   * Toggles the visibility state of the local management menu.
    */
   toggleMenu(): void {
     this.showMenu.set(!this.showMenu());
   }
 
   /**
-   * Cierra el menú de gestión de imagen.
+   * Forcefully closes the management menu.
    */
   closeMenu(): void {
     this.showMenu.set(false);

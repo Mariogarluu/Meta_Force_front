@@ -10,15 +10,16 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 /**
- * Validador personalizado que verifica que las contraseñas del formulario de registro coincidan.
- * Compara los valores de los campos password y confirmPassword.
- * Retorna null si coinciden o un objeto con el error si no coinciden.
+ * Custom validator that verifies that passwords in the registration form match.
+ * Compares the values of the password and confirmPassword fields.
+ * @param group - The abstract control representing the form group
+ * @returns null if they match, or a validation error object if they don't
  */
 export function passwordsMatchValidator(group: AbstractControl): ValidationErrors | null {
   const password = group.get('password')?.value;
   const confirmPassword = group.get('confirmPassword')?.value;
   
-  if (group.get('confirmPassword')?.pristine) {
+  if (confirmPassword === undefined || group.get('confirmPassword')?.pristine) {
     return null;
   }
   
@@ -38,18 +39,32 @@ export function passwordsMatchValidator(group: AbstractControl): ValidationError
   styleUrl: './register.component.scss'
 })
 export class RegisterComponent implements OnDestroy {
+  /** Reactive form group for user registration data */
   formRegister: FormGroup;
+  /** Injected FormBuilder for constructing the registration form */
   builder: FormBuilder = inject(FormBuilder);
+  /** Injected AuthService for account creation API calls */
   auth: AuthService = inject(AuthService);
+  /** Injected Router for post-registration navigation */
   router: Router = inject(Router);
+  /** Injected TranslateService for multi-language validation messages */
   translate = inject(TranslateService);
+  /** Target URL to navigate to after successful registration */
   readonly navigateTo: string;
 
+  /** Signal for displaying registration-related error messages */
   errorMsg = signal<string>('');
+  /** Signal controlling the visibility of the password field */
   showPassword = signal(false);
+  /** Signal controlling the visibility of the confirm password field */
   showConfirmPassword = signal(false);
+  /** Handle for the active authentication subscription to prevent leaks */
   private authSubscription?: Subscription;
 
+  /**
+   * Initializes the registration form with validation rules.
+   * Sets up the password match validator and checks for navigation state.
+   */
   constructor(){
     this.formRegister = this.builder.group({
       'name':['',[Validators.required, Validators.minLength(3)]],
@@ -62,10 +77,8 @@ export class RegisterComponent implements OnDestroy {
   }
 
   /**
-   * Procesa el envío del formulario de registro validando todos los campos.
-   * Crea un nuevo usuario en el sistema con los datos proporcionados.
-   * Redirige al dashboard si el registro es exitoso.
-   * Muestra mensajes de error si el registro falla o hay problemas de validación.
+   * Processes the registration form submission.
+   * Validates all fields, creates the user account, and redirects to the dashboard.
    */
   onSubmit(){
     if (this.formRegister.invalid) {
@@ -94,41 +107,37 @@ export class RegisterComponent implements OnDestroy {
   }
 
   /**
-   * Limpia las suscripciones activas cuando el componente se destruye.
-   * Previene memory leaks cancelando las suscripciones a observables.
+   * Cleanup logic. Unsubscribes from auth observables to prevent memory leaks.
    */
   ngOnDestroy() {
     this.authSubscription?.unsubscribe();
   }
 
   /**
-   * Alterna la visibilidad del campo de contraseña principal.
-   * Cambia entre mostrar el texto de la contraseña o mostrarla oculta.
+   * Toggles the visibility of the main password input field.
    */
   togglePassword() {
     this.showPassword.update(value => !value);
   }
 
   /**
-   * Alterna la visibilidad del campo de confirmación de contraseña.
-   * Permite al usuario verificar que escribió correctamente la contraseña.
+   * Toggles the visibility of the confirm password input field.
    */
   toggleConfirmPassword() {
     this.showConfirmPassword.update(value => !value);
   }
 
   /**
-   * Navega a la página de login del usuario.
-   * Redirige al componente de login para usuarios que ya tienen cuenta.
+   * Navigates to the user login page.
    */
   goLogin() {
     this.router.navigate(['/login']);
   }
   
   /**
-   * Retorna el mensaje de error correspondiente a un control específico del formulario de registro.
-   * Maneja errores de validación específicos incluyendo coincidencia de contraseñas.
-   * Genera mensajes descriptivos en español para cada tipo de error encontrado.
+   * Resolves the translated validation error message for a specific form control.
+   * @param control - The name of the form control or 'global' for general errors
+   * @returns Translated error string or empty string if no errors
    */
   getError(control: string): string {
     if (control === 'global') return this.errorMsg();

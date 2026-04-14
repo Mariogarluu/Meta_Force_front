@@ -138,6 +138,14 @@
 </p>
 
 
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Component for managing gym machine models and their specific instances across centers.
+Supports viewing machines, managing machine types, and assigning quantities to gyms.</p>
+
+    </p>
 
 
     <p class="comment">
@@ -289,6 +297,9 @@
                                 <a href="#isSuperAdmin" >isSuperAdmin</a>
                             </li>
                             <li>
+                                <a href="#machineInstances" >machineInstances</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Private</span>
                                 <a href="#machinesService" >machinesService</a>
                             </li>
@@ -384,6 +395,9 @@
                                 <a href="#loadCenters" >loadCenters</a>
                             </li>
                             <li>
+                                <a href="#loadMachineInstances" >loadMachineInstances</a>
+                            </li>
+                            <li>
                                 <a href="#loadMachineTypes" >loadMachineTypes</a>
                             </li>
                             <li>
@@ -470,14 +484,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="183"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:183</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="297"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:297</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Resets name and type filters to their default empty states.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -507,14 +523,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="338"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:338</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="488"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:488</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Closes the instance management modal.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -544,14 +562,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="221"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:221</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="351"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:351</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Closes the machine type deletion confirmation modal.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -581,14 +601,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="210"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:210</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="333"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:333</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Closes the machine type form modal and resets errors.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -618,14 +640,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="288"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:288</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="424"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:424</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Executes the deletion of the selected machine type from the backend.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -655,14 +679,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="346"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:346</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="501"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:501</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Removes a physical machine instance from a center after confirmation.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -673,6 +699,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -687,6 +714,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The machine type model</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>instance</td>
@@ -699,6 +732,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The specific instance record</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -734,14 +773,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="452"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:452</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="630"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:630</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Locates a machine type model in the global list by ID.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -752,6 +793,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -766,6 +808,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the model to find</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -775,7 +823,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>The matching model or null</p>
+
                             </div>
                 </td>
             </tr>
@@ -803,14 +852,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="433"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:433</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="597"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:597</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Internal helper to finalize a successful data modification operation.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -840,14 +891,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="156"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:156</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="249"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:249</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Resolves a human-readable center name from an ID.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -858,6 +911,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -872,6 +926,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the center</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -881,7 +941,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Translated center name or placeholder</p>
+
                             </div>
                 </td>
             </tr>
@@ -907,14 +968,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="168"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:168</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="272"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:272</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Returns a list of centers that possess at least one instance of a given machine type.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -925,6 +988,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -939,6 +1003,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The machine type model to analyze</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -948,7 +1018,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Array of Centers that have this machine type</p>
+
                             </div>
                 </td>
             </tr>
@@ -974,14 +1045,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="162"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:162</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="261"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:261</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Extracts instances belonging to a specific center from a machine type model.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -992,6 +1065,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1006,6 +1080,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The machine type model containing nested instances</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>centerId</td>
@@ -1018,6 +1098,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>(Optional) Filter by this center ID</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1027,7 +1113,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Array of matching instances</p>
+
                             </div>
                 </td>
             </tr>
@@ -1053,14 +1140,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="439"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:439</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="608"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:608</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Returns Tailwind CSS color classes based on the machine status.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1071,6 +1160,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1085,6 +1175,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The machine&#39;s current operational status</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1094,7 +1190,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>String of CSS classes</p>
+
                             </div>
                 </td>
             </tr>
@@ -1120,19 +1217,25 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="448"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:448</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="621"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:621</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Checks if the currently filtered list contains any machines with actual center instances.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>True if there are instances to display</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -1157,14 +1260,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="174"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:174</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="283"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:283</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Checks if a machine type already has presence in a specific center.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1175,6 +1280,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1189,6 +1295,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the center to check</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1198,7 +1310,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>True if at least one instance exists in that center</p>
+
                             </div>
                 </td>
             </tr>
@@ -1224,14 +1337,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="471"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:471</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="662"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:662</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Checks if a particular machine type is currently expanded in the view.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1242,6 +1357,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1256,6 +1372,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The entity ID</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1265,7 +1387,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>True if expanded</p>
+
                             </div>
                 </td>
             </tr>
@@ -1291,14 +1414,55 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="125"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:125</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="177"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:177</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Fetches the list of gym centers and establishes default center filters based on user role.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadMachineInstances"></a>
+                    <span class="name">
+                        <span ><b>loadMachineInstances</b></span>
+                        <a href="#loadMachineInstances"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>loadMachineInstances()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="206"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:206</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Fetches physical machine instances for the currently selected center.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -1328,14 +1492,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="107"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:107</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="157"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:157</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Fetches the global catalog of machine models.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -1365,14 +1531,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="102"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:102</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="148"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:148</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Initializes the component by fetching models, centers, and existing instances.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -1402,14 +1570,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="392"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:392</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="553"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:553</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Validates and submits the &#39;Add Machine to Center&#39; or &#39;Update Instance&#39; form.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -1439,14 +1609,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="151"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:151</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="239"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:239</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Reactive callback for when the center filter changes.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1457,6 +1629,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1471,6 +1644,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The new selected center&#39;s unique ID</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1506,14 +1685,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="457"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:457</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="639"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:639</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Sets the active machine type selected by the user.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1524,6 +1705,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1538,6 +1720,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The unique identifier of the machine type</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1573,14 +1761,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="226"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:226</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="359"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:359</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Validates and submits the machine type form (Create or Update).</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -1610,14 +1800,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="309"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:309</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="447"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:447</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Opens the modal to assign new machine instances to a gym.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -1647,14 +1839,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="319"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:319</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="461"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:461</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Opens the modal to add machines of a specific model to a center.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1665,6 +1859,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1679,6 +1874,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The target machine model</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1714,14 +1915,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="190"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:190</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="306"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:306</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Prepares and opens the machine type creation modal.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -1751,14 +1954,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="216"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:216</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="343"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:343</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Opens the confirmation modal for deleting a machine type.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1769,6 +1974,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1783,6 +1989,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The machine type to delete</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1818,14 +2030,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="329"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:329</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="476"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:476</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Opens the modal to edit an existing physical machine instance&#39;s status.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1836,6 +2050,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1850,6 +2065,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The machine type model</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>instance</td>
@@ -1862,6 +2083,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The specific center instance</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1897,14 +2124,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="200"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:200</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="320"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:320</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Prepares and opens the machine type editing modal with prefilled data.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -1915,6 +2144,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1929,6 +2159,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The machine type model to edit</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1964,14 +2200,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="362"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:362</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="520"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:520</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Submits updates to an existing machine instance (e.g., status changes).</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -2001,14 +2239,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="179"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:179</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="290"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:290</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the UI filter panel visibility.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -2038,14 +2278,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="461"
-                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:461</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="647"
+                                    class="link-to-prism">src/app/pages/machines/machines.component.ts:647</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the UI expansion state of a specific machine type&#39;s instance list.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -2056,6 +2298,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -2070,6 +2313,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the machine type to toggle</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -2115,10 +2364,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/pages/machines/machines.component.ts:63</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="100" class="link-to-prism">src/app/pages/machines/machines.component.ts:100</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Current active view mode (&#39;models&#39; catalog or specific &#39;instances&#39; list)</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2146,10 +2401,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/pages/machines/machines.component.ts:39</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/pages/machines/machines.component.ts:65</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for displaying errors specific to adding/editing center-level machines</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2178,10 +2439,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/machines/machines.component.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/pages/machines/machines.component.ts:50</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected AuthService for permission and user context</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2209,10 +2476,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/pages/machines/machines.component.ts:71</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="112" class="link-to-prism">src/app/pages/machines/machines.component.ts:112</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal for general edit permissions</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2240,10 +2513,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/pages/machines/machines.component.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/pages/machines/machines.component.ts:57</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal containing the list of gym centers</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2272,10 +2551,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/pages/machines/machines.component.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/pages/machines/machines.component.ts:48</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected CentersService for gym center metadata</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2303,10 +2588,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/pages/machines/machines.component.ts:68</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="106" class="link-to-prism">src/app/pages/machines/machines.component.ts:106</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal for the current user object</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2334,10 +2625,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/pages/machines/machines.component.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/pages/machines/machines.component.ts:63</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for displaying primary error messages</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2365,10 +2662,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/pages/machines/machines.component.ts:66</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="103" class="link-to-prism">src/app/pages/machines/machines.component.ts:103</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal tracking which machine types have their instances expanded in the UI</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2396,10 +2699,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/pages/machines/machines.component.ts:44</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="72" class="link-to-prism">src/app/pages/machines/machines.component.ts:72</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for the center selection filter</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2434,22 +2743,25 @@
       filtered &#x3D; filtered.filter(m &#x3D;&gt; m.type &#x3D;&#x3D;&#x3D; this.filterType());
     }
 
-    if (this.filterCenterId()) {
-      filtered &#x3D; filtered.filter(m &#x3D;&gt;
-        m.instances?.some(i &#x3D;&gt; i.centerId &#x3D;&#x3D;&#x3D; this.filterCenterId())
-      );
-    }
-
+    // Machine types tab: Do NOT filter by centerId (machine types are global)
+    // The centerId filter is only applicable to the instances tab
     return filtered;
   })</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/pages/machines/machines.component.ts:77</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="123" class="link-to-prism">src/app/pages/machines/machines.component.ts:123</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal for filtered machine types (global catalog list).
+Filters by name and type.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2477,10 +2789,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/machines/machines.component.ts:42</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="68" class="link-to-prism">src/app/pages/machines/machines.component.ts:68</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for the name filter input</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2508,10 +2826,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/pages/machines/machines.component.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/pages/machines/machines.component.ts:70</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for the category/type filter dropdown</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2539,10 +2863,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/pages/machines/machines.component.ts:53</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/pages/machines/machines.component.ts:86</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Text field for the machine type name in the form</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2570,10 +2900,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/pages/machines/machines.component.ts:59</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="95" class="link-to-prism">src/app/pages/machines/machines.component.ts:95</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Quantity of machines to add in the current operation</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2601,10 +2937,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="60" class="link-to-prism">src/app/pages/machines/machines.component.ts:60</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="97" class="link-to-prism">src/app/pages/machines/machines.component.ts:97</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Initial or updated status for the machine instances</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2632,10 +2974,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/app/pages/machines/machines.component.ts:54</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/app/pages/machines/machines.component.ts:88</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Category selector for the machine type in the form</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2665,10 +3013,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">src/app/pages/machines/machines.component.ts:98</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="141" class="link-to-prism">src/app/pages/machines/machines.component.ts:141</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal checking if any search/filter criteria are currently active</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2696,10 +3050,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/pages/machines/machines.component.ts:70</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="110" class="link-to-prism">src/app/pages/machines/machines.component.ts:110</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal checking if user is ADMIN_CENTER</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2727,10 +3087,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/pages/machines/machines.component.ts:51</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">src/app/pages/machines/machines.component.ts:81</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Flag determining if the current modal is in edit or create mode</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2758,10 +3124,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/machines/machines.component.ts:37</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/pages/machines/machines.component.ts:61</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal tracking background API activity</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2789,10 +3161,53 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/app/pages/machines/machines.component.ts:69</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="108" class="link-to-prism">src/app/pages/machines/machines.component.ts:108</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal checking if user is SUPERADMIN</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="machineInstances"></a>
+                    <span class="name">
+                        <span ><b>machineInstances</b></span>
+                        <a href="#machineInstances"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;MachineCenterInstance[]&gt;([])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="59" class="link-to-prism">src/app/pages/machines/machines.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal containing specific machine instances (physical hardware)</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2821,10 +3236,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/pages/machines/machines.component.ts:30</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/pages/machines/machines.component.ts:46</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected MachinesService for specialized machine operations</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2852,10 +3273,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/pages/machines/machines.component.ts:74</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="117" class="link-to-prism">src/app/pages/machines/machines.component.ts:117</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Available machine statuses for dropdowns</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2883,10 +3310,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/pages/machines/machines.component.ts:73</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="115" class="link-to-prism">src/app/pages/machines/machines.component.ts:115</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Available machine categories for dropdowns</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2914,10 +3347,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/machines/machines.component.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/pages/machines/machines.component.ts:55</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal containing the global catalog of machine models/types</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2945,10 +3384,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/pages/machines/machines.component.ts:58</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">src/app/pages/machines/machines.component.ts:93</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for the target center ID when adding instances</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -2976,10 +3421,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/pages/machines/machines.component.ts:52</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">src/app/pages/machines/machines.component.ts:83</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for the machine type currently being managed in a modal</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -3007,10 +3458,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/pages/machines/machines.component.ts:57</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/pages/machines/machines.component.ts:91</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for controlling the &#39;Add to Center&#39; modal visibility</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -3038,10 +3495,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/pages/machines/machines.component.ts:50</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/pages/machines/machines.component.ts:79</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for controlling machine type deletion modal visibility</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -3069,10 +3532,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/pages/machines/machines.component.ts:45</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/pages/machines/machines.component.ts:74</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for controlling the filter visibility toggle</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -3100,10 +3569,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/pages/machines/machines.component.ts:49</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/pages/machines/machines.component.ts:77</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for controlling machine type form modal visibility</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -3131,10 +3606,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/machines/machines.component.ts:33</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/app/pages/machines/machines.component.ts:52</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected TranslateService for I18n strings</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -3165,6 +3646,21 @@ import { Center } from &#x27;../../core/models/center&#x27;;
 import { TranslateModule, TranslateService } from &#x27;@ngx-translate/core&#x27;;
 import { NavbarComponent } from &#x27;../../shared/components/navbar/navbar.component&#x27;;
 
+/**
+ * Interface for machine instance with detailed names (for display in instances tab).
+ * Extends the base MachineCenterInstance with human-readable type and center names.
+ */
+interface MachineCenterInstanceWithDetails extends MachineCenterInstance {
+  /** The display name of the machine model type */
+  machineTypeName: string;
+  /** The display name of the center where the machine is located */
+  centerName: string;
+}
+
+/**
+ * Component for managing gym machine models and their specific instances across centers.
+ * Supports viewing machines, managing machine types, and assigning quantities to gyms.
+ */
 @Component({
   selector: &#x27;app-machines&#x27;,
   standalone: true,
@@ -3173,53 +3669,84 @@ import { NavbarComponent } from &#x27;../../shared/components/navbar/navbar.comp
   styleUrl: &#x27;./machines.component.scss&#x27;
 })
 export class MachinesComponent implements OnInit {
+  /** Injected MachinesService for specialized machine operations */
   private machinesService &#x3D; inject(MachinesService);
+  /** Injected CentersService for gym center metadata */
   private centersService &#x3D; inject(CentersService);
+  /** Injected AuthService for permission and user context */
   public auth &#x3D; inject(AuthService);
+  /** Injected TranslateService for I18n strings */
   translate &#x3D; inject(TranslateService);
 
+  /** Signal containing the global catalog of machine models/types */
   machineTypes &#x3D; signal&lt;MachineTypeModel[]&gt;([]);
+  /** Signal containing the list of gym centers */
   centers &#x3D; signal&lt;Center[]&gt;([]);
+  /** Signal containing specific machine instances (physical hardware) */
+  machineInstances &#x3D; signal&lt;MachineCenterInstance[]&gt;([]);
+  /** Signal tracking background API activity */
   isLoading &#x3D; signal(false);
+  /** Signal for displaying primary error messages */
   errorMessage &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
-  addCenterErrorMessage &#x3D; signal&lt;string&gt;(&#x27;&#x27;); 
+  /** Signal for displaying errors specific to adding/editing center-level machines */
+  addCenterErrorMessage &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
 
-  // --- FILTROS ---
+  /** Signal for the name filter input */
   filterName &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  /** Signal for the category/type filter dropdown */
   filterType &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  /** Signal for the center selection filter */
   filterCenterId &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  /** Signal for controlling the filter visibility toggle */
   showFilters &#x3D; signal(false);
-  // ---------------
 
-  // Modal para crear/editar tipo de máquina
+  /** Signal for controlling machine type form modal visibility */
   showFormModal &#x3D; signal(false);
+  /** Signal for controlling machine type deletion modal visibility */
   showDeleteModal &#x3D; signal(false);
+  /** Flag determining if the current modal is in edit or create mode */
   isEditing &#x3D; signal(false);
+  /** Signal for the machine type currently being managed in a modal */
   selectedMachineType &#x3D; signal&lt;MachineTypeModel | null&gt;(null);
+
+  /** Text field for the machine type name in the form */
   formName &#x3D; &#x27;&#x27;;
+  /** Category selector for the machine type in the form */
   formType: MachineType &#x3D; &#x27;cardio&#x27;;
 
-  // Modal para agregar/editar máquina en centro
+  /** Signal for controlling the &#x27;Add to Center&#x27; modal visibility */
   showAddCenterModal &#x3D; signal(false);
+  /** Signal for the target center ID when adding instances */
   selectedCenterForAdd &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  /** Quantity of machines to add in the current operation */
   formQuantity &#x3D; 1;
+  /** Initial or updated status for the machine instances */
   formStatus: MachineStatus &#x3D; &#x27;operativa&#x27;;
   
-  // Pestañas para separar Modelos e Instancias
+  /** Current active view mode (&#x27;models&#x27; catalog or specific &#x27;instances&#x27; list) */
   activeTab &#x3D; signal&lt;&#x27;models&#x27; | &#x27;instances&#x27;&gt;(&#x27;models&#x27;);
   
-  // Control de desplegables por tipo de máquina
+  /** Signal tracking which machine types have their instances expanded in the UI */
   expandedMachineTypes &#x3D; signal&lt;Set&lt;string&gt;&gt;(new Set());
 
+  /** Computed signal for the current user object */
   currentUser &#x3D; computed(() &#x3D;&gt; this.auth.currentUser());
+  /** Computed signal checking if user is SUPERADMIN */
   isSuperAdmin &#x3D; computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;SUPERADMIN&#x27;);
+  /** Computed signal checking if user is ADMIN_CENTER */
   isAdminCenter &#x3D; computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;ADMIN_CENTER&#x27;);
+  /** Computed signal for general edit permissions */
   canEdit &#x3D; computed(() &#x3D;&gt; this.isSuperAdmin() || this.isAdminCenter());
 
+  /** Available machine categories for dropdowns */
   machineTypeOptions: MachineType[] &#x3D; [&#x27;cardio&#x27;, &#x27;fuerza&#x27;, &#x27;peso libre&#x27;, &#x27;funcional&#x27;, &#x27;otro&#x27;];
+  /** Available machine statuses for dropdowns */
   machineStatusOptions: MachineStatus[] &#x3D; [&#x27;operativa&#x27;, &#x27;en mantenimiento&#x27;, &#x27;fuera de servicio&#x27;];
 
-  // --- LÓGICA DE FILTRADO ---
+  /** 
+   * Computed signal for filtered machine types (global catalog list).
+   * Filters by name and type.
+   */
   filteredMachineTypes &#x3D; computed(() &#x3D;&gt; {
     let filtered &#x3D; this.machineTypes();
 
@@ -3232,31 +3759,34 @@ export class MachinesComponent implements OnInit {
       filtered &#x3D; filtered.filter(m &#x3D;&gt; m.type &#x3D;&#x3D;&#x3D; this.filterType());
     }
 
-    if (this.filterCenterId()) {
-      filtered &#x3D; filtered.filter(m &#x3D;&gt;
-        m.instances?.some(i &#x3D;&gt; i.centerId &#x3D;&#x3D;&#x3D; this.filterCenterId())
-      );
-    }
-
+    // Machine types tab: Do NOT filter by centerId (machine types are global)
+    // The centerId filter is only applicable to the instances tab
     return filtered;
   });
 
+  /** Computed signal checking if any search/filter criteria are currently active */
   hasActiveFilters &#x3D; computed(() &#x3D;&gt; {
     return !!(this.filterName() || this.filterType() || this.filterCenterId());
   });
 
+  /**
+   * Initializes the component by fetching models, centers, and existing instances.
+   */
   ngOnInit(): void {
     this.loadMachineTypes();
     this.loadCenters();
+    this.loadMachineInstances();
   }
 
+  /**
+   * Fetches the global catalog of machine models.
+   */
   loadMachineTypes(): void {
     this.isLoading.set(true);
     this.errorMessage.set(&#x27;&#x27;);
-    // Los administradores de centro deben ver todos los modelos, pero pueden filtrar las instancias por centro
-    // Solo pasamos centerId para filtrar las instancias, pero siempre mostramos todos los modelos
-    const centerId &#x3D; this.filterCenterId() || null;
-    this.machinesService.listMachineTypes(centerId).subscribe({
+    // Always get all machine types (they are global)
+    // Center filtering is applied at the instance level, not type level
+    this.machinesService.listMachineTypes(null).subscribe({
       next: (data) &#x3D;&gt; {
         this.machineTypes.set(data);
         this.isLoading.set(false);
@@ -3268,6 +3798,9 @@ export class MachinesComponent implements OnInit {
     });
   }
 
+  /**
+   * Fetches the list of gym centers and establishes default center filters based on user role.
+   */
   loadCenters(): void {
     this.centersService.listCentersWithIds().subscribe({
       next: (data) &#x3D;&gt; {
@@ -3294,45 +3827,109 @@ export class MachinesComponent implements OnInit {
     });
   }
 
+  /**
+   * Fetches physical machine instances for the currently selected center.
+   */
+  loadMachineInstances(): void {
+    if (!this.filterCenterId()) {
+      this.machineInstances.set([]);
+      return;
+    }
+    
+    this.isLoading.set(true);
+    this.errorMessage.set(&#x27;&#x27;);
+    
+    // Get all machines for the selected center
+    this.machinesService.listMachines(this.filterCenterId()).subscribe({
+      next: (machines: MachineCenterInstance[]) &#x3D;&gt; {
+        // Transform to include machine type and center names for display
+        const instancesWithDetails: MachineCenterInstanceWithDetails[] &#x3D; machines.map(machine &#x3D;&gt; ({
+          ...machine,
+          machineTypeName: machine.machineType?.name || &#x27;Desconocido&#x27;,
+          centerName: machine.center?.name || &#x27;Desconocido&#x27;
+        }));
+        
+        this.machineInstances.set(instancesWithDetails);
+        this.isLoading.set(false);
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || this.translate.instant(&#x27;machines.errors.load&#x27;));
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  /**
+   * Reactive callback for when the center filter changes.
+   * @param centerId - The new selected center&#x27;s unique ID
+   */
   onCenterChange(centerId: string): void {
     this.filterCenterId.set(centerId);
     this.loadMachineTypes();
   }
 
+  /**
+   * Resolves a human-readable center name from an ID.
+   * @param centerId - The ID of the center
+   * @returns Translated center name or placeholder
+   */
   getCenterName(centerId?: string | null): string {
     if (!centerId) return this.translate.instant(&#x27;machines.allCenters&#x27;);
     const center &#x3D; this.centers().find(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; centerId);
     return center?.name || this.translate.instant(&#x27;machines.centerNotFound&#x27;);
   }
 
+  /**
+   * Extracts instances belonging to a specific center from a machine type model.
+   * @param machineType - The machine type model containing nested instances
+   * @param centerId - (Optional) Filter by this center ID
+   * @returns Array of matching instances
+   */
   getInstancesForCenter(machineType: MachineTypeModel, centerId?: string): MachineCenterInstance[] {
     if (!machineType.instances) return [];
     if (!centerId) return machineType.instances;
     return machineType.instances.filter(i &#x3D;&gt; i.centerId &#x3D;&#x3D;&#x3D; centerId);
   }
 
+  /**
+   * Returns a list of centers that possess at least one instance of a given machine type.
+   * @param machineType - The machine type model to analyze
+   * @returns Array of Centers that have this machine type
+   */
   getCentersForMachineType(machineType: MachineTypeModel): Center[] {
     if (!machineType.instances) return [];
     const uniqueCenterIds &#x3D; [...new Set(machineType.instances.map(i &#x3D;&gt; i.centerId))];
     return this.centers().filter(c &#x3D;&gt; uniqueCenterIds.includes(c.id || &#x27;&#x27;));
   }
 
+  /**
+   * Checks if a machine type already has presence in a specific center.
+   * @param centerId - The ID of the center to check
+   * @returns True if at least one instance exists in that center
+   */
   isCenterAlreadyInMachineType(centerId: string): boolean {
     return this.selectedMachineType()?.instances?.some(i &#x3D;&gt; i.centerId &#x3D;&#x3D;&#x3D; centerId) || false;
   }
 
-  // --- MÉTODOS DE FILTRO ---
+  /**
+   * Toggles the UI filter panel visibility.
+   */
   toggleFilters(): void {
     this.showFilters.set(!this.showFilters());
   }
 
+  /**
+   * Resets name and type filters to their default empty states.
+   */
   clearFilters(): void {
     this.filterName.set(&#x27;&#x27;);
     this.filterType.set(&#x27;&#x27;);
     // this.filterCenterId.set(&#x27;&#x27;); // Keep selected center
   }
 
-  // --- MÉTODOS CRUD TIPO DE MÁQUINA ---
+  /**
+   * Prepares and opens the machine type creation modal.
+   */
   openCreateModal(): void {
     this.isEditing.set(false);
     this.selectedMachineType.set(null);
@@ -3343,6 +3940,10 @@ export class MachinesComponent implements OnInit {
     this.addCenterErrorMessage.set(&#x27;&#x27;); // También limpiar el error del otro modal
   }
 
+  /**
+   * Prepares and opens the machine type editing modal with prefilled data.
+   * @param machineType - The machine type model to edit
+   */
   openEditModal(machineType: MachineTypeModel): void {
     this.isEditing.set(true);
     this.selectedMachineType.set(machineType);
@@ -3353,22 +3954,35 @@ export class MachinesComponent implements OnInit {
     this.addCenterErrorMessage.set(&#x27;&#x27;); // También limpiar el error del otro modal
   }
 
+  /**
+   * Closes the machine type form modal and resets errors.
+   */
   closeFormModal(): void {
     this.showFormModal.set(false);
     this.selectedMachineType.set(null);
     this.errorMessage.set(&#x27;&#x27;); // Limpiar error al cerrar
   }
 
+  /**
+   * Opens the confirmation modal for deleting a machine type.
+   * @param machineType - The machine type to delete
+   */
   openDeleteModal(machineType: MachineTypeModel): void {
     this.selectedMachineType.set(machineType);
     this.showDeleteModal.set(true);
   }
 
+  /**
+   * Closes the machine type deletion confirmation modal.
+   */
   closeDeleteModal(): void {
     this.showDeleteModal.set(false);
     this.selectedMachineType.set(null);
   }
 
+  /**
+   * Validates and submits the machine type form (Create or Update).
+   */
   onSubmit(): void {
     if (!this.formName.trim()) {
       this.errorMessage.set(this.translate.instant(&#x27;machines.errors.nameRequired&#x27;));
@@ -3431,6 +4045,9 @@ export class MachinesComponent implements OnInit {
     }
   }
 
+  /**
+   * Executes the deletion of the selected machine type from the backend.
+   */
   confirmDelete(): void {
     const machineType &#x3D; this.selectedMachineType();
     if (!machineType) return;
@@ -3451,7 +4068,9 @@ export class MachinesComponent implements OnInit {
     });
   }
 
-  // --- MÉTODOS PARA AGREGAR/EDITAR MÁQUINA EN CENTRO ---
+  /**
+   * Opens the modal to assign new machine instances to a gym.
+   */
   openAddCenterModal(): void {
     this.selectedMachineType.set(null);
     this.selectedCenterForAdd.set(this.filterCenterId() || &#x27;&#x27;);
@@ -3462,6 +4081,10 @@ export class MachinesComponent implements OnInit {
     this.addCenterErrorMessage.set(&#x27;&#x27;);
   }
 
+  /**
+   * Opens the modal to add machines of a specific model to a center.
+   * @param machineType - The target machine model
+   */
   openAddCenterModalForMachineType(machineType: MachineTypeModel): void {
     this.selectedMachineType.set(machineType);
     this.selectedCenterForAdd.set(&#x27;&#x27;);
@@ -3472,6 +4095,11 @@ export class MachinesComponent implements OnInit {
     this.addCenterErrorMessage.set(&#x27;&#x27;);
   }
 
+  /**
+   * Opens the modal to edit an existing physical machine instance&#x27;s status.
+   * @param machineType - The machine type model
+   * @param instance - The specific center instance
+   */
   openEditInstanceModal(machineType: MachineTypeModel, instance: MachineCenterInstance): void {
     this.selectedMachineType.set(machineType);
     this.selectedCenterForAdd.set(instance.centerId);
@@ -3481,6 +4109,9 @@ export class MachinesComponent implements OnInit {
     this.addCenterErrorMessage.set(&#x27;&#x27;);
   }
 
+  /**
+   * Closes the instance management modal.
+   */
   closeAddCenterModal(): void {
     this.showAddCenterModal.set(false);
     this.selectedCenterForAdd.set(&#x27;&#x27;);
@@ -3489,6 +4120,11 @@ export class MachinesComponent implements OnInit {
     this.addCenterErrorMessage.set(&#x27;&#x27;);
   }
 
+  /**
+   * Removes a physical machine instance from a center after confirmation.
+   * @param machineType - The machine type model
+   * @param instance - The specific instance record
+   */
   deleteInstanceFromCenter(machineType: MachineTypeModel, instance: MachineCenterInstance): void {
     if (!confirm(this.translate.instant(&#x27;machines.confirmDeleteInstance&#x27;))) return;
 
@@ -3505,6 +4141,9 @@ export class MachinesComponent implements OnInit {
     });
   }
 
+  /**
+   * Submits updates to an existing machine instance (e.g., status changes).
+   */
   saveInstanceChanges(): void {
     const machineTypeId &#x3D; this.selectedMachineType()?.id;
     const centerId &#x3D; this.selectedCenterForAdd();
@@ -3535,6 +4174,9 @@ export class MachinesComponent implements OnInit {
     });
   }
 
+  /**
+   * Validates and submits the &#x27;Add Machine to Center&#x27; or &#x27;Update Instance&#x27; form.
+   */
   onAddCenterSubmit(): void {
     if (this.isEditing()) {
       this.saveInstanceChanges();
@@ -3576,12 +4218,20 @@ export class MachinesComponent implements OnInit {
     });
   }
 
+  /**
+   * Internal helper to finalize a successful data modification operation.
+   */
   private finishAction(): void {
     this.isLoading.set(false);
     this.closeFormModal();
     this.loadMachineTypes();
   }
 
+  /**
+   * Returns Tailwind CSS color classes based on the machine status.
+   * @param status - The machine&#x27;s current operational status
+   * @returns String of CSS classes
+   */
   getStatusColor(status: string): string {
     switch (status) {
       case &#x27;operativa&#x27;: return &#x27;bg-green-500/20 text-green-600 dark:text-green-400 border-green-500/50&#x27;;
@@ -3591,19 +4241,36 @@ export class MachinesComponent implements OnInit {
     }
   }
 
+  /**
+   * Checks if the currently filtered list contains any machines with actual center instances.
+   * @returns True if there are instances to display
+   */
   hasInstancesInCenter(): boolean {
     return this.filteredMachineTypes().filter(m &#x3D;&gt; m.instances &amp;&amp; m.instances.length &gt; 0).length &gt; 0;
   }
 
+  /**
+   * Locates a machine type model in the global list by ID.
+   * @param id - The ID of the model to find
+   * @returns The matching model or null
+   */
   findMachineTypeById(id: string | null): MachineTypeModel | null {
     if (!id) return null;
     return this.machineTypes().find(m &#x3D;&gt; m.id &#x3D;&#x3D;&#x3D; id) || null;
   }
 
+  /**
+   * Sets the active machine type selected by the user.
+   * @param id - The unique identifier of the machine type
+   */
   onMachineTypeSelect(id: string | null): void {
     this.selectedMachineType.set(this.findMachineTypeById(id));
   }
 
+  /**
+   * Toggles the UI expansion state of a specific machine type&#x27;s instance list.
+   * @param machineTypeId - The ID of the machine type to toggle
+   */
   toggleMachineTypeExpanded(machineTypeId: string): void {
     const expanded &#x3D; new Set(this.expandedMachineTypes());
     if (expanded.has(machineTypeId)) {
@@ -3614,6 +4281,11 @@ export class MachinesComponent implements OnInit {
     this.expandedMachineTypes.set(expanded);
   }
 
+  /**
+   * Checks if a particular machine type is currently expanded in the view.
+   * @param machineTypeId - The entity ID
+   * @returns True if expanded
+   */
   isMachineTypeExpanded(machineTypeId: string): boolean {
     return this.expandedMachineTypes().has(machineTypeId);
   }
@@ -4445,7 +5117,7 @@ export class MachinesComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">  <app-navbar></app-navbar>  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">    <!-- Page Header -->    <div class="mb-8 relative">      <div class="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 rounded-3xl blur-3xl"></div>      <div class="relative bg-gradient-to-r from-blue-50 to-purple-50 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-6 sm:p-8 border border-blue-200/50 dark:border-gray-700 shadow-lg">        <div class="flex items-center justify-between flex-wrap gap-4">          <div class="flex items-center gap-4">            <div class="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl shadow-lg">              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6 sm:w-8 sm:h-8 text-white">                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />              </svg>            </div>            <div>              <h1 class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent mb-2">                {{ \'machines.title\' | translate }}              </h1>              <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base">                {{ \'machines.subtitle\' | translate }}              </p>            </div>          </div>          @if(activeTab() === \'models\') {            <button               (click)="openCreateModal()"              class="px-5 py-2.5 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-xl transition-all text-sm font-semibold flex items-center gap-2 shadow-lg hover:shadow-xl hover:scale-105 whitespace-nowrap">              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />              </svg>              {{ \'machines.newModel\' | translate }}            </button>          }        </div>      </div>    </div>    <!-- Pestañas para Modelos e Instancias -->    <div class="mb-6 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">      <div class="flex border-b border-gray-200 dark:border-gray-700">        <button          (click)="activeTab.set(\'models\')"          [class.bg-blue-50]="activeTab() === \'models\'"          [class.dark:bg-gray-700]="activeTab() === \'models\'"          [class.text-blue-600]="activeTab() === \'models\'"          [class.dark:text-blue-400]="activeTab() === \'models\'"          [class.text-gray-600]="activeTab() !== \'models\'"          [class.dark:text-gray-400]="activeTab() !== \'models\'"          class="flex-1 px-6 py-4 text-center font-semibold transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50">          <div class="flex items-center justify-center gap-2">            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />            </svg>            {{ \'machines.modelsTab\' | translate }}          </div>        </button>        <button          (click)="activeTab.set(\'instances\')"          [class.bg-blue-50]="activeTab() === \'instances\'"          [class.dark:bg-gray-700]="activeTab() === \'instances\'"          [class.text-blue-600]="activeTab() === \'instances\'"          [class.dark:text-blue-400]="activeTab() === \'instances\'"          [class.text-gray-600]="activeTab() !== \'instances\'"          [class.dark:text-gray-400]="activeTab() !== \'instances\'"          class="flex-1 px-6 py-4 text-center font-semibold transition-colors hover:bg-gray-50 dark:hover:bg-gray-700/50 border-l border-gray-200 dark:border-gray-700">          <div class="flex items-center justify-center gap-2">            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">              <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.75 7.5h16.5m-16.5 0v7.5m16.5-7.5v7.5" />            </svg>            {{ \'machines.instancesTab\' | translate }}          </div>        </button>      </div>    </div>        <!-- Contenido de la pestaña de Modelos -->    @if(activeTab() === \'models\') {      <div class="mb-6">      <button         (click)="toggleFilters()"        [class.bg-gradient-to-r]="showFilters()"        [class.from-cyan-600]="showFilters()"        [class.to-blue-600]="showFilters()"        [class.bg-gradient-to-r]="!showFilters()"        [class.from-cyan-500]="!showFilters()"        [class.to-blue-500]="!showFilters()"        class="px-4 py-2 rounded-xl transition-all text-sm font-medium flex items-center gap-2 hover:opacity-90 text-white shadow-md hover:shadow-lg hover:scale-105">        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />        </svg>        @if(showFilters()) {          <span>{{ \'machines.hideFilters\' | translate }}</span>        } @else {          <span>{{ \'machines.filters\' | translate }}</span>        }        @if(hasActiveFilters()) {          <span class="px-2 py-0.5 bg-yellow-400/40 rounded-lg text-xs font-bold">{{ filteredMachineTypes().length }}/{{ machineTypes().length }}</span>        }      </button>    </div>    @if(showFilters()) {      <div class="mb-6 bg-white dark:bg-gray-800 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 shadow-lg transition-all duration-300 backdrop-blur-sm">        <div class="flex items-center justify-between mb-4">          <h2 class="text-lg font-bold text-gray-900 dark:text-white">{{ \'machines.searchFilters\' | translate }}</h2>          @if(hasActiveFilters()) {            <button               (click)="clearFilters()"              class="px-3 py-1 bg-red-100 text-red-600 hover:bg-red-200 dark:bg-red-500/20 dark:text-red-400 dark:hover:bg-red-500/30 rounded-lg transition-colors text-sm">              {{ \'machines.clearFilters\' | translate }}            </button>          }        </div>                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">          <div>            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ \'machines.name\' | translate }}</label>            <input               type="text"              [ngModel]="filterName()"              (ngModelChange)="filterName.set($event)"              [placeholder]="\'machines.searchByName\' | translate"              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">          </div>          <div>            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ \'machines.type\' | translate }}</label>            <select               [ngModel]="filterType()"              (ngModelChange)="filterType.set($event)"              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">              <option value="">{{ \'machines.allTypes\' | translate }}</option>              @for(type of machineTypeOptions; track type) {                <option [value]="type">{{ \'machines.types.\' + type | translate }}</option>              }            </select>          </div>          <div>            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">{{ \'machines.center\' | translate }}</label>            <select               [ngModel]="filterCenterId()"              (ngModelChange)="onCenterChange($event)"              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">              <option value="">{{ \'machines.allCenters\' | translate }}</option>              @for(center of centers(); track center.id) {                <option [value]="center.id">{{ center.name }}</option>              }            </select>          </div>        </div>        @if(hasActiveFilters()) {          <div class="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">            <p class="text-sm text-gray-600 dark:text-gray-400">              {{ \'machines.showing\' | translate }} <span class="text-gray-900 dark:text-white font-semibold">{{ filteredMachineTypes().length }}</span> {{ \'machines.of\' | translate }}               <span class="text-gray-900 dark:text-white font-semibold">{{ machineTypes().length }}</span> {{ \'machines.machines\' | translate }}            </p>          </div>        }      </div>    }    @if(errorMessage()) {      <div class="mb-6 p-4 bg-red-500/20 border border-red-500 rounded-lg text-red-600 dark:text-red-400">        {{ errorMessage() }}      </div>    }    <!-- Selector de Centro -->    @if(centers().length > 0) {      <div class="mb-6 bg-blue-100 dark:bg-gray-800 rounded-xl p-6 border border-blue-300 dark:border-gray-700 shadow-sm">        <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">          {{ \'machines.selectCenter\' | translate }}        </label>        <select          [ngModel]="filterCenterId()"          (ngModelChange)="onCenterChange($event)"          class="w-full md:w-auto px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">          <option value="">{{ \'machines.allCenters\' | translate }}</option>          @for(center of centers(); track center.id) {            <option [value]="center.id">{{ center.name }}</option>          }        </select>      </div>    }    @if(isLoading() && machineTypes().length === 0) {      <div class="flex items-center justify-center py-12">        <div class="text-center">          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>          <p class="text-gray-700 dark:text-gray-300">{{ \'machines.loading\' | translate }}</p>        </div>      </div>    } @else {      @if(filteredMachineTypes().length === 0) {        <div class="text-center py-12">          <p class="text-gray-600 dark:text-gray-400 text-lg">            @if(hasActiveFilters()) {              {{ \'machines.noMachinesFound\' | translate }}            } @else {              {{ \'machines.noMachinesAvailable\' | translate }}            }          </p>        </div>      } @else {        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">          @for(machineType of filteredMachineTypes(); track machineType.id) {            <div class="group bg-white dark:bg-gray-800 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 hover:border-blue-400 dark:hover:border-cyan-500/50 transition-all shadow-md hover:shadow-2xl hover:-translate-y-1 relative overflow-hidden">              <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>              <div class="relative z-10">                <div class="flex items-start justify-between mb-4">                  <div class="flex-1">                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ machineType.name }}</h3>                    <p class="text-xs text-gray-500 dark:text-gray-500 uppercase tracking-wider">{{ \'machines.types.\' + machineType.type | translate }}</p>                  </div>                </div>                <!-- Instancias en Centros -->                @if(machineType.instances && machineType.instances.length > 0) {                  <div class="mb-4">                    <p class="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">                      {{ \'machines.instances\' | translate }}:                    </p>                    @if(getInstancesForCenter(machineType, filterCenterId() || undefined).length >= 2) {                      <!-- Desplegable para múltiples instancias -->                      <details class="group">                        <summary class="cursor-pointer text-xs text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white mb-2 list-none flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-700 rounded">                          <span>{{ getInstancesForCenter(machineType, filterCenterId() || undefined).length }} {{ \'machines.instances\' | translate }}</span>                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4 group-open:rotate-180 transition-transform">                            <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />                          </svg>                        </summary>                        <div class="space-y-2 mt-2 pl-2">                          @for(instance of getInstancesForCenter(machineType, filterCenterId() || undefined); track instance.id) {                            <div class="text-xs bg-gray-100 dark:bg-gray-700 rounded p-2">                              <div class="flex items-center justify-between">                                <span class="font-medium text-gray-700 dark:text-gray-300">                                  {{ instance.center?.name || getCenterName(instance.centerId) }} - {{ machineType.name }} {{ instance.instanceNumber }}                                </span>                                <span [class]="\'px-2 py-1 rounded text-xs font-medium border \' + getStatusColor(instance.status)">                                  {{ \'machines.statuses.\' + instance.status | translate }}                                </span>                              </div>                            </div>                          }                        </div>                      </details>                    } @else {                      <!-- Sin desplegable para 1 instancia -->                      <div class="space-y-2">                        @for(instance of getInstancesForCenter(machineType, filterCenterId() || undefined); track instance.id) {                          <div class="text-xs bg-gray-100 dark:bg-gray-700 rounded p-2">                            <div class="flex items-center justify-between">                              <span class="font-medium text-gray-700 dark:text-gray-300">                                {{ instance.center?.name || getCenterName(instance.centerId) }} - {{ machineType.name }} {{ instance.instanceNumber }}                              </span>                              <span [class]="\'px-2 py-1 rounded text-xs font-medium border \' + getStatusColor(instance.status)">                                {{ \'machines.statuses.\' + instance.status | translate }}                              </span>                            </div>                          </div>                        }                      </div>                    }                  </div>                } @else {                  <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">{{ \'machines.noCentersAssigned\' | translate }}</p>                }                @if(canEdit()) {                  <div class="flex flex-col gap-2 mt-4">                    <div class="flex gap-2">                      <button                        (click)="openEditModal(machineType)"                        class="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">                        {{ \'common.edit\' | translate }}                      </button>                      <button                        (click)="openDeleteModal(machineType)"                        class="flex-1 px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">                        {{ \'common.delete\' | translate }}                      </button>                    </div>                    <button                      (click)="openAddCenterModalForMachineType(machineType)"                      class="w-full px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors text-sm font-medium shadow-sm">                      {{ \'machines.addToCenter\' | translate }}                    </button>                  </div>                }              </div>            </div>          }        </div>      }    }    }    <!-- Contenido de la pestaña de Instancias -->    @if(activeTab() === \'instances\') {      <div class="mb-6">        <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-blue-200/50 dark:border-gray-700 shadow-lg">          <div class="flex items-center justify-between mb-6">            <h2 class="text-xl font-bold text-gray-900 dark:text-white">              {{ \'machines.manageInstances\' | translate }}            </h2>            @if(machineTypes().length > 0) {              <button                (click)="openAddCenterModal()"                class="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-lg transition-all text-sm font-semibold flex items-center gap-2 shadow-md hover:shadow-lg">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-5 h-5">                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />                </svg>                {{ \'machines.addInstancesToCenter\' | translate }}              </button>            }          </div>          <!-- Selector de Centro -->          @if(centers().length > 0) {            <div class="mb-6">              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">                {{ \'machines.selectCenter\' | translate }}              </label>              <select                [ngModel]="filterCenterId()"                (ngModelChange)="onCenterChange($event)"                class="w-full md:w-auto px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">                <option value="">{{ \'machines.allCenters\' | translate }}</option>                @for(center of centers(); track center.id) {                  <option [value]="center.id">{{ center.name }}</option>                }              </select>            </div>          }          <!-- Lista de máquinas por centro -->          @if(filterCenterId()) {            @if(isLoading() && machineTypes().length === 0) {              <div class="flex items-center justify-center py-12">                <div class="text-center">                  <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>                  <p class="text-gray-700 dark:text-gray-300">{{ \'machines.loading\' | translate }}</p>                </div>              </div>            } @else {              <div class="space-y-4">                @for(machineType of filteredMachineTypes(); track machineType.id) {                  @if(machineType.instances && machineType.instances.length > 0) {                    @if(getInstancesForCenter(machineType, filterCenterId() || undefined).length >= 2) {                      <!-- Desplegable para 2 o más instancias -->                      <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-200 dark:border-gray-600 overflow-hidden">                        <button                          (click)="toggleMachineTypeExpanded(machineType.id)"                          class="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700/70 transition-colors">                          <div class="flex items-center gap-3">                            <svg                               xmlns="http://www.w3.org/2000/svg"                               fill="none"                               viewBox="0 0 24 24"                               stroke-width="2"                               stroke="currentColor"                               [class.rotate-90]="isMachineTypeExpanded(machineType.id)"                              class="w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform">                              <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />                            </svg>                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">                              {{ machineType.name }}                              <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">                                ({{ \'machines.types.\' + machineType.type | translate }})                              </span>                            </h3>                          </div>                          <span class="text-sm text-gray-600 dark:text-gray-400">                            {{ getInstancesForCenter(machineType, filterCenterId() || undefined).length }} {{ \'machines.instances\' | translate }}                          </span>                        </button>                                                @if(isMachineTypeExpanded(machineType.id)) {                          <div class="p-4 pt-0 border-t border-gray-200 dark:border-gray-600">                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">                              @for(instance of getInstancesForCenter(machineType, filterCenterId() || undefined); track instance.id) {                                <div class="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-600">                                  <div class="flex items-center justify-between mb-2">                                    <span class="font-medium text-gray-900 dark:text-white">                                      {{ machineType.name }} {{ instance.instanceNumber }}                                    </span>                                    <span [class]="\'px-2 py-1 rounded text-xs font-medium border \' + getStatusColor(instance.status)">                                      {{ \'machines.statuses.\' + instance.status | translate }}                                    </span>                                  </div>                                  @if(canEdit()) {                                    <div class="flex gap-2 mt-2">                                      <button                                        (click)="openEditInstanceModal(machineType, instance)"                                        class="flex-1 px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white rounded text-xs font-medium transition-colors">                                        {{ \'common.edit\' | translate }}                                      </button>                                      <button                                        (click)="deleteInstanceFromCenter(machineType, instance)"                                        class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded text-xs font-medium transition-colors">                                        {{ \'common.delete\' | translate }}                                      </button>                                    </div>                                  }                                </div>                              }                            </div>                          </div>                        }                      </div>                    } @else {                      <!-- Sin desplegable para 1 sola instancia -->                      <div class="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-4 border border-gray-200 dark:border-gray-600">                        <div class="flex items-center justify-between mb-3">                          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">                            {{ machineType.name }}                            <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">                              ({{ \'machines.types.\' + machineType.type | translate }})                            </span>                          </h3>                          <span class="text-sm text-gray-600 dark:text-gray-400">                            {{ getInstancesForCenter(machineType, filterCenterId() || undefined).length }} {{ \'machines.instances\' | translate }}                          </span>                        </div>                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">                          @for(instance of getInstancesForCenter(machineType, filterCenterId() || undefined); track instance.id) {                            <div class="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-600">                              <div class="flex items-center justify-between mb-2">                                <span class="font-medium text-gray-900 dark:text-white">                                  {{ machineType.name }} {{ instance.instanceNumber }}                                </span>                                <span [class]="\'px-2 py-1 rounded text-xs font-medium border \' + getStatusColor(instance.status)">                                  {{ \'machines.statuses.\' + instance.status | translate }}                                </span>                              </div>                              @if(canEdit()) {                                <div class="flex gap-2 mt-2">                                  <button                                    (click)="openEditInstanceModal(machineType, instance)"                                    class="flex-1 px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white rounded text-xs font-medium transition-colors">                                    {{ \'common.edit\' | translate }}                                  </button>                                  <button                                    (click)="deleteInstanceFromCenter(machineType, instance)"                                    class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white rounded text-xs font-medium transition-colors">                                    {{ \'common.delete\' | translate }}                                  </button>                                </div>                              }                            </div>                          }                        </div>                      </div>                    }                  }                }                @if(!hasInstancesInCenter()) {                  <div class="text-center py-12">                    <p class="text-gray-600 dark:text-gray-400">                      {{ \'machines.noInstancesInCenter\' | translate }}                    </p>                  </div>                }              </div>            }          } @else {            <div class="text-center py-12 bg-blue-50 dark:bg-blue-500/10 rounded-xl border border-blue-200 dark:border-blue-500/20">              <p class="text-gray-600 dark:text-gray-400">                {{ \'machines.selectCenterToViewInstances\' | translate }}              </p>            </div>          }        </div>      </div>    }  </main>  @if(showFormModal()) {    <div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">      <div class="bg-white dark:bg-gray-800 rounded-xl w-full max-w-md border border-gray-200 dark:border-gray-700 shadow-2xl transform transition-all scale-100">        <div class="p-6 border-b border-gray-200 dark:border-gray-700">          <h3 class="text-xl font-bold text-gray-900 dark:text-white">            {{ isEditing() ? (\'machines.editMachine\' | translate) : (\'machines.newMachine\' | translate) }}          </h3>        </div>                <form (ngSubmit)="onSubmit()" class="p-6 space-y-4">          @if(errorMessage()) {            <div class="mb-4 p-3 bg-red-50 dark:bg-red-500/20 border border-red-300 dark:border-red-500 rounded-lg text-red-600 dark:text-red-400 text-sm">              {{ errorMessage() }}            </div>          }          <div>            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">{{ \'machines.name\' | translate }} *</label>            <input               type="text"               [(ngModel)]="formName"               name="name"               required              class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"              [placeholder]="\'machines.namePlaceholder\' | translate">          </div>          <div>            <label class="block text-sm font-medium text-gray-700 dark:text-gray-400 mb-1">{{ \'machines.type\' | translate }} *</label>            <select               [(ngModel)]="formType"               name="type"               class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 text-gray-900 dark:text-white focus:outline-none focus:border-cyan-500">              @for(type of machineTypeOptions; track type) {                <option [value]="type">{{ \'machines.types.\' + type | translate }}</option>              }            </select>          </div>          <div class="flex gap-3 pt-4">            <button               type="button"               (click)="closeFormModal()"              [disabled]="isLoading()"              class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors disabled:opacity-50">              {{ \'common.cancel\' | translate }}            </button>            <button               type="submit"               [disabled]="isLoading() || !formName.trim()"              class="flex-1 px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-md">              {{ isLoading() ? (\'machines.saving\' | translate) : (isEditing() ? (\'common.save\' | translate) : (\'machines.newMachine\' | translate)) }}            </button>          </div>        </form>      </div>    </div>  }  @if(showDeleteModal()) {    <div class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">      <div class="bg-white dark:bg-gray-800 rounded-xl w-full max-w-sm border border-gray-200 dark:border-gray-700 shadow-2xl p-6">        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ \'machines.deleteMachine\' | translate }}</h3>        <p class="text-gray-600 dark:text-gray-400 mb-6">          {{ \'machines.confirmDelete\' | translate }} <span class="text-gray-900 dark:text-white font-semibold">{{ selectedMachineType()?.name }}</span>?        </p>        <div class="flex gap-3">          <button             (click)="closeDeleteModal()"            class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">            {{ \'common.cancel\' | translate }}          </button>          <button             (click)="confirmDelete()"            [disabled]="isLoading()"            class="flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-500 transition-colors shadow-md disabled:opacity-50">            {{ isLoading() ? (\'machines.deleting\' | translate) : (\'common.delete\' | translate) }}          </button>        </div>      </div>    </div>  }  <!-- Modal para Agregar/Editar Máquina en Centro -->  <!-- Modal para agregar/editar instancias en centro -->  @if(showAddCenterModal()) {    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-lg w-full border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-2xl transition-colors duration-300">        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">          @if(isEditing()) {            {{ \'machines.editInstance\' | translate }}          } @else {            {{ \'machines.addInstancesToCenter\' | translate }}          }        </h3>        @if(addCenterErrorMessage()) {          <div class="mb-4 p-3 bg-red-50 dark:bg-red-500/20 border border-red-300 dark:border-red-500 rounded-lg text-red-600 dark:text-red-400 text-sm">            {{ addCenterErrorMessage() }}          </div>        }        <form (ngSubmit)="onAddCenterSubmit()" class="space-y-4">          @if(!isEditing()) {            <!-- Selector de Modelo de Máquina -->            <div>              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">                {{ \'machines.model\' | translate }} *              </label>              <select                [(ngModel)]="selectedMachineType"                name="selectedMachineType"                [ngModel]="selectedMachineType()?.id"                (ngModelChange)="onMachineTypeSelect($event)"                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">                <option [value]="null">{{ \'machines.selectModel\' | translate }}</option>                @for(machineType of machineTypes(); track machineType.id) {                  <option [value]="machineType.id">{{ machineType.name }} ({{ \'machines.types.\' + machineType.type | translate }})</option>                }              </select>            </div>          }          <!-- Selector de Centro -->          <div>            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">              {{ \'machines.center\' | translate }} *            </label>            <select              [(ngModel)]="selectedCenterForAdd"              name="selectedCenterForAdd"              [disabled]="isEditing()"              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">              <option value="">{{ \'machines.selectCenter\' | translate }}</option>              @for(center of centers(); track center.id) {                <option [value]="center.id">{{ center.name }}</option>              }            </select>          </div>          @if(selectedCenterForAdd() && (!isEditing() || selectedMachineType())) {            @if(!isEditing()) {              <!-- Cantidad (solo al agregar) -->              <div>                <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">                  {{ \'machines.quantity\' | translate }} *                </label>                <input                  type="number"                  [(ngModel)]="formQuantity"                  name="formQuantity"                  min="1"                  required                  class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ \'machines.quantityHelp\' | translate }}</p>              </div>            }            <!-- Estado -->            <div>              <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">                {{ \'machines.status\' | translate }}              </label>              <select                [(ngModel)]="formStatus"                name="formStatus"                class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">                @for(status of machineStatusOptions; track status) {                  <option [value]="status">{{ \'machines.statuses.\' + status | translate }}</option>                }              </select>              @if(!isEditing()) {                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ \'machines.statuses.operativa\' | translate }} por defecto</p>              }            </div>          }          <div class="flex gap-3 mt-6">            <button              type="button"              (click)="closeAddCenterModal()"              [disabled]="isLoading()"              class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors disabled:opacity-50">              {{ \'common.cancel\' | translate }}            </button>            <button              type="submit"              [disabled]="isLoading() || !selectedCenterForAdd() || (!isEditing() && (!selectedMachineType() || formQuantity < 1))"              class="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors disabled:opacity-50 shadow-md">              @if(isLoading()) {                {{ \'machines.saving\' | translate }}              } @else {                @if(isEditing()) {                  {{ \'common.save\' | translate }}                } @else {                  {{ \'machines.addInstances\' | translate }}                }              }            </button>          </div>        </form>      </div>    </div>  }  <!-- Modal para Editar Tipo de Máquina con Centros -->  @if(showFormModal() && isEditing() && selectedMachineType()) {    <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">      <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full border border-gray-200 dark:border-gray-700 max-h-[90vh] overflow-y-auto shadow-2xl transition-colors duration-300">        <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">          {{ \'machines.editMachine\' | translate }}        </h3>        @if(errorMessage()) {          <div class="mb-4 p-3 bg-red-50 dark:bg-red-500/20 border border-red-300 dark:border-red-500 rounded-lg text-red-600 dark:text-red-400 text-sm">            {{ errorMessage() }}          </div>        }        <form (ngSubmit)="onSubmit()" class="space-y-4">          <div>            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">              {{ \'machines.name\' | translate }} *            </label>            <input              type="text"              [(ngModel)]="formName"              name="name"              required              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">          </div>          <div>            <label class="block text-gray-700 dark:text-gray-300 text-sm font-medium mb-2">              {{ \'machines.type\' | translate }} *            </label>            <select              [(ngModel)]="formType"              name="type"              class="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">              @for(type of machineTypeOptions; track type) {                <option [value]="type">{{ \'machines.types.\' + type | translate }}</option>              }            </select>          </div>          <!-- Gestión de Centros de la Máquina -->          <div class="border-t border-gray-200 dark:border-gray-700 pt-4">            <h4 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">              {{ \'machines.instances\' | translate }}            </h4>            <div class="space-y-2 mb-4">              @if(getCentersForMachineType(selectedMachineType()!).length === 0) {                <p class="text-sm text-gray-500 dark:text-gray-400">{{ \'machines.noCentersAssigned\' | translate }}</p>              } @else {                @for(center of getCentersForMachineType(selectedMachineType()!); track center.id) {                  @for(instance of getInstancesForCenter(selectedMachineType()!, center.id); track instance.id) {                    <div class="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-700 rounded-lg text-sm">                      <div class="flex-1">                        <span class="font-medium text-gray-700 dark:text-gray-300">{{ selectedMachineType()!.name }} {{ instance.instanceNumber }}</span>                        <div class="text-xs text-gray-600 dark:text-gray-400 mt-1">                          <p>{{ \'machines.status\' | translate }}: {{ \'machines.statuses.\' + instance.status | translate }}</p>                        </div>                      </div>                      <div class="flex gap-2">                        <button                          type="button"                          (click)="openEditInstanceModal(selectedMachineType()!, instance)"                          class="px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded text-xs transition-colors">                          {{ \'common.edit\' | translate }}                        </button>                        <button                          type="button"                          (click)="deleteInstanceFromCenter(selectedMachineType()!, instance)"                          class="px-2 py-1 bg-red-500 hover:bg-red-600 text-white rounded text-xs transition-colors">                          {{ \'common.delete\' | translate }}                        </button>                      </div>                    </div>                  }                }              }            </div>            <button              type="button"              (click)="openAddCenterModal()"              class="w-full px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg transition-colors text-sm font-medium">              {{ \'machines.addCenter\' | translate }}            </button>          </div>          <div class="flex gap-3 mt-6">            <button              type="button"              (click)="closeFormModal()"              [disabled]="isLoading()"              class="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-white rounded-lg transition-colors disabled:opacity-50">              {{ \'common.cancel\' | translate }}            </button>            <button              type="submit"              [disabled]="isLoading() || !formName.trim()"              class="flex-1 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors disabled:opacity-50 shadow-md">              @if(isLoading()) {                {{ \'machines.saving\' | translate }}              } @else {                {{ \'common.save\' | translate }}              }            </button>          </div>        </form>      </div>    </div>  }</div></div>'
-    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
+    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
     var DIRECTIVES = [{'name': 'ClickOutsideDirective', 'selector': '[appClickOutside]'}];
     var ACTUAL_COMPONENT = {'name': 'MachinesComponent'};
 </script>

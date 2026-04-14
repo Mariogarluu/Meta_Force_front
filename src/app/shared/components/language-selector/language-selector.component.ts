@@ -4,9 +4,9 @@ import { TranslationService, Language } from '../../../core/services/translation
 import { ClickOutsideDirective } from '../../directives/click-outside.directive';
 
 /**
- * Componente selector de idioma que permite cambiar el idioma de la aplicación.
- * Muestra un dropdown con los idiomas disponibles (Español, Inglés, Francés)
- * y cierra automáticamente al hacer clic fuera del componente.
+ * Language selector component that allows changing the application's locale.
+ * Displays a dropdown with available languages (Spanish, English, French)
+ * and automatically closes when clicking outside the component.
  */
 @Component({
   selector: 'app-language-selector',
@@ -16,13 +16,17 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
   styleUrl: './language-selector.component.scss'
 })
 export class LanguageSelectorComponent {
+  /** Injected TranslationService for managing the active locale */
   translationService = inject(TranslationService);
 
+  /** Signal exposing the current language code */
   currentLanguage = this.translationService.language;
+  /** Internal state tracking the visibility of the language dropdown */
   showDropdown = false;
   
   /**
-   * Lista de idiomas disponibles con su código, nombre y bandera.
+   * List of available languages with their metadata including ISO code, 
+   * display name, and emoji flag representation.
    */
   languages: { code: Language; name: string; flag: string }[] = [
     { code: 'es', name: 'Español', flag: '🇪🇸' },
@@ -31,17 +35,17 @@ export class LanguageSelectorComponent {
   ];
 
   /**
-   * Computed signal que obtiene la información del idioma actual.
-   * Incluye el nombre y la bandera correspondiente.
+   * Computed signal that retrieves detailed metadata for the currently active language.
+   * Useful for displaying the current flag and name in the selector button.
    */
   currentLanguageInfo = computed(() => {
     return this.languages.find(l => l.code === this.currentLanguage());
   });
 
   /**
-   * Selecciona un idioma y actualiza el servicio de traducción.
-   * Cierra el dropdown después de la selección.
-   * @param language - El código del idioma a seleccionar
+   * Updates the application's language and persists the choice via TranslationService.
+   * Closes the dropdown menu immediately after selection.
+   * @param language - The target language code to switch to
    */
   selectLanguage(language: Language) {
     this.translationService.setLanguage(language);
@@ -49,8 +53,8 @@ export class LanguageSelectorComponent {
   }
 
   /**
-   * Cierra el dropdown cuando se hace clic fuera del componente.
-   * Se llama desde la directiva ClickOutsideDirective.
+   * Closes the dropdown menu when a click event occurs outside the component's boundaries.
+   * Invoked via the ClickOutsideDirective.
    */
   closeDropdown() {
     this.showDropdown = false;

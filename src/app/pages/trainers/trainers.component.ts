@@ -10,8 +10,16 @@ import { Center } from '../../core/models/center';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
+/** 
+ * Default fallback image URL for trainer profiles when no custom image is provided.
+ * Points to a generic faun/mascot character image stored on Cloudinary.
+ */
 const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
 
+/**
+ * Component for displaying and filtering gym trainers.
+ * Allows users to view trainers by center and see their availability/activity status.
+ */
 @Component({
   selector: 'app-trainers',
   standalone: true,
@@ -26,23 +34,36 @@ const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/up
   styleUrl: './trainers.component.scss'
 })
 export class TrainersComponent implements OnInit {
+  /** Injected UsersService for trainer data */
   usersService = inject(UsersService);
+  /** Injected CentersService for center list */
   centersService = inject(CentersService);
+  /** Injected AuthService for user role and preference context */
   auth = inject(AuthService);
+  /** Injected TranslateService for I18n */
   translate = inject(TranslateService);
 
+  /** Signal containing the full list of trainers */
   trainers = signal<User[]>([]);
+  /** Signal containing the list of gyms/centers */
   centers = signal<Center[]>([]);
+  /** Signal tracking if data is currently being fetched */
   isLoading = signal(false);
+  /** Signal for displaying error messages to the user */
   errorMessage = signal<string>('');
   
-  // Centro seleccionado para filtrar
+  /** Signal for the currently selected center ID to filter by */
   selectedCenterId = signal<string>('');
 
+  /** Computed signal for the currently logged-in user */
   currentUser = computed(() => this.auth.currentUser());
+  /** Computed signal checking if the current user has the 'USER' role */
   isNormalUser = computed(() => this.currentUser()?.role === 'USER');
 
-  // Entrenadores filtrados y ordenados
+  /** 
+   * Computed signal for the list of trainers after applying center filters.
+   * Trainers are sorted by their active status (physically in the gym) and then by name.
+   */
   filteredTrainers = computed(() => {
     let filtered = this.trainers();
     const centerId = this.selectedCenterId();
@@ -71,11 +92,17 @@ export class TrainersComponent implements OnInit {
     return filtered;
   });
 
+  /**
+   * Initializes the component by loading trainers and centers.
+   */
   ngOnInit() {
     this.loadTrainers();
     this.loadCenters();
   }
 
+  /**
+   * Fetches trainers from the backend and establishes the default center filter.
+   */
   loadTrainers() {
     this.isLoading.set(true);
     this.errorMessage.set('');
@@ -106,6 +133,9 @@ export class TrainersComponent implements OnInit {
     });
   }
 
+  /**
+   * Fetches the list of training centers to populate the filter dropdown.
+   */
   loadCenters() {
     // Usar listCentersWithIds para obtener todos los centros con IDs
     this.centersService.listCentersWithIds().subscribe({
@@ -137,6 +167,10 @@ export class TrainersComponent implements OnInit {
     });
   }
 
+  /**
+   * Updates the center filter when the user selects a different option.
+   * @param centerId - The ID of the selected center
+   */
   onCenterChange(centerId: string) {
     if (centerId) {
       this.selectedCenterId.set(centerId);
@@ -154,14 +188,25 @@ export class TrainersComponent implements OnInit {
     }
   }
 
+  /**
+   * Returns the profile image URL for a trainer, defaulting to a faun image if none exists.
+   * @param profileImageUrl - The trainer's specific profile image URL
+   * @returns A valid image URL string
+   */
   getProfileImageUrl(profileImageUrl: string | null | undefined): string {
     return profileImageUrl ? profileImageUrl : DEFAULT_PROFILE_IMAGE_URL;
   }
 
+  /**
+   * Resolves the human-readable name of a center from its ID.
+   * @param centerId - The ID of the center to look up
+   * @returns The name of the center or a translated placeholder
+   */
   getCenterName(centerId?: string | null): string {
     if (!centerId) return this.translate.instant('trainers.noCenter');
     const center = this.centers().find(c => c.id === centerId);
     return center?.name || this.translate.instant('trainers.centerNotFound');
   }
 }
+
 

@@ -144,6 +144,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Data needed to create a new gym class.</p>
+
+            </p>
 
 
         <section data-compodoc="block-index">
@@ -218,6 +225,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Optional description</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -251,6 +264,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Class name</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -259,20 +278,26 @@
 
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export interface ClassCenterSchedule {
+  /** Unique identifier for the schedule entry */
   id: string;
+  /** ID of the associated gym class */
   classId: string;
+  /** ID of the center where the class takes place */
   centerId: string;
-  /** 0 &#x3D; Sunday, 1 &#x3D; Monday, ..., 6 &#x3D; Saturday */
+  /** Day of the week: 0 &#x3D; Monday, 1 &#x3D; Tuesday, ..., 6 &#x3D; Sunday */
   dayOfWeek: number;
   /** Start time in HH:mm format (e.g., &quot;09:00&quot;) */
   startTime: string;
   /** End time in HH:mm format (e.g., &quot;10:30&quot;) */
   endTime: string;
+  /** Basic center information */
   center?: {
     id: string;
     name: string;
   };
+  /** ISO date string of creation */
   createdAt?: string;
+  /** ISO date string of last update */
   updatedAt?: string;
 }
 
@@ -280,14 +305,19 @@
  * Association between a gym class and a trainer.
  */
 export interface ClassTrainer {
+  /** Unique identifier for the association */
   id: string;
+  /** ID of the gym class */
   classId: string;
+  /** ID of the trainer assigned */
   trainerId: string;
+  /** Basic trainer profile information */
   trainer?: {
     id: string;
     name: string;
     profileImageUrl?: string | null;
   };
+  /** ISO date string of when the trainer was assigned */
   createdAt?: string;
 }
 
@@ -295,10 +325,15 @@ export interface ClassTrainer {
  * Represents a gym class (e.g., Yoga, HIIT).
  */
 export interface GymClass {
+  /** Unique identifier for the gym class */
   id: string;
+  /** Name of the class */
   name: string;
+  /** Optional description of the class activities */
   description?: string | null;
+  /** ISO date string of creation */
   createdAt?: string;
+  /** ISO date string of last update */
   updatedAt?: string;
   /** Trainers who teach this class */
   trainers?: ClassTrainer[];
@@ -311,33 +346,60 @@ export interface GymClass {
   }&gt;;
 }
 
+/**
+ * Data needed to create a new gym class.
+ */
 export interface CreateClassInput {
+  /** Class name */
   name: string;
+  /** Optional description */
   description?: string;
 }
 
+/**
+ * Data needed to add a center and its schedules to a class.
+ */
 export interface AddCenterToClassInput {
+  /** Target center ID */
   centerId: string;
-  trainerIds: string[]; // IDs de los entrenadores (mínimo 1)
+  /** List of trainer IDs assigned to this center for this class */
+  trainerIds: string[];
+  /** List of time slots for the class at this center */
   schedules: Array&lt;{
+    /** Assigned day of the week (0-6) */
     dayOfWeek: number;
+    /** Start time in HH:mm */
     startTime: string;
-    endTime: string;
-  }&gt;; // Mínimo 1 horario
-}
-
-export interface UpdateClassInput {
-  name?: string;
-  description?: string;
-  trainerIds?: string[];
-  schedules?: Array&lt;{
-    id?: string; // Si existe, actualizar; si no, crear nuevo
-    centerId: string;
-    dayOfWeek: number;
-    startTime: string;
+    /** End time in HH:mm */
     endTime: string;
   }&gt;;
 }
+
+/**
+ * Data needed to update an existing gym class and its associations.
+ */
+export interface UpdateClassInput {
+  /** Updated name */
+  name?: string;
+  /** Updated description */
+  description?: string;
+  /** Updated list of assigned trainers */
+  trainerIds?: string[];
+  /** Updated list of schedules */
+  schedules?: Array&lt;{
+    /** Schedule ID if updating, omitted if creating new */
+    id?: string;
+    /** Associated center ID */
+    centerId: string;
+    /** Day of the week */
+    dayOfWeek: number;
+    /** Start time */
+    startTime: string;
+    /** End time */
+    endTime: string;
+  }&gt;;
+}
+
 
 
 </code></pre>

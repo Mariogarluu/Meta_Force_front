@@ -6,6 +6,11 @@ import { HomeComponent } from './pages/home/home.component';
 import { ContactComponent } from './pages/contact/contact.component';
 
 
+/**
+ * Application route configuration.
+ * Defines the mapping between URL paths and their respective components,
+ * including lazy-loading and route guards for authentication and authorization.
+ */
 export const routes: Routes = [
     {
         path: '',

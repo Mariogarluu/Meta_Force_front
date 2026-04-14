@@ -236,14 +236,16 @@ Supports individual record management and bulk import of exercises.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="30"
-                                    class="link-to-prism">src/app/core/services/exercises.service.ts:30</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="51"
+                                    class="link-to-prism">src/app/core/services/exercises.service.ts:51</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Creates a new exercise record.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -254,6 +256,7 @@ Supports individual record management and bulk import of exercises.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -268,6 +271,12 @@ Supports individual record management and bulk import of exercises.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Input data for the new exercise</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -277,7 +286,8 @@ Supports individual record management and bulk import of exercises.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the created exercise</p>
+
                             </div>
                 </td>
             </tr>
@@ -303,14 +313,16 @@ Supports individual record management and bulk import of exercises.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="38"
-                                    class="link-to-prism">src/app/core/services/exercises.service.ts:38</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/app/core/services/exercises.service.ts:70</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Deletes an exercise record by its ID.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -321,6 +333,7 @@ Supports individual record management and bulk import of exercises.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -335,6 +348,12 @@ Supports individual record management and bulk import of exercises.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the exercise to delete</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -344,7 +363,8 @@ Supports individual record management and bulk import of exercises.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting void on success</p>
+
                             </div>
                 </td>
             </tr>
@@ -370,14 +390,16 @@ Supports individual record management and bulk import of exercises.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">src/app/core/services/exercises.service.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="42"
+                                    class="link-to-prism">src/app/core/services/exercises.service.ts:42</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Retrieves a specific exercise by its ID.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -388,6 +410,7 @@ Supports individual record management and bulk import of exercises.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -402,6 +425,12 @@ Supports individual record management and bulk import of exercises.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the exercise to fetch</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -411,7 +440,8 @@ Supports individual record management and bulk import of exercises.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the exercise object</p>
+
                             </div>
                 </td>
             </tr>
@@ -437,14 +467,16 @@ Supports individual record management and bulk import of exercises.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="42"
-                                    class="link-to-prism">src/app/core/services/exercises.service.ts:42</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/app/core/services/exercises.service.ts:79</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Bulk imports multiple exercises into the system.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -455,6 +487,7 @@ Supports individual record management and bulk import of exercises.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -469,6 +502,12 @@ Supports individual record management and bulk import of exercises.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Array of exercise data to import</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -478,7 +517,8 @@ Supports individual record management and bulk import of exercises.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting import results (counts and errors)</p>
+
                             </div>
                 </td>
             </tr>
@@ -504,14 +544,16 @@ Supports individual record management and bulk import of exercises.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="18"
-                                    class="link-to-prism">src/app/core/services/exercises.service.ts:18</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">src/app/core/services/exercises.service.ts:29</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Lists available exercises, optionally filtered by machine type.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -522,6 +564,7 @@ Supports individual record management and bulk import of exercises.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -536,6 +579,12 @@ Supports individual record management and bulk import of exercises.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Optional: filter exercises by machine type ID</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -545,7 +594,8 @@ Supports individual record management and bulk import of exercises.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting an array of exercises</p>
+
                             </div>
                 </td>
             </tr>
@@ -571,14 +621,16 @@ Supports individual record management and bulk import of exercises.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="34"
-                                    class="link-to-prism">src/app/core/services/exercises.service.ts:34</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="61"
+                                    class="link-to-prism">src/app/core/services/exercises.service.ts:61</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Updates an existing exercise record.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -589,6 +641,7 @@ Supports individual record management and bulk import of exercises.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -603,6 +656,12 @@ Supports individual record management and bulk import of exercises.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the exercise to update</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -615,6 +674,12 @@ Supports individual record management and bulk import of exercises.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The updated exercise data</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -624,7 +689,8 @@ Supports individual record management and bulk import of exercises.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the updated exercise</p>
+
                             </div>
                 </td>
             </tr>
@@ -661,10 +727,16 @@ Supports individual record management and bulk import of exercises.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/core/services/exercises.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/core/services/exercises.service.ts:22</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Base API URL for exercise operations</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -693,10 +765,16 @@ Supports individual record management and bulk import of exercises.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/core/services/exercises.service.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/core/services/exercises.service.ts:20</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected HttpClient for API requests</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -716,13 +794,24 @@ import { Exercise, CreateExerciseInput, UpdateExerciseInput } from &#x27;../mode
  * Service for managing the library of exercises and machine types.
  * Supports individual record management and bulk import of exercises.
  */
+/**
+ * Service for managing the library of exercises and machine types.
+ * Supports individual record management and bulk import of exercises.
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
 export class ExercisesService {
+  /** Injected HttpClient for API requests */
   private http &#x3D; inject(HttpClient);
+  /** Base API URL for exercise operations */
   private apiUrl &#x3D; &#x60;${environment.apiUrl}/exercises&#x60;;
 
+  /**
+   * Lists available exercises, optionally filtered by machine type.
+   * @param machineTypeId - Optional: filter exercises by machine type ID
+   * @returns Observable emitting an array of exercises
+   */
   listExercises(machineTypeId?: string | null): Observable&lt;Exercise[]&gt; {
     const params: any &#x3D; {};
     if (machineTypeId) {
@@ -731,26 +820,53 @@ export class ExercisesService {
     return this.http.get&lt;Exercise[]&gt;(this.apiUrl, { params });
   }
 
+  /**
+   * Retrieves a specific exercise by its ID.
+   * @param id - The ID of the exercise to fetch
+   * @returns Observable emitting the exercise object
+   */
   getExercise(id: string): Observable&lt;Exercise&gt; {
     return this.http.get&lt;Exercise&gt;(&#x60;${this.apiUrl}/${id}&#x60;);
   }
 
+  /**
+   * Creates a new exercise record.
+   * @param data - Input data for the new exercise
+   * @returns Observable emitting the created exercise
+   */
   createExercise(data: CreateExerciseInput): Observable&lt;Exercise&gt; {
     return this.http.post&lt;Exercise&gt;(this.apiUrl, data);
   }
 
+  /**
+   * Updates an existing exercise record.
+   * @param id - The ID of the exercise to update
+   * @param data - The updated exercise data
+   * @returns Observable emitting the updated exercise
+   */
   updateExercise(id: string, data: UpdateExerciseInput): Observable&lt;Exercise&gt; {
     return this.http.patch&lt;Exercise&gt;(&#x60;${this.apiUrl}/${id}&#x60;, data);
   }
 
+  /**
+   * Deletes an exercise record by its ID.
+   * @param id - The ID of the exercise to delete
+   * @returns Observable emitting void on success
+   */
   deleteExercise(id: string): Observable&lt;void&gt; {
     return this.http.delete&lt;void&gt;(&#x60;${this.apiUrl}/${id}&#x60;);
   }
 
+  /**
+   * Bulk imports multiple exercises into the system.
+   * @param exercises - Array of exercise data to import
+   * @returns Observable emitting import results (counts and errors)
+   */
   importExercises(exercises: CreateExerciseInput[]): Observable&lt;{ created: number; skipped: number; errors: Array&lt;{ exercise: string; error: string }&gt; }&gt; {
     return this.http.post&lt;{ created: number; skipped: number; errors: Array&lt;{ exercise: string; error: string }&gt; }&gt;(&#x60;${this.apiUrl}/import&#x60;, { exercises });
   }
 }
+
 
 </code></pre>
     </div>

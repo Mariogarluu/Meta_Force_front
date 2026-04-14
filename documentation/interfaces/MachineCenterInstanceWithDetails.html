@@ -1,0 +1,1027 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>credentials documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">credentials documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  MachineCenterInstanceWithDetails</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/pages/machines/machines.component.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Interface for machine instance with detailed names (for display in instances tab).
+Extends the base MachineCenterInstance with human-readable type and center names.</p>
+
+            </p>
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                            <code><a href="../interfaces/MachineCenterInstance.html" target="_self" >MachineCenterInstance</a></code>
+            </p>
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#centerName" 
+>
+                                            centerName
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#machineTypeName" 
+>
+                                            machineTypeName
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="centerName"></a>
+                                        <span class="name "><b>centerName</b>
+                                            <a href="#centerName">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>centerName:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The display name of the center where the machine is located</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="machineTypeName"></a>
+                                        <span class="name "><b>machineTypeName</b>
+                                            <a href="#machineTypeName">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>machineTypeName:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>The display name of the machine model type</p>
+</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject, signal, computed, OnInit } from &#x27;@angular/core&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { FormsModule } from &#x27;@angular/forms&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
+import { MachinesService } from &#x27;../../core/services/machines.service&#x27;;
+import { CentersService } from &#x27;../../core/services/centers.service&#x27;;
+import { AuthService } from &#x27;../../core/services/auth.service&#x27;;
+import {
+  MachineTypeModel,
+  MachineCenterInstance,
+  CreateMachineTypeInput,
+  UpdateMachineTypeInput,
+  AddMachineToCenterInput,
+  UpdateMachineInCenterInput,
+  MachineStatus,
+  MachineType,
+} from &#x27;../../core/models/machine&#x27;;
+import { Center } from &#x27;../../core/models/center&#x27;;
+import { TranslateModule, TranslateService } from &#x27;@ngx-translate/core&#x27;;
+import { NavbarComponent } from &#x27;../../shared/components/navbar/navbar.component&#x27;;
+
+/**
+ * Interface for machine instance with detailed names (for display in instances tab).
+ * Extends the base MachineCenterInstance with human-readable type and center names.
+ */
+interface MachineCenterInstanceWithDetails extends MachineCenterInstance {
+  /** The display name of the machine model type */
+  machineTypeName: string;
+  /** The display name of the center where the machine is located */
+  centerName: string;
+}
+
+/**
+ * Component for managing gym machine models and their specific instances across centers.
+ * Supports viewing machines, managing machine types, and assigning quantities to gyms.
+ */
+@Component({
+  selector: &#x27;app-machines&#x27;,
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule, TranslateModule, NavbarComponent],
+  templateUrl: &#x27;./machines.component.html&#x27;,
+  styleUrl: &#x27;./machines.component.scss&#x27;
+})
+export class MachinesComponent implements OnInit {
+  /** Injected MachinesService for specialized machine operations */
+  private machinesService &#x3D; inject(MachinesService);
+  /** Injected CentersService for gym center metadata */
+  private centersService &#x3D; inject(CentersService);
+  /** Injected AuthService for permission and user context */
+  public auth &#x3D; inject(AuthService);
+  /** Injected TranslateService for I18n strings */
+  translate &#x3D; inject(TranslateService);
+
+  /** Signal containing the global catalog of machine models/types */
+  machineTypes &#x3D; signal&lt;MachineTypeModel[]&gt;([]);
+  /** Signal containing the list of gym centers */
+  centers &#x3D; signal&lt;Center[]&gt;([]);
+  /** Signal containing specific machine instances (physical hardware) */
+  machineInstances &#x3D; signal&lt;MachineCenterInstance[]&gt;([]);
+  /** Signal tracking background API activity */
+  isLoading &#x3D; signal(false);
+  /** Signal for displaying primary error messages */
+  errorMessage &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  /** Signal for displaying errors specific to adding/editing center-level machines */
+  addCenterErrorMessage &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+
+  /** Signal for the name filter input */
+  filterName &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  /** Signal for the category/type filter dropdown */
+  filterType &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  /** Signal for the center selection filter */
+  filterCenterId &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  /** Signal for controlling the filter visibility toggle */
+  showFilters &#x3D; signal(false);
+
+  /** Signal for controlling machine type form modal visibility */
+  showFormModal &#x3D; signal(false);
+  /** Signal for controlling machine type deletion modal visibility */
+  showDeleteModal &#x3D; signal(false);
+  /** Flag determining if the current modal is in edit or create mode */
+  isEditing &#x3D; signal(false);
+  /** Signal for the machine type currently being managed in a modal */
+  selectedMachineType &#x3D; signal&lt;MachineTypeModel | null&gt;(null);
+
+  /** Text field for the machine type name in the form */
+  formName &#x3D; &#x27;&#x27;;
+  /** Category selector for the machine type in the form */
+  formType: MachineType &#x3D; &#x27;cardio&#x27;;
+
+  /** Signal for controlling the &#x27;Add to Center&#x27; modal visibility */
+  showAddCenterModal &#x3D; signal(false);
+  /** Signal for the target center ID when adding instances */
+  selectedCenterForAdd &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
+  /** Quantity of machines to add in the current operation */
+  formQuantity &#x3D; 1;
+  /** Initial or updated status for the machine instances */
+  formStatus: MachineStatus &#x3D; &#x27;operativa&#x27;;
+  
+  /** Current active view mode (&#x27;models&#x27; catalog or specific &#x27;instances&#x27; list) */
+  activeTab &#x3D; signal&lt;&#x27;models&#x27; | &#x27;instances&#x27;&gt;(&#x27;models&#x27;);
+  
+  /** Signal tracking which machine types have their instances expanded in the UI */
+  expandedMachineTypes &#x3D; signal&lt;Set&lt;string&gt;&gt;(new Set());
+
+  /** Computed signal for the current user object */
+  currentUser &#x3D; computed(() &#x3D;&gt; this.auth.currentUser());
+  /** Computed signal checking if user is SUPERADMIN */
+  isSuperAdmin &#x3D; computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;SUPERADMIN&#x27;);
+  /** Computed signal checking if user is ADMIN_CENTER */
+  isAdminCenter &#x3D; computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;ADMIN_CENTER&#x27;);
+  /** Computed signal for general edit permissions */
+  canEdit &#x3D; computed(() &#x3D;&gt; this.isSuperAdmin() || this.isAdminCenter());
+
+  /** Available machine categories for dropdowns */
+  machineTypeOptions: MachineType[] &#x3D; [&#x27;cardio&#x27;, &#x27;fuerza&#x27;, &#x27;peso libre&#x27;, &#x27;funcional&#x27;, &#x27;otro&#x27;];
+  /** Available machine statuses for dropdowns */
+  machineStatusOptions: MachineStatus[] &#x3D; [&#x27;operativa&#x27;, &#x27;en mantenimiento&#x27;, &#x27;fuera de servicio&#x27;];
+
+  /** 
+   * Computed signal for filtered machine types (global catalog list).
+   * Filters by name and type.
+   */
+  filteredMachineTypes &#x3D; computed(() &#x3D;&gt; {
+    let filtered &#x3D; this.machineTypes();
+
+    if (this.filterName()) {
+      const term &#x3D; this.filterName().toLowerCase();
+      filtered &#x3D; filtered.filter(m &#x3D;&gt; m.name.toLowerCase().includes(term));
+    }
+
+    if (this.filterType()) {
+      filtered &#x3D; filtered.filter(m &#x3D;&gt; m.type &#x3D;&#x3D;&#x3D; this.filterType());
+    }
+
+    // Machine types tab: Do NOT filter by centerId (machine types are global)
+    // The centerId filter is only applicable to the instances tab
+    return filtered;
+  });
+
+  /** Computed signal checking if any search/filter criteria are currently active */
+  hasActiveFilters &#x3D; computed(() &#x3D;&gt; {
+    return !!(this.filterName() || this.filterType() || this.filterCenterId());
+  });
+
+  /**
+   * Initializes the component by fetching models, centers, and existing instances.
+   */
+  ngOnInit(): void {
+    this.loadMachineTypes();
+    this.loadCenters();
+    this.loadMachineInstances();
+  }
+
+  /**
+   * Fetches the global catalog of machine models.
+   */
+  loadMachineTypes(): void {
+    this.isLoading.set(true);
+    this.errorMessage.set(&#x27;&#x27;);
+    // Always get all machine types (they are global)
+    // Center filtering is applied at the instance level, not type level
+    this.machinesService.listMachineTypes(null).subscribe({
+      next: (data) &#x3D;&gt; {
+        this.machineTypes.set(data);
+        this.isLoading.set(false);
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || this.translate.instant(&#x27;machines.errors.load&#x27;));
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  /**
+   * Fetches the list of gym centers and establishes default center filters based on user role.
+   */
+  loadCenters(): void {
+    this.centersService.listCentersWithIds().subscribe({
+      next: (data) &#x3D;&gt; {
+        this.centers.set(data);
+        // Para administradores de centro, establecer su centro por defecto
+        if (!this.filterCenterId() &amp;&amp; data.length &gt; 0) {
+          const user &#x3D; this.currentUser();
+          if (this.isAdminCenter() &amp;&amp; user?.centerId) {
+            // Si es admin de centro, usar su centro
+            this.filterCenterId.set(user.centerId);
+          } else {
+            const userFavoriteCenterId &#x3D; user?.favoriteCenterId;
+            if (userFavoriteCenterId &amp;&amp; data.find(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; userFavoriteCenterId)) {
+              this.filterCenterId.set(userFavoriteCenterId);
+            } else if (data.length &gt; 0) {
+              this.filterCenterId.set(data[0].id || &#x27;&#x27;);
+            }
+          }
+        }
+      },
+      error: (error) &#x3D;&gt; {
+        console.error(&#x27;Error al cargar centros:&#x27;, error);
+      }
+    });
+  }
+
+  /**
+   * Fetches physical machine instances for the currently selected center.
+   */
+  loadMachineInstances(): void {
+    if (!this.filterCenterId()) {
+      this.machineInstances.set([]);
+      return;
+    }
+    
+    this.isLoading.set(true);
+    this.errorMessage.set(&#x27;&#x27;);
+    
+    // Get all machines for the selected center
+    this.machinesService.listMachines(this.filterCenterId()).subscribe({
+      next: (machines: MachineCenterInstance[]) &#x3D;&gt; {
+        // Transform to include machine type and center names for display
+        const instancesWithDetails: MachineCenterInstanceWithDetails[] &#x3D; machines.map(machine &#x3D;&gt; ({
+          ...machine,
+          machineTypeName: machine.machineType?.name || &#x27;Desconocido&#x27;,
+          centerName: machine.center?.name || &#x27;Desconocido&#x27;
+        }));
+        
+        this.machineInstances.set(instancesWithDetails);
+        this.isLoading.set(false);
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || this.translate.instant(&#x27;machines.errors.load&#x27;));
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  /**
+   * Reactive callback for when the center filter changes.
+   * @param centerId - The new selected center&#x27;s unique ID
+   */
+  onCenterChange(centerId: string): void {
+    this.filterCenterId.set(centerId);
+    this.loadMachineTypes();
+  }
+
+  /**
+   * Resolves a human-readable center name from an ID.
+   * @param centerId - The ID of the center
+   * @returns Translated center name or placeholder
+   */
+  getCenterName(centerId?: string | null): string {
+    if (!centerId) return this.translate.instant(&#x27;machines.allCenters&#x27;);
+    const center &#x3D; this.centers().find(c &#x3D;&gt; c.id &#x3D;&#x3D;&#x3D; centerId);
+    return center?.name || this.translate.instant(&#x27;machines.centerNotFound&#x27;);
+  }
+
+  /**
+   * Extracts instances belonging to a specific center from a machine type model.
+   * @param machineType - The machine type model containing nested instances
+   * @param centerId - (Optional) Filter by this center ID
+   * @returns Array of matching instances
+   */
+  getInstancesForCenter(machineType: MachineTypeModel, centerId?: string): MachineCenterInstance[] {
+    if (!machineType.instances) return [];
+    if (!centerId) return machineType.instances;
+    return machineType.instances.filter(i &#x3D;&gt; i.centerId &#x3D;&#x3D;&#x3D; centerId);
+  }
+
+  /**
+   * Returns a list of centers that possess at least one instance of a given machine type.
+   * @param machineType - The machine type model to analyze
+   * @returns Array of Centers that have this machine type
+   */
+  getCentersForMachineType(machineType: MachineTypeModel): Center[] {
+    if (!machineType.instances) return [];
+    const uniqueCenterIds &#x3D; [...new Set(machineType.instances.map(i &#x3D;&gt; i.centerId))];
+    return this.centers().filter(c &#x3D;&gt; uniqueCenterIds.includes(c.id || &#x27;&#x27;));
+  }
+
+  /**
+   * Checks if a machine type already has presence in a specific center.
+   * @param centerId - The ID of the center to check
+   * @returns True if at least one instance exists in that center
+   */
+  isCenterAlreadyInMachineType(centerId: string): boolean {
+    return this.selectedMachineType()?.instances?.some(i &#x3D;&gt; i.centerId &#x3D;&#x3D;&#x3D; centerId) || false;
+  }
+
+  /**
+   * Toggles the UI filter panel visibility.
+   */
+  toggleFilters(): void {
+    this.showFilters.set(!this.showFilters());
+  }
+
+  /**
+   * Resets name and type filters to their default empty states.
+   */
+  clearFilters(): void {
+    this.filterName.set(&#x27;&#x27;);
+    this.filterType.set(&#x27;&#x27;);
+    // this.filterCenterId.set(&#x27;&#x27;); // Keep selected center
+  }
+
+  /**
+   * Prepares and opens the machine type creation modal.
+   */
+  openCreateModal(): void {
+    this.isEditing.set(false);
+    this.selectedMachineType.set(null);
+    this.formName &#x3D; &#x27;&#x27;;
+    this.formType &#x3D; &#x27;cardio&#x27;;
+    this.showFormModal.set(true);
+    this.errorMessage.set(&#x27;&#x27;); // Limpiar error al abrir
+    this.addCenterErrorMessage.set(&#x27;&#x27;); // También limpiar el error del otro modal
+  }
+
+  /**
+   * Prepares and opens the machine type editing modal with prefilled data.
+   * @param machineType - The machine type model to edit
+   */
+  openEditModal(machineType: MachineTypeModel): void {
+    this.isEditing.set(true);
+    this.selectedMachineType.set(machineType);
+    this.formName &#x3D; machineType.name;
+    this.formType &#x3D; machineType.type;
+    this.showFormModal.set(true);
+    this.errorMessage.set(&#x27;&#x27;); // Limpiar error al abrir
+    this.addCenterErrorMessage.set(&#x27;&#x27;); // También limpiar el error del otro modal
+  }
+
+  /**
+   * Closes the machine type form modal and resets errors.
+   */
+  closeFormModal(): void {
+    this.showFormModal.set(false);
+    this.selectedMachineType.set(null);
+    this.errorMessage.set(&#x27;&#x27;); // Limpiar error al cerrar
+  }
+
+  /**
+   * Opens the confirmation modal for deleting a machine type.
+   * @param machineType - The machine type to delete
+   */
+  openDeleteModal(machineType: MachineTypeModel): void {
+    this.selectedMachineType.set(machineType);
+    this.showDeleteModal.set(true);
+  }
+
+  /**
+   * Closes the machine type deletion confirmation modal.
+   */
+  closeDeleteModal(): void {
+    this.showDeleteModal.set(false);
+    this.selectedMachineType.set(null);
+  }
+
+  /**
+   * Validates and submits the machine type form (Create or Update).
+   */
+  onSubmit(): void {
+    if (!this.formName.trim()) {
+      this.errorMessage.set(this.translate.instant(&#x27;machines.errors.nameRequired&#x27;));
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.errorMessage.set(&#x27;&#x27;);
+
+    // Crear objeto limpio solo con name y type - sin status ni otros campos
+    // Asegurarse de que solo se envíen estos dos campos
+    const data: CreateMachineTypeInput | UpdateMachineTypeInput &#x3D; {
+      name: this.formName.trim(),
+      type: this.formType,
+    };
+
+    // Verificar que el objeto solo contiene name y type
+    const dataKeys &#x3D; Object.keys(data);
+    if (dataKeys.length !&#x3D;&#x3D; 2 || !dataKeys.includes(&#x27;name&#x27;) || !dataKeys.includes(&#x27;type&#x27;)) {
+      console.error(&#x27;Error: El objeto de datos contiene campos adicionales:&#x27;, data);
+      this.errorMessage.set(&#x27;Error: El formulario contiene campos no válidos&#x27;);
+      this.isLoading.set(false);
+      return;
+    }
+
+    // Log para depuración
+    console.log(&#x27;Creating machine type with data:&#x27;, JSON.stringify(data));
+
+    if (this.isEditing() &amp;&amp; this.selectedMachineType()) {
+      const id &#x3D; this.selectedMachineType()!.id;
+      this.machinesService.updateMachineType(id, data as UpdateMachineTypeInput).subscribe({
+        next: () &#x3D;&gt; this.finishAction(),
+        error: (error) &#x3D;&gt; {
+          console.error(&#x27;Error updating machine type:&#x27;, error);
+          this.errorMessage.set(error.error?.message || this.translate.instant(&#x27;machines.errors.save&#x27;));
+          this.isLoading.set(false);
+        }
+      });
+    } else {
+      // Asegurarse de que el objeto solo contiene name y type
+      // Crear un nuevo objeto limpio para evitar cualquier referencia a otros campos
+      const cleanData: CreateMachineTypeInput &#x3D; {
+        name: String(this.formName.trim()),
+        type: String(this.formType) as MachineType,
+      };
+      
+      console.log(&#x27;Sending clean data:&#x27;, JSON.stringify(cleanData));
+      console.log(&#x27;Data keys:&#x27;, Object.keys(cleanData));
+      
+      this.machinesService.createMachineType(cleanData).subscribe({
+        next: () &#x3D;&gt; this.finishAction(),
+        error: (error) &#x3D;&gt; {
+          console.error(&#x27;Error creating machine type:&#x27;, error);
+          console.error(&#x27;Error details:&#x27;, error.error);
+          console.error(&#x27;Request body that was sent:&#x27;, cleanData);
+          this.errorMessage.set(error.error?.message || this.translate.instant(&#x27;machines.errors.save&#x27;));
+          this.isLoading.set(false);
+        }
+      });
+    }
+  }
+
+  /**
+   * Executes the deletion of the selected machine type from the backend.
+   */
+  confirmDelete(): void {
+    const machineType &#x3D; this.selectedMachineType();
+    if (!machineType) return;
+
+    this.isLoading.set(true);
+    this.errorMessage.set(&#x27;&#x27;);
+
+    this.machinesService.deleteMachineType(machineType.id).subscribe({
+      next: () &#x3D;&gt; {
+        this.isLoading.set(false);
+        this.closeDeleteModal();
+        this.loadMachineTypes();
+      },
+      error: (error) &#x3D;&gt; {
+        this.errorMessage.set(error.error?.message || this.translate.instant(&#x27;machines.errors.delete&#x27;));
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  /**
+   * Opens the modal to assign new machine instances to a gym.
+   */
+  openAddCenterModal(): void {
+    this.selectedMachineType.set(null);
+    this.selectedCenterForAdd.set(this.filterCenterId() || &#x27;&#x27;);
+    this.formQuantity &#x3D; 1;
+    this.formStatus &#x3D; &#x27;operativa&#x27;;
+    this.isEditing.set(false);
+    this.showAddCenterModal.set(true);
+    this.addCenterErrorMessage.set(&#x27;&#x27;);
+  }
+
+  /**
+   * Opens the modal to add machines of a specific model to a center.
+   * @param machineType - The target machine model
+   */
+  openAddCenterModalForMachineType(machineType: MachineTypeModel): void {
+    this.selectedMachineType.set(machineType);
+    this.selectedCenterForAdd.set(&#x27;&#x27;);
+    this.formQuantity &#x3D; 1;
+    this.formStatus &#x3D; &#x27;operativa&#x27;;
+    this.isEditing.set(false);
+    this.showAddCenterModal.set(true);
+    this.addCenterErrorMessage.set(&#x27;&#x27;);
+  }
+
+  /**
+   * Opens the modal to edit an existing physical machine instance&#x27;s status.
+   * @param machineType - The machine type model
+   * @param instance - The specific center instance
+   */
+  openEditInstanceModal(machineType: MachineTypeModel, instance: MachineCenterInstance): void {
+    this.selectedMachineType.set(machineType);
+    this.selectedCenterForAdd.set(instance.centerId);
+    this.formStatus &#x3D; instance.status;
+    this.showAddCenterModal.set(true);
+    this.isEditing.set(true);
+    this.addCenterErrorMessage.set(&#x27;&#x27;);
+  }
+
+  /**
+   * Closes the instance management modal.
+   */
+  closeAddCenterModal(): void {
+    this.showAddCenterModal.set(false);
+    this.selectedCenterForAdd.set(&#x27;&#x27;);
+    this.selectedMachineType.set(null);
+    this.isEditing.set(false);
+    this.addCenterErrorMessage.set(&#x27;&#x27;);
+  }
+
+  /**
+   * Removes a physical machine instance from a center after confirmation.
+   * @param machineType - The machine type model
+   * @param instance - The specific instance record
+   */
+  deleteInstanceFromCenter(machineType: MachineTypeModel, instance: MachineCenterInstance): void {
+    if (!confirm(this.translate.instant(&#x27;machines.confirmDeleteInstance&#x27;))) return;
+
+    this.isLoading.set(true);
+    this.machinesService.removeMachineFromCenter(machineType.id, instance.centerId, instance.instanceNumber).subscribe({
+      next: () &#x3D;&gt; {
+        this.isLoading.set(false);
+        this.loadMachineTypes();
+      },
+      error: (error) &#x3D;&gt; {
+        this.addCenterErrorMessage.set(error.error?.message || this.translate.instant(&#x27;machines.errors.deleteInstance&#x27;));
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  /**
+   * Submits updates to an existing machine instance (e.g., status changes).
+   */
+  saveInstanceChanges(): void {
+    const machineTypeId &#x3D; this.selectedMachineType()?.id;
+    const centerId &#x3D; this.selectedCenterForAdd();
+    const instance &#x3D; this.selectedMachineType()?.instances?.find(i &#x3D;&gt; i.centerId &#x3D;&#x3D;&#x3D; centerId);
+
+    if (!machineTypeId || !centerId || !instance) {
+      this.addCenterErrorMessage.set(this.translate.instant(&#x27;machines.errors.instanceNotFound&#x27;));
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.addCenterErrorMessage.set(&#x27;&#x27;);
+
+    const data: UpdateMachineInCenterInput &#x3D; {
+      status: this.formStatus,
+    };
+
+    this.machinesService.updateMachineInCenter(machineTypeId, centerId, instance.instanceNumber, data).subscribe({
+      next: () &#x3D;&gt; {
+        this.isLoading.set(false);
+        this.closeAddCenterModal();
+        this.loadMachineTypes();
+      },
+      error: (error) &#x3D;&gt; {
+        this.addCenterErrorMessage.set(error.error?.message || this.translate.instant(&#x27;machines.errors.save&#x27;));
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  /**
+   * Validates and submits the &#x27;Add Machine to Center&#x27; or &#x27;Update Instance&#x27; form.
+   */
+  onAddCenterSubmit(): void {
+    if (this.isEditing()) {
+      this.saveInstanceChanges();
+      return;
+    }
+
+    const machineTypeId &#x3D; this.selectedMachineType()?.id;
+    const centerId &#x3D; this.selectedCenterForAdd();
+
+    if (!machineTypeId || !centerId) {
+      this.addCenterErrorMessage.set(this.translate.instant(&#x27;machines.errors.machineTypeOrCenterRequired&#x27;));
+      return;
+    }
+
+    if (this.formQuantity &lt; 1) {
+      this.addCenterErrorMessage.set(this.translate.instant(&#x27;machines.errors.quantityRequired&#x27;));
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.addCenterErrorMessage.set(&#x27;&#x27;);
+
+    const data: AddMachineToCenterInput &#x3D; {
+      centerId,
+      quantity: this.formQuantity,
+      status: this.formStatus || &#x27;operativa&#x27;,
+    };
+
+    this.machinesService.addMachineToCenter(machineTypeId, data).subscribe({
+      next: () &#x3D;&gt; {
+        this.isLoading.set(false);
+        this.closeAddCenterModal();
+        this.loadMachineTypes();
+      },
+      error: (error) &#x3D;&gt; {
+        this.addCenterErrorMessage.set(error.error?.message || this.translate.instant(&#x27;machines.errors.save&#x27;));
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  /**
+   * Internal helper to finalize a successful data modification operation.
+   */
+  private finishAction(): void {
+    this.isLoading.set(false);
+    this.closeFormModal();
+    this.loadMachineTypes();
+  }
+
+  /**
+   * Returns Tailwind CSS color classes based on the machine status.
+   * @param status - The machine&#x27;s current operational status
+   * @returns String of CSS classes
+   */
+  getStatusColor(status: string): string {
+    switch (status) {
+      case &#x27;operativa&#x27;: return &#x27;bg-green-500/20 text-green-600 dark:text-green-400 border-green-500/50&#x27;;
+      case &#x27;en mantenimiento&#x27;: return &#x27;bg-yellow-500/20 text-yellow-600 dark:text-yellow-400 border-yellow-500/50&#x27;;
+      case &#x27;fuera de servicio&#x27;: return &#x27;bg-red-500/20 text-red-600 dark:text-red-400 border-red-500/50&#x27;;
+      default: return &#x27;bg-gray-500/20 text-gray-400&#x27;;
+    }
+  }
+
+  /**
+   * Checks if the currently filtered list contains any machines with actual center instances.
+   * @returns True if there are instances to display
+   */
+  hasInstancesInCenter(): boolean {
+    return this.filteredMachineTypes().filter(m &#x3D;&gt; m.instances &amp;&amp; m.instances.length &gt; 0).length &gt; 0;
+  }
+
+  /**
+   * Locates a machine type model in the global list by ID.
+   * @param id - The ID of the model to find
+   * @returns The matching model or null
+   */
+  findMachineTypeById(id: string | null): MachineTypeModel | null {
+    if (!id) return null;
+    return this.machineTypes().find(m &#x3D;&gt; m.id &#x3D;&#x3D;&#x3D; id) || null;
+  }
+
+  /**
+   * Sets the active machine type selected by the user.
+   * @param id - The unique identifier of the machine type
+   */
+  onMachineTypeSelect(id: string | null): void {
+    this.selectedMachineType.set(this.findMachineTypeById(id));
+  }
+
+  /**
+   * Toggles the UI expansion state of a specific machine type&#x27;s instance list.
+   * @param machineTypeId - The ID of the machine type to toggle
+   */
+  toggleMachineTypeExpanded(machineTypeId: string): void {
+    const expanded &#x3D; new Set(this.expandedMachineTypes());
+    if (expanded.has(machineTypeId)) {
+      expanded.delete(machineTypeId);
+    } else {
+      expanded.add(machineTypeId);
+    }
+    this.expandedMachineTypes.set(expanded);
+  }
+
+  /**
+   * Checks if a particular machine type is currently expanded in the view.
+   * @param machineTypeId - The entity ID
+   * @returns True if expanded
+   */
+  isMachineTypeExpanded(machineTypeId: string): boolean {
+    return this.expandedMachineTypes().has(machineTypeId);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'MachineCenterInstanceWithDetails.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

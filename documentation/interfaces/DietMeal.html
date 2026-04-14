@@ -275,6 +275,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>ISO date string of creation</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -310,7 +316,7 @@
 
                             <tr>
                                 <td class="col-md-4">
-                                    <div class="io-description"><p>0 = Sunday, 1 = Monday, ..., 6 = Saturday</p>
+                                    <div class="io-description"><p>Day of the week: 0 = Monday, 1 = Tuesday, ..., 6 = Sunday</p>
 </div>
                                 </td>
                             </tr>
@@ -347,6 +353,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>ID of the dietary plan it belongs to</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -380,6 +392,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Unique identifier for the diet meal entry</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -413,6 +431,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Detailed meal information</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -446,6 +470,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>ID of the specific meal</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -479,6 +509,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Type of meal (e.g., breakfast, lunch)</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -517,6 +553,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Additional dietary notes</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -550,6 +592,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Execution order within the day</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -588,6 +636,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>Amount or portions</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="table table-sm table-bordered">
@@ -621,6 +675,12 @@
 
 
 
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-description"><p>ISO date string of last update</p>
+</div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
             </section>
@@ -633,18 +693,31 @@
 /**
  * Represents a specific meal within a dietary plan.
  */
+/**
+ * Represents a specific meal within a dietary plan.
+ */
 export interface DietMeal {
+  /** Unique identifier for the diet meal entry */
   id: string;
+  /** ID of the dietary plan it belongs to */
   dietId: string;
+  /** ID of the specific meal */
   mealId: string;
+  /** Detailed meal information */
   meal: Meal;
-  /** 0 &#x3D; Sunday, 1 &#x3D; Monday, ..., 6 &#x3D; Saturday */
+  /** Day of the week: 0 &#x3D; Monday, 1 &#x3D; Tuesday, ..., 6 &#x3D; Sunday */
   dayOfWeek: number;
+  /** Type of meal (e.g., breakfast, lunch) */
   mealType: &#x27;desayuno&#x27; | &#x27;almuerzo&#x27; | &#x27;comida&#x27; | &#x27;merienda&#x27; | &#x27;cena&#x27;;
+  /** Execution order within the day */
   order: number;
+  /** Amount or portions */
   quantity?: number | null;
+  /** Additional dietary notes */
   notes?: string | null;
+  /** ISO date string of creation */
   createdAt: string;
+  /** ISO date string of last update */
   updatedAt: string;
 }
 
@@ -652,55 +725,99 @@ export interface DietMeal {
  * Represents a user&#x27;s dietary plan containing multiple meals.
  */
 export interface Diet {
+  /** Unique identifier for the diet plan */
   id: string;
+  /** ID of the user who owns the diet */
   userId: string;
+  /** Brief user information */
   user: {
     id: string;
     name: string;
     email: string;
   };
+  /** Name of the dietary plan */
   name: string;
+  /** Optional description of the plan */
   description?: string | null;
+  /** List of meals included in the plan */
   meals: DietMeal[];
+  /** ISO date string of creation */
   createdAt: string;
+  /** ISO date string of last update */
   updatedAt: string;
 }
 
+/**
+ * Data needed to create a new dietary plan.
+ */
 export interface CreateDietInput {
+  /** Plan name */
   name: string;
+  /** Optional description */
   description?: string;
 }
 
+/**
+ * Data needed to update an existing dietary plan.
+ */
 export interface UpdateDietInput {
+  /** Updated name */
   name?: string;
+  /** Updated description */
   description?: string;
 }
 
+/**
+ * Data needed to add a meal to a dietary plan.
+ */
 export interface AddMealToDietInput {
+  /** ID of the meal to add */
   mealId: string;
+  /** Assigned day of the week (0-6) */
   dayOfWeek: number;
+  /** Category of the meal */
   mealType: &#x27;desayuno&#x27; | &#x27;almuerzo&#x27; | &#x27;comida&#x27; | &#x27;merienda&#x27; | &#x27;cena&#x27;;
+  /** Order in the list for that day */
   order: number;
+  /** Portion size or quantity */
   quantity?: number;
+  /** Optional notes */
   notes?: string;
 }
 
+/**
+ * Data needed to update a meal entry within a diet.
+ */
 export interface UpdateDietMealInput {
+  /** Updated day of the week */
   dayOfWeek?: number;
+  /** Updated meal category */
   mealType?: &#x27;desayuno&#x27; | &#x27;almuerzo&#x27; | &#x27;comida&#x27; | &#x27;merienda&#x27; | &#x27;cena&#x27;;
+  /** Updated order */
   order?: number;
+  /** Updated quantity */
   quantity?: number | null;
+  /** Updated notes */
   notes?: string | null;
 }
 
+/**
+ * Data needed to reorder multiple meals within dietary plans.
+ */
 export interface ReorderDietMealsInput {
+  /** List of updated positions for meals */
   meals: Array&lt;{
+    /** ID of the diet meal entry */
     id: string;
+    /** New day of the week */
     dayOfWeek: number;
+    /** New meal category */
     mealType: &#x27;desayuno&#x27; | &#x27;almuerzo&#x27; | &#x27;comida&#x27; | &#x27;merienda&#x27; | &#x27;cena&#x27;;
+    /** New order */
     order: number;
   }&gt;;
 }
+
 
 </code></pre>
     </div>

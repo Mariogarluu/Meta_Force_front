@@ -14,6 +14,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
+  /** Array of essential navigation links for quick access */
   readonly quickLinks = [
     { label: 'Inicio', path: '/home' },
     { label: 'Dashboard', path: '/dashboard' },
@@ -21,6 +22,7 @@ export class FooterComponent {
     { label: 'Usuarios', path: '/users' }
   ];
 
+  /** Array of specific domain resources and anchor links */
   readonly resources = [
     { label: 'Entrenadores', path: '/home#trainers' },
     { label: 'Dietas', path: '/home#diets' },

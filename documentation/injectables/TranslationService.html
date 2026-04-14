@@ -142,7 +142,8 @@
             </p>
             <p class="comment">
                 <p>Service for managing application internationalization (i18n).
-Handles language switching, translation loading, and persistent user preferences.</p>
+Handles language switching, translation loading, and persistent user preferences.
+Supports Spanish (default), English, and French.</p>
 
             </p>
 
@@ -243,14 +244,13 @@ Handles language switching, translation loading, and persistent user preferences
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/core/services/translation.service.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/core/services/translation.service.ts:29</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>Inicializa el servicio configurando español como idioma por defecto.
-Carga las traducciones de forma asíncrona y no bloqueante.</p>
+                            <div class="io-description"><p>Initializes the service by setting Spanish as default and attempting to load saved preference.</p>
 </div>
                             <div>
                                     <b>Parameters :</b>
@@ -260,6 +260,7 @@ Carga las traducciones de forma asíncrona y no bloqueante.</p>
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -274,6 +275,12 @@ Carga las traducciones de forma asíncrona y no bloqueante.</p>
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>Injected ngx-translate service</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -309,16 +316,15 @@ Carga las traducciones de forma asíncrona y no bloqueante.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="164"
-                                    class="link-to-prism">src/app/core/services/translation.service.ts:164</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="163"
+                                    class="link-to-prism">src/app/core/services/translation.service.ts:163</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Obtiene una traducción de forma asíncrona mediante un Observable.
-Útil cuando se necesita esperar a que las traducciones estén cargadas.</p>
+                        <div class="io-description"><p>Asynchronously gets a translation as an Observable.</p>
 </div>
 
                             <div class="io-description">
@@ -347,7 +353,7 @@ Carga las traducciones de forma asíncrona y no bloqueante.</p>
 
                                             <td>
                                                     <ul>
-<li>La clave de traducción</li>
+<li>Translation key</li>
 </ul>
 
                                             </td>
@@ -365,7 +371,7 @@ Carga las traducciones de forma asíncrona y no bloqueante.</p>
 
                                             <td>
                                                     <ul>
-<li>Parámetros opcionales para interpolación</li>
+<li>Optional interpolation parameters</li>
 </ul>
 
                                             </td>
@@ -378,7 +384,7 @@ Carga las traducciones de forma asíncrona y no bloqueante.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>Un Observable que emite la traducción</p>
+                                <p>Observable emitting the translated string</p>
 
                             </div>
                 </td>
@@ -407,16 +413,15 @@ Carga las traducciones de forma asíncrona y no bloqueante.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="101"
-                                    class="link-to-prism">src/app/core/services/translation.service.ts:101</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="102"
+                                    class="link-to-prism">src/app/core/services/translation.service.ts:102</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Obtiene el idioma inicial desde localStorage o retorna &#39;es&#39; por defecto.
-Valida que el idioma guardado sea uno de los soportados.</p>
+                        <div class="io-description"><p>Retrieves the initial language from localStorage or defaults to Spanish.</p>
 </div>
 
                         <div class="io-description">
@@ -424,7 +429,7 @@ Valida que el idioma guardado sea uno de los soportados.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>El idioma inicial válido o &#39;es&#39; por defecto</p>
+                                <p>The initial language code</p>
 
                             </div>
                 </td>
@@ -454,22 +459,26 @@ Valida que el idioma guardado sea uno de los soportados.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="52"
-                                    class="link-to-prism">src/app/core/services/translation.service.ts:52</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="54"
+                                    class="link-to-prism">src/app/core/services/translation.service.ts:54</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Inicializa las traducciones cargando primero español y luego el idioma guardado.
-Si hay algún error, asegura que español esté siempre disponible como fallback.</p>
+                        <div class="io-description"><p>Initializes translations by loading Spanish first and then the user&#39;s saved language.
+Ensures Spanish is always available as a fallback.</p>
 </div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>Promise resolving when initial translations are ready</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -497,16 +506,15 @@ Si hay algún error, asegura que español esté siempre disponible como fallback
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="75"
-                                    class="link-to-prism">src/app/core/services/translation.service.ts:75</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="77"
+                                    class="link-to-prism">src/app/core/services/translation.service.ts:77</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Carga las traducciones de un idioma específico usando el loader de ngx-translate.
-El loader se encarga de cargar los archivos JSON automáticamente.</p>
+                        <div class="io-description"><p>Loads translations for a specific language using the ngx-translate loader.</p>
 </div>
 
                             <div class="io-description">
@@ -535,7 +543,7 @@ El loader se encarga de cargar los archivos JSON automáticamente.</p>
 
                                             <td>
                                                     <ul>
-<li>El idioma a cargar (&#39;es&#39;, &#39;en&#39; o &#39;fr&#39;)</li>
+<li>The language code (&#39;es&#39;, &#39;en&#39;, or &#39;fr&#39;)</li>
 </ul>
 
                                             </td>
@@ -548,7 +556,8 @@ El loader se encarga de cargar los archivos JSON automáticamente.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Promise resolving when the language is loaded</p>
+
                             </div>
                 </td>
             </tr>
@@ -576,16 +585,15 @@ El loader se encarga de cargar los archivos JSON automáticamente.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="118"
-                                    class="link-to-prism">src/app/core/services/translation.service.ts:118</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="119"
+                                    class="link-to-prism">src/app/core/services/translation.service.ts:119</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Establece un idioma específico, carga sus traducciones si es necesario,
-actualiza el servicio de traducción y guarda la preferencia en localStorage.</p>
+                        <div class="io-description"><p>Sets the application language, loads translations if necessary, and persists preference.</p>
 </div>
 
                             <div class="io-description">
@@ -614,7 +622,7 @@ actualiza el servicio de traducción y guarda la preferencia en localStorage.</p
 
                                             <td>
                                                     <ul>
-<li>El idioma a establecer (&#39;es&#39;, &#39;en&#39; o &#39;fr&#39;)</li>
+<li>The language code to switch to</li>
 </ul>
 
                                             </td>
@@ -627,7 +635,8 @@ actualiza el servicio de traducción y guarda la preferencia en localStorage.</p
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Promise resolving when the language switch is complete</p>
+
                             </div>
                 </td>
             </tr>
@@ -661,7 +670,7 @@ actualiza el servicio de traducción y guarda la preferencia en localStorage.</p
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Método abreviado para obtener una traducción instantánea.</p>
+                        <div class="io-description"><p>Short alias for the translate method.</p>
 </div>
 
                             <div class="io-description">
@@ -690,7 +699,7 @@ actualiza el servicio de traducción y guarda la preferencia en localStorage.</p
 
                                             <td>
                                                     <ul>
-<li>La clave de traducción</li>
+<li>Translation key</li>
 </ul>
 
                                             </td>
@@ -708,7 +717,7 @@ actualiza el servicio de traducción y guarda la preferencia en localStorage.</p
 
                                             <td>
                                                     <ul>
-<li>Parámetros opcionales para interpolación</li>
+<li>Optional interpolation parameters</li>
 </ul>
 
                                             </td>
@@ -721,7 +730,7 @@ actualiza el servicio de traducción y guarda la preferencia en localStorage.</p
 
                         </div>
                             <div class="io-description">
-                                <p>La traducción o la clave si no existe</p>
+                                <p>The translated string</p>
 
                             </div>
                 </td>
@@ -756,8 +765,7 @@ actualiza el servicio de traducción y guarda la preferencia en localStorage.</p
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Obtiene una traducción instantánea por su clave.
-Si no existe la traducción, retorna la clave para evitar textos vacíos.</p>
+                        <div class="io-description"><p>Synchronously gets a translation by key.</p>
 </div>
 
                             <div class="io-description">
@@ -786,7 +794,7 @@ Si no existe la traducción, retorna la clave para evitar textos vacíos.</p>
 
                                             <td>
                                                     <ul>
-<li>La clave de traducción (ej: &#39;common.save&#39;)</li>
+<li>Translation key (e.g., &#39;auth.login&#39;)</li>
 </ul>
 
                                             </td>
@@ -804,7 +812,7 @@ Si no existe la traducción, retorna la clave para evitar textos vacíos.</p>
 
                                             <td>
                                                     <ul>
-<li>Parámetros opcionales para interpolación en la traducción</li>
+<li>Optional interpolation parameters</li>
 </ul>
 
                                             </td>
@@ -817,7 +825,7 @@ Si no existe la traducción, retorna la clave para evitar textos vacíos.</p>
 
                         </div>
                             <div class="io-description">
-                                <p>La traducción o la clave si no existe</p>
+                                <p>The translated string or the key if not found</p>
 
                             </div>
                 </td>
@@ -855,10 +863,16 @@ Si no existe la traducción, retorna la clave para evitar textos vacíos.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/core/services/translation.service.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/core/services/translation.service.ts:20</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Current active language signal</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -887,10 +901,16 @@ Si no existe la traducción, retorna la clave para evitar textos vacíos.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/core/services/translation.service.ts:24</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/core/services/translation.service.ts:22</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected HttpClient for translation file loading fallback</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -920,10 +940,16 @@ Si no existe la traducción, retorna la clave para evitar textos vacíos.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/core/services/translation.service.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/core/services/translation.service.ts:29</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Public read-only signal of the current language</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -956,6 +982,12 @@ Si no existe la traducción, retorna la clave para evitar textos vacíos.</p>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Set of languages already loaded into memory</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -984,10 +1016,16 @@ Si no existe la traducción, retorna la clave para evitar textos vacíos.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/core/services/translation.service.ts:25</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/core/services/translation.service.ts:24</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected PLATFORM_ID to detect browser environment</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1003,32 +1041,33 @@ import { HttpClient } from &#x27;@angular/common/http&#x27;;
 import { isPlatformBrowser } from &#x27;@angular/common&#x27;;
 import { firstValueFrom } from &#x27;rxjs&#x27;;
 
+/** Supported UI languages for internationalization */
 export type Language &#x3D; &#x27;es&#x27; | &#x27;en&#x27; | &#x27;fr&#x27;;
 
 /**
- * Servicio de traducción que gestiona la internacionalización de la aplicación.
- * Utiliza ngx-translate para cargar y gestionar traducciones en múltiples idiomas.
- * Soporta español (por defecto), inglés y francés.
- * Las traducciones se cargan desde archivos JSON en assets/i18n/.
- */
-/**
  * Service for managing application internationalization (i18n).
  * Handles language switching, translation loading, and persistent user preferences.
+ * Supports Spanish (default), English, and French.
  */
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
 export class TranslationService {
+  /** Current active language signal */
   private _language &#x3D; signal&lt;Language&gt;(&#x27;es&#x27;);
+  /** Injected HttpClient for translation file loading fallback */
   private http &#x3D; inject(HttpClient);
+  /** Injected PLATFORM_ID to detect browser environment */
   private platformId &#x3D; inject(PLATFORM_ID);
+  /** Set of languages already loaded into memory */
   private loadedLanguages &#x3D; new Set&lt;Language&gt;();
   
+  /** Public read-only signal of the current language */
   public readonly language &#x3D; this._language.asReadonly();
 
   /**
-   * Inicializa el servicio configurando español como idioma por defecto.
-   * Carga las traducciones de forma asíncrona y no bloqueante.
+   * Initializes the service by setting Spanish as default and attempting to load saved preference.
+   * @param ngxTranslate - Injected ngx-translate service
    */
   constructor(private ngxTranslate: NgxTranslateService) {
     if (isPlatformBrowser(this.platformId)) {
@@ -1045,8 +1084,9 @@ export class TranslationService {
   }
 
   /**
-   * Inicializa las traducciones cargando primero español y luego el idioma guardado.
-   * Si hay algún error, asegura que español esté siempre disponible como fallback.
+   * Initializes translations by loading Spanish first and then the user&#x27;s saved language.
+   * Ensures Spanish is always available as a fallback.
+   * @returns Promise resolving when initial translations are ready
    */
   private async initializeTranslations() {
     try {
@@ -1067,9 +1107,9 @@ export class TranslationService {
   }
 
   /**
-   * Carga las traducciones de un idioma específico usando el loader de ngx-translate.
-   * El loader se encarga de cargar los archivos JSON automáticamente.
-   * @param lang - El idioma a cargar (&#x27;es&#x27;, &#x27;en&#x27; o &#x27;fr&#x27;)
+   * Loads translations for a specific language using the ngx-translate loader.
+   * @param lang - The language code (&#x27;es&#x27;, &#x27;en&#x27;, or &#x27;fr&#x27;)
+   * @returns Promise resolving when the language is loaded
    */
   private async loadLanguage(lang: Language): Promise&lt;void&gt; {
     if (this.loadedLanguages.has(lang)) {
@@ -1093,9 +1133,8 @@ export class TranslationService {
   }
 
   /**
-   * Obtiene el idioma inicial desde localStorage o retorna &#x27;es&#x27; por defecto.
-   * Valida que el idioma guardado sea uno de los soportados.
-   * @returns El idioma inicial válido o &#x27;es&#x27; por defecto
+   * Retrieves the initial language from localStorage or defaults to Spanish.
+   * @returns The initial language code
    */
   private getInitialLanguage(): Language {
     try {
@@ -1110,9 +1149,9 @@ export class TranslationService {
   }
 
   /**
-   * Establece un idioma específico, carga sus traducciones si es necesario,
-   * actualiza el servicio de traducción y guarda la preferencia en localStorage.
-   * @param language - El idioma a establecer (&#x27;es&#x27;, &#x27;en&#x27; o &#x27;fr&#x27;)
+   * Sets the application language, loads translations if necessary, and persists preference.
+   * @param language - The language code to switch to
+   * @returns Promise resolving when the language switch is complete
    */
   async setLanguage(language: Language) {
     try {
@@ -1132,11 +1171,10 @@ export class TranslationService {
   }
 
   /**
-   * Obtiene una traducción instantánea por su clave.
-   * Si no existe la traducción, retorna la clave para evitar textos vacíos.
-   * @param key - La clave de traducción (ej: &#x27;common.save&#x27;)
-   * @param params - Parámetros opcionales para interpolación en la traducción
-   * @returns La traducción o la clave si no existe
+   * Synchronously gets a translation by key.
+   * @param key - Translation key (e.g., &#x27;auth.login&#x27;)
+   * @param params - Optional interpolation parameters
+   * @returns The translated string or the key if not found
    */
   translate(key: string, params?: any): string {
     const translation &#x3D; this.ngxTranslate.instant(key, params);
@@ -1144,21 +1182,20 @@ export class TranslationService {
   }
 
   /**
-   * Método abreviado para obtener una traducción instantánea.
-   * @param key - La clave de traducción
-   * @param params - Parámetros opcionales para interpolación
-   * @returns La traducción o la clave si no existe
+   * Short alias for the translate method.
+   * @param key - Translation key
+   * @param params - Optional interpolation parameters
+   * @returns The translated string
    */
   t(key: string, params?: any): string {
     return this.translate(key, params);
   }
 
   /**
-   * Obtiene una traducción de forma asíncrona mediante un Observable.
-   * Útil cuando se necesita esperar a que las traducciones estén cargadas.
-   * @param key - La clave de traducción
-   * @param params - Parámetros opcionales para interpolación
-   * @returns Un Observable que emite la traducción
+   * Asynchronously gets a translation as an Observable.
+   * @param key - Translation key
+   * @param params - Optional interpolation parameters
+   * @returns Observable emitting the translated string
    */
   get(key: string, params?: any) {
     return this.ngxTranslate.get(key, params);

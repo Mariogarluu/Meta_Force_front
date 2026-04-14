@@ -136,6 +136,14 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Directive that detects and emits events when a click occurs outside of the host element.
+Useful for closing dropdowns, modals, and menus when the user clicks elsewhere.</p>
+
+            </p>
 
 
             <p class="comment">
@@ -239,7 +247,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/shared/directives/click-outside.directive.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/shared/directives/click-outside.directive.ts:21</a></div>
                             </td>
                         </tr>
 
@@ -266,12 +274,12 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/shared/directives/click-outside.directive.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/shared/directives/click-outside.directive.ts:18</a></div>
                             </td>
                         </tr>
                 <tr>
                     <td class="col-md-4">
-                        <div class="io-description"><p>Evento que se emite cuando se detecta un click fuera del elemento</p>
+                        <div class="io-description"><p>Event emitted when a click is detected outside the host element.</p>
 </div>
                     </td>
                 </tr>
@@ -305,14 +313,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="33"
-                                    class="link-to-prism">src/app/shared/directives/click-outside.directive.ts:33</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="46"
+                                    class="link-to-prism">src/app/shared/directives/click-outside.directive.ts:46</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Cleanup logic. Removes the global document click listener.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -353,10 +363,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/shared/directives/click-outside.directive.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/shared/directives/click-outside.directive.ts:21</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Internal reference to the document click listener for cleanup</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -385,10 +401,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/shared/directives/click-outside.directive.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/shared/directives/click-outside.directive.ts:13</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected ElementRef to access the host element&#39;s DOM node</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -401,27 +423,37 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Directive, ElementRef, EventEmitter, inject, OnDestroy, Output } from &#x27;@angular/core&#x27;;
 
+/**
+ * Directive that detects and emits events when a click occurs outside of the host element.
+ * Useful for closing dropdowns, modals, and menus when the user clicks elsewhere.
+ */
 @Directive({
   selector: &#x27;[appClickOutside]&#x27;,
   standalone: true
 })
 export class ClickOutsideDirective implements OnDestroy {
+  /** Injected ElementRef to access the host element&#x27;s DOM node */
   private elementRef &#x3D; inject(ElementRef);
   
   /**
-   * Evento que se emite cuando se detecta un click fuera del elemento
+   * Event emitted when a click is detected outside the host element.
    */
   @Output() clickOutside &#x3D; new EventEmitter&lt;void&gt;();
 
+  /** Internal reference to the document click listener for cleanup */
   private clickListener: ((event: MouseEvent) &#x3D;&gt; void) | null &#x3D; null;
 
   constructor() {
-    // Usar setTimeout para evitar que el click que activó el dropdown se procese inmediatamente
+    /**
+     * Using setTimeout(0) to ensure the click that may have opened the 
+     * element (e.g., a toggle button) doesn&#x27;t immediately trigger 
+     * the outside click logic.
+     */
     setTimeout(() &#x3D;&gt; {
       this.clickListener &#x3D; (event: MouseEvent) &#x3D;&gt; {
         const target &#x3D; event.target as HTMLElement;
         
-        // Verificar si el click fue fuera del elemento
+        // Check if the click target is descendant of the host element
         if (!this.elementRef.nativeElement.contains(target)) {
           this.clickOutside.emit();
         }
@@ -431,13 +463,15 @@ export class ClickOutsideDirective implements OnDestroy {
     }, 0);
   }
 
+  /**
+   * Cleanup logic. Removes the global document click listener.
+   */
   ngOnDestroy(): void {
     if (this.clickListener) {
       document.removeEventListener(&#x27;click&#x27;, this.clickListener);
     }
   }
 }
-
 </code></pre>
     </div>
 

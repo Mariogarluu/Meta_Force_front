@@ -12,8 +12,10 @@ import { LanguageSelectorComponent } from '../../shared/components/language-sele
 import { ProfileImageManagerComponent } from '../../shared/components/profile-image-manager/profile-image-manager.component';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
+/** Union type for the various user authorization levels in the system */
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
+/** Default fallback image URL for user profiles when no custom image is provided */
 const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
 
 /**
@@ -30,21 +32,34 @@ const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/up
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
+  /** Injected AuthService for user identity and authentication state */
   auth = inject(AuthService);
+  /** Injected UsersService for profile and role management */
   usersService = inject(UsersService);
+  /** Injected NotificationService for real-time user alerts */
   notificationService = inject(NotificationService);
+  /** Injected Router for navigation */
   router = inject(Router);
+  /** Injected TranslateService for UI internationalization */
   translate = inject(TranslateService);
+  /** Injected ElementRef for DOM access in event handling */
   private elementRef = inject(ElementRef);
 
+  /** Signal controlling the visibility of the user role editing modal */
   showRoleEditor = signal(false);
+  /** Signal storing the temporary role selection in the editor */
   selectedRole = signal<RoleType | null>(null);
+  /** Signal tracking background API operations */
   isLoading = signal(false);
+  /** Signal for displaying primary error messages in the UI */
   errorMessage = signal<string>('');
-  // Estado para el dropdown de notificaciones
+  /** Signal controlling the visibility of the notification dropdown menu */
   showNotifications = signal(false);
 
-  // Perfil Físico
+  /** 
+   * Signal holding the physical profile data form state.
+   * Synchronized with the current user's profile metadata.
+   */
   physicalDataForm = signal({
     gender: '',
     birthDate: '',
@@ -55,14 +70,19 @@ export class DashboardComponent {
     goal: ''
   });
 
+  /** Constant list of available system roles for the editor dropdown */
   readonly roles: RoleType[] = ['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER', 'CLEANER', 'USER'];
+  /** Computed signal for the currently logged-in user */
   currentUser = computed(() => this.auth.currentUser());
   
+  /** Computed signal for the human-readable (translated) name of the user's role */
   roleName = computed(() => {
     const role = this.currentUser()?.role;
     if (!role) return this.translate.instant('dashboard.roles.USER');
     return this.translate.instant(`dashboard.roles.${role}`);
   });
+
+  /** Computed signal providing a CSS background color class based on user role */
   roleColor = computed(() => {
     const role = this.currentUser()?.role;
     const colors: Record<string, string> = {
@@ -74,16 +94,23 @@ export class DashboardComponent {
     };
     return colors[role || 'USER'] || 'bg-gray-500';
   });
+
+  /** Computed convenience flag for Super Admin status */
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
+  /** Computed convenience flag for Center Admin status */
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
   
+  /**
+   * Initializes the dashboard, setting the initial role selection and
+   * establishing an effect to keep physical data in sync with the user signal.
+   */
   constructor() {
     const user = this.currentUser();
     if (user) {
       this.selectedRole.set(user.role);
     }
 
-    // Sincronizar formulario físico cuando cambia el usuario
+    // Synchronize physical form when user data changes
     effect(() => {
       const user = this.currentUser();
       if (user) {
@@ -100,7 +127,9 @@ export class DashboardComponent {
     });
   }
 
-  // --- LÓGICA DE NOTIFICACIONES ---
+  /**
+   * Toggles the notification dropdown. Triggers a fresh load when opened.
+   */
   toggleNotifications() {
     const newState = !this.showNotifications();
     this.showNotifications.set(newState);
@@ -109,6 +138,11 @@ export class DashboardComponent {
     }
   }
 
+  /**
+   * Handles interaction with a specific notification.
+   * Marks as read and navigates to the associated link if applicable.
+   * @param notification - The notification item clicked
+   */
   handleNotificationClick(notification: Notification) {
     if (!notification.read) {
       this.notificationService.markAsRead(notification.id);
@@ -120,14 +154,19 @@ export class DashboardComponent {
     }
   }
 
-
+  /**
+   * Marks all extant notifications as read via the NotificationService.
+   */
   markAllRead() {
     this.notificationService.markAllAsRead();
   }
 
+  /**
+   * Global click listener to close the notification dropdown when clicking outside.
+   * @param event - The native mouse event
+   */
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
-    // Cerrar si se hace clic fuera del botón de notificaciones y del dropdown
     const target = event.target as HTMLElement;
     const isBell = target.closest('.notification-btn');
     const isDropdown = target.closest('.notification-dropdown');
@@ -136,8 +175,10 @@ export class DashboardComponent {
       this.showNotifications.set(false);
     }
   }
-  // -------------------------------
 
+  /**
+   * Prepares and opens the role assignment modal.
+   */
   openRoleEditor() {
     const user = this.currentUser();
     if (user) {
@@ -147,11 +188,18 @@ export class DashboardComponent {
     }
   }
 
+  /**
+   * Closes the role assignment modal and clears any errors.
+   */
   closeRoleEditor() {
     this.showRoleEditor.set(false);
     this.errorMessage.set('');
   }
 
+  /**
+   * Persists the selected role change to the backend.
+   * Triggers a logout on success to re-initialize permissions.
+   */
   updateRole() {
     const user = this.currentUser();
     const newRole = this.selectedRole();
@@ -187,6 +235,9 @@ export class DashboardComponent {
     });
   }
 
+  /**
+   * Persists physical profile metrics (weight, height, etc.) to the user profile.
+   */
   updatePhysicalData() {
     this.isLoading.set(true);
     this.usersService.updateProfile(this.physicalDataForm()).subscribe({
@@ -202,22 +253,26 @@ export class DashboardComponent {
     });
   }
 
+  /**
+   * Universal logout handler. Clears local session and redirects to login page.
+   */
   logout() {
     this.auth.logout();
     this.router.navigate(['/login']);
   }
 
   /**
-   * Obtiene la URL de la imagen de perfil del usuario.
-   * Si no tiene imagen o es null, retorna la imagen por defecto de Cloudinary.
+   * Resolves the profile image URL, providing a fall-back if none exists.
+   * @param profileImageUrl - The optional URL from the user entity
+   * @returns A valid image URL string
    */
   getProfileImageUrl(profileImageUrl: string | null | undefined): string {
     return profileImageUrl ? profileImageUrl : DEFAULT_PROFILE_IMAGE_URL;
   }
 
   /**
-   * Abre el selector de archivos para cambiar la imagen de perfil.
-   * Se activa al hacer clic en el avatar.
+   * Triggers the native file browser for profile image selection.
+   * Includes basic validation for file type and size.
    */
   triggerProfileImageUpload(): void {
     const input = document.createElement('input');
@@ -241,7 +296,8 @@ export class DashboardComponent {
   }
 
   /**
-   * Sube la imagen de perfil a Cloudinary.
+   * Private helper to execute the image upload via UsersService.
+   * @param file - The image file to upload to Cloudinary
    */
   private uploadProfileImage(file: File): void {
     this.usersService.uploadProfileImage(file).subscribe({
@@ -256,8 +312,9 @@ export class DashboardComponent {
   }
   
   /**
-   * Retorna un SVG (string) para el icono de rol.
-   * Se utiliza [innerHTML] en el template.
+   * Map of role identifiers to SVG path icons for UI display.
+   * @param role - The internal role identifier
+   * @returns An SVG string literal
    */
   getRoleIcon(role: string): string {
     const size = 'w-5 h-5';
@@ -266,7 +323,7 @@ export class DashboardComponent {
       case 'SUPERADMIN': 
         return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M15.5 12c.7-3.5-3.5-3.5-3.5-3.5S8.5 8.5 9.5 12s3.5 3.5 3.5 3.5S16.5 15.5 15.5 12zM12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z" /></svg>`;
       case 'ADMIN_CENTER': 
-        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18" /></svg>`;
+        return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M4.5 3h15M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18" /></svg>`;
       case 'TRAINER': 
         return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-1.036-.84-1.875-1.875-1.875h-4.636V6.184c0-1.036-.84-1.875-1.875-1.875h-2.25c-1.036 0-1.875.84-1.875 1.875v.191H4.875C3.839 6.359 3 7.198 3 8.234V15.75h18V8.25z" /></svg>`;
       case 'CLEANER': 

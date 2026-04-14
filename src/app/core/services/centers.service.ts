@@ -9,63 +9,78 @@ import { Center, CreateCenterInput, UpdateCenterInput } from '../models/center';
  * Provides functionality for listing, retrieving, and performing administrative 
  * operations (create/update/delete) on gym centers.
  */
+/**
+ * Service for managing training centers and their metadata.
+ * Provides functionality for listing, retrieving, and performing administrative 
+ * operations (create/update/delete) on gym centers.
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class CentersService {
+  /** Injected HttpClient for API requests */
   private http = inject(HttpClient);
+  /** Base API URL for center operations */
   private apiUrl = `${environment.apiUrl}/centers`;
 
   /**
-   * Lista todos los centros de entrenamiento.
-   * Los permisos varían según el rol:
-   * - USER, TRAINER, CLEANER: Solo ven el nombre de su centro (sin ID)
-   * - ADMIN_CENTER: Ven todos los centros con ID
-   * - SUPERADMIN: Ven todos los centros con ID
+   * Lists all training centers.
+   * Permissions vary by role (SUPERADMIN/ADMIN_CENTER see IDs, others see names only).
+   * @returns Observable emitting an array of centers
    */
   listCenters(): Observable<Center[]> {
     return this.http.get<Center[]>(this.apiUrl);
   }
 
   /**
-   * Lista todos los centros con IDs.
-   * Accesible para todos los usuarios autenticados.
-   * Usado principalmente para la página de entrenadores.
+   * Lists all centers with their IDs exposed.
+   * Accessible to all authenticated users; typically used for registration and trainer filters.
+   * @returns Observable emitting an array of centers with IDs
    */
   listCentersWithIds(): Observable<Center[]> {
     return this.http.get<Center[]>(`${this.apiUrl}/with-ids`);
   }
 
   /**
-   * Obtiene un centro específico por su ID.
-   * Solo accesible para ADMIN_CENTER y SUPERADMIN.
+   * Retrieves a specific center by its ID.
+   * Accessible only to ADMIN_CENTER and SUPERADMIN.
+   * @param id - The ID of the center to fetch
+   * @returns Observable emitting the center object
    */
   getCenter(id: string): Observable<Center> {
     return this.http.get<Center>(`${this.apiUrl}/${id}`);
   }
 
   /**
-   * Crea un nuevo centro de entrenamiento.
-   * Solo accesible para SUPERADMIN.
+   * Creates a new training center.
+   * Accessible only to SUPERADMIN.
+   * @param data - Input data for the new center
+   * @returns Observable emitting the created center
    */
   createCenter(data: CreateCenterInput): Observable<Center> {
     return this.http.post<Center>(this.apiUrl, data);
   }
 
   /**
-   * Actualiza un centro existente.
-   * Solo accesible para SUPERADMIN.
+   * Updates an existing training center's information.
+   * Accessible only to SUPERADMIN.
+   * @param id - The ID of the center to update
+   * @param data - The updated center data
+   * @returns Observable emitting the updated center
    */
   updateCenter(id: string, data: UpdateCenterInput): Observable<Center> {
     return this.http.patch<Center>(`${this.apiUrl}/${id}`, data);
   }
 
   /**
-   * Elimina un centro de entrenamiento.
-   * Solo accesible para SUPERADMIN.
+   * Deletes a training center from the system.
+   * Accessible only to SUPERADMIN.
+   * @param id - The ID of the center to delete
+   * @returns Observable emitting void on success
    */
   deleteCenter(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
+
 

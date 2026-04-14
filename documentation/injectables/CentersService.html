@@ -237,16 +237,16 @@ operations (create/update/delete) on gym centers.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="51"
-                                    class="link-to-prism">src/app/core/services/centers.service.ts:51</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="60"
+                                    class="link-to-prism">src/app/core/services/centers.service.ts:60</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Crea un nuevo centro de entrenamiento.
-Solo accesible para SUPERADMIN.</p>
+                        <div class="io-description"><p>Creates a new training center.
+Accessible only to SUPERADMIN.</p>
 </div>
 
                             <div class="io-description">
@@ -258,6 +258,7 @@ Solo accesible para SUPERADMIN.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -272,6 +273,12 @@ Solo accesible para SUPERADMIN.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>Input data for the new center</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -281,7 +288,8 @@ Solo accesible para SUPERADMIN.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the created center</p>
+
                             </div>
                 </td>
             </tr>
@@ -307,16 +315,16 @@ Solo accesible para SUPERADMIN.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="67"
-                                    class="link-to-prism">src/app/core/services/centers.service.ts:67</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="81"
+                                    class="link-to-prism">src/app/core/services/centers.service.ts:81</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Elimina un centro de entrenamiento.
-Solo accesible para SUPERADMIN.</p>
+                        <div class="io-description"><p>Deletes a training center from the system.
+Accessible only to SUPERADMIN.</p>
 </div>
 
                             <div class="io-description">
@@ -328,6 +336,7 @@ Solo accesible para SUPERADMIN.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -342,6 +351,12 @@ Solo accesible para SUPERADMIN.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the center to delete</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -351,7 +366,8 @@ Solo accesible para SUPERADMIN.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting void on success</p>
+
                             </div>
                 </td>
             </tr>
@@ -377,16 +393,16 @@ Solo accesible para SUPERADMIN.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="43"
-                                    class="link-to-prism">src/app/core/services/centers.service.ts:43</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="50"
+                                    class="link-to-prism">src/app/core/services/centers.service.ts:50</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Obtiene un centro específico por su ID.
-Solo accesible para ADMIN_CENTER y SUPERADMIN.</p>
+                        <div class="io-description"><p>Retrieves a specific center by its ID.
+Accessible only to ADMIN_CENTER and SUPERADMIN.</p>
 </div>
 
                             <div class="io-description">
@@ -398,6 +414,7 @@ Solo accesible para ADMIN_CENTER y SUPERADMIN.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -412,6 +429,12 @@ Solo accesible para ADMIN_CENTER y SUPERADMIN.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the center to fetch</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -421,7 +444,8 @@ Solo accesible para ADMIN_CENTER y SUPERADMIN.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the center object</p>
+
                             </div>
                 </td>
             </tr>
@@ -447,27 +471,26 @@ Solo accesible para ADMIN_CENTER y SUPERADMIN.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">src/app/core/services/centers.service.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="31"
+                                    class="link-to-prism">src/app/core/services/centers.service.ts:31</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Lista todos los centros de entrenamiento.
-Los permisos varían según el rol:</p>
-<ul>
-<li>USER, TRAINER, CLEANER: Solo ven el nombre de su centro (sin ID)</li>
-<li>ADMIN_CENTER: Ven todos los centros con ID</li>
-<li>SUPERADMIN: Ven todos los centros con ID</li>
-</ul>
+                        <div class="io-description"><p>Lists all training centers.
+Permissions vary by role (SUPERADMIN/ADMIN_CENTER see IDs, others see names only).</p>
 </div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="../interfaces/Center.html" target="_self" >Observable&lt;Center[]&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>Observable emitting an array of centers</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -492,23 +515,26 @@ Los permisos varían según el rol:</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">src/app/core/services/centers.service.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="40"
+                                    class="link-to-prism">src/app/core/services/centers.service.ts:40</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Lista todos los centros con IDs.
-Accesible para todos los usuarios autenticados.
-Usado principalmente para la página de entrenadores.</p>
+                        <div class="io-description"><p>Lists all centers with their IDs exposed.
+Accessible to all authenticated users; typically used for registration and trainer filters.</p>
 </div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="../interfaces/Center.html" target="_self" >Observable&lt;Center[]&gt;</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>Observable emitting an array of centers with IDs</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -533,16 +559,16 @@ Usado principalmente para la página de entrenadores.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="59"
-                                    class="link-to-prism">src/app/core/services/centers.service.ts:59</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="71"
+                                    class="link-to-prism">src/app/core/services/centers.service.ts:71</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Actualiza un centro existente.
-Solo accesible para SUPERADMIN.</p>
+                        <div class="io-description"><p>Updates an existing training center&#39;s information.
+Accessible only to SUPERADMIN.</p>
 </div>
 
                             <div class="io-description">
@@ -554,6 +580,7 @@ Solo accesible para SUPERADMIN.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -568,6 +595,12 @@ Solo accesible para SUPERADMIN.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The ID of the center to update</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>data</td>
@@ -580,6 +613,12 @@ Solo accesible para SUPERADMIN.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The updated center data</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -589,7 +628,8 @@ Solo accesible para SUPERADMIN.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>Observable emitting the updated center</p>
+
                             </div>
                 </td>
             </tr>
@@ -626,10 +666,16 @@ Solo accesible para SUPERADMIN.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/core/services/centers.service.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/core/services/centers.service.ts:24</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Base API URL for center operations</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -658,10 +704,16 @@ Solo accesible para SUPERADMIN.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/core/services/centers.service.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/core/services/centers.service.ts:22</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected HttpClient for API requests</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -682,65 +734,80 @@ import { Center, CreateCenterInput, UpdateCenterInput } from &#x27;../models/cen
  * Provides functionality for listing, retrieving, and performing administrative 
  * operations (create/update/delete) on gym centers.
  */
+/**
+ * Service for managing training centers and their metadata.
+ * Provides functionality for listing, retrieving, and performing administrative 
+ * operations (create/update/delete) on gym centers.
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
 export class CentersService {
+  /** Injected HttpClient for API requests */
   private http &#x3D; inject(HttpClient);
+  /** Base API URL for center operations */
   private apiUrl &#x3D; &#x60;${environment.apiUrl}/centers&#x60;;
 
   /**
-   * Lista todos los centros de entrenamiento.
-   * Los permisos varían según el rol:
-   * - USER, TRAINER, CLEANER: Solo ven el nombre de su centro (sin ID)
-   * - ADMIN_CENTER: Ven todos los centros con ID
-   * - SUPERADMIN: Ven todos los centros con ID
+   * Lists all training centers.
+   * Permissions vary by role (SUPERADMIN/ADMIN_CENTER see IDs, others see names only).
+   * @returns Observable emitting an array of centers
    */
   listCenters(): Observable&lt;Center[]&gt; {
     return this.http.get&lt;Center[]&gt;(this.apiUrl);
   }
 
   /**
-   * Lista todos los centros con IDs.
-   * Accesible para todos los usuarios autenticados.
-   * Usado principalmente para la página de entrenadores.
+   * Lists all centers with their IDs exposed.
+   * Accessible to all authenticated users; typically used for registration and trainer filters.
+   * @returns Observable emitting an array of centers with IDs
    */
   listCentersWithIds(): Observable&lt;Center[]&gt; {
     return this.http.get&lt;Center[]&gt;(&#x60;${this.apiUrl}/with-ids&#x60;);
   }
 
   /**
-   * Obtiene un centro específico por su ID.
-   * Solo accesible para ADMIN_CENTER y SUPERADMIN.
+   * Retrieves a specific center by its ID.
+   * Accessible only to ADMIN_CENTER and SUPERADMIN.
+   * @param id - The ID of the center to fetch
+   * @returns Observable emitting the center object
    */
   getCenter(id: string): Observable&lt;Center&gt; {
     return this.http.get&lt;Center&gt;(&#x60;${this.apiUrl}/${id}&#x60;);
   }
 
   /**
-   * Crea un nuevo centro de entrenamiento.
-   * Solo accesible para SUPERADMIN.
+   * Creates a new training center.
+   * Accessible only to SUPERADMIN.
+   * @param data - Input data for the new center
+   * @returns Observable emitting the created center
    */
   createCenter(data: CreateCenterInput): Observable&lt;Center&gt; {
     return this.http.post&lt;Center&gt;(this.apiUrl, data);
   }
 
   /**
-   * Actualiza un centro existente.
-   * Solo accesible para SUPERADMIN.
+   * Updates an existing training center&#x27;s information.
+   * Accessible only to SUPERADMIN.
+   * @param id - The ID of the center to update
+   * @param data - The updated center data
+   * @returns Observable emitting the updated center
    */
   updateCenter(id: string, data: UpdateCenterInput): Observable&lt;Center&gt; {
     return this.http.patch&lt;Center&gt;(&#x60;${this.apiUrl}/${id}&#x60;, data);
   }
 
   /**
-   * Elimina un centro de entrenamiento.
-   * Solo accesible para SUPERADMIN.
+   * Deletes a training center from the system.
+   * Accessible only to SUPERADMIN.
+   * @param id - The ID of the center to delete
+   * @returns Observable emitting void on success
    */
   deleteCenter(id: string): Observable&lt;void&gt; {
     return this.http.delete&lt;void&gt;(&#x60;${this.apiUrl}/${id}&#x60;);
   }
 }
+
 
 </code></pre>
     </div>

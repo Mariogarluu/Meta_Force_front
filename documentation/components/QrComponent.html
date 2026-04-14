@@ -142,16 +142,16 @@
         <h3>Description</h3>
     </p>
     <p class="comment">
-        <p>Componente para generar y mostrar el código QR personal del usuario.</p>
-<p>El QR contiene información del usuario (id, email, name) y un timestamp que se actualiza
-automáticamente cada 20 minutos para mantener el código válido. El QR NO incluye centerId
-porque un usuario puede acceder a múltiples centros.</p>
-<p>Características:</p>
+        <p>Component for generating and displaying the user&#39;s personal access QR code.</p>
+<p>The QR contains JSON-encoded user identity (ID, email, name) and a dynamic timestamp
+that rotates every 20 minutes to prevent spoofing and ensure validity.
+Center IDs are excluded as users may have access to multiple facilities.</p>
+<p>Features:</p>
 <ul>
-<li>Actualización automática cada 20 minutos</li>
-<li>Colores adaptativos según el tema (claro/oscuro)</li>
-<li>Funcionalidad de descarga del QR como imagen PNG</li>
-<li>Validación de expiración en el backend (20 minutos máximo)</li>
+<li>Automatic rotation every 20 minutes</li>
+<li>Adaptive light/dark mode color palettes</li>
+<li>PNG download capability with branded overlay</li>
+<li>Backend-enforced expiration validation</li>
 </ul>
 
     </p>
@@ -334,10 +334,14 @@ porque un usuario puede acceder a múltiples centros.</p>
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Genera y descarga el código QR como una imagen PNG.</p>
-<p>Crea un canvas con el QR, el nombre del usuario y el logo de Meta Force Gym.
-El fondo y los colores se adaptan según el tema actual (claro/oscuro).</p>
-<p>El archivo se descarga con el nombre: <code>qr-{nombreUsuario}-{timestamp}.png</code></p>
+                        <div class="io-description"><p>Merges the QR code with branding and user identity into a downloadable PNG.</p>
+<p>Process:</p>
+<ol>
+<li>Detects current document theme (light/dark)</li>
+<li>Draws QR image onto a 400x500 canvas</li>
+<li>Adds user name and gym branding text</li>
+<li>Triggers an automatic browser download</li>
+</ol>
 </div>
 
                         <div class="io-description">
@@ -368,16 +372,15 @@ El fondo y los colores se adaptan según el tema actual (claro/oscuro).</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="113"
-                                    class="link-to-prism">src/app/pages/qr/qr.component.ts:113</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="112"
+                                    class="link-to-prism">src/app/pages/qr/qr.component.ts:112</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Limpia el intervalo de actualización cuando el componente se destruye.
-Previene memory leaks al eliminar el timer activo.</p>
+                        <div class="io-description"><p>Cleanup logic. Disposes of the refresh timer to prevent memory leaks.</p>
 </div>
 
                         <div class="io-description">
@@ -416,8 +419,7 @@ Previene memory leaks al eliminar el timer activo.</p>
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Inicializa el componente y configura la actualización automática del QR cada 20 minutos.
-Esto asegura que el código QR siempre esté dentro del período de validez (20 minutos).</p>
+                        <div class="io-description"><p>Initialization logic. Starts the 20-minute rotation interval.</p>
 </div>
 
                         <div class="io-description">
@@ -458,10 +460,16 @@ Esto asegura que el código QR siempre esté dentro del período de validez (20 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/pages/qr/qr.component.ts:31</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/pages/qr/qr.component.ts:32</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected AuthService for user identity context</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -489,10 +497,16 @@ Esto asegura que el código QR siempre esté dentro del período de validez (20 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/qr/qr.component.ts:33</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/qr/qr.component.ts:35</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for the currently authenticated user session</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -520,10 +534,16 @@ Esto asegura que el código QR siempre esté dentro del período de validez (20 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/qr/qr.component.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/qr/qr.component.ts:37</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal tracking loading state if user data is missing</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -563,22 +583,20 @@ Esto asegura que el código QR siempre esté dentro del período de validez (20 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/pages/qr/qr.component.ts:57</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/app/pages/qr/qr.component.ts:58</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Genera los datos del QR en formato JSON string.</p>
-<p>El QR contiene:</p>
+                    <div class="io-description"><p>Generates the raw JSON payload for the QR code.</p>
+<p>Payload includes:</p>
 <ul>
-<li>id: ID único del usuario</li>
-<li>email: Email del usuario</li>
-<li>name: Nombre del usuario</li>
-<li>timestamp: Fecha y hora de generación (ISO string)</li>
+<li>id: User UUID</li>
+<li>email: Account email</li>
+<li>name: Full display name</li>
+<li>timestamp: ISO string of generation time</li>
 </ul>
-<p>NO incluye centerId porque el usuario puede acceder a múltiples centros.
-El timestamp se actualiza cada 20 minutos para mantener el QR válido.</p>
 </div>
                 </td>
             </tr>
@@ -609,14 +627,14 @@ El timestamp se actualiza cada 20 minutos para mantener el QR válido.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/pages/qr/qr.component.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/pages/qr/qr.component.ts:45</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Timestamp actual del QR que se actualiza automáticamente cada 20 minutos.
-Se usa para generar un nuevo QR y mantenerlo válido según las políticas de expiración.</p>
+                    <div class="io-description"><p>Current QR generation timestamp, updated every 20 minutes.
+Used as a salt to ensure QR codes are short-lived and verifiable.</p>
 </div>
                 </td>
             </tr>
@@ -653,14 +671,14 @@ Se usa para generar un nuevo QR y mantenerlo válido según las políticas de ex
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="77" class="link-to-prism">src/app/pages/qr/qr.component.ts:77</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/pages/qr/qr.component.ts:78</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Genera la URL del código QR para modo claro usando la API de QR Server.
-Usa colores azul oscuro sobre fondo blanco para mejor legibilidad en modo claro.</p>
+                    <div class="io-description"><p>Resolves the QR image URL for light theme application.
+Uses dark blue on white for high contrast.</p>
 </div>
                 </td>
             </tr>
@@ -697,14 +715,14 @@ Usa colores azul oscuro sobre fondo blanco para mejor legibilidad en modo claro.
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">src/app/pages/qr/qr.component.ts:91</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">src/app/pages/qr/qr.component.ts:92</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Genera la URL del código QR para modo oscuro usando la API de QR Server.
-Usa colores cyan claro sobre fondo gris oscuro para mejor legibilidad en modo oscuro.</p>
+                    <div class="io-description"><p>Resolves the QR image URL for dark theme application.
+Uses light cyan on dark slate for high contrast.</p>
 </div>
                 </td>
             </tr>
@@ -731,10 +749,16 @@ Usa colores cyan claro sobre fondo gris oscuro para mejor legibilidad en modo os
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/qr/qr.component.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/pages/qr/qr.component.ts:39</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Internal handle for the 20-minute refresh timer</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -754,17 +778,17 @@ import { LanguageSelectorComponent } from &#x27;../../shared/components/language
 import { TranslateModule } from &#x27;@ngx-translate/core&#x27;;
 
 /**
- * Componente para generar y mostrar el código QR personal del usuario.
+ * Component for generating and displaying the user&#x27;s personal access QR code.
  * 
- * El QR contiene información del usuario (id, email, name) y un timestamp que se actualiza
- * automáticamente cada 20 minutos para mantener el código válido. El QR NO incluye centerId
- * porque un usuario puede acceder a múltiples centros.
+ * The QR contains JSON-encoded user identity (ID, email, name) and a dynamic timestamp
+ * that rotates every 20 minutes to prevent spoofing and ensure validity. 
+ * Center IDs are excluded as users may have access to multiple facilities.
  * 
- * Características:
- * - Actualización automática cada 20 minutos
- * - Colores adaptativos según el tema (claro/oscuro)
- * - Funcionalidad de descarga del QR como imagen PNG
- * - Validación de expiración en el backend (20 minutos máximo)
+ * Features:
+ * - Automatic rotation every 20 minutes
+ * - Adaptive light/dark mode color palettes
+ * - PNG download capability with branded overlay
+ * - Backend-enforced expiration validation
  */
 @Component({
   selector: &#x27;app-qr&#x27;,
@@ -774,31 +798,32 @@ import { TranslateModule } from &#x27;@ngx-translate/core&#x27;;
   styleUrl: &#x27;./qr.component.scss&#x27;
 })
 export class QrComponent implements OnInit, OnDestroy {
+  /** Injected AuthService for user identity context */
   auth &#x3D; inject(AuthService);
   
+  /** Signal for the currently authenticated user session */
   currentUser &#x3D; this.auth.currentUser;
+  /** Computed signal tracking loading state if user data is missing */
   isLoading &#x3D; computed(() &#x3D;&gt; !this.currentUser());
+  /** Internal handle for the 20-minute refresh timer */
   private refreshInterval: any;
 
   /**
-   * Timestamp actual del QR que se actualiza automáticamente cada 20 minutos.
-   * Se usa para generar un nuevo QR y mantenerlo válido según las políticas de expiración.
+   * Current QR generation timestamp, updated every 20 minutes.
+   * Used as a salt to ensure QR codes are short-lived and verifiable.
    */
   qrTimestamp &#x3D; signal&lt;string&gt;(new Date().toISOString());
 
   /**
-   * Genera los datos del QR en formato JSON string.
+   * Generates the raw JSON payload for the QR code.
    * 
-   * El QR contiene:
-   * - id: ID único del usuario
-   * - email: Email del usuario
-   * - name: Nombre del usuario
-   * - timestamp: Fecha y hora de generación (ISO string)
+   * Payload includes:
+   * - id: User UUID
+   * - email: Account email
+   * - name: Full display name
+   * - timestamp: ISO string of generation time
    * 
-   * NO incluye centerId porque el usuario puede acceder a múltiples centros.
-   * El timestamp se actualiza cada 20 minutos para mantener el QR válido.
-   * 
-   * @returns JSON string con los datos del usuario para el QR
+   * @returns A JSON-encoded string for the QR engine
    */
   qrData &#x3D; computed(() &#x3D;&gt; {
     const user &#x3D; this.currentUser();
@@ -815,10 +840,10 @@ export class QrComponent implements OnInit, OnDestroy {
   });
 
   /**
-   * Genera la URL del código QR para modo claro usando la API de QR Server.
-   * Usa colores azul oscuro sobre fondo blanco para mejor legibilidad en modo claro.
+   * Resolves the QR image URL for light theme application.
+   * Uses dark blue on white for high contrast.
    * 
-   * @returns URL de la imagen del QR para modo claro
+   * @returns QR Server API URL for light mode
    */
   qrUrl &#x3D; computed(() &#x3D;&gt; {
     const data &#x3D; this.qrData();
@@ -829,10 +854,10 @@ export class QrComponent implements OnInit, OnDestroy {
   });
 
   /**
-   * Genera la URL del código QR para modo oscuro usando la API de QR Server.
-   * Usa colores cyan claro sobre fondo gris oscuro para mejor legibilidad en modo oscuro.
+   * Resolves the QR image URL for dark theme application.
+   * Uses light cyan on dark slate for high contrast.
    * 
-   * @returns URL de la imagen del QR para modo oscuro
+   * @returns QR Server API URL for dark mode
    */
   qrUrlDark &#x3D; computed(() &#x3D;&gt; {
     const data &#x3D; this.qrData();
@@ -843,18 +868,16 @@ export class QrComponent implements OnInit, OnDestroy {
   });
 
   /**
-   * Inicializa el componente y configura la actualización automática del QR cada 20 minutos.
-   * Esto asegura que el código QR siempre esté dentro del período de validez (20 minutos).
+   * Initialization logic. Starts the 20-minute rotation interval.
    */
   ngOnInit() {
     this.refreshInterval &#x3D; setInterval(() &#x3D;&gt; {
       this.qrTimestamp.set(new Date().toISOString());
-    }, 20 * 60 * 1000); // 20 minutos
+    }, 20 * 60 * 1000);
   }
 
   /**
-   * Limpia el intervalo de actualización cuando el componente se destruye.
-   * Previene memory leaks al eliminar el timer activo.
+   * Cleanup logic. Disposes of the refresh timer to prevent memory leaks.
    */
   ngOnDestroy() {
     if (this.refreshInterval) {
@@ -863,12 +886,13 @@ export class QrComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Genera y descarga el código QR como una imagen PNG.
+   * Merges the QR code with branding and user identity into a downloadable PNG.
    * 
-   * Crea un canvas con el QR, el nombre del usuario y el logo de Meta Force Gym.
-   * El fondo y los colores se adaptan según el tema actual (claro/oscuro).
-   * 
-   * El archivo se descarga con el nombre: &#x60;qr-{nombreUsuario}-{timestamp}.png&#x60;
+   * Process:
+   * 1. Detects current document theme (light/dark)
+   * 2. Draws QR image onto a 400x500 canvas
+   * 3. Adds user name and gym branding text
+   * 4. Triggers an automatic browser download
    */
   downloadQR() {
     const user &#x3D; this.currentUser();
@@ -1075,7 +1099,7 @@ export class QrComponent implements OnInit, OnDestroy {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="min-h-screen bg-gray-50 dark:bg-gradient-to-br dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">  @if(auth.currentUser(); as user) {    <!-- Header -->    <header class="bg-blue-100 dark:bg-gray-800/90 backdrop-blur-md border-b border-blue-300 dark:border-gray-700 sticky top-0 z-10 shadow-sm">      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">        <div class="flex justify-between items-center">          <div class="flex items-center gap-4">            <h1 class="text-2xl font-bold text-blue-900 dark:text-white">{{ \'qr.title\' | translate }}</h1>          </div>          <div class="flex items-center gap-4">            <app-language-selector></app-language-selector>            <app-theme-toggle></app-theme-toggle>            <a               routerLink="/dashboard"              class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors text-sm font-medium">              {{ \'qr.backToDashboard\' | translate }}            </a>          </div>        </div>      </div>    </header>    <!-- Main Content -->    <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">      <div class="bg-blue-100 dark:bg-gray-800 rounded-xl p-8 border border-blue-300 dark:border-gray-700 shadow-lg">        <!-- Header Card -->        <div class="text-center mb-8">          <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full mb-4 shadow-lg">            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10 text-white">              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5Z" />              <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />            </svg>          </div>          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">            {{ \'qr.accessCode\' | translate }}          </h2>          <p class="text-gray-600 dark:text-gray-400 text-lg">            {{ \'qr.showAtReception\' | translate }}          </p>        </div>        <!-- QR Code Card -->        <div class="bg-white dark:bg-gray-900 rounded-2xl p-8 border-4 border-blue-300 dark:border-cyan-500 shadow-2xl max-w-md mx-auto">          <div class="text-center">            <!-- QR Code Image -->            <div class="mb-6 p-4 bg-white dark:bg-gray-800 rounded-xl inline-block">              <img                 [src]="qrUrl()"                class="dark:hidden w-64 h-64 mx-auto"                alt="QR Code"              />              <img                 [src]="qrUrlDark()"                class="hidden dark:block w-64 h-64 mx-auto"                alt="QR Code"              />            </div>            <!-- User Info -->            <div class="space-y-2 mb-6">              <div class="flex items-center justify-center gap-2">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600 dark:text-gray-400">                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />                </svg>                <p class="text-xl font-bold text-gray-900 dark:text-white">{{ user.name }}</p>              </div>                            <div class="flex items-center justify-center gap-2">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600 dark:text-gray-400">                  <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />                </svg>                <p class="text-gray-600 dark:text-gray-400">{{ user.email }}</p>              </div>              @if(user.center) {                <div class="flex items-center justify-center gap-2">                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600 dark:text-gray-400">                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />                  </svg>                  <p class="text-gray-600 dark:text-gray-400">{{ user.center.name }}</p>                </div>              }            </div>            <!-- Instructions -->            <div class="bg-blue-50 dark:bg-cyan-900/20 rounded-lg p-4 border border-blue-200 dark:border-cyan-500/30">              <p class="text-sm text-gray-700 dark:text-gray-300 font-medium mb-2">                {{ \'qr.instructions\' | translate }}              </p>              <ul class="text-xs text-gray-600 dark:text-gray-400 space-y-1 text-left">                <li>{{ \'qr.instruction1\' | translate }}</li>                <li>{{ \'qr.instruction2\' | translate }}</li>                <li>{{ \'qr.instruction3\' | translate }}</li>              </ul>            </div>          </div>        </div>        <!-- Download Button -->        <div class="text-center mt-8">          <button             (click)="downloadQR()"            class="px-6 py-3 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-500 hover:to-blue-600 text-white rounded-lg transition-all transform hover:scale-105 shadow-lg font-medium">            {{ \'qr.download\' | translate }}          </button>        </div>      </div>    </main>  } @else {    <div class="min-h-screen flex items-center justify-center">      <div class="text-center">        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>        <p class="text-gray-700 dark:text-gray-300">{{ \'qr.loading\' | translate }}</p>      </div>    </div>  }</div></div>'
-    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
+    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
     var DIRECTIVES = [{'name': 'ClickOutsideDirective', 'selector': '[appClickOutside]'}];
     var ACTUAL_COMPONENT = {'name': 'QrComponent'};
 </script>

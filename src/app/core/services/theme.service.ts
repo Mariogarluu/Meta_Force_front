@@ -1,12 +1,8 @@
 import { Injectable, signal, computed } from '@angular/core';
 
+/** Supported visual themes for the application */
 export type Theme = 'dark' | 'light';
 
-/**
- * Servicio que gestiona el tema de la aplicación (modo claro/oscuro).
- * Persiste la preferencia del usuario en localStorage y aplica el tema
- * al documento HTML mediante la clase 'dark' de Tailwind CSS.
- */
 /**
  * Service managing the application's visual theme (light/dark mode).
  * Persists user preference and applies the 'dark' class to the HTML document.
@@ -15,22 +11,26 @@ export type Theme = 'dark' | 'light';
   providedIn: 'root'
 })
 export class ThemeService {
+  /** Internal signal for the current theme */
   private _theme = signal<Theme>(this.getInitialTheme());
   
+  /** Public read-only signal of the current theme */
   public readonly theme = this._theme.asReadonly();
+  /** Computed signal returns true if dark mode is active */
   public readonly isDark = computed(() => this._theme() === 'dark');
+  /** Computed signal returns true if light mode is active */
   public readonly isLight = computed(() => this._theme() === 'light');
 
   /**
-   * Inicializa el servicio aplicando el tema guardado o el tema por defecto.
+   * Initializes the service by applying the stored or default theme.
    */
   constructor() {
     this.applyTheme(this._theme());
   }
 
   /**
-   * Obtiene el tema inicial desde localStorage o retorna 'dark' por defecto.
-   * @returns El tema guardado o 'dark' si no hay preferencia guardada
+   * Retrieves the initial theme from localStorage or defaults to 'dark'.
+   * @returns The initial theme for the application
    */
   private getInitialTheme(): Theme {
     const saved = localStorage.getItem('theme') as Theme;
@@ -41,9 +41,8 @@ export class ThemeService {
   }
 
   /**
-   * Aplica el tema al documento HTML agregando o removiendo la clase 'dark'.
-   * Esta clase es utilizada por Tailwind CSS para aplicar los estilos del modo oscuro.
-   * @param theme - El tema a aplicar ('dark' o 'light')
+   * Applies the theme to the HTML document by adding/removing the 'dark' class.
+   * @param theme - The theme to apply ('dark' or 'light')
    */
   private applyTheme(theme: Theme) {
     const html = document.documentElement;
@@ -55,8 +54,7 @@ export class ThemeService {
   }
 
   /**
-   * Alterna entre modo oscuro y claro.
-   * Guarda la nueva preferencia y la aplica inmediatamente.
+   * Toggles between dark and light modes.
    */
   toggleTheme() {
     const newTheme: Theme = this._theme() === 'dark' ? 'light' : 'dark';
@@ -64,8 +62,8 @@ export class ThemeService {
   }
 
   /**
-   * Establece un tema específico, guarda la preferencia en localStorage y la aplica.
-   * @param theme - El tema a establecer ('dark' o 'light')
+   * Sets a specific theme, saves to localStorage, and applies it to the document.
+   * @param theme - The theme to set
    */
   setTheme(theme: Theme) {
     this._theme.set(theme);
@@ -73,4 +71,5 @@ export class ThemeService {
     this.applyTheme(theme);
   }
 }
+
 

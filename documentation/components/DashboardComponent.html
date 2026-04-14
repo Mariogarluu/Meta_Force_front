@@ -251,6 +251,9 @@ image uploads), and navigation to other system modules.</p>
                                 <a href="#notificationService" >notificationService</a>
                             </li>
                             <li>
+                                <a href="#physicalDataForm" >physicalDataForm</a>
+                            </li>
+                            <li>
                                 <a href="#roleColor" >roleColor</a>
                             </li>
                             <li>
@@ -322,6 +325,9 @@ image uploads), and navigation to other system modules.</p>
                                 <a href="#triggerProfileImageUpload" >triggerProfileImageUpload</a>
                             </li>
                             <li>
+                                <a href="#updatePhysicalData" >updatePhysicalData</a>
+                            </li>
+                            <li>
                                 <a href="#updateRole" >updateRole</a>
                             </li>
                             <li>
@@ -365,10 +371,17 @@ image uploads), and navigation to other system modules.</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:67</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:101</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Initializes the dashboard, setting the initial role selection and
+establishing an effect to keep physical data in sync with the user signal.</p>
+</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -402,12 +415,49 @@ image uploads), and navigation to other system modules.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="102"
-                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:102</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="169"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:169</a></div>
                         </td>
                     </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Global click listener to close the notification dropdown when clicking outside.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <ul>
+<li>The native mouse event</li>
+</ul>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                </td>
+            </tr>
         </tbody>
     </table>
 </section>
@@ -436,14 +486,16 @@ image uploads), and navigation to other system modules.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="123"
-                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:123</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:194</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Closes the role assignment modal and clears any errors.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -473,16 +525,15 @@ image uploads), and navigation to other system modules.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="172"
-                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:172</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="269"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:269</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Obtiene la URL de la imagen de perfil del usuario.
-Si no tiene imagen o es null, retorna la imagen por defecto de Cloudinary.</p>
+                        <div class="io-description"><p>Resolves the profile image URL, providing a fall-back if none exists.</p>
 </div>
 
                             <div class="io-description">
@@ -494,6 +545,7 @@ Si no tiene imagen o es null, retorna la imagen por defecto de Cloudinary.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -508,6 +560,12 @@ Si no tiene imagen o es null, retorna la imagen por defecto de Cloudinary.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The optional URL from the user entity</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -517,7 +575,8 @@ Si no tiene imagen o es null, retorna la imagen por defecto de Cloudinary.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A valid image URL string</p>
+
                             </div>
                 </td>
             </tr>
@@ -543,16 +602,15 @@ Si no tiene imagen o es null, retorna la imagen por defecto de Cloudinary.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="220"
-                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:220</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="319"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:319</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Retorna un SVG (string) para el icono de rol.
-Se utiliza [innerHTML] en el template.</p>
+                        <div class="io-description"><p>Map of role identifiers to SVG path icons for UI display.</p>
 </div>
 
                             <div class="io-description">
@@ -564,6 +622,7 @@ Se utiliza [innerHTML] en el template.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -578,6 +637,12 @@ Se utiliza [innerHTML] en el template.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The internal role identifier</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -587,7 +652,8 @@ Se utiliza [innerHTML] en el template.</p>
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>An SVG string literal</p>
+
                             </div>
                 </td>
             </tr>
@@ -613,14 +679,17 @@ Se utiliza [innerHTML] en el template.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="85"
-                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:85</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="146"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:146</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Handles interaction with a specific notification.
+Marks as read and navigates to the associated link if applicable.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -631,6 +700,7 @@ Se utiliza [innerHTML] en el template.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -645,6 +715,12 @@ Se utiliza [innerHTML] en el template.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The notification item clicked</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -680,14 +756,16 @@ Se utiliza [innerHTML] en el template.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="163"
-                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:163</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="259"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:259</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Universal logout handler. Clears local session and redirects to login page.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -717,14 +795,16 @@ Se utiliza [innerHTML] en el template.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="97"
-                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:97</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="160"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:160</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Marks all extant notifications as read via the NotificationService.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -763,14 +843,16 @@ Se utiliza [innerHTML] en el template.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="102"
-                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:102</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="169"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:169</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Global click listener to close the notification dropdown when clicking outside.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -781,6 +863,7 @@ Se utiliza [innerHTML] en el template.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -795,6 +878,12 @@ Se utiliza [innerHTML] en el template.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The native mouse event</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -830,14 +919,16 @@ Se utiliza [innerHTML] en el template.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="114"
-                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:114</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="182"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:182</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Prepares and opens the role assignment modal.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -867,14 +958,16 @@ Se utiliza [innerHTML] en el template.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="77"
-                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:77</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="133"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:133</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Toggles the notification dropdown. Triggers a fresh load when opened.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -904,16 +997,55 @@ Se utiliza [innerHTML] en el template.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="180"
-                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:180</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="277"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:277</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Abre el selector de archivos para cambiar la imagen de perfil.
-Se activa al hacer clic en el avatar.</p>
+                        <div class="io-description"><p>Triggers the native file browser for profile image selection.
+Includes basic validation for file type and size.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updatePhysicalData"></a>
+                    <span class="name">
+                        <span ><b>updatePhysicalData</b></span>
+                        <a href="#updatePhysicalData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updatePhysicalData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="241"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:241</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Persists physical profile metrics (weight, height, etc.) to the user profile.</p>
 </div>
 
                         <div class="io-description">
@@ -944,14 +1076,17 @@ Se activa al hacer clic en el avatar.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="128"
-                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:128</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="203"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:203</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>Persists the selected role change to the backend.
+Triggers a logout on success to re-initialize permissions.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -983,15 +1118,15 @@ Se activa al hacer clic en el avatar.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="204"
-                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:204</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="302"
+                                    class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:302</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>Sube la imagen de perfil a Cloudinary.</p>
+                        <div class="io-description"><p>Private helper to execute the image upload via UsersService.</p>
 </div>
 
                             <div class="io-description">
@@ -1003,6 +1138,7 @@ Se activa al hacer clic en el avatar.</p>
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -1017,6 +1153,12 @@ Se activa al hacer clic en el avatar.</p>
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The image file to upload to Cloudinary</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1062,10 +1204,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:33</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:36</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected AuthService for user identity and authentication state</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1093,10 +1241,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:48</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:76</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal for the currently logged-in user</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1125,10 +1279,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:38</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:46</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected ElementRef for DOM access in event handling</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1156,10 +1316,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:43</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:55</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal for displaying primary error messages in the UI</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1187,10 +1353,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:67</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:101</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed convenience flag for Center Admin status</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1218,10 +1390,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:42</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:53</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal tracking background API operations</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1249,10 +1427,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="66" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:66</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="99" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:99</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed convenience flag for Super Admin status</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1280,10 +1464,62 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:40</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected NotificationService for real-time user alerts</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="physicalDataForm"></a>
+                    <span class="name">
+                        <span ><b>physicalDataForm</b></span>
+                        <a href="#physicalDataForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal({
+    gender: &#x27;&#x27;,
+    birthDate: &#x27;&#x27;,
+    height: 0,
+    currentWeight: 0,
+    medicalNotes: &#x27;&#x27;,
+    activityLevel: &#x27;&#x27;,
+    goal: &#x27;&#x27;
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal holding the physical profile data form state.
+Synchronized with the current user&#39;s profile metadata.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1321,10 +1557,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="55" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:55</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="86" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:86</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal providing a CSS background color class based on user role</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1356,10 +1598,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="50" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:50</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="79" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:79</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Computed signal for the human-readable (translated) name of the user&#39;s role</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1388,10 +1636,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:47</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:74</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Constant list of available system roles for the editor dropdown</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1419,10 +1673,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:42</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected Router for navigation</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1450,10 +1710,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:51</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal storing the temporary role selection in the editor</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1481,10 +1747,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:45</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:57</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal controlling the visibility of the notification dropdown menu</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1512,10 +1784,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:40</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:49</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Signal controlling the visibility of the user role editing modal</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1543,10 +1821,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:37</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:44</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected TranslateService for UI internationalization</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1574,10 +1858,16 @@ Se activa al hacer clic en el avatar.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:34</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/pages/dashboard/dashboard.component.ts:38</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Injected UsersService for profile and role management</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -1587,7 +1877,7 @@ Se activa al hacer clic en el avatar.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject, signal, computed, ElementRef, HostListener } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, inject, signal, computed, ElementRef, HostListener, effect } from &#x27;@angular/core&#x27;;
 import { CommonModule } from &#x27;@angular/common&#x27;;
 import { FormsModule } from &#x27;@angular/forms&#x27;;
 import { Router, RouterModule } from &#x27;@angular/router&#x27;;
@@ -1601,8 +1891,10 @@ import { LanguageSelectorComponent } from &#x27;../../shared/components/language
 import { ProfileImageManagerComponent } from &#x27;../../shared/components/profile-image-manager/profile-image-manager.component&#x27;;
 import { NavbarComponent } from &#x27;../../shared/components/navbar/navbar.component&#x27;;
 
+/** Union type for the various user authorization levels in the system */
 type RoleType &#x3D; &#x27;SUPERADMIN&#x27; | &#x27;ADMIN_CENTER&#x27; | &#x27;TRAINER&#x27; | &#x27;CLEANER&#x27; | &#x27;USER&#x27;;
 
+/** Default fallback image URL for user profiles when no custom image is provided */
 const DEFAULT_PROFILE_IMAGE_URL &#x3D; &#x27;https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg&#x27;;
 
 /**
@@ -1619,28 +1911,57 @@ const DEFAULT_PROFILE_IMAGE_URL &#x3D; &#x27;https://res.cloudinary.com/dbzbik0z
   styleUrl: &#x27;./dashboard.component.scss&#x27;
 })
 export class DashboardComponent {
+  /** Injected AuthService for user identity and authentication state */
   auth &#x3D; inject(AuthService);
+  /** Injected UsersService for profile and role management */
   usersService &#x3D; inject(UsersService);
+  /** Injected NotificationService for real-time user alerts */
   notificationService &#x3D; inject(NotificationService);
+  /** Injected Router for navigation */
   router &#x3D; inject(Router);
+  /** Injected TranslateService for UI internationalization */
   translate &#x3D; inject(TranslateService);
+  /** Injected ElementRef for DOM access in event handling */
   private elementRef &#x3D; inject(ElementRef);
 
+  /** Signal controlling the visibility of the user role editing modal */
   showRoleEditor &#x3D; signal(false);
+  /** Signal storing the temporary role selection in the editor */
   selectedRole &#x3D; signal&lt;RoleType | null&gt;(null);
+  /** Signal tracking background API operations */
   isLoading &#x3D; signal(false);
+  /** Signal for displaying primary error messages in the UI */
   errorMessage &#x3D; signal&lt;string&gt;(&#x27;&#x27;);
-  // Estado para el dropdown de notificaciones
+  /** Signal controlling the visibility of the notification dropdown menu */
   showNotifications &#x3D; signal(false);
 
+  /** 
+   * Signal holding the physical profile data form state.
+   * Synchronized with the current user&#x27;s profile metadata.
+   */
+  physicalDataForm &#x3D; signal({
+    gender: &#x27;&#x27;,
+    birthDate: &#x27;&#x27;,
+    height: 0,
+    currentWeight: 0,
+    medicalNotes: &#x27;&#x27;,
+    activityLevel: &#x27;&#x27;,
+    goal: &#x27;&#x27;
+  });
+
+  /** Constant list of available system roles for the editor dropdown */
   readonly roles: RoleType[] &#x3D; [&#x27;SUPERADMIN&#x27;, &#x27;ADMIN_CENTER&#x27;, &#x27;TRAINER&#x27;, &#x27;CLEANER&#x27;, &#x27;USER&#x27;];
+  /** Computed signal for the currently logged-in user */
   currentUser &#x3D; computed(() &#x3D;&gt; this.auth.currentUser());
   
+  /** Computed signal for the human-readable (translated) name of the user&#x27;s role */
   roleName &#x3D; computed(() &#x3D;&gt; {
     const role &#x3D; this.currentUser()?.role;
     if (!role) return this.translate.instant(&#x27;dashboard.roles.USER&#x27;);
     return this.translate.instant(&#x60;dashboard.roles.${role}&#x60;);
   });
+
+  /** Computed signal providing a CSS background color class based on user role */
   roleColor &#x3D; computed(() &#x3D;&gt; {
     const role &#x3D; this.currentUser()?.role;
     const colors: Record&lt;string, string&gt; &#x3D; {
@@ -1652,17 +1973,42 @@ export class DashboardComponent {
     };
     return colors[role || &#x27;USER&#x27;] || &#x27;bg-gray-500&#x27;;
   });
+
+  /** Computed convenience flag for Super Admin status */
   isSuperAdmin &#x3D; computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;SUPERADMIN&#x27;);
+  /** Computed convenience flag for Center Admin status */
   isAdminCenter &#x3D; computed(() &#x3D;&gt; this.currentUser()?.role &#x3D;&#x3D;&#x3D; &#x27;ADMIN_CENTER&#x27;);
   
+  /**
+   * Initializes the dashboard, setting the initial role selection and
+   * establishing an effect to keep physical data in sync with the user signal.
+   */
   constructor() {
     const user &#x3D; this.currentUser();
     if (user) {
       this.selectedRole.set(user.role);
     }
+
+    // Synchronize physical form when user data changes
+    effect(() &#x3D;&gt; {
+      const user &#x3D; this.currentUser();
+      if (user) {
+        this.physicalDataForm.set({
+          gender: user.gender || &#x27;&#x27;,
+          birthDate: user.birthDate ? new Date(user.birthDate).toISOString().split(&#x27;T&#x27;)[0] : &#x27;&#x27;,
+          height: user.height || 0,
+          currentWeight: user.currentWeight || 0,
+          medicalNotes: user.medicalNotes || &#x27;&#x27;,
+          activityLevel: user.activityLevel || &#x27;&#x27;,
+          goal: user.goal || &#x27;&#x27;
+        });
+      }
+    });
   }
 
-  // --- LÓGICA DE NOTIFICACIONES ---
+  /**
+   * Toggles the notification dropdown. Triggers a fresh load when opened.
+   */
   toggleNotifications() {
     const newState &#x3D; !this.showNotifications();
     this.showNotifications.set(newState);
@@ -1671,6 +2017,11 @@ export class DashboardComponent {
     }
   }
 
+  /**
+   * Handles interaction with a specific notification.
+   * Marks as read and navigates to the associated link if applicable.
+   * @param notification - The notification item clicked
+   */
   handleNotificationClick(notification: Notification) {
     if (!notification.read) {
       this.notificationService.markAsRead(notification.id);
@@ -1682,14 +2033,19 @@ export class DashboardComponent {
     }
   }
 
-
+  /**
+   * Marks all extant notifications as read via the NotificationService.
+   */
   markAllRead() {
     this.notificationService.markAllAsRead();
   }
 
+  /**
+   * Global click listener to close the notification dropdown when clicking outside.
+   * @param event - The native mouse event
+   */
   @HostListener(&#x27;document:click&#x27;, [&#x27;$event&#x27;])
   onDocumentClick(event: MouseEvent) {
-    // Cerrar si se hace clic fuera del botón de notificaciones y del dropdown
     const target &#x3D; event.target as HTMLElement;
     const isBell &#x3D; target.closest(&#x27;.notification-btn&#x27;);
     const isDropdown &#x3D; target.closest(&#x27;.notification-dropdown&#x27;);
@@ -1698,8 +2054,10 @@ export class DashboardComponent {
       this.showNotifications.set(false);
     }
   }
-  // -------------------------------
 
+  /**
+   * Prepares and opens the role assignment modal.
+   */
   openRoleEditor() {
     const user &#x3D; this.currentUser();
     if (user) {
@@ -1709,11 +2067,18 @@ export class DashboardComponent {
     }
   }
 
+  /**
+   * Closes the role assignment modal and clears any errors.
+   */
   closeRoleEditor() {
     this.showRoleEditor.set(false);
     this.errorMessage.set(&#x27;&#x27;);
   }
 
+  /**
+   * Persists the selected role change to the backend.
+   * Triggers a logout on success to re-initialize permissions.
+   */
   updateRole() {
     const user &#x3D; this.currentUser();
     const newRole &#x3D; this.selectedRole();
@@ -1749,22 +2114,44 @@ export class DashboardComponent {
     });
   }
 
+  /**
+   * Persists physical profile metrics (weight, height, etc.) to the user profile.
+   */
+  updatePhysicalData() {
+    this.isLoading.set(true);
+    this.usersService.updateProfile(this.physicalDataForm()).subscribe({
+      next: () &#x3D;&gt; {
+        this.isLoading.set(false);
+        this.auth.refreshUser();
+        // Opcional: mostrar notificación de éxito (ya tenemos NotificationService)
+      },
+      error: (error) &#x3D;&gt; {
+        this.isLoading.set(false);
+        alert(&#x27;Error al actualizar datos físicos: &#x27; + (error.error?.message || error.message));
+      }
+    });
+  }
+
+  /**
+   * Universal logout handler. Clears local session and redirects to login page.
+   */
   logout() {
     this.auth.logout();
     this.router.navigate([&#x27;/login&#x27;]);
   }
 
   /**
-   * Obtiene la URL de la imagen de perfil del usuario.
-   * Si no tiene imagen o es null, retorna la imagen por defecto de Cloudinary.
+   * Resolves the profile image URL, providing a fall-back if none exists.
+   * @param profileImageUrl - The optional URL from the user entity
+   * @returns A valid image URL string
    */
   getProfileImageUrl(profileImageUrl: string | null | undefined): string {
     return profileImageUrl ? profileImageUrl : DEFAULT_PROFILE_IMAGE_URL;
   }
 
   /**
-   * Abre el selector de archivos para cambiar la imagen de perfil.
-   * Se activa al hacer clic en el avatar.
+   * Triggers the native file browser for profile image selection.
+   * Includes basic validation for file type and size.
    */
   triggerProfileImageUpload(): void {
     const input &#x3D; document.createElement(&#x27;input&#x27;);
@@ -1788,7 +2175,8 @@ export class DashboardComponent {
   }
 
   /**
-   * Sube la imagen de perfil a Cloudinary.
+   * Private helper to execute the image upload via UsersService.
+   * @param file - The image file to upload to Cloudinary
    */
   private uploadProfileImage(file: File): void {
     this.usersService.uploadProfileImage(file).subscribe({
@@ -1803,8 +2191,9 @@ export class DashboardComponent {
   }
   
   /**
-   * Retorna un SVG (string) para el icono de rol.
-   * Se utiliza [innerHTML] en el template.
+   * Map of role identifiers to SVG path icons for UI display.
+   * @param role - The internal role identifier
+   * @returns An SVG string literal
    */
   getRoleIcon(role: string): string {
     const size &#x3D; &#x27;w-5 h-5&#x27;;
@@ -1813,7 +2202,7 @@ export class DashboardComponent {
       case &#x27;SUPERADMIN&#x27;: 
         return &#x60;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;white&quot; class&#x3D;&quot;${size}&quot;&gt;&lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M15.5 12c.7-3.5-3.5-3.5-3.5-3.5S8.5 8.5 9.5 12s3.5 3.5 3.5 3.5S16.5 15.5 15.5 12zM12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z&quot; /&gt;&lt;/svg&gt;&#x60;;
       case &#x27;ADMIN_CENTER&#x27;: 
-        return &#x60;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;white&quot; class&#x3D;&quot;${size}&quot;&gt;&lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M3.75 21h16.5M4.5 3h15M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18&quot; /&gt;&lt;/svg&gt;&#x60;;
+        return &#x60;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;white&quot; class&#x3D;&quot;${size}&quot;&gt;&lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M3.75 21h16.5M4.5 3h15M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18M6.75 3v18M17.25 3v18&quot; /&gt;&lt;/svg&gt;&#x60;;
       case &#x27;TRAINER&#x27;: 
         return &#x60;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;white&quot; class&#x3D;&quot;${size}&quot;&gt;&lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M21 8.25c0-1.036-.84-1.875-1.875-1.875h-4.636V6.184c0-1.036-.84-1.875-1.875-1.875h-2.25c-1.036 0-1.875.84-1.875 1.875v.191H4.875C3.839 6.359 3 7.198 3 8.234V15.75h18V8.25z&quot; /&gt;&lt;/svg&gt;&#x60;;
       case &#x27;CLEANER&#x27;: 
@@ -2280,6 +2669,107 @@ export class DashboardComponent {
             &lt;/div&gt;
           &lt;/div&gt;
         }
+
+        &lt;!-- Perfil Físico (Solo para Usuarios) --&gt;
+        @if(!isSuperAdmin() &amp;&amp; !isAdminCenter()) {
+          &lt;div class&#x3D;&quot;col-span-full mt-4 bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-lg transition-all animate-fadeIn&quot;&gt;
+            &lt;div class&#x3D;&quot;flex items-center gap-3 mb-6&quot;&gt;
+              &lt;div class&#x3D;&quot;p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg&quot;&gt;
+                &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-6 h-6 text-blue-600 dark:text-blue-400&quot;&gt;
+                  &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M17.982 18.725A7.488 7.488 0 0 0 12 15.75c-2.213 0-4.218.956-5.582 2.475M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              &lt;h3 class&#x3D;&quot;text-xl font-bold text-gray-900 dark:text-white&quot;&gt;Mi Perfil Físico&lt;/h3&gt;
+            &lt;/div&gt;
+
+            &lt;form (ngSubmit)&#x3D;&quot;updatePhysicalData()&quot; class&#x3D;&quot;space-y-6&quot;&gt;
+              &lt;div class&#x3D;&quot;grid grid-cols-1 md:grid-cols-2 gap-6&quot;&gt;
+                &lt;!-- Altura y Peso --&gt;
+                &lt;div class&#x3D;&quot;space-y-4&quot;&gt;
+                  &lt;div class&#x3D;&quot;grid grid-cols-2 gap-4&quot;&gt;
+                    &lt;div&gt;
+                      &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1&quot;&gt;Altura (cm)&lt;/label&gt;
+                      &lt;input type&#x3D;&quot;number&quot; [(ngModel)]&#x3D;&quot;physicalDataForm().height&quot; name&#x3D;&quot;height&quot; class&#x3D;&quot;w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all&quot;&gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                      &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1&quot;&gt;Peso (kg)&lt;/label&gt;
+                      &lt;input type&#x3D;&quot;number&quot; [(ngModel)]&#x3D;&quot;physicalDataForm().currentWeight&quot; name&#x3D;&quot;weight&quot; step&#x3D;&quot;0.1&quot; class&#x3D;&quot;w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all&quot;&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+
+                  &lt;div&gt;
+                    &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1&quot;&gt;Género&lt;/label&gt;
+                    &lt;select [(ngModel)]&#x3D;&quot;physicalDataForm().gender&quot; name&#x3D;&quot;gender&quot; class&#x3D;&quot;w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all&quot;&gt;
+                      &lt;option value&#x3D;&quot;&quot;&gt;No especificado&lt;/option&gt;
+                      &lt;option value&#x3D;&quot;male&quot;&gt;Masculino&lt;/option&gt;
+                      &lt;option value&#x3D;&quot;female&quot;&gt;Femenino&lt;/option&gt;
+                      &lt;option value&#x3D;&quot;other&quot;&gt;Otro&lt;/option&gt;
+                    &lt;/select&gt;
+                  &lt;/div&gt;
+
+                  &lt;div&gt;
+                    &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1&quot;&gt;Fecha de Nacimiento&lt;/label&gt;
+                    &lt;input type&#x3D;&quot;date&quot; [(ngModel)]&#x3D;&quot;physicalDataForm().birthDate&quot; name&#x3D;&quot;birthDate&quot; class&#x3D;&quot;w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all&quot;&gt;
+                  &lt;/div&gt;
+
+                  &lt;div class&#x3D;&quot;grid grid-cols-2 gap-4&quot;&gt;
+                    &lt;div&gt;
+                      &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1&quot;&gt;Nivel de Actividad&lt;/label&gt;
+                      &lt;select [(ngModel)]&#x3D;&quot;physicalDataForm().activityLevel&quot; name&#x3D;&quot;activityLevel&quot; class&#x3D;&quot;w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all&quot;&gt;
+                        &lt;option value&#x3D;&quot;&quot;&gt;No especificado&lt;/option&gt;
+                        &lt;option value&#x3D;&quot;sedentary&quot;&gt;Sedentario&lt;/option&gt;
+                        &lt;option value&#x3D;&quot;light&quot;&gt;Ligero&lt;/option&gt;
+                        &lt;option value&#x3D;&quot;moderate&quot;&gt;Moderado&lt;/option&gt;
+                        &lt;option value&#x3D;&quot;active&quot;&gt;Activo&lt;/option&gt;
+                        &lt;option value&#x3D;&quot;very_active&quot;&gt;Muy Activo&lt;/option&gt;
+                      &lt;/select&gt;
+                    &lt;/div&gt;
+                    &lt;div&gt;
+                      &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1&quot;&gt;Objetivo&lt;/label&gt;
+                      &lt;select [(ngModel)]&#x3D;&quot;physicalDataForm().goal&quot; name&#x3D;&quot;goal&quot; class&#x3D;&quot;w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all&quot;&gt;
+                        &lt;option value&#x3D;&quot;&quot;&gt;No especificado&lt;/option&gt;
+                        &lt;option value&#x3D;&quot;lose_weight&quot;&gt;Perder peso&lt;/option&gt;
+                        &lt;option value&#x3D;&quot;maintain_weight&quot;&gt;Mantener peso&lt;/option&gt;
+                        &lt;option value&#x3D;&quot;gain_muscle&quot;&gt;Ganar músculo&lt;/option&gt;
+                        &lt;option value&#x3D;&quot;improve_fitness&quot;&gt;Mejorar fitness&lt;/option&gt;
+                      &lt;/select&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;!-- Notas Médicas --&gt;
+                &lt;div&gt;
+                  &lt;label class&#x3D;&quot;block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1&quot;&gt;Notas Médicas / Enfermedades / Otros&lt;/label&gt;
+                  &lt;textarea 
+                    [(ngModel)]&#x3D;&quot;physicalDataForm().medicalNotes&quot; 
+                    name&#x3D;&quot;medicalNotes&quot; 
+                    rows&#x3D;&quot;6&quot; 
+                    placeholder&#x3D;&quot;Ej: Lesión en rodilla izquierda, asma, etc.&quot;
+                    class&#x3D;&quot;w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all resize-none&quot;
+                  &gt;&lt;/textarea&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+
+              &lt;div class&#x3D;&quot;flex justify-end pt-4&quot;&gt;
+                &lt;button 
+                  type&#x3D;&quot;submit&quot; 
+                  [disabled]&#x3D;&quot;isLoading()&quot;
+                  class&#x3D;&quot;px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all transform active:scale-95 disabled:opacity-50 flex items-center gap-3&quot;
+                &gt;
+                  @if(isLoading()) {
+                    &lt;div class&#x3D;&quot;w-5 h-5 border-3 border-white/30 border-t-white rounded-full animate-spin&quot;&gt;&lt;/div&gt;
+                    Guardando...
+                  } @else {
+                    &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;2&quot; stroke&#x3D;&quot;currentColor&quot; class&#x3D;&quot;w-5 h-5&quot;&gt;
+                      &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;m4.5 12.75 6 6 9-13.5&quot; /&gt;
+                    &lt;/svg&gt;
+                    Guardar Perfil Físico
+                  }
+                &lt;/button&gt;
+              &lt;/div&gt;
+            &lt;/form&gt;
+          &lt;/div&gt;
+        }
       &lt;/div&gt;
 
       @if(isSuperAdmin() || isAdminCenter()) {
@@ -2411,8 +2901,8 @@ export class DashboardComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">  @if(auth.currentUser(); as user) {    <app-navbar [showQR]="true"></app-navbar>    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">                @if(isSuperAdmin()) {          <a             routerLink="/clases"            class="bg-gradient-to-br from-indigo-500 via-indigo-600 to-purple-600 hover:from-indigo-600 hover:via-indigo-700 hover:to-purple-700 dark:from-indigo-700 dark:via-indigo-800 dark:to-purple-800 rounded-xl p-4 sm:p-6 border border-indigo-400 dark:border-indigo-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.classes.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.classes.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.classes.button\' | translate }}            </div>          </a>          <a             routerLink="/centers"            class="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 hover:from-purple-600 hover:via-purple-700 hover:to-pink-700 dark:from-purple-700 dark:via-purple-800 dark:to-pink-800 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.centers.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.centers.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.centers.button\' | translate }}            </div>          </a>          <a             routerLink="/machines"            class="bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 hover:from-orange-600 hover:via-orange-700 hover:to-red-700 dark:from-orange-700 dark:via-orange-800 dark:to-red-800 rounded-xl p-4 sm:p-6 border border-orange-400 dark:border-orange-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.machines.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.machines.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.machines.button\' | translate }}            </div>          </a>          <a             routerLink="/users"            class="bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-600 hover:from-blue-600 hover:via-blue-700 hover:to-cyan-700 dark:from-blue-700 dark:via-blue-800 dark:to-cyan-800 rounded-xl p-4 sm:p-6 border border-blue-400 dark:border-blue-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.users.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.users.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.users.button\' | translate }}            </div>          </a>          <a             routerLink="/qr-scanner"            class="bg-gradient-to-br from-teal-500 via-teal-600 to-cyan-600 hover:from-teal-600 hover:via-teal-700 hover:to-cyan-700 dark:from-teal-700 dark:via-teal-800 dark:to-cyan-800 rounded-xl p-4 sm:p-6 border border-teal-400 dark:border-teal-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5ZM6.75 16.125v3.375m0-3.375h3.375m-3.375 0L9 15m6.75-2.625v3.375m0-3.375h-3.375M15 9.375l3.375 3.375M6.75 19.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'qrScanner.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'qrScanner.instruction3\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'qrScanner.openScanner\' | translate }}            </div>          </a>          <a             routerLink="/workouts"            class="bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 hover:from-blue-600 hover:via-blue-700 hover:to-indigo-700 dark:from-blue-700 dark:via-blue-800 dark:to-indigo-800 rounded-xl p-4 sm:p-6 border border-blue-400 dark:border-blue-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.workouts.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.workouts.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.workouts.button\' | translate }}            </div>          </a>          <a             routerLink="/diets"            class="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 hover:from-purple-600 hover:via-purple-700 hover:to-pink-700 dark:from-purple-700 dark:via-purple-800 dark:to-pink-800 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v4.5H6v-4.5Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.diets.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.diets.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.diets.button\' | translate }}            </div>          </a>          <a             routerLink="/exercises"            class="bg-gradient-to-br from-orange-500 via-orange-600 to-amber-600 hover:from-orange-600 hover:via-orange-700 hover:to-amber-700 dark:from-orange-700 dark:via-orange-800 dark:to-amber-800 rounded-xl p-4 sm:p-6 border border-orange-400 dark:border-orange-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.exercises.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.exercises.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.exercises.button\' | translate }}            </div>          </a>          <a             routerLink="/meals"            class="bg-gradient-to-br from-green-500 via-green-600 to-emerald-600 hover:from-green-600 hover:via-green-700 hover:to-emerald-700 dark:from-green-700 dark:via-green-800 dark:to-emerald-800 rounded-xl p-4 sm:p-6 border border-green-400 dark:border-green-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v4.5H6v-4.5Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.meals.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.meals.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.meals.button\' | translate }}            </div>          </a>          <a             routerLink="/ai-chat"            class="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 dark:from-indigo-600 dark:via-purple-700 dark:to-pink-700 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <span class="text-2xl">🤖</span>              </div>              <h3 class="text-lg sm:text-xl font-bold">MetaCoach AI</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">Chat inteligente para rutinas y dietas</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              Chatear            </div>          </a>                  }        @if(isAdminCenter()) {          <a             routerLink="/centers"            class="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 hover:from-purple-600 hover:via-purple-700 hover:to-pink-700 dark:from-purple-700 dark:via-purple-800 dark:to-pink-800 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.myCenter.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.myCenter.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.myCenter.button\' | translate }}            </div>          </a>          <a             routerLink="/machines"            class="bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 hover:from-orange-600 hover:via-orange-700 hover:to-red-700 dark:from-orange-700 dark:via-orange-800 dark:to-red-800 rounded-xl p-4 sm:p-6 border border-orange-400 dark:border-orange-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.machines.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.machines.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.machines.button\' | translate }}            </div>          </a>          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-all shadow-md hover:shadow-lg">            <div class="flex items-center gap-3 mb-4">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-blue-600 dark:text-blue-400">                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{{ \'dashboard.cards.employees.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">{{ \'dashboard.cards.employees.description\' | translate }}</p>            <a routerLink="/users" class="block w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium text-center">              {{ \'dashboard.cards.employees.button\' | translate }}            </a>          </div>          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-all shadow-md hover:shadow-lg">            <div class="flex items-center gap-3 mb-4">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-green-600 dark:text-green-400">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{{ \'dashboard.cards.statistics.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">{{ \'dashboard.cards.statistics.description\' | translate }}</p>            <button class="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors text-sm font-medium">              {{ \'dashboard.cards.statistics.button\' | translate }}            </button>          </div>          <a             routerLink="/qr-scanner"            class="bg-gradient-to-br from-teal-500 via-teal-600 to-cyan-600 hover:from-teal-600 hover:via-teal-700 hover:to-cyan-700 dark:from-teal-700 dark:via-teal-800 dark:to-cyan-800 rounded-xl p-4 sm:p-6 border border-teal-400 dark:border-teal-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5ZM6.75 16.125v3.375m0-3.375h3.375m-3.375 0L9 15m6.75-2.625v3.375m0-3.375h-3.375M15 9.375l3.375 3.375M6.75 19.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'qrScanner.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'qrScanner.instruction3\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'qrScanner.openScanner\' | translate }}            </div>          </a>          <a             routerLink="/workouts"            class="bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 hover:from-blue-600 hover:via-blue-700 hover:to-indigo-700 dark:from-blue-700 dark:via-blue-800 dark:to-indigo-800 rounded-xl p-4 sm:p-6 border border-blue-400 dark:border-blue-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.workouts.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.workouts.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.workouts.button\' | translate }}            </div>          </a>          <a             routerLink="/diets"            class="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 hover:from-purple-600 hover:via-purple-700 hover:to-pink-700 dark:from-purple-700 dark:via-purple-800 dark:to-pink-800 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v4.5H6v-4.5Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.diets.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.diets.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.diets.button\' | translate }}            </div>          </a>          <a             routerLink="/exercises"            class="bg-gradient-to-br from-orange-500 via-orange-600 to-amber-600 hover:from-orange-600 hover:via-orange-700 hover:to-amber-700 dark:from-orange-700 dark:via-orange-800 dark:to-amber-800 rounded-xl p-4 sm:p-6 border border-orange-400 dark:border-orange-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.exercises.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.exercises.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.exercises.button\' | translate }}            </div>          </a>          <a             routerLink="/meals"            class="bg-gradient-to-br from-green-500 via-green-600 to-emerald-600 hover:from-green-600 hover:via-green-700 hover:to-emerald-700 dark:from-green-700 dark:via-green-800 dark:to-emerald-800 rounded-xl p-4 sm:p-6 border border-green-400 dark:border-green-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v4.5H6v-4.5Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.meals.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.meals.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.meals.button\' | translate }}            </div>          </a>          <a             routerLink="/ai-chat"            class="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 dark:from-indigo-600 dark:via-purple-700 dark:to-pink-700 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <span class="text-2xl">🤖</span>              </div>              <h3 class="text-lg sm:text-xl font-bold">MetaCoach AI</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">Chat inteligente para rutinas y dietas</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              Chatear            </div>          </a>        }        <!-- Membresías - Solo visible para administradores y entrenadores -->        @if(isSuperAdmin() || isAdminCenter() || currentUser()?.role === \'TRAINER\') {          <a             routerLink="/memberships"            class="bg-gradient-to-br from-pink-500 via-pink-600 to-purple-600 hover:from-pink-600 hover:via-pink-700 hover:to-purple-700 dark:from-pink-700 dark:via-pink-800 dark:to-purple-800 rounded-xl p-4 sm:p-6 border border-pink-400 dark:border-pink-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.memberships.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.memberships.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.memberships.button\' | translate }}            </div>          </a>        }        @if(!isSuperAdmin() && !isAdminCenter()) {          <div class="col-span-full flex flex-col items-center">            <div class="relative mb-6 sm:mb-8 group">              <img                 [src]="getProfileImageUrl(user.profileImageUrl)"                 [alt]="user.name"                (click)="triggerProfileImageUpload()"                class="w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 rounded-full object-cover border-4 border-cyan-500 dark:border-blue-600 shadow-2xl cursor-pointer transition-all hover:scale-105 hover:border-cyan-600 dark:hover:border-blue-500"              >              <div class="absolute inset-0 flex items-center justify-center bg-black/40 dark:bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" (click)="triggerProfileImageUpload()">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 sm:w-14 sm:h-14 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175a2.31 2.31 0 0 1 1.673-.675 2.31 2.31 0 0 1 2.325 2.325 2.31 2.31 0 0 1 1.673.675 2.31 2.31 0 0 1 1.673 1.673c.161.638.876.638 1.037 0a2.31 2.31 0 0 1 1.673-1.673 2.31 2.31 0 0 1 1.673-.675 2.31 2.31 0 0 1 2.325 2.325 2.31 2.31 0 0 1-.675 1.673 2.31 2.31 0 0 1-1.673 1.673c-.638.161-.638.876 0 1.037a2.31 2.31 0 0 1 1.673 1.673 2.31 2.31 0 0 1 .675 1.673 2.31 2.31 0 0 1-2.325 2.325 2.31 2.31 0 0 1-1.673.675 2.31 2.31 0 0 1-1.673 1.673c-.161.638-.876.638-1.037 0a2.31 2.31 0 0 1-1.673-1.673 2.31 2.31 0 0 1-1.673-.675 2.31 2.31 0 0 1-2.325-2.325 2.31 2.31 0 0 1 .675-1.673 2.31 2.31 0 0 1 1.673-1.673c.638-.161.638-.876 0-1.037a2.31 2.31 0 0 1-1.673-1.673 2.31 2.31 0 0 1-.675-1.673 2.31 2.31 0 0 1 2.325-2.325ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />                </svg>              </div>            </div>            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-8 sm:mb-10 text-center px-4">              {{ user.name }}            </h2>            <div class="w-full max-w-4xl mb-6 sm:mb-8">              <a                 routerLink="/qr"                class="block bg-gradient-to-br from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 dark:from-cyan-700 dark:to-cyan-800 rounded-xl p-6 sm:p-8 lg:p-10 border border-cyan-400 dark:border-cyan-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] flex flex-col items-center justify-center text-white">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mb-4">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5ZM6.75 16.125v3.375m0-3.375h3.375m-3.375 0L9 15m6.75-2.625v3.375m0-3.375h-3.375M15 9.375l3.375 3.375M6.75 19.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Z" />                </svg>                <span class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center">{{ \'dashboard.cards.myQR.button\' | translate }}</span>              </a>            </div>            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full max-w-4xl">              <a                 routerLink="/diets"                class="bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 dark:from-purple-700 dark:to-purple-800 rounded-xl p-6 sm:p-8 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex flex-col items-center justify-center text-white cursor-pointer">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 sm:w-12 sm:h-12 mb-3">                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v4.5H6v-4.5Z" />                </svg>                <span class="text-lg sm:text-xl font-bold text-center">{{ \'dashboard.cards.myDiets.title\' | translate }}</span>              </a>              <a                 routerLink="/workouts"                class="bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 dark:from-blue-700 dark:to-blue-800 rounded-xl p-6 sm:p-8 border border-blue-400 dark:border-blue-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex flex-col items-center justify-center text-white cursor-pointer">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 sm:w-12 sm:h-12 mb-3">                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />                </svg>                <span class="text-lg sm:text-xl font-bold text-center">{{ \'dashboard.cards.myWorkouts.title\' | translate }}</span>              </a>              <a                 class="bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-700 dark:to-green-800 rounded-xl p-6 sm:p-8 border border-green-400 dark:border-green-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex flex-col items-center justify-center text-white cursor-pointer">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 sm:w-12 sm:h-12 mb-3">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />                </svg>                <span class="text-lg sm:text-xl font-bold text-center">{{ \'dashboard.cards.myStatistics.title\' | translate }}</span>              </a>              <a                 routerLink="/ai-chat"                class="bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 dark:from-indigo-700 dark:to-purple-800 rounded-xl p-6 sm:p-8 border border-indigo-400 dark:border-indigo-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex flex-col items-center justify-center text-white cursor-pointer w-full h-full relative overflow-hidden group">                                <!-- Glow effect background -->                <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>                <div class="relative w-12 h-12 sm:w-14 sm:h-14 mb-4 flex items-center justify-center rounded-2xl bg-white/20 shadow-inner group-hover:scale-110 transition-transform duration-300 ease-in-out border border-white/30 backdrop-blur-sm">                  <span class="text-3xl sm:text-4xl filter drop-shadow-md">🤖</span>                </div>                                <h3 class="text-xl sm:text-2xl font-black text-center tracking-wide mb-1 flex items-center justify-center gap-2">                  <span class="text-indigo-200 group-hover:text-white transition-colors">META</span>                  <span class="bg-white text-indigo-800 px-2 py-0.5 rounded text-sm sm:text-base leading-none shadow-sm font-extrabold items-center flex">AI</span>                </h3>                                <p class="text-xs sm:text-sm text-indigo-100 text-center font-medium opacity-80 group-hover:opacity-100 transition-opacity mt-1">                  Tu entrenador personal inteligente                </p>                                <!-- Action indicator badge -->                <div class="mt-4 bg-white/10 px-4 py-1.5 rounded-full border border-white/20 text-xs font-semibold backdrop-blur-md group-hover:bg-white group-hover:text-indigo-700 transition-colors flex items-center gap-1.5 shadow-sm">                  <span>Chatear Ahora</span>                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />                  </svg>                </div>              </a>            </div>          </div>        }      </div>      @if(isSuperAdmin() || isAdminCenter()) {      <div class="mt-6 sm:mt-8 bg-blue-50 dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700">        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-3">          <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{{ \'dashboard.userInfo.title\' | translate }}</h3>          <app-profile-image-manager></app-profile-image-manager>        </div>        <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-4 sm:mb-6">          <div class="relative">            <img               [src]="getProfileImageUrl(user.profileImageUrl)"               [alt]="user.name"              class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-blue-300 dark:border-blue-600 shadow-lg">          </div>          <div class="text-center sm:text-left">            <h4 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">{{ user.name }}</h4>            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 break-all sm:break-normal">{{ user.email }}</p>          </div>        </div>        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">          <div>            <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ \'dashboard.userInfo.name\' | translate }}</p>            <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold break-words">{{ user.name }}</p>          </div>          <div>            <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ \'dashboard.userInfo.email\' | translate }}</p>            <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold break-all">{{ user.email }}</p>          </div>          <div>            <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ \'dashboard.userInfo.role\' | translate }}</p>            <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold">{{ roleName() }}</p>          </div>          @if(user.center) {            <div>              <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ \'dashboard.userInfo.center\' | translate }}</p>              <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold break-words">{{ user.center.name }}</p>            </div>          }          @if(user.createdAt) {            <div>              <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ \'dashboard.userInfo.registrationDate\' | translate }}</p>              <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold">{{ user.createdAt | date:\'dd/MM/yyyy\' }}</p>            </div>          }        </div>      </div>      }    </main>    @if(showRoleEditor()) {      <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">        <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-700">          <h3 class="text-2xl font-bold text-white mb-4">{{ \'dashboard.roleEditor.title\' | translate }}</h3>                    <div class="mb-4">            <label class="block text-gray-300 text-sm font-medium mb-2">{{ \'dashboard.roleEditor.selectRole\' | translate }}</label>            <select               [ngModel]="selectedRole()"              (ngModelChange)="selectedRole.set($event)"              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">              @for(role of roles; track role) {                <option [value]="role">{{ \'dashboard.roles.\' + role | translate }}</option>              }            </select>          </div>          @if(errorMessage()) {            <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">              {{ errorMessage() }}            </div>          }          <div class="flex gap-3">            <button               (click)="closeRoleEditor()"              [disabled]="isLoading()"              class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">              {{ \'dashboard.roleEditor.cancel\' | translate }}            </button>            <button               (click)="updateRole()"              [disabled]="isLoading() || selectedRole() === user.role"              class="flex-1 px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors disabled:opacity-50">              @if(isLoading()) {                {{ \'dashboard.roleEditor.saving\' | translate }}              } @else {                {{ \'dashboard.roleEditor.save\' | translate }}              }            </button>          </div>        </div>      </div>    }  } @else {    <div class="min-h-screen flex items-center justify-center bg-gray-900">      <div class="text-center">        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>        <p class="text-gray-300">{{ \'dashboard.loading\' | translate }}</p>      </div>    </div>  }</div></div>'
-    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
+        var COMPONENT_TEMPLATE = '<div><div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">  @if(auth.currentUser(); as user) {    <app-navbar [showQR]="true"></app-navbar>    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">                @if(isSuperAdmin()) {          <a             routerLink="/clases"            class="bg-gradient-to-br from-indigo-500 via-indigo-600 to-purple-600 hover:from-indigo-600 hover:via-indigo-700 hover:to-purple-700 dark:from-indigo-700 dark:via-indigo-800 dark:to-purple-800 rounded-xl p-4 sm:p-6 border border-indigo-400 dark:border-indigo-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.classes.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.classes.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.classes.button\' | translate }}            </div>          </a>          <a             routerLink="/centers"            class="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 hover:from-purple-600 hover:via-purple-700 hover:to-pink-700 dark:from-purple-700 dark:via-purple-800 dark:to-pink-800 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.centers.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.centers.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.centers.button\' | translate }}            </div>          </a>          <a             routerLink="/machines"            class="bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 hover:from-orange-600 hover:via-orange-700 hover:to-red-700 dark:from-orange-700 dark:via-orange-800 dark:to-red-800 rounded-xl p-4 sm:p-6 border border-orange-400 dark:border-orange-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.machines.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.machines.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.machines.button\' | translate }}            </div>          </a>          <a             routerLink="/users"            class="bg-gradient-to-br from-blue-500 via-blue-600 to-cyan-600 hover:from-blue-600 hover:via-blue-700 hover:to-cyan-700 dark:from-blue-700 dark:via-blue-800 dark:to-cyan-800 rounded-xl p-4 sm:p-6 border border-blue-400 dark:border-blue-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.users.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.users.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.users.button\' | translate }}            </div>          </a>          <a             routerLink="/qr-scanner"            class="bg-gradient-to-br from-teal-500 via-teal-600 to-cyan-600 hover:from-teal-600 hover:via-teal-700 hover:to-cyan-700 dark:from-teal-700 dark:via-teal-800 dark:to-cyan-800 rounded-xl p-4 sm:p-6 border border-teal-400 dark:border-teal-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5ZM6.75 16.125v3.375m0-3.375h3.375m-3.375 0L9 15m6.75-2.625v3.375m0-3.375h-3.375M15 9.375l3.375 3.375M6.75 19.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'qrScanner.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'qrScanner.instruction3\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'qrScanner.openScanner\' | translate }}            </div>          </a>          <a             routerLink="/workouts"            class="bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 hover:from-blue-600 hover:via-blue-700 hover:to-indigo-700 dark:from-blue-700 dark:via-blue-800 dark:to-indigo-800 rounded-xl p-4 sm:p-6 border border-blue-400 dark:border-blue-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.workouts.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.workouts.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.workouts.button\' | translate }}            </div>          </a>          <a             routerLink="/diets"            class="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 hover:from-purple-600 hover:via-purple-700 hover:to-pink-700 dark:from-purple-700 dark:via-purple-800 dark:to-pink-800 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v4.5H6v-4.5Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.diets.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.diets.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.diets.button\' | translate }}            </div>          </a>          <a             routerLink="/exercises"            class="bg-gradient-to-br from-orange-500 via-orange-600 to-amber-600 hover:from-orange-600 hover:via-orange-700 hover:to-amber-700 dark:from-orange-700 dark:via-orange-800 dark:to-amber-800 rounded-xl p-4 sm:p-6 border border-orange-400 dark:border-orange-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.exercises.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.exercises.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.exercises.button\' | translate }}            </div>          </a>          <a             routerLink="/meals"            class="bg-gradient-to-br from-green-500 via-green-600 to-emerald-600 hover:from-green-600 hover:via-green-700 hover:to-emerald-700 dark:from-green-700 dark:via-green-800 dark:to-emerald-800 rounded-xl p-4 sm:p-6 border border-green-400 dark:border-green-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v4.5H6v-4.5Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.meals.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.meals.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.meals.button\' | translate }}            </div>          </a>          <a             routerLink="/ai-chat"            class="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 dark:from-indigo-600 dark:via-purple-700 dark:to-pink-700 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <span class="text-2xl">🤖</span>              </div>              <h3 class="text-lg sm:text-xl font-bold">MetaCoach AI</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">Chat inteligente para rutinas y dietas</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              Chatear            </div>          </a>                  }        @if(isAdminCenter()) {          <a             routerLink="/centers"            class="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 hover:from-purple-600 hover:via-purple-700 hover:to-pink-700 dark:from-purple-700 dark:via-purple-800 dark:to-pink-800 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.myCenter.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.myCenter.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.myCenter.button\' | translate }}            </div>          </a>          <a             routerLink="/machines"            class="bg-gradient-to-br from-orange-500 via-orange-600 to-red-600 hover:from-orange-600 hover:via-orange-700 hover:to-red-700 dark:from-orange-700 dark:via-orange-800 dark:to-red-800 rounded-xl p-4 sm:p-6 border border-orange-400 dark:border-orange-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 0 1-2.247 2.118H6.622a2.25 2.25 0 0 1-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.machines.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.machines.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.machines.button\' | translate }}            </div>          </a>          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-all shadow-md hover:shadow-lg">            <div class="flex items-center gap-3 mb-4">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-blue-600 dark:text-blue-400">                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{{ \'dashboard.cards.employees.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">{{ \'dashboard.cards.employees.description\' | translate }}</p>            <a routerLink="/users" class="block w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium text-center">              {{ \'dashboard.cards.employees.button\' | translate }}            </a>          </div>          <div class="bg-white dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700 hover:border-cyan-500/50 transition-all shadow-md hover:shadow-lg">            <div class="flex items-center gap-3 mb-4">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-green-600 dark:text-green-400">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{{ \'dashboard.cards.statistics.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4">{{ \'dashboard.cards.statistics.description\' | translate }}</p>            <button class="w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors text-sm font-medium">              {{ \'dashboard.cards.statistics.button\' | translate }}            </button>          </div>          <a             routerLink="/qr-scanner"            class="bg-gradient-to-br from-teal-500 via-teal-600 to-cyan-600 hover:from-teal-600 hover:via-teal-700 hover:to-cyan-700 dark:from-teal-700 dark:via-teal-800 dark:to-cyan-800 rounded-xl p-4 sm:p-6 border border-teal-400 dark:border-teal-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5ZM6.75 16.125v3.375m0-3.375h3.375m-3.375 0L9 15m6.75-2.625v3.375m0-3.375h-3.375M15 9.375l3.375 3.375M6.75 19.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'qrScanner.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'qrScanner.instruction3\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'qrScanner.openScanner\' | translate }}            </div>          </a>          <a             routerLink="/workouts"            class="bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-600 hover:from-blue-600 hover:via-blue-700 hover:to-indigo-700 dark:from-blue-700 dark:via-blue-800 dark:to-indigo-800 rounded-xl p-4 sm:p-6 border border-blue-400 dark:border-blue-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.workouts.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.workouts.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.workouts.button\' | translate }}            </div>          </a>          <a             routerLink="/diets"            class="bg-gradient-to-br from-purple-500 via-purple-600 to-pink-600 hover:from-purple-600 hover:via-purple-700 hover:to-pink-700 dark:from-purple-700 dark:via-purple-800 dark:to-pink-800 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v4.5H6v-4.5Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.diets.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.diets.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.diets.button\' | translate }}            </div>          </a>          <a             routerLink="/exercises"            class="bg-gradient-to-br from-orange-500 via-orange-600 to-amber-600 hover:from-orange-600 hover:via-orange-700 hover:to-amber-700 dark:from-orange-700 dark:via-orange-800 dark:to-amber-800 rounded-xl p-4 sm:p-6 border border-orange-400 dark:border-orange-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.exercises.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.exercises.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.exercises.button\' | translate }}            </div>          </a>          <a             routerLink="/meals"            class="bg-gradient-to-br from-green-500 via-green-600 to-emerald-600 hover:from-green-600 hover:via-green-700 hover:to-emerald-700 dark:from-green-700 dark:via-green-800 dark:to-emerald-800 rounded-xl p-4 sm:p-6 border border-green-400 dark:border-green-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v4.5H6v-4.5Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.meals.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.meals.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.meals.button\' | translate }}            </div>          </a>          <a             routerLink="/ai-chat"            class="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 dark:from-indigo-600 dark:via-purple-700 dark:to-pink-700 rounded-xl p-4 sm:p-6 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <span class="text-2xl">🤖</span>              </div>              <h3 class="text-lg sm:text-xl font-bold">MetaCoach AI</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">Chat inteligente para rutinas y dietas</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              Chatear            </div>          </a>        }        <!-- Membresías - Solo visible para administradores y entrenadores -->        @if(isSuperAdmin() || isAdminCenter() || currentUser()?.role === \'TRAINER\') {          <a             routerLink="/memberships"            class="bg-gradient-to-br from-pink-500 via-pink-600 to-purple-600 hover:from-pink-600 hover:via-pink-700 hover:to-purple-700 dark:from-pink-700 dark:via-pink-800 dark:to-purple-800 rounded-xl p-4 sm:p-6 border border-pink-400 dark:border-pink-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] text-white">            <div class="flex items-center gap-3 mb-3">              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg flex items-center justify-center flex-shrink-0">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 sm:w-7 sm:h-7 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />                </svg>              </div>              <h3 class="text-lg sm:text-xl font-bold">{{ \'dashboard.cards.memberships.title\' | translate }}</h3>            </div>            <p class="text-sm sm:text-base text-white/90 mb-4">{{ \'dashboard.cards.memberships.description\' | translate }}</p>            <div class="text-sm font-medium text-center bg-white/20 hover:bg-white/30 rounded-lg py-2 px-4 transition-colors">              {{ \'dashboard.cards.memberships.button\' | translate }}            </div>          </a>        }        @if(!isSuperAdmin() && !isAdminCenter()) {          <div class="col-span-full flex flex-col items-center">            <div class="relative mb-6 sm:mb-8 group">              <img                 [src]="getProfileImageUrl(user.profileImageUrl)"                 [alt]="user.name"                (click)="triggerProfileImageUpload()"                class="w-40 h-40 sm:w-48 sm:h-48 lg:w-56 lg:h-56 rounded-full object-cover border-4 border-cyan-500 dark:border-blue-600 shadow-2xl cursor-pointer transition-all hover:scale-105 hover:border-cyan-600 dark:hover:border-blue-500"              >              <div class="absolute inset-0 flex items-center justify-center bg-black/40 dark:bg-black/60 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" (click)="triggerProfileImageUpload()">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12 sm:w-14 sm:h-14 text-white">                  <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175a2.31 2.31 0 0 1 1.673-.675 2.31 2.31 0 0 1 2.325 2.325 2.31 2.31 0 0 1 1.673.675 2.31 2.31 0 0 1 1.673 1.673c.161.638.876.638 1.037 0a2.31 2.31 0 0 1 1.673-1.673 2.31 2.31 0 0 1 1.673-.675 2.31 2.31 0 0 1 2.325 2.325 2.31 2.31 0 0 1-.675 1.673 2.31 2.31 0 0 1-1.673 1.673c-.638.161-.638.876 0 1.037a2.31 2.31 0 0 1 1.673 1.673 2.31 2.31 0 0 1 .675 1.673 2.31 2.31 0 0 1-2.325 2.325 2.31 2.31 0 0 1-1.673.675 2.31 2.31 0 0 1-1.673 1.673c-.161.638-.876.638-1.037 0a2.31 2.31 0 0 1-1.673-1.673 2.31 2.31 0 0 1-1.673-.675 2.31 2.31 0 0 1-2.325-2.325 2.31 2.31 0 0 1 .675-1.673 2.31 2.31 0 0 1 1.673-1.673c.638-.161.638-.876 0-1.037a2.31 2.31 0 0 1-1.673-1.673 2.31 2.31 0 0 1-.675-1.673 2.31 2.31 0 0 1 2.325-2.325ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />                </svg>              </div>            </div>            <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-8 sm:mb-10 text-center px-4">              {{ user.name }}            </h2>            <div class="w-full max-w-4xl mb-6 sm:mb-8">              <a                 routerLink="/qr"                class="block bg-gradient-to-br from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 dark:from-cyan-700 dark:to-cyan-800 rounded-xl p-6 sm:p-8 lg:p-10 border border-cyan-400 dark:border-cyan-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02] flex flex-col items-center justify-center text-white">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mb-4">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5ZM6.75 16.125v3.375m0-3.375h3.375m-3.375 0L9 15m6.75-2.625v3.375m0-3.375h-3.375M15 9.375l3.375 3.375M6.75 19.5h10.5a2.25 2.25 0 0 0 2.25-2.25V6.75a2.25 2.25 0 0 0-2.25-2.25H6.75A2.25 2.25 0 0 0 4.5 6.75v10.5a2.25 2.25 0 0 0 2.25 2.25Z" />                </svg>                <span class="text-2xl sm:text-3xl lg:text-4xl font-bold text-center">{{ \'dashboard.cards.myQR.button\' | translate }}</span>              </a>            </div>            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full max-w-4xl">              <a                 routerLink="/diets"                class="bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 dark:from-purple-700 dark:to-purple-800 rounded-xl p-6 sm:p-8 border border-purple-400 dark:border-purple-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex flex-col items-center justify-center text-white cursor-pointer">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 sm:w-12 sm:h-12 mb-3">                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 0 1-2.25 2.25M16.5 7.5V18a2.25 2.25 0 0 0 2.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 0 0 2.25 2.25h13.5M6 7.5h3v4.5H6v-4.5Z" />                </svg>                <span class="text-lg sm:text-xl font-bold text-center">{{ \'dashboard.cards.myDiets.title\' | translate }}</span>              </a>              <a                 routerLink="/workouts"                class="bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 dark:from-blue-700 dark:to-blue-800 rounded-xl p-6 sm:p-8 border border-blue-400 dark:border-blue-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex flex-col items-center justify-center text-white cursor-pointer">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 sm:w-12 sm:h-12 mb-3">                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />                </svg>                <span class="text-lg sm:text-xl font-bold text-center">{{ \'dashboard.cards.myWorkouts.title\' | translate }}</span>              </a>              <a                 class="bg-gradient-to-br from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 dark:from-green-700 dark:to-green-800 rounded-xl p-6 sm:p-8 border border-green-400 dark:border-green-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex flex-col items-center justify-center text-white cursor-pointer">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 sm:w-12 sm:h-12 mb-3">                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />                </svg>                <span class="text-lg sm:text-xl font-bold text-center">{{ \'dashboard.cards.myStatistics.title\' | translate }}</span>              </a>              <a                 routerLink="/ai-chat"                class="bg-gradient-to-br from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 dark:from-indigo-700 dark:to-purple-800 rounded-xl p-6 sm:p-8 border border-indigo-400 dark:border-indigo-600 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 flex flex-col items-center justify-center text-white cursor-pointer w-full h-full relative overflow-hidden group">                                <!-- Glow effect background -->                <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>                <div class="relative w-12 h-12 sm:w-14 sm:h-14 mb-4 flex items-center justify-center rounded-2xl bg-white/20 shadow-inner group-hover:scale-110 transition-transform duration-300 ease-in-out border border-white/30 backdrop-blur-sm">                  <span class="text-3xl sm:text-4xl filter drop-shadow-md">🤖</span>                </div>                                <h3 class="text-xl sm:text-2xl font-black text-center tracking-wide mb-1 flex items-center justify-center gap-2">                  <span class="text-indigo-200 group-hover:text-white transition-colors">META</span>                  <span class="bg-white text-indigo-800 px-2 py-0.5 rounded text-sm sm:text-base leading-none shadow-sm font-extrabold items-center flex">AI</span>                </h3>                                <p class="text-xs sm:text-sm text-indigo-100 text-center font-medium opacity-80 group-hover:opacity-100 transition-opacity mt-1">                  Tu entrenador personal inteligente                </p>                                <!-- Action indicator badge -->                <div class="mt-4 bg-white/10 px-4 py-1.5 rounded-full border border-white/20 text-xs font-semibold backdrop-blur-md group-hover:bg-white group-hover:text-indigo-700 transition-colors flex items-center gap-1.5 shadow-sm">                  <span>Chatear Ahora</span>                  <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />                  </svg>                </div>              </a>            </div>          </div>        }        <!-- Perfil Físico (Solo para Usuarios) -->        @if(!isSuperAdmin() && !isAdminCenter()) {          <div class="col-span-full mt-4 bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700 shadow-lg transition-all animate-fadeIn">            <div class="flex items-center gap-3 mb-6">              <div class="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600 dark:text-blue-400">                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75c-2.213 0-4.218.956-5.582 2.475M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />                </svg>              </div>              <h3 class="text-xl font-bold text-gray-900 dark:text-white">Mi Perfil Físico</h3>            </div>            <form (ngSubmit)="updatePhysicalData()" class="space-y-6">              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">                <!-- Altura y Peso -->                <div class="space-y-4">                  <div class="grid grid-cols-2 gap-4">                    <div>                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Altura (cm)</label>                      <input type="number" [(ngModel)]="physicalDataForm().height" name="height" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all">                    </div>                    <div>                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Peso (kg)</label>                      <input type="number" [(ngModel)]="physicalDataForm().currentWeight" name="weight" step="0.1" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all">                    </div>                  </div>                  <div>                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Género</label>                    <select [(ngModel)]="physicalDataForm().gender" name="gender" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all">                      <option value="">No especificado</option>                      <option value="male">Masculino</option>                      <option value="female">Femenino</option>                      <option value="other">Otro</option>                    </select>                  </div>                  <div>                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fecha de Nacimiento</label>                    <input type="date" [(ngModel)]="physicalDataForm().birthDate" name="birthDate" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all">                  </div>                  <div class="grid grid-cols-2 gap-4">                    <div>                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Nivel de Actividad</label>                      <select [(ngModel)]="physicalDataForm().activityLevel" name="activityLevel" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all">                        <option value="">No especificado</option>                        <option value="sedentary">Sedentario</option>                        <option value="light">Ligero</option>                        <option value="moderate">Moderado</option>                        <option value="active">Activo</option>                        <option value="very_active">Muy Activo</option>                      </select>                    </div>                    <div>                      <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Objetivo</label>                      <select [(ngModel)]="physicalDataForm().goal" name="goal" class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all">                        <option value="">No especificado</option>                        <option value="lose_weight">Perder peso</option>                        <option value="maintain_weight">Mantener peso</option>                        <option value="gain_muscle">Ganar músculo</option>                        <option value="improve_fitness">Mejorar fitness</option>                      </select>                    </div>                  </div>                </div>                <!-- Notas Médicas -->                <div>                  <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Notas Médicas / Enfermedades / Otros</label>                  <textarea                     [(ngModel)]="physicalDataForm().medicalNotes"                     name="medicalNotes"                     rows="6"                     placeholder="Ej: Lesión en rodilla izquierda, asma, etc."                    class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all resize-none"                  ></textarea>                </div>              </div>              <div class="flex justify-end pt-4">                <button                   type="submit"                   [disabled]="isLoading()"                  class="px-8 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transition-all transform active:scale-95 disabled:opacity-50 flex items-center gap-3"                >                  @if(isLoading()) {                    <div class="w-5 h-5 border-3 border-white/30 border-t-white rounded-full animate-spin"></div>                    Guardando...                  } @else {                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">                      <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />                    </svg>                    Guardar Perfil Físico                  }                </button>              </div>            </form>          </div>        }      </div>      @if(isSuperAdmin() || isAdminCenter()) {      <div class="mt-6 sm:mt-8 bg-blue-50 dark:bg-gray-800 rounded-xl p-4 sm:p-6 border border-blue-200 dark:border-gray-700">        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-3">          <h3 class="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">{{ \'dashboard.userInfo.title\' | translate }}</h3>          <app-profile-image-manager></app-profile-image-manager>        </div>        <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 mb-4 sm:mb-6">          <div class="relative">            <img               [src]="getProfileImageUrl(user.profileImageUrl)"               [alt]="user.name"              class="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-blue-300 dark:border-blue-600 shadow-lg">          </div>          <div class="text-center sm:text-left">            <h4 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">{{ user.name }}</h4>            <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 break-all sm:break-normal">{{ user.email }}</p>          </div>        </div>        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">          <div>            <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ \'dashboard.userInfo.name\' | translate }}</p>            <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold break-words">{{ user.name }}</p>          </div>          <div>            <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ \'dashboard.userInfo.email\' | translate }}</p>            <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold break-all">{{ user.email }}</p>          </div>          <div>            <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ \'dashboard.userInfo.role\' | translate }}</p>            <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold">{{ roleName() }}</p>          </div>          @if(user.center) {            <div>              <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ \'dashboard.userInfo.center\' | translate }}</p>              <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold break-words">{{ user.center.name }}</p>            </div>          }          @if(user.createdAt) {            <div>              <p class="text-gray-600 dark:text-gray-400 text-xs sm:text-sm mb-1">{{ \'dashboard.userInfo.registrationDate\' | translate }}</p>              <p class="text-sm sm:text-base text-gray-900 dark:text-white font-semibold">{{ user.createdAt | date:\'dd/MM/yyyy\' }}</p>            </div>          }        </div>      </div>      }    </main>    @if(showRoleEditor()) {      <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">        <div class="bg-gray-800 rounded-xl p-6 max-w-md w-full border border-gray-700">          <h3 class="text-2xl font-bold text-white mb-4">{{ \'dashboard.roleEditor.title\' | translate }}</h3>                    <div class="mb-4">            <label class="block text-gray-300 text-sm font-medium mb-2">{{ \'dashboard.roleEditor.selectRole\' | translate }}</label>            <select               [ngModel]="selectedRole()"              (ngModelChange)="selectedRole.set($event)"              class="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-cyan-500">              @for(role of roles; track role) {                <option [value]="role">{{ \'dashboard.roles.\' + role | translate }}</option>              }            </select>          </div>          @if(errorMessage()) {            <div class="mb-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400 text-sm">              {{ errorMessage() }}            </div>          }          <div class="flex gap-3">            <button               (click)="closeRoleEditor()"              [disabled]="isLoading()"              class="flex-1 px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors disabled:opacity-50">              {{ \'dashboard.roleEditor.cancel\' | translate }}            </button>            <button               (click)="updateRole()"              [disabled]="isLoading() || selectedRole() === user.role"              class="flex-1 px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg transition-colors disabled:opacity-50">              @if(isLoading()) {                {{ \'dashboard.roleEditor.saving\' | translate }}              } @else {                {{ \'dashboard.roleEditor.save\' | translate }}              }            </button>          </div>        </div>      </div>    }  } @else {    <div class="min-h-screen flex items-center justify-center bg-gray-900">      <div class="text-center">        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mx-auto mb-4"></div>        <p class="text-gray-300">{{ \'dashboard.loading\' | translate }}</p>      </div>    </div>  }</div></div>'
+    var COMPONENTS = [{'name': 'AiChatComponent', 'selector': 'app-ai-chat'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CentersComponent', 'selector': 'app-centers'},{'name': 'ClasesComponent', 'selector': 'app-clases'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DashboardComponent', 'selector': 'app-dashboard'},{'name': 'DietsComponent', 'selector': 'app-diets'},{'name': 'ErrorToastComponent', 'selector': 'app-error-toast'},{'name': 'ExercisesComponent', 'selector': 'app-exercises'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LanguageSelectorComponent', 'selector': 'app-language-selector'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MachinesComponent', 'selector': 'app-machines'},{'name': 'MealsComponent', 'selector': 'app-meals'},{'name': 'MembershipsComponent', 'selector': 'app-memberships'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'NavbarComponent2', 'selector': 'app-navbar2'},{'name': 'ProfileImageManagerComponent', 'selector': 'app-profile-image-manager'},{'name': 'QrComponent', 'selector': 'app-qr'},{'name': 'QrScannerComponent', 'selector': 'app-qr-scanner'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'TemplatePlaygroundComponent', 'selector': 'template-playground-root'},{'name': 'ThemeToggleComponent', 'selector': 'app-theme-toggle'},{'name': 'TicketsComponent', 'selector': 'app-tickets'},{'name': 'TrainersComponent', 'selector': 'app-trainers'},{'name': 'UsersComponent', 'selector': 'app-users'},{'name': 'WorkoutsComponent', 'selector': 'app-workouts'}];
     var DIRECTIVES = [{'name': 'ClickOutsideDirective', 'selector': '[appClickOutside]'}];
     var ACTUAL_COMPONENT = {'name': 'DashboardComponent'};
 </script>

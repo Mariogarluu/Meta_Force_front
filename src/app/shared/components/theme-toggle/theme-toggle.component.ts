@@ -4,9 +4,9 @@ import { ThemeService } from '../../../core/services/theme.service';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
 /**
- * Componente que permite alternar entre modo claro y oscuro.
- * Muestra un botón con icono que cambia según el tema actual
- * y proporciona etiquetas accesibles traducidas.
+ * Component that allows toggling between light and dark modes.
+ * Displays a clickable button with an icon that reflects the current theme
+ * and provides translated accessible labels for screen readers.
  */
 @Component({
   selector: 'app-theme-toggle',
@@ -16,15 +16,19 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   styleUrl: './theme-toggle.component.scss'
 })
 export class ThemeToggleComponent {
+  /** Injected ThemeService for managing the application's appearance state */
   themeService = inject(ThemeService);
+  /** Injected TranslateService for UI multi-language support */
   translate = inject(TranslateService);
 
+  /** Signal exposing the current theme name ('light' or 'dark') */
   theme = this.themeService.theme;
+  /** Signal exposing a boolean flag for dark mode status */
   isDark = this.themeService.isDark;
   
   /**
-   * Computed signal que genera la etiqueta aria-label traducida
-   * según el tema actual para accesibilidad.
+   * Computed signal that generates a translated aria-label
+   * based on the current theme for accessibility.
    */
   ariaLabel = computed(() => 
     this.isDark() 
@@ -33,7 +37,7 @@ export class ThemeToggleComponent {
   );
   
   /**
-   * Computed signal que genera el título traducido del tema actual.
+   * Computed signal that generates the translated title of the current theme.
    */
   title = computed(() => 
     this.isDark() 
@@ -42,7 +46,7 @@ export class ThemeToggleComponent {
   );
 
   /**
-   * Alterna entre modo claro y oscuro llamando al servicio de tema.
+   * Toggles between light and dark modes by delegating to the ThemeService.
    */
   toggleTheme() {
     this.themeService.toggleTheme();
