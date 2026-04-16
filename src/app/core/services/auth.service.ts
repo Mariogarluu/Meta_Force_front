@@ -10,6 +10,15 @@ import { environment } from '../../../environments/environment';
  * Service handling authentication, session management, and user profile data.
  * Manages the current user state via Angular signals and handles both cookie-based and token-based (legacy) authentication.
  */
+/**
+ * =============================================================================
+ * SERVICIO DE AUTENTICACIÓN (AUTH SERVICE)
+ * =============================================================================
+ * Gestiona el ciclo de vida de la sesión del usuario en el cliente.
+ * Se encarga de la comunicación con la API de Auth, el almacenamiento seguro
+ * del token JWT en localStorage y la gestión del estado global del usuario
+ * mediante Angular Signals.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -34,8 +43,10 @@ export class AuthService {
    * Initializes the service and attempts to load the user profile if a session exists.
    */
   constructor() {
-    // Siempre intentar cargar perfil: puede haber sesión por cookie (HttpOnly)
-    // o token legacy en localStorage. Si falla (401), loadUserProfile maneja el error.
+    // BOOTSTRAP DE SESIÓN:
+    // Al instanciar el servicio, intentamos cargar el perfil del usuario.
+    // Esto permite recuperar la sesión automáticamente si existe un token
+    // válido en localStorage o cookies HttpOnly.
     this.loadUserProfile();
   }
 
@@ -80,6 +91,8 @@ export class AuthService {
    * @returns Observable emitting the authentication response
    */
   login(credentials: AuthInput): Observable<AuthResponse> {
+    // Envío de credenciales al backend
+    // En caso de éxito, se establece la sesión persistente
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
       tap(response => this.setSession(response)),
       catchError(this.handleError)
