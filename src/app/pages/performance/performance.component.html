@@ -1,3 +1,10 @@
+<!-- 
+  =============================================================================
+  PLANTILLA DE RENDIMIENTO (PERFORMANCE)
+  =============================================================================
+  Esta plantilla gestiona la visualización de gráficas y formularios para el
+  seguimiento del peso corporal y los récords de ejercicios del usuario.
+-->
 <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
   <app-navbar></app-navbar>
 
@@ -56,7 +63,10 @@
     <!-- Contenido: Peso Corporal -->
     <div *ngIf="activeTab === 'body-weight'" class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 animate-fade-in">
       
-      <!-- Formulario Agregar Peso -->
+      <!-- 
+        COLUMNA IZQUIERDA: FORMULARIO DE ENTRADA
+        Permite al usuario registrar su peso corporal diario.
+      -->
       <div class="col-span-1 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-lg h-fit">
         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
           <svg class="w-6 h-6 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -85,7 +95,10 @@
         </form>
       </div>
 
-      <!-- Gráfica Peso Corporal -->
+      <!-- 
+        COLUMNA DERECHA: GRÁFICA DE EVOLUCIÓN
+        Visualización lineal del progreso temporal del peso.
+      -->
       <div class="col-span-1 lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-lg">
         <div class="flex justify-between items-center mb-6">
           <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'performance.weight.evolution' | translate }}</h3>
@@ -124,7 +137,10 @@
     <!-- Contenido: Ejercicios -->
     <div *ngIf="activeTab === 'exercises'" class="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 animate-fade-in">
       
-      <!-- Formulario Agregar Récord -->
+      <!-- 
+        COLUMNA IZQUIERDA: REGISTRO DE RÉCORDS
+        Formulario para introducir levantamientos máximos por ejercicio.
+      -->
       <div class="col-span-1 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-lg h-fit">
         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
           <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
@@ -168,7 +184,10 @@
         </form>
       </div>
 
-      <!-- Gráfica Ejercicios -->
+      <!-- 
+        COLUMNA DERECHA: GRÁFICA DE RÉCORDS
+        Seguimiento del progreso de fuerza filtrado por ejercicio.
+      -->
       <div class="col-span-1 lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-lg">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'performance.exercises.progress' | translate }}</h3>
