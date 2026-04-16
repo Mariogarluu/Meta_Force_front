@@ -68,7 +68,8 @@
     "memberships": "Membresías",
     "centers": "Centros",
     "login": "Iniciar sesión",
-    "register": "Registrarse"
+    "register": "Registrarse",
+    "performance": "Rendimiento"
   },
   "classes": {
     "title": "Clases de gimnasio",
@@ -624,6 +625,41 @@
       "update": "Error al actualizar el plan de membresía",
       "delete": "Error al eliminar el plan de membresía",
       "validation": "Por favor completa todos los campos requeridos correctamente"
+    }
+  },
+  "performance": {
+    "title": "Rendimiento",
+    "subtitle": "Supervisa tu evolución y rompe tus propios récords.",
+    "tabs": {
+      "weight": "Peso Corporal",
+      "exerciseRecords": "Récords de Ejercicios"
+    },
+    "weight": {
+      "addTitle": "Añadir Registro",
+      "evolution": "Evolución de Peso",
+      "history": "Historial de Registros",
+      "label": "Peso (kg)",
+      "date": "Fecha",
+      "notes": "Notas (Opcional)",
+      "notesPlaceholder": "Ej: Ayunas, post-entreno...",
+      "save": "Guardar Peso",
+      "empty": "No hay registros disponibles",
+      "firstRecord": "Añade tu primer registro para ver la gráfica"
+    },
+    "exercises": {
+      "newRecord": "Nuevo Récord",
+      "progress": "Progreso en Ejercicios",
+      "history": "Historial de Récords",
+      "exercise": "Ejercicio",
+      "selectExercise": "Selecciona un ejercicio...",
+      "weight": "Peso (kg)",
+      "reps": "Repeticiones",
+      "date": "Fecha",
+      "notes": "Notas (Opcional)",
+      "notesPlaceholder": "Ej: Me sentí fuerte...",
+      "save": "Guardar Récord",
+      "selectForChart": "Selecciona un ejercicio para ver el progreso o añade tu primer récord.",
+      "selectExerciseDropdown": "Selecciona ejercicio"
     }
   }
 }

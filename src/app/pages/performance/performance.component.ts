@@ -5,6 +5,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { PerformanceService, BodyWeightRecord, ExerciseRecord, Exercise } from './performance.service';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 /**
  * Component for tracking and visualizing user performance metrics.
@@ -14,7 +15,7 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
 @Component({
   selector: 'app-performance',
   standalone: true,
-  imports: [CommonModule, FormsModule, BaseChartDirective, NavbarComponent],
+  imports: [CommonModule, FormsModule, BaseChartDirective, NavbarComponent, TranslateModule],
   templateUrl: './performance.component.html',
   styleUrls: ['./performance.component.scss']
 })

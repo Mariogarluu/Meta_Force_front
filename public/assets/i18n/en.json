@@ -68,7 +68,8 @@
     "memberships": "Memberships",
     "centers": "Locations",
     "login": "Log In",
-    "register": "Sign Up"
+    "register": "Sign Up",
+    "performance": "Performance"
   },
   "classes": {
     "title": "Group Classes",
@@ -624,6 +625,41 @@
       "update": "Failed to update the membership plan",
       "delete": "Failed to delete the membership plan",
       "validation": "Please complete all required fields properly"
+    }
+  },
+  "performance": {
+    "title": "Performance",
+    "subtitle": "Track your progress and break your own records.",
+    "tabs": {
+      "weight": "Body Weight",
+      "exerciseRecords": "Exercise Records"
+    },
+    "weight": {
+      "addTitle": "Add Record",
+      "evolution": "Weight Evolution",
+      "history": "Record History",
+      "label": "Weight (kg)",
+      "date": "Date",
+      "notes": "Notes (Optional)",
+      "notesPlaceholder": "e.g., Fasting, post-workout...",
+      "save": "Save Weight",
+      "empty": "No records available",
+      "firstRecord": "Add your first record to see the chart"
+    },
+    "exercises": {
+      "newRecord": "New Record",
+      "progress": "Exercise Progress",
+      "history": "Record History",
+      "exercise": "Exercise",
+      "selectExercise": "Select an exercise...",
+      "weight": "Weight (kg)",
+      "reps": "Repetitions",
+      "date": "Date",
+      "notes": "Notes (Optional)",
+      "notesPlaceholder": "e.g., Felt strong...",
+      "save": "Save Record",
+      "selectForChart": "Select an exercise to see progress or add your first record.",
+      "selectExerciseDropdown": "Select exercise"
     }
   }
 }
