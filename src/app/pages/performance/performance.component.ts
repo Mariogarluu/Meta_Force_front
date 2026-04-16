@@ -33,9 +33,9 @@ export class PerformanceComponent implements OnInit {
   exercises: Exercise[] = [];
   
   /** Form model for adding a new body weight entry */
-  newBodyWeight = { weight: 0, date: '', notes: '' };
+  newBodyWeight = { weight: 0, date: new Date().toISOString().split('T')[0], notes: '' };
   /** Form model for adding a new exercise performance record */
-  newExerciseRecord = { exerciseId: '', weight: 0, reps: 0, date: '', notes: '' };
+  newExerciseRecord = { exerciseId: '', weight: 0, reps: 0, date: new Date().toISOString().split('T')[0], notes: '' };
 
   /** Visual and behavioral common options for all charts */
   private commonChartOptions: ChartConfiguration['options'] = {
