@@ -13,9 +13,14 @@ import { ClickOutsideDirective } from '../../directives/click-outside.directive'
 const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
 
 /**
- * Global navigation bar component.
- * Provides access to main system modules, user profile settings,
- * real-time notifications, and session management.
+ * =============================================================================
+ * COMPONENTE NAVBAR GLOBAL (BARRA DE NAVEGACIÓN)
+ * =============================================================================
+ * Este componente proporciona la navegación principal, gestión de sesión,
+ * notificaciones en tiempo real y selectores de idioma/tema.
+ * 
+ * Es un componente Standalone que utiliza Signals para una gestión eficiente
+ * de la interfaz móvil y los desplegables.
  */
 @Component({
   selector: 'app-navbar',
@@ -38,6 +43,10 @@ export class NavbarComponent {
   /** 
    * List of main navigation links for the menu.
    * Each entry contains a label, a router path, a translation key, and an exact match flag.
+   */
+  /** 
+   * Enlaces de navegación configurados por defecto.
+   * Centraliza los paths y las claves de traducción para el menú.
    */
   readonly navLinks = [
     { label: 'Inicio', path: '/', key: 'nav.home', exact: true },
@@ -69,11 +78,15 @@ export class NavbarComponent {
   }
 
   /**
-   * Terminates the user session and redirects to the login page.
+   * Finaliza la sesión del usuario.
+   * Se comunica con el AuthService para limpiar tokens y redirige al login.
    */
   logout(): void {
+    // Cerramos sesión lógicamente
     this.auth.logout();
+    // Navegamos al punto de entrada
     this.router.navigate(['/login']);
+    // Aseguramos que el menú móvil se cierre
     this.closeMobileMenu();
   }
 
