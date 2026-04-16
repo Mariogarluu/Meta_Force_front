@@ -25,14 +25,14 @@ export class PerformanceComponent implements OnInit {
 
   /** Currently selected tab in the UI */
   activeTab: 'body-weight' | 'exercises' = 'body-weight';
-  
+
   /** List of body weight records fetched from the backend */
   bodyWeights: BodyWeightRecord[] = [];
   /** List of individual exercise logs/performances */
   exerciseRecords: ExerciseRecord[] = [];
   /** List of available exercises for selection */
   exercises: Exercise[] = [];
-  
+
   /** Form model for adding a new body weight entry */
   newBodyWeight = { weight: 0, date: new Date().toISOString().split('T')[0], notes: '' };
   /** Form model for adding a new exercise performance record */
@@ -43,14 +43,14 @@ export class PerformanceComponent implements OnInit {
     responsive: true,
     maintainAspectRatio: false,
     scales: {
-      y: { 
-        beginAtZero: false, 
-        grid: { color: 'rgba(156, 163, 175, 0.2)' }, 
-        ticks: { color: '#9ca3af' } 
+      y: {
+        beginAtZero: false,
+        grid: { color: 'rgba(156, 163, 175, 0.2)' },
+        ticks: { color: '#9ca3af' }
       },
-      x: { 
-        grid: { color: 'rgba(156, 163, 175, 0.2)' }, 
-        ticks: { color: '#9ca3af' } 
+      x: {
+        grid: { color: 'rgba(156, 163, 175, 0.2)' },
+        ticks: { color: '#9ca3af' }
       }
     },
     plugins: {
@@ -120,7 +120,7 @@ export class PerformanceComponent implements OnInit {
     this.performanceService.getExerciseRecords().subscribe({
       next: (data) => {
         this.exerciseRecords = data;
-        if(this.exercises.length > 0 && !this.selectedExerciseChartId) {
+        if (this.exercises.length > 0 && !this.selectedExerciseChartId) {
           this.selectedExerciseChartId = this.exercises[0].id;
         }
         this.updateExerciseChart();
@@ -134,12 +134,12 @@ export class PerformanceComponent implements OnInit {
    */
   addBodyWeight() {
     if (this.newBodyWeight.weight <= 0 || !this.newBodyWeight.date) return;
-    
+
     const payload: { weight: number; date: string; notes?: string } = {
       weight: Number(this.newBodyWeight.weight),
       date: new Date(this.newBodyWeight.date).toISOString()
     };
-    
+
     if (this.newBodyWeight.notes) {
       payload.notes = this.newBodyWeight.notes;
     }
@@ -169,14 +169,14 @@ export class PerformanceComponent implements OnInit {
    */
   addExerciseRecord() {
     if (!this.newExerciseRecord.exerciseId || this.newExerciseRecord.weight <= 0 || this.newExerciseRecord.reps <= 0 || !this.newExerciseRecord.date) return;
-    
+
     const payload: { exerciseId: string; weight: number; reps: number; date: string; notes?: string } = {
       exerciseId: this.newExerciseRecord.exerciseId,
       weight: Number(this.newExerciseRecord.weight),
       reps: Number(this.newExerciseRecord.reps),
       date: new Date(this.newExerciseRecord.date).toISOString()
     };
-    
+
     if (this.newExerciseRecord.notes) {
       payload.notes = this.newExerciseRecord.notes;
     }
@@ -207,7 +207,7 @@ export class PerformanceComponent implements OnInit {
    */
   updateWeightChart() {
     // Sort array by date so the chart draws properly (if not sorted)
-    const sorted = [...this.bodyWeights].sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    const sorted = [...this.bodyWeights].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     const dates = sorted.map(w => new Date(w.date).toLocaleDateString());
     const weights = sorted.map(w => w.weight);
     this.weightChartData = {
@@ -221,11 +221,11 @@ export class PerformanceComponent implements OnInit {
    */
   updateExerciseChart() {
     if (!this.selectedExerciseChartId) return;
-    const records = this.filteredExerciseRecords.sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    const records = this.filteredExerciseRecords.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     const dates = records.map(r => new Date(r.date).toLocaleDateString());
     const weights = records.map(r => r.weight);
     const exName = this.exercises.find(e => e.id === this.selectedExerciseChartId)?.name || 'Ejercicio';
-    
+
     this.exerciseChartData = {
       labels: dates,
       datasets: [{ data: weights, label: `Peso Max - ${exName} (kg)`, borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.2)', fill: true, tension: 0.3 }]
