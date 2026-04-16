@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BaseChartDirective } from 'ng2-charts';
 import { PerformanceService, BodyWeightRecord, ExerciseRecord, Exercise } from './performance.service';
 import { ChartConfiguration, ChartType } from 'chart.js';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
 /**
  * Component for tracking and visualizing user performance metrics.
@@ -13,7 +14,7 @@ import { ChartConfiguration, ChartType } from 'chart.js';
 @Component({
   selector: 'app-performance',
   standalone: true,
-  imports: [CommonModule, FormsModule, BaseChartDirective],
+  imports: [CommonModule, FormsModule, BaseChartDirective, NavbarComponent],
   templateUrl: './performance.component.html',
   styleUrls: ['./performance.component.scss']
 })
@@ -36,22 +37,33 @@ export class PerformanceComponent implements OnInit {
   /** Form model for adding a new exercise performance record */
   newExerciseRecord = { exerciseId: '', weight: 0, reps: 0, date: '', notes: '' };
 
+  /** Visual and behavioral common options for all charts */
+  private commonChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: { 
+        beginAtZero: false, 
+        grid: { color: 'rgba(156, 163, 175, 0.2)' }, 
+        ticks: { color: '#9ca3af' } 
+      },
+      x: { 
+        grid: { color: 'rgba(156, 163, 175, 0.2)' }, 
+        ticks: { color: '#9ca3af' } 
+      }
+    },
+    plugins: {
+      legend: { labels: { color: '#9ca3af' } }
+    }
+  };
   /** Configuration for the body weight history line chart */
   public weightChartData: ChartConfiguration['data'] = {
-    datasets: [{ data: [], label: 'Peso Corporal (kg)', borderColor: '#06b6d4', fill: false, tension: 0.1 }],
+    datasets: [{ data: [], label: 'Peso Corporal (kg)', borderColor: '#0891b2', fill: false, tension: 0.1 }],
     labels: []
   };
   /** Visual and behavioral options for the weight chart */
-  public weightChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    scales: {
-      y: { beginAtZero: false, grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#e2e8f0'} },
-      x: { grid: { color: 'rgba(255, 255, 255, 0.1)' }, ticks: { color: '#e2e8f0'} }
-    },
-    plugins: {
-      legend: { labels: { color: '#e2e8f0' } }
-    }
-  };
+  public weightChartOptions: ChartConfiguration['options'] = this.commonChartOptions;
+
   /** The type of chart used for visualization */
   public weightChartType: ChartType = 'line';
 
@@ -59,9 +71,14 @@ export class PerformanceComponent implements OnInit {
   public selectedExerciseChartId: string = '';
   /** Configuration for the specific exercise performance chart */
   public exerciseChartData: ChartConfiguration['data'] = {
-    datasets: [{ data: [], label: 'Peso Movido (kg)', borderColor: '#3b82f6', fill: false, tension: 0.1 }],
+    datasets: [{ data: [], label: 'Peso Movido (kg)', borderColor: '#2563eb', fill: false, tension: 0.1 }],
     labels: []
   };
+
+  /** Gets exercise records filtered by the currently selected exercise chart ID */
+  get filteredExerciseRecords() {
+    return this.exerciseRecords.filter(r => r.exercise.id === this.selectedExerciseChartId);
+  }
 
   /**
    * Initializes data fetching for body weights, exercises, and records.
@@ -115,8 +132,18 @@ export class PerformanceComponent implements OnInit {
    * Adds a new body weight record to the history.
    */
   addBodyWeight() {
-    if (this.newBodyWeight.weight <= 0) return;
-    this.performanceService.addBodyWeight(this.newBodyWeight).subscribe({
+    if (this.newBodyWeight.weight <= 0 || !this.newBodyWeight.date) return;
+    
+    const payload: { weight: number; date: string; notes?: string } = {
+      weight: Number(this.newBodyWeight.weight),
+      date: new Date(this.newBodyWeight.date).toISOString()
+    };
+    
+    if (this.newBodyWeight.notes) {
+      payload.notes = this.newBodyWeight.notes;
+    }
+
+    this.performanceService.addBodyWeight(payload).subscribe({
       next: () => {
         this.loadBodyWeights();
         this.newBodyWeight = { weight: 0, date: '', notes: '' };
@@ -140,8 +167,20 @@ export class PerformanceComponent implements OnInit {
    * Adds a new exercise performance entry.
    */
   addExerciseRecord() {
-    if (!this.newExerciseRecord.exerciseId || this.newExerciseRecord.weight <= 0 || this.newExerciseRecord.reps <= 0) return;
-    this.performanceService.addExerciseRecord(this.newExerciseRecord).subscribe({
+    if (!this.newExerciseRecord.exerciseId || this.newExerciseRecord.weight <= 0 || this.newExerciseRecord.reps <= 0 || !this.newExerciseRecord.date) return;
+    
+    const payload: { exerciseId: string; weight: number; reps: number; date: string; notes?: string } = {
+      exerciseId: this.newExerciseRecord.exerciseId,
+      weight: Number(this.newExerciseRecord.weight),
+      reps: Number(this.newExerciseRecord.reps),
+      date: new Date(this.newExerciseRecord.date).toISOString()
+    };
+    
+    if (this.newExerciseRecord.notes) {
+      payload.notes = this.newExerciseRecord.notes;
+    }
+
+    this.performanceService.addExerciseRecord(payload).subscribe({
       next: () => {
         this.loadExerciseRecords();
         this.selectedExerciseChartId = this.newExerciseRecord.exerciseId;
@@ -166,8 +205,10 @@ export class PerformanceComponent implements OnInit {
    * Synchronizes data and labels for the Weight Chart based on current records.
    */
   updateWeightChart() {
-    const dates = this.bodyWeights.map(w => new Date(w.date).toLocaleDateString());
-    const weights = this.bodyWeights.map(w => w.weight);
+    // Sort array by date so the chart draws properly (if not sorted)
+    const sorted = [...this.bodyWeights].sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    const dates = sorted.map(w => new Date(w.date).toLocaleDateString());
+    const weights = sorted.map(w => w.weight);
     this.weightChartData = {
       labels: dates,
       datasets: [{ data: weights, label: 'Peso Corporal (kg)', borderColor: '#06b6d4', backgroundColor: 'rgba(6, 182, 212, 0.2)', fill: true, tension: 0.3 }]
@@ -179,7 +220,7 @@ export class PerformanceComponent implements OnInit {
    */
   updateExerciseChart() {
     if (!this.selectedExerciseChartId) return;
-    const records = this.exerciseRecords.filter(r => r.exercise.id === this.selectedExerciseChartId);
+    const records = this.filteredExerciseRecords.sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     const dates = records.map(r => new Date(r.date).toLocaleDateString());
     const weights = records.map(r => r.weight);
     const exName = this.exercises.find(e => e.id === this.selectedExerciseChartId)?.name || 'Ejercicio';
