@@ -13,10 +13,10 @@
           </div>
           <div>
             <h1 class="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-400 dark:to-blue-400 bg-clip-text text-transparent mb-2">
-              Rendimiento
+              {{ 'performance.title' | translate }}
             </h1>
             <p class="text-gray-600 dark:text-gray-300 text-sm sm:text-base">
-              Supervisa tu evolución y rompe tus propios récords.
+              {{ 'performance.subtitle' | translate }}
             </p>
           </div>
         </div>
@@ -36,7 +36,7 @@
             [class.text-gray-500]="activeTab !== 'body-weight'"
             [class.dark:text-gray-400]="activeTab !== 'body-weight'"
             class="flex-1 px-6 py-4 text-center text-sm sm:text-base font-bold whitespace-nowrap hover:text-gray-700 dark:hover:text-gray-300 transition-colors border-b-2 border-transparent">
-            Peso Corporal
+            {{ 'performance.tabs.weight' | translate }}
           </button>
           <button 
             (click)="activeTab = 'exercises'" 
@@ -47,7 +47,7 @@
             [class.text-gray-500]="activeTab !== 'exercises'"
             [class.dark:text-gray-400]="activeTab !== 'exercises'"
             class="flex-1 px-6 py-4 text-center text-sm sm:text-base font-bold whitespace-nowrap hover:text-gray-700 dark:hover:text-gray-300 transition-colors border-b-2 border-transparent">
-            Récords de Ejercicios
+            {{ 'performance.tabs.exerciseRecords' | translate }}
           </button>
         </nav>
       </div>
@@ -60,27 +60,27 @@
       <div class="col-span-1 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-lg h-fit">
         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
           <svg class="w-6 h-6 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-          Añadir Registro
+          {{ 'performance.weight.addTitle' | translate }}
         </h3>
         <form (ngSubmit)="addBodyWeight()" class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Peso (kg)</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ 'performance.weight.label' | translate }}</label>
             <input type="number" [(ngModel)]="newBodyWeight.weight" name="weight" step="0.1" required
               class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fecha</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ 'performance.weight.date' | translate }}</label>
             <input type="date" [(ngModel)]="newBodyWeight.date" name="date" required
               class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none transition-all [color-scheme:light] dark:[color-scheme:dark]">
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Notas (Opcional)</label>
-            <input type="text" [(ngModel)]="newBodyWeight.notes" name="notes" placeholder="Ej: Ayunas, post-entreno..."
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ 'performance.weight.notes' | translate }}</label>
+            <input type="text" [(ngModel)]="newBodyWeight.notes" name="notes" [placeholder]="'performance.weight.notesPlaceholder' | translate"
               class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500 outline-none transition-all">
           </div>
           <button type="submit" 
             class="w-full py-3 mt-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02]">
-            Guardar Peso
+            {{ 'performance.weight.save' | translate }}
           </button>
         </form>
       </div>
@@ -88,13 +88,13 @@
       <!-- Gráfica Peso Corporal -->
       <div class="col-span-1 lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-lg">
         <div class="flex justify-between items-center mb-6">
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white">Evolución de Peso</h3>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'performance.weight.evolution' | translate }}</h3>
         </div>
         
         <div *ngIf="bodyWeights.length === 0" class="flex flex-col items-center justify-center p-12 bg-gray-50 dark:bg-gray-700/30 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600">
           <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-          <p class="text-gray-500 dark:text-gray-400 font-medium text-center">No hay registros disponibles</p>
-          <p class="text-sm mt-2 text-gray-400 dark:text-gray-500 text-center">Añade tu primer registro para ver la gráfica</p>
+          <p class="text-gray-500 dark:text-gray-400 font-medium text-center">{{ 'performance.weight.empty' | translate }}</p>
+          <p class="text-sm mt-2 text-gray-400 dark:text-gray-500 text-center">{{ 'performance.weight.firstRecord' | translate }}</p>
         </div>
         
         <div class="w-full relative min-h-[320px]" *ngIf="bodyWeights.length > 0">
@@ -102,7 +102,7 @@
         </div>
         
         <div class="mt-8" *ngIf="bodyWeights.length > 0">
-            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Historial de Registros</h4>
+            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{ 'performance.weight.history' | translate }}</h4>
             <div class="space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                 <div *ngFor="let record of bodyWeights" class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
                   <div>
@@ -128,42 +128,42 @@
       <div class="col-span-1 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-lg h-fit">
         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
           <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-          Nuevo Récord
+          {{ 'performance.exercises.newRecord' | translate }}
         </h3>
         <form (ngSubmit)="addExerciseRecord()" class="space-y-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ejercicio</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ 'performance.exercises.exercise' | translate }}</label>
             <select [(ngModel)]="newExerciseRecord.exerciseId" name="exerciseId" required
               class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all [color-scheme:light] dark:[color-scheme:dark]">
-              <option value="" disabled selected>Selecciona un ejercicio...</option>
+              <option value="" disabled selected>{{ 'performance.exercises.selectExercise' | translate }}</option>
               <option *ngFor="let ex of exercises" [value]="ex.id">{{ex.name}}</option>
             </select>
           </div>
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Peso (kg)</label>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ 'performance.exercises.weight' | translate }}</label>
               <input type="number" [(ngModel)]="newExerciseRecord.weight" name="weight" step="0.5" required
                 class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all">
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Repeticiones</label>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ 'performance.exercises.reps' | translate }}</label>
               <input type="number" [(ngModel)]="newExerciseRecord.reps" name="reps" step="1" required
                 class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all">
             </div>
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Fecha</label>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ 'performance.exercises.date' | translate }}</label>
             <input type="date" [(ngModel)]="newExerciseRecord.date" name="date" required
               class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all [color-scheme:light] dark:[color-scheme:dark]">
           </div>
            <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Notas (Opcional)</label>
-            <input type="text" [(ngModel)]="newExerciseRecord.notes" name="notes_ex" placeholder="Ej: Me sentí fuerte..."
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{{ 'performance.exercises.notes' | translate }}</label>
+            <input type="text" [(ngModel)]="newExerciseRecord.notes" name="notes_ex" [placeholder]="'performance.exercises.notesPlaceholder' | translate"
               class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all">
           </div>
           <button type="submit" 
             class="w-full py-3 mt-4 rounded-xl bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02]">
-            Guardar Récord
+            {{ 'performance.exercises.save' | translate }}
           </button>
         </form>
       </div>
@@ -171,17 +171,17 @@
       <!-- Gráfica Ejercicios -->
       <div class="col-span-1 lg:col-span-2 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 shadow-lg">
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white">Progreso en Ejercicios</h3>
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ 'performance.exercises.progress' | translate }}</h3>
           <select (change)="onExerciseChartChange($event)" [value]="selectedExerciseChartId"
             class="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none w-full sm:w-auto [color-scheme:light] dark:[color-scheme:dark]">
-            <option value="" disabled>Selecciona ejercicio</option>
+            <option value="" disabled>{{ 'performance.exercises.selectExerciseDropdown' | translate }}</option>
             <option *ngFor="let ex of exercises" [value]="ex.id">{{ex.name}}</option>
           </select>
         </div>
         
         <div *ngIf="!selectedExerciseChartId || filteredExerciseRecords.length === 0" class="flex flex-col items-center justify-center p-12 bg-gray-50 dark:bg-gray-700/30 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600">
            <svg class="w-12 h-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-           <p class="text-gray-500 dark:text-gray-400 font-medium text-center">Selecciona un ejercicio para ver el progreso o añade tu primer récord.</p>
+           <p class="text-gray-500 dark:text-gray-400 font-medium text-center">{{ 'performance.exercises.selectForChart' | translate }}</p>
         </div>
         
         <div class="w-full relative min-h-[320px]" *ngIf="selectedExerciseChartId && filteredExerciseRecords.length > 0">
@@ -189,7 +189,7 @@
         </div>
 
         <div class="mt-8" *ngIf="selectedExerciseChartId && filteredExerciseRecords.length > 0">
-            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Historial de Récords</h4>
+            <h4 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">{{ 'performance.exercises.history' | translate }}</h4>
             <div class="space-y-3 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
                 <div *ngFor="let record of filteredExerciseRecords" class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
                   <div>
