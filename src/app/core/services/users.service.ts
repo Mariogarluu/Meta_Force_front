@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { Observable, from, throwError } from 'rxjs';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { User, Role, UserStatus } from '../models/user';
+import { SupabaseService } from './supabase.service';
 
 /**
  * Data needed to update a user's information.
@@ -28,10 +28,7 @@ export interface UpdateUserInput {
   providedIn: 'root'
 })
 export class UsersService {
-  /** Injected HttpClient for API requests */
-  private http = inject(HttpClient);
-  /** Base API URL for user operations */
-  private apiUrl = `${environment.apiUrl}/users`;
+  private supabase = inject(SupabaseService).client;
 
   /**
    * Lists all users visible to the authenticated user.
@@ -39,7 +36,15 @@ export class UsersService {
    * @returns Observable emitting an array of users
    */
   listUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
+    return from(
+      this.supabase.from('User').select('*').order('createdAt', { ascending: false })
+    ).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return (data ?? []) as User[];
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -49,11 +54,21 @@ export class UsersService {
    * @returns Observable emitting an array of trainers
    */
   listTrainers(centerId?: string | null): Observable<User[]> {
-    const params: any = {};
-    if (centerId) {
-      params.centerId = centerId;
-    }
-    return this.http.get<User[]>(`${this.apiUrl}/trainers`, { params });
+    const query = this.supabase
+      .from('User')
+      .select('*')
+      .eq('role', 'TRAINER')
+      .eq('status', 'ACTIVE');
+
+    const filtered = centerId ? query.eq('favoriteCenterId', centerId) : query;
+
+    return from(filtered.order('name', { ascending: true })).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return (data ?? []) as User[];
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -64,7 +79,15 @@ export class UsersService {
    * @returns Observable emitting the updated user
    */
   updateUser(id: string, data: UpdateUserInput): Observable<User> {
-    return this.http.patch<User>(`${this.apiUrl}/${id}`, data);
+    return from(
+      this.supabase.from('User').update(data).eq('id', id).select('*').single()
+    ).pipe(
+      map(({ data: updated, error }) => {
+        if (error) throw error;
+        return updated as User;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -73,7 +96,13 @@ export class UsersService {
    * @returns Observable emitting void on success
    */
   deleteUser(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('User').delete().eq('id', id)).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+        return undefined;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -82,7 +111,13 @@ export class UsersService {
    * @returns Observable emitting the user object
    */
   getUser(id: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('User').select('*').eq('id', id).single()).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return data as User;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -91,7 +126,26 @@ export class UsersService {
    * @returns Observable emitting the updated user
    */
   updateProfile(data: { name?: string; email?: string; gender?: string; birthDate?: string; height?: number; currentWeight?: number; medicalNotes?: string }): Observable<User> {
-    return this.http.patch<User>(`${this.apiUrl}/me`, data);
+    return from(this.supabase.auth.getUser()).pipe(
+      switchMap(({ data: authData, error: authErr }) => {
+        if (authErr || !authData.user) {
+          return throwError(() => new Error(authErr?.message || 'Unauthorized'));
+        }
+        return from(
+          this.supabase
+            .from('User')
+            .update(data)
+            .eq('auth_user_id', authData.user.id)
+            .select('*')
+            .single()
+        );
+      }),
+      map(({ data: updated, error }) => {
+        if (error) throw error;
+        return updated as User;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -100,9 +154,40 @@ export class UsersService {
    * @returns Observable emitting the user with updated profileImageUrl
    */
   uploadProfileImage(file: File): Observable<User> {
-    const formData = new FormData();
-    formData.append('image', file);
-    return this.http.post<User>(`${this.apiUrl}/me/profile-image`, formData);
+    return from(this.supabase.auth.getUser()).pipe(
+      switchMap(({ data: authData, error: authErr }) => {
+        if (authErr || !authData.user) {
+          return throwError(() => new Error(authErr?.message || 'Unauthorized'));
+        }
+
+        const userId = authData.user.id;
+        const ext = (file.name.split('.').pop() || 'jpg').toLowerCase();
+        const path = `${userId}/avatar.${ext}`;
+
+        return from(
+          this.supabase.storage.from('profiles').upload(path, file, { upsert: true })
+        ).pipe(
+          switchMap(({ error: uploadErr }) => {
+            if (uploadErr) throw uploadErr;
+            const { data: urlData } = this.supabase.storage.from('profiles').getPublicUrl(path);
+            const publicUrl = urlData.publicUrl;
+            return from(
+              this.supabase
+                .from('User')
+                .update({ profileImageUrl: publicUrl })
+                .or(`id.eq.${userId},auth_user_id.eq.${userId}`)
+                .select('*')
+                .single()
+            );
+          })
+        );
+      }),
+      map(({ data: updated, error }) => {
+        if (error) throw error;
+        return updated as User;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -110,7 +195,34 @@ export class UsersService {
    * @returns Observable emitting the user with profileImageUrl set to null
    */
   deleteProfileImage(): Observable<User> {
-    return this.http.delete<User>(`${this.apiUrl}/me/profile-image`);
+    return from(this.supabase.auth.getUser()).pipe(
+      switchMap(({ data: authData, error: authErr }) => {
+        if (authErr || !authData.user) {
+          return throwError(() => new Error(authErr?.message || 'Unauthorized'));
+        }
+        const userId = authData.user.id;
+
+        // Best-effort: remove common avatar paths
+        const paths = [`${userId}/avatar.jpg`, `${userId}/avatar.png`, `${userId}/avatar.webp`];
+        return from(this.supabase.storage.from('profiles').remove(paths)).pipe(
+          switchMap(() =>
+            from(
+              this.supabase
+                .from('User')
+                .update({ profileImageUrl: null })
+                .or(`id.eq.${userId},auth_user_id.eq.${userId}`)
+                .select('*')
+                .single()
+            )
+          )
+        );
+      }),
+      map(({ data: updated, error }) => {
+        if (error) throw error;
+        return updated as User;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
   }
 }
 

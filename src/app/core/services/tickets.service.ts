@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { Observable, from, throwError } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { Ticket, CreateTicketInput, UpdateTicketInput } from '../models/ticket';
+import { SupabaseService } from './supabase.service';
 
 /**
  * Service for managing contact and support tickets.
@@ -16,10 +16,7 @@ import { Ticket, CreateTicketInput, UpdateTicketInput } from '../models/ticket';
   providedIn: 'root'
 })
 export class TicketsService {
-  /** Injected HttpClient for API requests */
-  private http = inject(HttpClient);
-  /** Base API URL for ticket operations */
-  private apiUrl = `${environment.apiUrl}/tickets`;
+  private supabase = inject(SupabaseService).client;
 
   /**
    * Creates a new contact ticket (public, no authentication required).
@@ -29,26 +26,53 @@ export class TicketsService {
    * @returns Observable emitting the created ticket
    */
   createTicket(data: CreateTicketInput, files?: File[]): Observable<Ticket> {
-    const formData = new FormData();
-    
-    // Agregar datos del formulario
-    formData.append('name', data.name);
-    formData.append('email', data.email);
-    if (data.phone) {
-      formData.append('phone', data.phone);
-    }
-    formData.append('centerId', data.centerId);
-    formData.append('subject', data.subject);
-    formData.append('description', data.description);
-    
-    // Agregar archivos
-    if (files && files.length > 0) {
-      for (const file of files) {
-        formData.append('attachments', file);
-      }
-    }
+    // Supabase-native: subimos adjuntos a Storage y guardamos URLs en la tabla Ticket.
+    // Nota: con las políticas actuales, requiere usuario autenticado.
+    return from(this.supabase.auth.getUser()).pipe(
+      switchMap(({ data: authData, error: authErr }) => {
+        if (authErr || !authData.user) {
+          return throwError(() => new Error(authErr?.message || 'Debes iniciar sesión para crear un ticket.'));
+        }
 
-    return this.http.post<Ticket>(this.apiUrl, formData);
+        const userId = authData.user.id;
+        const uploadFiles = files ?? [];
+
+        const uploads = uploadFiles.map(async (file) => {
+          const ext = (file.name.split('.').pop() || 'bin').toLowerCase();
+          const path = `${userId}/${crypto.randomUUID()}.${ext}`;
+          const { error: upErr } = await this.supabase.storage
+            .from('tickets')
+            .upload(path, file, { upsert: false });
+          if (upErr) throw upErr;
+          const { data: urlData } = this.supabase.storage.from('tickets').getPublicUrl(path);
+          return urlData.publicUrl;
+        });
+
+        return from(Promise.all(uploads));
+      }),
+      switchMap((attachmentUrls) =>
+        from(
+          this.supabase
+            .from('Ticket')
+            .insert({
+              name: data.name,
+              email: data.email,
+              phone: data.phone ?? null,
+              centerId: data.centerId,
+              subject: data.subject,
+              description: data.description,
+              attachments: attachmentUrls,
+            })
+            .select('*')
+            .single()
+        )
+      ),
+      map(({ data: created, error }) => {
+        if (error) throw error;
+        return created as Ticket;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -57,7 +81,13 @@ export class TicketsService {
    * @returns Observable emitting an array of tickets
    */
   listTickets(): Observable<Ticket[]> {
-    return this.http.get<Ticket[]>(this.apiUrl);
+    return from(this.supabase.from('Ticket').select('*').order('createdAt', { ascending: false })).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return (data ?? []) as Ticket[];
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -66,7 +96,13 @@ export class TicketsService {
    * @returns Observable emitting the ticket object
    */
   getTicket(id: string): Observable<Ticket> {
-    return this.http.get<Ticket>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('Ticket').select('*').eq('id', id).single()).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return data as Ticket;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -76,7 +112,13 @@ export class TicketsService {
    * @returns Observable emitting the updated ticket
    */
   updateTicket(id: string, data: UpdateTicketInput): Observable<Ticket> {
-    return this.http.patch<Ticket>(`${this.apiUrl}/${id}`, data);
+    return from(this.supabase.from('Ticket').update(data).eq('id', id).select('*').single()).pipe(
+      map(({ data: updated, error }) => {
+        if (error) throw error;
+        return updated as Ticket;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -85,7 +127,13 @@ export class TicketsService {
    * @returns Observable emitting void on success
    */
   deleteTicket(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('Ticket').delete().eq('id', id)).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+        return undefined;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
   }
 }
 

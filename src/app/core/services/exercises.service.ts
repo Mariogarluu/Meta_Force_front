@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { Observable, from, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Exercise, CreateExerciseInput, UpdateExerciseInput } from '../models/exercise';
+import { SupabaseService } from './supabase.service';
 
 /**
  * Service for managing the library of exercises and machine types.
@@ -16,10 +16,7 @@ import { Exercise, CreateExerciseInput, UpdateExerciseInput } from '../models/ex
   providedIn: 'root'
 })
 export class ExercisesService {
-  /** Injected HttpClient for API requests */
-  private http = inject(HttpClient);
-  /** Base API URL for exercise operations */
-  private apiUrl = `${environment.apiUrl}/exercises`;
+  private supabase = inject(SupabaseService).client;
 
   /**
    * Lists available exercises, optionally filtered by machine type.
@@ -27,11 +24,20 @@ export class ExercisesService {
    * @returns Observable emitting an array of exercises
    */
   listExercises(machineTypeId?: string | null): Observable<Exercise[]> {
-    const params: any = {};
-    if (machineTypeId) {
-      params.machineTypeId = machineTypeId;
-    }
-    return this.http.get<Exercise[]>(this.apiUrl, { params });
+    const base = this.supabase
+      .from('Exercise')
+      .select('*')
+      .order('name', { ascending: true });
+
+    const filtered = machineTypeId ? base.eq('machineTypeId', machineTypeId) : base;
+
+    return from(filtered).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return (data ?? []) as Exercise[];
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -40,7 +46,13 @@ export class ExercisesService {
    * @returns Observable emitting the exercise object
    */
   getExercise(id: string): Observable<Exercise> {
-    return this.http.get<Exercise>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('Exercise').select('*').eq('id', id).single()).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return data as Exercise;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -49,7 +61,13 @@ export class ExercisesService {
    * @returns Observable emitting the created exercise
    */
   createExercise(data: CreateExerciseInput): Observable<Exercise> {
-    return this.http.post<Exercise>(this.apiUrl, data);
+    return from(this.supabase.from('Exercise').insert(data).select('*').single()).pipe(
+      map(({ data: created, error }) => {
+        if (error) throw error;
+        return created as Exercise;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -59,7 +77,13 @@ export class ExercisesService {
    * @returns Observable emitting the updated exercise
    */
   updateExercise(id: string, data: UpdateExerciseInput): Observable<Exercise> {
-    return this.http.patch<Exercise>(`${this.apiUrl}/${id}`, data);
+    return from(this.supabase.from('Exercise').update(data).eq('id', id).select('*').single()).pipe(
+      map(({ data: updated, error }) => {
+        if (error) throw error;
+        return updated as Exercise;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -68,7 +92,13 @@ export class ExercisesService {
    * @returns Observable emitting void on success
    */
   deleteExercise(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('Exercise').delete().eq('id', id)).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+        return undefined;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -77,7 +107,13 @@ export class ExercisesService {
    * @returns Observable emitting import results (counts and errors)
    */
   importExercises(exercises: CreateExerciseInput[]): Observable<{ created: number; skipped: number; errors: Array<{ exercise: string; error: string }> }> {
-    return this.http.post<{ created: number; skipped: number; errors: Array<{ exercise: string; error: string }> }>(`${this.apiUrl}/import`, { exercises });
+    return from(this.supabase.from('Exercise').insert(exercises).select('id')).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return { created: data?.length ?? 0, skipped: 0, errors: [] };
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 }
 
