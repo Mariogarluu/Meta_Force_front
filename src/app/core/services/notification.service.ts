@@ -1,8 +1,7 @@
 import { Injectable, inject, signal, computed, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
 import { Notification } from '../models/notification';
 import { AuthService } from './auth.service';
+import { SupabaseService } from './supabase.service';
 
 /**
  * Service for managing user notifications and unread counts.
@@ -12,12 +11,9 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class NotificationService implements OnDestroy {
-  /** Injected HttpClient for notification API calls */
-  private http = inject(HttpClient);
+  private supabase = inject(SupabaseService).client;
   /** Injected AuthService to check user authentication state */
   private auth = inject(AuthService);
-  /** Base API URL for notification operations */
-  private apiUrl = `${environment.apiUrl}/notifications`;
   /** ID of the polling interval, used for cleanup on destroy */
   private intervalId: any;
 
@@ -67,20 +63,30 @@ export class NotificationService implements OnDestroy {
    * Loads the full list of notifications from the server.
    */
   loadNotifications() {
-    this.http.get<Notification[]>(this.apiUrl).subscribe({
-      next: (data) => this._notifications.set(data),
-      error: (e) => console.error('Error cargando notificaciones', e)
-    });
+    this.supabase
+      .from('Notification')
+      .select('*')
+      .order('createdAt', { ascending: false })
+      .then(({ data, error }) => {
+        if (error) throw error;
+        this._notifications.set((data ?? []) as Notification[]);
+      })
+      .catch((e) => console.error('Error cargando notificaciones', e));
   }
 
   /**
    * Loads the unread notification count from the server.
    */
   loadUnreadCount() {
-    this.http.get<{ count: number }>(`${this.apiUrl}/unread-count`).subscribe({
-      next: (data) => this._unreadCount.set(data.count),
-      error: (e) => console.error('Error cargando contador', e)
-    });
+    this.supabase
+      .from('Notification')
+      .select('id', { count: 'exact', head: true })
+      .eq('read', false)
+      .then(({ count, error }) => {
+        if (error) throw error;
+        this._unreadCount.set(count ?? 0);
+      })
+      .catch((e) => console.error('Error cargando contador', e));
   }
 
   /**
@@ -95,13 +101,17 @@ export class NotificationService implements OnDestroy {
     );
     this._unreadCount.update(c => Math.max(0, c - 1));
 
-    return this.http.patch(`${this.apiUrl}/${id}/read`, {}).subscribe({
-      error: () => {
-        // Revertir si falla (opcional, por simplicidad recargamos)
+    return this.supabase
+      .from('Notification')
+      .update({ read: true })
+      .eq('id', id)
+      .then(({ error }) => {
+        if (error) throw error;
+      })
+      .catch(() => {
         this.loadNotifications();
         this.loadUnreadCount();
-      }
-    });
+      });
   }
 
   /**
@@ -111,6 +121,12 @@ export class NotificationService implements OnDestroy {
     this._notifications.update(list => list.map(n => ({ ...n, read: true })));
     this._unreadCount.set(0);
 
-    return this.http.patch(`${this.apiUrl}/read-all`, {}).subscribe();
+    const ids = this._notifications().filter(n => !n.read).map(n => n.id);
+    if (!ids.length) return;
+
+    return this.supabase
+      .from('Notification')
+      .update({ read: true })
+      .in('id', ids);
   }
-}
+}

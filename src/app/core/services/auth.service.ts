@@ -1,153 +1,134 @@
 import { Injectable, inject, signal } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, ReplaySubject, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http'; // Keep for other services if needed
+import { Observable, ReplaySubject, from, throwError, of } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../models/user';
 import { AuthInput, RegisterInput, AuthResponse } from '../models/auth';
 import { environment } from '../../../environments/environment';
+import { SupabaseService } from './supabase.service';
 
-/**
- * Service handling authentication, session management, and user profile data.
- * Manages the current user state via Angular signals and handles both cookie-based and token-based (legacy) authentication.
- */
-/**
- * =============================================================================
- * SERVICIO DE AUTENTICACIÓN (AUTH SERVICE)
- * =============================================================================
- * Gestiona el ciclo de vida de la sesión del usuario en el cliente.
- * Se encarga de la comunicación con la API de Auth, el almacenamiento seguro
- * del token JWT en localStorage y la gestión del estado global del usuario
- * mediante Angular Signals.
- */
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  /** Injected HttpClient for authentication API calls */
-  private http = inject(HttpClient);
-  /** Base API URL for authentication operations */
-  private apiUrl = `${environment.apiUrl}/auth`;
-  /** Internal signal for the currently authenticated user */
+  private supabase = inject(SupabaseService).client;
   private _currentUser = signal<User | null>(null);
 
-  /** Public read-only signal for the current user */
   public readonly currentUser = this._currentUser.asReadonly();
-
-  /** ReplaySubject emitting true once the initial user profile load attempt finishes */
   private _initialLoadComplete = new ReplaySubject<boolean>(1);
-  /** Observable tracking if the initial authentication check is complete */
   public readonly initialLoadComplete = this._initialLoadComplete.asObservable();
 
-
-  /**
-   * Initializes the service and attempts to load the user profile if a session exists.
-   */
   constructor() {
-    // BOOTSTRAP DE SESIÓN:
-    // Al instanciar el servicio, intentamos cargar el perfil del usuario.
-    // Esto permite recuperar la sesión automáticamente si existe un token
-    // válido en localStorage o cookies HttpOnly.
-    this.loadUserProfile();
+    this.initSession();
   }
 
   /**
-   * Retrieves the legacy JWT token from LocalStorage.
-   * @returns The stored auth token or null
+   * Initializes the session by listening to auth state changes.
    */
-  private getToken(): string | null {
-    return localStorage.getItem('auth_token');
-  }
+  private async initSession() {
+    const { data: { session } } = await this.supabase.auth.getSession();
+    if (session) {
+      await this.loadUserProfile(session.user.id);
+    } else {
+      this._initialLoadComplete.next(true);
+    }
 
-  /**
-   * Establishes a user session by storing the JWT and updating the current user signal.
-   * @param authResult - Authentication response containing user and token
-   */
-  private setSession(authResult: AuthResponse) {
-    localStorage.setItem('auth_token', authResult.token);
-    this._currentUser.set(authResult.user);
-  }
-
-  /**
-   * Attempts to load the authenticated user's profile from the API.
-   * Cleans up the session if the profile fails to load (e.g., expired session).
-   */
-  private loadUserProfile() {
-    this.http.get<User>(`${environment.apiUrl}/users/me`).pipe(
-      tap(user => {
-        this._currentUser.set(user);
-        this._initialLoadComplete.next(true); // Éxito: Carga inicial terminada
-      }),
-      catchError(() => {
-        this.logout();
-        this._initialLoadComplete.next(true); // Fallo: Carga inicial terminada (sesión inválida)
-        return throwError(() => new Error('Sesión inválida'));
-      })
-    ).subscribe();
-  }
-
-  /**
-   * Authenticates a user with email and password credentials.
-   * @param credentials - User's login email and password
-   * @returns Observable emitting the authentication response
-   */
-  login(credentials: AuthInput): Observable<AuthResponse> {
-    // Envío de credenciales al backend
-    // En caso de éxito, se establece la sesión persistente
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, credentials).pipe(
-      tap(response => this.setSession(response)),
-      catchError(this.handleError)
-    );
-  }
-
-  /**
-   * Registers a new user in the system.
-   * Automatically establishes a session if the new user's status is ACTIVE.
-   * @param data - User registration information
-   * @returns Observable emitting the authentication response
-   */
-  register(data: RegisterInput): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, data).pipe(
-      tap(response => {
-        // Solo iniciamos sesión automáticamente si la cuenta está activa
-        if (response.user.status === 'ACTIVE') {
-          this.setSession(response);
-        }
-      }),
-      catchError(this.handleError)
-    );
-  }
-
-  /**
-   * Logs out the user by calling the API logout endpoint and clearing local state.
-   */
-  logout() {
-    // Llamar al endpoint de logout para borrar la cookie
-    this.http.post(`${this.apiUrl}/logout`, {}).subscribe({
-      next: () => {
-        localStorage.removeItem('auth_token');
-        this._currentUser.set(null);
-      },
-      error: () => {
-        localStorage.removeItem('auth_token');
+    this.supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session) {
+        await this.loadUserProfile(session.user.id);
+      } else {
         this._currentUser.set(null);
       }
     });
   }
 
   /**
-   * Reloads the authenticated user's profile from the API.
+   * Loads user profile from Supabase (profiles as canonical, fallback to legacy User).
    */
-  refreshUser() {
-    this.loadUserProfile();
+  private async loadUserProfile(userId: string) {
+    const { data: profile, error: profileError } = await this.supabase
+      .from('profiles')
+      .select('*')
+      .eq('id', userId)
+      .maybeSingle();
+
+    if (!profileError && profile) {
+      // Minimal shape compatibility with existing User model
+      this._currentUser.set({
+        id: profile.id,
+        email: profile.email,
+        name: profile.name,
+        role: profile.role,
+        status: profile.status,
+      } as unknown as User);
+      this._initialLoadComplete.next(true);
+      return;
+    }
+
+    const { data: legacy, error: legacyError } = await this.supabase
+      .from('User')
+      .select('*')
+      .or(`id.eq.${userId},auth_user_id.eq.${userId}`)
+      .maybeSingle();
+
+    if (legacyError) {
+      console.error('Error loading user profile:', legacyError);
+      this._currentUser.set(null);
+    } else {
+      this._currentUser.set(legacy as User);
+    }
+    this._initialLoadComplete.next(true);
   }
 
   /**
-   * Generic error handler for authentication HTTP requests.
-   * @param error - The HTTP error response
-   * @returns Observable throwing an Error with a user-friendly message
+   * Authenticates with Supabase Auth.
    */
-  private handleError(error: HttpErrorResponse) {
-    const errorMessage = error.error?.message || 'Error desconocido';
-    return throwError(() => new Error(errorMessage));
+  login(credentials: AuthInput): Observable<any> {
+    return from(this.supabase.auth.signInWithPassword({
+      email: credentials.email,
+      password: credentials.password!
+    })).pipe(
+      tap(({ data, error }) => {
+        if (error) throw error;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
-}
+
+  /**
+   * Registers with Supabase Auth.
+   */
+  register(data: RegisterInput): Observable<any> {
+    return from(this.supabase.auth.signUp({
+      email: data.email,
+      password: data.password!,
+      options: {
+        data: {
+          name: data.name
+        }
+      }
+    })).pipe(
+      tap(({ error }) => {
+        if (error) throw error;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
+  }
+
+  /**
+   * Logs out from Supabase Auth.
+   */
+  logout() {
+    this.supabase.auth.signOut().then(() => {
+      this._currentUser.set(null);
+      localStorage.removeItem('auth_token'); // Clean up old token if any
+    });
+  }
+
+  refreshUser() {
+    const user = this._currentUser();
+    if (user) {
+      this.loadUserProfile(user.id);
+    }
+  }
+}

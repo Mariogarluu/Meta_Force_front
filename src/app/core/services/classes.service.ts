@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { Observable, from, throwError } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { CreateClassInput, GymClass, UpdateClassInput } from '../models/class';
+import { SupabaseService } from './supabase.service';
 
 /**
  * Service for managing gym classes, schedules, and center associations.
@@ -12,10 +12,7 @@ import { CreateClassInput, GymClass, UpdateClassInput } from '../models/class';
   providedIn: 'root'
 })
 export class ClassesService {
-  /** Injected HttpClient for API requests */
-  private http = inject(HttpClient);
-  /** Base API URL for gym class operations */
-  private apiUrl = `${environment.apiUrl}/classes`;
+  private supabase = inject(SupabaseService).client;
 
   /**
    * Lists all available gym classes, optionally filtered by center.
@@ -23,11 +20,21 @@ export class ClassesService {
    * @returns Observable emitting an array of gym classes
    */
   listClasses(centerId?: string | null): Observable<GymClass[]> {
-    const params: any = {};
-    if (centerId) {
-      params.centerId = centerId;
-    }
-    return this.http.get<GymClass[]>(this.apiUrl, { params });
+    // We return classes; if centerId is provided, filter by schedule center.
+    const query = centerId
+      ? this.supabase
+          .from('GymClass')
+          .select('*, ClassCenterSchedule!inner(*)')
+          .eq('ClassCenterSchedule.centerId', centerId)
+      : this.supabase.from('GymClass').select('*');
+
+    return from(query.order('name', { ascending: true })).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return (data ?? []) as GymClass[];
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -36,7 +43,19 @@ export class ClassesService {
    * @returns Observable emitting the found gym class
    */
   getClass(id: string): Observable<GymClass> {
-    return this.http.get<GymClass>(`${this.apiUrl}/${id}`);
+    return from(
+      this.supabase
+        .from('GymClass')
+        .select('*, ClassCenterSchedule(*), ClassTrainer(*)')
+        .eq('id', id)
+        .single()
+    ).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return data as GymClass;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -45,7 +64,13 @@ export class ClassesService {
    * @returns Observable emitting the created class with its ID
    */
   createClass(data: CreateClassInput): Observable<GymClass> {
-    return this.http.post<GymClass>(this.apiUrl, data);
+    return from(this.supabase.from('GymClass').insert(data).select('*').single()).pipe(
+      map(({ data: created, error }) => {
+        if (error) throw error;
+        return created as GymClass;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -55,7 +80,13 @@ export class ClassesService {
    * @returns Observable emitting the updated class
    */
   updateClass(id: string, data: UpdateClassInput): Observable<GymClass> {
-    return this.http.patch<GymClass>(`${this.apiUrl}/${id}`, data);
+    return from(this.supabase.from('GymClass').update(data).eq('id', id).select('*').single()).pipe(
+      map(({ data: updated, error }) => {
+        if (error) throw error;
+        return updated as GymClass;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -64,7 +95,13 @@ export class ClassesService {
    * @returns Observable completing when deletion is successful
    */
   deleteClass(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('GymClass').delete().eq('id', id)).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+        return undefined;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -82,7 +119,37 @@ export class ClassesService {
       endTime: string;
     }>;
   }): Observable<GymClass> {
-    return this.http.post<GymClass>(`${this.apiUrl}/${classId}/centers`, data);
+    return from(
+      Promise.all([
+        // Trainers
+        data.trainerIds?.length
+          ? this.supabase
+              .from('ClassTrainer')
+              .insert(data.trainerIds.map((trainerId) => ({ classId, trainerId })))
+          : Promise.resolve({}),
+        // Schedules
+        data.schedules?.length
+          ? this.supabase
+              .from('ClassCenterSchedule')
+              .insert(
+                data.schedules.map((s) => ({
+                  classId,
+                  centerId: data.centerId,
+                  dayOfWeek: s.dayOfWeek,
+                  startTime: s.startTime,
+                  endTime: s.endTime,
+                }))
+              )
+          : Promise.resolve({}),
+      ])
+    ).pipe(
+      switchMap(() => from(this.supabase.from('GymClass').select('*').eq('id', classId).single())),
+      map(({ data: klass, error }) => {
+        if (error) throw error;
+        return klass as GymClass;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -92,7 +159,19 @@ export class ClassesService {
    * @returns Observable emitting the updated class
    */
   removeCenterFromClass(classId: string, centerId: string): Observable<GymClass> {
-    return this.http.delete<GymClass>(`${this.apiUrl}/${classId}/centers/${centerId}`);
+    return from(
+      Promise.all([
+        this.supabase.from('ClassCenterSchedule').delete().match({ classId, centerId }),
+        // Trainers are per class; if you want per-center trainers, model would differ. For now we keep trainers.
+      ])
+    ).pipe(
+      switchMap(() => from(this.supabase.from('GymClass').select('*').eq('id', classId).single())),
+      map(({ data: klass, error }) => {
+        if (error) throw error;
+        return klass as GymClass;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -111,7 +190,41 @@ export class ClassesService {
       endTime: string;
     }>;
   }): Observable<GymClass> {
-    return this.http.patch<GymClass>(`${this.apiUrl}/${classId}/centers/${centerId}`, data);
+    return from(
+      (async () => {
+        if (data.trainerIds) {
+          await this.supabase.from('ClassTrainer').delete().eq('classId', classId);
+          if (data.trainerIds.length) {
+            await this.supabase
+              .from('ClassTrainer')
+              .insert(data.trainerIds.map((trainerId) => ({ classId, trainerId })));
+          }
+        }
+
+        if (data.schedules) {
+          // Replace schedules for this center+class (simple & deterministic)
+          await this.supabase.from('ClassCenterSchedule').delete().match({ classId, centerId });
+          if (data.schedules.length) {
+            await this.supabase.from('ClassCenterSchedule').insert(
+              data.schedules.map((s) => ({
+                classId,
+                centerId,
+                dayOfWeek: s.dayOfWeek,
+                startTime: s.startTime,
+                endTime: s.endTime,
+              }))
+            );
+          }
+        }
+      })()
+    ).pipe(
+      switchMap(() => from(this.supabase.from('GymClass').select('*').eq('id', classId).single())),
+      map(({ data: klass, error }) => {
+        if (error) throw error;
+        return klass as GymClass;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 }
 

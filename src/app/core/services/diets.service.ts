@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { Observable, from, throwError } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { SupabaseService } from './supabase.service';
 import {
   Diet,
   CreateDietInput,
@@ -20,10 +20,7 @@ import {
   providedIn: 'root'
 })
 export class DietsService {
-  /** Injected HttpClient for API requests */
-  private http = inject(HttpClient);
-  /** Base API URL for diet operations */
-  private apiUrl = `${environment.apiUrl}/diets`;
+  private supabase = inject(SupabaseService).client;
 
   /**
    * Lists all dietary plans, optionally filtered by user ID.
@@ -31,11 +28,20 @@ export class DietsService {
    * @returns Observable emitting an array of diets
    */
   listDiets(userId?: string | null): Observable<Diet[]> {
-    const params: any = {};
-    if (userId) {
-      params.userId = userId;
-    }
-    return this.http.get<Diet[]>(this.apiUrl, { params });
+    const base = this.supabase
+      .from('Diet')
+      .select('*')
+      .order('createdAt', { ascending: false });
+
+    const filtered = userId ? base.eq('userId', userId) : base;
+
+    return from(filtered).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return (data ?? []) as Diet[];
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -44,7 +50,19 @@ export class DietsService {
    * @returns Observable emitting the diet object
    */
   getDiet(id: string): Observable<Diet> {
-    return this.http.get<Diet>(`${this.apiUrl}/${id}`);
+    return from(
+      this.supabase
+        .from('Diet')
+        .select('*, DietMeal(*)')
+        .eq('id', id)
+        .single()
+    ).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return data as Diet;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -53,7 +71,13 @@ export class DietsService {
    * @returns Observable emitting the created diet
    */
   createDiet(data: CreateDietInput): Observable<Diet> {
-    return this.http.post<Diet>(this.apiUrl, data);
+    return from(this.supabase.from('Diet').insert(data).select('*').single()).pipe(
+      map(({ data: created, error }) => {
+        if (error) throw error;
+        return created as Diet;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -63,7 +87,13 @@ export class DietsService {
    * @returns Observable emitting the updated diet
    */
   updateDiet(id: string, data: UpdateDietInput): Observable<Diet> {
-    return this.http.patch<Diet>(`${this.apiUrl}/${id}`, data);
+    return from(this.supabase.from('Diet').update(data).eq('id', id).select('*').single()).pipe(
+      map(({ data: updated, error }) => {
+        if (error) throw error;
+        return updated as Diet;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -72,7 +102,13 @@ export class DietsService {
    * @returns Observable emitting void on success
    */
   deleteDiet(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('Diet').delete().eq('id', id)).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+        return undefined;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -82,7 +118,19 @@ export class DietsService {
    * @returns Observable emitting the created diet-meal entry
    */
   addMealToDiet(dietId: string, data: AddMealToDietInput): Observable<DietMeal> {
-    return this.http.post<DietMeal>(`${this.apiUrl}/${dietId}/meals`, data);
+    return from(
+      this.supabase
+        .from('DietMeal')
+        .insert({ ...data, dietId })
+        .select('*')
+        .single()
+    ).pipe(
+      map(({ data: created, error }) => {
+        if (error) throw error;
+        return created as DietMeal;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -92,7 +140,13 @@ export class DietsService {
    * @returns Observable emitting the updated diet-meal entry
    */
   updateDietMeal(mealId: string, data: UpdateDietMealInput): Observable<DietMeal> {
-    return this.http.patch<DietMeal>(`${this.apiUrl}/meals/${mealId}`, data);
+    return from(this.supabase.from('DietMeal').update(data).eq('id', mealId).select('*').single()).pipe(
+      map(({ data: updated, error }) => {
+        if (error) throw error;
+        return updated as DietMeal;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -101,7 +155,13 @@ export class DietsService {
    * @returns Observable emitting void on success
    */
   removeMealFromDiet(mealId: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/meals/${mealId}`);
+    return from(this.supabase.from('DietMeal').delete().eq('id', mealId)).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+        return undefined;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -111,7 +171,25 @@ export class DietsService {
    * @returns Observable emitting the updated diet plan
    */
   reorderDietMeals(dietId: string, data: ReorderDietMealsInput): Observable<Diet> {
-    return this.http.post<Diet>(`${this.apiUrl}/${dietId}/reorder`, data);
+    return from(Promise.resolve(data)).pipe(
+      switchMap((payload: any) => {
+        const updates = (payload?.meals ?? payload ?? []).map((m: any) =>
+          this.supabase
+            .from('DietMeal')
+            .update({ order: m.order })
+            .eq('id', m.id)
+        );
+        return from(Promise.all(updates));
+      }),
+      switchMap(() =>
+        from(this.supabase.from('Diet').select('*').eq('id', dietId).single())
+      ),
+      map(({ data: diet, error }) => {
+        if (error) throw error;
+        return diet as Diet;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 }
 

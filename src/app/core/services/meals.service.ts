@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { Observable, from, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Meal, CreateMealInput, UpdateMealInput } from '../models/meal';
+import { SupabaseService } from './supabase.service';
 
 /**
  * Service for managing available meals and nutritional data.
@@ -16,17 +16,20 @@ import { Meal, CreateMealInput, UpdateMealInput } from '../models/meal';
   providedIn: 'root'
 })
 export class MealsService {
-  /** Injected HttpClient for API requests */
-  private http = inject(HttpClient);
-  /** Base API URL for meal operations */
-  private apiUrl = `${environment.apiUrl}/meals`;
+  private supabase = inject(SupabaseService).client;
 
   /**
    * Lists all available meals in the system.
    * @returns Observable emitting an array of meals
    */
   listMeals(): Observable<Meal[]> {
-    return this.http.get<Meal[]>(this.apiUrl);
+    return from(this.supabase.from('Meal').select('*').order('name', { ascending: true })).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return (data ?? []) as Meal[];
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -35,7 +38,13 @@ export class MealsService {
    * @returns Observable emitting the meal object
    */
   getMeal(id: string): Observable<Meal> {
-    return this.http.get<Meal>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('Meal').select('*').eq('id', id).single()).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return data as Meal;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -44,7 +53,13 @@ export class MealsService {
    * @returns Observable emitting the created meal
    */
   createMeal(data: CreateMealInput): Observable<Meal> {
-    return this.http.post<Meal>(this.apiUrl, data);
+    return from(this.supabase.from('Meal').insert(data).select('*').single()).pipe(
+      map(({ data: created, error }) => {
+        if (error) throw error;
+        return created as Meal;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -54,7 +69,13 @@ export class MealsService {
    * @returns Observable emitting the updated meal
    */
   updateMeal(id: string, data: UpdateMealInput): Observable<Meal> {
-    return this.http.patch<Meal>(`${this.apiUrl}/${id}`, data);
+    return from(this.supabase.from('Meal').update(data).eq('id', id).select('*').single()).pipe(
+      map(({ data: updated, error }) => {
+        if (error) throw error;
+        return updated as Meal;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -63,7 +84,13 @@ export class MealsService {
    * @returns Observable emitting void on success
    */
   deleteMeal(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('Meal').delete().eq('id', id)).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+        return undefined;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -72,7 +99,13 @@ export class MealsService {
    * @returns Observable emitting import results (counts and errors)
    */
   importMeals(meals: CreateMealInput[]): Observable<{ created: number; skipped: number; errors: Array<{ meal: string; error: string }> }> {
-    return this.http.post<{ created: number; skipped: number; errors: Array<{ meal: string; error: string }> }>(`${this.apiUrl}/import`, { meals });
+    return from(this.supabase.from('Meal').insert(meals).select('id')).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return { created: data?.length ?? 0, skipped: 0, errors: [] };
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 }
 
