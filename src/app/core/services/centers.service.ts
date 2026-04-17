@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { Observable, from, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Center, CreateCenterInput, UpdateCenterInput } from '../models/center';
+import { SupabaseService } from './supabase.service';
 
 /**
  * Service for managing training centers and their metadata.
@@ -18,10 +18,7 @@ import { Center, CreateCenterInput, UpdateCenterInput } from '../models/center';
   providedIn: 'root'
 })
 export class CentersService {
-  /** Injected HttpClient for API requests */
-  private http = inject(HttpClient);
-  /** Base API URL for center operations */
-  private apiUrl = `${environment.apiUrl}/centers`;
+  private supabase = inject(SupabaseService).client;
 
   /**
    * Lists all training centers.
@@ -29,7 +26,13 @@ export class CentersService {
    * @returns Observable emitting an array of centers
    */
   listCenters(): Observable<Center[]> {
-    return this.http.get<Center[]>(this.apiUrl);
+    return from(this.supabase.from('Center').select('*').order('name', { ascending: true })).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return (data ?? []) as Center[];
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -38,7 +41,7 @@ export class CentersService {
    * @returns Observable emitting an array of centers with IDs
    */
   listCentersWithIds(): Observable<Center[]> {
-    return this.http.get<Center[]>(`${this.apiUrl}/with-ids`);
+    return this.listCenters();
   }
 
   /**
@@ -48,7 +51,13 @@ export class CentersService {
    * @returns Observable emitting the center object
    */
   getCenter(id: string): Observable<Center> {
-    return this.http.get<Center>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('Center').select('*').eq('id', id).single()).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return data as Center;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -58,7 +67,13 @@ export class CentersService {
    * @returns Observable emitting the created center
    */
   createCenter(data: CreateCenterInput): Observable<Center> {
-    return this.http.post<Center>(this.apiUrl, data);
+    return from(this.supabase.from('Center').insert(data).select('*').single()).pipe(
+      map(({ data: created, error }) => {
+        if (error) throw error;
+        return created as Center;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -69,7 +84,13 @@ export class CentersService {
    * @returns Observable emitting the updated center
    */
   updateCenter(id: string, data: UpdateCenterInput): Observable<Center> {
-    return this.http.patch<Center>(`${this.apiUrl}/${id}`, data);
+    return from(this.supabase.from('Center').update(data).eq('id', id).select('*').single()).pipe(
+      map(({ data: updated, error }) => {
+        if (error) throw error;
+        return updated as Center;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -79,7 +100,13 @@ export class CentersService {
    * @returns Observable emitting void on success
    */
   deleteCenter(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('Center').delete().eq('id', id)).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+        return undefined;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 }
 

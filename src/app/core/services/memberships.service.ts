@@ -1,12 +1,12 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { Observable, from, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import {
   MembershipPlan,
   CreateMembershipPlanInput,
   UpdateMembershipPlanInput,
 } from '../models/membership';
+import { SupabaseService } from './supabase.service';
 
 /**
  * Service for managing membership plans and their associated data.
@@ -20,10 +20,7 @@ import {
   providedIn: 'root',
 })
 export class MembershipsService {
-  /** Injected HttpClient for API requests */
-  private http = inject(HttpClient);
-  /** Base API URL for membership operations */
-  private apiUrl = `${environment.apiUrl}/memberships`;
+  private supabase = inject(SupabaseService).client;
 
   /**
    * Lists all available membership plans.
@@ -31,7 +28,19 @@ export class MembershipsService {
    * @returns Observable emitting an array of membership plans
    */
   listMembershipPlans(): Observable<MembershipPlan[]> {
-    return this.http.get<MembershipPlan[]>(this.apiUrl);
+    return from(
+      this.supabase
+        .from('MembershipPlan')
+        .select('*')
+        .order('isActive', { ascending: false })
+        .order('price', { ascending: true })
+    ).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return (data ?? []) as MembershipPlan[];
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -40,7 +49,13 @@ export class MembershipsService {
    * @returns Observable emitting the membership plan object
    */
   getMembershipPlan(id: string): Observable<MembershipPlan> {
-    return this.http.get<MembershipPlan>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('MembershipPlan').select('*').eq('id', id).single()).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return data as MembershipPlan;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -50,7 +65,13 @@ export class MembershipsService {
    * @returns Observable emitting the created plan
    */
   createMembershipPlan(data: CreateMembershipPlanInput): Observable<MembershipPlan> {
-    return this.http.post<MembershipPlan>(this.apiUrl, data);
+    return from(this.supabase.from('MembershipPlan').insert(data).select('*').single()).pipe(
+      map(({ data: created, error }) => {
+        if (error) throw error;
+        return created as MembershipPlan;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -64,7 +85,13 @@ export class MembershipsService {
     id: string,
     data: UpdateMembershipPlanInput
   ): Observable<MembershipPlan> {
-    return this.http.patch<MembershipPlan>(`${this.apiUrl}/${id}`, data);
+    return from(this.supabase.from('MembershipPlan').update(data).eq('id', id).select('*').single()).pipe(
+      map(({ data: updated, error }) => {
+        if (error) throw error;
+        return updated as MembershipPlan;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 
   /**
@@ -74,7 +101,13 @@ export class MembershipsService {
    * @returns Observable emitting void on success
    */
   deleteMembershipPlan(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return from(this.supabase.from('MembershipPlan').delete().eq('id', id)).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+        return undefined;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 }
 
