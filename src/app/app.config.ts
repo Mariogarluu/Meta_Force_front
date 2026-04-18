@@ -1,13 +1,12 @@
 import { ApplicationConfig, ErrorHandler, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withFetch, withInterceptors, HttpClient } from '@angular/common/http';
+import { provideHttpClient, withFetch, HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 // Imports de Seguridad y Rutas
 import { routes } from './app.routes';
-import { authInterceptor } from './core/interceptors/auth.interceptor';
 import { GlobalErrorHandler } from './core/handlers/global-error-handler';
 
 /**
@@ -59,10 +58,7 @@ export const appConfig: ApplicationConfig = {
     provideCharts(withDefaultRegisterables()),
 
     // HTTP Client con Fetch API y Interceptor de Auth (Seguridad de Transporte)
-    provideHttpClient(
-      withFetch(),
-      withInterceptors([authInterceptor])
-    ),
+    provideHttpClient(withFetch()),
 
     // Configuración de Idiomas (Preservada)
     importProvidersFrom(

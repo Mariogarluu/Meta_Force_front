@@ -1,6 +1,5 @@
 import { Injectable, inject, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http'; // Keep for other services if needed
-import { Observable, ReplaySubject, from, throwError, of } from 'rxjs';
+import { Observable, ReplaySubject, from, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../models/user';
 import { AuthInput, RegisterInput, AuthResponse } from '../models/auth';

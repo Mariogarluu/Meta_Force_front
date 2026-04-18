@@ -5,8 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Html5Qrcode } from 'html5-qrcode';
 import { AuthService } from '../../core/services/auth.service';
 import { CentersService } from '../../core/services/centers.service';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
+import { SupabaseService } from '../../core/services/supabase.service';
 import { Center } from '../../core/models/center';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -55,8 +54,8 @@ export class QrScannerComponent implements OnInit, OnDestroy {
   auth = inject(AuthService);
   /** Injected CentersService for accessing gym location data */
   centersService = inject(CentersService);
-  /** Injected HttpClient for manual backend requests during scanning */
-  http = inject(HttpClient);
+  /** Supabase (Edge access-scan) */
+  private supabase = inject(SupabaseService).client;
   /** Injected TranslateService for multi-language UI feedback */
   translate = inject(TranslateService);
 
@@ -221,7 +220,7 @@ export class QrScannerComponent implements OnInit, OnDestroy {
    * 1. Pause scanner
    * 2. Validate JSON structure (id, timestamp)
    * 3. Check for expiration
-   * 4. POST to /api/access/scan
+   * 4. Invocar Edge Function access-scan (supabase.functions.invoke)
    * 5. Trigger visual feedback effect
    * 6. Resume scanner after 2 seconds
    * 
@@ -254,19 +253,28 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         return;
       }
 
-      // Submit access record to backend
-      const result = await this.http.post<ScanResult>(
-        `${environment.apiUrl}/access/scan`,
-        {
+      const centerId = this.selectedCenterId();
+      if (!centerId) {
+        this.scanError.set(this.translate.instant('qrScanner.errors.processingError'));
+        this.resumeScanning();
+        return;
+      }
+
+      const { data: result, error } = await this.supabase.functions.invoke<ScanResult>('access-scan', {
+        body: {
           qrData: {
             id: qrData.id,
             email: qrData.email,
             name: qrData.name,
-            timestamp: qrData.timestamp
+            timestamp: qrData.timestamp,
           },
-          centerId: this.selectedCenterId()
-        }
-      ).toPromise();
+          centerId,
+        },
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
 
       if (result) {
         this.lastScanResult.set(result);
