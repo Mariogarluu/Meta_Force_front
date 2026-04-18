@@ -63,30 +63,36 @@ export class NotificationService implements OnDestroy {
    * Loads the full list of notifications from the server.
    */
   loadNotifications() {
-    this.supabase
-      .from('Notification')
-      .select('*')
-      .order('createdAt', { ascending: false })
-      .then(({ data, error }) => {
+    void (async () => {
+      try {
+        const { data, error } = await this.supabase
+          .from('Notification')
+          .select('*')
+          .order('createdAt', { ascending: false });
         if (error) throw error;
         this._notifications.set((data ?? []) as Notification[]);
-      })
-      .catch((e) => console.error('Error cargando notificaciones', e));
+      } catch (e: unknown) {
+        console.error('Error cargando notificaciones', e);
+      }
+    })();
   }
 
   /**
    * Loads the unread notification count from the server.
    */
   loadUnreadCount() {
-    this.supabase
-      .from('Notification')
-      .select('id', { count: 'exact', head: true })
-      .eq('read', false)
-      .then(({ count, error }) => {
+    void (async () => {
+      try {
+        const { count, error } = await this.supabase
+          .from('Notification')
+          .select('id', { count: 'exact', head: true })
+          .eq('read', false);
         if (error) throw error;
         this._unreadCount.set(count ?? 0);
-      })
-      .catch((e) => console.error('Error cargando contador', e));
+      } catch (e: unknown) {
+        console.error('Error cargando contador', e);
+      }
+    })();
   }
 
   /**
@@ -101,17 +107,18 @@ export class NotificationService implements OnDestroy {
     );
     this._unreadCount.update(c => Math.max(0, c - 1));
 
-    return this.supabase
-      .from('Notification')
-      .update({ read: true })
-      .eq('id', id)
-      .then(({ error }) => {
+    void (async () => {
+      try {
+        const { error } = await this.supabase
+          .from('Notification')
+          .update({ read: true })
+          .eq('id', id);
         if (error) throw error;
-      })
-      .catch(() => {
+      } catch {
         this.loadNotifications();
         this.loadUnreadCount();
-      });
+      }
+    })();
   }
 
   /**

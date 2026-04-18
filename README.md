@@ -38,7 +38,9 @@ cd Meta_Force_front
 npm install
 ```
 
-3. Inicia el servidor de desarrollo:
+3. Configura Supabase en `src/environments/environment.ts` y `src/environments/environment.development.ts`: sustituye `YOUR_SUPABASE_PROJECT_REF` y `YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY` por los valores del panel (Settings → API). No subas claves reales en commits.
+
+4. Inicia el servidor de desarrollo:
 ```bash
 npm start
 ```
