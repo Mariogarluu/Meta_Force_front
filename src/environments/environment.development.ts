@@ -4,9 +4,8 @@
 export const environment = {
   /** Flag indicating if the application is running in production mode */
   production: false,
-  /** Supabase project URL */
-  supabaseUrl: 'https://qybgnrlszozjhimewkel.supabase.co',
-  /** Supabase publishable key (safe for frontend) */
-  supabaseKey: 'sb_publishable_nnvdMyVdOClqx-9x62y_Xw_lBTl2bjI',
-  supabaseFunctionsUrl: 'https://qybgnrlszozjhimewkel.supabase.co/functions/v1',
+  /** Sustituir por URL y clave del dashboard (Settings → API). No subas valores reales al repo. */
+  supabaseUrl: 'https://YOUR_SUPABASE_PROJECT_REF.supabase.co',
+  supabaseKey: 'YOUR_SUPABASE_PUBLISHABLE_OR_ANON_KEY',
+  supabaseFunctionsUrl: 'https://YOUR_SUPABASE_PROJECT_REF.supabase.co/functions/v1',
 };
