@@ -4,8 +4,14 @@ import { Injectable, signal, computed } from '@angular/core';
 export type Theme = 'dark' | 'light';
 
 /**
- * Service managing the application's visual theme (light/dark mode).
- * Persists user preference and applies the 'dark' class to the HTML document.
+ * =============================================================================
+ * SERVICIO DE TEMAS (THEME SERVICE)
+ * =============================================================================
+ * Gestiona la apariencia visual de la aplicación (modo oscuro / modo claro).
+ * Persiste la preferencia del usuario en el almacenamiento local y manipula 
+ * directamente las clases CSS del documento raíz para aplicar los estilos.
+ * 
+ * Utiliza Angular Signals para una reactividad eficiente en toda la UI.
  */
 @Injectable({
   providedIn: 'root'
@@ -29,8 +35,11 @@ export class ThemeService {
   }
 
   /**
-   * Retrieves the initial theme from localStorage or defaults to 'dark'.
-   * @returns The initial theme for the application
+   * Recupera el tema inicial guardado.
+   * Consulta el localStorage para recuperar la última preferencia.
+   * Por defecto utiliza el modo oscuro ('dark').
+   * 
+   * @returns El tema inicial cargado.
    */
   private getInitialTheme(): Theme {
     const saved = localStorage.getItem('theme') as Theme;
@@ -41,8 +50,10 @@ export class ThemeService {
   }
 
   /**
-   * Applies the theme to the HTML document by adding/removing the 'dark' class.
-   * @param theme - The theme to apply ('dark' or 'light')
+   * Aplica físicamente el tema al elemento raíz de la aplicación.
+   * Añade o elimina la clase CSS 'dark' al <html>.
+   * 
+   * @param theme - El tema a aplicar ('dark' o 'light').
    */
   private applyTheme(theme: Theme) {
     const html = document.documentElement;

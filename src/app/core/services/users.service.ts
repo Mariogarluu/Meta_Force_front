@@ -21,8 +21,12 @@ export interface UpdateUserInput {
 }
 
 /**
- * Service for managing user-related data and profile operations.
- * Handles user listing, profile updates, and image management.
+ * =============================================================================
+ * SERVICIO DE USUARIOS (USERS SERVICE)
+ * =============================================================================
+ * Gestiona todas las operaciones relacionadas con la persistencia de usuarios,
+ * listado de perfiles, actualizaciones de datos biométricos y gestión de
+ * imágenes en Supabase Storage (Cloudinary legacy).
  */
 @Injectable({
   providedIn: 'root'
@@ -31,9 +35,10 @@ export class UsersService {
   private supabase = inject(SupabaseService).client;
 
   /**
-   * Lists all users visible to the authenticated user.
-   * SUPERADMIN sees all, ADMIN_CENTER only users from their center.
-   * @returns Observable emitting an array of users
+   * Lista todos los usuarios según el nivel de privilegios.
+   * Recupera la información básica de todos los registros de la tabla 'User'.
+   * 
+   * @returns Observable con el array de usuarios.
    */
   listUsers(): Observable<User[]> {
     return from(
@@ -72,11 +77,12 @@ export class UsersService {
   }
 
   /**
-   * Updates data for a specific user identified by ID.
-   * Allows modifying name, email, role, status, and center based on permissions.
-   * @param id - User ID to update
-   * @param data - Updated user data
-   * @returns Observable emitting the updated user
+   * Actualiza los datos de un usuario específico mediante su ID.
+   * Solo accesible por perfiles administrativos para gestionar roles y estados.
+   * 
+   * @param id - ID único del usuario a actualizar.
+   * @param data - Datos parciales a modificar.
+   * @returns Observable con el usuario actualizado.
    */
   updateUser(id: string, data: UpdateUserInput): Observable<User> {
     return from(
@@ -121,9 +127,11 @@ export class UsersService {
   }
 
   /**
-   * Updates the authenticated user's own profile.
-   * @param data - Profile fields to update (gender, birthDate, etc.)
-   * @returns Observable emitting the updated user
+   * Actualiza el perfil del usuario actualmente autenticado.
+   * Identifica al usuario de forma automática mediante la sesión de Supabase Auth.
+   * 
+   * @param data - Datos biométricos y personales a actualizar.
+   * @returns Observable con el perfil actualizado.
    */
   updateProfile(data: { name?: string; email?: string; gender?: string; birthDate?: string; height?: number; currentWeight?: number; medicalNotes?: string }): Observable<User> {
     return from(this.supabase.auth.getUser()).pipe(
@@ -149,9 +157,11 @@ export class UsersService {
   }
 
   /**
-   * Uploads a new profile image for the authenticated user.
-   * @param file - Image file to upload (Cloudinary)
-   * @returns Observable emitting the user with updated profileImageUrl
+   * Sube una nueva imagen de perfil al Storage de Supabase.
+   * Gestiona la creación de rutas únicas y la actualización del campo profileImageUrl en la BD.
+   * 
+   * @param file - Archivo de imagen seleccionado.
+   * @returns Observable con el usuario actualizado conteniendo la nueva URL.
    */
   uploadProfileImage(file: File): Observable<User> {
     return from(this.supabase.auth.getUser()).pipe(

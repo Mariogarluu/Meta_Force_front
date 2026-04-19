@@ -6,6 +6,19 @@ import { AuthInput, RegisterInput, AuthResponse } from '../models/auth';
 import { environment } from '../../../environments/environment';
 import { SupabaseService } from './supabase.service';
 
+/**
+ * =============================================================================
+ * SERVICIO DE AUTENTICACIÓN (AUTH SERVICE)
+ * =============================================================================
+ * Este servicio centraliza la gestión de sesiones de usuario utilizando
+ * Supabase Auth como proveedor de identidad. 
+ * 
+ * Responsabilidades:
+ * 1. Inicializar y escuchar cambios en el estado de autenticación.
+ * 2. Cargar perfiles de usuario desde tablas nativas o legacy.
+ * 3. Gestionar flujos de Login, Registro y Logout.
+ * 4. Proveer un estado reactivo del usuario actual mediante Angular Signals.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +35,9 @@ export class AuthService {
   }
 
   /**
-   * Initializes the session by listening to auth state changes.
+   * Inicializa la sesión del usuario al arrancar el servicio.
+   * Recupera la sesión actual y establece un listener para detectar cambios 
+   * en tiempo real (login, logout, token refrescado).
    */
   private async initSession() {
     const { data: { session } } = await this.supabase.auth.getSession();
@@ -42,7 +57,12 @@ export class AuthService {
   }
 
   /**
-   * Loads user profile from Supabase (profiles as canonical, fallback to legacy User).
+   * Carga la información detallada del perfil del usuario.
+   * Implementa una lógica de fallback:
+   * 1. Intenta cargar desde la nueva tabla 'profiles' (Arquitectura Nativa Supabase).
+   * 2. Si falla, intenta recuperar desde la tabla 'User' (Arquitectura Legacy).
+   * 
+   * @param userId - El identificador único del usuario en Supabase Auth.
    */
   private async loadUserProfile(userId: string) {
     const { data: profile, error: profileError } = await this.supabase
@@ -80,7 +100,11 @@ export class AuthService {
   }
 
   /**
-   * Authenticates with Supabase Auth.
+   * Autentica a un usuario mediante correo y contraseña.
+   * Utiliza el método signInWithPassword de Supabase.
+   * 
+   * @param credentials - Objeto con email y password del usuario.
+   * @returns Observable que emite la respuesta de la operación de Supabase.
    */
   login(credentials: AuthInput): Observable<any> {
     return from(this.supabase.auth.signInWithPassword({
@@ -95,7 +119,11 @@ export class AuthService {
   }
 
   /**
-   * Registers with Supabase Auth.
+   * Registra un nuevo usuario en la plataforma.
+   * Crea la cuenta en Supabase Auth y añade metadatos adicionales como el nombre.
+   * 
+   * @param data - Datos de registro (email, password, nombre).
+   * @returns Observable con el resultado del registro.
    */
   register(data: RegisterInput): Observable<any> {
     return from(this.supabase.auth.signUp({
@@ -115,7 +143,8 @@ export class AuthService {
   }
 
   /**
-   * Logs out from Supabase Auth.
+   * Cierra la sesión activa del usuario.
+   * Limpia tanto la sesión en Supabase como el estado local (Signals y tokens antiguos).
    */
   logout() {
     this.supabase.auth.signOut().then(() => {
@@ -124,6 +153,10 @@ export class AuthService {
     });
   }
 
+  /**
+   * Forzado de recarga de los datos del perfil del usuario actual.
+   * Útil tras realizar actualizaciones en el perfil de usuario.
+   */
   refreshUser() {
     const user = this._currentUser();
     if (user) {

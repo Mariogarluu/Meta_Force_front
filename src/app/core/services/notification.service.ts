@@ -4,8 +4,14 @@ import { AuthService } from './auth.service';
 import { SupabaseService } from './supabase.service';
 
 /**
- * Service for managing user notifications and unread counts.
- * Implements a polling mechanism to keep the notification state synchronized with the backend.
+ * =============================================================================
+ * SERVICIO DE NOTIFICACIONES (NOTIFICATION SERVICE)
+ * =============================================================================
+ * Gestiona las alertas y notificaciones del usuario en tiempo real.
+ * Implementa un mecanismo de "polling" (consulta periódica) para mantener
+ * actualizado el contador de no leídos y la lista de mensajes.
+ * 
+ * Basado en la tabla 'Notification' de Supabase para una gestión nativa.
  */
 @Injectable({
   providedIn: 'root'
@@ -38,7 +44,8 @@ export class NotificationService implements OnDestroy {
   }
 
   /**
-   * Starts the polling mechanism to periodically fetch the unread notification count.
+   * Arranca el mecanismo de polling.
+   * Realiza la primera carga de datos y establece un intervalo de actualización.
    */
   startPolling() {
     this.loadNotifications();
@@ -60,7 +67,8 @@ export class NotificationService implements OnDestroy {
   }
 
   /**
-   * Loads the full list of notifications from the server.
+   * Carga el listado completo de notificaciones del usuario.
+   * Recupera todos los registros de la tabla 'Notification' ordenados por fecha de creación.
    */
   loadNotifications() {
     void (async () => {
@@ -78,7 +86,8 @@ export class NotificationService implements OnDestroy {
   }
 
   /**
-   * Loads the unread notification count from the server.
+   * Carga el contador de notificaciones no leídas.
+   * Optimiza la consulta pidiendo solo el 'count' sin descargar todos los cuerpos de mensaje.
    */
   loadUnreadCount() {
     void (async () => {
@@ -96,9 +105,11 @@ export class NotificationService implements OnDestroy {
   }
 
   /**
-   * Marks a specific notification as read.
-   * Performs an optimistic update of the local state.
-   * @param id - The ID of the notification to mark as read
+   * Marca una notificación específica como leída.
+   * Realiza una actualización optimista en el estado local para una respuesta 
+   * inmediata en la UI antes de persistir en el servidor.
+   * 
+   * @param id - Identificador único de la notificación.
    */
   markAsRead(id: string) {
     // Actualización optimista
@@ -122,7 +133,8 @@ export class NotificationService implements OnDestroy {
   }
 
   /**
-   * Marks all notifications as read for the current user.
+   * Marca todas las notificaciones pendientes como leídas de forma masiva.
+   * Útil para la función "Limpiar todo" en el panel de notificaciones.
    */
   markAllAsRead() {
     this._notifications.update(list => list.map(n => ({ ...n, read: true })));
