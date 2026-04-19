@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "set-env": "node scripts/set-env.js",
+    "start": "npm run set-env && ng serve",
+    "build": "npm run set-env && ng build",
+    "watch": "npm run set-env && ng build --watch --configuration development",
+    "test": "npm run set-env && ng test",
     "compodoc": "compodoc -p tsconfig.json -s",
     "compodoc:build": "compodoc -p tsconfig.json -d dist/credentials/browser/documentation -n \"Meta Force Documentation\""
   },
