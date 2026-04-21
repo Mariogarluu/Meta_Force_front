@@ -72,7 +72,6 @@ export class AuthService {
       .maybeSingle();
 
     if (!profileError && profile) {
-      // Minimal shape compatibility with existing User model
       this._currentUser.set({
         id: profile.id,
         email: profile.email,
@@ -149,7 +148,7 @@ export class AuthService {
   logout() {
     this.supabase.auth.signOut().then(() => {
       this._currentUser.set(null);
-      localStorage.removeItem('auth_token'); // Clean up old token if any
+      localStorage.removeItem('auth_token');
     });
   }
 

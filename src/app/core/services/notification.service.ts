@@ -18,26 +18,26 @@ import { SupabaseService } from './supabase.service';
 })
 export class NotificationService implements OnDestroy {
   private supabase = inject(SupabaseService).client;
-  /** Injected AuthService to check user authentication state */
+  /** Servicio inyectado de AuthService para constatar identidad de perfil activo */
   private auth = inject(AuthService);
-  /** ID of the polling interval, used for cleanup on destroy */
+  /** Clave interna del temporizador de bucle polling para recudir uso de memoria al destruir */
   private intervalId: any;
 
-  /** Reactive signal for the list of notifications */
+  /** Signal estado de reactividad para el pool de notificaciones procesado */
   private _notifications = signal<Notification[]>([]);
-  /** Reactive signal for the count of unread notifications */
+  /** Signal de número de entradas no leídas */
   private _unreadCount = signal<number>(0);
 
-  /** Public read-only signal of the notifications list */
+  /** Signal público en modo lectura estricto del bloque notificaciones */
   public notifications = this._notifications.asReadonly();
-  /** Public read-only signal of the unread count */
+  /** Signal público en modo lectura estricto del contador bruto */
   public unreadCount = this._unreadCount.asReadonly();
 
   /**
-   * Initializes the service and starts polling if a user is already authenticated.
+   * Inicializa la instancia del servicio y activa el hilo de reding asíncrono
+   * siempre y cuando disponga de los perfiles cargados correspondientemente.
    */
   constructor() {
-    // Iniciar polling solo si hay usuario
     if (this.auth.currentUser()) {
       this.startPolling();
     }
@@ -51,7 +51,6 @@ export class NotificationService implements OnDestroy {
     this.loadNotifications();
     this.loadUnreadCount();
     
-    // Actualizar cada 60 segundos
     this.intervalId = setInterval(() => {
       if (this.auth.currentUser()) {
         this.loadUnreadCount();
@@ -60,7 +59,7 @@ export class NotificationService implements OnDestroy {
   }
 
   /**
-   * Lifecycle hook that cleans up the interval timer when the service is destroyed.
+   * Hook destructor del ciclo de vida diseñado para cancelar intervalos colgantes.
    */
   ngOnDestroy() {
     if (this.intervalId) clearInterval(this.intervalId);
@@ -112,7 +111,6 @@ export class NotificationService implements OnDestroy {
    * @param id - Identificador único de la notificación.
    */
   markAsRead(id: string) {
-    // Actualización optimista
     this._notifications.update(list => 
       list.map(n => n.id === id ? { ...n, read: true } : n)
     );

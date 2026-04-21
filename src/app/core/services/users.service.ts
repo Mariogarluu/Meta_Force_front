@@ -5,18 +5,18 @@ import { User, Role, UserStatus } from '../models/user';
 import { SupabaseService } from './supabase.service';
 
 /**
- * Data needed to update a user's information.
+ * Estructura de modelo de datos DTO requerida para actualizar un recurso de usuario.
  */
 export interface UpdateUserInput {
-  /** Updated full name */
+  /** Nombre completo y apellidos expuestos del usuario */
   name?: string;
-  /** Updated email address */
+  /** Dirección lógica de correo electrónico validada formatalmente */
   email?: string;
-  /** Updated role (Admin only) */
+  /** Permisos de control de acceso jerárquico asignados (Requiere Rol Admin) */
   role?: Role;
-  /** Updated account status (Admin only) */
+  /** Estado de bloqueo y operabilidad de la cuenta (Requiere Rol Admin) */
   status?: UserStatus;
-  /** Updated favorite center ID (User/Admin) */
+  /** Centro de adscripción primaria o sede elegida */
   favoriteCenterId?: string | null;
 }
 
@@ -53,10 +53,10 @@ export class UsersService {
   }
 
   /**
-   * Lists all active trainers.
-   * Accessible to all authenticated users.
-   * @param centerId - Optional: filter trainers by favorite center
-   * @returns Observable emitting an array of trainers
+   * Consulta el listado masivo de perfiles marcados activamente bajo el rol de entrenador.
+   * Universalmente expuesto en lectura básica para perfiles con sesión.
+   * @param centerId - Opcional: filtro contextual para centrar búsquedas de club
+   * @returns Observable escupiendo array referencial de instancias de entrenadores
    */
   listTrainers(centerId?: string | null): Observable<User[]> {
     const query = this.supabase
@@ -97,9 +97,9 @@ export class UsersService {
   }
 
   /**
-   * Deletes a user by their ID.
-   * @param id - User ID to delete
-   * @returns Observable emitting void on success
+   * Ejecuta transaccionalmente el borrado en cascada del perfil referenciado.
+   * @param id - Hash ID único serial de Supabase que identifica al perfil
+   * @returns Observable resolviendo vacio subyacentemente al éxito nativo
    */
   deleteUser(id: string): Observable<void> {
     return from(this.supabase.from('User').delete().eq('id', id)).pipe(
@@ -112,9 +112,9 @@ export class UsersService {
   }
 
   /**
-   * Retrieves information for a specific user by ID.
-   * @param id - User ID to fetch
-   * @returns Observable emitting the user object
+   * Extrae la proyección íntegra atómica de un perfil de usuario único.
+   * @param id - Hash ID de referencia nominal de perfil
+   * @returns Observable con el perfil hidratado en memoria
    */
   getUser(id: string): Observable<User> {
     return from(this.supabase.from('User').select('*').eq('id', id).single()).pipe(
@@ -201,8 +201,8 @@ export class UsersService {
   }
 
   /**
-   * Deletes the authenticated user's profile image.
-   * @returns Observable emitting the user with profileImageUrl set to null
+   * Ejecuta el limpiado transaccional y visual del avatar registrado borrando las instancias gráficas subidas.
+   * @returns Observable notificando la mutación con inyección null
    */
   deleteProfileImage(): Observable<User> {
     return from(this.supabase.auth.getUser()).pipe(
@@ -212,7 +212,6 @@ export class UsersService {
         }
         const userId = authData.user.id;
 
-        // Best-effort: remove common avatar paths
         const paths = [`${userId}/avatar.jpg`, `${userId}/avatar.png`, `${userId}/avatar.webp`];
         return from(this.supabase.storage.from('profiles').remove(paths)).pipe(
           switchMap(() =>
