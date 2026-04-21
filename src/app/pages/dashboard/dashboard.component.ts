@@ -19,9 +19,18 @@ type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
 
 /**
+ * =============================================================================
+ * COMPONENTE DASHBOARD (PANEL PRINCIPAL)
+ * =============================================================================
  * Componente principal del panel de control de la aplicación (Dashboard).
- * Sirve como página de inicio principal para los usuarios autenticados, proporcionando
- * el acceso a las notificaciones, gestión del perfil (incluyendo edición de rol y subida de imágenes), y la navegación a otros módulos del sistema.
+ * Sirve como página de inicio principal para los usuarios autenticados, interactuando
+ * de manera conjunta con casi todos los módulos de entorno privado.
+ * 
+ * Responsabilidades:
+ * 1. Acceso a las notificaciones y lectura en tiempo real.
+ * 2. Gestión del perfil, posibilitando actualización de parámetros métricos y carga de avatares.
+ * 3. Gestión y asignación de roles (para superadministradores).
+ * 4. Puntos de entrada para la navegación a otros módulos del sistema.
  */
 @Component({
   selector: 'app-dashboard',
@@ -130,11 +139,8 @@ export class DashboardComponent {
    * Alterna la vista del bloque de notificaciones flotante. Dispara la sincronización fresca al abrirse.
    */
   toggleNotifications() {
-    // 1. Calcular el nuevo estado booleano para mostrar/ocultar el menú
     const newState = !this.showNotifications();
-    // 2. Aplicar el cambio de estado de UI
     this.showNotifications.set(newState);
-    // 3. Activar carga dinámica desde el backend si el usuario está abriendo el panel
     if (newState) {
       this.notificationService.loadNotifications();
     }
@@ -146,15 +152,12 @@ export class DashboardComponent {
    * @param notification - La entidad de notificación específica
    */
   handleNotificationClick(notification: Notification) {
-    // 1. Si la notificación aún no fue leída, pedir al backend que la marque como leída
     if (!notification.read) {
       this.notificationService.markAsRead(notification.id);
     }
     
-    // 2. Si la notificación contiene una ruta asociada, redirigir al contexto oportuno
     if (notification.link) {
       this.router.navigateByUrl(notification.link);
-      // Ocultar el dropdown para liberar la vista
       this.showNotifications.set(false);
     }
   }
@@ -185,12 +188,9 @@ export class DashboardComponent {
    * Carga los datos previos y despliega el editor overlay de administrador de sistema.
    */
   openRoleEditor() {
-    // 1. Obtener la referencia de estado del usuario actual
     const user = this.currentUser();
     if (user) {
-      // 2. Pre-cargar el rol actual para la visualización del combo-box o listado
       this.selectedRole.set(user.role);
-      // 3. Mostrar la ventana modal y limpiar posibles mensajes de error previos
       this.showRoleEditor.set(true);
       this.errorMessage.set('');
     }
@@ -209,42 +209,34 @@ export class DashboardComponent {
    * Tras la inyección exitosa, obligamos a repintar y pasar proceso de reinicio mediante un logout automático reactivo.
    */
   updateRole() {
-    // 1. Extraer los estados requeridos (estado de sesión y rol objetivo)
     const user = this.currentUser();
     const newRole = this.selectedRole();
     if (!user || !newRole) {
       return;
     }
     
-    // 2. Prevenir la mutación en la red si no hubo cambios efectivos
     if (newRole === user.role) {
       this.closeRoleEditor();
       return;
     }
 
-    // 3. Establecer modo cargando y resetear la pista de error en UI
     this.isLoading.set(true);
     this.errorMessage.set('');
 
-    // 4. Invocar servicio HTTP para consolidar la mutación de perfil
     this.usersService.updateUser(user.id, { role: newRole }).subscribe({
       next: (updatedUser) => {
-        // En caso de éxito, liberar el modal e indicar fin de carga
         this.isLoading.set(false);
         this.showRoleEditor.set(false);
         
-        // Formatear traducción para alerta de feedback
         const roleName = this.translate.instant(`dashboard.roles.${newRole}`);
         alert(this.translate.instant('dashboard.roleEditor.successMessage', { role: roleName }));
         
-        // Retardar 1 segundo para una redirección suave hacia el login para forzar refetch
         setTimeout(() => {
           this.auth.logout();
           this.router.navigate(['/login']);
         }, 1000);
       },
       error: (error) => {
-        // Detener loading en caso de rechazo y mostrar advertencia global al cliente
         this.isLoading.set(false);
         this.errorMessage.set(error.error?.message || this.translate.instant('dashboard.roleEditor.error'));
       }
@@ -260,7 +252,6 @@ export class DashboardComponent {
       next: () => {
         this.isLoading.set(false);
         this.auth.refreshUser();
-        // Opcional: mostrar notificación de éxito (ya tenemos NotificationService)
       },
       error: (error) => {
         this.isLoading.set(false);
@@ -317,7 +308,6 @@ export class DashboardComponent {
   private uploadProfileImage(file: File): void {
     this.usersService.uploadProfileImage(file).subscribe({
       next: () => {
-        // Refrescar el usuario actual para que la imagen se actualice
         this.auth.refreshUser();
       },
       error: (error) => {
@@ -333,7 +323,6 @@ export class DashboardComponent {
    */
   getRoleIcon(role: string): string {
     const size = 'w-5 h-5';
-    // Se utiliza stroke="white" para asegurar la visibilidad en el span con color de fondo
     switch (role) {
       case 'SUPERADMIN': 
         return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M15.5 12c.7-3.5-3.5-3.5-3.5-3.5S8.5 8.5 9.5 12s3.5 3.5 3.5 3.5S16.5 15.5 15.5 12zM12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z" /></svg>`;
