@@ -131,8 +131,11 @@ export class DashboardComponent {
    * Toggles the notification dropdown. Triggers a fresh load when opened.
    */
   toggleNotifications() {
+    // 1. Calcular el nuevo estado booleano para mostrar/ocultar el menú
     const newState = !this.showNotifications();
+    // 2. Aplicar el cambio de estado de UI
     this.showNotifications.set(newState);
+    // 3. Activar carga dinámica desde el backend si el usuario está abriendo el panel
     if (newState) {
       this.notificationService.loadNotifications();
     }
@@ -144,12 +147,15 @@ export class DashboardComponent {
    * @param notification - The notification item clicked
    */
   handleNotificationClick(notification: Notification) {
+    // 1. Si la notificación aún no fue leída, pedir al backend que la marque como leída
     if (!notification.read) {
       this.notificationService.markAsRead(notification.id);
     }
     
+    // 2. Si la notificación contiene una ruta asociada, redirigir al contexto oportuno
     if (notification.link) {
       this.router.navigateByUrl(notification.link);
+      // Ocultar el dropdown para liberar la vista
       this.showNotifications.set(false);
     }
   }
@@ -180,9 +186,12 @@ export class DashboardComponent {
    * Prepares and opens the role assignment modal.
    */
   openRoleEditor() {
+    // 1. Obtener la referencia de estado del usuario actual
     const user = this.currentUser();
     if (user) {
+      // 2. Pre-cargar el rol actual para la visualización del combo-box o listado
       this.selectedRole.set(user.role);
+      // 3. Mostrar la ventana modal y limpiar posibles mensajes de error previos
       this.showRoleEditor.set(true);
       this.errorMessage.set('');
     }
@@ -201,34 +210,42 @@ export class DashboardComponent {
    * Triggers a logout on success to re-initialize permissions.
    */
   updateRole() {
+    // 1. Extraer los estados requeridos (estado de sesión y rol objetivo)
     const user = this.currentUser();
     const newRole = this.selectedRole();
     if (!user || !newRole) {
       return;
     }
     
+    // 2. Prevenir la mutación en la red si no hubo cambios efectivos
     if (newRole === user.role) {
       this.closeRoleEditor();
       return;
     }
 
+    // 3. Establecer modo cargando y resetear la pista de error en UI
     this.isLoading.set(true);
     this.errorMessage.set('');
 
+    // 4. Invocar servicio HTTP para consolidar la mutación de perfil
     this.usersService.updateUser(user.id, { role: newRole }).subscribe({
       next: (updatedUser) => {
+        // En caso de éxito, liberar el modal e indicar fin de carga
         this.isLoading.set(false);
         this.showRoleEditor.set(false);
         
+        // Formatear traducción para alerta de feedback
         const roleName = this.translate.instant(`dashboard.roles.${newRole}`);
         alert(this.translate.instant('dashboard.roleEditor.successMessage', { role: roleName }));
         
+        // Retardar 1 segundo para una redirección suave hacia el login para forzar refetch
         setTimeout(() => {
           this.auth.logout();
           this.router.navigate(['/login']);
         }, 1000);
       },
       error: (error) => {
+        // Detener loading en caso de rechazo y mostrar advertencia global al cliente
         this.isLoading.set(false);
         this.errorMessage.set(error.error?.message || this.translate.instant('dashboard.roleEditor.error'));
       }

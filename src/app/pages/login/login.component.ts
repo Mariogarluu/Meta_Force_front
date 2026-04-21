@@ -48,10 +48,12 @@ export class LoginComponent implements OnDestroy {
     private formSvc: FormBuilder,
     private auth: AuthService
   ) {
+    // Inicializa el formulario reactivo con controles de email y contraseña
     this.formLogin = this.formSvc.group({
       'email': ['', [Validators.required, Validators.email]],
       'password': ['', [Validators.required]],
     });
+    // Recupera la URL de destino desde el estado de la navegación, o usa el dashboard por defecto
     this.navigateTo = history.state?.['navigateTo'] || '/dashboard';
   }
 
@@ -59,6 +61,7 @@ export class LoginComponent implements OnDestroy {
    * Toggles the visibility of the password input field.
    */
   togglePassword() {
+    // Invierte el estado del signal para mostrar/ocultar los caracteres de la contraseña
     this.showPassword.update(value => !value);
   }
 
@@ -67,24 +70,30 @@ export class LoginComponent implements OnDestroy {
    * Validates credentials against the backend and redirects on success.
    */
   onSubmit() {
+    // Si el formulario no es válido, marca todos los campos como tocados para disparar los errores visuales
     if (this.formLogin.invalid) {
       this.formLogin.markAllAsTouched();
       return;
     }
 
+    // Limpia cualquier error anterior antes de iniciar la autenticación
     this.errorMsg.set('');
 
+    // Prepara el objeto de credenciales con los valores actuales del formulario
     const credentials: AuthInput = {
       email: this.formLogin.value.email!,
       password: this.formLogin.value.password!
     };
 
+    // Subscríbete a la llamada del backend para iniciar sesión
     this.authSubscription = this.auth.login(credentials)
       .subscribe({
         next: () => {
+          // Si el login es exitoso, redirige al usuario a la URL de destino guardada
           this.router.navigate([this.navigateTo]);
         },
         error: (err: Error) => {
+          // Si hay algún error, actualizar el signal de errorMsg con el cuerpo del mensaje
           this.errorMsg.set(err.message);
         }
       });
@@ -94,6 +103,7 @@ export class LoginComponent implements OnDestroy {
    * Navigates to the user registration page.
    */
   goRegister() {
+    // Navega manualmente hacia la vista de registro (sign up)
     this.router.navigate(['/register']);
   }
 
@@ -101,6 +111,7 @@ export class LoginComponent implements OnDestroy {
    * Cleanup logic. Unsubscribes from auth observables to prevent memory leaks.
    */
   ngOnDestroy() {
+    // Limpia la subscripción de RxJS si existe, evitando fugas de memoria cuando el componente se destruye
     this.authSubscription?.unsubscribe();
   }
 
@@ -110,27 +121,33 @@ export class LoginComponent implements OnDestroy {
    * @returns Translated error string or empty string if no errors
    */
   getError(control: string): string {
+    // Lógica para interceptar errores globales a nivel del formulario (ej. fallo del servidor)
     if (control === 'global') {
       const msg = this.errorMsg();
+      // Transforma el mensaje del servidor en un texto traducido localmente si es de credenciales
       if (msg && msg.includes('Credenciales inválidas')) {
         return this.translate.instant('login.errors.invalidCredentials');
       }
       return msg;
     }
 
-
+    // Recupera la instancia base del control especificado (email o password)
     const formControl = this.formLogin.get(control);
+    // Si el control no existe, no ha sido tocado o carece de errores, no retornar nada
     if (!formControl || !formControl.touched || !formControl.errors) {
       return '';
     }
 
+    // Regla 1: Validar si el campo obligatorio está vacío
     if (formControl.errors['required']) {
       return this.translate.instant(`login.errors.${control}Required`);
     }
+    // Regla 2: Validar formato RegExp si el campo es de tipo email
     if (control === 'email' && formControl.errors['email']) {
       return this.translate.instant('login.errors.emailInvalid');
     }
 
+    // Fallback: ningún error renderizable activo
     return "";
   }
 }
