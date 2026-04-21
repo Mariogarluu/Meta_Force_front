@@ -13,8 +13,15 @@ import {
 } from '../models/diet';
 
 /**
- * Servicio para la gestión de planes de alimentación y las comidas dentro de los mismos.
- * Proporciona operaciones CRUD para las dietas y permite reorganizar y actualizar comidas.
+ * =============================================================================
+ * SERVICIO DE DIETAS (DIETS SERVICE)
+ * =============================================================================
+ * Servicio centralizado para la ingesta y manipulación de perfiles nutricionales y comidas.
+ * 
+ * Responsabilidades:
+ * 1. Proporcionar operaciones CRUD unificadas para contenedores de Dieta.
+ * 2. Manipular sub-entidades (DietMeals) anidados en planes.
+ * 3. Orquestar la reorganización del orden a través de transacciones concurrentes nativas de BD.
  */
 @Injectable({
   providedIn: 'root'
@@ -28,24 +35,18 @@ export class DietsService {
    * @returns Observable que emite un array de dietas
    */
   listDiets(userId?: string | null): Observable<Diet[]> {
-    // 1. Inicializar la consulta base a la tabla 'Diet', ordenando por fecha de creación descendente (más recientes primero)
     const base = this.supabase
       .from('Diet')
       .select('*')
       .order('createdAt', { ascending: false });
 
-    // 2. Si se proporciona un userId, aplicar un filtro eq('userId', userId), de lo contrario recuperar todas (si hay permisos)
     const filtered = userId ? base.eq('userId', userId) : base;
 
-    // 3. Convertir el Promise resultante en un Observable e interceptar datos/errores
     return from(filtered).pipe(
       map(({ data, error }) => {
-        // 4. Si Supabase devuelve un error en la ejecución, lanzarlo hacia el catchError
         if (error) throw error;
-        // 5. Devolver los resultados tipiados o un array vacío por defecto
         return (data ?? []) as Diet[];
       }),
-      // 6. Capturar y formatear posibles excepciones para emitirlas controladamente en el flujo RxJS
       catchError(err => throwError(() => new Error(err.message)))
     );
   }
@@ -56,7 +57,6 @@ export class DietsService {
    * @returns Observable que emite el objeto dieta
    */
   getDiet(id: string): Observable<Diet> {
-    // 1. Solicita una única dieta por 'id', uniendo los campos de la tabla relacionada 'DietMeal'
     return from(
       this.supabase
         .from('Diet')
@@ -65,12 +65,9 @@ export class DietsService {
         .single()
     ).pipe(
       map(({ data, error }) => {
-        // 2. Comprobar errores DB
         if (error) throw error;
-        // 3. Devolver la dieta con sus comidas anidadas
         return data as Diet;
       }),
-      // 4. Error handling integrado
       catchError(err => throwError(() => new Error(err.message)))
     );
   }
@@ -181,29 +178,23 @@ export class DietsService {
    * @returns Observable que emite el estado del plan dietético post-actualización
    */
   reorderDietMeals(dietId: string, data: ReorderDietMealsInput): Observable<Diet> {
-    // 1. Iniciar pipeline de promesas a partir del input data provisto
     return from(Promise.resolve(data)).pipe(
       switchMap((payload: any) => {
-        // 2. Extraer arreglo de comidas y generar individualmente las promesas de actualización (order)
         const updates = (payload?.meals ?? payload ?? []).map((m: any) =>
           this.supabase
             .from('DietMeal')
             .update({ order: m.order })
             .eq('id', m.id)
         );
-        // 3. Ejecutar todas las actualizaciones de manera concurrente con Promise.all
         return from(Promise.all(updates));
       }),
       switchMap(() =>
-        // 4. Tras completar el reordenamiento, consultar de nuevo la dieta para tener el estado actualizado
         from(this.supabase.from('Diet').select('*').eq('id', dietId).single())
       ),
       map(({ data: diet, error }) => {
-        // 5. Revisar último error resultante de la consulta final
         if (error) throw error;
         return diet as Diet;
       }),
-      // 6. Gestionar fallback final de RxJS
       catchError(err => throwError(() => new Error(err.message)))
     );
   }
