@@ -1,6 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 
-/** Supported visual themes for the application */
+/** Temas visuales permitidos formalmente en el empaquetado del compilador de UI */
 export type Theme = 'dark' | 'light';
 
 /**
@@ -17,18 +17,18 @@ export type Theme = 'dark' | 'light';
   providedIn: 'root'
 })
 export class ThemeService {
-  /** Internal signal for the current theme */
+  /** Signal interna estricta reaccionando al frame inicial u hoja de estilo */
   private _theme = signal<Theme>(this.getInitialTheme());
   
-  /** Public read-only signal of the current theme */
+  /** Signal reactiva inyectando estado de solo lectura (read-only state) público */
   public readonly theme = this._theme.asReadonly();
-  /** Computed signal returns true if dark mode is active */
+  /** Variante reactiva de la constatación de si nos encontramos en tema oscurecido */
   public readonly isDark = computed(() => this._theme() === 'dark');
-  /** Computed signal returns true if light mode is active */
+  /** Variante reactiva de la constatación de si nos encontramos en tema aclarado (blanco) */
   public readonly isLight = computed(() => this._theme() === 'light');
 
   /**
-   * Initializes the service by applying the stored or default theme.
+   * Arranque de infraestructura delegando sobre la inferencia del storage.
    */
   constructor() {
     this.applyTheme(this._theme());
@@ -65,7 +65,7 @@ export class ThemeService {
   }
 
   /**
-   * Toggles between dark and light modes.
+   * Invierte dinámicamente entre estado lumínico blanco (light) y opaco (dark).
    */
   toggleTheme() {
     const newTheme: Theme = this._theme() === 'dark' ? 'light' : 'dark';
@@ -73,8 +73,8 @@ export class ThemeService {
   }
 
   /**
-   * Sets a specific theme, saves to localStorage, and applies it to the document.
-   * @param theme - The theme to set
+   * Impone sobre escrutinio el tema gráfico actualizandi el tag html en vivo y persistiendo el storage de red.
+   * @param theme - Identificador semántico de variante grafica
    */
   setTheme(theme: Theme) {
     this._theme.set(theme);
