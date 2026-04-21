@@ -10,9 +10,9 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
 
 /**
- * Authentication page component for user login.
- * Handles credential validation, password visibility toggling, and redirection
- * to the dashboard or a previously attempted URL.
+ * Componente de página de autenticación para el inicio de sesión del usuario.
+ * Maneja la validación de credenciales, alternancia de visibilidad de contraseña y redirección
+ * al panel de control o a una URL intentada previamente.
  */
 @Component({
   selector: 'app-login',
@@ -22,27 +22,27 @@ import { LanguageSelectorComponent } from '../../shared/components/language-sele
   styleUrl: './login.component.scss'
 })
 export class LoginComponent implements OnDestroy {
-  /** Reactive form group for user login credentials, managed via FormBuilder */
+  /** Grupo de formulario reactivo para las credenciales de inicio de sesión del usuario, gestionado mediante FormBuilder */
   formLogin: any;
-  /** Signal for displaying authentication-related error messages */
+  /** Señal (Signal) para mostrar mensajes de error relacionados con la autenticación */
   errorMsg = signal<string>('');
-  /** Injected Router for post-login navigation */
+  /** Servicio Router inyectado para la navegación posterior al inicio de sesión */
   private router: Router = inject(Router);
-  /** Target URL to navigate to after successful authentication */
+  /** URL de destino a la que navegar después de una autenticación exitosa */
   readonly navigateTo: string;
-  /** Injected TranslateService for multi-language validation messages */
+  /** TranslateService inyectado para mensajes de validación multilingües */
   translate = inject(TranslateService);
 
-  /** Signal controlling the visibility of the password field */
+  /** Señal que controla la visibilidad del campo de entrada de contraseña */
   showPassword = signal(false);
-  /** Handle for the active authentication subscription to prevent leaks */
+  /** Referencia a la suscripción de autenticación activa para evitar fugas de memoria */
   private authSubscription?: Subscription;
 
   /**
-   * Initializes the login form with email and password fields.
-   * Checks for a target navigation URL in the history state.
-   * @param formSvc - Injected FormBuilder to construct the reactive form
-   * @param auth - Injected AuthService for credential verification
+   * Inicializa el formulario de inicio de sesión con campos de correo y contraseña.
+   * Verifica si hay una URL de navegación de destino en el estado del historial.
+   * @param formSvc - FormBuilder inyectado para construir el formulario reactivo
+   * @param auth - AuthService inyectado para la verificación de credenciales
    */
   constructor(
     private formSvc: FormBuilder,
@@ -58,7 +58,7 @@ export class LoginComponent implements OnDestroy {
   }
 
   /**
-   * Toggles the visibility of the password input field.
+   * Alterna la visibilidad del campo de entrada de contraseña.
    */
   togglePassword() {
     // Invierte el estado del signal para mostrar/ocultar los caracteres de la contraseña
@@ -66,8 +66,8 @@ export class LoginComponent implements OnDestroy {
   }
 
   /**
-   * Processes the login form submission.
-   * Validates credentials against the backend and redirects on success.
+   * Procesa el envío del formulario de inicio de sesión.
+   * Valida las credenciales contra el backend y redirige en caso de éxito.
    */
   onSubmit() {
     // Si el formulario no es válido, marca todos los campos como tocados para disparar los errores visuales
@@ -100,7 +100,7 @@ export class LoginComponent implements OnDestroy {
   }
 
   /**
-   * Navigates to the user registration page.
+   * Navega a la página de registro de usuario.
    */
   goRegister() {
     // Navega manualmente hacia la vista de registro (sign up)
@@ -108,7 +108,7 @@ export class LoginComponent implements OnDestroy {
   }
 
   /**
-   * Cleanup logic. Unsubscribes from auth observables to prevent memory leaks.
+   * Lógica de limpieza. Se da de baja de los observables de autenticación para prevenir fugas de memoria.
    */
   ngOnDestroy() {
     // Limpia la subscripción de RxJS si existe, evitando fugas de memoria cuando el componente se destruye
@@ -116,9 +116,9 @@ export class LoginComponent implements OnDestroy {
   }
 
   /**
-   * Resolves the translated validation error message for a specific form control.
-   * @param control - The name of the form control or 'global' for general errors
-   * @returns Translated error string or empty string if no errors
+   * Resuelve el mensaje de error de validación traducido para un control de formulario específico.
+   * @param control - El nombre del control de formulario o 'global' para errores generales
+   * @returns Cadena de error traducida o cadena vacía si no hay errores
    */
   getError(control: string): string {
     // Lógica para interceptar errores globales a nivel del formulario (ej. fallo del servidor)

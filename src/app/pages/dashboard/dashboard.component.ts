@@ -12,17 +12,16 @@ import { LanguageSelectorComponent } from '../../shared/components/language-sele
 import { ProfileImageManagerComponent } from '../../shared/components/profile-image-manager/profile-image-manager.component';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 
-/** Union type for the various user authorization levels in the system */
+/** Tipo de unión para los diversos niveles de autorización de usuario en el sistema */
 type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
 
-/** Default fallback image URL for user profiles when no custom image is provided */
+/** URL de imagen por defecto para los perfiles de usuario cuando no proporcionan una propia */
 const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
 
 /**
- * Main application dashboard component.
- * Serves as the primary landing page for authenticated users, providing
- * access to notifications, profile management (including role editing and
- * image uploads), and navigation to other system modules.
+ * Componente principal del panel de control de la aplicación (Dashboard).
+ * Sirve como página de inicio principal para los usuarios autenticados, proporcionando
+ * el acceso a las notificaciones, gestión del perfil (incluyendo edición de rol y subida de imágenes), y la navegación a otros módulos del sistema.
  */
 @Component({
   selector: 'app-dashboard',
@@ -32,33 +31,33 @@ const DEFAULT_PROFILE_IMAGE_URL = 'https://res.cloudinary.com/dbzbik0zk/image/up
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
-  /** Injected AuthService for user identity and authentication state */
+  /** AuthService inyectado para la identidad del usuario y estado de autenticación */
   auth = inject(AuthService);
-  /** Injected UsersService for profile and role management */
+  /** UsersService inyectado para la gestión del perfil y roles */
   usersService = inject(UsersService);
-  /** Injected NotificationService for real-time user alerts */
+  /** NotificationService inyectado para alertas en tiempo real */
   notificationService = inject(NotificationService);
-  /** Injected Router for navigation */
+  /** Router inyectado para navegación */
   router = inject(Router);
-  /** Injected TranslateService for UI internationalization */
+  /** TranslateService inyectado para internacionalización de la GUI */
   translate = inject(TranslateService);
-  /** Injected ElementRef for DOM access in event handling */
+  /** ElementRef inyectado para acceso directo al DOM en el manejo de eventos */
   private elementRef = inject(ElementRef);
 
-  /** Signal controlling the visibility of the user role editing modal */
+  /** Señal (signal) que controla la visibilidad del modal de editor de roles */
   showRoleEditor = signal(false);
-  /** Signal storing the temporary role selection in the editor */
+  /** Señal temporal que guarda la selección del rol en el editor */
   selectedRole = signal<RoleType | null>(null);
-  /** Signal tracking background API operations */
+  /** Señal de seguimiento de carga en background para llamadas a la API */
   isLoading = signal(false);
-  /** Signal for displaying primary error messages in the UI */
+  /** Señal para mostrar el mensaje de error primario en la interfaz */
   errorMessage = signal<string>('');
-  /** Signal controlling the visibility of the notification dropdown menu */
+  /** Señal que controla la visibilidad del desplegable de notificaciones */
   showNotifications = signal(false);
 
   /** 
-   * Signal holding the physical profile data form state.
-   * Synchronized with the current user's profile metadata.
+   * Señal que guarda el estado del formulario de datos físicos.
+   * Sincronizado dinámicamente con los metadatos del perfil del usuario en sesión.
    */
   physicalDataForm = signal({
     gender: '',
@@ -70,19 +69,19 @@ export class DashboardComponent {
     goal: ''
   });
 
-  /** Constant list of available system roles for the editor dropdown */
+  /** Lista fija de roles disponibles en el sistema para el selector del editor */
   readonly roles: RoleType[] = ['SUPERADMIN', 'ADMIN_CENTER', 'TRAINER', 'CLEANER', 'USER'];
-  /** Computed signal for the currently logged-in user */
+  /** Computed signal que siempre devuelve el usuario en sesión actual activo */
   currentUser = computed(() => this.auth.currentUser());
   
-  /** Computed signal for the human-readable (translated) name of the user's role */
+  /** Computed signal que devuelve el nombre traducido asignado al rol del usuario activo */
   roleName = computed(() => {
     const role = this.currentUser()?.role;
     if (!role) return this.translate.instant('dashboard.roles.USER');
     return this.translate.instant(`dashboard.roles.${role}`);
   });
 
-  /** Computed signal providing a CSS background color class based on user role */
+  /** Computed signal para entregar la clase CSS de color de fondo correspondiente al rol */
   roleColor = computed(() => {
     const role = this.currentUser()?.role;
     const colors: Record<string, string> = {
@@ -95,14 +94,14 @@ export class DashboardComponent {
     return colors[role || 'USER'] || 'bg-gray-500';
   });
 
-  /** Computed convenience flag for Super Admin status */
+  /** Flag calculado en tiempo real para verificar si el usuario es Super Admin */
   isSuperAdmin = computed(() => this.currentUser()?.role === 'SUPERADMIN');
-  /** Computed convenience flag for Center Admin status */
+  /** Flag calculado en tiempo real para verificar si es Admin de Centro */
   isAdminCenter = computed(() => this.currentUser()?.role === 'ADMIN_CENTER');
   
   /**
-   * Initializes the dashboard, setting the initial role selection and
-   * establishing an effect to keep physical data in sync with the user signal.
+   * Inicializa el dashboard, marcando la opción seleccionada de rol por defecto,
+   * y reaccionando a los cambios en el modelo de datos físicos del store en tiempo real.
    */
   constructor() {
     const user = this.currentUser();
@@ -128,7 +127,7 @@ export class DashboardComponent {
   }
 
   /**
-   * Toggles the notification dropdown. Triggers a fresh load when opened.
+   * Alterna la vista del bloque de notificaciones flotante. Dispara la sincronización fresca al abrirse.
    */
   toggleNotifications() {
     // 1. Calcular el nuevo estado booleano para mostrar/ocultar el menú
@@ -142,9 +141,9 @@ export class DashboardComponent {
   }
 
   /**
-   * Handles interaction with a specific notification.
-   * Marks as read and navigates to the associated link if applicable.
-   * @param notification - The notification item clicked
+   * Manejador central cuando se pulsa una notificación dentro de la lista.
+   * Marca como leída y navega al hipervínculo interno provisto en caso de tenerlo.
+   * @param notification - La entidad de notificación específica
    */
   handleNotificationClick(notification: Notification) {
     // 1. Si la notificación aún no fue leída, pedir al backend que la marque como leída
@@ -161,15 +160,15 @@ export class DashboardComponent {
   }
 
   /**
-   * Marks all extant notifications as read via the NotificationService.
+   * Configura todas las notificaciones pendientes de leer como leídas permanentemente.
    */
   markAllRead() {
     this.notificationService.markAllAsRead();
   }
 
   /**
-   * Global click listener to close the notification dropdown when clicking outside.
-   * @param event - The native mouse event
+   * Listener global de clics para atrapar si pulsamos fuera de la cajonera del menú de notificación.
+   * @param event - Evento nativo del ratón
    */
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent) {
@@ -183,7 +182,7 @@ export class DashboardComponent {
   }
 
   /**
-   * Prepares and opens the role assignment modal.
+   * Carga los datos previos y despliega el editor overlay de administrador de sistema.
    */
   openRoleEditor() {
     // 1. Obtener la referencia de estado del usuario actual
@@ -198,7 +197,7 @@ export class DashboardComponent {
   }
 
   /**
-   * Closes the role assignment modal and clears any errors.
+   * Oculta el popup de editar roles devolviendo la visibilidad al panel de variables globales.
    */
   closeRoleEditor() {
     this.showRoleEditor.set(false);
@@ -206,8 +205,8 @@ export class DashboardComponent {
   }
 
   /**
-   * Persists the selected role change to the backend.
-   * Triggers a logout on success to re-initialize permissions.
+   * Guarda de forma persistente a través del backend el cambio de roles en la base de datos.
+   * Tras la inyección exitosa, obligamos a repintar y pasar proceso de reinicio mediante un logout automático reactivo.
    */
   updateRole() {
     // 1. Extraer los estados requeridos (estado de sesión y rol objetivo)
@@ -253,7 +252,7 @@ export class DashboardComponent {
   }
 
   /**
-   * Persists physical profile metrics (weight, height, etc.) to the user profile.
+   * Envía a actualizar los parámetros médicos y de fitness físicos recogidos en el formulario al servicio proxy correspondiente.
    */
   updatePhysicalData() {
     this.isLoading.set(true);
@@ -271,7 +270,7 @@ export class DashboardComponent {
   }
 
   /**
-   * Universal logout handler. Clears local session and redirects to login page.
+   * Abstrae el flujo universal global para destruir la sesión y llevar al control de registro.
    */
   logout() {
     this.auth.logout();
@@ -279,17 +278,16 @@ export class DashboardComponent {
   }
 
   /**
-   * Resolves the profile image URL, providing a fall-back if none exists.
-   * @param profileImageUrl - The optional URL from the user entity
-   * @returns A valid image URL string
+   * Recupera condicionalmente la ruta CDN de la imagen de cuenta provista, insertando una por defecto si falta.
+   * @param profileImageUrl - Enlace url origen de la propiedad
+   * @returns Un recurso enlace CDN válido que el tag src puede absorber.
    */
   getProfileImageUrl(profileImageUrl: string | null | undefined): string {
     return profileImageUrl ? profileImageUrl : DEFAULT_PROFILE_IMAGE_URL;
   }
 
   /**
-   * Triggers the native file browser for profile image selection.
-   * Includes basic validation for file type and size.
+   * Dispara el input type="file" nativo y oculto para la inyección masiva en la galería. Valida y procesa.
    */
   triggerProfileImageUpload(): void {
     const input = document.createElement('input');
@@ -313,8 +311,8 @@ export class DashboardComponent {
   }
 
   /**
-   * Private helper to execute the image upload via UsersService.
-   * @param file - The image file to upload to Cloudinary
+   * Helper privado para despachar hacia nuestro UsersService y subir bytes/blob para la imagen avatar final.
+   * @param file - File nativo cargado con binarios procedentes del DOM.
    */
   private uploadProfileImage(file: File): void {
     this.usersService.uploadProfileImage(file).subscribe({
@@ -329,9 +327,9 @@ export class DashboardComponent {
   }
   
   /**
-   * Map of role identifiers to SVG path icons for UI display.
-   * @param role - The internal role identifier
-   * @returns An SVG string literal
+   * Retorna una representación iconográfica estandarizada (SVG literal de Tailwind) en base al rol concreto.
+   * @param role - ID en duro del esquema en tabla de Supabase / Tipos locales
+   * @returns Configuración en crudo HTML SVG DOM Inyectable.
    */
   getRoleIcon(role: string): string {
     const size = 'w-5 h-5';
