@@ -1,19 +1,22 @@
+/**
+ * =============================================================================
+ * SERVICIO DE CENTROS (CENTERS SERVICE)
+ * =============================================================================
+ * Este servicio centraliza la gestión de los centros de entrenamiento (clubes)
+ * en el ecosistema Meta-Force. Proporciona métodos para listar, consultar y
+ * realizar operaciones administrativas sobre las sedes físicas.
+ * 
+ * Responsabilidades:
+ * 1. Recuperar listados de centros con diferentes niveles de detalle.
+ * 2. Gestionar la información atómica de cada sede.
+ * 3. Proveer capacidades CRUD para perfiles con privilegios administrativos.
+ */
 import { Injectable, inject } from '@angular/core';
 import { Observable, from, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Center, CreateCenterInput, UpdateCenterInput } from '../models/center';
 import { SupabaseService } from './supabase.service';
 
-/**
- * Service for managing training centers and their metadata.
- * Provides functionality for listing, retrieving, and performing administrative 
- * operations (create/update/delete) on gym centers.
- */
-/**
- * Service for managing training centers and their metadata.
- * Provides functionality for listing, retrieving, and performing administrative 
- * operations (create/update/delete) on gym centers.
- */
 @Injectable({
   providedIn: 'root'
 })
@@ -21,9 +24,9 @@ export class CentersService {
   private supabase = inject(SupabaseService).client;
 
   /**
-   * Lists all training centers.
-   * Permissions vary by role (SUPERADMIN/ADMIN_CENTER see IDs, others see names only).
-   * @returns Observable emitting an array of centers
+   * Recupera el listado completo de centros de entrenamiento.
+   * El nivel de visibilidad de los datos depende del rol del usuario autenticado.
+   * @returns Observable que emite un array de centros ordenados por nombre.
    */
   listCenters(): Observable<Center[]> {
     return from(this.supabase.from('Center').select('*').order('name', { ascending: true })).pipe(
@@ -36,19 +39,18 @@ export class CentersService {
   }
 
   /**
-   * Lists all centers with their IDs exposed.
-   * Accessible to all authenticated users; typically used for registration and trainer filters.
-   * @returns Observable emitting an array of centers with IDs
+   * Recupera todos los centros exponiendo explícitamente sus IDs únicos.
+   * Utilizado comúnmente en formularios de registro y filtros de entrenadores.
+   * @returns Observable que emite un array de centros con sus identificadores.
    */
   listCentersWithIds(): Observable<Center[]> {
     return this.listCenters();
   }
 
   /**
-   * Retrieves a specific center by its ID.
-   * Accessible only to ADMIN_CENTER and SUPERADMIN.
-   * @param id - The ID of the center to fetch
-   * @returns Observable emitting the center object
+   * Obtiene la información detallada de un centro específico mediante su ID.
+   * @param id - Identificador único serial del centro.
+   * @returns Observable que emite el objeto del centro solicitado.
    */
   getCenter(id: string): Observable<Center> {
     return from(this.supabase.from('Center').select('*').eq('id', id).single()).pipe(
@@ -61,10 +63,10 @@ export class CentersService {
   }
 
   /**
-   * Creates a new training center.
-   * Accessible only to SUPERADMIN.
-   * @param data - Input data for the new center
-   * @returns Observable emitting the created center
+   * Registra un nuevo centro de entrenamiento en el sistema.
+   * Operación restringida exclusivamente a roles de SUPERADMIN.
+   * @param data - Estructura de datos requerida para el nuevo centro.
+   * @returns Observable que emite el objeto del centro recién creado.
    */
   createCenter(data: CreateCenterInput): Observable<Center> {
     return from(this.supabase.from('Center').insert(data).select('*').single()).pipe(
@@ -77,11 +79,11 @@ export class CentersService {
   }
 
   /**
-   * Updates an existing training center's information.
-   * Accessible only to SUPERADMIN.
-   * @param id - The ID of the center to update
-   * @param data - The updated center data
-   * @returns Observable emitting the updated center
+   * Actualiza la información de un centro de entrenamiento existente.
+   * Operación restringida exclusivamente a roles de SUPERADMIN.
+   * @param id - Identificador único del centro a modificar.
+   * @param data - Objeto con los campos parciales a actualizar.
+   * @returns Observable que emite el objeto del centro actualizado.
    */
   updateCenter(id: string, data: UpdateCenterInput): Observable<Center> {
     return from(this.supabase.from('Center').update(data).eq('id', id).select('*').single()).pipe(
@@ -94,10 +96,10 @@ export class CentersService {
   }
 
   /**
-   * Deletes a training center from the system.
-   * Accessible only to SUPERADMIN.
-   * @param id - The ID of the center to delete
-   * @returns Observable emitting void on success
+   * Elimina de forma lógica o física un centro del ecosistema.
+   * Operación de alto riesgo restringida a SUPERADMIN.
+   * @param id - Identificador del centro a eliminar.
+   * @returns Observable que se completa tras el éxito de la operación.
    */
   deleteCenter(id: string): Observable<void> {
     return from(this.supabase.from('Center').delete().eq('id', id)).pipe(
