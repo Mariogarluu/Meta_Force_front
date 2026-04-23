@@ -1,17 +1,22 @@
+/**
+ * =============================================================================
+ * SERVICIO DE EJERCICIOS (EXERCISES SERVICE)
+ * =============================================================================
+ * Este servicio gestiona la biblioteca de ejercicios y tipos de máquinas.
+ * Proporciona acceso al catálogo de ejercicios disponibles para los usuarios
+ * y entrenadores, permitiendo la gestión individual y la importación masiva.
+ * 
+ * Responsabilidades:
+ * 1. Consultar el catálogo de ejercicios con filtros opcionales.
+ * 2. Gestionar el ciclo de vida (CRUD) de los registros de ejercicios.
+ * 3. Realizar importaciones masivas de datos técnicos de ejercicios.
+ */
 import { Injectable, inject } from '@angular/core';
 import { Observable, from, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Exercise, CreateExerciseInput, UpdateExerciseInput } from '../models/exercise';
 import { SupabaseService } from './supabase.service';
 
-/**
- * Service for managing the library of exercises and machine types.
- * Supports individual record management and bulk import of exercises.
- */
-/**
- * Service for managing the library of exercises and machine types.
- * Supports individual record management and bulk import of exercises.
- */
 @Injectable({
   providedIn: 'root'
 })
@@ -19,9 +24,10 @@ export class ExercisesService {
   private supabase = inject(SupabaseService).client;
 
   /**
-   * Lists available exercises, optionally filtered by machine type.
-   * @param machineTypeId - Optional: filter exercises by machine type ID
-   * @returns Observable emitting an array of exercises
+   * Lista los ejercicios disponibles, opcionalmente filtrados por tipo de máquina.
+   * 
+   * @param machineTypeId - ID opcional de la máquina para filtrar.
+   * @returns Observable con el listado de ejercicios.
    */
   listExercises(machineTypeId?: string | null): Observable<Exercise[]> {
     const base = this.supabase
@@ -41,9 +47,10 @@ export class ExercisesService {
   }
 
   /**
-   * Retrieves a specific exercise by its ID.
-   * @param id - The ID of the exercise to fetch
-   * @returns Observable emitting the exercise object
+   * Recupera un ejercicio específico mediante su identificador.
+   * 
+   * @param id - Identificador único del ejercicio.
+   * @returns Observable con los detalles del ejercicio.
    */
   getExercise(id: string): Observable<Exercise> {
     return from(this.supabase.from('Exercise').select('*').eq('id', id).single()).pipe(
@@ -56,9 +63,10 @@ export class ExercisesService {
   }
 
   /**
-   * Creates a new exercise record.
-   * @param data - Input data for the new exercise
-   * @returns Observable emitting the created exercise
+   * Crea un nuevo registro de ejercicio en el sistema.
+   * 
+   * @param data - Datos necesarios para la creación del ejercicio.
+   * @returns Observable con el ejercicio recién creado.
    */
   createExercise(data: CreateExerciseInput): Observable<Exercise> {
     return from(this.supabase.from('Exercise').insert(data).select('*').single()).pipe(
@@ -71,10 +79,11 @@ export class ExercisesService {
   }
 
   /**
-   * Updates an existing exercise record.
-   * @param id - The ID of the exercise to update
-   * @param data - The updated exercise data
-   * @returns Observable emitting the updated exercise
+   * Actualiza los datos de un ejercicio existente.
+   * 
+   * @param id - Identificador del ejercicio a modificar.
+   * @param data - Objeto con los campos actualizados.
+   * @returns Observable con el ejercicio actualizado.
    */
   updateExercise(id: string, data: UpdateExerciseInput): Observable<Exercise> {
     return from(this.supabase.from('Exercise').update(data).eq('id', id).select('*').single()).pipe(
@@ -87,9 +96,10 @@ export class ExercisesService {
   }
 
   /**
-   * Deletes an exercise record by its ID.
-   * @param id - The ID of the exercise to delete
-   * @returns Observable emitting void on success
+   * Elimina un ejercicio del catálogo permanente.
+   * 
+   * @param id - Identificador del ejercicio a borrar.
+   * @returns Observable vacío al completar la operación.
    */
   deleteExercise(id: string): Observable<void> {
     return from(this.supabase.from('Exercise').delete().eq('id', id)).pipe(
@@ -102,9 +112,10 @@ export class ExercisesService {
   }
 
   /**
-   * Bulk imports multiple exercises into the system.
-   * @param exercises - Array of exercise data to import
-   * @returns Observable emitting import results (counts and errors)
+   * Realiza una importación masiva de múltiples ejercicios.
+   * 
+   * @param exercises - Listado de ejercicios a importar.
+   * @returns Observable con el resumen del resultado de la importación.
    */
   importExercises(exercises: CreateExerciseInput[]): Observable<{ created: number; skipped: number; errors: Array<{ exercise: string; error: string }> }> {
     return from(this.supabase.from('Exercise').insert(exercises).select('id')).pipe(

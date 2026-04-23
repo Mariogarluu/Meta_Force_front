@@ -1,3 +1,16 @@
+/**
+ * =============================================================================
+ * SERVICIO DE ENTRENAMIENTOS (WORKOUTS SERVICE)
+ * =============================================================================
+ * Este servicio gestiona las rutinas de entrenamiento y los ejercicios incluidos
+ * en ellas. Permite la creación, duplicación y modificación de planes de
+ * entrenamiento personalizados para los usuarios.
+ * 
+ * Responsabilidades:
+ * 1. Gestionar el ciclo de vida de las rutinas de entrenamiento (Workout).
+ * 2. Administrar la asociación y el orden de ejercicios dentro de cada rutina.
+ * 3. Proporcionar funcionalidad de duplicación de rutinas existentes.
+ */
 import { Injectable, inject } from '@angular/core';
 import { Observable, from, throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
@@ -12,10 +25,6 @@ import {
   WorkoutExercise,
 } from '../models/workout';
 
-/**
- * Service for managing workout routines and exercises within those routines.
- * Handles creation, duplication, and modification of workout plans.
- */
 @Injectable({
   providedIn: 'root'
 })
@@ -23,9 +32,10 @@ export class WorkoutsService {
   private supabase = inject(SupabaseService).client;
 
   /**
-   * Lists all workout routines, optionally filtered by user ID.
-   * @param userId - Optional: filter workouts by user ID
-   * @returns Observable emitting an array of workouts
+   * Lista todas las rutinas de entrenamiento, opcionalmente filtradas por usuario.
+   * 
+   * @param userId - ID opcional del usuario para filtrar las rutinas.
+   * @returns Observable con el listado de rutinas.
    */
   listWorkouts(userId?: string | null): Observable<Workout[]> {
     const base = this.supabase
@@ -45,9 +55,10 @@ export class WorkoutsService {
   }
 
   /**
-   * Retrieves a specific workout routine by its ID.
-   * @param id - The ID of the workout to fetch
-   * @returns Observable emitting the workout object
+   * Recupera una rutina específica incluyendo sus ejercicios asociados.
+   * 
+   * @param id - Identificador único de la rutina.
+   * @returns Observable con la rutina y sus ejercicios.
    */
   getWorkout(id: string): Observable<Workout> {
     return from(
@@ -66,9 +77,10 @@ export class WorkoutsService {
   }
 
   /**
-   * Creates a new workout routine.
-   * @param data - Input data for the new workout
-   * @returns Observable emitting the created workout
+   * Crea una nueva rutina de entrenamiento.
+   * 
+   * @param data - Datos iniciales de la rutina.
+   * @returns Observable con la rutina creada.
    */
   createWorkout(data: CreateWorkoutInput): Observable<Workout> {
     return from(this.supabase.from('Workout').insert(data).select('*').single()).pipe(
@@ -81,10 +93,11 @@ export class WorkoutsService {
   }
 
   /**
-   * Updates an existing workout routine.
-   * @param id - The ID of the workout to update
-   * @param data - The updated workout data
-   * @returns Observable emitting the updated workout
+   * Actualiza los datos generales de una rutina de entrenamiento.
+   * 
+   * @param id - Identificador de la rutina a modificar.
+   * @param data - Objeto con los campos actualizados.
+   * @returns Observable con la rutina actualizada.
    */
   updateWorkout(id: string, data: UpdateWorkoutInput): Observable<Workout> {
     return from(this.supabase.from('Workout').update(data).eq('id', id).select('*').single()).pipe(
@@ -97,9 +110,10 @@ export class WorkoutsService {
   }
 
   /**
-   * Deletes a workout routine by its ID.
-   * @param id - The ID of the workout to delete
-   * @returns Observable emitting void on success
+   * Elimina una rutina de entrenamiento y sus asociaciones.
+   * 
+   * @param id - Identificador de la rutina a borrar.
+   * @returns Observable vacío al completar.
    */
   deleteWorkout(id: string): Observable<void> {
     return from(this.supabase.from('Workout').delete().eq('id', id)).pipe(
@@ -112,10 +126,11 @@ export class WorkoutsService {
   }
 
   /**
-   * Adds an exercise entry to an existing workout routine.
-   * @param workoutId - The ID of the workout to add an exercise to
-   * @param data - Input data for the exercise entry
-   * @returns Observable emitting the created workout-exercise entry
+   * Añade un ejercicio específico a una rutina existente.
+   * 
+   * @param workoutId - ID de la rutina destino.
+   * @param data - Datos del ejercicio y configuración (series, repeticiones).
+   * @returns Observable con el registro de asociación creado.
    */
   addExerciseToWorkout(workoutId: string, data: AddExerciseToWorkoutInput): Observable<WorkoutExercise> {
     return from(
@@ -134,10 +149,11 @@ export class WorkoutsService {
   }
 
   /**
-   * Updates an exercise entry within a workout routine.
-   * @param exerciseId - The ID of the workout-exercise entry to update
-   * @param data - The updated data for the entry
-   * @returns Observable emitting the updated workout-exercise entry
+   * Actualiza los parámetros de un ejercicio dentro de una rutina.
+   * 
+   * @param exerciseId - ID del registro de asociación (WorkoutExercise).
+   * @param data - Nuevos parámetros (orden, series, etc.).
+   * @returns Observable con el registro actualizado.
    */
   updateWorkoutExercise(exerciseId: string, data: UpdateWorkoutExerciseInput): Observable<WorkoutExercise> {
     return from(
@@ -157,9 +173,10 @@ export class WorkoutsService {
   }
 
   /**
-   * Removes an exercise entry from a workout routine.
-   * @param exerciseId - The ID of the workout-exercise entry to remove
-   * @returns Observable emitting void on success
+   * Elimina un ejercicio de una rutina específica.
+   * 
+   * @param exerciseId - ID del registro de asociación a eliminar.
+   * @returns Observable vacío al completar.
    */
   removeExerciseFromWorkout(exerciseId: string): Observable<void> {
     return from(this.supabase.from('WorkoutExercise').delete().eq('id', exerciseId)).pipe(
@@ -172,14 +189,13 @@ export class WorkoutsService {
   }
 
   /**
-   * Reorders multiple exercise entries within a workout routine.
-   * @param workoutId - The ID of the workout to reorder exercises in
-   * @param data - Selection and new ordering for exercises
-   * @returns Observable emitting the updated workout routine
+   * Reordena los ejercicios dentro de una rutina.
+   * 
+   * @param workoutId - ID de la rutina que se está reordenando.
+   * @param data - Mapa de IDs y nuevas posiciones.
+   * @returns Observable con la rutina actualizada.
    */
   reorderWorkoutExercises(workoutId: string, data: ReorderWorkoutExercisesInput): Observable<Workout> {
-    // Reorder is client-side with updates; assumes data contains ids with new order.
-    // Best-effort: update rows sequentially.
     return from(Promise.resolve(data)).pipe(
       switchMap((payload: any) => {
         const updates = (payload?.exercises ?? payload ?? []).map((e: any) =>
@@ -202,10 +218,11 @@ export class WorkoutsService {
   }
 
   /**
-   * Duplicates an existing workout routine.
-   * Creates a copy with the same content and a numeric suffix in the name (e.g., "(1)").
-   * @param id - The ID of the workout to duplicate
-   * @returns Observable emitting the new duplicated workout
+   * Crea una copia exacta de una rutina de entrenamiento.
+   * La copia incluirá todos los ejercicios con sus mismos parámetros.
+   * 
+   * @param id - ID de la rutina original a duplicar.
+   * @returns Observable con la nueva rutina duplicada.
    */
   duplicateWorkout(id: string): Observable<Workout> {
     return from(
