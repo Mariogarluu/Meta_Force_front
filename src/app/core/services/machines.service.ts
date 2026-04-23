@@ -1,3 +1,16 @@
+/**
+ * =============================================================================
+ * SERVICIO DE MAQUINARIA (MACHINES SERVICE)
+ * =============================================================================
+ * Este servicio gestiona el inventario de tipos de máquinas y las instancias
+ * físicas desplegadas en los centros. Controla el catálogo de equipamiento
+ * y su estado operativo.
+ * 
+ * Responsabilidades:
+ * 1. Administrar el catálogo global de tipos de máquinas.
+ * 2. Gestionar las instancias físicas de maquinaria por sede.
+ * 3. Controlar el estado y despliegue de nuevo equipamiento.
+ */
 import { Injectable, inject } from '@angular/core';
 import { Observable, from, throwError } from 'rxjs';
 import { map, catchError, switchMap } from 'rxjs/operators';
@@ -11,14 +24,6 @@ import {
 } from '../models/machine';
 import { SupabaseService } from './supabase.service';
 
-/**
- * Service for managing machine types and their physical instances in centers.
- * Handles the catalog of equipment and their distribution across gym locations.
- */
-/**
- * Service for managing machine types and their physical instances in centers.
- * Handles the catalog of equipment and their distribution across gym locations.
- */
 @Injectable({
   providedIn: 'root'
 })
@@ -26,10 +31,9 @@ export class MachinesService {
   private supabase = inject(SupabaseService).client;
 
   /**
-   * Lists all available machine types, optionally including counts for a specific center.
-   * Maps backend 'machines' field to 'instances' for consistency.
-   * @param centerId - Optional: filter instances by center ID
-   * @returns Observable emitting an array of machine types
+   * Lista los tipos de máquinas disponibles, opcionalmente filtrados por centro.
+   * @param centerId - Opcional: ID del centro para filtrar los tipos que tienen instancias allí.
+   * @returns Observable con el array de modelos de tipos de máquinas.
    */
   listMachineTypes(centerId?: string | null): Observable<MachineTypeModel[]> {
     const select = centerId
@@ -56,9 +60,9 @@ export class MachinesService {
   }
 
   /**
-   * Lists all physical machine instances located in a specific center.
-   * @param centerId - The ID of the center to query
-   * @returns Observable emitting an array of machine instances
+   * Recupera el listado de instancias físicas situadas en un centro específico.
+   * @param centerId - ID del centro a consultar.
+   * @returns Observable con el array de instancias de maquinaria.
    */
   listMachines(centerId: string): Observable<MachineCenterInstance[]> {
     return from(
@@ -78,9 +82,9 @@ export class MachinesService {
   }
 
   /**
-   * Retrieves a specific machine type by its ID, including its center instances.
-   * @param id - The ID of the machine type to fetch
-   * @returns Observable emitting the machine type object
+   * Obtiene un tipo de máquina específico por su ID, incluyendo sus instancias.
+   * @param id - Identificador del tipo de máquina.
+   * @returns Observable con el objeto del modelo de tipo de máquina.
    */
   getMachineType(id: string): Observable<MachineTypeModel> {
     return from(
@@ -99,9 +103,9 @@ export class MachinesService {
   }
 
   /**
-   * Creates a new machine type record.
-   * @param data - Input data for the new machine type
-   * @returns Observable emitting the created machine type
+   * Crea un nuevo registro de tipo de máquina en el catálogo.
+   * @param data - Datos iniciales para el tipo de máquina.
+   * @returns Observable con el nuevo objeto creado.
    */
   createMachineType(data: CreateMachineTypeInput): Observable<MachineTypeModel> {
     return from(this.supabase.from('MachineType').insert(data).select('*').single()).pipe(
@@ -114,10 +118,10 @@ export class MachinesService {
   }
 
   /**
-   * Updates an existing machine type record.
-   * @param id - The ID of the machine type to update
-   * @param data - The updated data
-   * @returns Observable emitting the updated machine type
+   * Actualiza la información de un tipo de máquina existente.
+   * @param id - ID del tipo de máquina a modificar.
+   * @param data - Campos parciales para la actualización.
+   * @returns Observable con el objeto actualizado.
    */
   updateMachineType(id: string, data: UpdateMachineTypeInput): Observable<MachineTypeModel> {
     return from(this.supabase.from('MachineType').update(data).eq('id', id).select('*').single()).pipe(
@@ -140,9 +144,9 @@ export class MachinesService {
   }
 
   /**
-   * Deletes a machine type and all its associated physical instances.
-   * @param id - The ID of the machine type to delete
-   * @returns Observable emitting void on success
+   * Elimina un tipo de máquina y todas sus instancias asociadas.
+   * @param id - ID del tipo de máquina a eliminar.
+   * @returns Observable que se completa tras la eliminación.
    */
   deleteMachineType(id: string): Observable<void> {
     return from(this.supabase.from('MachineType').delete().eq('id', id)).pipe(
@@ -155,10 +159,10 @@ export class MachinesService {
   }
 
   /**
-   * Deploys instances of a machine type to a specific center.
-   * @param machineTypeId - The type of machine to add
-   * @param data - Center ID and number of instances to create
-   * @returns Observable emitting the created machine instances
+   * Despliega nuevas instancias físicas de un tipo de máquina en un centro.
+   * @param machineTypeId - ID del tipo de máquina.
+   * @param data - Configuración del despliegue (centro, cantidad, estado inicial).
+   * @returns Observable con las instancias recién creadas.
    */
   addMachineToCenter(machineTypeId: string, data: AddMachineToCenterInput): Observable<any> {
     const status = data.status ?? 'operativa';
@@ -194,12 +198,12 @@ export class MachinesService {
   }
 
   /**
-   * Updates metadata for a specific physical machine instance in a center.
-   * @param machineTypeId - The machine type ID
-   * @param centerId - The center ID
-   * @param instanceNumber - The specific instance number identifier
-   * @param data - Updated instance data (e.g., status, notes)
-   * @returns Observable emitting the updated instance
+   * Actualiza el estado o metadatos de una instancia física específica.
+   * @param machineTypeId - ID del tipo de máquina.
+   * @param centerId - ID del centro donde se ubica.
+   * @param instanceNumber - Número de instancia único dentro de esa sede.
+   * @param data - Datos parciales a actualizar (ej: estado, notas).
+   * @returns Observable con la instancia actualizada.
    */
   updateMachineInCenter(machineTypeId: string, centerId: string, instanceNumber: number, data: UpdateMachineInCenterInput): Observable<any> {
     return from(
@@ -219,11 +223,11 @@ export class MachinesService {
   }
 
   /**
-   * Removes a specific physical machine instance from a center.
-   * @param machineTypeId - The machine type ID
-   * @param centerId - The center ID
-   * @param instanceNumber - The specific instance number identifier
-   * @returns Observable emitting void on success
+   * Retira una instancia física específica de un centro.
+   * @param machineTypeId - ID del tipo de máquina.
+   * @param centerId - ID del centro.
+   * @param instanceNumber - Número de instancia a retirar.
+   * @returns Observable que se completa tras la retirada.
    */
   removeMachineFromCenter(machineTypeId: string, centerId: string, instanceNumber: number): Observable<void> {
     return from(

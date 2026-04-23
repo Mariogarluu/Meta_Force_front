@@ -1,13 +1,22 @@
+/**
+ * =============================================================================
+ * SERVICIO DE CLASES DIRIGIDAS (CLASSES SERVICE)
+ * =============================================================================
+ * Este servicio gestiona el catálogo de clases, sus horarios y asociaciones
+ * con centros y entrenadores. Permite la administración completa del calendario
+ * de actividades del gimnasio.
+ * 
+ * Responsabilidades:
+ * 1. Gestionar el ciclo de vida de las clases dirigidas.
+ * 2. Administrar horarios por centro y vinculación de entrenadores.
+ * 3. Proporcionar filtros de búsqueda por ubicación geográfica.
+ */
 import { Injectable, inject } from '@angular/core';
 import { Observable, from, throwError } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { CreateClassInput, GymClass, UpdateClassInput } from '../models/class';
 import { SupabaseService } from './supabase.service';
 
-/**
- * Service for managing gym classes, schedules, and center associations.
- * Provides a full set of CRUD operations for classes and handles trainers and schedules.
- */
 @Injectable({
   providedIn: 'root'
 })
@@ -15,12 +24,11 @@ export class ClassesService {
   private supabase = inject(SupabaseService).client;
 
   /**
-   * Lists all available gym classes, optionally filtered by center.
-   * @param centerId - Optional: filter classes that have schedules in this center
-   * @returns Observable emitting an array of gym classes
+   * Lista las clases disponibles, con opción de filtrar por centro.
+   * @param centerId - Opcional: ID del centro para filtrar clases con horario activo allí.
+   * @returns Observable con el array de clases encontradas.
    */
   listClasses(centerId?: string | null): Observable<GymClass[]> {
-    // We return classes; if centerId is provided, filter by schedule center.
     const query = centerId
       ? this.supabase
           .from('GymClass')
@@ -38,9 +46,10 @@ export class ClassesService {
   }
 
   /**
-   * Retrieves a specific gym class by its ID.
-   * @param id - The unique identifier of the class
-   * @returns Observable emitting the found gym class
+   * Recupera una clase específica mediante su identificador.
+   * Incluye información de horarios y entrenadores asociados.
+   * @param id - Identificador único de la clase.
+   * @returns Observable con el objeto de la clase detallado.
    */
   getClass(id: string): Observable<GymClass> {
     return from(
@@ -59,9 +68,9 @@ export class ClassesService {
   }
 
   /**
-   * Creates a new gym class.
-   * @param data - Data for the new class (name and optional description)
-   * @returns Observable emitting the created class with its ID
+   * Crea una nueva clase en el catálogo global.
+   * @param data - Datos básicos de la clase (nombre y descripción opcional).
+   * @returns Observable con la clase recién creada.
    */
   createClass(data: CreateClassInput): Observable<GymClass> {
     return from(this.supabase.from('GymClass').insert(data).select('*').single()).pipe(
@@ -74,10 +83,10 @@ export class ClassesService {
   }
 
   /**
-   * Updates an existing gym class.
-   * @param id - The unique identifier of the class to update
-   * @param data - Partial data for the update
-   * @returns Observable emitting the updated class
+   * Actualiza los datos de una clase existente.
+   * @param id - Identificador de la clase a modificar.
+   * @param data - Campos parciales para la actualización.
+   * @returns Observable con el objeto de la clase actualizado.
    */
   updateClass(id: string, data: UpdateClassInput): Observable<GymClass> {
     return from(this.supabase.from('GymClass').update(data).eq('id', id).select('*').single()).pipe(
@@ -90,9 +99,9 @@ export class ClassesService {
   }
 
   /**
-   * Deletes a gym class by its ID.
-   * @param id - The unique identifier of the class to delete
-   * @returns Observable completing when deletion is successful
+   * Elimina una clase del catálogo por su ID.
+   * @param id - Identificador de la clase a suprimir.
+   * @returns Observable que se completa al finalizar la eliminación.
    */
   deleteClass(id: string): Observable<void> {
     return from(this.supabase.from('GymClass').delete().eq('id', id)).pipe(
@@ -105,10 +114,10 @@ export class ClassesService {
   }
 
   /**
-   * Associate a center with an existing class, including trainers and schedules.
-   * @param classId - The unique identifier of the class
-   * @param data - Association details (center, trainers, and schedules)
-   * @returns Observable emitting the updated class
+   * Asocia una clase a un centro específico definiendo horarios y entrenadores.
+   * @param classId - ID de la clase.
+   * @param data - Detalles de la asociación (centro, IDs de entrenadores y array de horarios).
+   * @returns Observable con la clase actualizada tras la asociación.
    */
   addCenterToClass(classId: string, data: {
     centerId: string;
@@ -121,13 +130,11 @@ export class ClassesService {
   }): Observable<GymClass> {
     return from(
       Promise.all([
-        // Trainers
         data.trainerIds?.length
           ? this.supabase
               .from('ClassTrainer')
               .insert(data.trainerIds.map((trainerId) => ({ classId, trainerId })))
           : Promise.resolve({}),
-        // Schedules
         data.schedules?.length
           ? this.supabase
               .from('ClassCenterSchedule')
@@ -153,16 +160,15 @@ export class ClassesService {
   }
 
   /**
-   * Removes a center association from a class.
-   * @param classId - The unique identifier of the class
-   * @param centerId - The unique identifier of the center to remove
-   * @returns Observable emitting the updated class
+   * Desvincula una clase de un centro determinado.
+   * @param classId - ID de la clase.
+   * @param centerId - ID del centro.
+   * @returns Observable con el estado de la clase tras la desvinculación.
    */
   removeCenterFromClass(classId: string, centerId: string): Observable<GymClass> {
     return from(
       Promise.all([
         this.supabase.from('ClassCenterSchedule').delete().match({ classId, centerId }),
-        // Trainers are per class; if you want per-center trainers, model would differ. For now we keep trainers.
       ])
     ).pipe(
       switchMap(() => from(this.supabase.from('GymClass').select('*').eq('id', classId).single())),
@@ -175,11 +181,11 @@ export class ClassesService {
   }
 
   /**
-   * Updates a center association in a class (trainers and schedules).
-   * @param classId - The unique identifier of the class
-   * @param centerId - The unique identifier of the center
-   * @param data - Updated trainer IDs and/or specific schedules
-   * @returns Observable emitting the updated class
+   * Actualiza la configuración de una clase en un centro (entrenadores y horarios).
+   * @param classId - ID de la clase.
+   * @param centerId - ID del centro.
+   * @param data - Nuevos IDs de entrenadores y/o listado completo de horarios.
+   * @returns Observable con la clase reflejando los cambios.
    */
   updateCenterInClass(classId: string, centerId: string, data: {
     trainerIds?: string[];
@@ -202,7 +208,6 @@ export class ClassesService {
         }
 
         if (data.schedules) {
-          // Replace schedules for this center+class (simple & deterministic)
           await this.supabase.from('ClassCenterSchedule').delete().match({ classId, centerId });
           if (data.schedules.length) {
             await this.supabase.from('ClassCenterSchedule').insert(
