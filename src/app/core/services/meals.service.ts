@@ -1,17 +1,22 @@
+/**
+ * =============================================================================
+ * SERVICIO DE COMIDAS (MEALS SERVICE)
+ * =============================================================================
+ * Este servicio gestiona el catálogo de comidas y datos nutricionales.
+ * Permite la administración de platos disponibles en el sistema y facilita
+ * la importación masiva de datos nutricionales para la planificación de dietas.
+ * 
+ * Responsabilidades:
+ * 1. Consultar el listado completo de comidas y sus detalles.
+ * 2. Gestionar el ciclo de vida (CRUD) de los registros de comidas.
+ * 3. Realizar importaciones masivas de platos y su información nutricional.
+ */
 import { Injectable, inject } from '@angular/core';
 import { Observable, from, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Meal, CreateMealInput, UpdateMealInput } from '../models/meal';
 import { SupabaseService } from './supabase.service';
 
-/**
- * Service for managing available meals and nutritional data.
- * Handles the catalog of meals and provides functionality for importing meal data.
- */
-/**
- * Service for managing available meals and nutritional data.
- * Handles the catalog of meals and provides functionality for importing meal data.
- */
 @Injectable({
   providedIn: 'root'
 })
@@ -19,8 +24,9 @@ export class MealsService {
   private supabase = inject(SupabaseService).client;
 
   /**
-   * Lists all available meals in the system.
-   * @returns Observable emitting an array of meals
+   * Lista todas las comidas disponibles en el sistema.
+   * 
+   * @returns Observable con el listado de comidas ordenadas por nombre.
    */
   listMeals(): Observable<Meal[]> {
     return from(this.supabase.from('Meal').select('*').order('name', { ascending: true })).pipe(
@@ -33,9 +39,10 @@ export class MealsService {
   }
 
   /**
-   * Retrieves a specific meal by its ID.
-   * @param id - The ID of the meal to fetch
-   * @returns Observable emitting the meal object
+   * Recupera una comida específica mediante su identificador.
+   * 
+   * @param id - Identificador único de la comida.
+   * @returns Observable con los detalles de la comida.
    */
   getMeal(id: string): Observable<Meal> {
     return from(this.supabase.from('Meal').select('*').eq('id', id).single()).pipe(
@@ -48,9 +55,10 @@ export class MealsService {
   }
 
   /**
-   * Creates a new meal record.
-   * @param data - Input data for the new meal
-   * @returns Observable emitting the created meal
+   * Crea un nuevo registro de comida en el sistema.
+   * 
+   * @param data - Datos nutricionales y descriptivos de la nueva comida.
+   * @returns Observable con la comida recién creada.
    */
   createMeal(data: CreateMealInput): Observable<Meal> {
     return from(this.supabase.from('Meal').insert(data).select('*').single()).pipe(
@@ -63,10 +71,11 @@ export class MealsService {
   }
 
   /**
-   * Updates an existing meal record.
-   * @param id - The ID of the meal to update
-   * @param data - The updated meal data
-   * @returns Observable emitting the updated meal
+   * Actualiza los datos de una comida existente.
+   * 
+   * @param id - Identificador de la comida a modificar.
+   * @param data - Objeto con los campos nutricionales actualizados.
+   * @returns Observable con la comida actualizada.
    */
   updateMeal(id: string, data: UpdateMealInput): Observable<Meal> {
     return from(this.supabase.from('Meal').update(data).eq('id', id).select('*').single()).pipe(
@@ -79,9 +88,10 @@ export class MealsService {
   }
 
   /**
-   * Deletes a meal record by its ID.
-   * @param id - The ID of the meal to delete
-   * @returns Observable emitting void on success
+   * Elimina un registro de comida del catálogo.
+   * 
+   * @param id - Identificador de la comida a borrar.
+   * @returns Observable vacío al completar la operación.
    */
   deleteMeal(id: string): Observable<void> {
     return from(this.supabase.from('Meal').delete().eq('id', id)).pipe(
@@ -94,9 +104,10 @@ export class MealsService {
   }
 
   /**
-   * Bulk imports multiple meals into the system.
-   * @param meals - Array of meal data to import
-   * @returns Observable emitting import results (counts and errors)
+   * Realiza una importación masiva de múltiples platos.
+   * 
+   * @param meals - Listado de comidas a importar.
+   * @returns Observable con el resumen del resultado de la importación.
    */
   importMeals(meals: CreateMealInput[]): Observable<{ created: number; skipped: number; errors: Array<{ meal: string; error: string }> }> {
     return from(this.supabase.from('Meal').insert(meals).select('id')).pipe(

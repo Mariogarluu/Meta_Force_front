@@ -1,40 +1,30 @@
+/**
+ * =============================================================================
+ * SERVICIO DE GESTIÓN DE ERRORES (ERROR SERVICE)
+ * =============================================================================
+ * Este servicio centraliza la captura, procesamiento y visualización de errores
+ * en toda la aplicación. Proporciona una interfaz reactiva para notificar al
+ * usuario sobre problemas de red, autenticación o lógica de negocio.
+ * 
+ * Responsabilidades:
+ * 1. Transformar errores técnicos (HTTP, excepciones) en mensajes amigables.
+ * 2. Gestionar el estado reactivo de los errores activos mediante Signals.
+ * 3. Proporcionar un sistema de registro dinámico de mensajes de error.
+ * 4. Automatizar la limpieza de errores tras un tiempo determinado.
+ */
 import { Injectable, signal } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AppError, ErrorType } from '../models/app-error';
 
-/**
- * Servicio de gestión centralizada de errores de la aplicación.
- * 
- * Proporciona una forma unificada de manejar errores desde cualquier parte
- * de la aplicación, convirtiéndolos en mensajes legibles para el usuario
- * y mostrándolos mediante un toast global.
- * 
- * Características:
- * - Conversión automática de HttpErrorResponse a mensajes legibles
- * - Soporte para códigos de error personalizados
- * - Auto-limpieza de errores después de un tiempo configurable
- * - Señales reactivas para integración con componentes
- */
-/**
- * Service for centralized application error management.
- * Provides a unified way to handle errors from any part of the application,
- * converting them into user-friendly messages displayed via a global toast.
- */
-/**
- * Service for centralized application error management.
- * Provides a unified way to handle errors from any part of the application,
- * converting them into user-friendly messages displayed via a global toast.
- * Features automatic HTTP error parsing, custom error codes, and auto-cleanup.
- */
 @Injectable({ providedIn: 'root' })
 export class ErrorService {
-  /** Internal signal for the currently active application error */
+  /** Señal interna para el error activo actualmente */
   private currentError = signal<AppError | null>(null);
   
-  /** Public read-only signal of the current error */
+  /** Señal de solo lectura expuesta para los componentes */
   error = this.currentError.asReadonly();
   
-  /** Map of error codes to user-friendly Spanish messages */
+  /** Mapa de códigos de error y sus mensajes descriptivos en español */
   private errorMap = new Map<string, string>([
     ['ERR_NETWORK', 'Error de conexión'],
     ['ERR_AUTH_INVALID', 'Credenciales incorrectas'],
@@ -46,10 +36,11 @@ export class ErrorService {
   ]);
   
   /**
-   * Handles any type of application error.
-   * Automatically detects error type and converts it into a displayable AppError.
-   * @param error - Any error object (HttpErrorResponse, Error, custom, etc.)
-   * @param duration - Time in ms to display the error (0 for permanent)
+   * Procesa cualquier tipo de error capturado.
+   * Detecta automáticamente el tipo y lo convierte en un objeto AppError.
+   * 
+   * @param error - Objeto de error (HttpErrorResponse, Error nativo, etc.).
+   * @param duration - Tiempo en ms que el error permanecerá visible (0 = permanente).
    */
   handleError(error: any, duration: number = 5000) {
     const appError = this.parseError(error);
@@ -61,11 +52,12 @@ export class ErrorService {
   }
   
   /**
-   * Manually sets an error with a specific message and type.
-   * Useful for business logic errors not originating from HTTP calls.
-   * @param message - User-friendly error message
-   * @param type - The category of the error
-   * @param duration - Time in ms to display the error
+   * Establece manualmente un error con un mensaje y tipo específicos.
+   * Útil para validaciones de lógica de negocio o estados controlados.
+   * 
+   * @param message - Mensaje legible para el usuario.
+   * @param type - Categoría del error (Auth, Validation, etc.).
+   * @param duration - Tiempo de visibilidad en ms.
    */
   setError(message: string, type: ErrorType = ErrorType.UNKNOWN, duration: number = 5000) {
     const appError: AppError = {
@@ -81,9 +73,10 @@ export class ErrorService {
   }
   
   /**
-   * Parses an unknown error object into a structured AppError.
-   * @param error - The error object to parse
-   * @returns A structured AppError object
+   * Convierte un objeto de error desconocido en una estructura AppError válida.
+   * 
+   * @param error - El error original a parsear.
+   * @returns Un objeto estructurado AppError.
    */
   private parseError(error: any): AppError {
     if (error instanceof HttpErrorResponse) {
@@ -109,9 +102,10 @@ export class ErrorService {
   }
   
   /**
-   * Maps HTTP status codes to application error types and messages.
-   * @param error - The Angular HttpErrorResponse object
-   * @returns A structured AppError based on HTTP status
+   * Mapea códigos de estado HTTP a tipos de error y mensajes específicos.
+   * 
+   * @param error - El objeto HttpErrorResponse de Angular.
+   * @returns AppError configurado según el estado HTTP.
    */
   private parseHttpError(error: HttpErrorResponse): AppError {
     const statusMap: Record<number, { type: ErrorType; message: string }> = {
@@ -137,9 +131,10 @@ export class ErrorService {
   }
   
   /**
-   * Determines the ErrorType based on the error code prefix.
-   * @param code - The internal error code string
-   * @returns The corresponding ErrorType enum value
+   * Determina la categoría del error basándose en el prefijo del código.
+   * 
+   * @param code - Código de error interno.
+   * @returns El valor del enum ErrorType correspondiente.
    */
   private getErrorType(code: string): ErrorType {
     if (code.startsWith('ERR_AUTH')) return ErrorType.AUTH;
@@ -150,16 +145,17 @@ export class ErrorService {
   }
   
   /**
-   * Clears the currently active error, removing it from the UI.
+   * Limpia el error activo actual, eliminándolo de la interfaz.
    */
   clearError() {
     this.currentError.set(null);
   }
   
   /**
-   * Registers a new error code and message mapping dynamically.
-   * @param code - Unique error code string
-   * @param message - User-friendly Spanish message for this code
+   * Registra dinámicamente un nuevo mapeo de código y mensaje de error.
+   * 
+   * @param code - Código único del error.
+   * @param message - Mensaje descriptivo en español.
    */
   registerErrorMessage(code: string, message: string) {
     this.errorMap.set(code, message);
