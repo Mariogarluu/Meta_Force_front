@@ -47,7 +47,7 @@ export class AuthService {
       this._initialLoadComplete.next(true);
     }
 
-    this.supabase.auth.onAuthStateChange(async (event, session) => {
+    this.supabase.auth.onAuthStateChange(async (event: any, session: any) => {
       if (session) {
         await this.loadUserProfile(session.user.id);
       } else {

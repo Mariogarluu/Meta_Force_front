@@ -6,6 +6,9 @@ import { PerformanceService, BodyWeightRecord, ExerciseRecord, Exercise } from '
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+
+export type TimeFilter = '1M' | '3M' | '6M' | '1Y' | 'ALL';
 
 /**
  * Component for tracking and visualizing user performance metrics.
@@ -22,9 +25,16 @@ import { TranslateModule } from '@ngx-translate/core';
 export class PerformanceComponent implements OnInit {
   /** Injected PerformanceService for data persistence */
   private performanceService = inject(PerformanceService);
+  private router = inject(Router);
 
   /** Currently selected tab in the UI */
   activeTab: 'body-weight' | 'exercises' = 'body-weight';
+  activeTimeFilter: TimeFilter = 'ALL';
+  timeFilters: TimeFilter[] = ['1M', '3M', '6M', '1Y', 'ALL'];
+
+  /** Goals */
+  weightGoal: number | null = null;
+  exerciseGoal: number | null = null;
 
   /** List of body weight records fetched from the backend */
   bodyWeights: BodyWeightRecord[] = [];
@@ -54,7 +64,17 @@ export class PerformanceComponent implements OnInit {
       }
     },
     plugins: {
-      legend: { labels: { color: '#9ca3af' } }
+      legend: { labels: { color: '#9ca3af' } },
+      tooltip: {
+        backgroundColor: 'rgba(17, 24, 39, 0.95)',
+        titleColor: '#fff',
+        bodyColor: '#e5e7eb',
+        borderColor: 'rgba(75, 85, 99, 0.4)',
+        borderWidth: 1,
+        padding: 12,
+        displayColors: false,
+        cornerRadius: 8
+      }
     }
   };
   /** Configuration for the body weight history line chart */
@@ -79,6 +99,66 @@ export class PerformanceComponent implements OnInit {
   /** Gets exercise records filtered by the currently selected exercise chart ID */
   get filteredExerciseRecords() {
     return this.exerciseRecords.filter(r => r.exercise.id === this.selectedExerciseChartId);
+  }
+
+  /** KPI Getters */
+  get currentWeightDiff(): number {
+    if (this.bodyWeights.length < 2) return 0;
+    const sorted = [...this.bodyWeights].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    const initial = sorted[0].weight;
+    const current = sorted[sorted.length - 1].weight;
+    return Number((current - initial).toFixed(1));
+  }
+
+  get top1RM(): number {
+    if (this.exerciseRecords.length === 0) return 0;
+    return Math.max(...this.exerciseRecords.map(r => this.calculate1RM(r.weight, r.reps)));
+  }
+
+  get activeDays(): number {
+      const allDates = [...this.bodyWeights.map(w => w.date.split('T')[0]), ...this.exerciseRecords.map(e => e.date.split('T')[0])];
+      return new Set(allDates).size;
+  }
+
+  /** Navigation */
+  goToAiChat() {
+    this.router.navigate(['/ai-chat']);
+  }
+
+  /** Brzycki Formula */
+  calculate1RM(weight: number, reps: number): number {
+    if (reps === 1) return weight;
+    return Math.round(weight * (36 / (37 - reps)));
+  }
+
+  /** Time Filtering */
+  filterRecordsByTime<T>(records: T[], dateExtractor: (item: T) => string): T[] {
+    if (this.activeTimeFilter === 'ALL') return records;
+    const now = new Date();
+    const cutoff = new Date();
+    switch (this.activeTimeFilter) {
+      case '1M': cutoff.setMonth(now.getMonth() - 1); break;
+      case '3M': cutoff.setMonth(now.getMonth() - 3); break;
+      case '6M': cutoff.setMonth(now.getMonth() - 6); break;
+      case '1Y': cutoff.setFullYear(now.getFullYear() - 1); break;
+    }
+    return records.filter(r => new Date(dateExtractor(r)) >= cutoff);
+  }
+
+  setTimeFilter(filter: TimeFilter) {
+    this.activeTimeFilter = filter;
+    if (this.activeTab === 'body-weight') {
+      this.updateWeightChart();
+    } else {
+      this.updateExerciseChart();
+    }
+  }
+
+  onTabChange(tab: 'body-weight' | 'exercises') {
+    this.activeTab = tab;
+    this.activeTimeFilter = 'ALL';
+    if (tab === 'body-weight') this.updateWeightChart();
+    else this.updateExerciseChart();
   }
 
   /**
@@ -207,13 +287,38 @@ export class PerformanceComponent implements OnInit {
    */
   updateWeightChart() {
     // Sort array by date so the chart draws properly (if not sorted)
-    const sorted = [...this.bodyWeights].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    let sorted = [...this.bodyWeights].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    sorted = this.filterRecordsByTime(sorted, r => r.date);
+
     const dates = sorted.map(w => new Date(w.date).toLocaleDateString());
     const weights = sorted.map(w => w.weight);
+
+    const datasets: any[] = [
+      { data: weights, label: 'Peso Corporal (kg)', borderColor: '#06b6d4', backgroundColor: 'rgba(6, 182, 212, 0.2)', fill: true, tension: 0.3 }
+    ];
+
+    if (this.weightGoal !== null && dates.length > 0) {
+       datasets.push({
+         data: Array(dates.length).fill(this.weightGoal),
+         label: 'Meta Peso (kg)',
+         borderColor: '#10b981', // green
+         borderDash: [5, 5],
+         fill: false,
+         pointRadius: 0, 
+         tension: 0
+       });
+    }
+
     this.weightChartData = {
       labels: dates,
-      datasets: [{ data: weights, label: 'Peso Corporal (kg)', borderColor: '#06b6d4', backgroundColor: 'rgba(6, 182, 212, 0.2)', fill: true, tension: 0.3 }]
+      datasets: datasets
     };
+  }
+
+  updateWeightGoal(event: any) {
+    const val = Number(event.target.value);
+    this.weightGoal = val > 0 ? val : null;
+    this.updateWeightChart();
   }
 
   /**
@@ -221,15 +326,39 @@ export class PerformanceComponent implements OnInit {
    */
   updateExerciseChart() {
     if (!this.selectedExerciseChartId) return;
-    const records = this.filteredExerciseRecords.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    let records = this.filteredExerciseRecords.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    records = this.filterRecordsByTime(records, r => r.date);
+
     const dates = records.map(r => new Date(r.date).toLocaleDateString());
-    const weights = records.map(r => r.weight);
+    const onesRM = records.map(r => this.calculate1RM(r.weight, r.reps));
     const exName = this.exercises.find(e => e.id === this.selectedExerciseChartId)?.name || 'Ejercicio';
+
+    const datasets: any[] = [
+      { data: onesRM, label: `1R Max Estimado - ${exName} (kg)`, borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.2)', fill: true, tension: 0.3 }
+    ];
+
+    if (this.exerciseGoal !== null && dates.length > 0) {
+       datasets.push({
+         data: Array(dates.length).fill(this.exerciseGoal),
+         label: 'Meta 1RM (kg)',
+         borderColor: '#8b5cf6', // purple
+         borderDash: [5, 5],
+         fill: false,
+         pointRadius: 0, 
+         tension: 0
+       });
+    }
 
     this.exerciseChartData = {
       labels: dates,
-      datasets: [{ data: weights, label: `Peso Max - ${exName} (kg)`, borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.2)', fill: true, tension: 0.3 }]
+      datasets: datasets
     };
+  }
+
+  updateExerciseGoal(event: any) {
+    const val = Number(event.target.value);
+    this.exerciseGoal = val > 0 ? val : null;
+    this.updateExerciseChart();
   }
 
   /**
