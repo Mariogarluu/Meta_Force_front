@@ -2,6 +2,7 @@ import { Component, inject, signal, OnInit, ViewChild, ElementRef, AfterViewChec
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { AiService, AiGeneratedPlan, ChatSession } from '../../services/ai.service';
 import { finalize } from 'rxjs/operators';
 
@@ -26,8 +27,9 @@ interface ChatMessage {
 @Component({
   selector: 'app-ai-chat',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NavbarComponent],
   template: `
+    <app-navbar></app-navbar>
     <!-- Template with Premium Dark Mode & Glassmorphism -->
     <div class="flex h-[calc(100vh-80px)] md:h-[calc(100vh-100px)] gap-4 md:p-4 p-2 bg-gradient-to-br from-gray-50 to-indigo-50/30 dark:from-gray-900 dark:to-indigo-950/30 text-gray-800 dark:text-gray-200 transition-colors duration-500">
       
