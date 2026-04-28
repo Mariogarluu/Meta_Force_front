@@ -120,6 +120,53 @@ export class PerformanceComponent implements OnInit {
       return new Set(allDates).size;
   }
 
+  /**
+   * Calcula el nivel de actividad del usuario basándose en los días activos en los últimos 30 días.
+   */
+  get activityLevel(): { label: string; colorClass: string; percentage: number } {
+    const now = new Date();
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(now.getDate() - 30);
+
+    const recentDates = [...this.bodyWeights.map(w => w.date), ...this.exerciseRecords.map(e => e.date)]
+      .filter(dateStr => new Date(dateStr) >= thirtyDaysAgo)
+      .map(dateStr => dateStr.split('T')[0]);
+    
+    const uniqueRecentDays = new Set(recentDates).size;
+    const percentage = Math.min(Math.round((uniqueRecentDays / 30) * 100), 100);
+
+    if (uniqueRecentDays >= 16) {
+      return { label: 'Alto', colorClass: 'text-green-500', percentage };
+    } else if (uniqueRecentDays >= 8) {
+      return { label: 'Medio', colorClass: 'text-yellow-500', percentage };
+    } else {
+      return { label: 'Bajo', colorClass: 'text-red-500', percentage };
+    }
+  }
+
+  /**
+   * Proporciona un resumen de la progresión del 1RM del ejercicio actual seleccionado.
+   */
+  get exerciseProgressSummary(): { text: string; isPositive: boolean } | null {
+    if (!this.selectedExerciseChartId) return null;
+    const records = [...this.filteredExerciseRecords].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    if (records.length < 2) return null;
+
+    const initial1RM = this.calculate1RM(records[0].weight, records[0].reps);
+    const current1RM = this.calculate1RM(records[records.length - 1].weight, records[records.length - 1].reps);
+    
+    const diff = current1RM - initial1RM;
+    const percentage = ((diff / initial1RM) * 100).toFixed(1);
+
+    if (diff > 0) {
+      return { text: `¡Has mejorado tu 1RM en ${diff}kg (+${percentage}%)!`, isPositive: true };
+    } else if (diff < 0) {
+      return { text: `Tu 1RM ha bajado ${Math.abs(diff)}kg (${percentage}%).`, isPositive: false };
+    } else {
+      return { text: `Tu 1RM se ha mantenido estable.`, isPositive: true };
+    }
+  }
+
   /** Navigation */
   goToAiChat() {
     this.router.navigate(['/ai-chat']);
