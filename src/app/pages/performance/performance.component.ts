@@ -5,7 +5,7 @@ import { BaseChartDirective } from 'ng2-charts';
 import { PerformanceService, BodyWeightRecord, ExerciseRecord, Exercise } from './performance.service';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 
 export type TimeFilter = '1M' | '3M' | '6M' | '1Y' | 'ALL';
@@ -26,6 +26,7 @@ export class PerformanceComponent implements OnInit {
   /** Injected PerformanceService for data persistence */
   private performanceService = inject(PerformanceService);
   private router = inject(Router);
+  private translate = inject(TranslateService);
 
   /** Currently selected tab in the UI */
   activeTab: 'body-weight' | 'exercises' = 'body-weight';
@@ -136,18 +137,18 @@ export class PerformanceComponent implements OnInit {
     const percentage = Math.min(Math.round((uniqueRecentDays / 30) * 100), 100);
 
     if (uniqueRecentDays >= 16) {
-      return { label: 'Alto', colorClass: 'text-green-500', percentage };
+      return { label: 'performance.kpi.levels.high', colorClass: 'text-green-500', percentage };
     } else if (uniqueRecentDays >= 8) {
-      return { label: 'Medio', colorClass: 'text-yellow-500', percentage };
+      return { label: 'performance.kpi.levels.medium', colorClass: 'text-yellow-500', percentage };
     } else {
-      return { label: 'Bajo', colorClass: 'text-red-500', percentage };
+      return { label: 'performance.kpi.levels.low', colorClass: 'text-red-500', percentage };
     }
   }
 
   /**
    * Proporciona un resumen de la progresión del 1RM del ejercicio actual seleccionado.
    */
-  get exerciseProgressSummary(): { text: string; isPositive: boolean } | null {
+  get exerciseProgressSummary(): { key: string; params?: any; isPositive: boolean } | null {
     if (!this.selectedExerciseChartId) return null;
     const records = [...this.filteredExerciseRecords].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     if (records.length < 2) return null;
@@ -159,11 +160,11 @@ export class PerformanceComponent implements OnInit {
     const percentage = ((diff / initial1RM) * 100).toFixed(1);
 
     if (diff > 0) {
-      return { text: `¡Has mejorado tu 1RM en ${diff}kg (+${percentage}%)!`, isPositive: true };
+      return { key: 'performance.exercises.progressSummaryPositive', params: { diff, percentage }, isPositive: true };
     } else if (diff < 0) {
-      return { text: `Tu 1RM ha bajado ${Math.abs(diff)}kg (${percentage}%).`, isPositive: false };
+      return { key: 'performance.exercises.progressSummaryNegative', params: { diff: Math.abs(diff), percentage }, isPositive: false };
     } else {
-      return { text: `Tu 1RM se ha mantenido estable.`, isPositive: true };
+      return { key: 'performance.exercises.progressSummaryStable', isPositive: true };
     }
   }
 
@@ -341,13 +342,13 @@ export class PerformanceComponent implements OnInit {
     const weights = sorted.map(w => w.weight);
 
     const datasets: any[] = [
-      { data: weights, label: 'Peso Corporal (kg)', borderColor: '#06b6d4', backgroundColor: 'rgba(6, 182, 212, 0.2)', fill: true, tension: 0.3 }
+      { data: weights, label: this.translate.instant('performance.weight.chartLabel'), borderColor: '#06b6d4', backgroundColor: 'rgba(6, 182, 212, 0.2)', fill: true, tension: 0.3 }
     ];
 
     if (this.weightGoal !== null && dates.length > 0) {
        datasets.push({
          data: Array(dates.length).fill(this.weightGoal),
-         label: 'Meta Peso (kg)',
+         label: this.translate.instant('performance.weight.chartGoalLabel'),
          borderColor: '#10b981', // green
          borderDash: [5, 5],
          fill: false,
@@ -381,13 +382,13 @@ export class PerformanceComponent implements OnInit {
     const exName = this.exercises.find(e => e.id === this.selectedExerciseChartId)?.name || 'Ejercicio';
 
     const datasets: any[] = [
-      { data: onesRM, label: `1R Max Estimado - ${exName} (kg)`, borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.2)', fill: true, tension: 0.3 }
+      { data: onesRM, label: this.translate.instant('performance.exercises.chartLabel', { name: exName }), borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.2)', fill: true, tension: 0.3 }
     ];
 
     if (this.exerciseGoal !== null && dates.length > 0) {
        datasets.push({
          data: Array(dates.length).fill(this.exerciseGoal),
-         label: 'Meta 1RM (kg)',
+         label: this.translate.instant('performance.exercises.chartGoalLabel'),
          borderColor: '#8b5cf6', // purple
          borderDash: [5, 5],
          fill: false,

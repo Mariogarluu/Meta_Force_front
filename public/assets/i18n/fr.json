@@ -630,11 +630,26 @@
   "performance": {
     "title": "Performance",
     "subtitle": "Suivez votre évolution et dépassez vos records.",
+    "aiAnalyze": "Analyser avec l'IA ✨",
     "tabs": {
       "weight": "Poids Corporel",
       "exerciseRecords": "Records d'Exercices"
     },
+    "kpi": {
+      "activeDays": "Jours Actifs",
+      "activityLevel": "Niveau d'Activité (30j)",
+      "days": "jours",
+      "levels": {
+        "high": "Élevé",
+        "medium": "Moyen",
+        "low": "Faible"
+      }
+    },
     "weight": {
+      "progressTitle": "Progrès du Poids",
+      "goal": "Objectif :",
+      "chartLabel": "Poids Corporel (kg)",
+      "chartGoalLabel": "Poids Cible (kg)",
       "addTitle": "Ajouter un Enregistrement",
       "evolution": "Évolution du Poids",
       "history": "Historique des Enregistrements",
@@ -647,6 +662,14 @@
       "firstRecord": "Ajoutez votre premier enregistrement pour voir le graphique"
     },
     "exercises": {
+      "top1RM": "Top 1RM Estimé",
+      "goal": "Objectif 1RM :",
+      "estimated1RM": "1RM Est :",
+      "chartLabel": "1RM Estimé - {{name}} (kg)",
+      "chartGoalLabel": "Objectif 1RM (kg)",
+      "progressSummaryPositive": "Vous avez amélioré votre 1RM de {{diff}}kg (+{{percentage}}%) !",
+      "progressSummaryNegative": "Votre 1RM a baissé de {{diff}}kg ({{percentage}}%).",
+      "progressSummaryStable": "Votre 1RM est resté stable.",
       "newRecord": "Nouveau Record",
       "progress": "Progrès par Exercice",
       "history": "Historique des Records",

@@ -630,11 +630,26 @@
   "performance": {
     "title": "Performance",
     "subtitle": "Track your progress and break your own records.",
+    "aiAnalyze": "Analyze with AI ✨",
     "tabs": {
       "weight": "Body Weight",
       "exerciseRecords": "Exercise Records"
     },
+    "kpi": {
+      "activeDays": "Active Days",
+      "activityLevel": "Activity Level (30d)",
+      "days": "days",
+      "levels": {
+        "high": "High",
+        "medium": "Medium",
+        "low": "Low"
+      }
+    },
     "weight": {
+      "progressTitle": "Weight Progress",
+      "goal": "Goal:",
+      "chartLabel": "Body Weight (kg)",
+      "chartGoalLabel": "Goal Weight (kg)",
       "addTitle": "Add Record",
       "evolution": "Weight Evolution",
       "history": "Record History",
@@ -647,6 +662,14 @@
       "firstRecord": "Add your first record to see the chart"
     },
     "exercises": {
+      "top1RM": "Top Estimated 1RM",
+      "goal": "Goal 1RM:",
+      "estimated1RM": "Est 1RM:",
+      "chartLabel": "Estimated 1RM - {{name}} (kg)",
+      "chartGoalLabel": "Goal 1RM (kg)",
+      "progressSummaryPositive": "You've improved your 1RM by {{diff}}kg (+{{percentage}}%)!",
+      "progressSummaryNegative": "Your 1RM dropped by {{diff}}kg ({{percentage}}%).",
+      "progressSummaryStable": "Your 1RM has remained stable.",
       "newRecord": "New Record",
       "progress": "Exercise Progress",
       "history": "Record History",
