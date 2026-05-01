@@ -1,7 +1,7 @@
 import { Component, inject, signal, OnInit, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { AiService, AiGeneratedPlan, ChatSession } from '../../services/ai.service';
 import { finalize } from 'rxjs/operators';
@@ -293,6 +293,7 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
   private aiService = inject(AiService);
   /** Injected Router to navigate to dashboard */
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
   /** Reference to the chat scroll container for automatic bottom positioning */
   @ViewChild('scrollContainer') private scrollContainer!: ElementRef;
 
@@ -339,6 +340,12 @@ export class AiChatComponent implements OnInit, AfterViewChecked {
    */
   ngOnInit() {
     this.refreshSessions();
+    this.route.queryParams.subscribe(params => {
+      const eventSummary = params['eventSummary'];
+      if (eventSummary && !this.userInput) {
+        this.userInput = `He recibido este aviso sobre mi rendimiento: ${eventSummary}. ¿Qué me recomiendas hacer a partir de aquí?`;
+      }
+    });
   }
 
   /**

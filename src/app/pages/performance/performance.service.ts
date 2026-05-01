@@ -99,9 +99,16 @@ export class PerformanceService {
             .single(),
         ),
       ),
-      map(({ data, error }) => {
+      switchMap(({ data, error }) => {
         if (error) throw error;
-        return data as BodyWeightRecord;
+        const record = data as BodyWeightRecord;
+        return from(
+          this.supabase.functions.invoke('performance-events', {
+            body: { action: 'detect', kind: 'BODY_WEIGHT', recordId: record.id },
+          }),
+        ).pipe(
+          map(() => record),
+        );
       }),
     );
   }
@@ -171,11 +178,11 @@ export class PerformanceService {
             .single(),
         ),
       ),
-      map(({ data, error }) => {
+      switchMap(({ data, error }) => {
         if (error) throw error;
         const r = data as unknown as Record<string, unknown>;
         const ex = normalizeExerciseEmbed(r['exercise']);
-        return {
+        const record: ExerciseRecord = {
           id: String(r['id']),
           weight: Number(r['weight']),
           reps: Number(r['reps']),
@@ -183,6 +190,17 @@ export class PerformanceService {
           notes: (r['notes'] as string | null | undefined) ?? undefined,
           exercise: ex.id ? ex : { id: payload.exerciseId, name: '?' },
         };
+        return from(
+          this.supabase.functions.invoke('performance-events', {
+            body: {
+              action: 'detect',
+              kind: 'EXERCISE_RECORD',
+              recordId: record.id,
+            },
+          }),
+        ).pipe(
+          map(() => record),
+        );
       }),
     );
   }
@@ -206,6 +224,41 @@ export class PerformanceService {
         if (error) throw error;
         return (data ?? []) as Exercise[];
       }),
+    );
+  }
+
+  getRecentEvents(): Observable<
+    { id: string; kind: string; severity: string; payload?: any; createdAt: string; acknowledgedAt?: string | null }[]
+  > {
+    return from(
+      this.supabase.functions.invoke('performance-events', {
+        body: { action: 'list' },
+      }),
+    ).pipe(
+      map(({ data, error }) => {
+        if (error) throw error;
+        return (data ?? []) as {
+          id: string;
+          kind: string;
+          severity: string;
+          payload?: any;
+          createdAt: string;
+          acknowledgedAt?: string | null;
+        }[];
+      }),
+    );
+  }
+
+  acknowledgeEvent(id: string): Observable<void> {
+    return from(
+      this.supabase.functions.invoke('performance-events', {
+        body: { action: 'ack', id },
+      }),
+    ).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+      }),
+      map(() => undefined),
     );
   }
 }

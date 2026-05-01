@@ -36,6 +36,68 @@
       </div>
     </div>
 
+    <!-- Coach Alerts -->
+    <div *ngIf="performanceEvents.length > 0" class="mb-6 space-y-3">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-semibold text-gray-900 dark:text-white flex items-center gap-2">
+          <svg class="w-5 h-5 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 11-10 10A10 10 0 0112 2z"></path>
+          </svg>
+          {{ 'performance.coachAlerts.title' | translate }}
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div *ngFor="let ev of performanceEvents"
+             class="rounded-xl border p-4 flex items-start gap-3"
+             [ngClass]="{
+               'bg-green-50 border-green-200 dark:bg-green-900/20 dark:border-green-800/60': ev.severity === 'success',
+               'bg-yellow-50 border-yellow-200 dark:bg-yellow-900/20 dark:border-yellow-800/60': ev.severity === 'warning',
+               'bg-red-50 border-red-200 dark:bg-red-900/20 dark:border-red-800/60': ev.severity === 'critical',
+               'bg-blue-50 border-blue-200 dark:bg-blue-900/20 dark:border-blue-800/60': ev.severity === 'info'
+             }">
+          <div class="mt-1">
+            <svg *ngIf="ev.severity === 'success'" class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <svg *ngIf="ev.severity === 'warning'" class="w-6 h-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 4h.01M4.93 19h14.14L12 5z"></path>
+            </svg>
+            <svg *ngIf="ev.severity === 'critical'" class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-12.728 12.728M5.636 5.636l12.728 12.728"></path>
+            </svg>
+            <svg *ngIf="ev.severity === 'info'" class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 11-10 10A10 10 0 0112 2z"></path>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-sm font-semibold text-gray-900 dark:text-white">
+              {{ ('performance.coachAlerts.kind.' + ev.kind) | translate : (ev.payload || {}) }}
+            </p>
+            <p class="mt-1 text-xs text-gray-600 dark:text-gray-300" *ngIf="ev.payload?.summary">
+              {{ ev.payload.summary }}
+            </p>
+            <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">
+              {{ ev.createdAt | date:'dd MMM, HH:mm' }}
+            </p>
+            <div class="mt-3 flex flex-wrap gap-2">
+              <button
+                type="button"
+                (click)="goToAiChat(ev.payload?.summary || 'He recibido un aviso sobre mi rendimiento. ¿Qué ajustes me recomiendas?')"
+                class="inline-flex items-center px-3 py-1.5 text-xs font-semibold rounded-lg bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-sm hover:from-purple-600 hover:to-indigo-700">
+                {{ 'performance.coachAlerts.talkToCoach' | translate }}
+              </button>
+              <button
+                type="button"
+                (click)="acknowledgeEvent(ev.id)"
+                class="inline-flex items-center px-3 py-1.5 text-xs font-medium rounded-lg border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                {{ 'performance.coachAlerts.dismiss' | translate }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- KPI Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">
       <!-- Progreso Peso -->
