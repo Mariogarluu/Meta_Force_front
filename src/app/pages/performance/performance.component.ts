@@ -44,6 +44,16 @@ export class PerformanceComponent implements OnInit {
   /** List of available exercises for selection */
   exercises: Exercise[] = [];
 
+  /** Recent performance events used for AI coaching */
+  performanceEvents: {
+    id: string;
+    kind: string;
+    severity: string;
+    payload?: any;
+    createdAt: string;
+    acknowledgedAt?: string | null;
+  }[] = [];
+
   /** Form model for adding a new body weight entry */
   newBodyWeight = { weight: 0, date: new Date().toISOString().split('T')[0], notes: '' };
   /** Form model for adding a new exercise performance record */
@@ -169,8 +179,12 @@ export class PerformanceComponent implements OnInit {
   }
 
   /** Navigation */
-  goToAiChat() {
-    this.router.navigate(['/ai-chat']);
+  goToAiChat(eventSummary?: string) {
+    if (eventSummary) {
+      this.router.navigate(['/ai-chat'], { queryParams: { eventSummary } });
+    } else {
+      this.router.navigate(['/ai-chat']);
+    }
   }
 
   /** Brzycki Formula */
@@ -210,12 +224,13 @@ export class PerformanceComponent implements OnInit {
   }
 
   /**
-   * Initializes data fetching for body weights, exercises, and records.
+   * Initializes data fetching for body weights, exercises, records and events.
    */
   ngOnInit() {
     this.loadBodyWeights();
     this.loadExercises();
     this.loadExerciseRecords();
+    this.loadPerformanceEvents();
   }
 
   /**
@@ -254,6 +269,24 @@ export class PerformanceComponent implements OnInit {
         this.updateExerciseChart();
       },
       error: (err) => console.error('Error loading exercise records', err)
+    });
+  }
+
+  loadPerformanceEvents() {
+    this.performanceService.getRecentEvents().subscribe({
+      next: (events) => {
+        this.performanceEvents = events;
+      },
+      error: (err) => console.error('Error loading performance events', err)
+    });
+  }
+
+  acknowledgeEvent(id: string) {
+    this.performanceService.acknowledgeEvent(id).subscribe({
+      next: () => {
+        this.performanceEvents = this.performanceEvents.filter(e => e.id !== id);
+      },
+      error: (err) => console.error('Error acknowledging event', err)
     });
   }
 
