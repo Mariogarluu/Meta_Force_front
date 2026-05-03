@@ -131,9 +131,6 @@ export class PerformanceComponent implements OnInit {
       return new Set(allDates).size;
   }
 
-  /**
-   * Calcula el nivel de actividad del usuario basándose en los días activos en los últimos 30 días.
-   */
   get activityLevel(): { label: string; colorClass: string; percentage: number } {
     const now = new Date();
     const thirtyDaysAgo = new Date();
@@ -153,6 +150,32 @@ export class PerformanceComponent implements OnInit {
     } else {
       return { label: 'performance.kpi.levels.low', colorClass: 'text-red-500', percentage };
     }
+  }
+
+  /**
+   * Calcula los días transcurridos desde la última actividad registrada (peso o ejercicio).
+   */
+  get daysSinceLastActivity(): number {
+    const allDates = [...this.bodyWeights.map(w => w.date), ...this.exerciseRecords.map(e => e.date)];
+    if (allDates.length === 0) return 0; // Si no hay registros, asumimos que acaba de empezar
+    
+    const sortedDates = allDates.sort((a, b) => new Date(b).getTime() - new Date(a).getTime());
+    const lastActivity = new Date(sortedDates[0]);
+    const now = new Date();
+    
+    // Normalizar a inicio del día para evitar problemas de horas
+    lastActivity.setHours(0, 0, 0, 0);
+    now.setHours(0, 0, 0, 0);
+    
+    const diffTime = Math.abs(now.getTime() - lastActivity.getTime());
+    return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  }
+
+  /**
+   * Determina si se debe mostrar el banner de recordatorio de asistencia (> 3 días).
+   */
+  get showInactivityReminder(): boolean {
+    return this.daysSinceLastActivity > 3;
   }
 
   /**
