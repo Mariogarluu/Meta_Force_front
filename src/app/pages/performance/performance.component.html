@@ -98,6 +98,40 @@
       </div>
     </div>
 
+    <!-- Inactivity Reminder Widget -->
+    <div *ngIf="showInactivityReminder" class="mb-8 animate-fade-in">
+      <div class="relative overflow-hidden bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-800 rounded-2xl p-6 border border-purple-400/50 dark:border-purple-500/30 shadow-xl flex flex-col md:flex-row justify-between items-center gap-6">
+        <!-- Decoración de fondo abstracta -->
+        <div class="absolute -right-10 -top-10 opacity-20 pointer-events-none">
+          <svg class="w-48 h-48 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+          </svg>
+        </div>
+        
+        <div class="flex items-start sm:items-center gap-4 relative z-10 w-full md:w-auto">
+          <div class="p-4 bg-white/20 backdrop-blur-md rounded-2xl shadow-inner border border-white/30 hidden sm:block">
+            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <div>
+            <h2 class="text-xl sm:text-2xl font-bold text-white mb-1">
+              ¡Hola! Hace {{ daysSinceLastActivity }} días que no vienes
+            </h2>
+            <p class="text-purple-100 text-sm sm:text-base max-w-xl">
+              La constancia es la clave del éxito. Tu Coach de IA nota tu ausencia y quiere recordarte que cada entrenamiento cuenta. ¡Te estamos esperando en el gimnasio!
+            </p>
+          </div>
+        </div>
+
+        <button (click)="goToAiChat('He estado inactivo por varios días y necesito motivación para volver a entrenar hoy. ¿Qué me aconsejas?')" class="relative z-10 w-full md:w-auto flex-shrink-0 group flex items-center justify-center gap-2 px-6 py-3.5 bg-white text-indigo-600 hover:text-indigo-700 hover:bg-gray-50 font-bold rounded-xl shadow-lg transition-all transform hover:-translate-y-1">
+          <span>Hablar con mi Coach</span>
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+        </button>
+      </div>
+    </div>
+
+
     <!-- KPI Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 mb-8">
       <!-- Progreso Peso -->

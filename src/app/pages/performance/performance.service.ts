@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, from } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable, from, of } from 'rxjs';
+import { map, switchMap, catchError } from 'rxjs/operators';
 import { SupabaseService } from '../../core/services/supabase.service';
 
 function newRowId(): string {
@@ -108,6 +108,10 @@ export class PerformanceService {
           }),
         ).pipe(
           map(() => record),
+          catchError((err) => {
+            console.warn('No se pudo generar el evento de performance, pero el peso se guardó:', err);
+            return of(record);
+          })
         );
       }),
     );
@@ -200,6 +204,10 @@ export class PerformanceService {
           }),
         ).pipe(
           map(() => record),
+          catchError((err) => {
+            console.warn('No se pudo generar el evento de performance, pero el récord se guardó:', err);
+            return of(record);
+          })
         );
       }),
     );
@@ -246,6 +254,10 @@ export class PerformanceService {
           acknowledgedAt?: string | null;
         }[];
       }),
+      catchError((err) => {
+        console.warn('Silenciando error de performance-events (probablemente no existe la Edge Function):', err);
+        return of([]);
+      })
     );
   }
 
