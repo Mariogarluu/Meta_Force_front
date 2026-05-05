@@ -8,6 +8,9 @@ import { NavbarComponent } from '../../shared/components/navbar/navbar.component
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 
+/**
+ * Time window options used to filter performance data in charts and KPIs.
+ */
 export type TimeFilter = '1M' | '3M' | '6M' | '1Y' | 'ALL';
 
 /**
@@ -230,6 +233,9 @@ export class PerformanceComponent implements OnInit {
     return records.filter(r => new Date(dateExtractor(r)) >= cutoff);
   }
 
+  /**
+   * Updates the active time filter and refreshes the currently visible chart.
+   */
   setTimeFilter(filter: TimeFilter) {
     this.activeTimeFilter = filter;
     if (this.activeTab === 'body-weight') {
@@ -239,6 +245,9 @@ export class PerformanceComponent implements OnInit {
     }
   }
 
+  /**
+   * Handles tab changes between body‑weight and exercise performance views.
+   */
   onTabChange(tab: 'body-weight' | 'exercises') {
     this.activeTab = tab;
     this.activeTimeFilter = 'ALL';
@@ -304,6 +313,9 @@ export class PerformanceComponent implements OnInit {
     });
   }
 
+  /**
+   * Marks a performance event as acknowledged and removes it from the list.
+   */
   acknowledgeEvent(id: string) {
     this.performanceService.acknowledgeEvent(id).subscribe({
       next: () => {

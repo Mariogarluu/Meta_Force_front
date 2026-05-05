@@ -32,6 +32,7 @@ export interface UpdateUserInput {
   providedIn: 'root'
 })
 export class UsersService {
+  /** Supabase client used as the backbone for all user persistence operations. */
   private supabase = inject(SupabaseService).client;
 
   /**

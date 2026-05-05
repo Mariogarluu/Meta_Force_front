@@ -78,6 +78,7 @@ export interface ChatSession {
     providedIn: 'root'
 })
 export class AiService {
+    /** Supabase client used to invoke Edge Functions and query AI-related tables. */
     private supabase = inject(SupabaseService).client;
 
     /**

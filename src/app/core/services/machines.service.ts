@@ -28,6 +28,7 @@ import { SupabaseService } from './supabase.service';
   providedIn: 'root'
 })
 export class MachinesService {
+  /** Supabase client used to query and mutate machine types and center instances. */
   private supabase = inject(SupabaseService).client;
 
   /**

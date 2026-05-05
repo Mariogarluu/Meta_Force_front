@@ -17,6 +17,7 @@ import { SupabaseService } from './supabase.service';
   providedIn: 'root'
 })
 export class NotificationService implements OnDestroy {
+  /** Supabase client used to read and update rows from the Notification table. */
   private supabase = inject(SupabaseService).client;
   /** Servicio inyectado de AuthService para constatar identidad de perfil activo */
   private auth = inject(AuthService);
