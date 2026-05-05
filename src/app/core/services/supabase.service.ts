@@ -14,8 +14,15 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class SupabaseService {
+  /**
+   * Lazily‑constructed Supabase client shared across the Angular application.
+   */
   private supabase: SupabaseClient;
 
+  /**
+   * Builds a new Supabase client using the environment configuration.
+   * This constructor is side‑effect free and can be safely tree‑shaken.
+   */
   constructor() {
     this.supabase = createClient(
       environment.supabaseUrl,

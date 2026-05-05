@@ -23,13 +23,22 @@ import { SupabaseService } from './supabase.service';
   providedIn: 'root'
 })
 export class AuthService {
+  /** Shared Supabase auth client used as the single source of truth for sessions. */
   private supabase = inject(SupabaseService).client;
+  /** Internal signal holding the currently authenticated user (if any). */
   private _currentUser = signal<User | null>(null);
 
+  /** Read‑only signal exposed to components with the current user state. */
   public readonly currentUser = this._currentUser.asReadonly();
+  /** Emits once when the initial session + profile load has finished. */
   private _initialLoadComplete = new ReplaySubject<boolean>(1);
+  /** Observable view of the initialisation status for route guards, etc. */
   public readonly initialLoadComplete = this._initialLoadComplete.asObservable();
 
+  /**
+   * Eagerly initialises the auth session on service construction so consumers
+   * can safely subscribe to `currentUser` and `initialLoadComplete`.
+   */
   constructor() {
     this.initSession();
   }

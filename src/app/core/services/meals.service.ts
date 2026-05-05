@@ -21,6 +21,7 @@ import { SupabaseService } from './supabase.service';
   providedIn: 'root'
 })
 export class MealsService {
+  /** Supabase client used to query and manage the Meals catalog. */
   private supabase = inject(SupabaseService).client;
 
   /**

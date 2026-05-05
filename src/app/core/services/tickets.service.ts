@@ -16,6 +16,7 @@ import { SupabaseService } from './supabase.service';
   providedIn: 'root'
 })
 export class TicketsService {
+  /** Supabase client used to persist Ticket rows and Storage uploads. */
   private supabase = inject(SupabaseService).client;
 
   /**
