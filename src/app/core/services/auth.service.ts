@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Observable, ReplaySubject, from, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { User } from '../models/user';
+import { Role, User } from '../models/user';
 import { AuthInput, RegisterInput, AuthResponse } from '../models/auth';
 import { environment } from '../../../environments/environment';
 import { SupabaseService } from './supabase.service';
@@ -74,12 +74,20 @@ export class AuthService {
    * @param userId - El identificador único del usuario en Supabase Auth.
    */
   private async loadUserProfile(userId: string) {
-    const loadRole = async (): Promise<string> => {
+    const isRole = (value: unknown): value is Role =>
+      value === 'SUPERADMIN' ||
+      value === 'ADMIN_CENTER' ||
+      value === 'TRAINER' ||
+      value === 'CLEANER' ||
+      value === 'USER';
+
+    const loadRole = async (): Promise<Role> => {
       const { data, error } = await this.supabase.rpc('get_my_role');
       if (error) return 'USER';
       // Supabase devuelve array de filas para RETURNS TABLE
       const row = Array.isArray(data) ? data[0] : data;
-      return (row?.role as string | undefined) ?? 'USER';
+      const role = row?.role as unknown;
+      return isRole(role) ? role : 'USER';
     };
 
     const { data: profile, error: profileError } = await this.supabase

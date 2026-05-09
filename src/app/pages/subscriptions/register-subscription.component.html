@@ -135,15 +135,10 @@
                 <button
                   type="button"
                   (click)="selectUser(user)"
-                  class="w-full text-left px-3 py-2 rounded-lg border text-sm flex flex-col gap-0.5
-                         transition-colors"
-                  [class.border-cyan-500]="selectedUser()?.id === user.id"
-                  [class.bg-cyan-50]="selectedUser()?.id === user.id"
-                  [class.dark\\:bg-cyan-900\\/40]="selectedUser()?.id === user.id"
-                  [class.border-gray-200]="selectedUser()?.id !== user.id"
-                  [class.dark\\:border-gray-700]="selectedUser()?.id !== user.id"
-                  [class.bg-white]="selectedUser()?.id !== user.id"
-                  [class.dark\\:bg-gray-800]="selectedUser()?.id !== user.id"
+                  class="w-full text-left px-3 py-2 rounded-lg border text-sm flex flex-col gap-0.5 transition-colors"
+                  [ngClass]="selectedUser()?.id === user.id
+                    ? 'border-cyan-500 bg-cyan-50 dark:bg-cyan-900/40'
+                    : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800'"
                 >
                   <span class="font-medium text-gray-900 dark:text-gray-100">{{ user.name }}</span>
                   <span class="text-xs text-gray-600 dark:text-gray-400">{{ user.email }}</span>
@@ -181,11 +176,9 @@
                     type="button"
                     (click)="selectPlan(plan.id)"
                     class="w-full text-left px-3 py-2 rounded-lg border text-xs sm:text-sm transition-colors"
-                    [class.border-cyan-500]="selectedPlanId() === plan.id"
-                    [class.bg-cyan-50]="selectedPlanId() === plan.id"
-                    [class.dark\\:bg-cyan-900\\/40]="selectedPlanId() === plan.id"
-                    [class.border-gray-200]="selectedPlanId() !== plan.id"
-                    [class.dark\\:border-gray-700]="selectedPlanId() !== plan.id"
+                    [ngClass]="selectedPlanId() === plan.id
+                      ? 'border-cyan-500 bg-cyan-50 dark:bg-cyan-900/40'
+                      : 'border-gray-200 dark:border-gray-700'"
                   >
                     <div class="font-medium text-gray-900 dark:text-gray-100">
                       {{ plan.name }} <span class="text-xs text-gray-500 dark:text-gray-400">({{ plan.code }})</span>
@@ -221,13 +214,9 @@
                     type="button"
                     (click)="selectDuration(duration.id)"
                     class="px-3 py-1.5 rounded-full border text-xs transition-colors"
-                    [class.bg-cyan-600]="selectedDurationId() === duration.id"
-                    [class.text-white]="selectedDurationId() === duration.id"
-                    [class.border-cyan-600]="selectedDurationId() === duration.id"
-                    [class.bg-gray-100]="selectedDurationId() !== duration.id"
-                    [class.dark\\:bg-gray-700]="selectedDurationId() !== duration.id"
-                    [class.text-gray-800]="selectedDurationId() !== duration.id"
-                    [class.dark\\:text-gray-100]="selectedDurationId() !== duration.id"
+                    [ngClass]="selectedDurationId() === duration.id
+                      ? 'bg-cyan-600 text-white border-cyan-600'
+                      : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100'"
                   >
                     {{ duration.label }} · {{ duration.months }}m
                   </button>
@@ -247,11 +236,9 @@
                 type="button"
                 (click)="selectOffer(null)"
                 class="w-full text-left px-3 py-2 rounded-lg border text-xs sm:text-sm transition-colors"
-                [class.border-cyan-500]="!selectedOfferId()"
-                [class.bg-cyan-50]="!selectedOfferId()"
-                [class.dark\\:bg-cyan-900\\/40]="!selectedOfferId()"
-                [class.border-gray-200]="selectedOfferId()"
-                [class.dark\\:border-gray-700]="selectedOfferId()"
+                [ngClass]="!selectedOfferId()
+                  ? 'border-cyan-500 bg-cyan-50 dark:bg-cyan-900/40'
+                  : 'border-gray-200 dark:border-gray-700'"
               >
                 {{ 'subscriptions.labels.noOffer' | translate }}
               </button>
@@ -261,11 +248,9 @@
                   type="button"
                   (click)="selectOffer(offer.id)"
                   class="w-full text-left px-3 py-2 rounded-lg border text-xs sm:text-sm transition-colors"
-                  [class.border-cyan-500]="selectedOfferId() === offer.id"
-                  [class.bg-cyan-50]="selectedOfferId() === offer.id"
-                  [class.dark\\:bg-cyan-900\\/40]="selectedOfferId() === offer.id"
-                  [class.border-gray-200]="selectedOfferId() !== offer.id"
-                  [class.dark\\:border-gray-700]="selectedOfferId() !== offer.id"
+                  [ngClass]="selectedOfferId() === offer.id
+                    ? 'border-cyan-500 bg-cyan-50 dark:bg-cyan-900/40'
+                    : 'border-gray-200 dark:border-gray-700'"
                 >
                   <div class="font-medium text-gray-900 dark:text-gray-100">
                     {{ offer.name }}
