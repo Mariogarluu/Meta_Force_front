@@ -74,6 +74,14 @@ export class AuthService {
    * @param userId - El identificador único del usuario en Supabase Auth.
    */
   private async loadUserProfile(userId: string) {
+    const loadRole = async (): Promise<string> => {
+      const { data, error } = await this.supabase.rpc('get_my_role');
+      if (error) return 'USER';
+      // Supabase devuelve array de filas para RETURNS TABLE
+      const row = Array.isArray(data) ? data[0] : data;
+      return (row?.role as string | undefined) ?? 'USER';
+    };
+
     const { data: profile, error: profileError } = await this.supabase
       .from('profiles')
       .select('*')
@@ -81,12 +89,12 @@ export class AuthService {
       .maybeSingle();
 
     if (!profileError && profile) {
+      const role = await loadRole();
       this._currentUser.set({
         id: profile.id,
         email: profile.email,
         name: profile.name,
-        role: profile.role,
-        status: profile.status,
+        role,
       } as unknown as User);
       this._initialLoadComplete.next(true);
       return;
@@ -102,7 +110,8 @@ export class AuthService {
       console.error('Error loading user profile:', legacyError);
       this._currentUser.set(null);
     } else {
-      this._currentUser.set(legacy as User);
+      const role = await loadRole();
+      this._currentUser.set({ ...(legacy as User), role });
     }
     this._initialLoadComplete.next(true);
   }

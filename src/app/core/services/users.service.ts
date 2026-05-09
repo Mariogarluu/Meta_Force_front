@@ -98,6 +98,36 @@ export class UsersService {
   }
 
   /**
+   * Actualiza el rol de un usuario mediante RPC privilegiada (SUPERADMIN).
+   */
+  setUserRole(userId: string, role: Role): Observable<void> {
+    return from(
+      this.supabase.rpc('admin_set_user_role', { p_user_id: userId, p_role: role })
+    ).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+        return undefined;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
+  }
+
+  /**
+   * Best-effort: intenta invalidar sesiones del usuario afectado.
+   */
+  forceLogout(userId: string): Observable<void> {
+    return from(
+      this.supabase.functions.invoke('admin-signout', { body: { user_id: userId } })
+    ).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+        return undefined;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
+  }
+
+  /**
    * Ejecuta transaccionalmente el borrado en cascada del perfil referenciado.
    * @param id - Hash ID único serial de Supabase que identifica al perfil
    * @returns Observable resolviendo vacio subyacentemente al éxito nativo

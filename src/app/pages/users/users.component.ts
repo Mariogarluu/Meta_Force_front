@@ -296,13 +296,14 @@ export class UsersComponent implements OnInit {
     this.isLoading.set(true);
     this.errorMessage.set('');
 
+    const roleChanged = this.isSuperAdmin() && this.userForm.role && this.userForm.role !== user.role;
+
     const updateData: UpdateUserInput = {
       name: this.userForm.name,
       email: this.userForm.email,
     };
 
     if (this.isSuperAdmin()) {
-      updateData.role = this.userForm.role;
       updateData.favoriteCenterId = this.userForm.favoriteCenterId;
     }
 
@@ -310,9 +311,34 @@ export class UsersComponent implements OnInit {
 
     this.usersService.updateUser(user.id, updateData).subscribe({
       next: () => {
-        this.isLoading.set(false);
-        this.closeEditModal();
-        this.loadUsers();
+        if (!roleChanged) {
+          this.isLoading.set(false);
+          this.closeEditModal();
+          this.loadUsers();
+          return;
+        }
+
+        this.usersService.setUserRole(user.id, this.userForm.role).subscribe({
+          next: () => {
+            // Best-effort: si falla, no bloqueamos el guardado.
+            this.usersService.forceLogout(user.id).subscribe({
+              next: () => {
+                this.isLoading.set(false);
+                this.closeEditModal();
+                this.loadUsers();
+              },
+              error: () => {
+                this.isLoading.set(false);
+                this.closeEditModal();
+                this.loadUsers();
+              },
+            });
+          },
+          error: (error) => {
+            this.errorMessage.set(error.error?.message || 'Error al actualizar el rol');
+            this.isLoading.set(false);
+          },
+        });
       },
       error: (error) => {
         this.errorMessage.set(error.error?.message || 'Error al actualizar el usuario');
