@@ -103,7 +103,6 @@ export const routes: Routes = [
     {
         path: 'memberships',
         loadComponent: () => import('./pages/memberships/memberships.component').then(m => m.MembershipsComponent),
-        canActivate: [authGuard]
     },
     {
         path: 'subscriptions/register',

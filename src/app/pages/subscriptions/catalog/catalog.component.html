@@ -123,10 +123,10 @@
           <table class="min-w-full border-separate border-spacing-y-1">
             <thead class="text-xs uppercase text-gray-500 dark:text-gray-400">
               <tr>
-                <th class="text-left px-3 py-1">Code</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.code' | translate }}</th>
                 <th class="text-left px-3 py-1">{{ 'subscriptions.labels.plan' | translate }}</th>
                 <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.description' | translate }}</th>
-                <th class="text-left px-3 py-1">Pos</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.position' | translate }}</th>
                 <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.active' | translate }}</th>
                 <th class="px-3 py-1"></th>
               </tr>
@@ -180,7 +180,9 @@
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-sm">
               <div>
-                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">Code</label>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.catalog.fields.code' | translate }}
+                </label>
                 <input
                   type="text"
                   class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
@@ -207,7 +209,9 @@
                 />
               </div>
               <div>
-                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">Pos</label>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.catalog.fields.position' | translate }}
+                </label>
                 <input
                   type="number"
                   class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
@@ -342,7 +346,9 @@
                 />
               </div>
               <div>
-                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">Pos</label>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.catalog.fields.position' | translate }}
+                </label>
                 <input
                   type="number"
                   class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
@@ -392,8 +398,8 @@
           <table class="min-w-full border-separate border-spacing-y-1">
             <thead class="text-xs uppercase text-gray-500 dark:text-gray-400">
               <tr>
-                <th class="text-left px-3 py-1">ID</th>
-                <th class="text-left px-3 py-1">Meses</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.id' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.months' | translate }}</th>
                 <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.label' | translate }}</th>
                 <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.active' | translate }}</th>
                 <th class="px-3 py-1"></th>
@@ -445,7 +451,9 @@
             </h3>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
               <div>
-                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">Meses</label>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.catalog.fields.months' | translate }}
+                </label>
                 <input
                   type="number"
                   class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"

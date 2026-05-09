@@ -590,8 +590,19 @@
     }
   },
   "memberships": {
-    "title": "Tarification Mensualisée o Annuelle de Salle",
-    "subtitle": "Votons de façon bien calculée ce qui matche au style, Meta Force décline !",
+    "title": "Abonnements",
+    "subtitle": "Consultez les prix et les caractéristiques de nos offres.",
+    "public": {
+      "empty": "Aucun tarif n’est disponible pour le moment.",
+      "tableTitle": "Tarifs par offre et durée",
+      "taxIncludedHint": "TVA incluse",
+      "duration": "Durée",
+      "monthsShort": "mois",
+      "perMonth": "/ mois",
+      "noPrice": "—",
+      "featuresTitle": "Caractéristiques",
+      "noFeatures": "Aucune caractéristique spécifiée."
+    },
     "newPlan": "Bouton d'un Tarif Pack Forme",
     "editPlan": "Redirection Formules Prix !",
     "deletePlan": "Casser l'offre prix d'abonnement bdd",
@@ -683,6 +694,167 @@
       "save": "Enregistrer le Record",
       "selectForChart": "Sélectionnez un exercice pour voir le progrès ou ajoutez votre premier record.",
       "selectExerciseDropdown": "Sélectionner l'exercice"
+    }
+  }
+  ,
+  "subscriptions": {
+    "title": "Abonnements",
+    "subtitle": "Enregistrer un abonnement pour un utilisateur et générer la facture.",
+    "loadingCatalog": "Chargement du catalogue...",
+    "steps": {
+      "step1": "Étape 1 · Rechercher un utilisateur",
+      "step2": "Étape 2 · Choisir une offre",
+      "step3": "Étape 3 · Confirmation"
+    },
+    "labels": {
+      "invoiceId": "Facture",
+      "searchUser": "Rechercher un utilisateur (nom ou e-mail)",
+      "resultsCount": "{{count}} résultat(s)",
+      "plan": "Offre",
+      "duration": "Durée",
+      "offer": "Promotion",
+      "noOffer": "Aucune promotion",
+      "user": "Utilisateur",
+      "summary": "Récapitulatif",
+      "basePrice": "Base",
+      "tax": "TVA",
+      "offerApplied": "Promotion appliquée"
+    },
+    "placeholders": {
+      "search": "Ex : maria@exemple.com"
+    },
+    "help": {
+      "searchHint": "Saisissez un nom ou un e-mail puis cliquez sur Rechercher.",
+      "selectPlanFirst": "Sélectionnez une offre pour voir ses durées.",
+      "missingSelection": "Sélectionnez un utilisateur, une offre et une durée pour confirmer."
+    },
+    "actions": {
+      "search": "Rechercher",
+      "processing": "Traitement...",
+      "confirmCharge": "Confirmer et facturer",
+      "resendEmail": "Renvoyer l’e-mail",
+      "downloadPdf": "Régénérer/télécharger le PDF"
+    },
+    "errors": {
+      "searchRequired": "Saisissez un terme de recherche.",
+      "noUsers": "Aucun utilisateur trouvé.",
+      "searchFailed": "La recherche a échoué.",
+      "missingSelection": "Sélectionnez un utilisateur, une offre et une durée.",
+      "registerFailed": "Impossible d’enregistrer l’abonnement.",
+      "emailResendFailed": "Impossible de renvoyer l’email.",
+      "pdfRegenerateFailed": "Impossible de régénérer le PDF.",
+      "noPlans": "Aucune offre disponible.",
+      "noDurationsForPlan": "Aucune durée disponible pour cette offre."
+    },
+    "success": {
+      "registered": "Abonnement enregistré avec succès.",
+      "emailResent": "Email renvoyé avec succès.",
+      "pdfRegenerated": "PDF régénéré avec succès."
+    },
+    "catalog": {
+      "title": "Catalogue des abonnements",
+      "subtitle": "Gérez les offres, caractéristiques, durées, prix, promotions et informations émetteur.",
+      "dashboardCard": {
+        "title": "Catalogue des abonnements",
+        "description": "Gérez les offres, prix, promotions et informations de l’émetteur.",
+        "cta": "Ouvrir le catalogue"
+      },
+      "planSaved": "Offre enregistrée.",
+      "planDeleted": "Offre supprimée.",
+      "featureSaved": "Caractéristique enregistrée.",
+      "featureDeleted": "Caractéristique supprimée.",
+      "durationSaved": "Durée enregistrée.",
+      "durationDeleted": "Durée supprimée.",
+      "priceSaved": "Prix enregistré.",
+      "priceDeleted": "Prix supprimé.",
+      "offerSaved": "Promotion enregistrée.",
+      "offerDeleted": "Promotion supprimée.",
+      "issuerSaved": "Informations émetteur enregistrées.",
+      "priceRequiresPlanAndDuration": "Vous avez besoin d’au moins une offre et une durée pour créer un prix.",
+      "priceAlreadyExists": "Un prix existe déjà pour cette offre et cette durée.",
+      "confirmDeletePlan": "Voulez-vous vraiment supprimer cette offre ?",
+      "confirmDeleteFeature": "Voulez-vous vraiment supprimer cette caractéristique ?",
+      "confirmDeleteDuration": "Voulez-vous vraiment supprimer cette durée ?",
+      "confirmDeletePrice": "Voulez-vous vraiment supprimer ce prix ?",
+      "confirmDeleteOffer": "Voulez-vous vraiment supprimer cette promotion ?",
+      "tabs": {
+        "plans": "Offres",
+        "features": "Caractéristiques",
+        "durations": "Durées",
+        "prices": "Prix",
+        "offers": "Promotions",
+        "issuer": "Émetteur"
+      },
+      "sections": {
+        "plans": "Offres",
+        "features": "Caractéristiques",
+        "durations": "Durées",
+        "prices": "Prix",
+        "offers": "Promotions",
+        "issuer": "Informations émetteur"
+      },
+      "fields": {
+        "code": "Code",
+        "position": "Position",
+        "id": "ID",
+        "months": "Mois",
+        "label": "Libellé",
+        "description": "Description",
+        "active": "Actif",
+        "featureText": "Texte",
+        "offerName": "Nom",
+        "discount": "Remise",
+        "validity": "Validité",
+        "noValidity": "Sans dates",
+        "validFrom": "Du",
+        "validTo": "Au",
+        "legalName": "Raison sociale",
+        "taxId": "N° TVA / SIRET",
+        "address": "Adresse",
+        "email": "E-mail",
+        "phone": "Téléphone",
+        "iban": "IBAN",
+        "logoUrl": "URL du logo"
+      },
+      "help": {
+        "logoUrl": "URL publique du logo (utilisée dans de futurs modèles)."
+      },
+      "actions": {
+        "newPlan": "Nouvelle offre",
+        "newFeature": "Nouvelle caractéristique",
+        "newDuration": "Nouvelle durée",
+        "newPrice": "Nouveau prix",
+        "newOffer": "Nouvelle promotion",
+        "saveIssuer": "Enregistrer l’émetteur",
+        "edit": "Modifier",
+        "delete": "Supprimer",
+        "cancel": "Annuler",
+        "save": "Enregistrer"
+      },
+      "forms": {
+        "newPlan": "Nouvelle offre",
+        "editPlan": "Modifier l’offre",
+        "newFeature": "Nouvelle caractéristique",
+        "editFeature": "Modifier la caractéristique",
+        "newDuration": "Nouvelle durée",
+        "editDuration": "Modifier la durée",
+        "newPrice": "Nouveau prix",
+        "editPrice": "Modifier le prix",
+        "newOffer": "Nouvelle promotion",
+        "editOffer": "Modifier la promotion"
+      },
+      "empty": {
+        "features": "Cette offre n’a pas encore de caractéristiques."
+      },
+      "active": "Actif",
+      "inactive": "Inactif",
+      "anyPlan": "Toute offre",
+      "anyDuration": "Toute durée"
+    },
+    "dashboardCard": {
+      "title": "Enregistrer un abonnement",
+      "description": "Créez un abonnement pour un utilisateur et générez automatiquement la facture.",
+      "cta": "Enregistrer"
     }
   }
 }
