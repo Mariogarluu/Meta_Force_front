@@ -590,8 +590,19 @@
     }
   },
   "memberships": {
-    "title": "Planes de Membresía",
-    "subtitle": "Elige el plan que mejor se adapte a tus necesidades",
+    "title": "Membresías",
+    "subtitle": "Consulta precios y características de nuestros planes.",
+    "public": {
+      "empty": "No hay precios disponibles en este momento.",
+      "tableTitle": "Precios por plan y duración",
+      "taxIncludedHint": "IVA incluido",
+      "duration": "Duración",
+      "monthsShort": "meses",
+      "perMonth": "/ mes",
+      "noPrice": "—",
+      "featuresTitle": "Características",
+      "noFeatures": "Sin características especificadas."
+    },
     "newPlan": "Nuevo Plan",
     "editPlan": "Editar Plan de Membresía",
     "deletePlan": "Eliminar Plan",
@@ -683,6 +694,167 @@
       "save": "Guardar Récord",
       "selectForChart": "Selecciona un ejercicio para ver el progreso o añade tu primer récord.",
       "selectExerciseDropdown": "Selecciona ejercicio"
+    }
+  }
+  ,
+  "subscriptions": {
+    "title": "Suscripciones",
+    "subtitle": "Registra una suscripción para un usuario y genera su factura.",
+    "loadingCatalog": "Cargando catálogo...",
+    "steps": {
+      "step1": "Paso 1 · Buscar usuario",
+      "step2": "Paso 2 · Elegir plan",
+      "step3": "Paso 3 · Confirmación"
+    },
+    "labels": {
+      "invoiceId": "Factura",
+      "searchUser": "Buscar usuario (nombre o email)",
+      "resultsCount": "{{count}} resultado(s)",
+      "plan": "Plan",
+      "duration": "Duración",
+      "offer": "Oferta",
+      "noOffer": "Sin oferta",
+      "user": "Usuario",
+      "summary": "Resumen",
+      "basePrice": "Base",
+      "tax": "IVA",
+      "offerApplied": "Oferta aplicada"
+    },
+    "placeholders": {
+      "search": "Ej: maria@correo.com"
+    },
+    "help": {
+      "searchHint": "Introduce un nombre o email y pulsa Buscar.",
+      "selectPlanFirst": "Selecciona un plan para ver sus duraciones.",
+      "missingSelection": "Selecciona un usuario, un plan y una duración para poder confirmar."
+    },
+    "actions": {
+      "search": "Buscar",
+      "processing": "Procesando...",
+      "confirmCharge": "Confirmar y cobrar",
+      "resendEmail": "Reenviar email",
+      "downloadPdf": "Regenerar/descargar PDF"
+    },
+    "errors": {
+      "searchRequired": "Introduce un texto para buscar.",
+      "noUsers": "No se han encontrado usuarios.",
+      "searchFailed": "No se pudo realizar la búsqueda.",
+      "missingSelection": "Falta seleccionar usuario/plan/duración.",
+      "registerFailed": "No se pudo registrar la suscripción.",
+      "emailResendFailed": "No se pudo reenviar el email.",
+      "pdfRegenerateFailed": "No se pudo regenerar el PDF.",
+      "noPlans": "No hay planes disponibles.",
+      "noDurationsForPlan": "No hay duraciones disponibles para este plan."
+    },
+    "success": {
+      "registered": "Suscripción registrada correctamente.",
+      "emailResent": "Email reenviado correctamente.",
+      "pdfRegenerated": "PDF regenerado correctamente."
+    },
+    "catalog": {
+      "title": "Catálogo de suscripciones",
+      "subtitle": "Gestiona planes, características, duraciones, precios, ofertas y datos del emisor.",
+      "dashboardCard": {
+        "title": "Catálogo de suscripciones",
+        "description": "Administra planes, precios, ofertas y datos del emisor.",
+        "cta": "Abrir catálogo"
+      },
+      "planSaved": "Plan guardado.",
+      "planDeleted": "Plan eliminado.",
+      "featureSaved": "Característica guardada.",
+      "featureDeleted": "Característica eliminada.",
+      "durationSaved": "Duración guardada.",
+      "durationDeleted": "Duración eliminada.",
+      "priceSaved": "Precio guardado.",
+      "priceDeleted": "Precio eliminado.",
+      "offerSaved": "Oferta guardada.",
+      "offerDeleted": "Oferta eliminada.",
+      "issuerSaved": "Datos del emisor guardados.",
+      "priceRequiresPlanAndDuration": "Necesitas al menos un plan y una duración para crear un precio.",
+      "priceAlreadyExists": "Ya existe un precio para ese plan y duración.",
+      "confirmDeletePlan": "¿Seguro que quieres eliminar este plan?",
+      "confirmDeleteFeature": "¿Seguro que quieres eliminar esta característica?",
+      "confirmDeleteDuration": "¿Seguro que quieres eliminar esta duración?",
+      "confirmDeletePrice": "¿Seguro que quieres eliminar este precio?",
+      "confirmDeleteOffer": "¿Seguro que quieres eliminar esta oferta?",
+      "tabs": {
+        "plans": "Planes",
+        "features": "Características",
+        "durations": "Duraciones",
+        "prices": "Precios",
+        "offers": "Ofertas",
+        "issuer": "Emisor"
+      },
+      "sections": {
+        "plans": "Planes",
+        "features": "Características",
+        "durations": "Duraciones",
+        "prices": "Precios",
+        "offers": "Ofertas",
+        "issuer": "Datos del emisor"
+      },
+      "fields": {
+        "code": "Código",
+        "position": "Posición",
+        "id": "ID",
+        "months": "Meses",
+        "label": "Etiqueta",
+        "description": "Descripción",
+        "active": "Activo",
+        "featureText": "Texto",
+        "offerName": "Nombre",
+        "discount": "Descuento",
+        "validity": "Vigencia",
+        "noValidity": "Sin fechas",
+        "validFrom": "Desde",
+        "validTo": "Hasta",
+        "legalName": "Razón social",
+        "taxId": "NIF/CIF",
+        "address": "Dirección",
+        "email": "Email",
+        "phone": "Teléfono",
+        "iban": "IBAN",
+        "logoUrl": "URL del logo"
+      },
+      "help": {
+        "logoUrl": "URL pública del logo (se usará en futuras plantillas)."
+      },
+      "actions": {
+        "newPlan": "Nuevo plan",
+        "newFeature": "Nueva característica",
+        "newDuration": "Nueva duración",
+        "newPrice": "Nuevo precio",
+        "newOffer": "Nueva oferta",
+        "saveIssuer": "Guardar emisor",
+        "edit": "Editar",
+        "delete": "Eliminar",
+        "cancel": "Cancelar",
+        "save": "Guardar"
+      },
+      "forms": {
+        "newPlan": "Nuevo plan",
+        "editPlan": "Editar plan",
+        "newFeature": "Nueva característica",
+        "editFeature": "Editar característica",
+        "newDuration": "Nueva duración",
+        "editDuration": "Editar duración",
+        "newPrice": "Nuevo precio",
+        "editPrice": "Editar precio",
+        "newOffer": "Nueva oferta",
+        "editOffer": "Editar oferta"
+      },
+      "empty": {
+        "features": "Este plan aún no tiene características."
+      },
+      "active": "Activo",
+      "inactive": "Inactivo",
+      "anyPlan": "Cualquier plan",
+      "anyDuration": "Cualquier duración"
+    },
+    "dashboardCard": {
+      "title": "Registrar suscripción",
+      "description": "Crea una suscripción para un usuario y genera su factura automáticamente.",
+      "cta": "Registrar"
     }
   }
 }
