@@ -593,7 +593,7 @@ export class SubscriptionsService {
         if (error) throw error;
         const row = data as any;
         return {
-          id: row.id as string,
+          id: Boolean(row.id),
           legalName: row.legal_name as string,
           taxId: row.tax_id as string,
           address: row.address as string,

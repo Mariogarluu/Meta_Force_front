@@ -503,7 +503,7 @@ export class CatalogComponent implements OnInit {
     const current = this.issuer();
     this.subscriptionsService
       .updateIssuerSettings({
-        id: current?.id,
+        id: Boolean(current?.id),
         ...form,
       })
       .subscribe({

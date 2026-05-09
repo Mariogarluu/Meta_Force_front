@@ -318,7 +318,7 @@ export class UsersComponent implements OnInit {
           return;
         }
 
-        this.usersService.setUserRole(user.id, this.userForm.role).subscribe({
+        this.usersService.setUserRole(user.id, this.userForm.role ?? user.role).subscribe({
           next: () => {
             // Best-effort: si falla, no bloqueamos el guardado.
             this.usersService.forceLogout(user.id).subscribe({
