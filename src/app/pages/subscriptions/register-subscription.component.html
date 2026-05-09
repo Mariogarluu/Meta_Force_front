@@ -1,0 +1,384 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+  <app-navbar></app-navbar>
+
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    @if(errorMessage()) {
+      <div class="mb-4 p-3 rounded-lg border border-red-500/60 bg-red-500/10 text-red-700 dark:text-red-300">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    @if(successMessage()) {
+      <div class="mb-4 p-3 rounded-lg border border-emerald-500/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+        {{ successMessage() }}
+        @if(lastInvoiceId()) {
+          <span class="block text-xs mt-1 opacity-80">
+            {{ 'subscriptions.labels.invoiceId' | translate }}: {{ lastInvoiceId() }}
+          </span>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <button
+              type="button"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-emerald-500/70 text-xs font-medium text-emerald-800 dark:text-emerald-200 bg-white/60 dark:bg-emerald-900/20 hover:bg-emerald-50 dark:hover:bg-emerald-900/40 disabled:opacity-60"
+              (click)="resendEmail()"
+              [disabled]="isRetryingEmail()"
+            >
+              @if(isRetryingEmail()) {
+                <span class="w-3 h-3 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin"></span>
+              } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M4 4h16v12H5.5L4 17.5V4zm4 5h8m-8 4h5" />
+                </svg>
+              }
+              <span>{{ 'subscriptions.actions.resendEmail' | translate }}</span>
+            </button>
+
+            <button
+              type="button"
+              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-sky-500/70 text-xs font-medium text-sky-800 dark:text-sky-200 bg-white/60 dark:bg-sky-900/20 hover:bg-sky-50 dark:hover:bg-sky-900/40 disabled:opacity-60"
+              (click)="regeneratePdf()"
+              [disabled]="isRegeneratingPdf()"
+            >
+              @if(isRegeneratingPdf()) {
+                <span class="w-3 h-3 border-2 border-sky-500 border-t-transparent rounded-full animate-spin"></span>
+              } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M7 4h10a2 2 0 0 1 2 2v9.5a1.5 1.5 0 0 1-1.5 1.5H8l-3 3v-14A2 2 0 0 1 7 4zm3 5h4m-4 4h2" />
+                </svg>
+              }
+              <span>{{ 'subscriptions.actions.downloadPdf' | translate }}</span>
+            </button>
+          </div>
+        }
+      </div>
+    }
+
+    <div class="mb-6">
+      <div class="bg-gradient-to-r from-sky-50 to-cyan-50 dark:from-sky-900/40 dark:to-cyan-900/30 border border-sky-200/70 dark:border-sky-800 rounded-2xl p-5 sm:p-6 shadow-sm">
+        <div class="flex items-center justify-between gap-4 flex-wrap">
+          <div class="flex items-center gap-3">
+            <div class="p-2.5 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-500 text-white shadow-md">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                   stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                <path d="M8 2h8a2 2 0 0 1 2 2v4H6V4a2 2 0 0 1 2-2Z" />
+                <path d="M6 8h12v10a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2Z" />
+                <path d="M9 12h6" />
+                <path d="M9 16h4" />
+              </svg>
+            </div>
+            <div>
+              <h1 class="text-2xl sm:text-3xl font-bold text-sky-900 dark:text-sky-100">
+                {{ 'subscriptions.title' | translate }}
+              </h1>
+              <p class="text-sm text-sky-800/80 dark:text-sky-100/70 mt-1">
+                {{ 'subscriptions.subtitle' | translate }}
+              </p>
+            </div>
+          </div>
+
+          @if(isLoadingCatalog()) {
+            <div class="flex items-center gap-2 text-sky-700 dark:text-sky-200">
+              <span class="w-4 h-4 border-2 border-sky-500 border-t-transparent rounded-full animate-spin"></span>
+              <span class="text-sm">{{ 'subscriptions.loadingCatalog' | translate }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+      <!-- Paso 1: Buscar usuario -->
+      <section class="lg:col-span-1 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200/70 dark:border-gray-700 shadow-sm p-4 sm:p-5">
+        <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
+          {{ 'subscriptions.steps.step1' | translate }}
+        </h2>
+
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+          {{ 'subscriptions.labels.searchUser' | translate }}
+        </label>
+        <div class="flex gap-2 mb-3">
+          <input
+            type="text"
+            class="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 text-sm text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+            [placeholder]="'subscriptions.placeholders.search' | translate"
+            [ngModel]="searchQuery()"
+            (ngModelChange)="onSearchQueryChange($event)"
+            (keyup.enter)="searchUsers()"
+          />
+          <button
+            type="button"
+            (click)="searchUsers()"
+            class="px-3 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-medium flex items-center gap-1.5 disabled:opacity-60"
+            [disabled]="isSearchingUser()"
+          >
+            @if(isSearchingUser()) {
+              <span class="w-4 h-4 border-2 border-white/70 border-t-transparent rounded-full animate-spin"></span>
+            } @else {
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                   stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M21 21l-4.35-4.35M11 5a6 6 0 0 1 4.472 9.966A6 6 0 1 1 11 5Z" />
+              </svg>
+            }
+            <span>{{ 'subscriptions.actions.search' | translate }}</span>
+          </button>
+        </div>
+
+        @if(searchResults().length > 0) {
+          <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">
+            {{ 'subscriptions.labels.resultsCount' | translate:{count: searchResults().length} }}
+          </p>
+          <ul class="space-y-1 max-h-64 overflow-y-auto pr-1">
+            @for(user of searchResults(); track user.id) {
+              <li>
+                <button
+                  type="button"
+                  (click)="selectUser(user)"
+                  class="w-full text-left px-3 py-2 rounded-lg border text-sm flex flex-col gap-0.5
+                         transition-colors"
+                  [class.border-cyan-500]="selectedUser()?.id === user.id"
+                  [class.bg-cyan-50]="selectedUser()?.id === user.id"
+                  [class.dark\\:bg-cyan-900\\/40]="selectedUser()?.id === user.id"
+                  [class.border-gray-200]="selectedUser()?.id !== user.id"
+                  [class.dark\\:border-gray-700]="selectedUser()?.id !== user.id"
+                  [class.bg-white]="selectedUser()?.id !== user.id"
+                  [class.dark\\:bg-gray-800]="selectedUser()?.id !== user.id"
+                >
+                  <span class="font-medium text-gray-900 dark:text-gray-100">{{ user.name }}</span>
+                  <span class="text-xs text-gray-600 dark:text-gray-400">{{ user.email }}</span>
+                </button>
+              </li>
+            }
+          </ul>
+        } @else {
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            {{ 'subscriptions.help.searchHint' | translate }}
+          </p>
+        }
+      </section>
+
+      <!-- Paso 2: Plan + duración + oferta -->
+      <section class="lg:col-span-1 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200/70 dark:border-gray-700 shadow-sm p-4 sm:p-5">
+        <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
+          {{ 'subscriptions.steps.step2' | translate }}
+        </h2>
+
+        <div class="space-y-4">
+          <!-- Plan -->
+          <div>
+            <p class="text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+              {{ 'subscriptions.labels.plan' | translate }}
+            </p>
+            @if(plans().length === 0) {
+              <p class="text-xs text-gray-500 dark:text-gray-400">
+                {{ 'subscriptions.errors.noPlans' | translate }}
+              </p>
+            } @else {
+              <div class="space-y-1 max-h-40 overflow-y-auto pr-1">
+                @for(plan of plans(); track plan.id) {
+                  <button
+                    type="button"
+                    (click)="selectPlan(plan.id)"
+                    class="w-full text-left px-3 py-2 rounded-lg border text-xs sm:text-sm transition-colors"
+                    [class.border-cyan-500]="selectedPlanId() === plan.id"
+                    [class.bg-cyan-50]="selectedPlanId() === plan.id"
+                    [class.dark\\:bg-cyan-900\\/40]="selectedPlanId() === plan.id"
+                    [class.border-gray-200]="selectedPlanId() !== plan.id"
+                    [class.dark\\:border-gray-700]="selectedPlanId() !== plan.id"
+                  >
+                    <div class="font-medium text-gray-900 dark:text-gray-100">
+                      {{ plan.name }} <span class="text-xs text-gray-500 dark:text-gray-400">({{ plan.code }})</span>
+                    </div>
+                    @if(plan.description) {
+                      <div class="text-[11px] text-gray-600 dark:text-gray-400 line-clamp-2">
+                        {{ plan.description }}
+                      </div>
+                    }
+                  </button>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Duración -->
+          <div>
+            <p class="text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+              {{ 'subscriptions.labels.duration' | translate }}
+            </p>
+            @if(!selectedPlanId()) {
+              <p class="text-xs text-gray-500 dark:text-gray-400">
+                {{ 'subscriptions.help.selectPlanFirst' | translate }}
+              </p>
+            } @else if(availableDurations().length === 0) {
+              <p class="text-xs text-gray-500 dark:text-gray-400">
+                {{ 'subscriptions.errors.noDurationsForPlan' | translate }}
+              </p>
+            } @else {
+              <div class="flex flex-wrap gap-2">
+                @for(duration of availableDurations(); track duration.id) {
+                  <button
+                    type="button"
+                    (click)="selectDuration(duration.id)"
+                    class="px-3 py-1.5 rounded-full border text-xs transition-colors"
+                    [class.bg-cyan-600]="selectedDurationId() === duration.id"
+                    [class.text-white]="selectedDurationId() === duration.id"
+                    [class.border-cyan-600]="selectedDurationId() === duration.id"
+                    [class.bg-gray-100]="selectedDurationId() !== duration.id"
+                    [class.dark\\:bg-gray-700]="selectedDurationId() !== duration.id"
+                    [class.text-gray-800]="selectedDurationId() !== duration.id"
+                    [class.dark\\:text-gray-100]="selectedDurationId() !== duration.id"
+                  >
+                    {{ duration.label }} · {{ duration.months }}m
+                  </button>
+                }
+              </div>
+            }
+          </div>
+
+          <!-- Oferta -->
+          <div>
+            <p class="text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+              {{ 'subscriptions.labels.offer' | translate }}
+            </p>
+
+            <div class="space-y-1 max-h-32 overflow-y-auto pr-1">
+              <button
+                type="button"
+                (click)="selectOffer(null)"
+                class="w-full text-left px-3 py-2 rounded-lg border text-xs sm:text-sm transition-colors"
+                [class.border-cyan-500]="!selectedOfferId()"
+                [class.bg-cyan-50]="!selectedOfferId()"
+                [class.dark\\:bg-cyan-900\\/40]="!selectedOfferId()"
+                [class.border-gray-200]="selectedOfferId()"
+                [class.dark\\:border-gray-700]="selectedOfferId()"
+              >
+                {{ 'subscriptions.labels.noOffer' | translate }}
+              </button>
+
+              @for(offer of availableOffers(); track offer.id) {
+                <button
+                  type="button"
+                  (click)="selectOffer(offer.id)"
+                  class="w-full text-left px-3 py-2 rounded-lg border text-xs sm:text-sm transition-colors"
+                  [class.border-cyan-500]="selectedOfferId() === offer.id"
+                  [class.bg-cyan-50]="selectedOfferId() === offer.id"
+                  [class.dark\\:bg-cyan-900\\/40]="selectedOfferId() === offer.id"
+                  [class.border-gray-200]="selectedOfferId() !== offer.id"
+                  [class.dark\\:border-gray-700]="selectedOfferId() !== offer.id"
+                >
+                  <div class="font-medium text-gray-900 dark:text-gray-100">
+                    {{ offer.name }}
+                  </div>
+                  <div class="text-[11px] text-gray-600 dark:text-gray-400">
+                    @if(offer.discountType === 'percent') {
+                      -{{ offer.discountValue }} %
+                    } @else if(offer.discountType === 'amount') {
+                      -{{ formatPrice(offer.discountValue) }}
+                    }
+                  </div>
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Paso 3: Resumen -->
+      <section class="lg:col-span-1 bg-white dark:bg-gray-800 rounded-2xl border border-gray-200/70 dark:border-gray-700 shadow-sm p-4 sm:p-5">
+        <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
+          {{ 'subscriptions.steps.step3' | translate }}
+        </h2>
+
+        @if(!selectedUser() || !getSelectedPlan() || !getSelectedDuration()) {
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {{ 'subscriptions.help.missingSelection' | translate }}
+          </p>
+        } @else {
+          <div class="space-y-4">
+            <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-3 bg-gray-50 dark:bg-gray-900/40">
+              <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+                {{ 'subscriptions.labels.user' | translate }}
+              </p>
+              <p class="text-sm font-medium text-gray-900 dark:text-gray-100">
+                {{ selectedUser()!.name }}
+              </p>
+              <p class="text-xs text-gray-600 dark:text-gray-400">
+                {{ selectedUser()!.email }}
+              </p>
+            </div>
+
+            <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-3 bg-gray-50 dark:bg-gray-900/40 space-y-2">
+              <p class="text-xs uppercase tracking-wide text-gray-500 dark:text-gray-400">
+                {{ 'subscriptions.labels.summary' | translate }}
+              </p>
+
+              <div class="text-sm text-gray-900 dark:text-gray-100">
+                <div class="flex justify-between">
+                  <span>{{ 'subscriptions.labels.plan' | translate }}</span>
+                  <span class="font-medium">
+                    {{ getSelectedPlan()!.name }} ({{ getSelectedPlan()!.code }})
+                  </span>
+                </div>
+                <div class="flex justify-between mt-1">
+                  <span>{{ 'subscriptions.labels.duration' | translate }}</span>
+                  <span class="font-medium">
+                    {{ getSelectedDuration()!.label }} · {{ getSelectedDuration()!.months }}m
+                  </span>
+                </div>
+              </div>
+
+              @if(getSelectedPrice()) {
+                <div class="pt-2 border-t border-gray-200 dark:border-gray-700 text-sm">
+                  <div class="flex justify-between text-gray-800 dark:text-gray-100">
+                    <span>{{ 'subscriptions.labels.basePrice' | translate }}</span>
+                    <span class="font-semibold">
+                      {{ formatPrice(getSelectedPrice()!.price) }}
+                    </span>
+                  </div>
+                  <div class="flex justify-between text-xs text-gray-600 dark:text-gray-400 mt-0.5">
+                    <span>{{ 'subscriptions.labels.tax' | translate }}</span>
+                    <span>{{ getSelectedPrice()!.taxRate }} %</span>
+                  </div>
+                </div>
+              }
+
+              @if(getSelectedOffer()) {
+                <div class="pt-2 mt-1 border-t border-dashed border-cyan-400 text-xs text-cyan-800 dark:text-cyan-200">
+                  <div class="flex justify-between">
+                    <span>{{ 'subscriptions.labels.offerApplied' | translate }}</span>
+                    <span class="font-medium">
+                      {{ getSelectedOffer()!.name }}
+                    </span>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <button
+              type="button"
+              (click)="confirmSubscription()"
+              class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold
+                     bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700
+                     text-white shadow-md hover:shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+              [disabled]="isSubmitting() || !selectedUser() || !getSelectedPlan() || !getSelectedDuration()"
+            >
+              @if(isSubmitting()) {
+                <span class="w-4 h-4 border-2 border-white/70 border-t-transparent rounded-full animate-spin"></span>
+                <span>{{ 'subscriptions.actions.processing' | translate }}</span>
+              } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8V4m0 12v2m7-10a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span>{{ 'subscriptions.actions.confirmCharge' | translate }}</span>
+              }
+            </button>
+          </div>
+        }
+      </section>
+    </div>
+  </main>
+</div>
+
