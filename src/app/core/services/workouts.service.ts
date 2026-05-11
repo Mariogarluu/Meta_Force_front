@@ -29,6 +29,7 @@ import {
   providedIn: 'root'
 })
 export class WorkoutsService {
+  /** Supabase client used to store workouts and their exercises. */
   private supabase = inject(SupabaseService).client;
 
   /**

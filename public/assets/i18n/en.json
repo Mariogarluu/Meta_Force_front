@@ -590,8 +590,19 @@
     }
   },
   "memberships": {
-    "title": "Membership Plans",
-    "subtitle": "Find the perfect plan to reach your goals",
+    "title": "Memberships",
+    "subtitle": "See pricing and features for our plans.",
+    "public": {
+      "empty": "No pricing is available right now.",
+      "tableTitle": "Pricing by plan and duration",
+      "taxIncludedHint": "Tax included",
+      "duration": "Duration",
+      "monthsShort": "months",
+      "perMonth": "/ month",
+      "noPrice": "—",
+      "featuresTitle": "Features",
+      "noFeatures": "No features specified."
+    },
     "newPlan": "New Plan",
     "editPlan": "Edit Plan",
     "deletePlan": "Delete Plan",
@@ -683,6 +694,167 @@
       "save": "Save Record",
       "selectForChart": "Select an exercise to see progress or add your first record.",
       "selectExerciseDropdown": "Select exercise"
+    }
+  }
+  ,
+  "subscriptions": {
+    "title": "Subscriptions",
+    "subtitle": "Register a subscription for a user and generate the invoice.",
+    "loadingCatalog": "Loading catalog...",
+    "steps": {
+      "step1": "Step 1 · Search user",
+      "step2": "Step 2 · Choose plan",
+      "step3": "Step 3 · Confirmation"
+    },
+    "labels": {
+      "invoiceId": "Invoice",
+      "searchUser": "Search user (name or email)",
+      "resultsCount": "{{count}} result(s)",
+      "plan": "Plan",
+      "duration": "Duration",
+      "offer": "Offer",
+      "noOffer": "No offer",
+      "user": "User",
+      "summary": "Summary",
+      "basePrice": "Base price",
+      "tax": "Tax",
+      "offerApplied": "Applied offer"
+    },
+    "placeholders": {
+      "search": "e.g., maria@example.com"
+    },
+    "help": {
+      "searchHint": "Enter a name or email and click Search.",
+      "selectPlanFirst": "Select a plan to see its durations.",
+      "missingSelection": "Select a user, a plan and a duration to confirm."
+    },
+    "actions": {
+      "search": "Search",
+      "processing": "Processing...",
+      "confirmCharge": "Confirm and charge",
+      "resendEmail": "Resend email",
+      "downloadPdf": "Regenerate/download PDF"
+    },
+    "errors": {
+      "searchRequired": "Enter a search term.",
+      "noUsers": "No users found.",
+      "searchFailed": "Search failed.",
+      "missingSelection": "Please select a user, a plan and a duration.",
+      "registerFailed": "Could not register the subscription.",
+      "emailResendFailed": "Could not resend the email.",
+      "pdfRegenerateFailed": "Could not regenerate the PDF.",
+      "noPlans": "No plans available.",
+      "noDurationsForPlan": "No durations available for this plan."
+    },
+    "success": {
+      "registered": "Subscription registered successfully.",
+      "emailResent": "Email resent successfully.",
+      "pdfRegenerated": "PDF regenerated successfully."
+    },
+    "catalog": {
+      "title": "Subscriptions catalog",
+      "subtitle": "Manage plans, features, durations, prices, offers and issuer data.",
+      "dashboardCard": {
+        "title": "Subscriptions catalog",
+        "description": "Manage plans, prices, offers and issuer details.",
+        "cta": "Open catalog"
+      },
+      "planSaved": "Plan saved.",
+      "planDeleted": "Plan deleted.",
+      "featureSaved": "Feature saved.",
+      "featureDeleted": "Feature deleted.",
+      "durationSaved": "Duration saved.",
+      "durationDeleted": "Duration deleted.",
+      "priceSaved": "Price saved.",
+      "priceDeleted": "Price deleted.",
+      "offerSaved": "Offer saved.",
+      "offerDeleted": "Offer deleted.",
+      "issuerSaved": "Issuer details saved.",
+      "priceRequiresPlanAndDuration": "You need at least one plan and one duration to create a price.",
+      "priceAlreadyExists": "A price for that plan and duration already exists.",
+      "confirmDeletePlan": "Are you sure you want to delete this plan?",
+      "confirmDeleteFeature": "Are you sure you want to delete this feature?",
+      "confirmDeleteDuration": "Are you sure you want to delete this duration?",
+      "confirmDeletePrice": "Are you sure you want to delete this price?",
+      "confirmDeleteOffer": "Are you sure you want to delete this offer?",
+      "tabs": {
+        "plans": "Plans",
+        "features": "Features",
+        "durations": "Durations",
+        "prices": "Prices",
+        "offers": "Offers",
+        "issuer": "Issuer"
+      },
+      "sections": {
+        "plans": "Plans",
+        "features": "Features",
+        "durations": "Durations",
+        "prices": "Prices",
+        "offers": "Offers",
+        "issuer": "Issuer details"
+      },
+      "fields": {
+        "code": "Code",
+        "position": "Position",
+        "id": "ID",
+        "months": "Months",
+        "label": "Label",
+        "description": "Description",
+        "active": "Active",
+        "featureText": "Text",
+        "offerName": "Name",
+        "discount": "Discount",
+        "validity": "Validity",
+        "noValidity": "No dates",
+        "validFrom": "From",
+        "validTo": "To",
+        "legalName": "Legal name",
+        "taxId": "Tax ID",
+        "address": "Address",
+        "email": "Email",
+        "phone": "Phone",
+        "iban": "IBAN",
+        "logoUrl": "Logo URL"
+      },
+      "help": {
+        "logoUrl": "Public logo URL (used in future templates)."
+      },
+      "actions": {
+        "newPlan": "New plan",
+        "newFeature": "New feature",
+        "newDuration": "New duration",
+        "newPrice": "New price",
+        "newOffer": "New offer",
+        "saveIssuer": "Save issuer",
+        "edit": "Edit",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "save": "Save"
+      },
+      "forms": {
+        "newPlan": "New plan",
+        "editPlan": "Edit plan",
+        "newFeature": "New feature",
+        "editFeature": "Edit feature",
+        "newDuration": "New duration",
+        "editDuration": "Edit duration",
+        "newPrice": "New price",
+        "editPrice": "Edit price",
+        "newOffer": "New offer",
+        "editOffer": "Edit offer"
+      },
+      "empty": {
+        "features": "This plan has no features yet."
+      },
+      "active": "Active",
+      "inactive": "Inactive",
+      "anyPlan": "Any plan",
+      "anyDuration": "Any duration"
+    },
+    "dashboardCard": {
+      "title": "Register subscription",
+      "description": "Create a subscription for a user and automatically generate the invoice.",
+      "cta": "Register"
     }
   }
 }

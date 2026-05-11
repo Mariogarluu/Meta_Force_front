@@ -3,10 +3,17 @@ import { Observable, from, of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { SupabaseService } from '../../core/services/supabase.service';
 
+/**
+ * Generates a compact, URL-safe identifier for new performance records.
+ */
 function newRowId(): string {
   return crypto.randomUUID().replace(/-/g, '');
 }
 
+/**
+ * Normalizes the `exercise` embedded relation coming from Supabase so the
+ * component layer can always rely on a `{ id, name }` shape.
+ */
 function normalizeExerciseEmbed(ex: unknown): { id: string; name: string } {
   if (ex && typeof ex === 'object' && !Array.isArray(ex)) {
     const o = ex as { id?: string; name?: string };
@@ -19,40 +26,85 @@ function normalizeExerciseEmbed(ex: unknown): { id: string; name: string } {
   return { id: '', name: '?' };
 }
 
-/** @see back/prisma schema PascalCase tables */
+/**
+ * Name of the body weight history table in the analytics schema.
+ * @see back/prisma schema PascalCase tables
+ */
 const T_BODY = 'BodyWeightRecord';
+/**
+ * Name of the exercise record table in the analytics schema.
+ * @see back/prisma schema PascalCase tables
+ */
 const T_RECORD = 'ExerciseRecord';
+/**
+ * Name of the exercise catalog table in the analytics schema.
+ * @see back/prisma schema PascalCase tables
+ */
 const T_EXERCISE = 'Exercise';
 
+/**
+ * Represents a single body weight measurement linked to a user.
+ */
 export interface BodyWeightRecord {
+  /** Unique identifier of the body weight row. */
   id: string;
+  /** Measured body weight in kilograms. */
   weight: number;
+  /** ISO timestamp when the measurement was taken. */
   date: string;
+  /** Optional free‑text notes associated with the measurement. */
   notes?: string;
 }
 
+/**
+ * Represents a single logged set for a given exercise (weight, reps, date).
+ */
 export interface ExerciseRecord {
+  /** Unique identifier of the exercise record row. */
   id: string;
+  /** Normalised reference to the exercised movement (id + name). */
   exercise: { id: string; name: string };
+  /** Load used in the set, in kilograms. */
   weight: number;
+  /** Number of repetitions performed. */
   reps: number;
+  /** ISO timestamp when the set was logged. */
   date: string;
+  /** Optional free‑text notes associated with the set. */
   notes?: string;
 }
 
+/**
+ * Lightweight representation of an exercise used in performance analytics.
+ */
 export interface Exercise {
+  /** Unique identifier of the exercise. */
   id: string;
+  /** Human‑readable exercise name. */
   name: string;
+  /** Optional foreign key to the related machine type. */
   machineTypeId?: string | null;
+  /** Raw machine type payload as returned by Supabase when joined. */
   machineType?: unknown;
 }
 
+/**
+ * High‑level service that encapsulates all read/write operations related to
+ * performance analytics: body weight history, exercise records and events.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class PerformanceService {
+  /**
+   * Shared Supabase client instance used to query and mutate performance data.
+   */
   private supabase = inject(SupabaseService).client;
 
+  /**
+   * Resolves the application‑level user identifier used in analytics tables,
+   * performing a graceful fallback between `auth_user_id` and legacy `id`.
+   */
   private async resolveAppUserId(): Promise<string> {
     const { data: { session } } = await this.supabase.auth.getSession();
     if (!session?.user?.id) throw new Error('No autenticado');
@@ -64,6 +116,9 @@ export class PerformanceService {
     throw new Error('Usuario de aplicación no enlazado');
   }
 
+  /**
+   * Retrieves all body weight records for the current user ordered by date.
+   */
   getBodyWeights(): Observable<BodyWeightRecord[]> {
     return from(this.resolveAppUserId()).pipe(
       switchMap((userId) =>
@@ -82,6 +137,10 @@ export class PerformanceService {
     );
   }
 
+  /**
+   * Inserts a new body weight record and triggers the performance‑events Edge
+   * Function so downstream insights can be generated asynchronously.
+   */
   addBodyWeight(data: { weight: number; date?: string; notes?: string }): Observable<BodyWeightRecord> {
     return from(this.resolveAppUserId()).pipe(
       switchMap((userId) =>
@@ -117,6 +176,9 @@ export class PerformanceService {
     );
   }
 
+  /**
+   * Deletes a body weight record by its identifier.
+   */
   deleteBodyWeight(id: string): Observable<void> {
     return from(
       this.supabase.from(T_BODY).delete().eq('id', id),
@@ -128,6 +190,9 @@ export class PerformanceService {
     );
   }
 
+  /**
+   * Lists all exercise performance records for the current user.
+   */
   getExerciseRecords(): Observable<ExerciseRecord[]> {
     return from(this.resolveAppUserId()).pipe(
       switchMap((userId) =>
@@ -157,6 +222,10 @@ export class PerformanceService {
     );
   }
 
+  /**
+   * Creates a new exercise performance record and notifies the analytics Edge
+   * Function so it can emit high‑level events (plateaus, PRs, etc.).
+   */
   addExerciseRecord(payload: {
     exerciseId: string;
     weight: number;
@@ -213,6 +282,9 @@ export class PerformanceService {
     );
   }
 
+  /**
+   * Deletes a single exercise performance record by its identifier.
+   */
   deleteExerciseRecord(id: string): Observable<void> {
     return from(this.supabase.from(T_RECORD).delete().eq('id', id)).pipe(
       map(({ error }) => {
@@ -222,6 +294,9 @@ export class PerformanceService {
     );
   }
 
+  /**
+   * Returns the catalog of exercises that can be used in performance charts.
+   */
   getExercises(): Observable<Exercise[]> {
     return from(
       this.supabase.from(T_EXERCISE).select('id, name, machineTypeId').order('createdAt', {
@@ -235,6 +310,10 @@ export class PerformanceService {
     );
   }
 
+  /**
+   * Retrieves recent performance events generated by the `performance-events`
+   * Edge Function, already resolved for the current authenticated user.
+   */
   getRecentEvents(): Observable<
     { id: string; kind: string; severity: string; payload?: any; createdAt: string; acknowledgedAt?: string | null }[]
   > {
@@ -261,6 +340,10 @@ export class PerformanceService {
     );
   }
 
+  /**
+   * Marks a given performance event as acknowledged so it no longer appears in
+   * the \"recent events\" stream.
+   */
   acknowledgeEvent(id: string): Observable<void> {
     return from(
       this.supabase.functions.invoke('performance-events', {

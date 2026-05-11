@@ -20,6 +20,7 @@ import { SupabaseService } from './supabase.service';
   providedIn: 'root',
 })
 export class MembershipsService {
+  /** Supabase client used to manage membership plan records. */
   private supabase = inject(SupabaseService).client;
 
   /**

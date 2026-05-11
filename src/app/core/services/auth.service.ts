@@ -1,7 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Observable, ReplaySubject, from, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { User } from '../models/user';
+import { Role, User } from '../models/user';
 import { AuthInput, RegisterInput, AuthResponse } from '../models/auth';
 import { environment } from '../../../environments/environment';
 import { SupabaseService } from './supabase.service';
@@ -23,13 +23,22 @@ import { SupabaseService } from './supabase.service';
   providedIn: 'root'
 })
 export class AuthService {
+  /** Shared Supabase auth client used as the single source of truth for sessions. */
   private supabase = inject(SupabaseService).client;
+  /** Internal signal holding the currently authenticated user (if any). */
   private _currentUser = signal<User | null>(null);
 
+  /** Read‑only signal exposed to components with the current user state. */
   public readonly currentUser = this._currentUser.asReadonly();
+  /** Emits once when the initial session + profile load has finished. */
   private _initialLoadComplete = new ReplaySubject<boolean>(1);
+  /** Observable view of the initialisation status for route guards, etc. */
   public readonly initialLoadComplete = this._initialLoadComplete.asObservable();
 
+  /**
+   * Eagerly initialises the auth session on service construction so consumers
+   * can safely subscribe to `currentUser` and `initialLoadComplete`.
+   */
   constructor() {
     this.initSession();
   }
@@ -65,6 +74,22 @@ export class AuthService {
    * @param userId - El identificador único del usuario en Supabase Auth.
    */
   private async loadUserProfile(userId: string) {
+    const isRole = (value: unknown): value is Role =>
+      value === 'SUPERADMIN' ||
+      value === 'ADMIN_CENTER' ||
+      value === 'TRAINER' ||
+      value === 'CLEANER' ||
+      value === 'USER';
+
+    const loadRole = async (): Promise<Role> => {
+      const { data, error } = await this.supabase.rpc('get_my_role');
+      if (error) return 'USER';
+      // Supabase devuelve array de filas para RETURNS TABLE
+      const row = Array.isArray(data) ? data[0] : data;
+      const role = row?.role as unknown;
+      return isRole(role) ? role : 'USER';
+    };
+
     const { data: profile, error: profileError } = await this.supabase
       .from('profiles')
       .select('*')
@@ -72,12 +97,12 @@ export class AuthService {
       .maybeSingle();
 
     if (!profileError && profile) {
+      const role = await loadRole();
       this._currentUser.set({
         id: profile.id,
         email: profile.email,
         name: profile.name,
-        role: profile.role,
-        status: profile.status,
+        role,
       } as unknown as User);
       this._initialLoadComplete.next(true);
       return;
@@ -93,7 +118,8 @@ export class AuthService {
       console.error('Error loading user profile:', legacyError);
       this._currentUser.set(null);
     } else {
-      this._currentUser.set(legacy as User);
+      const role = await loadRole();
+      this._currentUser.set({ ...(legacy as User), role });
     }
     this._initialLoadComplete.next(true);
   }

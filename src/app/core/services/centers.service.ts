@@ -21,6 +21,7 @@ import { SupabaseService } from './supabase.service';
   providedIn: 'root'
 })
 export class CentersService {
+  /** Supabase client used to perform all Center‑related queries and mutations. */
   private supabase = inject(SupabaseService).client;
 
   /**

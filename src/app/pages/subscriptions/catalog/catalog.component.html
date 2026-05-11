@@ -1,0 +1,990 @@
+<div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+  <app-navbar></app-navbar>
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+    @if(errorMessage()) {
+      <div class="mb-4 p-3 rounded-lg border border-red-500/60 bg-red-500/10 text-red-700 dark:text-red-300">
+        {{ errorMessage() }}
+      </div>
+    }
+
+    @if(successMessage()) {
+      <div class="mb-4 p-3 rounded-lg border border-emerald-500/60 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300">
+        {{ successMessage() }}
+      </div>
+    }
+
+    <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+          {{ 'subscriptions.catalog.title' | translate }}
+        </h1>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+          {{ 'subscriptions.catalog.subtitle' | translate }}
+        </p>
+      </div>
+
+      @if(loading()) {
+        <div class="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-200">
+          <span class="w-4 h-4 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></span>
+          <span>{{ 'subscriptions.loadingCatalog' | translate }}</span>
+        </div>
+      }
+    </div>
+
+    <div class="mb-4 border-b border-gray-200 dark:border-gray-700 overflow-x-auto">
+      <nav class="flex space-x-4 text-sm font-medium">
+        <button
+          type="button"
+          (click)="changeTab('plans')"
+          class="px-3 py-2 border-b-2"
+          [class.border-cyan-500]="currentTab() === 'plans'"
+          [class.text-cyan-600]="currentTab() === 'plans'"
+          [class.border-transparent]="currentTab() !== 'plans'"
+          [class.text-gray-500]="currentTab() !== 'plans'"
+        >
+          {{ 'subscriptions.catalog.tabs.plans' | translate }}
+        </button>
+        <button
+          type="button"
+          (click)="changeTab('features')"
+          class="px-3 py-2 border-b-2"
+          [class.border-cyan-500]="currentTab() === 'features'"
+          [class.text-cyan-600]="currentTab() === 'features'"
+          [class.border-transparent]="currentTab() !== 'features'"
+          [class.text-gray-500]="currentTab() !== 'features'"
+        >
+          {{ 'subscriptions.catalog.tabs.features' | translate }}
+        </button>
+        <button
+          type="button"
+          (click)="changeTab('durations')"
+          class="px-3 py-2 border-b-2"
+          [class.border-cyan-500]="currentTab() === 'durations'"
+          [class.text-cyan-600]="currentTab() === 'durations'"
+          [class.border-transparent]="currentTab() !== 'durations'"
+          [class.text-gray-500]="currentTab() !== 'durations'"
+        >
+          {{ 'subscriptions.catalog.tabs.durations' | translate }}
+        </button>
+        <button
+          type="button"
+          (click)="changeTab('prices')"
+          class="px-3 py-2 border-b-2"
+          [class.border-cyan-500]="currentTab() === 'prices'"
+          [class.text-cyan-600]="currentTab() === 'prices'"
+          [class.border-transparent]="currentTab() !== 'prices'"
+          [class.text-gray-500]="currentTab() !== 'prices'"
+        >
+          {{ 'subscriptions.catalog.tabs.prices' | translate }}
+        </button>
+        <button
+          type="button"
+          (click)="changeTab('offers')"
+          class="px-3 py-2 border-b-2"
+          [class.border-cyan-500]="currentTab() === 'offers'"
+          [class.text-cyan-600]="currentTab() === 'offers'"
+          [class.border-transparent]="currentTab() !== 'offers'"
+          [class.text-gray-500]="currentTab() !== 'offers'"
+        >
+          {{ 'subscriptions.catalog.tabs.offers' | translate }}
+        </button>
+        <button
+          type="button"
+          (click)="changeTab('issuer')"
+          class="px-3 py-2 border-b-2"
+          [class.border-cyan-500]="currentTab() === 'issuer'"
+          [class.text-cyan-600]="currentTab() === 'issuer'"
+          [class.border-transparent]="currentTab() !== 'issuer'"
+          [class.text-gray-500]="currentTab() !== 'issuer'"
+        >
+          {{ 'subscriptions.catalog.tabs.issuer' | translate }}
+        </button>
+      </nav>
+    </div>
+
+    <!-- PLANES -->
+    @if(currentTab() === 'plans') {
+      <section class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-4 sm:p-5 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+            {{ 'subscriptions.catalog.sections.plans' | translate }}
+          </h2>
+          <button
+            type="button"
+            (click)="startNewPlan()"
+            class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-medium"
+          >
+            {{ 'subscriptions.catalog.actions.newPlan' | translate }}
+          </button>
+        </div>
+
+        <div class="overflow-x-auto text-sm">
+          <table class="min-w-full border-separate border-spacing-y-1">
+            <thead class="text-xs uppercase text-gray-500 dark:text-gray-400">
+              <tr>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.code' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.labels.plan' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.description' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.position' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.active' | translate }}</th>
+                <th class="px-3 py-1"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(plan of plans(); track plan.id) {
+                <tr class="bg-white dark:bg-gray-900/50 rounded-lg">
+                  <td class="px-3 py-1.5 font-mono text-xs">{{ plan.code }}</td>
+                  <td class="px-3 py-1.5 font-medium text-gray-900 dark:text-gray-100">{{ plan.name }}</td>
+                  <td class="px-3 py-1.5 text-xs text-gray-600 dark:text-gray-400 max-w-xs truncate">
+                    {{ plan.description }}
+                  </td>
+                  <td class="px-3 py-1.5 text-xs">{{ plan.position }}</td>
+                  <td class="px-3 py-1.5">
+                    <span
+                      class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
+                      [class.bg-emerald-100]="plan.active"
+                      [class.text-emerald-800]="plan.active"
+                      [class.bg-gray-200]="!plan.active"
+                      [class.text-gray-700]="!plan.active"
+                    >
+                      {{ plan.active ? ('subscriptions.catalog.active' | translate) : ('subscriptions.catalog.inactive' | translate) }}
+                    </span>
+                  </td>
+                  <td class="px-3 py-1.5 text-right space-x-2">
+                    <button
+                      type="button"
+                      class="text-xs text-cyan-600 hover:text-cyan-800"
+                      (click)="editPlan(plan)"
+                    >
+                      {{ 'subscriptions.catalog.actions.edit' | translate }}
+                    </button>
+                    <button
+                      type="button"
+                      class="text-xs text-red-600 hover:text-red-800"
+                      (click)="deletePlan(plan.id)"
+                    >
+                      {{ 'subscriptions.catalog.actions.delete' | translate }}
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        @if(newPlan() || editingPlan()) {
+          <div class="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+              {{ editingPlan() ? ('subscriptions.catalog.forms.editPlan' | translate) : ('subscriptions.catalog.forms.newPlan' | translate) }}
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-sm">
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.catalog.fields.code' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newPlan() || editingPlan())!.code"
+                  name="planCode"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{{ 'subscriptions.labels.plan' | translate }}</label>
+                <input
+                  type="text"
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newPlan() || editingPlan())!.name"
+                  name="planName"
+                />
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{{ 'subscriptions.catalog.fields.description' | translate }}</label>
+                <input
+                  type="text"
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newPlan() || editingPlan())!.description"
+                  name="planDescription"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.catalog.fields.position' | translate }}
+                </label>
+                <input
+                  type="number"
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newPlan() || editingPlan())!.position"
+                  name="planPosition"
+                />
+              </div>
+              <div class="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  class="rounded border-gray-300 dark:border-gray-600"
+                  [(ngModel)]="(newPlan() || editingPlan())!.active"
+                  name="planActive"
+                />
+                <span class="text-xs text-gray-700 dark:text-gray-300">
+                  {{ 'subscriptions.catalog.fields.active' | translate }}
+                </span>
+              </div>
+            </div>
+            <div class="mt-3 flex gap-2 justify-end text-xs">
+              <button
+                type="button"
+                class="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                (click)="cancelPlanEdit()"
+              >
+                {{ 'subscriptions.catalog.actions.cancel' | translate }}
+              </button>
+              <button
+                type="button"
+                class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white"
+                (click)="savePlan()"
+              >
+                {{ 'subscriptions.catalog.actions.save' | translate }}
+              </button>
+            </div>
+          </div>
+        }
+      </section>
+    }
+
+    <!-- FEATURES -->
+    @if(currentTab() === 'features') {
+      <section class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-4 sm:p-5 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+            {{ 'subscriptions.catalog.sections.features' | translate }}
+          </h2>
+        </div>
+
+        <div class="space-y-4 text-sm">
+          @for(plan of plans(); track plan.id) {
+            <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-3 bg-gray-50 dark:bg-gray-900/40">
+              <div class="flex items-center justify-between mb-2">
+                <div>
+                  <p class="font-semibold text-gray-900 dark:text-gray-100">
+                    {{ plan.name }} <span class="text-xs text-gray-500">({{ plan.code }})</span>
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  class="px-2.5 py-1 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-xs font-medium"
+                  (click)="startNewFeature(plan.id)"
+                >
+                  {{ 'subscriptions.catalog.actions.newFeature' | translate }}
+                </button>
+              </div>
+
+              <ul class="space-y-1">
+                @for(feature of featuresByPlan()[plan.id] || []; track feature.id) {
+                  <li class="flex items-center justify-between gap-2">
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs text-gray-500">#{{ feature.position }}</span>
+                      <span class="text-gray-800 dark:text-gray-200">{{ feature.featureText }}</span>
+                    </div>
+                    <div class="space-x-2 text-xs">
+                      <button
+                        type="button"
+                        class="text-cyan-600 hover:text-cyan-800"
+                        (click)="editFeature(feature)"
+                      >
+                        {{ 'subscriptions.catalog.actions.edit' | translate }}
+                      </button>
+                      <button
+                        type="button"
+                        class="text-red-600 hover:text-red-800"
+                        (click)="deleteFeature(feature.id)"
+                      >
+                        {{ 'subscriptions.catalog.actions.delete' | translate }}
+                      </button>
+                    </div>
+                  </li>
+                }
+                @if((featuresByPlan()[plan.id] || []).length === 0) {
+                  <li class="text-xs text-gray-500 dark:text-gray-400">
+                    {{ 'subscriptions.catalog.empty.features' | translate }}
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+        </div>
+
+        @if(newFeature() || editingFeature()) {
+          <div class="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+              {{ editingFeature() ? ('subscriptions.catalog.forms.editFeature' | translate) : ('subscriptions.catalog.forms.newFeature' | translate) }}
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.labels.plan' | translate }}
+                </label>
+                <select
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newFeature() || editingFeature())!.planId"
+                  name="featurePlanId"
+                >
+                  @for(plan of plans(); track plan.id) {
+                    <option [value]="plan.id">{{ plan.name }} ({{ plan.code }})</option>
+                  }
+                </select>
+              </div>
+              <div class="sm:col-span-2">
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.catalog.fields.featureText' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newFeature() || editingFeature())!.featureText"
+                  name="featureText"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.catalog.fields.position' | translate }}
+                </label>
+                <input
+                  type="number"
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newFeature() || editingFeature())!.position"
+                  name="featurePosition"
+                />
+              </div>
+            </div>
+            <div class="mt-3 flex gap-2 justify-end text-xs">
+              <button
+                type="button"
+                class="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                (click)="cancelFeatureEdit()"
+              >
+                {{ 'subscriptions.catalog.actions.cancel' | translate }}
+              </button>
+              <button
+                type="button"
+                class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white"
+                (click)="saveFeature()"
+              >
+                {{ 'subscriptions.catalog.actions.save' | translate }}
+              </button>
+            </div>
+          </div>
+        }
+      </section>
+    }
+
+    <!-- DURACIONES -->
+    @if(currentTab() === 'durations') {
+      <section class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-4 sm:p-5 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+            {{ 'subscriptions.catalog.sections.durations' | translate }}
+          </h2>
+          <button
+            type="button"
+            (click)="startNewDuration()"
+            class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-medium"
+          >
+            {{ 'subscriptions.catalog.actions.newDuration' | translate }}
+          </button>
+        </div>
+
+        <div class="overflow-x-auto text-sm">
+          <table class="min-w-full border-separate border-spacing-y-1">
+            <thead class="text-xs uppercase text-gray-500 dark:text-gray-400">
+              <tr>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.id' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.months' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.label' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.active' | translate }}</th>
+                <th class="px-3 py-1"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(duration of durations(); track duration.id) {
+                <tr class="bg-white dark:bg-gray-900/50 rounded-lg">
+                  <td class="px-3 py-1.5 font-mono text-xs truncate max-w-[10rem]">{{ duration.id }}</td>
+                  <td class="px-3 py-1.5 text-xs">{{ duration.months }}</td>
+                  <td class="px-3 py-1.5 text-sm text-gray-900 dark:text-gray-100">{{ duration.label }}</td>
+                  <td class="px-3 py-1.5">
+                    <span
+                      class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
+                      [class.bg-emerald-100]="duration.active"
+                      [class.text-emerald-800]="duration.active"
+                      [class.bg-gray-200]="!duration.active"
+                      [class.text-gray-700]="!duration.active"
+                    >
+                      {{ duration.active ? ('subscriptions.catalog.active' | translate) : ('subscriptions.catalog.inactive' | translate) }}
+                    </span>
+                  </td>
+                  <td class="px-3 py-1.5 text-right space-x-2">
+                    <button
+                      type="button"
+                      class="text-xs text-cyan-600 hover:text-cyan-800"
+                      (click)="editDuration(duration)"
+                    >
+                      {{ 'subscriptions.catalog.actions.edit' | translate }}
+                    </button>
+                    <button
+                      type="button"
+                      class="text-xs text-red-600 hover:text-red-800"
+                      (click)="deleteDuration(duration.id)"
+                    >
+                      {{ 'subscriptions.catalog.actions.delete' | translate }}
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        @if(newDuration() || editingDuration()) {
+          <div class="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+              {{ editingDuration() ? ('subscriptions.catalog.forms.editDuration' | translate) : ('subscriptions.catalog.forms.newDuration' | translate) }}
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.catalog.fields.months' | translate }}
+                </label>
+                <input
+                  type="number"
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newDuration() || editingDuration())!.months"
+                  name="durationMonths"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">{{ 'subscriptions.catalog.fields.label' | translate }}</label>
+                <input
+                  type="text"
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newDuration() || editingDuration())!.label"
+                  name="durationLabel"
+                />
+              </div>
+              <div class="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  class="rounded border-gray-300 dark:border-gray-600"
+                  [(ngModel)]="(newDuration() || editingDuration())!.active"
+                  name="durationActive"
+                />
+                <span class="text-xs text-gray-700 dark:text-gray-300">
+                  {{ 'subscriptions.catalog.fields.active' | translate }}
+                </span>
+              </div>
+            </div>
+            <div class="mt-3 flex gap-2 justify-end text-xs">
+              <button
+                type="button"
+                class="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                (click)="cancelDurationEdit()"
+              >
+                {{ 'subscriptions.catalog.actions.cancel' | translate }}
+              </button>
+              <button
+                type="button"
+                class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white"
+                (click)="saveDuration()"
+              >
+                {{ 'subscriptions.catalog.actions.save' | translate }}
+              </button>
+            </div>
+          </div>
+        }
+      </section>
+    }
+
+    <!-- PRECIOS -->
+    @if(currentTab() === 'prices') {
+      <section class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-4 sm:p-5 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+            {{ 'subscriptions.catalog.sections.prices' | translate }}
+          </h2>
+          <button
+            type="button"
+            (click)="startNewPrice()"
+            class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-medium"
+          >
+            {{ 'subscriptions.catalog.actions.newPrice' | translate }}
+          </button>
+        </div>
+
+        <div class="overflow-x-auto text-sm">
+          <table class="min-w-full border-separate border-spacing-y-1">
+            <thead class="text-xs uppercase text-gray-500 dark:text-gray-400">
+              <tr>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.labels.plan' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.labels.duration' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.labels.basePrice' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.labels.tax' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.active' | translate }}</th>
+                <th class="px-3 py-1"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(price of prices(); track price.planId + ':' + price.durationId) {
+                <tr class="bg-white dark:bg-gray-900/50 rounded-lg">
+                  <td class="px-3 py-1.5 text-sm text-gray-900 dark:text-gray-100">
+                    {{ getPlanName(price.planId) }}
+                  </td>
+                  <td class="px-3 py-1.5 text-sm text-gray-900 dark:text-gray-100">
+                    {{ getDurationLabel(price.durationId) }}
+                  </td>
+                  <td class="px-3 py-1.5 text-sm">{{ price.price | number:'1.2-2' }} €</td>
+                  <td class="px-3 py-1.5 text-xs">{{ price.taxRate }} %</td>
+                  <td class="px-3 py-1.5">
+                    <span
+                      class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
+                      [class.bg-emerald-100]="price.active"
+                      [class.text-emerald-800]="price.active"
+                      [class.bg-gray-200]="!price.active"
+                      [class.text-gray-700]="!price.active"
+                    >
+                      {{ price.active ? ('subscriptions.catalog.active' | translate) : ('subscriptions.catalog.inactive' | translate) }}
+                    </span>
+                  </td>
+                  <td class="px-3 py-1.5 text-right space-x-2">
+                    <button
+                      type="button"
+                      class="text-xs text-cyan-600 hover:text-cyan-800"
+                      (click)="editPrice(price)"
+                    >
+                      {{ 'subscriptions.catalog.actions.edit' | translate }}
+                    </button>
+                    <button
+                      type="button"
+                      class="text-xs text-red-600 hover:text-red-800"
+                      (click)="deletePrice(price.planId, price.durationId)"
+                    >
+                      {{ 'subscriptions.catalog.actions.delete' | translate }}
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        @if(newPrice() || editingPrice()) {
+          <div class="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+              {{ editingPrice() ? ('subscriptions.catalog.forms.editPrice' | translate) : ('subscriptions.catalog.forms.newPrice' | translate) }}
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-sm">
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.labels.plan' | translate }}
+                </label>
+                <select
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newPrice() || editingPrice())!.planId"
+                  name="pricePlanId"
+                  [disabled]="!!editingPrice()"
+                >
+                  @for(plan of plans(); track plan.id) {
+                    <option [value]="plan.id">{{ plan.name }} ({{ plan.code }})</option>
+                  }
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.labels.duration' | translate }}
+                </label>
+                <select
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newPrice() || editingPrice())!.durationId"
+                  name="priceDurationId"
+                  [disabled]="!!editingPrice()"
+                >
+                  @for(duration of durations(); track duration.id) {
+                    <option [value]="duration.id">
+                      {{ duration.label }} · {{ duration.months }}m
+                    </option>
+                  }
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.labels.basePrice' | translate }}
+                </label>
+                <input
+                  type="number"
+                  step="0.01"
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newPrice() || editingPrice())!.price"
+                  name="priceValue"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.labels.tax' | translate }}
+                </label>
+                <input
+                  type="number"
+                  step="0.1"
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newPrice() || editingPrice())!.taxRate"
+                  name="priceTax"
+                />
+              </div>
+              <div class="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  class="rounded border-gray-300 dark:border-gray-600"
+                  [(ngModel)]="(newPrice() || editingPrice())!.active"
+                  name="priceActive"
+                />
+                <span class="text-xs text-gray-700 dark:text-gray-300">
+                  {{ 'subscriptions.catalog.fields.active' | translate }}
+                </span>
+              </div>
+            </div>
+            <div class="mt-3 flex gap-2 justify-end text-xs">
+              <button
+                type="button"
+                class="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                (click)="cancelPriceEdit()"
+              >
+                {{ 'subscriptions.catalog.actions.cancel' | translate }}
+              </button>
+              <button
+                type="button"
+                class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white"
+                (click)="savePrice()"
+              >
+                {{ 'subscriptions.catalog.actions.save' | translate }}
+              </button>
+            </div>
+          </div>
+        }
+      </section>
+    }
+
+    <!-- OFERTAS -->
+    @if(currentTab() === 'offers') {
+      <section class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-4 sm:p-5 shadow-sm">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+            {{ 'subscriptions.catalog.sections.offers' | translate }}
+          </h2>
+          <button
+            type="button"
+            (click)="startNewOffer()"
+            class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-medium"
+          >
+            {{ 'subscriptions.catalog.actions.newOffer' | translate }}
+          </button>
+        </div>
+
+        <div class="overflow-x-auto text-sm">
+          <table class="min-w-full border-separate border-spacing-y-1">
+            <thead class="text-xs uppercase text-gray-500 dark:text-gray-400">
+              <tr>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.offerName' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.labels.plan' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.labels.duration' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.discount' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.validity' | translate }}</th>
+                <th class="text-left px-3 py-1">{{ 'subscriptions.catalog.fields.active' | translate }}</th>
+                <th class="px-3 py-1"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @for(offer of offers(); track offer.id) {
+                <tr class="bg-white dark:bg-gray-900/50 rounded-lg">
+                  <td class="px-3 py-1.5 text-sm text-gray-900 dark:text-gray-100">{{ offer.name }}</td>
+                  <td class="px-3 py-1.5 text-xs">{{ getPlanName(offer.planId || null) }}</td>
+                  <td class="px-3 py-1.5 text-xs">{{ getDurationLabel(offer.durationId || null) }}</td>
+                  <td class="px-3 py-1.5 text-xs">
+                    @if(offer.discountType === 'percent') {
+                      -{{ offer.discountValue }} %
+                    } @else {
+                      -{{ offer.discountValue | number:'1.2-2' }} €
+                    }
+                  </td>
+                  <td class="px-3 py-1.5 text-xs text-gray-700 dark:text-gray-300">
+                    @if(offer.validFrom || offer.validTo) {
+                      <span>{{ offer.validFrom || '...' }} → {{ offer.validTo || '...' }}</span>
+                    } @else {
+                      <span>{{ 'subscriptions.catalog.fields.noValidity' | translate }}</span>
+                    }
+                  </td>
+                  <td class="px-3 py-1.5">
+                    <span
+                      class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
+                      [class.bg-emerald-100]="offer.active"
+                      [class.text-emerald-800]="offer.active"
+                      [class.bg-gray-200]="!offer.active"
+                      [class.text-gray-700]="!offer.active"
+                    >
+                      {{ offer.active ? ('subscriptions.catalog.active' | translate) : ('subscriptions.catalog.inactive' | translate) }}
+                    </span>
+                  </td>
+                  <td class="px-3 py-1.5 text-right space-x-2">
+                    <button
+                      type="button"
+                      class="text-xs text-cyan-600 hover:text-cyan-800"
+                      (click)="editOffer(offer)"
+                    >
+                      {{ 'subscriptions.catalog.actions.edit' | translate }}
+                    </button>
+                    <button
+                      type="button"
+                      class="text-xs text-red-600 hover:text-red-800"
+                      (click)="deleteOffer(offer.id)"
+                    >
+                      {{ 'subscriptions.catalog.actions.delete' | translate }}
+                    </button>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+        @if(newOffer() || editingOffer()) {
+          <div class="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
+            <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+              {{ editingOffer() ? ('subscriptions.catalog.forms.editOffer' | translate) : ('subscriptions.catalog.forms.newOffer' | translate) }}
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-sm">
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.catalog.fields.offerName' | translate }}
+                </label>
+                <input
+                  type="text"
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newOffer() || editingOffer())!.name"
+                  name="offerName"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.labels.plan' | translate }}
+                </label>
+                <select
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newOffer() || editingOffer())!.planId"
+                  name="offerPlanId"
+                >
+                  <option [ngValue]="null">{{ 'subscriptions.catalog.anyPlan' | translate }}</option>
+                  @for(plan of plans(); track plan.id) {
+                    <option [ngValue]="plan.id">{{ plan.name }} ({{ plan.code }})</option>
+                  }
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.labels.duration' | translate }}
+                </label>
+                <select
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newOffer() || editingOffer())!.durationId"
+                  name="offerDurationId"
+                >
+                  <option [ngValue]="null">{{ 'subscriptions.catalog.anyDuration' | translate }}</option>
+                  @for(duration of durations(); track duration.id) {
+                    <option [ngValue]="duration.id">
+                      {{ duration.label }} · {{ duration.months }}m
+                    </option>
+                  }
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.catalog.fields.discount' | translate }}
+                </label>
+                <div class="flex gap-2">
+                  <select
+                    class="w-20 px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 text-xs"
+                    [(ngModel)]="(newOffer() || editingOffer())!.discountType"
+                    name="offerDiscountType"
+                  >
+                    <option value="percent">%</option>
+                    <option value="amount">€</option>
+                  </select>
+                  <input
+                    type="number"
+                    step="0.01"
+                    class="flex-1 px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                    [(ngModel)]="(newOffer() || editingOffer())!.discountValue"
+                    name="offerDiscountValue"
+                  />
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.catalog.fields.validFrom' | translate }}
+                </label>
+                <input
+                  type="date"
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newOffer() || editingOffer())!.validFrom"
+                  name="offerValidFrom"
+                />
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                  {{ 'subscriptions.catalog.fields.validTo' | translate }}
+                </label>
+                <input
+                  type="date"
+                  class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                  [(ngModel)]="(newOffer() || editingOffer())!.validTo"
+                  name="offerValidTo"
+                />
+              </div>
+              <div class="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  class="rounded border-gray-300 dark:border-gray-600"
+                  [(ngModel)]="(newOffer() || editingOffer())!.active"
+                  name="offerActive"
+                />
+                <span class="text-xs text-gray-700 dark:text-gray-300">
+                  {{ 'subscriptions.catalog.fields.active' | translate }}
+                </span>
+              </div>
+            </div>
+            <div class="mt-3 flex gap-2 justify-end text-xs">
+              <button
+                type="button"
+                class="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200"
+                (click)="cancelOfferEdit()"
+              >
+                {{ 'subscriptions.catalog.actions.cancel' | translate }}
+              </button>
+              <button
+                type="button"
+                class="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white"
+                (click)="saveOffer()"
+              >
+                {{ 'subscriptions.catalog.actions.save' | translate }}
+              </button>
+            </div>
+          </div>
+        }
+      </section>
+    }
+
+    <!-- EMISOR -->
+    @if(currentTab() === 'issuer') {
+      <section class="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-4 sm:p-5 shadow-sm max-w-3xl">
+        <div class="flex items-center justify-between mb-3">
+          <h2 class="text-lg font-semibold text-gray-900 dark:text-white">
+            {{ 'subscriptions.catalog.sections.issuer' | translate }}
+          </h2>
+        </div>
+
+        <form class="space-y-3 text-sm" (ngSubmit)="saveIssuer()">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                {{ 'subscriptions.catalog.fields.legalName' | translate }}
+              </label>
+              <input
+                type="text"
+                class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                [(ngModel)]="issuerForm()!.legalName"
+                name="issuerLegalName"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                {{ 'subscriptions.catalog.fields.taxId' | translate }}
+              </label>
+              <input
+                type="text"
+                class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                [(ngModel)]="issuerForm()!.taxId"
+                name="issuerTaxId"
+              />
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+              {{ 'subscriptions.catalog.fields.address' | translate }}
+            </label>
+            <input
+              type="text"
+              class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+              [(ngModel)]="issuerForm()!.address"
+              name="issuerAddress"
+            />
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                {{ 'subscriptions.catalog.fields.email' | translate }}
+              </label>
+              <input
+                type="email"
+                class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                [(ngModel)]="issuerForm()!.email"
+                name="issuerEmail"
+              />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+                {{ 'subscriptions.catalog.fields.phone' | translate }}
+              </label>
+              <input
+                type="text"
+                class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+                [(ngModel)]="issuerForm()!.phone"
+                name="issuerPhone"
+              />
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+              {{ 'subscriptions.catalog.fields.iban' | translate }}
+            </label>
+            <input
+              type="text"
+              class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+              [(ngModel)]="issuerForm()!.iban"
+              name="issuerIban"
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 dark:text-gray-300 mb-1">
+              {{ 'subscriptions.catalog.fields.logoUrl' | translate }}
+            </label>
+            <input
+              type="text"
+              class="w-full px-2 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+              [(ngModel)]="issuerForm()!.logoUrl"
+              name="issuerLogoUrl"
+            />
+            <p class="mt-1 text-[11px] text-gray-500 dark:text-gray-400">
+              {{ 'subscriptions.catalog.help.logoUrl' | translate }}
+            </p>
+          </div>
+
+          <div class="mt-4 flex justify-end">
+            <button
+              type="submit"
+              class="px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-700 text-white text-sm font-medium disabled:opacity-60"
+              [disabled]="!hasChangesIssuer()"
+            >
+              {{ 'subscriptions.catalog.actions.saveIssuer' | translate }}
+            </button>
+          </div>
+        </form>
+      </section>
+    }
+  </main>
+</div>
+
