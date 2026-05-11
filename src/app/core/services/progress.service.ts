@@ -7,11 +7,17 @@ import { AuthService } from './auth.service';
  * Represents a historical physical measurement of a user.
  */
 export interface UserMeasurement {
+  /** Unique identifier of the measurement row. */
   id: string;
+  /** Foreign key linking the measurement to the user. */
   userId: string;
+  /** ISO timestamp when the measurement was taken. */
   date: string;
+  /** Optional body weight in kilograms. */
   weight?: number;
+  /** Optional body fat percentage. */
   bodyFat?: number;
+  /** Optional Body Mass Index value. */
   bmi?: number;
 }
 
@@ -19,13 +25,21 @@ export interface UserMeasurement {
  * Represents a record of a specific exercise's performance.
  */
 export interface ExerciseLog {
+  /** Unique identifier of the exercise log row. */
   id: string;
+  /** Foreign key linking the log entry to the user. */
   userId: string;
+  /** Identifier of the exercise this log refers to. */
   exerciseId: string;
+  /** ISO timestamp when the exercise was performed. */
   date: string;
+  /** Optional weight used in the set. */
   weight?: number;
+  /** Optional number of repetitions performed. */
   reps?: number;
+  /** Optional number of sets performed. */
   sets?: number;
+  /** Free‑text notes with additional context. */
   notes?: string;
 }
 
@@ -37,7 +51,9 @@ export interface ExerciseLog {
   providedIn: 'root'
 })
 export class ProgressService {
+  /** Shared Supabase client used to persist measurement and log entries. */
   private supabase = inject(SupabaseService).client;
+  /** Auth service used to resolve the current authenticated user. */
   private auth = inject(AuthService);
 
   /**

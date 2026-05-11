@@ -21,6 +21,7 @@ import { SupabaseService } from './supabase.service';
   providedIn: 'root'
 })
 export class ClassesService {
+  /** Supabase client used to manage class catalog, schedules and trainer links. */
   private supabase = inject(SupabaseService).client;
 
   /**

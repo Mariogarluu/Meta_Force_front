@@ -32,6 +32,7 @@ export interface UpdateUserInput {
   providedIn: 'root'
 })
 export class UsersService {
+  /** Supabase client used as the backbone for all user persistence operations. */
   private supabase = inject(SupabaseService).client;
 
   /**
@@ -91,6 +92,36 @@ export class UsersService {
       map(({ data: updated, error }) => {
         if (error) throw error;
         return updated as User;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
+  }
+
+  /**
+   * Actualiza el rol de un usuario mediante RPC privilegiada (SUPERADMIN).
+   */
+  setUserRole(userId: string, role: Role): Observable<void> {
+    return from(
+      this.supabase.rpc('admin_set_user_role', { p_user_id: userId, p_role: role })
+    ).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+        return undefined;
+      }),
+      catchError((err) => throwError(() => new Error(err.message)))
+    );
+  }
+
+  /**
+   * Best-effort: intenta invalidar sesiones del usuario afectado.
+   */
+  forceLogout(userId: string): Observable<void> {
+    return from(
+      this.supabase.functions.invoke('admin-signout', { body: { user_id: userId } })
+    ).pipe(
+      map(({ error }) => {
+        if (error) throw error;
+        return undefined;
       }),
       catchError((err) => throwError(() => new Error(err.message)))
     );

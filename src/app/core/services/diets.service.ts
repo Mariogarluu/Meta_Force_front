@@ -27,6 +27,7 @@ import {
   providedIn: 'root'
 })
 export class DietsService {
+  /** Supabase client used to manage Diet containers and nested DietMeal rows. */
   private supabase = inject(SupabaseService).client;
 
   /**

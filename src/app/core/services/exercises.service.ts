@@ -21,6 +21,7 @@ import { SupabaseService } from './supabase.service';
   providedIn: 'root'
 })
 export class ExercisesService {
+  /** Supabase client used to access and mutate the Exercise catalog. */
   private supabase = inject(SupabaseService).client;
 
   /**

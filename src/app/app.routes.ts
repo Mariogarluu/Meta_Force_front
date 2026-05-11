@@ -103,7 +103,16 @@ export const routes: Routes = [
     {
         path: 'memberships',
         loadComponent: () => import('./pages/memberships/memberships.component').then(m => m.MembershipsComponent),
-        canActivate: [authGuard]
+    },
+    {
+        path: 'subscriptions/register',
+        loadComponent: () => import('./pages/subscriptions/register-subscription.component').then(m => m.RegisterSubscriptionComponent),
+        canActivate: [authGuard, roleGuard('SUPERADMIN', 'ADMIN_CENTER')]
+    },
+    {
+        path: 'subscriptions/catalog',
+        loadComponent: () => import('./pages/subscriptions/catalog/catalog.component').then(m => m.CatalogComponent),
+        canActivate: [authGuard, roleGuard('SUPERADMIN')]
     },
     {
         path: 'performance',
