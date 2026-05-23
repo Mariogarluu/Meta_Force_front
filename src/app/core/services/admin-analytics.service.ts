@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, from, forkJoin } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SupabaseService } from './supabase.service';
 
@@ -46,6 +46,26 @@ export interface AdminSubscription {
   created_at: string;
 }
 
+export interface GlobalAnalyticsData {
+  users: AdminUser[];
+  roles: AdminUserRole[];
+  bodyWeights: AdminBodyWeightRecord[];
+  exerciseRecords: AdminExerciseRecord[];
+  exercises: AdminExercise[];
+  subscriptions: AdminSubscription[];
+}
+
+/**
+ * =============================================================================
+ * SERVICIO DE ANALÍTICAS DEL SUPERADMIN
+ * =============================================================================
+ * Obtiene datos globales de analíticas llamando a la Edge Function
+ * `admin-analytics`, que usa el service_role key server-side para bypasar RLS
+ * y verifica que el usuario es SUPERADMIN antes de responder.
+ *
+ * Esto evita exponer el service_role key en el cliente y garantiza que solo
+ * el superadmin autenticado puede acceder a los datos.
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -53,147 +73,15 @@ export class AdminAnalyticsService {
   private supabase = inject(SupabaseService).client;
 
   /**
-   * Fetches all users from Supabase.
+   * Obtiene todos los datos analíticos globales a través de la Edge Function.
+   * La Edge Function verifica el JWT del usuario y requiere rol SUPERADMIN.
    */
-  getUsers(): Observable<AdminUser[]> {
-    return from(
-      this.supabase
-        .from('User')
-        .select('id, email, name, createdAt')
-        .order('createdAt', { ascending: false })
-    ).pipe(
+  getGlobalAnalyticsData(): Observable<GlobalAnalyticsData> {
+    return from(this.supabase.functions.invoke('admin-analytics')).pipe(
       map(({ data, error }) => {
         if (error) throw error;
-        return (data ?? []) as AdminUser[];
-      })
-    );
-  }
-
-  /**
-   * Fetches all user roles.
-   */
-  getUserRoles(): Observable<AdminUserRole[]> {
-    return from(
-      this.supabase
-        .from('user_roles')
-        .select('user_id, role')
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return (data ?? []) as AdminUserRole[];
-      })
-    );
-  }
-
-  /**
-   * Fetches all body weight records.
-   */
-  getBodyWeightRecords(): Observable<AdminBodyWeightRecord[]> {
-    return from(
-      this.supabase
-        .from('BodyWeightRecord')
-        .select('id, userId, weight, date')
-        .order('date', { ascending: true })
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return (data ?? []) as AdminBodyWeightRecord[];
-      })
-    );
-  }
-
-  /**
-   * Fetches all exercise records.
-   */
-  getExerciseRecords(): Observable<AdminExerciseRecord[]> {
-    return from(
-      this.supabase
-        .from('ExerciseRecord')
-        .select('id, userId, exerciseId, weight, reps, date')
-        .order('date', { ascending: true })
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return (data ?? []) as AdminExerciseRecord[];
-      })
-    );
-  }
-
-  /**
-   * Fetches all exercises.
-   */
-  getExercises(): Observable<AdminExercise[]> {
-    return from(
-      this.supabase
-        .from('Exercise')
-        .select('id, name')
-        .order('name', { ascending: true })
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return (data ?? []) as AdminExercise[];
-      })
-    );
-  }
-
-  /**
-   * Fetches all subscriptions.
-   */
-  getSubscriptions(): Observable<AdminSubscription[]> {
-    return from(
-      this.supabase
-        .from('subscriptions')
-        .select('id, user_id, plan_id, status, created_at')
-    ).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        return (data ?? []) as AdminSubscription[];
-      })
-    );
-  }
-
-  /**
-   * Aggregates all global analytical data.
-   */
-  getGlobalAnalyticsData(): Observable<{
-    users: AdminUser[];
-    roles: AdminUserRole[];
-    bodyWeights: AdminBodyWeightRecord[];
-    exerciseRecords: AdminExerciseRecord[];
-    exercises: AdminExercise[];
-    subscriptions: AdminSubscription[];
-  }> {
-    return forkJoin({
-      users: this.getUsers(),
-      roles: this.getUserRoles(),
-      bodyWeights: this.getBodyWeightRecords(),
-      exerciseRecords: this.getExerciseRecords(),
-      exercises: this.getExercises(),
-      subscriptions: this.getSubscriptions()
-    }).pipe(
-      map(({ users, roles, bodyWeights, exerciseRecords, exercises, subscriptions }) => {
-        // Map user roles to users for easier usage
-        const roleMap = new Map(roles.map(r => [r.user_id, r.role]));
-        const enrichedUsers = users.map(u => ({
-          ...u,
-          role: roleMap.get(u.id) || 'USER'
-        }));
-
-        // Map exercise names to exercise records for easier usage
-        const exerciseMap = new Map(exercises.map(e => [e.id, e.name]));
-        const enrichedExerciseRecords = exerciseRecords.map(r => ({
-          ...r,
-          exerciseName: exerciseMap.get(r.exerciseId) || '?'
-        }));
-
-        return {
-          users: enrichedUsers,
-          roles,
-          bodyWeights,
-          exerciseRecords: enrichedExerciseRecords,
-          exercises,
-          subscriptions
-        };
+        if (!data) throw new Error('No data returned from admin-analytics function');
+        return data as GlobalAnalyticsData;
       })
     );
   }
