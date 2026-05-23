@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
    */
   readonly slides = [
     {
-      image: 'https://images.unsplash.com/photo-1571731956672-b07085807167?auto=format&fit=crop&w=1600&q=80',
+      image: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=1600&q=80',
       alt: 'Área de pesas y máquinas'
     },
     {
