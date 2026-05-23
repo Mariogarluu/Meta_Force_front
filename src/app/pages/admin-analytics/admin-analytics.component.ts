@@ -130,7 +130,7 @@ export class AdminAnalyticsComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching analytics data', err);
-        this.error.set('No se pudieron cargar las analíticas de Supabase. Por favor, revisa tus políticas RLS y conexión.');
+        this.error.set(`Error de Supabase: ${err.message || err}`);
         this.loading.set(false);
       }
     });
