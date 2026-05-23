@@ -73,7 +73,8 @@ export const routes: Routes = [
     },
     {
         path: 'contact',
-        component: ContactComponent
+        component: ContactComponent,
+        canActivate: [authGuard]
     },
     {
         path: 'tickets',
@@ -128,5 +129,9 @@ export const routes: Routes = [
         path: 'ai-chat',
         loadComponent: () => import('./pages/ai-chat/ai-chat.component').then(m => m.AiChatComponent),
         canActivate: [authGuard]
+    },
+    {
+        path: '**',
+        redirectTo: ''
     }
 ];
