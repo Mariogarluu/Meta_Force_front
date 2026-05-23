@@ -8,8 +8,10 @@ import { createClient } from '../node_modules/@supabase/supabase-js/dist/index.m
 const SUPABASE_URL = 'https://qybgnrlszozjhimewkel.supabase.co';
 const ANON_KEY = 'REDACTED_JWT';
 
-const SUPERADMIN_EMAIL = 'metaforcegym@gmail.com';
-const SUPERADMIN_PASS = 'StephenNigga30';
+// ⚠️  NO hardcodear credenciales aquí. Usa variables de entorno:
+// set SUPERADMIN_EMAIL=tu@email.com && set SUPERADMIN_PASS=tupassword && node scripts/test-analytics.mjs
+const SUPERADMIN_EMAIL = process.env['SUPERADMIN_EMAIL'] ?? '';
+const SUPERADMIN_PASS  = process.env['SUPERADMIN_PASS']  ?? '';
 
 const supabase = createClient(SUPABASE_URL, ANON_KEY, {
   auth: { persistSession: false }
