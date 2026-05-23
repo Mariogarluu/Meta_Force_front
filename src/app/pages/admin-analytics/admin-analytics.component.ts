@@ -112,16 +112,12 @@ export class AdminAnalyticsComponent implements OnInit {
         this.exercises.set(data.exercises);
         this.subscriptions.set(data.subscriptions);
 
-        // Pre-select the first user with records if available, to show some charts immediately
+        // Pre-select the first user with records if available
         if (data.users.length > 0) {
-          const userWithWeights = data.users.find(u => 
+          const userWithWeights = data.users.find(u =>
             data.bodyWeights.some(w => w.userId === u.id)
           );
-          if (userWithWeights) {
-            this.selectedUserId.set(userWithWeights.id);
-          } else {
-            this.selectedUserId.set(data.users[0].id);
-          }
+          this.selectedUserId.set(userWithWeights ? userWithWeights.id : data.users[0].id);
         }
 
         this.calculateStats();
@@ -130,7 +126,7 @@ export class AdminAnalyticsComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching analytics data', err);
-        this.error.set(`Error de Supabase: ${err.message || err}`);
+        this.error.set('No se pudieron cargar las analíticas de Supabase. Por favor, revisa tus políticas RLS y conexión.');
         this.loading.set(false);
       }
     });
