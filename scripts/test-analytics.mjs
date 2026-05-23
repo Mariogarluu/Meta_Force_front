@@ -1,52 +1,55 @@
 /**
- * Test directo de la Edge Function admin-analytics
- * Simula exactamente lo que hace el navegador cuando llama a la función
+ * Test directo de la Edge Function admin-analytics.
+ *
+ * Uso:
+ *   SUPERADMIN_EMAIL=... SUPERADMIN_PASS=... node scripts/test-analytics.mjs
+ *
+ * Lee SUPABASE_URL y SUPABASE_ANON_KEY desde front/.env o back/.env.
  */
 
 import { createClient } from '../node_modules/@supabase/supabase-js/dist/index.mjs';
+import { getSupabasePublicConfig, envOrThrow, loadEnv } from './load-env.mjs';
 
-const SUPABASE_URL = 'https://qybgnrlszozjhimewkel.supabase.co';
-const ANON_KEY = 'REDACTED_JWT';
+loadEnv();
 
-// ⚠️  NO hardcodear credenciales aquí. Usa variables de entorno:
-// set SUPERADMIN_EMAIL=tu@email.com && set SUPERADMIN_PASS=tupassword && node scripts/test-analytics.mjs
-const SUPERADMIN_EMAIL = process.env['SUPERADMIN_EMAIL'] ?? '';
-const SUPERADMIN_PASS  = process.env['SUPERADMIN_PASS']  ?? '';
+const { url: SUPABASE_URL, anonKey: ANON_KEY } = getSupabasePublicConfig();
+const SUPERADMIN_EMAIL = envOrThrow('SUPERADMIN_EMAIL');
+const SUPERADMIN_PASS = envOrThrow('SUPERADMIN_PASS', ['SUPERADMIN_PASSWORD']);
 
 const supabase = createClient(SUPABASE_URL, ANON_KEY, {
-  auth: { persistSession: false }
+  auth: { persistSession: false },
 });
 
 async function main() {
   console.log('1️⃣  Iniciando sesión como superadmin...');
-  
+
   const { data: authData, error: authErr } = await supabase.auth.signInWithPassword({
     email: SUPERADMIN_EMAIL,
-    password: SUPERADMIN_PASS
+    password: SUPERADMIN_PASS,
   });
-  
+
   if (authErr) {
     console.error('❌ Error de login:', authErr.message);
-    console.error('   → Prueba con otra contraseña en el script test-analytics.mjs');
-    
-    // Intentar sin login para ver qué devuelve la función sin auth
+
     console.log('\n2️⃣  Intentando llamar a la función SIN autenticación...');
     const res = await fetch(`${SUPABASE_URL}/functions/v1/admin-analytics`, {
-      headers: { 'apikey': ANON_KEY }
+      headers: { apikey: ANON_KEY },
     });
     console.log('   Status sin auth:', res.status);
     console.log('   Body sin auth:', await res.text());
     return;
   }
-  
+
   console.log('✅ Login OK. User ID:', authData.user?.id);
-  console.log('   Access token (primeros 50 chars):', authData.session?.access_token?.substring(0, 50) + '...');
-  
+  console.log(
+    '   Access token (primeros 50 chars):',
+    `${authData.session?.access_token?.substring(0, 50)}...`
+  );
+
   console.log('\n2️⃣  Llamando a Edge Function admin-analytics...');
-  
-  // Método 1: via supabase.functions.invoke (igual que Angular)
+
   const { data, error } = await supabase.functions.invoke('admin-analytics');
-  
+
   if (error) {
     console.error('❌ Error via functions.invoke:', error);
     console.error('   error.message:', error?.message);
@@ -61,29 +64,35 @@ async function main() {
     console.log('   exerciseRecords:', data?.exerciseRecords?.length ?? 0);
     console.log('   subscriptions:', data?.subscriptions?.length ?? 0);
   }
-  
+
   console.log('\n3️⃣  Llamando directamente via fetch con JWT...');
   const token = authData.session?.access_token;
   const res2 = await fetch(`${SUPABASE_URL}/functions/v1/admin-analytics`, {
     headers: {
-      'Authorization': `Bearer ${token}`,
-      'apikey': ANON_KEY
-    }
+      Authorization: `Bearer ${token}`,
+      apikey: ANON_KEY,
+    },
   });
   console.log('   Status HTTP:', res2.status);
   const bodyText = await res2.text();
   try {
     const json = JSON.parse(bodyText);
     if (json.users) {
-      console.log('✅ Respuesta JSON OK:', { users: json.users?.length, roles: json.roles?.length });
+      console.log('✅ Respuesta JSON OK:', {
+        users: json.users?.length,
+        roles: json.roles?.length,
+      });
     } else {
       console.log('   JSON response:', JSON.stringify(json, null, 2));
     }
   } catch {
     console.log('   Body raw:', bodyText.substring(0, 500));
   }
-  
+
   await supabase.auth.signOut();
 }
 
-main().catch(console.error);
+main().catch((err) => {
+  console.error(err.message ?? err);
+  process.exit(1);
+});
