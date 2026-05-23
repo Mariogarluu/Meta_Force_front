@@ -172,9 +172,13 @@ export class AuthService {
    * Limpia tanto la sesión en Supabase como el estado local (Signals y tokens antiguos).
    */
   logout() {
-    this.supabase.auth.signOut().then(() => {
-      this._currentUser.set(null);
-      localStorage.removeItem('auth_token');
+    // 1. Limpiar el estado local de forma sincrónica e inmediata para evitar condiciones de carrera con las rutas y guards
+    this._currentUser.set(null);
+    localStorage.removeItem('auth_token');
+
+    // 2. Hacer la petición de salida de Supabase asíncronamente en segundo plano
+    this.supabase.auth.signOut().catch(err => {
+      console.warn('Error durante signOut remoto de Supabase, pero la sesión local fue eliminada con éxito:', err);
     });
   }
 

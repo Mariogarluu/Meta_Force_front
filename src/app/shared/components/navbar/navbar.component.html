@@ -166,8 +166,8 @@
           aria-label="Perfil"
           (click)="closeMobileMenu()">
           <img 
-            [src]="getProfileImageUrl(auth.currentUser()!.profileImageUrl)" 
-            [alt]="auth.currentUser()!.name" 
+            [src]="getProfileImageUrl(auth.currentUser()?.profileImageUrl)" 
+            [alt]="auth.currentUser()?.name || 'Usuario'" 
             class="w-full h-full object-cover rounded-full"
           />
         </a>
