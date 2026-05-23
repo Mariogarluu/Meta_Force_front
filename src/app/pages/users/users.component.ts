@@ -173,7 +173,7 @@ export class UsersComponent implements OnInit {
         this.isLoading.set(false);
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || 'Error al cargar los usuarios');
+        this.errorMessage.set(error.message || error.error?.message || 'Error al cargar los usuarios');
         this.isLoading.set(false);
       }
     });
