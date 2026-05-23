@@ -115,6 +115,11 @@ export const routes: Routes = [
         canActivate: [authGuard, roleGuard('SUPERADMIN')]
     },
     {
+        path: 'admin/analytics',
+        loadComponent: () => import('./pages/admin-analytics/admin-analytics.component').then(m => m.AdminAnalyticsComponent),
+        canActivate: [authGuard, roleGuard('SUPERADMIN')]
+    },
+    {
         path: 'performance',
         loadComponent: () => import('./pages/performance/performance.component').then(m => m.PerformanceComponent),
         canActivate: [authGuard]

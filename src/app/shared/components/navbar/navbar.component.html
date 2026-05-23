@@ -26,6 +26,15 @@
          {{ (link.key | translate) || link.label }}
         </a>
       }
+      @if (auth.currentUser()?.role === 'SUPERADMIN') {
+        <a
+          routerLink="/admin/analytics"
+          routerLinkActive="active"
+          class="navbar__link"
+          (click)="closeMobileMenu()">
+          {{ ('nav.analytics' | translate) || 'Analíticas' }}
+        </a>
+      }
     </nav>
 
     <div class="navbar__actions flex items-center gap-3">
@@ -183,6 +192,15 @@
             class="navbar__mobile-link"
             (click)="closeMobileMenu()">
             {{ (link.key | translate) || link.label }}
+          </a>
+        }
+        @if (auth.currentUser()?.role === 'SUPERADMIN') {
+          <a
+            routerLink="/admin/analytics"
+            routerLinkActive="active"
+            class="navbar__mobile-link"
+            (click)="closeMobileMenu()">
+            {{ ('nav.analytics' | translate) || 'Analíticas' }}
           </a>
         }
         

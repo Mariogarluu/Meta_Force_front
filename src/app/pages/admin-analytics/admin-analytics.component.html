@@ -1,0 +1,220 @@
+<div class="analytics">
+  <app-navbar></app-navbar>
+
+  <main class="analytics__content">
+    <!-- Header -->
+    <header class="analytics__header">
+      <div>
+        <h1 class="analytics__title">Consola de Control de Rendimiento</h1>
+        <p class="analytics__subtitle">SUPERADMIN - Gestión y Auditoría Global de Meta-Force</p>
+      </div>
+      <button 
+        type="button" 
+        class="refresh-btn" 
+        (click)="refreshDashboard()" 
+        [disabled]="loading()">
+        @if (loading()) {
+          <span class="spinner"></span> Cargando...
+        } @else {
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+          </svg>
+          Recargar Datos
+        }
+      </button>
+    </header>
+
+    @if (error()) {
+      <div class="alert-box error">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 flex-shrink-0">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+        </svg>
+        <span>{{ error() }}</span>
+      </div>
+    }
+
+    <!-- Filters Section -->
+    <section class="filters-card">
+      <div class="filters-card__inner">
+        <label for="userSelect" class="filters-card__label">Filtrar por Usuario:</label>
+        <div class="select-wrapper">
+          <select id="userSelect" class="filters-card__select" (change)="onUserFilterChange($event)" [value]="selectedUserId()">
+            <option value="ALL">-- Todos los Usuarios --</option>
+            @for (user of users(); track user.id) {
+              <option [value]="user.id">{{ user.name || user.email }} ({{ user.role }})</option>
+            }
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- KPIs Grid -->
+    <section class="kpis-grid">
+      <!-- KPI 1 -->
+      <div class="kpi-card">
+        <div class="kpi-card__header">
+          <span class="kpi-card__title">Usuarios Registrados</span>
+          <div class="kpi-card__icon users">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.109A12.018 12.018 0 0112 21c-1.91 0-3.712-.445-5.32-1.237v-.094c0-1.113.285-2.16.786-3.07M15 19.128v.109A12.018 12.018 0 0112 21M12 3c1.62 0 3.107.622 4.22 1.64M12 3a9.761 9.761 0 00-4.22 1.64M12 3v.109A12.018 12.018 0 009 6c-1.91 0-3.712.445-5.32 1.237v.094c0 1.113.285 2.16.786 3.07M12 3v.109A12.018 12.018 0 009 6M12 21c1.91 0 3.712-.445 5.32-1.237v-.094c0-1.113-.285-2.16-.786-3.07m-9.068 0A12.018 12.018 0 019 15v-.75a6 6 0 016 0v.75m-6 0v.75" />
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-card__value">{{ totalUsersCount() }}</div>
+        <div class="kpi-card__footer">Total de cuentas activas</div>
+      </div>
+
+      <!-- KPI 2 -->
+      <div class="kpi-card">
+        <div class="kpi-card__header">
+          <span class="kpi-card__title">Suscripciones Activas</span>
+          <div class="kpi-card__icon subscriptions">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-card__value text-cyan">{{ activeSubscriptionsCount() }}</div>
+        <div class="kpi-card__footer">Membresías pagadas</div>
+      </div>
+
+      <!-- KPI 3 -->
+      <div class="kpi-card">
+        <div class="kpi-card__header">
+          <span class="kpi-card__title">Récord de Fuerza Max</span>
+          <div class="kpi-card__icon max-weight">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 006.1 1.8 8.285 8.285 0 00-3.1 3.518z" />
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-card__value text-purple">{{ selectedUserMaxWeightLifted() }} kg</div>
+        <div class="kpi-card__footer">Usuario: {{ selectedUserLabel }}</div>
+      </div>
+
+      <!-- KPI 4 -->
+      <div class="kpi-card">
+        <div class="kpi-card__header">
+          <span class="kpi-card__title">Registros de Peso</span>
+          <div class="kpi-card__icon weight-count">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-card__value text-green">{{ selectedUserWeightsCount() }}</div>
+        <div class="kpi-card__footer">Tomas históricas registradas</div>
+      </div>
+    </section>
+
+    <!-- Charts & Main Analytics Section -->
+    <section class="analytics__visual-grid">
+      <!-- Weight Line Chart -->
+      <div class="chart-card">
+        <h2 class="card-title">Evolución de Peso Temporal</h2>
+        <div class="chart-container">
+          @if (loading()) {
+            <div class="skeleton">
+              <div class="spinner"></div>
+              <p>Procesando gráficos...</p>
+            </div>
+          } @else if (weightChartData.labels && weightChartData.labels.length > 0) {
+            <canvas 
+              baseChart 
+              [data]="weightChartData" 
+              [options]="weightChartOptions" 
+              [type]="weightChartType">
+            </canvas>
+          } @else {
+            <div class="no-data">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-16 h-16 opacity-30 mb-2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v16.5m0-16.5L12 12l8.25-8.25M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p>No hay registros de peso para el usuario seleccionado.</p>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Exercise Logs List -->
+      <div class="logs-card">
+        <h2 class="card-title">Récords y Entrenamientos Recientes</h2>
+        <div class="logs-container">
+          @if (loading()) {
+            <div class="skeleton"></div>
+          } @else if (filteredExerciseLogs.length > 0) {
+            <div class="table-responsive">
+              <table class="logs-table">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Ejercicio</th>
+                    <th>Peso Levantado</th>
+                    <th>Repeticiones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (log of filteredExerciseLogs; track log.id) {
+                    <tr>
+                      <td class="date-cell">{{ log.date | date:'dd/MM/yyyy HH:mm' }}</td>
+                      <td class="exercise-cell">{{ log.exerciseName }}</td>
+                      <td class="weight-cell font-bold text-purple">{{ log.weight }} kg</td>
+                      <td class="reps-cell">{{ log.reps }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          } @else {
+            <div class="no-data">
+              <p>No hay entrenamientos registrados para este usuario.</p>
+            </div>
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- Global User Directory and Role Audit -->
+    <section class="users-card">
+      <h2 class="card-title">Directorio de Usuarios y Auditoría de Roles</h2>
+      
+      <div class="table-container">
+        @if (loading()) {
+          <div class="skeleton"></div>
+        } @else {
+          <div class="table-responsive">
+            <table class="users-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre completo</th>
+                  <th>Correo electrónico</th>
+                  <th>Rol Asignado</th>
+                  <th>Fecha de Registro</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (user of users(); track user.id) {
+                  <tr>
+                    <td class="id-cell font-mono">{{ user.id.substring(0, 8) }}...</td>
+                    <td class="name-cell font-medium">{{ user.name || 'Sin Nombre' }}</td>
+                    <td class="email-cell">{{ user.email }}</td>
+                    <td>
+                      <span class="role-badge" [ngClass]="user.role?.toLowerCase()">
+                        {{ user.role }}
+                      </span>
+                    </td>
+                    <td class="date-cell">{{ user.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      </div>
+    </section>
+  </main>
+
+  <app-footer></app-footer>
+</div>
