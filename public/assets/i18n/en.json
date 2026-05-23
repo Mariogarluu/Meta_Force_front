@@ -69,7 +69,8 @@
     "centers": "Locations",
     "login": "Log In",
     "register": "Sign Up",
-    "performance": "Performance"
+    "performance": "Performance",
+    "analytics": "Analytics"
   },
   "classes": {
     "title": "Group Classes",
