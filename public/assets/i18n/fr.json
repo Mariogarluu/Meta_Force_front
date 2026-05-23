@@ -69,7 +69,8 @@
     "centers": "Clubs",
     "login": "Connexion",
     "register": "Inscription",
-    "performance": "Performance"
+    "performance": "Performance",
+    "analytics": "Analyses"
   },
   "classes": {
     "title": "Cours collectifs",
