@@ -226,6 +226,27 @@ export class QrScannerComponent implements OnInit, OnDestroy {
    * 
    * @param qrText - Raw string from the scanned QR code (expected JSON format)
    */
+  /**
+   * Decodes JWT token payload without signature verification in frontend.
+   */
+  private decodeJwt(token: string): any {
+    try {
+      const parts = token.split('.');
+      if (parts.length !== 3) return null;
+      const base64Url = parts[1];
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+          .join('')
+      );
+      return JSON.parse(jsonPayload);
+    } catch (e) {
+      return null;
+    }
+  }
+
   async handleQRScan(qrText: string) {
     try {
       // Pause scanner while processing
@@ -233,10 +254,28 @@ export class QrScannerComponent implements OnInit, OnDestroy {
         await this.scanner.pause();
       }
 
-      // Parse JSON payload
-      const qrData = JSON.parse(qrText);
+      let qrData: any = null;
+      let trimmedText = qrText.trim();
+
+      if (trimmedText.includes('.')) {
+        // Es un token JWT firmado
+        const decoded = this.decodeJwt(trimmedText);
+        if (decoded) {
+          qrData = {
+            id: decoded.user_id,
+            timestamp: new Date(decoded.exp * 1000).toISOString(),
+            email: decoded.email || '',
+            name: decoded.name || 'Personal'
+          };
+        }
+      }
+
+      if (!qrData) {
+        // Fallback a JSON legacy
+        qrData = JSON.parse(trimmedText);
+      }
       
-      if (!qrData.id || !qrData.timestamp) {
+      if (!qrData || !qrData.id || !qrData.timestamp) {
         this.scanError.set(this.translate.instant('qrScanner.errors.invalidQR'));
         this.resumeScanning();
         return;

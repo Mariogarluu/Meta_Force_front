@@ -628,7 +628,7 @@ export class SubscriptionsService {
         if (error) throw error;
         const rows = (data ?? []) as any[];
         return rows.map(row => ({
-          id: row.id as string,
+          id: (row.auth_user_id || row.id) as string,
           name: (row.name as string) || (row.email as string),
           email: row.email as string,
         })) as UserLite[];
