@@ -2,6 +2,7 @@ import { Component, inject, computed, OnInit, OnDestroy, signal } from '@angular
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
+import { SupabaseService } from '../../core/services/supabase.service';
 import { User } from '../../core/models/user';
 import { ThemeToggleComponent } from '../../shared/components/theme-toggle/theme-toggle.component';
 import { LanguageSelectorComponent } from '../../shared/components/language-selector/language-selector.component';
@@ -10,15 +11,17 @@ import { TranslateModule } from '@ngx-translate/core';
 /**
  * Component for generating and displaying the user's personal access QR code.
  * 
- * The QR contains JSON-encoded user identity (ID, email, name) and a dynamic timestamp
- * that rotates every 20 minutes to prevent spoofing and ensure validity. 
- * Center IDs are excluded as users may have access to multiple facilities.
+ * The QR contains either:
+ * - A secure HS256 signed JWT token from the `qr-sign` Edge Function (expiring in 15 mins).
+ * - A legacy JSON‑encoded user identity (ID, email, name) and a dynamic timestamp
+ *   rotating every 10 minutes as a backward‑compatible fallback.
  * 
  * Features:
- * - Automatic rotation every 20 minutes
+ * - Secure Deno‑signed JWT QR code generation
+ * - Fallback to local JSON QR generation if subscription is inactive or service fails
+ * - Automatic rotation every 10 minutes to prevent expired scanner states
  * - Adaptive light/dark mode color palettes
  * - PNG download capability with branded overlay
- * - Backend-enforced expiration validation
  */
 @Component({
   selector: 'app-qr',
@@ -30,32 +33,37 @@ import { TranslateModule } from '@ngx-translate/core';
 export class QrComponent implements OnInit, OnDestroy {
   /** Injected AuthService for user identity context */
   auth = inject(AuthService);
+  /** Injected SupabaseService to invoke the qr-sign edge function */
+  private supabase = inject(SupabaseService).client;
   
   /** Signal for the currently authenticated user session */
   currentUser = this.auth.currentUser;
   /** Computed signal tracking loading state if user data is missing */
   isLoading = computed(() => !this.currentUser());
-  /** Internal handle for the 20-minute refresh timer */
+  /** Internal handle for the 10-minute refresh timer */
   private refreshInterval: any;
 
+  /** Signal containing the signed QR token from the backend, null if using fallback */
+  signedQrToken = signal<string | null>(null);
+
   /**
-   * Current QR generation timestamp, updated every 20 minutes.
-   * Used as a salt to ensure QR codes are short-lived and verifiable.
+   * Current QR generation timestamp, updated every 10 minutes.
+   * Used as a salt in fallback mode to ensure QR codes are short-lived.
    */
   qrTimestamp = signal<string>(new Date().toISOString());
 
   /**
-   * Generates the raw JSON payload for the QR code.
+   * Generates the raw payload for the QR code.
+   * Uses the secure signed JWT token if available, otherwise falls back to a JSON-encoded string.
    * 
-   * Payload includes:
-   * - id: User UUID
-   * - email: Account email
-   * - name: Full display name
-   * - timestamp: ISO string of generation time
-   * 
-   * @returns A JSON-encoded string for the QR engine
+   * @returns The QR code content string
    */
   qrData = computed(() => {
+    // 1) Usar el token firmado si está disponible
+    const token = this.signedQrToken();
+    if (token) return token;
+
+    // 2) Fallback: JSON legacy
     const user = this.currentUser();
     if (!user) return '';
     
@@ -98,12 +106,37 @@ export class QrComponent implements OnInit, OnDestroy {
   });
 
   /**
-   * Initialization logic. Starts the 20-minute rotation interval.
+   * Invokes the qr-sign edge function to fetch a secure signed JWT QR code.
+   * Silently falls back to legacy JSON generation if no active subscription is found or the service is offline.
+   */
+  async loadSignedQr() {
+    try {
+      const { data, error } = await this.supabase.functions.invoke('qr-sign');
+      if (error) {
+        console.warn('Fallo al obtener QR firmado, usando fallback legacy:', error.message);
+        this.signedQrToken.set(null);
+      } else if (data && data.token) {
+        this.signedQrToken.set(data.token);
+      } else {
+        this.signedQrToken.set(null);
+      }
+    } catch (e: any) {
+      console.warn('Error llamando a qr-sign, usando fallback legacy:', e);
+      this.signedQrToken.set(null);
+    }
+  }
+
+  /**
+   * Initialization logic. Fetches the signed QR and starts the 10-minute rotation interval.
    */
   ngOnInit() {
+    this.loadSignedQr();
+    
+    // Refrescar cada 10 minutos para mantener el QR actualizado y con validez
     this.refreshInterval = setInterval(() => {
+      this.loadSignedQr();
       this.qrTimestamp.set(new Date().toISOString());
-    }, 20 * 60 * 1000);
+    }, 10 * 60 * 1000);
   }
 
   /**
@@ -176,4 +209,3 @@ export class QrComponent implements OnInit, OnDestroy {
     img.src = qrImageUrl;
   }
 }
-

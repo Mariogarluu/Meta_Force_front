@@ -257,7 +257,8 @@ export class QrScannerComponent implements OnInit, OnDestroy {
       let qrData: any = null;
       let trimmedText = qrText.trim();
 
-      if (trimmedText.includes('.')) {
+      const isJwt = /^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$/.test(trimmedText);
+      if (isJwt) {
         // Es un token JWT firmado
         const decoded = this.decodeJwt(trimmedText);
         if (decoded) {
