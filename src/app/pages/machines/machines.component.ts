@@ -541,7 +541,8 @@ export class MachinesComponent implements OnInit {
         this.loadMachineTypes();
       },
       error: (error) => {
-        this.addCenterErrorMessage.set(error.error?.message || this.translate.instant('machines.errors.save'));
+        console.error('Error al guardar cambios de máquina:', error);
+        this.addCenterErrorMessage.set(error.message || error.error?.message || this.translate.instant('machines.errors.save'));
         this.isLoading.set(false);
       }
     });
@@ -585,7 +586,8 @@ export class MachinesComponent implements OnInit {
         this.loadMachineTypes();
       },
       error: (error) => {
-        this.addCenterErrorMessage.set(error.error?.message || this.translate.instant('machines.errors.save'));
+        console.error('Error al agregar máquina al centro:', error);
+        this.addCenterErrorMessage.set(error.message || error.error?.message || this.translate.instant('machines.errors.save'));
         this.isLoading.set(false);
       }
     });

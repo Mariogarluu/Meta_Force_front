@@ -170,29 +170,18 @@ export class MachinesService {
     const quantity = Math.max(1, Math.min(data.quantity, 100));
 
     return from(
-      this.supabase
-        .from('Machine')
-        .select('instanceNumber')
-        .eq('machineTypeId', machineTypeId)
-        .eq('centerId', data.centerId)
-        .order('instanceNumber', { ascending: false })
-        .limit(1)
-    ).pipe(
-      switchMap(({ data: existing, error }) => {
-        if (error) throw error;
-        const currentMax = existing?.[0]?.instanceNumber ?? 0;
-        const rows = Array.from({ length: quantity }, (_, i) => ({
+      this.supabase.functions.invoke('machines-create', {
+        body: {
           machineTypeId,
           centerId: data.centerId,
-          instanceNumber: currentMax + i + 1,
-          status,
-          maxUsers: data.maxUsers ?? null,
-        }));
-        return from(this.supabase.from('Machine').insert(rows).select('*'));
-      }),
-      map(({ data: created, error }) => {
+          quantity,
+          status
+        }
+      })
+    ).pipe(
+      map(({ data: response, error }) => {
         if (error) throw error;
-        return created ?? [];
+        return response?.machines ?? [];
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );
