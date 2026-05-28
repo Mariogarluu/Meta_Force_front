@@ -132,8 +132,12 @@ export class MachinesComponent implements OnInit {
       filtered = filtered.filter(m => m.type === this.filterType());
     }
 
-    // Machine types tab: Do NOT filter by centerId (machine types are global)
-    // The centerId filter is only applicable to the instances tab
+    // Filter by center if a specific center is selected
+    if (this.filterCenterId()) {
+      const centerId = this.filterCenterId();
+      filtered = filtered.filter(m => m.instances?.some(i => i.centerId === centerId));
+    }
+
     return filtered;
   });
 
@@ -171,9 +175,6 @@ export class MachinesComponent implements OnInit {
     });
   }
 
-  /**
-   * Fetches the list of gym centers and establishes default center filters based on user role.
-   */
   loadCenters(): void {
     this.centersService.listCentersWithIds().subscribe({
       next: (data) => {
@@ -185,12 +186,8 @@ export class MachinesComponent implements OnInit {
             // Si es admin de centro, usar su centro
             this.filterCenterId.set(user.centerId);
           } else {
-            const userFavoriteCenterId = user?.favoriteCenterId;
-            if (userFavoriteCenterId && data.find(c => c.id === userFavoriteCenterId)) {
-              this.filterCenterId.set(userFavoriteCenterId);
-            } else if (data.length > 0) {
-              this.filterCenterId.set(data[0].id || '');
-            }
+            // Por defecto, seleccionar "Todos los centros"
+            this.filterCenterId.set('');
           }
         }
       },
