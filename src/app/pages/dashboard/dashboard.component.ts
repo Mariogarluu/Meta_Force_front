@@ -64,6 +64,15 @@ export class DashboardComponent {
   /** Señal que controla la visibilidad del desplegable de notificaciones */
   showNotifications = signal(false);
 
+  /** Señales para el cambio de contraseña */
+  showChangePasswordModal = signal(false);
+  currentPasswordInput = signal('');
+  newPasswordInput = signal('');
+  showCurrentPassword = signal(false);
+  showNewPassword = signal(false);
+  changePasswordError = signal('');
+  changePasswordSuccess = signal('');
+
   /** 
    * Señal que guarda el estado del formulario de datos físicos.
    * Sincronizado dinámicamente con los metadatos del perfil del usuario en sesión.
@@ -335,5 +344,60 @@ export class DashboardComponent {
       case 'USER': default: 
         return `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="${size}"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z"/></svg>`;
     }
+  }
+
+  openChangePasswordModal() {
+    this.currentPasswordInput.set('');
+    this.newPasswordInput.set('');
+    this.changePasswordError.set('');
+    this.changePasswordSuccess.set('');
+    this.showCurrentPassword.set(false);
+    this.showNewPassword.set(false);
+    this.showChangePasswordModal.set(true);
+  }
+
+  closeChangePasswordModal() {
+    this.showChangePasswordModal.set(false);
+    this.currentPasswordInput.set('');
+    this.newPasswordInput.set('');
+    this.changePasswordError.set('');
+    this.changePasswordSuccess.set('');
+  }
+
+  submitChangePassword() {
+    const currentPass = this.currentPasswordInput().trim();
+    const newPass = this.newPasswordInput().trim();
+
+    if (!currentPass || !newPass) {
+      this.changePasswordError.set('Ambos campos son obligatorios.');
+      return;
+    }
+
+    if (newPass.length < 6) {
+      this.changePasswordError.set('La nueva contraseña debe tener al menos 6 caracteres.');
+      return;
+    }
+
+    this.isLoading.set(true);
+    this.changePasswordError.set('');
+    this.changePasswordSuccess.set('');
+
+    this.auth.changePassword(currentPass, newPass).subscribe({
+      next: () => {
+        this.isLoading.set(false);
+        this.changePasswordSuccess.set('Contraseña actualizada correctamente. Cerrando sesión...');
+        
+        // Esperar 2.5 segundos para mostrar el mensaje de éxito antes de forzar el logout y redirección
+        setTimeout(() => {
+          this.closeChangePasswordModal();
+          this.auth.logout();
+          this.router.navigate(['/login']);
+        }, 2500);
+      },
+      error: (err) => {
+        this.isLoading.set(false);
+        this.changePasswordError.set(err.message || 'Error al cambiar la contraseña.');
+      }
+    });
   }
 }

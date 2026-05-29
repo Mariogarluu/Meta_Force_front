@@ -1,6 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Observable, ReplaySubject, from, throwError } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
 import { Role, User } from '../models/user';
 import { AuthInput, RegisterInput, AuthResponse } from '../models/auth';
 import { environment } from '../../../environments/environment';
@@ -191,5 +191,76 @@ export class AuthService {
     if (user) {
       this.loadUserProfile(user.id);
     }
+  }
+
+  /**
+   * Cambia la contraseña del usuario actual.
+   * Primero verifica la contraseña actual re-autenticando al usuario.
+   * Si es correcta, procede a actualizar la contraseña con la nueva.
+   * 
+   * @param currentPassword - La contraseña actual del usuario.
+   * @param newPassword - La nueva contraseña a establecer.
+   * @returns Observable que emite un resultado exitoso o error.
+   */
+  changePassword(currentPassword: string, newPassword: string): Observable<any> {
+    const user = this._currentUser();
+    if (!user || !user.email) {
+      return throwError(() => new Error('No hay una sesión de usuario activa.'));
+    }
+
+    // 1. Verificar la contraseña actual haciendo una petición directa a la API REST
+    const verifyUrl = `${environment.supabaseUrl}/auth/v1/token?grant_type=password`;
+
+    return from(
+      fetch(verifyUrl, {
+        method: 'POST',
+        headers: {
+          'apikey': environment.supabaseKey,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: user.email,
+          password: currentPassword
+        })
+      })
+    ).pipe(
+      switchMap(async (response) => {
+        if (!response.ok) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.error_description || 'La contraseña actual es incorrecta.');
+        }
+        return true;
+      }),
+      switchMap(async () => {
+        // 2. Obtener el token de acceso de la sesión activa
+        const { data: { session } } = await this.supabase.auth.getSession();
+        const token = session?.access_token;
+        if (!token) {
+          throw new Error('No se pudo verificar la sesión activa para actualizar la contraseña.');
+        }
+
+        // 3. Actualizar la contraseña a través de la API REST usando el token de acceso
+        const updateUrl = `${environment.supabaseUrl}/auth/v1/user`;
+        const updateResponse = await fetch(updateUrl, {
+          method: 'PUT',
+          headers: {
+            'apikey': environment.supabaseKey,
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            password: newPassword
+          })
+        });
+
+        if (!updateResponse.ok) {
+          const errData = await updateResponse.json().catch(() => ({}));
+          throw new Error(errData.error_description || 'Error al actualizar la contraseña.');
+        }
+
+        return true;
+      }),
+      catchError(err => throwError(() => new Error(err.message)))
+    );
   }
 }
