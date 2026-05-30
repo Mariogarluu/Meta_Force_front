@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal, computed } from '@angular/core';
+import { Component, OnInit, inject, signal, computed, NgZone } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -31,6 +31,8 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
   styleUrl: './clases.component.scss'
 })
 export class ClasesComponent implements OnInit {
+  /** Injected NgZone for running asynchronous updates inside the Angular execution context */
+  private zone = inject(NgZone);
   /** Injected ClassesService for class and schedule operations */
   private classesService = inject(ClassesService);
   /** Injected CentersService for fetching gym metadata */
@@ -144,10 +146,14 @@ export class ClasesComponent implements OnInit {
   loadTrainers(): void {
     this.usersService.listTrainers().subscribe({
       next: (data) => {
-        this.trainers.set(data);
+        this.zone.run(() => {
+          this.trainers.set(data);
+        });
       },
       error: (error) => {
-        console.error('Error al cargar entrenadores:', error);
+        this.zone.run(() => {
+          console.error('Error al cargar entrenadores:', error);
+        });
       }
     });
   }
@@ -162,12 +168,16 @@ export class ClasesComponent implements OnInit {
     const centerId = this.filterCenterId() || null;
     this.classesService.listClasses(centerId).subscribe({
       next: (data) => {
-        this.classes.set(data);
-        this.isLoading.set(false);
+        this.zone.run(() => {
+          this.classes.set(data);
+          this.isLoading.set(false);
+        });
       },
       error: (error) => {
-        this.errorMessage.set(error.message || this.translate.instant('classes.errors.load'));
-        this.isLoading.set(false);
+        this.zone.run(() => {
+          this.errorMessage.set(error.message || this.translate.instant('classes.errors.load'));
+          this.isLoading.set(false);
+        });
       }
     });
   }
@@ -178,10 +188,14 @@ export class ClasesComponent implements OnInit {
   loadCenters(): void {
     this.centersService.listCentersWithIds().subscribe({
       next: (data) => {
-        this.centers.set(data);
+        this.zone.run(() => {
+          this.centers.set(data);
+        });
       },
       error: (error) => {
-        console.error('Error al cargar centros:', error);
+        this.zone.run(() => {
+          console.error('Error al cargar centros:', error);
+        });
       }
     });
   }
@@ -318,11 +332,15 @@ export class ClasesComponent implements OnInit {
     this.selectedCenterForAdd.set(centerId);
     this.usersService.listTrainers(centerId).subscribe({
       next: (trainers) => {
-        this.centerTrainers.set(trainers);
+        this.zone.run(() => {
+          this.centerTrainers.set(trainers);
+        });
       },
       error: (error) => {
-        console.error('Error al cargar entrenadores:', error);
-        this.errorMessage.set(this.translate.instant('classes.errors.loadTrainers'));
+        this.zone.run(() => {
+          console.error('Error al cargar entrenadores:', error);
+          this.errorMessage.set(this.translate.instant('classes.errors.loadTrainers'));
+        });
       }
     });
   }
@@ -367,14 +385,18 @@ export class ClasesComponent implements OnInit {
 
     this.classesService.addCenterToClass(classId, data).subscribe({
       next: (updatedClass) => {
-        this.selectedClass.set(updatedClass);
-        this.isLoading.set(false);
-        this.closeAddCenterModal();
-        this.loadClasses();
+        this.zone.run(() => {
+          this.selectedClass.set(updatedClass);
+          this.isLoading.set(false);
+          this.closeAddCenterModal();
+          this.loadClasses();
+        });
       },
       error: (error) => {
-        this.errorMessage.set(error.message || this.translate.instant('classes.errors.save'));
-        this.isLoading.set(false);
+        this.zone.run(() => {
+          this.errorMessage.set(error.message || this.translate.instant('classes.errors.save'));
+          this.isLoading.set(false);
+        });
       }
     });
   }
@@ -518,22 +540,28 @@ export class ClasesComponent implements OnInit {
     if (this.isEditing() && this.selectedClass()) {
       const id = this.selectedClass()!.id;
       this.classesService.updateClass(id, data).subscribe({
-        next: () => this.finishAction(),
+        next: () => this.zone.run(() => this.finishAction()),
         error: (error) => {
-          this.errorMessage.set(error.message || this.translate.instant('classes.errors.save'));
-          this.isLoading.set(false);
+          this.zone.run(() => {
+            this.errorMessage.set(error.message || this.translate.instant('classes.errors.save'));
+            this.isLoading.set(false);
+          });
         }
       });
     } else {
       this.classesService.createClass(data).subscribe({
         next: (createdClass) => {
-          this.selectedClass.set(createdClass);
-          this.isEditing.set(true);
-          this.isLoading.set(false);
+          this.zone.run(() => {
+            this.selectedClass.set(createdClass);
+            this.isEditing.set(true);
+            this.isLoading.set(false);
+          });
         },
         error: (error) => {
-          this.errorMessage.set(error.message || this.translate.instant('classes.errors.save'));
-          this.isLoading.set(false);
+          this.zone.run(() => {
+            this.errorMessage.set(error.message || this.translate.instant('classes.errors.save'));
+            this.isLoading.set(false);
+          });
         }
       });
     }
@@ -551,13 +579,17 @@ export class ClasesComponent implements OnInit {
 
     this.classesService.deleteClass(item.id).subscribe({
       next: () => {
-        this.isLoading.set(false);
-        this.closeDeleteModal();
-        this.loadClasses();
+        this.zone.run(() => {
+          this.isLoading.set(false);
+          this.closeDeleteModal();
+          this.loadClasses();
+        });
       },
       error: (error) => {
-        this.errorMessage.set(error.message || 'Error al eliminar la clase');
-        this.isLoading.set(false);
+        this.zone.run(() => {
+          this.errorMessage.set(error.message || 'Error al eliminar la clase');
+          this.isLoading.set(false);
+        });
       }
     });
   }
@@ -628,27 +660,31 @@ export class ClasesComponent implements OnInit {
 
     this.usersService.listTrainers(centerId).subscribe({
       next: (trainers) => {
-        this.centerTrainers.set(trainers);
-        
-        const currentTrainers = this.getTrainersForCenterInClass(centerId);
-        this.formTrainerIds.set(currentTrainers.map(t => t.trainerId));
-        
-        const currentSchedules = this.getSchedulesForCenterInClass(centerId);
-        this.formSchedules.set(currentSchedules.map(s => ({
-          id: s.id,
-          centerId: s.centerId,
-          dayOfWeek: s.dayOfWeek,
-          startTime: s.startTime,
-          endTime: s.endTime
-        })));
-        
-        this.selectedCenterForAdd.set(centerId);
-        this.showAddCenterModal.set(true);
-        this.errorMessage.set('');
+        this.zone.run(() => {
+          this.centerTrainers.set(trainers);
+          
+          const currentTrainers = this.getTrainersForCenterInClass(centerId);
+          this.formTrainerIds.set(currentTrainers.map(t => t.trainerId));
+          
+          const currentSchedules = this.getSchedulesForCenterInClass(centerId);
+          this.formSchedules.set(currentSchedules.map(s => ({
+            id: s.id,
+            centerId: s.centerId,
+            dayOfWeek: s.dayOfWeek,
+            startTime: s.startTime,
+            endTime: s.endTime
+          })));
+          
+          this.selectedCenterForAdd.set(centerId);
+          this.showAddCenterModal.set(true);
+          this.errorMessage.set('');
+        });
       },
       error: (error) => {
-        console.error('Error al cargar entrenadores:', error);
-        this.errorMessage.set(this.translate.instant('classes.errors.loadTrainers'));
+        this.zone.run(() => {
+          console.error('Error al cargar entrenadores:', error);
+          this.errorMessage.set(this.translate.instant('classes.errors.loadTrainers'));
+        });
       }
     });
   }
@@ -673,13 +709,17 @@ export class ClasesComponent implements OnInit {
 
     this.classesService.removeCenterFromClass(classId, centerId).subscribe({
       next: (updatedClass) => {
-        this.selectedClass.set(updatedClass);
-        this.isLoading.set(false);
-        this.loadClasses();
+        this.zone.run(() => {
+          this.selectedClass.set(updatedClass);
+          this.isLoading.set(false);
+          this.loadClasses();
+        });
       },
       error: (error) => {
-        this.errorMessage.set(error.message || this.translate.instant('classes.errors.delete'));
-        this.isLoading.set(false);
+        this.zone.run(() => {
+          this.errorMessage.set(error.message || this.translate.instant('classes.errors.delete'));
+          this.isLoading.set(false);
+        });
       }
     });
   }
@@ -721,14 +761,18 @@ export class ClasesComponent implements OnInit {
 
     this.classesService.updateCenterInClass(classId, centerId, data).subscribe({
       next: (updatedClass) => {
-        this.selectedClass.set(updatedClass);
-        this.isLoading.set(false);
-        this.closeAddCenterModal();
-        this.loadClasses();
+        this.zone.run(() => {
+          this.selectedClass.set(updatedClass);
+          this.isLoading.set(false);
+          this.closeAddCenterModal();
+          this.loadClasses();
+        });
       },
       error: (error) => {
-        this.errorMessage.set(error.message || this.translate.instant('classes.errors.save'));
-        this.isLoading.set(false);
+        this.zone.run(() => {
+          this.errorMessage.set(error.message || this.translate.instant('classes.errors.save'));
+          this.isLoading.set(false);
+        });
       }
     });
   }

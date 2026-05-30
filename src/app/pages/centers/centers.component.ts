@@ -1,4 +1,4 @@
-import { Component, inject, signal, computed, OnInit } from '@angular/core';
+import { Component, inject, signal, computed, OnInit, NgZone } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -27,6 +27,8 @@ type RoleType = 'SUPERADMIN' | 'ADMIN_CENTER' | 'TRAINER' | 'CLEANER' | 'USER';
   styleUrl: './centers.component.scss'
 })
 export class CentersComponent implements OnInit {
+  /** Injected NgZone for running asynchronous updates inside the Angular execution context */
+  private zone = inject(NgZone);
   /** Injected CentersService for gym location management */
   centersService = inject(CentersService);
   /** Injected MachinesService for inventory tracking within centers */
@@ -200,12 +202,16 @@ export class CentersComponent implements OnInit {
     
     this.centersService.listCenters().subscribe({
       next: (data) => {
-        this.centers.set(data);
-        this.isLoading.set(false);
+        this.zone.run(() => {
+          this.centers.set(data);
+          this.isLoading.set(false);
+        });
       },
       error: (error) => {
-        this.errorMessage.set(error.message || 'Error al cargar los centros');
-        this.isLoading.set(false);
+        this.zone.run(() => {
+          this.errorMessage.set(error.message || 'Error al cargar los centros');
+          this.isLoading.set(false);
+        });
       }
     });
   }
@@ -240,22 +246,26 @@ export class CentersComponent implements OnInit {
 
     this.centersService.getCenter(center.id).subscribe({
       next: (fullCenter) => {
-        this.selectedCenter.set(fullCenter);
-        this.centerForm.set({
-          name: fullCenter.name,
-          description: fullCenter.description || '',
-          address: fullCenter.address || '',
-          city: fullCenter.city || '',
-          country: fullCenter.country || '',
-          phone: fullCenter.phone || '',
-          email: fullCenter.email || ''
+        this.zone.run(() => {
+          this.selectedCenter.set(fullCenter);
+          this.centerForm.set({
+            name: fullCenter.name,
+            description: fullCenter.description || '',
+            address: fullCenter.address || '',
+            city: fullCenter.city || '',
+            country: fullCenter.country || '',
+            phone: fullCenter.phone || '',
+            email: fullCenter.email || ''
+          });
+          this.showEditModal.set(true);
+          this.isLoading.set(false);
         });
-        this.showEditModal.set(true);
-        this.isLoading.set(false);
       },
       error: (error) => {
-        this.errorMessage.set(error.message || 'Error al cargar el centro');
-        this.isLoading.set(false);
+        this.zone.run(() => {
+          this.errorMessage.set(error.message || 'Error al cargar el centro');
+          this.isLoading.set(false);
+        });
       }
     });
   }
@@ -277,16 +287,20 @@ export class CentersComponent implements OnInit {
     
     this.centersService.getCenter(centerId).subscribe({
       next: (fullCenter) => {
-        this.viewCenter.set(fullCenter);
-        this.showViewModal.set(true);
-        this.isLoading.set(false);
-        this.loadMachinesForCenter(centerId);
+        this.zone.run(() => {
+          this.viewCenter.set(fullCenter);
+          this.showViewModal.set(true);
+          this.isLoading.set(false);
+          this.loadMachinesForCenter(centerId);
+        });
       },
       error: (error) => {
-        this.viewCenter.set(center);
-        this.showViewModal.set(true);
-        this.isLoading.set(false);
-        this.loadMachinesForCenter(centerId);
+        this.zone.run(() => {
+          this.viewCenter.set(center);
+          this.showViewModal.set(true);
+          this.isLoading.set(false);
+          this.loadMachinesForCenter(centerId);
+        });
       }
     });
   }
@@ -299,13 +313,17 @@ export class CentersComponent implements OnInit {
     this.isLoadingMachines.set(true);
     this.machinesService.listMachineTypes(centerId).subscribe({
       next: (data) => {
-        this.machines.set(data);
-        this.isLoadingMachines.set(false);
+        this.zone.run(() => {
+          this.machines.set(data);
+          this.isLoadingMachines.set(false);
+        });
       },
       error: (error) => {
-        console.error('Error al cargar máquinas:', error);
-        this.machines.set([]);
-        this.isLoadingMachines.set(false);
+        this.zone.run(() => {
+          console.error('Error al cargar máquinas:', error);
+          this.machines.set([]);
+          this.isLoadingMachines.set(false);
+        });
       }
     });
   }
@@ -363,13 +381,17 @@ export class CentersComponent implements OnInit {
 
     this.centersService.createCenter(formValue).subscribe({
       next: () => {
-        this.isLoading.set(false);
-        this.closeCreateModal();
-        this.loadCenters();
+        this.zone.run(() => {
+          this.isLoading.set(false);
+          this.closeCreateModal();
+          this.loadCenters();
+        });
       },
       error: (error) => {
-        this.errorMessage.set(error.message || 'Error al crear el centro');
-        this.isLoading.set(false);
+        this.zone.run(() => {
+          this.errorMessage.set(error.message || 'Error al crear el centro');
+          this.isLoading.set(false);
+        });
       }
     });
   }
@@ -391,13 +413,17 @@ export class CentersComponent implements OnInit {
 
     this.centersService.updateCenter(center.id, formValue).subscribe({
       next: () => {
-        this.isLoading.set(false);
-        this.closeEditModal();
-        this.loadCenters();
+        this.zone.run(() => {
+          this.isLoading.set(false);
+          this.closeEditModal();
+          this.loadCenters();
+        });
       },
       error: (error) => {
-        this.errorMessage.set(error.message || 'Error al actualizar el centro');
-        this.isLoading.set(false);
+        this.zone.run(() => {
+          this.errorMessage.set(error.message || 'Error al actualizar el centro');
+          this.isLoading.set(false);
+        });
       }
     });
   }
@@ -413,13 +439,17 @@ export class CentersComponent implements OnInit {
 
     this.centersService.deleteCenter(center.id).subscribe({
       next: () => {
-        this.isLoading.set(false);
-        this.closeDeleteModal();
-        this.loadCenters();
+        this.zone.run(() => {
+          this.isLoading.set(false);
+          this.closeDeleteModal();
+          this.loadCenters();
+        });
       },
       error: (error) => {
-        this.errorMessage.set(error.message || 'Error al eliminar el centro');
-        this.isLoading.set(false);
+        this.zone.run(() => {
+          this.errorMessage.set(error.message || 'Error al eliminar el centro');
+          this.isLoading.set(false);
+        });
       }
     });
   }
