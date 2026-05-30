@@ -908,5 +908,68 @@
       "all": "Todos",
       "unknown": "Desconocido"
     }
+  },
+  "Remo en Máquina": "Remo en Máquina",
+  "Press Inclinado con Mancuernas": "Press Inclinado con Mancuernas",
+  "Sentadillas": "Sentadillas",
+  "Curl de Bíceps": "Curl de Bíceps",
+  "Extensiones de Tríceps": "Extensiones de Tríceps",
+  "Press de Banca": "Press de Banca",
+  "Zancadas": "Zancadas",
+  "Peso Muerto": "Peso Muerto",
+  "Dominadas": "Dominadas",
+  "Flexiones": "Flexiones",
+  "Plancha": "Plancha",
+  "Prensa de Piernas": "Prensa de Piernas",
+  "exercisesPage": {
+    "title": "Banco de Ejercicios",
+    "subtitle": "Gestiona el catálogo de ejercicios disponibles",
+    "importJson": "Importar JSON",
+    "newExercise": "Nuevo Ejercicio",
+    "listTitle": "Lista de Ejercicios",
+    "empty": "No hay ejercicios aún",
+    "emptySubtitle": "Crea un nuevo ejercicio para comenzar",
+    "table": {
+      "name": "Nombre",
+      "description": "Descripción",
+      "machine": "Máquina",
+      "actions": "Acciones"
+    },
+    "modal": {
+      "createTitle": "Nuevo Ejercicio",
+      "editTitle": "Editar Ejercicio",
+      "nameLabel": "Nombre *",
+      "descLabel": "Descripción",
+      "instructionsLabel": "Instrucciones",
+      "imageLabel": "URL de Imagen",
+      "videoLabel": "URL de Video",
+      "machineIdLabel": "ID Tipo de Máquina",
+      "optional": "Opcional",
+      "cancel": "Cancelar",
+      "saveCreate": "Crear",
+      "saveUpdate": "Actualizar"
+    },
+    "importModal": {
+      "title": "Importar Ejercicios desde JSON",
+      "resultTitle": "Importación completada:",
+      "created": "Creados",
+      "skipped": "Omitidos (ya existían)",
+      "errors": "Errores",
+      "placeholder": "[{\"name\": \"Ejercicio 1\", \"description\": \"Descripción\", ...}]",
+      "textareaLabel": "JSON de ejercicios (array de objetos)",
+      "cancel": "Cancelar",
+      "import": "Importar",
+      "importing": "Importando..."
+    },
+    "confirmDelete": "¿Estás seguro de eliminar este ejercicio?",
+    "errors": {
+      "load": "Error al cargar ejercicios",
+      "save": "Error al guardar ejercicio",
+      "delete": "Error al eliminar ejercicio",
+      "import": "Error al importar ejercicios",
+      "invalidJson": "El JSON debe ser un array de ejercicios",
+      "emptyJson": "El array no puede estar vacío",
+      "parseError": "JSON inválido: "
+    }
   }
 }

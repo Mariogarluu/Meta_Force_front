@@ -908,5 +908,68 @@
       "all": "Tous",
       "unknown": "Inconnu"
     }
+  },
+  "Remo en Máquina": "Rameur en Machine",
+  "Press Inclinado con Mancuernas": "Développé Incliné avec Haltères",
+  "Sentadillas": "Squats",
+  "Curl de Bíceps": "Curl Biceps",
+  "Extensiones de Tríceps": "Extensions Triceps",
+  "Press de Banca": "Développé Couché",
+  "Zancadas": "Fentes",
+  "Peso Muerto": "Soulevé de Terre",
+  "Dominadas": "Tractions",
+  "Flexiones": "Pompes",
+  "Plancha": "Gainage",
+  "Prensa de Piernas": "Presse à Cuisses",
+  "exercisesPage": {
+    "title": "Bibliothèque d'Exercices",
+    "subtitle": "Gerez le catalogue des exercices disponibles",
+    "importJson": "Importer JSON",
+    "newExercise": "Nouvel Exercice",
+    "listTitle": "Liste des Exercices",
+    "empty": "Aucun exercice pour le moment",
+    "emptySubtitle": "Créez un nouvel exercice pour commencer",
+    "table": {
+      "name": "Nom",
+      "description": "Description",
+      "machine": "Équipement",
+      "actions": "Actions"
+    },
+    "modal": {
+      "createTitle": "Nouvel Exercice",
+      "editTitle": "Modifier l'Exercice",
+      "nameLabel": "Nom *",
+      "descLabel": "Description",
+      "instructionsLabel": "Instructions",
+      "imageLabel": "URL de l'Image",
+      "videoLabel": "URL de la Vidéo",
+      "machineIdLabel": "ID Type d'Équipement",
+      "optional": "Optionnel",
+      "cancel": "Annuler",
+      "saveCreate": "Créer",
+      "saveUpdate": "Mettre à jour"
+    },
+    "importModal": {
+      "title": "Importer des Exercices depuis un JSON",
+      "resultTitle": "Importation terminée :",
+      "created": "Créés",
+      "skipped": "Ignorés (existaient déjà)",
+      "errors": "Erreurs",
+      "placeholder": "[{\"name\": \"Exercice 1\", \"description\": \"Description\", ...}]",
+      "textareaLabel": "JSON d'exercices (tableau d'objets)",
+      "cancel": "Annuler",
+      "import": "Importer",
+      "importing": "Importation en cours..."
+    },
+    "confirmDelete": "Voulez-vous vraiment supprimer cet exercice ?",
+    "errors": {
+      "load": "Impossible de charger les exercices",
+      "save": "Échec de l'enregistrement de l'exercice",
+      "delete": "Échec de la suppression de l'exercice",
+      "import": "Échec de l'importation des exercices",
+      "invalidJson": "Le JSON doit être un tableau d'exercices",
+      "emptyJson": "Le tableau ne peut pas être vide",
+      "parseError": "JSON invalide : "
+    }
   }
 }

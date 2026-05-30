@@ -158,7 +158,7 @@
                   @for (log of filteredExerciseLogs; track log.id) {
                     <tr>
                       <td class="date-cell">{{ log.date | date:'dd/MM/yyyy HH:mm' }}</td>
-                      <td class="exercise-cell">{{ log.exerciseName }}</td>
+                      <td class="exercise-cell">{{ log.exerciseName | translate }}</td>
                       <td class="weight-cell font-bold text-purple">{{ log.weight }} kg</td>
                       <td class="reps-cell">{{ log.reps }}</td>
                     </tr>

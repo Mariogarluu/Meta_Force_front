@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { ExercisesService } from '../../core/services/exercises.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Exercise, CreateExerciseInput, UpdateExerciseInput } from '../../core/models/exercise';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -25,6 +25,8 @@ export class ExercisesComponent implements OnInit, OnDestroy {
   private exercisesService = inject(ExercisesService);
   /** Injected AuthService for user role and permission verification */
   private authService = inject(AuthService);
+  /** Injected TranslateService for UI internationalization */
+  private translate = inject(TranslateService);
   /** Subject for handling component unsubscription on context destruction */
   private destroy$ = new Subject<void>();
 
@@ -95,7 +97,7 @@ export class ExercisesComponent implements OnInit, OnDestroy {
           this.isLoading.set(false);
         },
         error: (err) => {
-          this.errorMessage.set(err.error?.message || 'Error al cargar ejercicios');
+          this.errorMessage.set(err.error?.message || this.translate.instant('exercisesPage.errors.load'));
           this.isLoading.set(false);
         }
       });
@@ -154,7 +156,7 @@ export class ExercisesComponent implements OnInit, OnDestroy {
         this.isLoading.set(false);
       },
       error: (err) => {
-        this.errorMessage.set(err.error?.message || 'Error al guardar ejercicio');
+        this.errorMessage.set(err.error?.message || this.translate.instant('exercisesPage.errors.save'));
         this.isLoading.set(false);
       }
     });
@@ -165,7 +167,7 @@ export class ExercisesComponent implements OnInit, OnDestroy {
    * @param exercise - The exercise to be removed
    */
   deleteExercise(exercise: Exercise) {
-    if (!confirm('¿Estás seguro de eliminar este ejercicio?')) return;
+    if (!confirm(this.translate.instant('exercisesPage.confirmDelete'))) return;
 
     this.isLoading.set(true);
     this.exercisesService.deleteExercise(exercise.id)
@@ -176,7 +178,7 @@ export class ExercisesComponent implements OnInit, OnDestroy {
           this.isLoading.set(false);
         },
         error: (err) => {
-          this.errorMessage.set(err.error?.message || 'Error al eliminar ejercicio');
+          this.errorMessage.set(err.error?.message || this.translate.instant('exercisesPage.errors.delete'));
           this.isLoading.set(false);
         }
       });
@@ -209,12 +211,12 @@ export class ExercisesComponent implements OnInit, OnDestroy {
       const jsonData = JSON.parse(this.importJsonText());
       
       if (!Array.isArray(jsonData)) {
-        this.errorMessage.set('El JSON debe ser un array de ejercicios');
+        this.errorMessage.set(this.translate.instant('exercisesPage.errors.invalidJson'));
         return;
       }
 
       if (jsonData.length === 0) {
-        this.errorMessage.set('El array no puede estar vacío');
+        this.errorMessage.set(this.translate.instant('exercisesPage.errors.emptyJson'));
         return;
       }
 
@@ -232,12 +234,12 @@ export class ExercisesComponent implements OnInit, OnDestroy {
             this.isLoading.set(false);
           },
           error: (err) => {
-            this.errorMessage.set(err.error?.message || 'Error al importar ejercicios');
+            this.errorMessage.set(err.error?.message || this.translate.instant('exercisesPage.errors.import'));
             this.isLoading.set(false);
           }
         });
     } catch (error: any) {
-      this.errorMessage.set('JSON inválido: ' + error.message);
+      this.errorMessage.set(this.translate.instant('exercisesPage.errors.parseError') + error.message);
     }
   }
 }

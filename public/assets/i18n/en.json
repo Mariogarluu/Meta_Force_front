@@ -908,5 +908,68 @@
       "all": "All",
       "unknown": "Unknown"
     }
+  },
+  "Remo en Máquina": "Rowing Machine",
+  "Press Inclinado con Mancuernas": "Incline Dumbbell Press",
+  "Sentadillas": "Squats",
+  "Curl de Bíceps": "Bicep Curl",
+  "Extensiones de Tríceps": "Tricep Extensions",
+  "Press de Banca": "Bench Press",
+  "Zancadas": "Lunges",
+  "Peso Muerto": "Deadlift",
+  "Dominadas": "Pull-ups",
+  "Flexiones": "Push-ups",
+  "Plancha": "Plank",
+  "Prensa de Piernas": "Leg Press",
+  "exercisesPage": {
+    "title": "Exercise Library",
+    "subtitle": "Manage the catalog of available exercises",
+    "importJson": "Import JSON",
+    "newExercise": "New Exercise",
+    "listTitle": "List of Exercises",
+    "empty": "No exercises yet",
+    "emptySubtitle": "Create a new exercise to begin",
+    "table": {
+      "name": "Name",
+      "description": "Description",
+      "machine": "Equipment",
+      "actions": "Actions"
+    },
+    "modal": {
+      "createTitle": "New Exercise",
+      "editTitle": "Edit Exercise",
+      "nameLabel": "Name *",
+      "descLabel": "Description",
+      "instructionsLabel": "Instructions",
+      "imageLabel": "Image URL",
+      "videoLabel": "Video URL",
+      "machineIdLabel": "Equipment Type ID",
+      "optional": "Optional",
+      "cancel": "Cancel",
+      "saveCreate": "Create",
+      "saveUpdate": "Update"
+    },
+    "importModal": {
+      "title": "Import Exercises from JSON",
+      "resultTitle": "Import completed:",
+      "created": "Created",
+      "skipped": "Skipped (already existed)",
+      "errors": "Errors",
+      "placeholder": "[{\"name\": \"Exercise 1\", \"description\": \"Description\", ...}]",
+      "textareaLabel": "Exercises JSON (array of objects)",
+      "cancel": "Cancel",
+      "import": "Import",
+      "importing": "Importing..."
+    },
+    "confirmDelete": "Are you sure you want to delete this exercise?",
+    "errors": {
+      "load": "Failed to load exercises",
+      "save": "Failed to save exercise",
+      "delete": "Failed to delete exercise",
+      "import": "Failed to import exercises",
+      "invalidJson": "JSON must be an array of exercises",
+      "emptyJson": "Array cannot be empty",
+      "parseError": "Invalid JSON: "
+    }
   }
 }
