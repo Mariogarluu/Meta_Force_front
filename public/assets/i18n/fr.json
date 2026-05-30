@@ -857,5 +857,56 @@
       "description": "Créez un abonnement pour un utilisateur et générez automatiquement la facture.",
       "cta": "Enregistrer"
     }
+  },
+  "adminAnalytics": {
+    "title": "Console de Contrôle des Performances",
+    "subtitle": "SUPERADMIN - Gestion Globale et Audit de Meta-Force",
+    "refreshBtn": "Recharger les Données",
+    "refreshing": "Chargement...",
+    "errorRLS": "Impossible de charger les analyses de Supabase. Veuillez vérifier vos politiques RLS et votre connexion.",
+    "filterLabel": "Filtrer par Utilisateur :",
+    "allUsers": "-- Tous les Utilisateurs --",
+    "kpis": {
+      "registeredUsers": "Utilisateurs Enregistrés",
+      "registeredUsersFooter": "Total des comptes actifs",
+      "activeSubscriptions": "Abonnements Actifs",
+      "activeSubscriptionsFooter": "Membres payants",
+      "maxForceRecord": "Record de Force Max",
+      "maxForceRecordFooter": "Utilisateur : {{user}}",
+      "weightLogs": "Enregistrements de Poids",
+      "weightLogsFooter": "Prises historiques enregistrées"
+    },
+    "charts": {
+      "weightEvolution": "Évolution du Poids Temporel",
+      "processing": "Traitement des graphiques...",
+      "noData": "Aucun enregistrement de poids pour l'utilisateur sélectionné.",
+      "allWeightsLabel": "Tous les enregistrements de poids (kg)",
+      "userWeightLabel": "Poids Corporel de l'Utilisateur (kg)"
+    },
+    "logs": {
+      "title": "Records et Entraînements Récents",
+      "noLogs": "Aucun entraînement enregistré pour cet utilisateur.",
+      "table": {
+        "date": "Date",
+        "exercise": "Exercice",
+        "weight": "Poids Soulevé",
+        "reps": "Répétitions"
+      }
+    },
+    "directory": {
+      "title": "Répertoire des Utilisateurs et Audit des Rôles",
+      "noName": "Sans Nom",
+      "table": {
+        "id": "ID",
+        "name": "Nom complet",
+        "email": "Adresse e-mail",
+        "role": "Rôle Assigné",
+        "date": "Date d'Inscription"
+      }
+    },
+    "labels": {
+      "all": "Tous",
+      "unknown": "Inconnu"
+    }
   }
 }

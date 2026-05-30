@@ -857,5 +857,56 @@
       "description": "Create a subscription for a user and automatically generate the invoice.",
       "cta": "Register"
     }
+  },
+  "adminAnalytics": {
+    "title": "Performance Control Console",
+    "subtitle": "SUPERADMIN - Global Management and Audit of Meta-Force",
+    "refreshBtn": "Reload Data",
+    "refreshing": "Loading...",
+    "errorRLS": "Could not load Supabase analytics. Please check your RLS policies and connection.",
+    "filterLabel": "Filter by User:",
+    "allUsers": "-- All Users --",
+    "kpis": {
+      "registeredUsers": "Registered Users",
+      "registeredUsersFooter": "Total active accounts",
+      "activeSubscriptions": "Active Subscriptions",
+      "activeSubscriptionsFooter": "Paid memberships",
+      "maxForceRecord": "Max Strength Record",
+      "maxForceRecordFooter": "User: {{user}}",
+      "weightLogs": "Weight Records",
+      "weightLogsFooter": "Historical recorded weigh-ins"
+    },
+    "charts": {
+      "weightEvolution": "Weight Evolution Over Time",
+      "processing": "Processing charts...",
+      "noData": "No weight records found for the selected user.",
+      "allWeightsLabel": "All weight records (kg)",
+      "userWeightLabel": "User Body Weight (kg)"
+    },
+    "logs": {
+      "title": "Recent Records and Workouts",
+      "noLogs": "No workouts recorded for this user.",
+      "table": {
+        "date": "Date",
+        "exercise": "Exercise",
+        "weight": "Weight Lifted",
+        "reps": "Repetitions"
+      }
+    },
+    "directory": {
+      "title": "User Directory and Role Audit",
+      "noName": "Unnamed",
+      "table": {
+        "id": "ID",
+        "name": "Full Name",
+        "email": "Email Address",
+        "role": "Assigned Role",
+        "date": "Registration Date"
+      }
+    },
+    "labels": {
+      "all": "All",
+      "unknown": "Unknown"
+    }
   }
 }

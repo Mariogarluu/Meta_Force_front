@@ -857,5 +857,56 @@
       "description": "Crea una suscripción para un usuario y genera su factura automáticamente.",
       "cta": "Registrar"
     }
+  },
+  "adminAnalytics": {
+    "title": "Consola de Control de Rendimiento",
+    "subtitle": "SUPERADMIN - Gestión y Auditoría Global de Meta-Force",
+    "refreshBtn": "Recargar Datos",
+    "refreshing": "Cargando...",
+    "errorRLS": "No se pudieron cargar las analíticas de Supabase. Por favor, revisa tus políticas RLS y conexión.",
+    "filterLabel": "Filtrar por Usuario:",
+    "allUsers": "-- Todos los Usuarios --",
+    "kpis": {
+      "registeredUsers": "Usuarios Registrados",
+      "registeredUsersFooter": "Total de cuentas activas",
+      "activeSubscriptions": "Suscripciones Activas",
+      "activeSubscriptionsFooter": "Membresías pagadas",
+      "maxForceRecord": "Récord de Fuerza Max",
+      "maxForceRecordFooter": "Usuario: {{user}}",
+      "weightLogs": "Registros de Peso",
+      "weightLogsFooter": "Tomas históricas registradas"
+    },
+    "charts": {
+      "weightEvolution": "Evolución de Peso Temporal",
+      "processing": "Procesando gráficos...",
+      "noData": "No hay registros de peso para el usuario seleccionado.",
+      "allWeightsLabel": "Todos los registros de peso (kg)",
+      "userWeightLabel": "Peso Corporal del Usuario (kg)"
+    },
+    "logs": {
+      "title": "Récords y Entrenamientos Recientes",
+      "noLogs": "No hay entrenamientos registrados para este usuario.",
+      "table": {
+        "date": "Fecha",
+        "exercise": "Ejercicio",
+        "weight": "Peso Levantado",
+        "reps": "Repeticiones"
+      }
+    },
+    "directory": {
+      "title": "Directorio de Usuarios y Auditoría de Roles",
+      "noName": "Sin Nombre",
+      "table": {
+        "id": "ID",
+        "name": "Nombre completo",
+        "email": "Correo electrónico",
+        "role": "Rol Asignado",
+        "date": "Fecha de Registro"
+      }
+    },
+    "labels": {
+      "all": "Todos",
+      "unknown": "Desconocido"
+    }
   }
 }

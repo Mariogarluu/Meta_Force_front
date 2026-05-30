@@ -6,7 +6,7 @@ import { AdminAnalyticsService, AdminUser, AdminBodyWeightRecord, AdminExerciseR
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
@@ -19,6 +19,7 @@ import { ThemeService } from '../../core/services/theme.service';
 export class AdminAnalyticsComponent implements OnInit {
   private analyticsService = inject(AdminAnalyticsService);
   private themeService = inject(ThemeService);
+  private translate = inject(TranslateService);
 
   // States
   loading = signal(true);
@@ -59,6 +60,10 @@ export class AdminAnalyticsComponent implements OnInit {
     effect(() => {
       const isDark = this.themeService.isDark();
       this.updateChartTheme(isDark);
+    });
+
+    this.translate.onLangChange.subscribe(() => {
+      this.updateCharts();
     });
   }
 
@@ -144,7 +149,7 @@ export class AdminAnalyticsComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error fetching analytics data', err);
-        this.error.set('No se pudieron cargar las analíticas de Supabase. Por favor, revisa tus políticas RLS y conexión.');
+        this.error.set(this.translate.instant('adminAnalytics.errorRLS'));
         this.loading.set(false);
       }
     });
@@ -215,7 +220,9 @@ export class AdminAnalyticsComponent implements OnInit {
       labels: dates,
       datasets: [{
         data: weights,
-        label: uid === 'ALL' ? 'Todos los registros de peso (kg)' : 'Peso Corporal del Usuario (kg)',
+        label: uid === 'ALL'
+          ? this.translate.instant('adminAnalytics.charts.allWeightsLabel')
+          : this.translate.instant('adminAnalytics.charts.userWeightLabel'),
         borderColor: '#10B981', // Verde neón
         backgroundColor: 'rgba(16, 185, 129, 0.1)',
         fill: true,
@@ -246,8 +253,8 @@ export class AdminAnalyticsComponent implements OnInit {
    */
   get selectedUserLabel(): string {
     const uid = this.selectedUserId();
-    if (uid === 'ALL') return 'Todos';
+    if (uid === 'ALL') return 'adminAnalytics.labels.all';
     const user = this.users().find(u => u.id === uid);
-    return user ? (user.name || user.email) : 'Desconocido';
+    return user ? (user.name || user.email) : 'adminAnalytics.labels.unknown';
   }
 }
