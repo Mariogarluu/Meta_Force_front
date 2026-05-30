@@ -58,9 +58,11 @@ export class AuthService {
 
     this.supabase.auth.onAuthStateChange(async (event: any, session: any) => {
       if (session) {
-        // Evitamos recargar el perfil en refrescos de token redundantes (TOKEN_REFRESHED)
-        // para prevenir bloqueos de red y condiciones de carrera en el cliente de Supabase
-        if (event === 'SIGNED_IN' || event === 'USER_UPDATED' || !this._currentUser()) {
+        const currentUser = this._currentUser();
+        // Solo cargamos el perfil si no hay un usuario cargado o si el usuario ha cambiado de ID.
+        // Esto evita por completo hacer consultas redundantes en eventos como TOKEN_REFRESHED o SIGNED_IN
+        // disparados al enfocar/cambiar de pestaña, eliminando cualquier posibilidad de interbloqueo.
+        if (!currentUser || currentUser.id !== session.user.id) {
           await this.loadUserProfile(session.user.id);
         }
       } else {
