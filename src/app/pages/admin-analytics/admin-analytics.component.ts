@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BaseChartDirective } from 'ng2-charts';
@@ -7,6 +7,7 @@ import { ChartConfiguration, ChartType } from 'chart.js';
 import { NavbarComponent } from '../../shared/components/navbar/navbar.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { ThemeService } from '../../core/services/theme.service';
 
 @Component({
   selector: 'app-admin-analytics',
@@ -17,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class AdminAnalyticsComponent implements OnInit {
   private analyticsService = inject(AdminAnalyticsService);
+  private themeService = inject(ThemeService);
 
   // States
   loading = signal(true);
@@ -49,41 +51,62 @@ export class AdminAnalyticsComponent implements OnInit {
     labels: []
   };
 
-  public weightChartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      y: {
-        beginAtZero: false,
-        grid: { color: 'rgba(255, 255, 255, 0.05)' },
-        ticks: { color: '#9ca3af', font: { family: 'Outfit, sans-serif' } }
-      },
-      x: {
-        grid: { display: false },
-        ticks: { color: '#9ca3af', font: { family: 'Outfit, sans-serif' } }
-      }
-    },
-    plugins: {
-      legend: {
-        labels: {
-          color: '#f3f4f6',
-          font: { family: 'Outfit, sans-serif', size: 12, weight: 'bold' }
-        }
-      },
-      tooltip: {
-        backgroundColor: 'rgba(17, 24, 39, 0.95)',
-        titleColor: '#fff',
-        bodyColor: '#e5e7eb',
-        borderColor: 'rgba(255, 255, 255, 0.1)',
-        borderWidth: 1,
-        padding: 12,
-        cornerRadius: 8,
-        displayColors: false
-      }
-    }
-  };
+  public weightChartOptions: ChartConfiguration['options'] = {};
 
   public weightChartType: ChartType = 'line';
+
+  constructor() {
+    effect(() => {
+      const isDark = this.themeService.isDark();
+      this.updateChartTheme(isDark);
+    });
+  }
+
+  /**
+   * Dynamically updates the chart visualization colors based on active theme context.
+   */
+  private updateChartTheme(isDark: boolean) {
+    const gridColor = isDark ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)';
+    const textColor = isDark ? '#9ca3af' : '#4b5563';
+    const legendColor = isDark ? '#f3f4f6' : '#1f2937';
+    const tooltipBg = isDark ? 'rgba(17, 24, 39, 0.95)' : 'rgba(255, 255, 255, 0.95)';
+    const tooltipColor = isDark ? '#fff' : '#111827';
+    const tooltipBorder = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+
+    this.weightChartOptions = {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: false,
+          grid: { color: gridColor },
+          ticks: { color: textColor, font: { family: 'Outfit, sans-serif' } }
+        },
+        x: {
+          grid: { display: false },
+          ticks: { color: textColor, font: { family: 'Outfit, sans-serif' } }
+        }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            color: legendColor,
+            font: { family: 'Outfit, sans-serif', size: 12, weight: 'bold' }
+          }
+        },
+        tooltip: {
+          backgroundColor: tooltipBg,
+          titleColor: tooltipColor,
+          bodyColor: textColor,
+          borderColor: tooltipBorder,
+          borderWidth: 1,
+          padding: 12,
+          cornerRadius: 8,
+          displayColors: false
+        }
+      }
+    };
+  }
 
   // KPI calculations
   totalUsersCount = signal(0);
