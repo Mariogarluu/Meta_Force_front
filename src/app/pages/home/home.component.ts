@@ -47,17 +47,17 @@ export class HomeComponent implements OnInit, OnDestroy {
     {
       labelKey: 'home.services.training.title',
       descriptionKey: 'home.services.training.description',
-      path: '/dashboard'
+      path: '/workouts'
     },
     {
       labelKey: 'home.services.trainers.title',
       descriptionKey: 'home.services.trainers.description',
-      path: '/users'
+      path: '/trainers'
     },
     {
       labelKey: 'home.services.diets.title',
       descriptionKey: 'home.services.diets.description',
-      path: '/register'
+      path: '/diets'
     }
   ];
 
