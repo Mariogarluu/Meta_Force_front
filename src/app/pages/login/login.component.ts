@@ -60,7 +60,7 @@ export class LoginComponent implements OnDestroy {
       'email': ['', [Validators.required, Validators.email]],
       'password': ['', [Validators.required]],
     });
-    this.navigateTo = history.state?.['navigateTo'] || '/dashboard';
+    this.navigateTo = history.state?.['navigateTo'] || '/';
   }
 
   /**
