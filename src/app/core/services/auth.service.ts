@@ -49,16 +49,22 @@ export class AuthService {
    * en tiempo real (login, logout, token refrescado).
    */
   private async initSession() {
+    const { data: { session } } = await this.supabase.auth.getSession();
+    if (session) {
+      await this.loadUserProfile(session.user.id);
+    } else {
+      this._initialLoadComplete.next(true);
+    }
+
     this.supabase.auth.onAuthStateChange(async (event: any, session: any) => {
       if (session) {
         // Evitamos recargar el perfil en refrescos de token redundantes (TOKEN_REFRESHED)
         // para prevenir bloqueos de red y condiciones de carrera en el cliente de Supabase
-        if (!this._currentUser() || event === 'SIGNED_IN' || event === 'USER_UPDATED') {
+        if (event === 'SIGNED_IN' || event === 'USER_UPDATED' || !this._currentUser()) {
           await this.loadUserProfile(session.user.id);
         }
       } else {
         this._currentUser.set(null);
-        this._initialLoadComplete.next(true);
       }
     });
   }
