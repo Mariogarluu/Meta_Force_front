@@ -166,7 +166,7 @@ export class ClasesComponent implements OnInit {
         this.isLoading.set(false);
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || this.translate.instant('classes.errors.load'));
+        this.errorMessage.set(error.message || this.translate.instant('classes.errors.load'));
         this.isLoading.set(false);
       }
     });
@@ -179,15 +179,6 @@ export class ClasesComponent implements OnInit {
     this.centersService.listCentersWithIds().subscribe({
       next: (data) => {
         this.centers.set(data);
-        
-        if (!this.filterCenterId() && data.length > 0) {
-          const userFavoriteCenterId = this.currentUser()?.favoriteCenterId;
-          if (userFavoriteCenterId && data.find(c => c.id === userFavoriteCenterId)) {
-            this.filterCenterId.set(userFavoriteCenterId);
-          } else if (data.length > 0) {
-            this.filterCenterId.set(data[0].id || '');
-          }
-        }
       },
       error: (error) => {
         console.error('Error al cargar centros:', error);
@@ -382,7 +373,7 @@ export class ClasesComponent implements OnInit {
         this.loadClasses();
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || this.translate.instant('classes.errors.save'));
+        this.errorMessage.set(error.message || this.translate.instant('classes.errors.save'));
         this.isLoading.set(false);
       }
     });
@@ -529,7 +520,7 @@ export class ClasesComponent implements OnInit {
       this.classesService.updateClass(id, data).subscribe({
         next: () => this.finishAction(),
         error: (error) => {
-          this.errorMessage.set(error.error?.message || this.translate.instant('classes.errors.save'));
+          this.errorMessage.set(error.message || this.translate.instant('classes.errors.save'));
           this.isLoading.set(false);
         }
       });
@@ -541,7 +532,7 @@ export class ClasesComponent implements OnInit {
           this.isLoading.set(false);
         },
         error: (error) => {
-          this.errorMessage.set(error.error?.message || this.translate.instant('classes.errors.save'));
+          this.errorMessage.set(error.message || this.translate.instant('classes.errors.save'));
           this.isLoading.set(false);
         }
       });
@@ -565,7 +556,7 @@ export class ClasesComponent implements OnInit {
         this.loadClasses();
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || 'Error al eliminar la clase');
+        this.errorMessage.set(error.message || 'Error al eliminar la clase');
         this.isLoading.set(false);
       }
     });
@@ -687,7 +678,7 @@ export class ClasesComponent implements OnInit {
         this.loadClasses();
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || this.translate.instant('classes.errors.delete'));
+        this.errorMessage.set(error.message || this.translate.instant('classes.errors.delete'));
         this.isLoading.set(false);
       }
     });
@@ -736,7 +727,7 @@ export class ClasesComponent implements OnInit {
         this.loadClasses();
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || this.translate.instant('classes.errors.save'));
+        this.errorMessage.set(error.message || this.translate.instant('classes.errors.save'));
         this.isLoading.set(false);
       }
     });

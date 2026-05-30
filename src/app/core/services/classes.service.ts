@@ -33,9 +33,11 @@ export class ClassesService {
     const query = centerId
       ? this.supabase
           .from('GymClass')
-          .select('*, ClassCenterSchedule!inner(*)')
+          .select('*, ClassCenterSchedule!inner(*, center:Center(id, name)), ClassTrainer(*, trainer:User(id, name, profileImageUrl))')
           .eq('ClassCenterSchedule.centerId', centerId)
-      : this.supabase.from('GymClass').select('*');
+      : this.supabase
+          .from('GymClass')
+          .select('*, ClassCenterSchedule(*, center:Center(id, name)), ClassTrainer(*, trainer:User(id, name, profileImageUrl))');
 
     return from(query.order('name', { ascending: true })).pipe(
       map(({ data, error }) => {
