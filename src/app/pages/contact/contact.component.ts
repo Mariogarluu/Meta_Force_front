@@ -73,14 +73,8 @@ export class ContactComponent implements OnInit {
         this.centers.set(data);
       },
       error: (error) => {
-        // Only show error if it's not a connection error (backend unavailable)
-        if (error.status !== 0) {
-          console.error('Error al cargar centros:', error);
-          this.errorService.handleError(error);
-        } else {
-          // Backend unavailable - do not show critical error, just log
-          console.warn('Backend no disponible. Asegúrate de que el servidor esté corriendo.');
-        }
+        console.error('Error al cargar centros:', error);
+        this.errorService.handleError(error);
       }
     });
   }

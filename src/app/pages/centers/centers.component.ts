@@ -204,7 +204,7 @@ export class CentersComponent implements OnInit {
         this.isLoading.set(false);
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || 'Error al cargar los centros');
+        this.errorMessage.set(error.message || 'Error al cargar los centros');
         this.isLoading.set(false);
       }
     });
@@ -254,7 +254,7 @@ export class CentersComponent implements OnInit {
         this.isLoading.set(false);
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || 'Error al cargar el centro');
+        this.errorMessage.set(error.message || 'Error al cargar el centro');
         this.isLoading.set(false);
       }
     });
@@ -368,7 +368,7 @@ export class CentersComponent implements OnInit {
         this.loadCenters();
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || 'Error al crear el centro');
+        this.errorMessage.set(error.message || 'Error al crear el centro');
         this.isLoading.set(false);
       }
     });
@@ -396,7 +396,7 @@ export class CentersComponent implements OnInit {
         this.loadCenters();
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || 'Error al actualizar el centro');
+        this.errorMessage.set(error.message || 'Error al actualizar el centro');
         this.isLoading.set(false);
       }
     });
@@ -418,7 +418,7 @@ export class CentersComponent implements OnInit {
         this.loadCenters();
       },
       error: (error) => {
-        this.errorMessage.set(error.error?.message || 'Error al eliminar el centro');
+        this.errorMessage.set(error.message || 'Error al eliminar el centro');
         this.isLoading.set(false);
       }
     });
