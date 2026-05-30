@@ -176,44 +176,46 @@
     </section>
 
     <!-- Global User Directory and Role Audit -->
-    <section class="users-card">
-      <h2 class="card-title">Directorio de Usuarios y Auditoría de Roles</h2>
-      
-      <div class="table-container">
-        @if (loading()) {
-          <div class="skeleton"></div>
-        } @else {
-          <div class="table-responsive">
-            <table class="users-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nombre completo</th>
-                  <th>Correo electrónico</th>
-                  <th>Rol Asignado</th>
-                  <th>Fecha de Registro</th>
-                </tr>
-              </thead>
-              <tbody>
-                @for (user of users(); track user.id) {
+    @if (selectedUserId() === 'ALL') {
+      <section class="users-card">
+        <h2 class="card-title">Directorio de Usuarios y Auditoría de Roles</h2>
+        
+        <div class="table-container">
+          @if (loading()) {
+            <div class="skeleton"></div>
+          } @else {
+            <div class="table-responsive">
+              <table class="users-table">
+                <thead>
                   <tr>
-                    <td class="id-cell font-mono">{{ user.id.substring(0, 8) }}...</td>
-                    <td class="name-cell font-medium">{{ user.name || 'Sin Nombre' }}</td>
-                    <td class="email-cell">{{ user.email }}</td>
-                    <td>
-                      <span class="role-badge" [ngClass]="user.role?.toLowerCase()">
-                        {{ user.role }}
-                      </span>
-                    </td>
-                    <td class="date-cell">{{ user.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+                    <th>ID</th>
+                    <th>Nombre completo</th>
+                    <th>Correo electrónico</th>
+                    <th>Rol Asignado</th>
+                    <th>Fecha de Registro</th>
                   </tr>
-                }
-              </tbody>
-            </table>
-          </div>
-        }
-      </div>
-    </section>
+                </thead>
+                <tbody>
+                  @for (user of users(); track user.id) {
+                    <tr>
+                      <td class="id-cell font-mono">{{ user.id.substring(0, 8) }}...</td>
+                      <td class="name-cell font-medium">{{ user.name || 'Sin Nombre' }}</td>
+                      <td class="email-cell">{{ user.email }}</td>
+                      <td>
+                        <span class="role-badge" [ngClass]="user.role?.toLowerCase()">
+                          {{ user.role }}
+                        </span>
+                      </td>
+                      <td class="date-cell">{{ user.createdAt | date:'dd/MM/yyyy HH:mm' }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+        </div>
+      </section>
+    }
   </main>
 
   <app-footer></app-footer>

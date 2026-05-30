@@ -135,13 +135,8 @@ export class AdminAnalyticsComponent implements OnInit {
         this.exercises.set(data.exercises);
         this.subscriptions.set(data.subscriptions);
 
-        // Pre-select the first user with records if available
-        if (data.users.length > 0) {
-          const userWithWeights = data.users.find(u =>
-            data.bodyWeights.some(w => w.userId === u.id)
-          );
-          this.selectedUserId.set(userWithWeights ? userWithWeights.id : data.users[0].id);
-        }
+        // Por defecto no preseleccionamos ningún usuario para que se muestre el Directorio al iniciar
+        this.selectedUserId.set('ALL');
 
         this.calculateStats();
         this.updateCharts();
