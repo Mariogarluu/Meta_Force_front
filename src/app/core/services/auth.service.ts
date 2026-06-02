@@ -111,12 +111,18 @@ export class AuthService {
         .or(`id.eq.${userId},auth_user_id.eq.${userId}`)
         .maybeSingle();
 
+      const rawUrl = userDetails?.profileImageUrl;
+      const profileImageUrl = rawUrl
+        ? `${rawUrl.split('?')[0]}?t=${Date.now()}`
+        : null;
+
       this._currentUser.set({
         ...(userDetails || {}),
         id: profile.id,
         email: profile.email,
         name: profile.name,
         role,
+        profileImageUrl,
       } as unknown as User);
       this._initialLoadComplete.next(true);
       return;
