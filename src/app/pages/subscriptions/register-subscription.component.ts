@@ -292,5 +292,23 @@ export class RegisterSubscriptionComponent implements OnInit {
       currency: 'EUR',
     }).format(value);
   }
+
+  getProfileImageUrl(profileImageUrl: string | null | undefined): string {
+    return profileImageUrl ? profileImageUrl : 'https://res.cloudinary.com/dbzbik0zk/image/upload/v1765270536/fauno.jpg';
+  }
+
+  calculateTotalPrice(): number {
+    const priceObj = this.getSelectedPrice();
+    if (!priceObj) return 0;
+    const base = priceObj.price;
+    const offer = this.getSelectedOffer();
+    if (!offer) return base;
+    if (offer.discountType === 'percent') {
+      return Math.max(0, base * (1 - offer.discountValue / 100));
+    } else if (offer.discountType === 'amount') {
+      return Math.max(0, base - offer.discountValue);
+    }
+    return base;
+  }
 }
 

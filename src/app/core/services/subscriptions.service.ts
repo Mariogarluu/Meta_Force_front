@@ -631,6 +631,7 @@ export class SubscriptionsService {
           id: (row.auth_user_id || row.id) as string,
           name: (row.name as string) || (row.email as string),
           email: row.email as string,
+          profileImageUrl: row.profileImageUrl as string | null,
         })) as UserLite[];
       }),
       catchError(err => throwError(() => new Error(err.message)))
