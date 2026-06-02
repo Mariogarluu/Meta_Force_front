@@ -42,7 +42,12 @@ export class ClassesService {
     return from(query.order('name', { ascending: true })).pipe(
       map(({ data, error }) => {
         if (error) throw error;
-        return (data ?? []) as GymClass[];
+        const rows = (data ?? []) as any[];
+        return rows.map(row => ({
+          ...row,
+          schedules: row.ClassCenterSchedule || [],
+          trainers: row.ClassTrainer || []
+        })) as GymClass[];
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );
@@ -64,7 +69,12 @@ export class ClassesService {
     ).pipe(
       map(({ data, error }) => {
         if (error) throw error;
-        return data as GymClass;
+        const row = data as any;
+        return {
+          ...row,
+          schedules: row.ClassCenterSchedule || [],
+          trainers: row.ClassTrainer || []
+        } as GymClass;
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );
