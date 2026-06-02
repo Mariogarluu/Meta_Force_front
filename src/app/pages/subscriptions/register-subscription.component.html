@@ -152,6 +152,7 @@
                 [ngModel]="searchQuery()"
                 (ngModelChange)="onSearchQueryChange($event)"
                 (keyup.enter)="searchUsers()"
+                (focus)="searchUsers()"
               />
             </div>
             

@@ -613,17 +613,13 @@ export class SubscriptionsService {
    */
   searchUsers(query: string): Observable<UserLite[]> {
     const trimmed = query.trim();
-    if (!trimmed) {
-      return throwError(() => new Error('search_query_required'));
+    let dbQuery = this.supabase.from('User').select('*').limit(20);
+
+    if (trimmed) {
+      dbQuery = dbQuery.or(`email.ilike.%${trimmed}%,name.ilike.%${trimmed}%`);
     }
 
-    return from(
-      this.supabase
-        .from('User')
-        .select('*')
-        .or(`email.eq.${trimmed},name.eq.${trimmed}`)
-        .limit(10)
-    ).pipe(
+    return from(dbQuery).pipe(
       map(({ data, error }) => {
         if (error) throw error;
         const rows = (data ?? []) as any[];

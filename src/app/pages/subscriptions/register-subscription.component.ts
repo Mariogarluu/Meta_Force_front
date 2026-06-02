@@ -77,6 +77,7 @@ export class RegisterSubscriptionComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCatalog();
+    this.searchUsers(); // Carga usuarios predeterminados
   }
 
   private loadCatalog(): void {
@@ -130,13 +131,6 @@ export class RegisterSubscriptionComponent implements OnInit {
 
   searchUsers(): void {
     const query = this.searchQuery().trim();
-    if (!query) {
-      this.errorMessage.set(this.translate.instant('subscriptions.errors.searchRequired'));
-      this.searchResults.set([]);
-      this.selectedUser.set(null);
-      return;
-    }
-
     this.isSearchingUser.set(true);
     this.errorMessage.set('');
     this.successMessage.set('');
@@ -145,7 +139,7 @@ export class RegisterSubscriptionComponent implements OnInit {
       next: (users) => {
         this.searchResults.set(users);
         this.selectedUser.set(users[0] ?? null);
-        if (users.length === 0) {
+        if (users.length === 0 && query) {
           this.errorMessage.set(this.translate.instant('subscriptions.errors.noUsers'));
         }
         this.isSearchingUser.set(false);
