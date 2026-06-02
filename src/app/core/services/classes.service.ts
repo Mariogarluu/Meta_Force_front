@@ -88,7 +88,8 @@ export class ClassesService {
   createClass(data: CreateClassInput): Observable<GymClass> {
     const payload = {
       id: 'c' + crypto.randomUUID().replace(/-/g, '').substring(0, 24),
-      ...data
+      ...data,
+      updatedAt: new Date().toISOString()
     };
     return from(this.supabase.from('GymClass').insert(payload).select('*').single()).pipe(
       map(({ data: created, error }) => {
@@ -106,7 +107,11 @@ export class ClassesService {
    * @returns Observable con el objeto de la clase actualizado.
    */
   updateClass(id: string, data: UpdateClassInput): Observable<GymClass> {
-    return from(this.supabase.from('GymClass').update(data).eq('id', id).select('*').single()).pipe(
+    const payload = {
+      ...data,
+      updatedAt: new Date().toISOString()
+    };
+    return from(this.supabase.from('GymClass').update(payload).eq('id', id).select('*').single()).pipe(
       map(({ data: updated, error }) => {
         if (error) throw error;
         return updated as GymClass;
@@ -169,6 +174,7 @@ export class ClassesService {
                   dayOfWeek: s.dayOfWeek,
                   startTime: s.startTime,
                   endTime: s.endTime,
+                  updatedAt: new Date().toISOString(),
                 }))
               )
           : Promise.resolve({}),
@@ -248,6 +254,7 @@ export class ClassesService {
                 dayOfWeek: s.dayOfWeek,
                 startTime: s.startTime,
                 endTime: s.endTime,
+                updatedAt: new Date().toISOString(),
               }))
             );
           }
