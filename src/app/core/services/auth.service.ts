@@ -104,7 +104,15 @@ export class AuthService {
 
     if (!profileError && profile) {
       const role = await loadRole();
+      // Obtener detalles adicionales del perfil (como la imagen de perfil) desde la tabla User
+      const { data: userDetails } = await this.supabase
+        .from('User')
+        .select('*')
+        .or(`id.eq.${userId},auth_user_id.eq.${userId}`)
+        .maybeSingle();
+
       this._currentUser.set({
+        ...(userDetails || {}),
         id: profile.id,
         email: profile.email,
         name: profile.name,
