@@ -619,16 +619,50 @@ export class SubscriptionsService {
       dbQuery = dbQuery.or(`email.ilike.%${trimmed}%,name.ilike.%${trimmed}%`);
     }
 
-    return from(dbQuery).pipe(
-      map(({ data, error }) => {
-        if (error) throw error;
-        const rows = (data ?? []) as any[];
-        return rows.map(row => ({
+    const specificDbQuery = this.supabase
+      .from('User')
+      .select('*')
+      .eq('email', 'metaforcegym@gmail.com')
+      .maybeSingle();
+
+    return from(Promise.all([dbQuery, specificDbQuery])).pipe(
+      map(([mainRes, specificRes]) => {
+        if (mainRes.error) throw mainRes.error;
+
+        const mainRows = (mainRes.data ?? []) as any[];
+        const mappedMain = mainRows.map(row => ({
           id: (row.auth_user_id || row.id) as string,
           name: (row.name as string) || (row.email as string),
           email: row.email as string,
           profileImageUrl: row.profileImageUrl as string | null,
         })) as UserLite[];
+
+        if (specificRes.data && !specificRes.error) {
+          const specUser = specificRes.data as any;
+          const alreadyExists = mappedMain.some(u => u.email.toLowerCase() === 'metaforcegym@gmail.com');
+
+          if (!alreadyExists) {
+            const mappedSpecUser: UserLite = {
+              id: (specUser.auth_user_id || specUser.id) as string,
+              name: (specUser.name as string) || (specUser.email as string),
+              email: specUser.email as string,
+              profileImageUrl: specUser.profileImageUrl as string | null,
+            };
+
+            if (!trimmed) {
+              mappedMain.unshift(mappedSpecUser);
+            } else {
+              const queryLower = trimmed.toLowerCase();
+              const nameMatch = specUser.name && specUser.name.toLowerCase().includes(queryLower);
+              const emailMatch = specUser.email && specUser.email.toLowerCase().includes(queryLower);
+              if (nameMatch || emailMatch) {
+                mappedMain.unshift(mappedSpecUser);
+              }
+            }
+          }
+        }
+
+        return mappedMain;
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );

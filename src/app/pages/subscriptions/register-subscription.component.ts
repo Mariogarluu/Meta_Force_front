@@ -268,9 +268,12 @@ export class RegisterSubscriptionComponent implements OnInit {
     this.errorMessage.set('');
 
     this.subscriptionsService.regenerateInvoicePdf(invoiceId).subscribe({
-      next: () => {
+      next: (res: { url: string; path: string }) => {
         this.isRegeneratingPdf.set(false);
         this.successMessage.set(this.translate.instant('subscriptions.success.pdfRegenerated'));
+        if (res?.url) {
+          window.open(res.url, '_blank');
+        }
       },
       error: (error) => {
         this.isRegeneratingPdf.set(false);
