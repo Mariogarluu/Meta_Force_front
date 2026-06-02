@@ -292,7 +292,8 @@
       "processingError": "Failed to process QR code",
       "loadCenters": "Failed to load locations",
       "selectCenter": "Please select a location first",
-      "cameraAccess": "Camera access denied. Please allow camera permissions."
+      "cameraAccess": "Camera access denied. Please allow camera permissions.",
+      "noCameraDetected": "No camera detected on this device."
     }
   },
   "centers": {

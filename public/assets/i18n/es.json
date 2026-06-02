@@ -292,7 +292,8 @@
       "processingError": "Error al procesar el código QR",
       "loadCenters": "Error al cargar los centros",
       "selectCenter": "Por favor, selecciona un centro primero",
-      "cameraAccess": "Error al acceder a la cámara. Asegúrate de dar permisos."
+      "cameraAccess": "Error al acceder a la cámara. Asegúrate de dar permisos.",
+      "noCameraDetected": "No se detectó ninguna cámara en este dispositivo."
     }
   },
   "centers": {

@@ -171,6 +171,13 @@ export class QrScannerComponent implements OnInit, OnDestroy {
     }
 
     try {
+      // Intentar obtener las cámaras disponibles antes de iniciar el escáner
+      const cameras = await Html5Qrcode.getCameras().catch(() => []);
+      if (!cameras || cameras.length === 0) {
+        this.scanError.set(this.translate.instant('qrScanner.errors.noCameraDetected'));
+        return;
+      }
+
       this.scanner = new Html5Qrcode('qr-reader');
       this.isScanning.set(true);
       this.scanError.set('');
@@ -190,7 +197,17 @@ export class QrScannerComponent implements OnInit, OnDestroy {
       );
     } catch (error: any) {
       console.error('Error starting scanner:', error);
-      this.scanError.set(this.translate.instant('qrScanner.errors.cameraAccess'));
+      const errorMsg = error?.message || error?.toString() || '';
+      if (
+        errorMsg.includes('Requested device not found') || 
+        errorMsg.includes('NotFoundError') || 
+        errorMsg.includes('no video input') ||
+        errorMsg.includes('DevicesNotFoundException')
+      ) {
+        this.scanError.set(this.translate.instant('qrScanner.errors.noCameraDetected'));
+      } else {
+        this.scanError.set(this.translate.instant('qrScanner.errors.cameraAccess'));
+      }
       this.isScanning.set(false);
     }
   }

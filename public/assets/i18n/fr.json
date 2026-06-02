@@ -292,7 +292,8 @@
       "processingError": "Un problème technique empêche l'authentification",
       "loadCenters": "Impossible de récupérer les listes des clubs",
       "selectCenter": "Sélection préalable de votre club obligatoire",
-      "cameraAccess": "Permettez à votre brosseur d'utiliser votre caméra et réessayez."
+      "cameraAccess": "Permettez à votre brosseur d'utiliser votre caméra et réessayez.",
+      "noCameraDetected": "Aucune caméra détectée sur cet appareil."
     }
   },
   "centers": {
