@@ -106,6 +106,32 @@ export class ClasesComponent implements OnInit {
   /** Computed signal for general edit permissions */
   canEdit = computed(() => this.isSuperAdmin() || this.isAdminCenter());
 
+  /** Set tracking expanded schedule details per class card */
+  expandedClassIds = signal<Set<string>>(new Set());
+
+  /**
+   * Toggles the display state of schedules for a class card.
+   * @param classId - Unique ID of the gym class
+   */
+  toggleSchedules(classId: string): void {
+    const current = new Set(this.expandedClassIds());
+    if (current.has(classId)) {
+      current.delete(classId);
+    } else {
+      current.add(classId);
+    }
+    this.expandedClassIds.set(current);
+  }
+
+  /**
+   * Checks if schedules for a particular class card are expanded.
+   * @param classId - Unique ID of the gym class
+   * @returns True if expanded
+   */
+  isSchedulesExpanded(classId: string): boolean {
+    return this.expandedClassIds().has(classId);
+  }
+
   /** 
    * Computed signal for filtered gym classes.
    * Filters by name and description keywords.
