@@ -70,7 +70,12 @@ export class CentersService {
    * @returns Observable que emite el objeto del centro recién creado.
    */
   createCenter(data: CreateCenterInput): Observable<Center> {
-    return from(this.supabase.from('Center').insert(data).select('*').single()).pipe(
+    const payload = {
+      id: 'c' + crypto.randomUUID().replace(/-/g, '').substring(0, 24),
+      ...data,
+      updatedAt: new Date().toISOString()
+    };
+    return from(this.supabase.from('Center').insert(payload).select('*').single()).pipe(
       map(({ data: created, error }) => {
         if (error) throw error;
         return created as Center;
@@ -87,7 +92,11 @@ export class CentersService {
    * @returns Observable que emite el objeto del centro actualizado.
    */
   updateCenter(id: string, data: UpdateCenterInput): Observable<Center> {
-    return from(this.supabase.from('Center').update(data).eq('id', id).select('*').single()).pipe(
+    const payload = {
+      ...data,
+      updatedAt: new Date().toISOString()
+    };
+    return from(this.supabase.from('Center').update(payload).eq('id', id).select('*').single()).pipe(
       map(({ data: updated, error }) => {
         if (error) throw error;
         return updated as Center;

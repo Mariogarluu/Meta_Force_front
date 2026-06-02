@@ -70,7 +70,12 @@ export class ExercisesService {
    * @returns Observable con el ejercicio recién creado.
    */
   createExercise(data: CreateExerciseInput): Observable<Exercise> {
-    return from(this.supabase.from('Exercise').insert(data).select('*').single()).pipe(
+    const payload = {
+      id: 'c' + crypto.randomUUID().replace(/-/g, '').substring(0, 24),
+      ...data,
+      updatedAt: new Date().toISOString()
+    };
+    return from(this.supabase.from('Exercise').insert(payload).select('*').single()).pipe(
       map(({ data: created, error }) => {
         if (error) throw error;
         return created as Exercise;
@@ -87,7 +92,11 @@ export class ExercisesService {
    * @returns Observable con el ejercicio actualizado.
    */
   updateExercise(id: string, data: UpdateExerciseInput): Observable<Exercise> {
-    return from(this.supabase.from('Exercise').update(data).eq('id', id).select('*').single()).pipe(
+    const payload = {
+      ...data,
+      updatedAt: new Date().toISOString()
+    };
+    return from(this.supabase.from('Exercise').update(payload).eq('id', id).select('*').single()).pipe(
       map(({ data: updated, error }) => {
         if (error) throw error;
         return updated as Exercise;
@@ -119,7 +128,12 @@ export class ExercisesService {
    * @returns Observable con el resumen del resultado de la importación.
    */
   importExercises(exercises: CreateExerciseInput[]): Observable<{ created: number; skipped: number; errors: Array<{ exercise: string; error: string }> }> {
-    return from(this.supabase.from('Exercise').insert(exercises).select('id')).pipe(
+    const payload = exercises.map(ex => ({
+      id: 'c' + crypto.randomUUID().replace(/-/g, '').substring(0, 24),
+      ...ex,
+      updatedAt: new Date().toISOString()
+    }));
+    return from(this.supabase.from('Exercise').insert(payload).select('id')).pipe(
       map(({ data, error }) => {
         if (error) throw error;
         return { created: data?.length ?? 0, skipped: 0, errors: [] };
