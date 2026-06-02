@@ -127,6 +127,7 @@ export class RegisterSubscriptionComponent implements OnInit {
   // Paso 1: búsqueda
   onSearchQueryChange(value: string): void {
     this.searchQuery.set(value);
+    this.searchUsers(); // Búsqueda en tiempo real con cada tecla pulsada
   }
 
   searchUsers(): void {
