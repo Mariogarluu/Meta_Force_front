@@ -113,6 +113,11 @@ export class ClasesComponent implements OnInit {
   filteredClasses = computed(() => {
     let list = this.classes();
 
+    if (this.filterCenterId()) {
+      const centerId = this.filterCenterId();
+      list = list.filter(c => c.schedules && c.schedules.some(s => s.centerId === centerId));
+    }
+
     if (this.filterName()) {
       const term = this.filterName().toLowerCase();
       list = list.filter(c => c.name.toLowerCase().includes(term));
@@ -128,7 +133,7 @@ export class ClasesComponent implements OnInit {
 
   /** Computed signal checking if any search criteria are currently active */
   hasActiveFilters = computed(() => {
-    return !!(this.filterName() || this.filterDescription());
+    return !!(this.filterName() || this.filterDescription() || this.filterCenterId());
   });
 
   /**
