@@ -86,7 +86,11 @@ export class ClassesService {
    * @returns Observable con la clase recién creada.
    */
   createClass(data: CreateClassInput): Observable<GymClass> {
-    return from(this.supabase.from('GymClass').insert(data).select('*').single()).pipe(
+    const payload = {
+      id: 'c' + crypto.randomUUID().replace(/-/g, '').substring(0, 24),
+      ...data
+    };
+    return from(this.supabase.from('GymClass').insert(payload).select('*').single()).pipe(
       map(({ data: created, error }) => {
         if (error) throw error;
         return created as GymClass;
@@ -146,13 +150,20 @@ export class ClassesService {
         data.trainerIds?.length
           ? this.supabase
               .from('ClassTrainer')
-              .insert(data.trainerIds.map((trainerId) => ({ classId, trainerId })))
+              .insert(
+                data.trainerIds.map((trainerId) => ({
+                  id: 'c' + crypto.randomUUID().replace(/-/g, '').substring(0, 24),
+                  classId,
+                  trainerId,
+                }))
+              )
           : Promise.resolve({}),
         data.schedules?.length
           ? this.supabase
               .from('ClassCenterSchedule')
               .insert(
                 data.schedules.map((s) => ({
+                  id: 'c' + crypto.randomUUID().replace(/-/g, '').substring(0, 24),
                   classId,
                   centerId: data.centerId,
                   dayOfWeek: s.dayOfWeek,
@@ -216,7 +227,13 @@ export class ClassesService {
           if (data.trainerIds.length) {
             await this.supabase
               .from('ClassTrainer')
-              .insert(data.trainerIds.map((trainerId) => ({ classId, trainerId })));
+              .insert(
+                data.trainerIds.map((trainerId) => ({
+                  id: 'c' + crypto.randomUUID().replace(/-/g, '').substring(0, 24),
+                  classId,
+                  trainerId,
+                }))
+              );
           }
         }
 
@@ -225,6 +242,7 @@ export class ClassesService {
           if (data.schedules.length) {
             await this.supabase.from('ClassCenterSchedule').insert(
               data.schedules.map((s) => ({
+                id: 'c' + crypto.randomUUID().replace(/-/g, '').substring(0, 24),
                 classId,
                 centerId,
                 dayOfWeek: s.dayOfWeek,
