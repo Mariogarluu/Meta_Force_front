@@ -134,7 +134,8 @@ export class DietsComponent implements OnInit, OnDestroy {
       });
     });
 
-    diet.meals.forEach(meal => {
+    const meals = diet.meals || (diet as any).DietMeal || [];
+    meals.forEach(meal => {
       if (!byDay[meal.dayOfWeek]) {
         byDay[meal.dayOfWeek] = {};
       }

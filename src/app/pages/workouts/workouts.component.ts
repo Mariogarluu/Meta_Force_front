@@ -146,7 +146,8 @@ export class WorkoutsComponent implements OnInit, OnDestroy {
       byDay[day.value] = [];
     });
 
-    workout.exercises.forEach(ex => {
+    const exercises = workout.exercises || (workout as any).WorkoutExercise || [];
+    exercises.forEach(ex => {
       if (!byDay[ex.dayOfWeek]) {
         byDay[ex.dayOfWeek] = [];
       }

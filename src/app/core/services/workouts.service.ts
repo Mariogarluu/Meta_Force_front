@@ -41,7 +41,7 @@ export class WorkoutsService {
   listWorkouts(userId?: string | null): Observable<Workout[]> {
     const base = this.supabase
       .from('Workout')
-      .select('*')
+      .select('*, WorkoutExercise(*)')
       .order('createdAt', { ascending: false });
 
     const filtered = userId ? base.eq('userId', userId) : base;
@@ -49,7 +49,10 @@ export class WorkoutsService {
     return from(filtered).pipe(
       map(({ data, error }) => {
         if (error) throw error;
-        return (data ?? []) as Workout[];
+        return ((data ?? []) as any[]).map(w => ({
+          ...w,
+          exercises: w.WorkoutExercise ?? []
+        })) as Workout[];
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );
@@ -71,7 +74,10 @@ export class WorkoutsService {
     ).pipe(
       map(({ data, error }) => {
         if (error) throw error;
-        return data as Workout;
+        return {
+          ...data,
+          exercises: (data as any).WorkoutExercise ?? []
+        } as Workout;
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );
@@ -87,7 +93,10 @@ export class WorkoutsService {
     return from(this.supabase.from('Workout').insert(data).select('*').single()).pipe(
       map(({ data: created, error }) => {
         if (error) throw error;
-        return created as Workout;
+        return {
+          ...created,
+          exercises: []
+        } as Workout;
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );
@@ -101,10 +110,13 @@ export class WorkoutsService {
    * @returns Observable con la rutina actualizada.
    */
   updateWorkout(id: string, data: UpdateWorkoutInput): Observable<Workout> {
-    return from(this.supabase.from('Workout').update(data).eq('id', id).select('*').single()).pipe(
+    return from(this.supabase.from('Workout').update(data).eq('id', id).select('*, WorkoutExercise(*)').single()).pipe(
       map(({ data: updated, error }) => {
         if (error) throw error;
-        return updated as Workout;
+        return {
+          ...updated,
+          exercises: (updated as any).WorkoutExercise ?? []
+        } as Workout;
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );
@@ -208,11 +220,14 @@ export class WorkoutsService {
         return from(Promise.all(updates));
       }),
       switchMap(() =>
-        from(this.supabase.from('Workout').select('*').eq('id', workoutId).single())
+        from(this.supabase.from('Workout').select('*, WorkoutExercise(*)').eq('id', workoutId).single())
       ),
       map(({ data: workout, error }) => {
         if (error) throw error;
-        return workout as Workout;
+        return {
+          ...workout,
+          exercises: (workout as any).WorkoutExercise ?? []
+        } as Workout;
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );
@@ -262,7 +277,10 @@ export class WorkoutsService {
           })
         );
       }),
-      map((workout: any) => workout as Workout),
+      map((workout: any) => ({
+        ...workout,
+        exercises: workout.WorkoutExercise ?? workout.exercises ?? []
+      }) as Workout),
       catchError(err => throwError(() => new Error(err.message)))
     );
   }

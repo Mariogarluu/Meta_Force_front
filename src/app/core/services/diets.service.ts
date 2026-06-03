@@ -38,7 +38,7 @@ export class DietsService {
   listDiets(userId?: string | null): Observable<Diet[]> {
     const base = this.supabase
       .from('Diet')
-      .select('*')
+      .select('*, DietMeal(*)')
       .order('createdAt', { ascending: false });
 
     const filtered = userId ? base.eq('userId', userId) : base;
@@ -46,7 +46,10 @@ export class DietsService {
     return from(filtered).pipe(
       map(({ data, error }) => {
         if (error) throw error;
-        return (data ?? []) as Diet[];
+        return ((data ?? []) as any[]).map(d => ({
+          ...d,
+          meals: d.DietMeal ?? []
+        })) as Diet[];
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );
@@ -67,7 +70,10 @@ export class DietsService {
     ).pipe(
       map(({ data, error }) => {
         if (error) throw error;
-        return data as Diet;
+        return {
+          ...data,
+          meals: (data as any).DietMeal ?? []
+        } as Diet;
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );
@@ -82,7 +88,10 @@ export class DietsService {
     return from(this.supabase.from('Diet').insert(data).select('*').single()).pipe(
       map(({ data: created, error }) => {
         if (error) throw error;
-        return created as Diet;
+        return {
+          ...created,
+          meals: []
+        } as Diet;
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );
@@ -95,10 +104,13 @@ export class DietsService {
    * @returns Observable que emite la dieta actualizada
    */
   updateDiet(id: string, data: UpdateDietInput): Observable<Diet> {
-    return from(this.supabase.from('Diet').update(data).eq('id', id).select('*').single()).pipe(
+    return from(this.supabase.from('Diet').update(data).eq('id', id).select('*, DietMeal(*)').single()).pipe(
       map(({ data: updated, error }) => {
         if (error) throw error;
-        return updated as Diet;
+        return {
+          ...updated,
+          meals: (updated as any).DietMeal ?? []
+        } as Diet;
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );
@@ -190,11 +202,14 @@ export class DietsService {
         return from(Promise.all(updates));
       }),
       switchMap(() =>
-        from(this.supabase.from('Diet').select('*').eq('id', dietId).single())
+        from(this.supabase.from('Diet').select('*, DietMeal(*)').eq('id', dietId).single())
       ),
       map(({ data: diet, error }) => {
         if (error) throw error;
-        return diet as Diet;
+        return {
+          ...diet,
+          meals: (diet as any).DietMeal ?? []
+        } as Diet;
       }),
       catchError(err => throwError(() => new Error(err.message)))
     );
