@@ -134,12 +134,12 @@
             <tbody>
               @for(plan of plans(); track plan.id) {
                 <tr class="bg-white dark:bg-gray-900/50 rounded-lg">
-                  <td class="px-3 py-1.5 font-mono text-xs">{{ plan.code }}</td>
+                  <td class="px-3 py-1.5 font-mono text-xs text-gray-700 dark:text-gray-300">{{ plan.code }}</td>
                   <td class="px-3 py-1.5 font-medium text-gray-900 dark:text-gray-100">{{ plan.name }}</td>
                   <td class="px-3 py-1.5 text-xs text-gray-600 dark:text-gray-400 max-w-xs truncate">
                     {{ plan.description }}
                   </td>
-                  <td class="px-3 py-1.5 text-xs">{{ plan.position }}</td>
+                  <td class="px-3 py-1.5 text-xs text-gray-700 dark:text-gray-300">{{ plan.position }}</td>
                   <td class="px-3 py-1.5">
                     <span
                       class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
@@ -408,8 +408,8 @@
             <tbody>
               @for(duration of durations(); track duration.id) {
                 <tr class="bg-white dark:bg-gray-900/50 rounded-lg">
-                  <td class="px-3 py-1.5 font-mono text-xs truncate max-w-[10rem]">{{ duration.id }}</td>
-                  <td class="px-3 py-1.5 text-xs">{{ duration.months }}</td>
+                  <td class="px-3 py-1.5 font-mono text-xs text-gray-700 dark:text-gray-300 truncate max-w-[10rem]">{{ duration.id }}</td>
+                  <td class="px-3 py-1.5 text-xs text-gray-700 dark:text-gray-300">{{ duration.months }}</td>
                   <td class="px-3 py-1.5 text-sm text-gray-900 dark:text-gray-100">{{ duration.label }}</td>
                   <td class="px-3 py-1.5">
                     <span
@@ -540,8 +540,8 @@
                   <td class="px-3 py-1.5 text-sm text-gray-900 dark:text-gray-100">
                     {{ getDurationLabel(price.durationId) }}
                   </td>
-                  <td class="px-3 py-1.5 text-sm">{{ price.price | number:'1.2-2' }} €</td>
-                  <td class="px-3 py-1.5 text-xs">{{ price.taxRate }} %</td>
+                  <td class="px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300">{{ price.price | number:'1.2-2' }} €</td>
+                  <td class="px-3 py-1.5 text-xs text-gray-700 dark:text-gray-300">{{ price.taxRate }} %</td>
                   <td class="px-3 py-1.5">
                     <span
                       class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium"
@@ -703,9 +703,9 @@
               @for(offer of offers(); track offer.id) {
                 <tr class="bg-white dark:bg-gray-900/50 rounded-lg">
                   <td class="px-3 py-1.5 text-sm text-gray-900 dark:text-gray-100">{{ offer.name }}</td>
-                  <td class="px-3 py-1.5 text-xs">{{ getPlanName(offer.planId || null) }}</td>
-                  <td class="px-3 py-1.5 text-xs">{{ getDurationLabel(offer.durationId || null) }}</td>
-                  <td class="px-3 py-1.5 text-xs">
+                  <td class="px-3 py-1.5 text-xs text-gray-700 dark:text-gray-300">{{ getPlanName(offer.planId || null) }}</td>
+                  <td class="px-3 py-1.5 text-xs text-gray-700 dark:text-gray-300">{{ getDurationLabel(offer.durationId || null) }}</td>
+                  <td class="px-3 py-1.5 text-xs text-gray-700 dark:text-gray-300">
                     @if(offer.discountType === 'percent') {
                       -{{ offer.discountValue }} %
                     } @else {

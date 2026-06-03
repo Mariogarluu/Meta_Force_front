@@ -36,10 +36,6 @@
 
 // Mejoras para móviles
 @media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-  
   .overflow-x-auto {
     -webkit-overflow-scrolling: touch;
   }

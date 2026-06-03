@@ -458,6 +458,42 @@ export class DietsComponent implements OnInit, OnDestroy {
   }
 
   /**
+   * Calcula las proteínas totales de una comida basándose en la cantidad.
+   * @param mealId - ID de la comida
+   * @param quantity - Cantidad de porciones
+   * @returns Proteínas totales o null
+   */
+  getMealProtein(mealId: string, quantity: number | null | undefined): number | null {
+    const meal = this.meals().find(m => m.id === mealId);
+    if (!meal || !meal.protein || !quantity) return null;
+    return Math.round(meal.protein * quantity);
+  }
+
+  /**
+   * Calcula los carbohidratos totales de una comida basándose en la cantidad.
+   * @param mealId - ID de la comida
+   * @param quantity - Cantidad de porciones
+   * @returns Carbohidratos totales o null
+   */
+  getMealCarbs(mealId: string, quantity: number | null | undefined): number | null {
+    const meal = this.meals().find(m => m.id === mealId);
+    if (!meal || !meal.carbs || !quantity) return null;
+    return Math.round(meal.carbs * quantity);
+  }
+
+  /**
+   * Calcula las grasas totales de una comida basándose en la cantidad.
+   * @param mealId - ID de la comida
+   * @param quantity - Cantidad de porciones
+   * @returns Grasas totales o null
+   */
+  getMealFats(mealId: string, quantity: number | null | undefined): number | null {
+    const meal = this.meals().find(m => m.id === mealId);
+    if (!meal || !meal.fats || !quantity) return null;
+    return Math.round(meal.fats * quantity);
+  }
+
+  /**
    * Actualiza el número de slots disponibles para un día específico.
    * @param dayOfWeek - Día de la semana (0-6)
    * @param count - Número de slots (mínimo 1)
