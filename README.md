@@ -486,6 +486,22 @@ ng test --code-coverage
 ng test --watch=false --browsers=ChromeHeadless
 ```
 
+## 📚 Documentación de código (Compodoc)
+
+La documentación técnica del frontend Angular se autogenera con **Compodoc** a partir del JSDoc del código fuente.
+
+* **URL en producción**: [https://meta-force-psi.vercel.app/documentation/](https://meta-force-psi.vercel.app/documentation/) (Desplegado como sitio estático en Vercel).
+* **Generar en local**:
+  ```bash
+  npx @compodoc/compodoc -p tsconfig.doc.json -d documentation
+  ```
+* **Servir localmente**:
+  ```bash
+  npx @compodoc/compodoc -s -d documentation -r 8080
+  ```
+
+---
+
 ## 📚 Documentación Adicional
 
 - [ARCHITECTURE.md](./docs/ARCHITECTURE.md) - Arquitectura técnica detallada
