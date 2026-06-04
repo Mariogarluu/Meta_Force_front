@@ -2,6 +2,16 @@
 
 Aplicación frontend desarrollada con Angular 19 para la gestión integral de centros deportivos Meta Force. Sistema completo de gestión de usuarios, centros, máquinas, clases y entrenadores con soporte multiidioma y temas personalizables.
 
+<div align="center">
+
+[![Angular](https://img.shields.io/badge/Framework-Angular%2019-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev)
+[![TypeScript](https://img.shields.io/badge/Language-TypeScript%205.7-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
+[![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+[![RxJS](https://img.shields.io/badge/Reactivity-RxJS-B31B1B?style=for-the-badge&logo=reactivex&logoColor=white)](https://rxjs.dev)
+[![Vercel](https://img.shields.io/badge/Deploy-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com)
+
+</div>
+
 ## 🌟 Características Principales
 
 - **🔐 Autenticación y Autorización**: Sistema JWT con roles (SUPERADMIN, ADMIN_CENTER, CLIENT)
@@ -224,6 +234,46 @@ getMessage() {
 - ✅ Machines Management
 - ✅ Theme Toggle
 - ✅ Language Selector
+
+---
+
+## 🏗️ Arquitectura de Navegación y Flujo
+
+```mermaid
+flowchart TD
+    subgraph Cliente Angular
+        App[AppComponent] --> Layout[Shared: Navbar + Footer]
+        Layout --> Router[Router Outlet]
+        
+        subgraph Páginas (Pages)
+            Router --> Home[Home / Landing]
+            Router --> Login[Login / Registro]
+            
+            subgraph Zona Privada (Dashboard)
+                Router --> Dash[Dashboard Principal]
+                Router --> Users[CRUD Usuarios]
+                Router --> Centers[CRUD Centros]
+                Router --> Machines[CRUD Máquinas]
+                Router --> Qr[Generador / Escáner QR]
+            end
+        end
+        
+        subgraph Servicios (Core Services)
+            AuthService[AuthService]
+            ThemeService[ThemeService]
+            Translation[Translation i18n]
+        end
+    end
+    
+    subgraph Backend (Supabase)
+        DB[(PostgreSQL)]
+        Edge[Edge Functions]
+    end
+    
+    Users & Centers & Machines & Qr -->|Consume| AuthService
+    AuthService -->|Valida JWT| Edge
+    Users & Centers & Machines -->|Peticiones Directas| DB
+```
 
 ## 🏗️ Estructura del Proyecto
 
