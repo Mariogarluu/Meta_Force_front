@@ -349,23 +349,25 @@ El sistema implementa un sistema de autenticación basado en JWT con tres roles 
 6. Guards protegen rutas según roles
 ```
 
-## 🌐 Integración con API
+## 🌐 Integración con Supabase
 
-La aplicación se conecta a un backend REST API desplegado en Vercel:
-- **API URL (Producción)**: `https://meta-force-back.vercel.app/api`
-- **Configuración**: `/src/environments/environment.ts`
+La aplicación se conecta directamente a **Supabase** utilizando el cliente `@supabase/supabase-js` y consume la base de datos PostgreSQL, la autenticación y las Edge Functions serverless.
 
-### Endpoints Principales
+- **URL de Supabase (Producción)**: `https://qybgnrlszozjhimewkel.supabase.co`
+- **Configuración**: Autogenerado en tiempo de compilación por `scripts/set-env.js` en `/src/environments/environment.ts` y `/src/environments/environment.development.ts`.
 
-- `POST /api/auth/login` - Autenticación
-- `POST /api/auth/register` - Registro
-- `GET /api/auth/profile` - Perfil del usuario
-- `GET /api/users` - Listar usuarios
-- `GET /api/centers` - Listar centros
-- `GET /api/machines` - Listar máquinas
-- `GET /api/classes` - Listar clases
+### Módulos e Integración Técnica
 
-Ver documentación completa en [API.md](./docs/API.md)
+* **Autenticación (`auth.service.ts`)**: Llama a `supabase.auth.signUp()`, `supabase.auth.signInWithPassword()` y obtiene el rol del usuario mediante el RPC seguro `get_my_role`.
+* **Gestión de Datos (Servicios de CRUD)**:
+  * `users.service.ts`: Consultas directas a la tabla `profiles` mediante `supabase.from('profiles')`.
+  * `centers.service.ts`: Gestión de centros a la tabla `Center`.
+  * `machines.service.ts`: Gestión de máquinas a la tabla `Machine`.
+  * `classes.service.ts`: Gestión de clases, horarios y entrenadores.
+* **Suscripciones (`subscriptions.service.ts`)**: Lee y contrata planes consumiendo las tablas `subscription_plans`, `subscriptions` e `invoices`.
+* **Edge Functions**: Invoca funciones Deno serverless utilizando `supabase.functions.invoke()`:
+  * Generación de PDF de facturas: `/functions/v1/invoice-pdf`.
+  * Generación y firmado de accesos QR: `/functions/v1/qr-sign`.
 
 ## 🚀 Despliegue
 
